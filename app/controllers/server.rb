@@ -9,12 +9,15 @@ module TrafficSpy
     end
 
     post '/sources' do
-      identifier = Identifier.new(params)
+      identifier = Identifier.new(name: params[:identifier], root_url: params[:rootUrl])
+
       if identifier.save
         body "created"
       else
-        status 400
-        body identifier.errors.full_messages.join("\n")
+        error_message = identifier.errors.full_messages.join(" ")
+        status_number, message = MessageHelper.send_message(error_message)
+        status status_number
+        body message
       end
     end
 
