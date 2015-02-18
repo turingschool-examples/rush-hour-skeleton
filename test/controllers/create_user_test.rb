@@ -13,7 +13,7 @@ class CreateUserTest < Minitest::Test
 
 
   def test_it_creates_user
-  	post '/sources', { sources: { identifier: 'jumpstartlab',
+  	post '/sources', { sources: { 'identifier' => 'jumpstartlab',
   		                            rootUrl: 'http://jumpstartlab.com'}}
     assert_equal 1, User.count
     assert_equal 200, last_response.status

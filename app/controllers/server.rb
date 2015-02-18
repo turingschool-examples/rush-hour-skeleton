@@ -20,5 +20,11 @@ module TrafficSpy
     		body "#{user.errors.full_messages.join(', ')}"
     	end
     end
+
+
+    post '/sources/:identifier/data' do |identifier|
+    	@user = User.find(identifier)
+    	@user.sessions.create( params[:payload])
+    end
   end
 end
