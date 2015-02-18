@@ -5,8 +5,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-      Source.create
-      body = "{\"identifier\": \"stanley\"}"
+      source = Source.create(params)
+      "{\"identifier\": \"#{source.identifier}\"}"
+
     end
 
     not_found do
