@@ -8,7 +8,7 @@ class UserTest < Minitest::Test
 
   def test_it_is_valid_with_an_identifier_and_root_url
   	user = User.new({ 'identifier' => 'jumpstartlab',
-  		                            'rootUrl' => 'http://jumpstartlab.com'})
+  		                'rootUrl'    => 'http://jumpstartlab.com'})
   	assert user.valid?
   end
 
@@ -24,9 +24,9 @@ class UserTest < Minitest::Test
 
   def test_cannot_create_duplicate_user
   	user1 = User.create({ 'identifier' => 'jumpstartlab',
-  		         'rootUrl' => 'http://jumpstartlab.com'})
+  		                    'rootUrl'    => 'http://jumpstartlab.com'})
   	user2 = User.new({ 'identifier' => 'jumpstartlab',
-  		         'rootUrl' => 'http://jumpstartlab.com'})
+  		                 'rootUrl'    => 'http://jumpstartlab.com'})
   	refute user2.valid?
   	assert_equal 1, User.count
   end

@@ -24,7 +24,7 @@ module TrafficSpy
 
     post '/sources/:identifier/data' do |identifier|
     	@user = User.find(identifier)
-    	@user.sessions.create( params[:payload])
+    	@user.payloads.create( params[:payload])
     end
   end
 end
