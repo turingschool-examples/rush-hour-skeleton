@@ -9,9 +9,16 @@ module TrafficSpy
     end
 
     post '/sources' do
-    	User.create(params[:sources])
-    	body 'success'
+    	
+    	user = User.new(params[:sources])
+    	case 
+    	when user.save
+    		status 200
+    		body 'success'
+    	else
+    		status 400
+    		body "#{user.errors.full_messages.join(', ')}"
+    	end
     end
-
   end
 end
