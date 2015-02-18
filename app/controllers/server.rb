@@ -4,6 +4,17 @@ module TrafficSpy
       erb :index
     end
 
+    post '/sources' do
+      source = Source.new(params[:source])
+      if source.save
+        status 200
+        body source.simplified_json
+      else
+        status 400
+        body source.error_response
+      end
+    end
+
     not_found do
       erb :error
     end
