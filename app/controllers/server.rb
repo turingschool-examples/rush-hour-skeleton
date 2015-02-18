@@ -4,6 +4,10 @@ module TrafficSpy
       erb :index
     end
 
+    post '/sources' do
+      Identifier.create(params[:source])
+    end
+
     not_found do
       erb :error
     end
