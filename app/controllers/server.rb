@@ -25,13 +25,14 @@ module TrafficSpy
 
     post '/sources/:identifier/data' do |identifier|
       unless Identifier.exists?(name: identifier)
-        status 400
+        return status(400)
       end
       unless params[:payload]
-        status 400
-        body "Missing Payload - 400 Bad Request"
+        return status(400), body("Missing Payload - 400 Bad Request")
       end
-      # body params[:payload].class.to_s
+      payload_hash = JSON.parse(params[:payload])
+      Url.find_or_create_by(address: payload_hash["url"])
+      status(200)
     end
 
     not_found do

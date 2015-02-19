@@ -11,5 +11,16 @@ require 'capybara'
 require 'pry'
 require 'json'
 
-DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.strategy = :transaction
+
+class MiniTest::Test
+  def setup
+    DatabaseCleaner.start
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
+end
+
 Capybara.app = TrafficSpy::Server
