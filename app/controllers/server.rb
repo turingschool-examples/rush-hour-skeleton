@@ -8,7 +8,7 @@ module TrafficSpy
       if Source.new(params).valid?
         source = Source.create(params)
         "{\"identifier\": \"#{source.identifier}\"}"
-      elsif params.length != 2 
+      elsif params.length != 2
         status 400
         body = "Missing Parameters"
       else
@@ -16,6 +16,12 @@ module TrafficSpy
         body = "Identifier Already Exists"
       end
     end
+
+    post '/sources/:identifier/data' do |identifier|
+      puts params
+
+    end
+
 
     not_found do
       erb :error
