@@ -43,5 +43,24 @@ class ResolutionTest < Minitest::Test
 		refute resolution2.valid?
 	end
 
+	def test_it_is_only_invalid_when_both_values_are_not_unique
+		create_four_resolutions
+		assert_equal 4, Resolution.count
 
+		resolution_width_height = Resolution.create({ 'resolutionWidth' => "720",
+																 						   'resolutionHeight' => "1080"})
+		resolution_width = Resolution.create({ 'resolutionWidth' => "920", 
+																			  	 'resolutionHeight' => "1080"})
+		resolution_height = Resolution.create({ 'resolutionWidth' => "720", 
+																			   	  'resolutionHeight' => "1280"})
+
+		refute resolution_width_height.valid?
+		assert resolution_width.valid?
+		assert resolution_height.valid?
+
+		assert_equal 6, Resolution.count
+		assert_equal "720", Resolution.last.resolutionWidth
+		assert_equal "1280", Resolution.last.resolutionHeight
+	end
 end
+
