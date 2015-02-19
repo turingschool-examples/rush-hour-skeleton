@@ -1,6 +1,7 @@
 class Source < ActiveRecord::Base
-  validates_presence_of :identifier
-  validates_presence_of :root_url
+  validates_presence_of   :identifier
+  validates_presence_of   :root_url
+  validates_uniqueness_of :identifier
 
   def simplified_json
     { "identifier" => identifier }.to_json
