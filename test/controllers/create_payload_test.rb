@@ -13,7 +13,7 @@ class CreatePayloadTest < Minitest::Test
 
 
   def test_it_creates_payload
-  	skip
+    skip
   	post '/sources/:identifier/data', { payload: 
   		{'url' => "http://jumpstartlab.com/blog",
   		 'requestedAt' => "2013-02-16 21:38:28 -0700",
@@ -26,7 +26,7 @@ class CreatePayloadTest < Minitest::Test
   		 'resolutionWidth' => "1920",
   		 'resolutionHeight' => "1280",
   		 'ip'  => "63.29.38.211"}}
-  	assert_equal 1, Session.count
+  	assert_equal 1, Payload.count
     assert_equal 200, last_response.status
     assert_equal 'success', last_response.body
   end
