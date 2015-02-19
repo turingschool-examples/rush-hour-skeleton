@@ -34,11 +34,11 @@ class ResolutionTest < Minitest::Test
 		create_four_resolutions
 		assert_equal 4,  Resolution.count
 
-		resolution1 = resolution = Resolution.new({ 'resolutionWidth'  => '1920'})
+		resolution1 = resolution = Resolution.create({ 'resolutionWidth'  => '1920'})
 		assert_equal 4, Resolution.count
 		refute resolution1.valid?
 
-		resolution2 = resolution = Resolution.new({ 'resolutionHeight' => "1280" })
+		resolution2 = resolution = Resolution.create({ 'resolutionHeight' => "1280" })
 		assert_equal 4, Resolution.count
 		refute resolution2.valid?
 	end
