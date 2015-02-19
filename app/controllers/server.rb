@@ -5,13 +5,18 @@ module TrafficSpy
     end
 
     post '/sources' do
-      source = Source.new(params[:source])
+      source = Source.new(params)
       if source.save
         status 200
         body source.simplified_json
       else
-        status 400
-        body source.error_response
+        if source.error_response.include? "taken"
+          status 403
+          body source.error_response
+        else
+          status 400
+          body source.error_response
+        end
       end
     end
 
