@@ -12,12 +12,18 @@ module TrafficSpy
       identifier = Identifier.new(name: params[:identifier], root_url: params[:rootUrl])
 
       if identifier.save
-        body "created"
+        body "{\"identifier\":\"#{params[:identifier]}\"}"
       else
         error_message = identifier.errors.full_messages.join(" ")
         status_number, message = MessageHelper.send_message(error_message)
         status status_number
         body message
+      end
+    end
+
+    post '/sources/:identifier/data' do |identifier|
+      unless Identifier.exists?(name: identifier)
+        status 400
       end
     end
 

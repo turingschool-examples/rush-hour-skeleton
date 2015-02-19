@@ -16,7 +16,7 @@ class CreateIdentifierTest < Minitest::Test
                       rootUrl: 'jumpstartlab.com' }
     assert_equal 200, last_response.status
     assert_equal 1, Identifier.count
-    assert_equal "created", last_response.body
+    assert_equal '{"identifier":"jumpstartlab"}', last_response.body
   end
 
   def test_it_does_not_accept_without_validation
@@ -37,7 +37,21 @@ class CreateIdentifierTest < Minitest::Test
     assert_equal message, last_response.body
   end
 
-  def test_it_posts_to_url_wit
-    skip
+  def test_it_posts_to_url_with_specific_identifier
+    Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+    post '/sources/jumpstartlab/data'
+    assert_equal 200, last_response.status
   end
+
+  def test_it_gives_error_if_missing_identifier
+    post '/sources/jumpstartlab/data'
+    assert_equal 400, last_response.status
+  end
+
+  def test_identify_the_payload
+
+
+  end
+
+
 end

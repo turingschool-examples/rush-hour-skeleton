@@ -11,15 +11,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218184718) do
+ActiveRecord::Schema.define(version: 20150219173949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dimensions", force: :cascade do |t|
+    t.text "height"
+    t.text "width"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.text "name"
+  end
 
   create_table "identifiers", force: :cascade do |t|
     t.text    "name"
     t.text    "root_url"
     t.integer "payload_id"
+  end
+
+  create_table "ips", force: :cascade do |t|
+    t.text "address"
+  end
+
+  create_table "payloads", force: :cascade do |t|
+    t.integer "url_id"
+    t.text    "requested_at"
+    t.text    "responded_in"
+    t.integer "referred_by_id"
+    t.integer "request_type_id"
+    t.string  "parameters",      default: [], array: true
+    t.integer "event_name_id"
+    t.integer "user_agent_id"
+    t.integer "dimension_id"
+    t.integer "ip_id"
+  end
+
+  create_table "referrals", force: :cascade do |t|
+    t.text "url"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.text "type"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text "address"
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.text "environment"
   end
 
 end
