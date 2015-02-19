@@ -37,19 +37,76 @@ class CreateIdentifierTest < Minitest::Test
     assert_equal message, last_response.body
   end
 
-  def test_it_posts_to_url_with_specific_identifier
-    Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
-    post '/sources/jumpstartlab/data'
-    assert_equal 200, last_response.status
-  end
-
   def test_it_gives_error_if_missing_identifier
     post '/sources/jumpstartlab/data'
     assert_equal 400, last_response.status
   end
 
-  def test_identify_the_payload
+  def test_identifies_succesful_payload
+    Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+    payload_value = {
+              "url" => "http://jumpstartlab.com/blog",
+              "requestedAt" => "2013-02-16 21:38:28 -0700",
+              "respondedIn"=>37,
+              "referredBy" =>"http://jumpstartlab.com",
+              "requestType" => "GET",
+              "parameters" => [],
+              "eventName" => "socialLogin",
+              "userAgent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+              "resolutionWidth" => "1920",
+              "resolutionHeight" => "1280",
+              "ip" => "63.29.38.211"
+            }
+    post '/sources/jumpstartlab/data', {payload: payload_value}
+    assert_equal 200, last_response.status
+  end
 
+  def test_identifies_missing_payload
+    Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+    post '/sources/jumpstartlab/data'
+    message = "Missing Payload - 400 Bad Request"
+    assert_equal 400, last_response.status
+    assert_equal message, last_response.body
+  end
+
+  def test_identifies_duplicate_payload
+    skip
+    Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+    payload = '{
+                "url":"http://jumpstartlab.com/blog",
+                "requestedAt":"2013-02-16 21:38:28 -0700",
+                "respondedIn":37,
+                "referredBy":"http://jumpstartlab.com",
+                "requestType":"GET",
+                "parameters":[],
+                "eventName": "socialLogin",
+                "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                "resolutionWidth":"1920",
+                "resolutionHeight":"1280",
+                "ip":"63.29.38.211"
+              }'
+    post '/sources/jumpstartlab/data', {payload: payload}
+    post '/sources/jumpstartlab/data', {payload: payload}
+    message = "403 Forbidden - Payload Exists"
+    assert_equal 403, last_response.status
+    assert_equal message, last_response.body
+  end
+
+  def test_it_turns_hash_string_to_hash
+    payload = '{
+                "url":"http://jumpstartlab.com/blog",
+                "requestedAt":"2013-02-16 21:38:28 -0700",
+                "respondedIn":37,
+                "referredBy":"http://jumpstartlab.com",
+                "requestType":"GET",
+                "parameters":[],
+                "eventName": "socialLogin",
+                "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                "resolutionWidth":"1920",
+                "resolutionHeight":"1280",
+                "ip":"63.29.38.211"
+              }'
+    assert JSON.parse(payload).is_a?(Hash)
 
   end
 

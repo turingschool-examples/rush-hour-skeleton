@@ -1,3 +1,5 @@
+require 'json'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -25,10 +27,16 @@ module TrafficSpy
       unless Identifier.exists?(name: identifier)
         status 400
       end
+      unless params[:payload]
+        status 400
+        body "Missing Payload - 400 Bad Request"
+      end
+      # body params[:payload].class.to_s
     end
 
     not_found do
       erb :error
     end
+
   end
 end
