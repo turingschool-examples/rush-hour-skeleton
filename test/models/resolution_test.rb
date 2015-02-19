@@ -2,9 +2,6 @@ require './test/test_helper'
 
 class ResolutionTest < Minitest::Test
 
-	def setup
-		DatabaseCleaner.clean
-	end
 	def teardown
 		DatabaseCleaner.clean
 	end
