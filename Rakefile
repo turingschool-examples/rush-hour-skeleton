@@ -27,5 +27,6 @@ namespace :sanitation do
 end
 
 task :test do
+  ENV["RACK_ENV"] = "test"
   Dir.glob('./test/**/*_test.rb') { |file| require file }
 end
