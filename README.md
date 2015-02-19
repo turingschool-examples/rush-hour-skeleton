@@ -10,3 +10,5 @@
 run `bundle` to install dependencies
 
 run `shotgun` to load app on localhost:9393
+
+run `rake db:migrate RACK_ENV=test` to migrate test database

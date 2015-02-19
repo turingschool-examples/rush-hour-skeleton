@@ -1,3 +1,5 @@
+require 'pry'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -5,7 +7,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      source = Source.new(params[:source])
+      source = Source.new(params)
       if source.save
         status 200
         body source.simplified_json
@@ -18,5 +20,6 @@ module TrafficSpy
     not_found do
       erb :error
     end
+
   end
 end
