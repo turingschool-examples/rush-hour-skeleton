@@ -12,4 +12,6 @@ class Payload < ActiveRecord::Base
   def error_response
     errors.full_messages.join ", "
   end
+
+
 end

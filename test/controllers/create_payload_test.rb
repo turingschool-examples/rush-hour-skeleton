@@ -29,15 +29,14 @@ class CreatePayloadTest < MiniTest::Test
 
   	post "/sources/jumpstartlab/data", payload_data
   	assert_equal 200, last_response.status
-  	assert_equal Payload.source_id, Source.find(1).id
+  	assert_equal Payload.where(source_id: 1), Source.find(1).payloads
   end
 
   def test_request_with_missing_payload_returns_error
-    skip
-    register_app
+
     post "/sources/jumpstartlab/data", '" " http://localhost:9393/sources/jumpstartlab/data'
-    assert equal 400, last_response.status
-    assert "missing payload", last_response.body.include?
+    assert_equal 400, last_response.status
+    assert last_response.body.include?("missing payload")
   end
 
   def test_duplicated_request_returns_error
@@ -51,10 +50,9 @@ class CreatePayloadTest < MiniTest::Test
   end
 
   def test_unregistered_application_cannot_request_data
-    skip
-    post "/sources/kyrasapp/data", payload={}
+    post "/sources/kyrasapp/data", payload_data
     assert_equal 403, last_response.status
-    assert "not registered application", last_response.body.include?
+    assert "not registered application", last_response.body.include?("missing payload")
   end
 
  end
