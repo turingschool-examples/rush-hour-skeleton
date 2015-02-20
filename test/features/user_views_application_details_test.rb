@@ -9,6 +9,13 @@ class UserViewsApplicationDetails < FeatureTest
     assert page.has_content?('http://jumpstartlab.com')
    end
   end
+
+  def test_the_page_displays_web_browser_breakdown_across_all_requests_(userAgent)
+    visit 'http://yourapplication:port/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+    within('#browser-breakdown') do
+    assert page.has_content?('Chrome')
+  end
 end
 
 # As a client
