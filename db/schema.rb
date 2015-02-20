@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220181345) do
+ActiveRecord::Schema.define(version: 20150220190955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20150220181345) do
     t.integer "url_id"
     t.text    "requested_at"
     t.text    "responded_in"
-    t.integer "referred_by_id"
-    t.integer "request_type_id"
-    t.string  "parameters",      default: [], array: true
-    t.integer "event_name_id"
+    t.integer "referral_id"
+    t.integer "request_id"
+    t.string  "parameters",   default: [], array: true
+    t.integer "event_id"
     t.integer "agent_id"
     t.integer "dimension_id"
     t.integer "ip_id"

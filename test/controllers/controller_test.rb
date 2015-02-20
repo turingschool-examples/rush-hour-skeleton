@@ -50,11 +50,6 @@ class CreateIdentifierTest < Minitest::Test
     assert_equal message, last_response.body
   end
 
-  def test_it_gives_error_if_missing_identifier
-    post '/sources/jumpstartlab/data'
-    assert_equal 400, last_response.status
-  end
-
   def test_identifies_succesful_payload
     default_payload_setup
     post '/sources/jumpstartlab/data', {payload: @payload}
@@ -80,43 +75,38 @@ class CreateIdentifierTest < Minitest::Test
     assert Url.exists?(address: "http://jumpstartlab.com/blog")
   end
 
-  def test_ip_and_payload_info_is_entered_into_db
+  def test_it_loads_data_into_respective_tables
     default_payload_setup
-    post '/sources/jumpstartlab/data', 'payload={"url":"http://jumpstartlab.com/blog"}'
-    assert Url.exists?(address: "http://jumpstartlab.com/blog")
+    post '/sources/jumpstartlab/data', "payload=#{@payload}"
+    assert Agent.exists?(browser: "Chrome", version: "24.0.1309.0", platform: "Macintosh")
+    assert Dimension.exists?(height: "1280", width: "1920")
+    assert Event.exists?(name: "socialLogin")
+    assert Ip.exists?(address: "63.29.38.211")
+    assert Referral.exists?(url: "http://jumpstartlab.com")
+    assert Request.exists?(request_type: "GET")
     assert Url.exists?(address: "http://jumpstartlab.com/blog")
   end
 
-  def test_identifies_duplicate_payload
-    skip
+  def test_it_loads_data_into_respective_tables
     default_payload_setup
-    post '/sources/jumpstartlab/data', {payload: @payload}
-    post '/sources/jumpstartlab/data', {payload: @payload}
-    message = "403 Forbidden - Payload Exists"
+    post '/sources/jumpstartlab/data', "payload=#{@payload}"
+    dim_id = Dimension.where(height: "1280", width: "1920").to_a[0].id
+    assert_equal dim_id, Payload.where(dimension_id: dim_id).to_a[0].dimension_id
+  end
+
+  def test_it_forbids_no_application_url
+    post '/sources/jumpstartlab/data', "payload={}"
+    message = "403 Forbidden - Application URL not registered"
     assert_equal 403, last_response.status
     assert_equal message, last_response.body
   end
 
-  #def setup
-  #As a CLIENT
-     #indentifier = Identifier.create()
-    #visit source_path(identifier) ttp://yourapplication:port/sources/IDENTIFIER
-  #And an identifer exists for that client
-  #end
-
-  #def test_it_displays_the_most_visited_urls
-  #end
-  #I should see  a page that displays the most requested URLS to least requested URLS (url)
-  #And I should see a web browser breakdown across all requests (userAgent)
-  #And I should see a OS breakdown across all requests (userAgent)
-  #And I should see a Screen Resolution across all requests (resolutionWidth x resolutionHeight)
-  #And I should see a Longest, average response time per URL to shortest, average response time per URL
-  #And I should see a Hyperlinks of each url to view url specific data
-  #And I should see a Hyperlink to view aggregate event data
-
-
-  #As a CLIENT
-  #When I visit http://yourapplication:port/sources/IDENTIFIER
-  #And an identifer does not exist for that client
-  #Then I should see the following message ""
+  def test_identifies_duplicate_payload
+    default_payload_setup
+    post '/sources/jumpstartlab/data', "payload=#{@payload}"
+    post '/sources/jumpstartlab/data', "payload=#{@payload}"
+    message = "403 Forbidden - Payload Exists"
+    assert_equal 403, last_response.status
+    assert_equal message, last_response.body
+  end
 end

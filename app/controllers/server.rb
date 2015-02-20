@@ -25,7 +25,7 @@ module TrafficSpy
 
     post '/sources/:identifier/data' do |identifier|
       unless Identifier.exists?(name: identifier)
-        return status(400)
+        return status(403), body("403 Forbidden - Application URL not registered")
       end
 
       unless params[:payload]
@@ -34,11 +34,12 @@ module TrafficSpy
 
       payload_hash = JSON.parse(params[:payload])
 
-      if Ip.exists?(address: payload_hash["url"]) && Payload.exists?(requested_at: payload_hash["requestedAt"])
+      if Ip.exists?(address: payload_hash["ip"]) && Payload.exists?(requested_at: payload_hash["requestedAt"])
         return status(403), body("403 Forbidden - Payload Exists")
       end
 
-      PayloadHelper.add_to_db(payload_hash)
+      PayloadHelper.add_to_specific_tables(payload_hash)
+      PayloadHelper.add_payload_data(payload_hash)
 
       status(200)
     end
