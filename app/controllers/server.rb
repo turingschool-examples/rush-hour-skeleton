@@ -1,5 +1,6 @@
 module TrafficSpy
   class Server < Sinatra::Base
+
     get '/' do
       erb :index
     end
@@ -14,6 +15,23 @@ module TrafficSpy
         status status_helper.status
         p source.error_response
         body source.error_response
+      end
+    end
+
+    post '/sources/:identifier/data' do |identifier|
+      #find the source whos identifier is equal to :identifier
+      #create payload bound to that source
+
+      source = Source.find_by(:identifier => identifier)
+      payload = Payload.create(JSON.parse(params[:payload]))
+      # require 'pry'; binding.pry
+      if payload.valid?
+        source.payloads << payload
+        status 200
+        body payload.simplified_json
+      else
+        status 400
+        body payload.error_response
       end
     end
 
