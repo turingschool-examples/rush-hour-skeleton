@@ -17,16 +17,12 @@ class PayloadGenerator
     elsif Payload.find_by(digest: Digest::SHA2.hexdigest(params))
       PayloadGenerator.new(403, "duplicate request")
     else
-      # payload_params = JSON.parse(params[:payload]).symbolize_keys
-      # payload = source.payloads.create({
-      #     url: Url.find_or_create_by(address: payload_params[:url]),
-      #     })
-        # if payload.new_record?
-        #   # create it (payload.save)
-        # else
-        # end
-        # url = Url.find_or_create(url: payload[:url_id])
-        #assign each element of payload to its associated table/class
+      payload_params = JSON.parse(params).symbolize_keys
+      payload = Payload.create({
+          url_id: Url.find_or_create_by(address: payload_params[:url]).id,
+          })
+      source.payloads << payload
+      PayloadGenerator.new(200, "payload successful")
     end
   end
 end

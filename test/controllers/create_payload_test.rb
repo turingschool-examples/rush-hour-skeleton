@@ -24,11 +24,13 @@ class CreatePayloadTest < MiniTest::Test
   end
 
   def test_create_payload_has_correct_parameters
-    skip
     register_app
   	post "/sources/jumpstartlab/data", payload_data
     assert_equal 200, last_response.status
     assert_equal 'payload successful', last_response.body
+    payload = Payload.find_by(url_id: 1)
+    url = Url.find(1)
+    assert_equal url.id, payload.url_id
   end
 
   def test_request_with_missing_payload_returns_error
