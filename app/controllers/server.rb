@@ -11,13 +11,10 @@ module TrafficSpy
         status 200
         body source.simplified_json
       else
-        if source.error_response.include? "taken"
-          status 403
-          body source.error_response
-        else
-          status 400
-          body source.error_response
-        end
+        status_helper = StatusHelper.new(source.error_response)
+        status status_helper.status
+        p source.error_response
+        body source.error_response
       end
     end
 
