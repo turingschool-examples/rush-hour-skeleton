@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219173949) do
+ActiveRecord::Schema.define(version: 20150220181345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agents", force: :cascade do |t|
+    t.text "browser"
+    t.text "version"
+    t.text "platform"
+  end
 
   create_table "dimensions", force: :cascade do |t|
     t.text "height"
@@ -43,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150219173949) do
     t.integer "request_type_id"
     t.string  "parameters",      default: [], array: true
     t.integer "event_name_id"
-    t.integer "user_agent_id"
+    t.integer "agent_id"
     t.integer "dimension_id"
     t.integer "ip_id"
   end
@@ -53,15 +59,11 @@ ActiveRecord::Schema.define(version: 20150219173949) do
   end
 
   create_table "requests", force: :cascade do |t|
-    t.text "type"
+    t.text "request_type"
   end
 
   create_table "urls", force: :cascade do |t|
     t.text "address"
-  end
-
-  create_table "user_agents", force: :cascade do |t|
-    t.text "environment"
   end
 
 end

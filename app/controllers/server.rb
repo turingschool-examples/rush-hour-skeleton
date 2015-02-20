@@ -27,11 +27,19 @@ module TrafficSpy
       unless Identifier.exists?(name: identifier)
         return status(400)
       end
+
       unless params[:payload]
         return status(400), body("Missing Payload - 400 Bad Request")
       end
+
       payload_hash = JSON.parse(params[:payload])
-      Url.find_or_create_by(address: payload_hash["url"])
+
+      if Ip.exists?(address: payload_hash["url"]) && Payload.exists?(requested_at: payload_hash["requestedAt"])
+        return status(403), body("403 Forbidden - Payload Exists")
+      end
+
+      PayloadHelper.add_to_db(payload_hash)
+
       status(200)
     end
 

@@ -10,6 +10,8 @@ require 'database_cleaner'
 require 'capybara'
 require 'pry'
 require 'json'
+require 'byebug'
+require 'useragent'
 
 DatabaseCleaner.strategy = :transaction
 

@@ -1,5 +1,5 @@
 class Identifier < ActiveRecord::Base
-  validates :name, uniqueness: true
-  validates_presence_of :name, :root_url
+  validates :name, uniqueness: true, presence: true
+  validates :root_url, presence: true
   has_many :payloads
 end
