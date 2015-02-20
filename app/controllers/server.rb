@@ -9,9 +9,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-    	
+
     	user = User.new(params[:sources])
-    	case 
+    	case
     	when user.save
     		status 200
     		body 'success'
@@ -21,10 +21,9 @@ module TrafficSpy
     	end
     end
 
-
     post '/sources/:identifier/data' do |identifier|
-    	@user = User.find(identifier)
-    	@user.payloads.create( params[:payload])
+      @user = User.find_by(:identifier == identifier)
+    	@user.payloads.create(params["payload"])
     end
   end
 end
