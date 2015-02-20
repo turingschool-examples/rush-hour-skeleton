@@ -20,6 +20,11 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:IDENTIFIER/events/:EVENTNAME' do    
+      erb :app_event_details
+    end
+
+
     not_found do
       erb :error
     end
