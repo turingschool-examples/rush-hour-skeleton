@@ -6,6 +6,7 @@ module TrafficSpy
     end
 
     post '/sources' do
+      # pull this out into its own model
       source = Source.new(params)
       if source.save
         status 200
@@ -13,52 +14,15 @@ module TrafficSpy
       else
         status_helper = StatusHelper.new(source.error_response)
         status status_helper.status
-        p source.error_response
         body source.error_response
       end
     end
 
     post '/sources/:identifier/data' do |identifier|
-      # source = Source.find_by(identifier: identifier)
-      # return unless source
-      # generator_result = PayloadGenerator.new(params[:payload])
-      #find the source whos identifier is equal to :identifier
-      #create payload bound to that source
-        # require 'pry'; binding.pry#request has been previously sent and payload already exists
-      if params[:payload].nil? || params[:payload].empty?
-        status 400
-        body "missing payload"
-      elsif !Source.find_by(identifier: identifier)
-        status 403
-        body "not registered"
-      elsif Payload.exists?
-        #check all payloads for a matching id
-        #if id is found, return error
-        status 403
-        body "duplicate request"
-      else
-
-        payload_params = JSON.parse(params[:payload]).symbolize_keys
-        # payload = Payload.find_or_initialize_by({
-        #   url: Url.find_or_create_by(address: payload_params[:url]),
-        #
-        #   })
-        # if payload.new_record?
-        #   # create it (payload.save)
-        # else
-        # end
-        # url = Url.find_or_create(url: payload[:url_id])
-        #assign each element of payload to its associated table/class
-
-      end
-
-
-      # source = Source.find_by(:identifier => identifier)
-      # require 'pry'; binding.pry
-      # payload = Payload.create(JSON.parse(params[:payload]))
-
+      payload_generator = PayloadGenerator.call(params[:payload], identifier)
+      status payload_generator.status
+      body   payload_generator.message
     end
-
 
     not_found do
       erb :error
