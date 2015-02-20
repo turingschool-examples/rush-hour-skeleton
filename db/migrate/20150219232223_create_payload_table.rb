@@ -12,5 +12,6 @@ class CreatePayloadTable < ActiveRecord::Migration
       t.text :resolutionWidth
       t.text :resolutionHeight
       t.text :ip
+    end
   end
 end
