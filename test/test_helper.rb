@@ -11,4 +11,8 @@ require 'database_cleaner'
 
 DatabaseCleaner.strategy = :truncation
 
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+end
+
 Capybara.app = TrafficSpy::Server
