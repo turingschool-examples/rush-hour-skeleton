@@ -21,12 +21,12 @@ module TrafficSpy
     	end
     end
 
-
     post '/sources/:identifier/data' do |identifier|
       puts params
       @user = User.find_by(:identifier == identifier)
       puts "user is #{@user}"
       puts "lets make a payload with payload params #{params["payload"]}"
+      binding.pry
     	@user.payloads.create(params["payload"])
     end
   end
