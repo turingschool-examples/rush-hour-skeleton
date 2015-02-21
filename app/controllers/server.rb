@@ -21,6 +21,11 @@ module TrafficSpy
     	end
     end
 
+    get '/sources/:identifier' do |identifier|
+      @user = User.find_by_identifier(identifier)
+      erb :dashboard
+    end
+
     post '/sources/:identifier/data' do |identifier|
       @user = User.find_by(:identifier == identifier)
     	@user.payloads.create(params["payload"])
