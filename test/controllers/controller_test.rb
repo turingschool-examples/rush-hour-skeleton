@@ -25,6 +25,7 @@ class CreateIdentifierTest < Minitest::Test
   end
 
   def test_it_creates_an_identifier_with_correct_parameters
+    skip
     post '/sources', {identifier: 'jumpstartlab',
                       rootUrl: 'jumpstartlab.com' }
     assert_equal 200, last_response.status
@@ -33,6 +34,7 @@ class CreateIdentifierTest < Minitest::Test
   end
 
   def test_it_does_not_accept_without_validation
+    skip
     message = "400 Bad Request\nName can't be blank Root url can't be blank"
     post '/sources', {}
     assert_equal 400, last_response.status
@@ -51,6 +53,7 @@ class CreateIdentifierTest < Minitest::Test
   end
 
   def test_identifies_succesful_payload
+    skip
     default_payload_setup
     post '/sources/jumpstartlab/data', {payload: @payload}
     assert_equal 200, last_response.status
@@ -95,6 +98,7 @@ class CreateIdentifierTest < Minitest::Test
   end
 
   def test_it_forbids_no_application_url
+    skip
     post '/sources/jumpstartlab/data', "payload={}"
     message = "403 Forbidden - Application URL not registered"
     assert_equal 403, last_response.status
@@ -111,6 +115,7 @@ class CreateIdentifierTest < Minitest::Test
   end
 
   def test_it_assigns_the_payload_id_to_the_identifier
+    skip
     default_payload_setup
     Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
     post '/sources/jumpstartlab/data', "payload=#{@payload}"

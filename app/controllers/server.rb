@@ -44,6 +44,10 @@ module TrafficSpy
       status(200)
     end
 
+    get '/sources/jumpstartlab/events' do
+      erb :events
+    end
+
     not_found do
       erb :error
     end
