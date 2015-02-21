@@ -45,12 +45,18 @@ class UserViewsApplicationDetailsTest < FeatureTest
   def test_page_displays_hyperlinks_of_each_url_to_view_url_specific_data
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    within('#hyperlinks') do
+    within('#url_links') do
     assert page.has_content?('http://jumpstartlab.com/blog')
     end
   end
 
-
+  def test_page_displays_hyperlink_to_view_aggregate_event_data
+    visit 'http://yourapplication:port/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+    within('#event_links') do
+    assert page.has_content?('http://jumpstartlab.com/events')
+    end
+  end
 
 
 end
@@ -64,7 +70,7 @@ end
 # xxxxx And I should see Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 # xxxxx And I should see a Longest, average response time per URL to shortest, average response time per URL
 # xxxxx And I should see a Hyperlinks of each url to view url specific data
-# And I should see a Hyperlink to view aggregate event data
+# xxxxx And I should see a Hyperlink to view aggregate event data
 #
 # As a client
 # When I visit http://yourapplication:port/sources/IDENTIFIER
