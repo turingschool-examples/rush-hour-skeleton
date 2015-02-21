@@ -1,9 +1,9 @@
 require './test/test_helper.rb'
 
 class CreateIdentifierTest < Minitest::Test
-  include Rack::Test::Methods     # allows us to use get, post, last_request, etc.
+  include Rack::Test::Methods
 
-  def app     # def app is something that Rack::Test is looking for
+  def app
     TrafficSpy::Server
   end
 
@@ -110,11 +110,12 @@ class CreateIdentifierTest < Minitest::Test
     assert_equal message, last_response.body
   end
 
-  def test_it_assigns_the_payload_id_to_the_identifier
+  def test_it_assigns_the_identifier_id_to_the_payload
     default_payload_setup
     Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
     post '/sources/jumpstartlab/data', "payload=#{@payload}"
     payload_id = Payload.where(requested_at: "2013-02-16 21:38:28 -0700").to_a[0].id
-    assert_equal payload_id, Identifier.where(payload_id: payload_id).to_a[0].payload_id
+    identifier_id = Identifier.where(name: 'jumpstartlab').to_a[0].id
+    assert_equal identifier_id, Payload.find(payload_id).identifier_id
   end
 end

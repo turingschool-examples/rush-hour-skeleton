@@ -2,6 +2,12 @@ require 'useragent'
 
 class PayloadHelper
   class << self
+    def add_payload(identifier, payload_value)
+      @identifier = Identifier.where(name: identifier).to_a[0]
+      add_to_specific_tables(payload_value)
+      add_payload_data(payload_value)
+    end
+
     def add_to_specific_tables(payload_value)
       @agent = Agent.find_or_create_by(browser: parse_user_agent(payload_value)[0], version: parse_user_agent(payload_value)[1], platform: parse_user_agent(payload_value)[2])
       @dimension = Dimension.find_or_create_by(height: payload_value["resolutionHeight"], width: payload_value["resolutionWidth"])
@@ -19,6 +25,7 @@ class PayloadHelper
 
     def add_payload_data(payload_value)
       payload = Payload.create(requested_at: payload_value["requestedAt"], responded_in: payload_value["respondedIn"], parameters: payload_value["parameters"])
+      @identifier.payloads << payload
       @agent.payloads << payload
       @dimension.payloads << payload
       @event.payloads << payload
