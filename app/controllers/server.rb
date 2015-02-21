@@ -38,9 +38,8 @@ module TrafficSpy
         return status(403), body("403 Forbidden - Payload Exists")
       end
 
-      PayloadHelper.add_to_specific_tables(payload_hash)
-      payload = PayloadHelper.add_payload_data(payload_hash)
-      Identifier.where(name: identifier).to_a[0].update(payload_id: payload.id)
+      PayloadHelper.add_payload(identifier, payload_hash)
+
       status(200)
     end
 
@@ -71,5 +70,8 @@ module TrafficSpy
       erb :error
     end
 
+    get '/sources/:identifier' do |identifier|
+      erb :application_details
+    end
   end
 end
