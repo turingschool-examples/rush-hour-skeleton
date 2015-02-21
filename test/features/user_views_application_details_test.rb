@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class UserViewsApplicationDetails < FeatureTest
+class UserViewsApplicationDetailsTest < FeatureTest
 
   def test_the_page_displays_the_most_requested_URLS_to_least_requested_URLS
     visit 'http://yourapplication:port/sources/jumpstartlab'
@@ -41,6 +41,18 @@ class UserViewsApplicationDetails < FeatureTest
     assert page.has_content?('37, http://jumpstartlab.com')
     end
   end
+
+  def test_page_displays_hyperlinks_of_each_url_to_view_url_specific_data
+    visit 'http://yourapplication:port/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+    within('#hyperlinks') do
+    assert page.has_content?('http://jumpstartlab.com/blog')
+    end
+  end
+
+
+
+
 end
 
 # As a client
@@ -51,7 +63,7 @@ end
 # xxxxx And I should see an OS breakdown across all requests (userAgent)
 # xxxxx And I should see Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 # xxxxx And I should see a Longest, average response time per URL to shortest, average response time per URL
-# And I should see a Hyperlinks of each url to view url specific data
+# xxxxx And I should see a Hyperlinks of each url to view url specific data
 # And I should see a Hyperlink to view aggregate event data
 #
 # As a client
