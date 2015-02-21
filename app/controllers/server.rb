@@ -6,7 +6,6 @@ module TrafficSpy
     end
 
     post "/sources" do
-      # pull this out into its own model
       source = Source.new(params)
       if source.save
         status 200

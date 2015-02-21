@@ -7,7 +7,7 @@ class CreateSourceTest < MiniTest::Test
 
   def setup
   @source    =  { identifier: "jumpstartlab",
-                   root_url: "http://jumpstartlab.com" }
+                  root_url: "http://jumpstartlab.com" }
   end
 
   def create_two_payloads
