@@ -11,14 +11,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218223328) do
+ActiveRecord::Schema.define(version: 20150220184410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "browsers", force: :cascade do |t|
+    t.text "name"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.text "name"
+  end
+
+  create_table "ip_addresses", force: :cascade do |t|
+    t.text "address"
+  end
+
+  create_table "os", force: :cascade do |t|
+    t.text "name"
+  end
+
+  create_table "payloads", force: :cascade do |t|
+    t.text    "url_id"
+    t.text    "requested_at"
+    t.integer "responded_in"
+    t.integer "referrer_id"
+    t.integer "request_type_id"
+    t.integer "ip_address_id"
+    t.integer "event_id"
+    t.integer "resolution_id"
+    t.integer "browser_id"
+    t.integer "os_id"
+    t.integer "source_id"
+    t.string  "raw_data"
+  end
+
+  create_table "referrers", force: :cascade do |t|
+    t.text "name"
+  end
+
+  create_table "request_types", force: :cascade do |t|
+    t.text "verb"
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.integer "height"
+    t.integer "width"
+  end
+
   create_table "sources", force: :cascade do |t|
     t.text "identifier"
     t.text "rootUrl"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text "address"
   end
 
 end
