@@ -32,15 +32,16 @@ class Event < ActiveRecord::Base
 			.sort_by {|event, total| -total }.to_h
 	end 
 
-		# Event.all.each_with_object({}) do |event, hash|
-		# 	hash[event.name] = Event.all.select { |event_in_db| event_in_db.name == event.name }
-		# 	hash[event.name] = hash[event.name].count
-		# end
+	# Event.all.each_with_object({}) do |event, hash|
+	# 	hash[event.name] = Event.all.select { |event_in_db| event_in_db.name == event.name }
+	# 	hash[event.name] = hash[event.name].count
 	# end
+# end
 
 	def event_total
 		hour_by_hour_breakdown.values.reduce(:+)
 	end
 	
+end
 
 
