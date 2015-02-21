@@ -55,7 +55,7 @@ module TrafficSpy
     post '/sources/:identifier/urls' do |identifier|
     end
 
-    get '/sources/:identifier/urls/:path' do
+    get '/sources/:identifier/urls/:rooturl/:path' do |rooturl, path|
       erb :unique_urls
     end
 

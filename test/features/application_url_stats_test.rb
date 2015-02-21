@@ -2,14 +2,19 @@ require './test/test_helper.rb'
 require 'pry'
 
 class ApplicationUrlStatsTest < Minitest::Test
-  include Rack::Test::Methods
+   include Rack::Test::Methods     # allows us to use get, post, last_request, etc.
+   include Capybara::DSL
 
-  def app
-    TrafficSpy::Server
-  end
+   def app     # def app is something that Rack::Test is looking for
+     TrafficSpy::Server
+   end
 
-  def default_setup
+  def setup
+    super
     identifier = Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+     #visit source_path(identifier) http://yourapplication:port/sources/IDENTIFIER
+    visit '/sources'
+      #And an identifer exists for that client
     payload = {
     "url" => "http://jumpstartlab.com/blog",
     "requestedAt" => "2013-02-16 21:38:28 -0700",
@@ -29,26 +34,11 @@ class ApplicationUrlStatsTest < Minitest::Test
   end
 
   def test_the_main_page_exists
-    skip
-    visit '/'
-    assert_equal '/', current_path
-    assert_equal 200, last_response.status
-  end
-
-  def test_the_page_exists_when_visited
-    skip
-    default_setup
-    visit '/sources/jumpstartlab/urls/blog'
-    assert_equal 200, last_response.status
-  end
-
-  def test_receive_an_error_when_the_page_does_not_exist
-    skip
-    identifier = Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
-    visit '/sources/jumpstartlab/urls/blog'
-    message = "403 Forbidden - Application URL not registered"
-    assert_equal 403, last_response.status
-    assert_equal message, last_response.body
+    assert_equal '/sources', current_path
+    visit '/sources/jumpstartlab/urls'
+    assert_equal '/sources/jumpstartlab/urls', current_path
+    visit '/sources/jumpstartlab/urls'
+    assert_equal '/sources/jumpstartlab/urls', current_path  
   end
 
   def test_when_i_visit_page_i_can_find_longest_response_time
