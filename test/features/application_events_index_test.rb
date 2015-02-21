@@ -39,11 +39,11 @@ module TrafficSpy
     #   post '/sources/jumpstartlab/data', @payload2
     # end
 
-    def setup
-      super
-      @identifier = Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
-      visit '/sources/jumpstartlab'
-    end
+    # def setup
+    #   super
+    #   @identifier = Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+    #   visit '/sources/jumpstartlab'
+    # end
 
     def test_page_has_header
       visit('/sources/jumpstartlab/events')
