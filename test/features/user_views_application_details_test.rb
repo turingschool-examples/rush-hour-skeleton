@@ -15,6 +15,7 @@ class UserViewsApplicationDetails < FeatureTest
     assert_equal '/sources/jumpstartlab', current_path
     within('#browser-breakdown') do
     assert page.has_content?('Chrome')
+    end
   end
 
   def test_page_displays_an_OS_breakdown_across_all_requests_
