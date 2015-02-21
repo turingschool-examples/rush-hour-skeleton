@@ -1,4 +1,5 @@
 require './test/test_helper.rb'
+require 'pry'
 
 class ApplicationUrlStatsTest < Minitest::Test
   include Rack::Test::Methods
@@ -24,7 +25,14 @@ class ApplicationUrlStatsTest < Minitest::Test
     }
     PayloadHelper.add_to_specific_tables(payload)
     payload = PayloadHelper.add_payload_data(payload)
-    Identifier.where(name: identifier).to_a[0].update(payload_id: payload.id)
+    identifier.update(payload_id: payload.id)
+  end
+
+  def test_the_main_page_exists
+    skip
+    visit '/'
+    assert_equal '/', current_path
+    assert_equal 200, last_response.status
   end
 
   def test_the_page_exists_when_visited
@@ -45,7 +53,6 @@ class ApplicationUrlStatsTest < Minitest::Test
 
   def test_when_i_visit_page_i_can_find_longest_response_time
     skip
-    Url
   end
   #As a CLIENT
   #when I visit source_path(identifier) http://localhost:9393/sources/jumpstartlab/urls/specific_url

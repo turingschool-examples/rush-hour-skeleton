@@ -44,19 +44,23 @@ module TrafficSpy
       status(200)
     end
 
-    get '/sources/:identifier/urls' do
+    get '/sources/:identifier' do |identifier|
+      erb :identifier
+    end
+
+    get '/sources/:identifier/urls' do |identifier|
       erb :urls
     end
 
-    post '/sources/:identifier/urls' do
+    post '/sources/:identifier/urls' do |identifier|
     end
 
-    get '/sources/:identifier/urls/:url' do
+    get '/sources/:identifier/urls/:path' do
       erb :unique_urls
     end
 
-    post '/sources/:identifier/urls/:url' do |identifier, url|
-      if Url.exist?(url)
+    post '/sources/:identifier/urls/:path' do |identifier, path|
+      if Url.exist?(path)
         body("yay")
       else
         return status(403), body("403 Forbidden - Application URL not registered")
