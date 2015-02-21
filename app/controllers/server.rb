@@ -9,8 +9,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-
-    	user = User.new(params[:sources])
+      user = User.new(params[:sources])
     	case
     	when user.save
     		status 200
@@ -30,5 +29,10 @@ module TrafficSpy
       @user = User.find_by(:identifier == identifier)
     	@user.payloads.create(params["payload"])
     end
+
+    get '/sources/:identifier/events' do |identifier|
+      @user = User.find_by(:identifier == identifier)
+      @events = @user.payloads.events.all
+      erb :events
   end
 end
