@@ -48,5 +48,8 @@ module TrafficSpy
       erb :error
     end
 
+    get '/sources/:identifier' do |identifier|
+      erb :application_details
+    end
   end
 end
