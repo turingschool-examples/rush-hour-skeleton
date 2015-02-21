@@ -1,7 +1,7 @@
 class Payload < ActiveRecord::Base
   validates :url_id, :requested_at, :responded_in, :reference_id,
             :request_type_id, :event_id, :user_agent_id, :resolution_id, :ip_id,
-            :source_id, presence: true
+            :digest, :source_id, presence: true
 
   belongs_to :source
   belongs_to :url
