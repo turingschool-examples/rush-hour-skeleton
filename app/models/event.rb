@@ -1,5 +1,8 @@
 class Event < ActiveRecord::Base
-	validates_presence_of	:name
+
+  validates :name, presence: true
+
+  has_many :payloads
 
 	def event_payloads
 		#all payloads with event_id == id
@@ -39,4 +42,5 @@ class Event < ActiveRecord::Base
 		hour_by_hour_breakdown.values.reduce(:+)
 	end
 	
-end
+
+
