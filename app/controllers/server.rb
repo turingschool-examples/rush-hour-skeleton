@@ -33,6 +33,7 @@ module TrafficSpy
     get '/sources/:identifier/events' do |identifier|
       @user = User.find_by(:identifier == identifier)
       @events = @user.payloads.events.all
+      @identifier = identifier
       erb :events
   end
 end
