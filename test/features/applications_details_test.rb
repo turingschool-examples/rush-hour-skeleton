@@ -9,10 +9,10 @@ class ApplicationDetailsTest < Minitest::Test
     visit '/sources/jumpstartlab'
   end
 
-  def test_it_displays_the_most_visited_urls
-    assert_equal '/sources/jumpstartlab', current_path
-    assert page.has_content?("hello world")
-  end
+  # def test_it_displays_the_most_visited_urls
+  #   assert_equal '/sources/jumpstartlab', current_path
+  #   assert page.has_content?("hello world")
+  # end
   #I should see  a page that displays the most requested URLS to least requested URLS (url)
   #And I should see a web browser breakdown across all requests (userAgent)
   #And I should see a OS breakdown across all requests (userAgent)
