@@ -1,18 +1,18 @@
-require "./test/test_helper"
+# require "./test/test_helper"
 
-class EventDetailsTest < MiniTest::Test
-  include Rack::Test::Methods
+# class EventDetailsTest < MiniTest::Test
+#   include Rack::Test::Methods
 
-   def app
-    TrafficSpy::Server
-  end
+#    def app
+#     TrafficSpy::Server
+#   end
 
-  def teardown
-    DatabaseCleaner.clean
-  end
+#   def teardown
+#     DatabaseCleaner.clean
+#   end
 
 
-end
+# end
 
   # def test_event_displays_correct_parameters
     #when I click on the event hyperlink

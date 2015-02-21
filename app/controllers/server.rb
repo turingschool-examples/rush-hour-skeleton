@@ -20,7 +20,9 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:IDENTIFIER/events/:EVENTNAME' do    
+    get '/sources/:indentifier/events/:EVENTNAME' do    
+      #add sad path page if event is not defined
+      #link back to events index page
       erb :app_event_details
     end
 
