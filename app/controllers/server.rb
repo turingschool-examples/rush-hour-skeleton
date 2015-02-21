@@ -32,9 +32,12 @@ module TrafficSpy
         erb :url_error
         status 404
       else
-
-        @longest_response = Url.longest_response(params[:identifier], @created_address)
-
+        @longest_response  = Url.longest_response(@created_address)
+        @shortest_response = Url.shortest_response(@created_address)
+        @average_response  = Url.average_response(@created_address)
+        @htt_verbs         = Url.http_verbs(@created_address)
+        @pop_referrer      = Url.popular_referrer(@created_address)
+        @pop_agent         = Url.popular_user_agent(@created_address)
         erb :url_statistics
       end
 

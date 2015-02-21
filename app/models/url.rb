@@ -31,6 +31,11 @@ class Url < ActiveRecord::Base
     references.max
   end
 
+  def self.popular_user_agent(address)
+    url = Url.find_by(address: address)
+    agents = url.payloads.map { |payload| payload.payload_user_agent }
+  end
+
   private
 
   def self.response_times(address)

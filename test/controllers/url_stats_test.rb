@@ -17,7 +17,7 @@ class CreateSourceTest < MiniTest::Test
                    digest: "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573blf")
     Payload.create(url_id: 1, requested_at: Date.today, responded_in: 36,
                     reference_id: 2, request_type_id: 2, event_id: 1,
-                    user_agent_id: 1, resolution_id: 1, ip_id: 1, source_id: 1,
+                    user_agent_id: 2, resolution_id: 1, ip_id: 1, source_id: 1,
                     digest: "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573bdd")
   end
 
@@ -37,6 +37,12 @@ class CreateSourceTest < MiniTest::Test
     Source.create(source)
   end
 
+  def data_setup
+    register_app
+    create_two_payloads
+    create_url
+  end
+
   def test_the_correct_url_is_created
     url = Url.create_url(source[:root_url], "blog")
     assert_equal "http://jumpstartlab.com/urls/blog", url
@@ -49,9 +55,7 @@ class CreateSourceTest < MiniTest::Test
   end
 
   def test_can_find_response_times
-    register_app
-    create_two_payloads
-    create_url
+    data_setup
     get "/sources/jumpstartlab/urls/blog"
     assert_equal 40, Url.longest_response("http://jumpstartlab.com/urls/blog")
     assert_equal 36, Url.shortest_response("http://jumpstartlab.com/urls/blog")
@@ -59,9 +63,7 @@ class CreateSourceTest < MiniTest::Test
   end
 
   def test_can_find_http_verbs
-    register_app
-    create_two_payloads
-    create_url
+    data_setup
     RequestType.create(http_verb: "GET")
     RequestType.create(http_verb: "POST")
     RequestType.create(http_verb: "POST")
@@ -70,9 +72,7 @@ class CreateSourceTest < MiniTest::Test
   end
 
   def test_can_find_popular_referrer
-    register_app
-    create_two_payloads
-    create_url
+    data_setup
     Reference.create(link: "http://jumpstartlab.com")
     Reference.create(link: "http://facebook.com")
     Reference.create(link: "http://facebook.com")
@@ -81,7 +81,14 @@ class CreateSourceTest < MiniTest::Test
     assert_equal "http://facebook.com", Url.popular_referrer("http://jumpstartlab.com/urls/blog")
   end
 
-  def test_can
+  # def test_can_find_most_popular_user_agent
+  #   data_setup
+  #   PayloadUserAgent.create(browser: "Chrome", os: "Macintosh")
+  #   PayloadUserAgent.create(browser: "Firefox", os: "Microsoft")
+  #   PayloadUserAgent.create(browser: "Chrome", os: "Macintosh")
+  #   get "/sources/jumpstartlab/urls/blog"
+  #   assert_equal ["Chrome", "Macintosh"], Url.popular_user_agent("http://jumpstartlab.com/urls/blog")
+  # end
 
 
 end
