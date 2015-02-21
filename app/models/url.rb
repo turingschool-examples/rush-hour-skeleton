@@ -20,6 +20,11 @@ class Url < ActiveRecord::Base
     times.reduce(:+) / times.length
   end
 
+  def self.http_verbs(address)
+    url = Url.find_by(address: address)
+    verbs = url.payloads.map { |payload| payload.request_type.http_verb}
+  end
+
   private
 
   def self.response_times(address)
