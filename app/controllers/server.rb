@@ -26,13 +26,15 @@ module TrafficSpy
 
     get "/sources/:identifier/urls/*" do
       root_url = Source.find_by(identifier: params[:identifier]).root_url
-      @created_url = UrlHelper.create_url(root_url, params[:splat].join("/"))
+      @created_address = Url.create_url(params[:identifier], params[:splat].join("/"))
 
-      if !Url.exists?(address: @created_url)
+      if !Url.exists?(address: @created_address)
         erb :url_error
         status 404
       else
-        
+
+        @longest_response = Url.longest_response(params[:identifier], @created_address)
+
         erb :url_statistics
       end
 
