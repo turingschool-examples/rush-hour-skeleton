@@ -17,7 +17,13 @@ module TrafficSpy
       end
     end
 
-    post "/sources/:identifier/data" do |identifier|
+    get '/sources/:indentifier/events/:EVENTNAME' do
+      #add sad path page if event is not defined
+      #link back to events index page
+      erb :app_event_details
+    end
+
+    post '/sources/:identifier/data' do |identifier|
       payload_generator = PayloadGenerator.call(params[:payload], identifier)
       status payload_generator.status
       body   payload_generator.message

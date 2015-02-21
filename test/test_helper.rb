@@ -8,4 +8,11 @@ require "capybara"
 Capybara.app = TrafficSpy::Server
 
 require "database_cleaner"
-DatabaseCleaner.strategy = :truncation, { except: %w[public.schema_migrations] }
+
+DatabaseCleaner.strategy = :truncation, { :except => %w[public.schema_migrations]}
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+
+end
+
