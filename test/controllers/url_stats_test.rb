@@ -12,11 +12,11 @@ class CreateSourceTest < MiniTest::Test
 
   def create_two_payloads
     Payload.create(url_id: 1, requested_at: Date.today, responded_in: 40,
-                   reference_id: 1, request_type_id: 1, event_id: 1,
+                   reference_id: 3, request_type_id: 1, event_id: 1,
                    user_agent_id: 1, resolution_id: 1, ip_id: 1, source_id: 1,
                    digest: "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573blf")
     Payload.create(url_id: 1, requested_at: Date.today, responded_in: 36,
-                    reference_id: 1, request_type_id: 2, event_id: 1,
+                    reference_id: 2, request_type_id: 2, event_id: 1,
                     user_agent_id: 1, resolution_id: 1, ip_id: 1, source_id: 1,
                     digest: "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573bdd")
   end
@@ -69,6 +69,19 @@ class CreateSourceTest < MiniTest::Test
     assert_equal ["GET", "POST"], Url.http_verbs("http://jumpstartlab.com/urls/blog")
   end
 
-  
+  def test_can_find_popular_referrer
+    register_app
+    create_two_payloads
+    create_url
+    Reference.create(link: "http://jumpstartlab.com")
+    Reference.create(link: "http://facebook.com")
+    Reference.create(link: "http://facebook.com")
+    Reference.create(link: "http://kyrablog.com")
+    get "/sources/jumpstartlab/urls/blog"
+    assert_equal "http://facebook.com", Url.popular_referrer("http://jumpstartlab.com/urls/blog")
+  end
+
+  def test_can
+
 
 end

@@ -25,6 +25,12 @@ class Url < ActiveRecord::Base
     verbs = url.payloads.map { |payload| payload.request_type.http_verb}
   end
 
+  def self.popular_referrer(address)
+    url = Url.find_by(address: address)
+    references = url.payloads.map { |payload| payload.reference.link }
+    references.max
+  end
+
   private
 
   def self.response_times(address)
