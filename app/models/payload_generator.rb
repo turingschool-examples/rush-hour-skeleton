@@ -36,7 +36,8 @@ class PayloadGenerator
         resolution_id:   Resolution.find_or_create_by(
                            resolution_height: payload_params[:resolutionHeight],
                            resolution_width: payload_params[:resolutionWidth]).id,
-        ip_id:           Ip.find_or_create_by(address: payload_params[:ip]).id
+        ip_id:           Ip.find_or_create_by(address: payload_params[:ip]).id,
+        digest:          Digest::SHA2.hexdigest(params)
       })
       PayloadGenerator.new(200, "payload successful")
     end

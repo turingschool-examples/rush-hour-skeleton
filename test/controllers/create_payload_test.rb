@@ -49,11 +49,10 @@ class CreatePayloadTest < MiniTest::Test
 
   def test_duplicated_request_returns_error
     register_app
-    Payload.create(url_id: 1, requested_at: Date.today, responded_in: 40,
+    Payload.create(url_id: 1, requested_at: "2013-02-16 21:38:28 -0700", responded_in: 40,
                    reference_id: 1, request_type_id: 1, event_id: 1,
                    user_agent_id: 1, resolution_id: 1, ip_id: 1, source_id: 1,
                    digest: "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573bdd")
-
     post "/sources/jumpstartlab/data", payload_data
     assert_equal 403, last_response.status
     assert_equal "duplicate request", last_response.body
@@ -62,7 +61,6 @@ class CreatePayloadTest < MiniTest::Test
   def test_unregistered_application_cannot_request_data
     post "/sources/kyrasapp/data", payload_data
     assert_equal 403, last_response.status
-    assert "not registered application", last_response.body.include?("missing payload")
+    assert last_response.body.include?("not registered")
   end
-
 end
