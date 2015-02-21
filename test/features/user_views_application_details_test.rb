@@ -11,6 +11,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_the_page_displays_web_browser_breakdown_across_all_requests
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#browser-breakdown') do
@@ -19,6 +20,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_an_OS_breakdown_across_all_requests
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#OS-breakdown') do
@@ -27,6 +29,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_screen_resolutions_across_all_requests
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#screen-resolutions') do
@@ -35,6 +38,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_longest_average_response_time_per_URL_to_shortest_average_response_time_per_URL
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#response-times') do
@@ -43,6 +47,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_hyperlinks_of_each_url_to_view_url_specific_data
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#url_links') do
@@ -51,6 +56,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_hyperlink_to_view_aggregate_event_data
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#event_links') do
@@ -59,6 +65,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_message_when_identifier_does_not_exist
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     assert page.has_content?('You havent registered.')
