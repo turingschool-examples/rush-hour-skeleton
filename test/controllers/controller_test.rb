@@ -109,4 +109,12 @@ class CreateIdentifierTest < Minitest::Test
     assert_equal 403, last_response.status
     assert_equal message, last_response.body
   end
+
+  def test_it_assigns_the_payload_id_to_the_identifier
+    default_payload_setup
+    Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+    post '/sources/jumpstartlab/data', "payload=#{@payload}"
+    payload_id = Payload.where(requested_at: "2013-02-16 21:38:28 -0700").to_a[0].id
+    assert_equal payload_id, Identifier.where(payload_id: payload_id).to_a[0].payload_id
+  end
 end

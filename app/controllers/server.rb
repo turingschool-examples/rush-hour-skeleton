@@ -39,8 +39,8 @@ module TrafficSpy
       end
 
       PayloadHelper.add_to_specific_tables(payload_hash)
-      PayloadHelper.add_payload_data(payload_hash)
-
+      payload = PayloadHelper.add_payload_data(payload_hash)
+      Identifier.where(name: identifier).to_a[0].update(payload_id: payload.id)
       status(200)
     end
 

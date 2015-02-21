@@ -26,6 +26,7 @@ class PayloadHelper
       @referral.payloads << payload
       @request.payloads << payload
       @url.payloads << payload
+      payload
     end
   end
 end

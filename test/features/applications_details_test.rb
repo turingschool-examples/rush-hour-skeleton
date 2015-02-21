@@ -1,14 +1,16 @@
+require './test/test_helper.rb'
+
 class ApplicationDetailsTest < Minitest::Test
-
-  def setup
+  #def setup
   #As a CLIENT
-     indentifier = Identifier.create()
-    #visit source_path(identifier) ttp://yourapplication:port/sources/IDENTIFIER
+    #@identifier = Identifier.create(name: 'jumpstartlab', root_url: 'jumpstartlab.com')
+    #visit source_path(identifier) http://yourapplication:port/sources/IDENTIFIER
+    #visit '/sources/jumpstartlab'
   #And an identifer exists for that client
-  end
+  #end
 
-  def test_it_displays_the_most_visited_urls
-  end
+  #def test_it_displays_the_most_visited_urls
+  #end
   #I should see  a page that displays the most requested URLS to least requested URLS (url)
   #And I should see a web browser breakdown across all requests (userAgent)
   #And I should see a OS breakdown across all requests (userAgent)
