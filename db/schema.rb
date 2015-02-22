@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220054145) do
+ActiveRecord::Schema.define(version: 20150222010524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20150220054145) do
   end
 
   create_table "payloads", force: :cascade do |t|
-    t.text    "url"
     t.text    "requestedAt"
     t.integer "respondedIn"
     t.text    "referredBy"
@@ -33,11 +32,16 @@ ActiveRecord::Schema.define(version: 20150220054145) do
     t.text    "resolutionHeight"
     t.text    "ip"
     t.integer "user_id"
+    t.integer "url_id"
   end
 
   create_table "resolutions", force: :cascade do |t|
     t.text "resolutionWidth"
     t.text "resolutionHeight"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text "page"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,4 +50,5 @@ ActiveRecord::Schema.define(version: 20150220054145) do
     t.integer "payload_id"
   end
 
+  add_foreign_key "payloads", "urls"
 end
