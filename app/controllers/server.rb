@@ -57,6 +57,10 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+      unless Identifier.exists?(name: identifier)
+        return status(403), body("403 Forbidden - Application URL not registered")
+      end
+
       @identifier = identifier
       @urls_by_popularity = Identifier.find_by(name: identifier).payloads
                             .group(:url_id).count(:url_id).sort_by { |key, value| value}.reverse
