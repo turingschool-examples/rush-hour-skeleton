@@ -45,7 +45,7 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
-      @most_received_events = Identifier.find_by(name: "yahoo").payloads.group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
+      @most_received_events = Identifier.find_by(name: identifier).payloads.group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
       erb :events
     end
 
@@ -55,13 +55,11 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
-      @urls_by_popularity = Identifier.find_by(name: identifier).payloads.group(:url_id).count(:url_id).sort
+      @urls_by_popularity = Identifier.find_by(name: identifier).payloads.group(:url_id).count(:url_id).sort_by { |key, value| value}
       @urls_by_response_time = Identifier.find_by(name: "yahoo").payloads.group(:url_id).average(:responded_in).sort_by { |key, value| value }
       @identifier_specific_payloads = Identifier.find_by(name: identifier).payloads.to_a|| []
-      root_url = "http://" + Identifier.find_by(name: identifier).root_url
       @paths = @urls_by_popularity.map do |url_id|
-        full_url = Url.find_by(id: url_id[0]).address
-        full_url.slice(root_url.length, full_url.length)
+        Url.find_by(id: url_id[0]).address[/.com.+/][4..-1]
       end
       erb :application_details
     end
