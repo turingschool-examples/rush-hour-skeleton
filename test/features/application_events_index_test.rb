@@ -40,19 +40,23 @@ module TrafficSpy
 
     # I can also see hyperlinks of each event to view event specific data
     def test_presents_hyperlinks_of_event_to_view_specific_data
-      find_link("socialLogin").visible?
-      # within whatever nav bar, see hyperlinks
+      assert find_link("socialLogin").visible?
+      assert find_link("beginRegistration").visible?
     end
 
     def test_can_click_each_hyperlink
-      skip
-
+      click_link_or_button("beginRegistration")
+      assert "sources/yahoo/events/beginRegistration", current_path
     end
 
-#
 # I can also see when no events have been defined:
-#
 # I can also see a message that no events have been defined
+
+    def test_it_gives_a_message_when_no_events_have_been_defined
+      visit '/sources/chimichanga/events'
+      assert page.has_content?("403 Forbidden - Application URL not registered")
+    end
+
     def setup_yahoo
       @payload_1 = 'payload={"url":"http://yahoo.com/weather","requestedAt":"2013-01-13 21:38:28 -0700","respondedIn":37,"referredBy":"http://apple.com","requestType":"GET","parameters":["what","huh"],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"800","resolutionHeight":"600","ip":"63.29.38.214"}'
       @payload_2 = 'payload={"url":"http://yahoo.com/weather","requestedAt":"2013-01-13 22:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":["what","huh"],"eventName": "beginRegistration","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"500","resolutionHeight":"700","ip":"63.29.38.214"}'

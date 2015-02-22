@@ -14,7 +14,7 @@ class ApplicationDetailsTest < Minitest::Test
     setup_yahoo
     visit '/sources/yahoo'
   end
-
+  
   def test_it_displays_the_browsers
     assert_equal '/sources/yahoo', current_path
     assert page.has_content?("Safari")
@@ -54,7 +54,7 @@ class ApplicationDetailsTest < Minitest::Test
 
   def test_it_displays_events_link
     assert_equal '/sources/yahoo', current_path
-    assert page.find_link "yahoo Events"
+    assert find_link("yahoo Events").visible?
   end
 
   def test_it_displays_relative_links

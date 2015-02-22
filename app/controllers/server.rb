@@ -44,9 +44,20 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events' do |identifier|
+      unless Identifier.exists?(name: identifier)
+        return status(403), body("403 Forbidden - Application URL not registered")
+      end
       @identifier = identifier
-      @most_received_events = Identifier.find_by(name: "yahoo").payloads.group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
+      @most_received_events = Identifier.find_by(name: identifier).payloads.group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
       erb :events
+    end
+
+    get '/sources/:identifier/events/:event_name' do
+      visitors = Identifier.find_by(name: params[:identifier])
+      events_overview = Event.find_by(name: params[:event_name])
+      @event_name = events_overview.name
+      @event_occurences = events_overview.payloads.count
+      erb :event_details
     end
 
     not_found do
@@ -58,7 +69,7 @@ module TrafficSpy
       @urls_by_popularity = Identifier.find_by(name: identifier).payloads.group(:url_id).count(:url_id).sort
       @urls_by_response_time = Identifier.find_by(name: "yahoo").payloads.group(:url_id).average(:responded_in).sort_by { |key, value| value }
       @identifier_specific_payloads = Identifier.find_by(name: identifier).payloads.to_a|| []
-      root_url = "http://" + Identifier.find_by(name: identifier).root_url
+      root_url = Identifier.find_by(name: identifier).root_url
       @paths = @urls_by_popularity.map do |url_id|
         full_url = Url.find_by(id: url_id[0]).address
         full_url.slice(root_url.length, full_url.length)
