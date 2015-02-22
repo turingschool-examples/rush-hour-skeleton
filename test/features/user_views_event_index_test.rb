@@ -3,6 +3,7 @@ require './test/test_helper'
 class UserViewsApplicationDetailsTest < FeatureTest
 
   def test_the_page_displays_the_most_received_events_to_least_received_events
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab/events'
     assert_equal '/sources/jumpstartlab/events', current_path
     within('#event-index') do
@@ -11,6 +12,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_there_are_hyperlinks_of_each_event_to_display_event_specific_data
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab/events'
     assert_equal '/sources/jumpstartlab/events', current_path
     within('#event-index') do
