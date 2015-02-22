@@ -48,20 +48,6 @@
   <% end %>
 </table>
 
-<h3 id="page-stats">Page Statistics</h3>
-<table>
-  <tr>
-    <th>URL</th>
-    <th>Average Response Time</th>
-  </tr>
-  <% @urls_by_response_time.each do |url_id_rs| %>
-    <tr>
-      <td><%= Url.find_by(id: url_id_rs[0]).address %><td>
-      <td><%= url_id_rs[1].to_i %><td>
-    </tr>
-  <% end %>
-</table>
-
 <h2 id="local-links">
   <a href="/sources/<%= @identifier %>/events"><%= @identifier %> Events </a>
 </h2>
