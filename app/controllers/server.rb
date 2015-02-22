@@ -43,7 +43,6 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events' do |identifier|
-      skip
       @user = link_user_to_identifier(identifier)
       @events = @user.payloads.events.all
       @identifier = identifier
