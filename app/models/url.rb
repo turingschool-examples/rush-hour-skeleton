@@ -40,7 +40,9 @@ class Url < ActiveRecord::Base
 
   def self.popular_user_agent(address)
     url = Url.find_by(address: address)
-    url.payloads.map { |payload| payload.payload_user_agent }
+    browsers = url.payloads.map { |payload| payload.payload_user_agent.browser }
+    oss = url.payloads.map { |payload| payload.payload_user_agent.os }
+    [browsers.max, oss.max]
   end
 
   private

@@ -35,5 +35,6 @@
 
 <article id="agents">
   <h3>Most popular user agents</h3>
-  <p><%= @pop_agent %>
+  <p>Browser: <%= @pop_agent.first %></p>
+  <p>Operating system: <%= @pop_agent.last %></p>
 </article>

@@ -1,6 +1,6 @@
 require "./test/test_helper"
 
-class EventIndexTest < FeatureTest
+class UrlViewsTest < FeatureTest
 
   def setup
     register_user_and_create_payload
@@ -25,7 +25,6 @@ class EventIndexTest < FeatureTest
       visit "/sources/jumpstartlab/urls/contact"
         within("#agents") do
           assert page.has_content?("user agents")
-          # assert page.has_content?("Chrome")
         end
     end
 
