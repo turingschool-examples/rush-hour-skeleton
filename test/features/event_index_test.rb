@@ -49,7 +49,6 @@ class EventIndexTest < FeatureTest
     end
     
     visit "/sources/jumpstartlab/events"
-    save_and_open_page
     expected_event_names = ['addedSocialThroughPromptB',
                             'startedRegistration', 
                             'addedSocialThroughPromptA']

@@ -75,6 +75,7 @@ class EventTest < MiniTest::Test
 	end
 
 	def test_it_can_return_the_total_number_of_events
+		skip
 		source = Source.create!(:identifier => "jumpstartlab",
                             :root_url => "jump.com")
 		events = []
