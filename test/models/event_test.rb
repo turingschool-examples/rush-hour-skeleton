@@ -1,7 +1,4 @@
 require "./test/test_helper"
-# one event says....hey payloads find all my payloads where payload.event_id == event.id 
-# this returns a collection of payloads where payload.event_id == event.id 
-# then look at each payload.requested_At
 
 class EventTest < MiniTest::Test
 
@@ -78,18 +75,42 @@ class EventTest < MiniTest::Test
 	end
 
 	def test_it_can_return_the_total_number_of_events
+		source = Source.create!(:identifier => "jumpstartlab",
+                            :root_url => "jump.com")
+		events = []
+    
+    events << Event.create( :name => "startedRegistration" )
+    events << Event.create( :name => "addedSocialThroughPromptA" )
+    events << Event.create( :name => "addedSocialThroughPromptB" )
 
-		event = Event.create( :name => "startedRegistration" )	
-		event = Event.create( :name => "startedRegistration" )
-		event = Event.create( :name => "addedSocialThroughPromptA" )
-		event = Event.create( :name => "addedSocialThroughPromptA" )
-		event = Event.create( :name => "addedSocialThroughPromptA" )
-		event = Event.create( :name => "addedSocialThroughPromptB" )
+    3.times do
+                Payload.create!(  :source_id => source.id, :url_id => 1, 
+                                  :requested_at => DateTime.new, :responded_in => 1, 
+                                  :request_type_id => 1, :event_id => events[0].id, 
+                                  :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
+                                  :reference_id =>1) 
+    end
 
-		events_by_total = { "addedSocialThroughPromptA" => 3,
-															"startedRegistration" => 2, 
-												"addedSocialThroughPromptB" => 1}
-		assert_equal 6,  event.event_total
+    2.times do
+                Payload.create!(  :source_id => source.id, :url_id => 1, 
+                                  :requested_at => DateTime.new, :responded_in => 1, 
+                                  :request_type_id => 1, :event_id => events[1].id, 
+                                  :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
+                                  :reference_id =>1) 
+    end
+
+    4.times do
+                Payload.create!(  :source_id => source.id, :url_id => 1, 
+                                  :requested_at => DateTime.new, :responded_in => 1, 
+                                  :request_type_id => 1, :event_id => events[2].id, 
+                                  :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
+                                  :reference_id =>1) 
+    end
+
+		events_by_total = { "addedSocialThroughPromptA" => 2,
+															"startedRegistration" => 3, 
+												"addedSocialThroughPromptB" => 4}
+		assert_equal 9,  events.count
 	end
 
 end

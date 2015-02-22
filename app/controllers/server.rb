@@ -30,6 +30,8 @@ module TrafficSpy
       #add sad path page if event is not defined
       #link back to events index page
       erb :app_event_details
+
+      
     end
 
     post '/sources/:identifier/data' do |identifier|

@@ -50,9 +50,9 @@ class EventIndexTest < FeatureTest
     
     visit "/sources/jumpstartlab/events"
     save_and_open_page
-    expected_event_names = ['addedSocialThroughPromptB, 4',
-                            'startedRegistration, 3', 
-                            'addedSocialThroughPromptA, 2']
+    expected_event_names = ['addedSocialThroughPromptB',
+                            'startedRegistration', 
+                            'addedSocialThroughPromptA']
 
     actual_event_names = page.all("#events li").map {|link| link.text }
 

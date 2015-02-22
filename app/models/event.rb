@@ -20,11 +20,11 @@ class Event < ActiveRecord::Base
 
 	def most_to_least_received_events	
 		#hash of number of instances of each event from most to least
-		  Event.all.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}.to_h
-		# Event.all.each_with_object({}) do |event, hash|
-		# 	hash[event.name] = Event.all.select { |event_in_db| event_in_db.name == event.name }
-		# 	hash[event.name] = hash[event.name].count
-		# end
+		  # Event.all.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}.to_h
+		Event.all.each_with_object({}) do |event, hash|
+			hash[event.name] = Event.all.select { |event_in_db| event_in_db.name == event.name }
+			hash[event.name] = hash[event.name].count
+		end
 	end 
 
 	def event_total
