@@ -14,7 +14,7 @@ class ApplicationDetailsTest < Minitest::Test
     setup_yahoo
     visit '/sources/yahoo'
   end
-  
+
   def test_it_displays_the_browsers
     assert_equal '/sources/yahoo', current_path
     assert page.has_content?("Safari")
@@ -22,43 +22,36 @@ class ApplicationDetailsTest < Minitest::Test
   end
 
   def test_it_displays_the_browsers
-    assert_equal '/sources/yahoo', current_path
     assert page.has_content?("Safari")
     assert page.has_content?("Chrome")
   end
 
   def test_it_displays_the_OS
-    assert_equal '/sources/yahoo', current_path
     assert page.has_content?("Macintosh")
     assert page.has_content?("Windows")
   end
 
   def test_it_displays_the_scree_res
-    assert_equal '/sources/yahoo', current_path
     assert page.has_content?("1000 x 1000")
     assert page.has_content?("800 x 600")
   end
 
   def test_it_displays_most_to_least_hits
-    assert_equal '/sources/yahoo', current_path
     assert page.has_content?("http://yahoo.com/weather")
     assert page.has_content?("3")
   end
 
   def test_it_displays_least_to_most_response_time
-    assert_equal '/sources/yahoo', current_path
     assert page.has_content?("http://yahoo.com/weather")
     assert page.has_content?("Pages by average response time")
     assert page.has_content?("10")
   end
 
   def test_it_displays_events_link
-    assert_equal '/sources/yahoo', current_path
-    assert find_link("yahoo Events").visible?
+    assert page.find_link "yahoo Events"
   end
 
   def test_it_displays_relative_links
-    assert_equal '/sources/yahoo', current_path
     assert page.find_link 'yahoo.com/chat_room'
     assert page.find_link 'yahoo.com/not_news'
     assert page.find_link 'yahoo.com/weather'
