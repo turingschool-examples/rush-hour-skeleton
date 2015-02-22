@@ -14,10 +14,9 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_message_when_identifier_does_not_exist
-    skip
-    visit 'http://localhost:9393/sources/jumpstartlab'
-    assert_equal '/sources/jumpstartlab', current_path
-    assert page.has_content?('You havent registered.')
+    visit 'http://localhost:9393/sources/bad_identifier'
+    assert_equal '/sources/bad_identifier', current_path
+    assert page.has_content?('Error Page')
   end
 
   def test_the_page_displays_the_most_requested_URLS_to_least_requested_URLS

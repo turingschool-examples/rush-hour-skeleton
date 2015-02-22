@@ -26,8 +26,11 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      @user = link_user_to_identifier(identifier)
-      erb :dashboard
+      if @user = link_user_to_identifier(identifier)
+        erb :dashboard
+      else
+        erb :error
+      end
     end
 
     post '/sources/:identifier/data' do |identifier|
