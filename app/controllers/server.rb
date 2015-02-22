@@ -27,6 +27,7 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       if @user = link_user_to_identifier(identifier)
+        binding.pry
         erb :dashboard
       else
         erb :error
