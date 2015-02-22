@@ -26,7 +26,14 @@ module TrafficSpy
       end
     end
 
-    get "/sources/:indentifier/events/:EVENTNAME" do
+    get '/sources/:identifier/events' do
+      @source = Source.find_by!(identifier: params[:identifier])
+      events_by_source = @source.payloads.map {|payload| payload.event }
+      @events = events_by_source.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}
+      erb :event_index
+    end
+
+    get "/sources/:indentifier/events/:EVENTNAME" do    
       #add sad path page if event is not defined
       #link back to events index page
       erb :app_event_details
