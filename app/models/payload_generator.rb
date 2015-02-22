@@ -30,7 +30,7 @@ class PayloadGenerator
                            http_verb: payload_params[:requestType]).id,
         event_id:        Event.find_or_create_by(
                            name: payload_params[:eventName]).id,
-        user_agent_id:   PayloadUserAgent.find_or_create_by(
+        payload_user_agent_id: PayloadUserAgent.find_or_create_by(
                            browser: user_agent.browser,
                            os: user_agent.platform).id,
         resolution_id:   Resolution.find_or_create_by(

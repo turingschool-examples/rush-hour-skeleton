@@ -21,8 +21,8 @@ class EventIndexTest < FeatureTest
     register_identifier
     visit "/sources/jumpstartlab"
     assert page.has_content? "URL Breakdown"
-    # assert page.has_content? "Web Browser Breakdown"
-    # assert page.has_content? "OS Breakdown"
+    assert page.has_content? "Browser Breakdown"
+    assert page.has_content? "OS Breakdown"
     assert page.has_content? "Screen Resolution"
     assert page.has_content? "Response Time"
   end

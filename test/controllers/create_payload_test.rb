@@ -29,8 +29,10 @@ class CreatePayloadTest < MiniTest::Test
     assert_equal 200, last_response.status
     assert_equal 'payload successful', last_response.body
     payload = Payload.find_by(url_id: 1)
-    url = Url.find(1)
+    url = payload.url
+    user_agent = payload.payload_user_agent
     assert_equal url.id, payload.url_id
+    assert_equal user_agent.id, payload.payload_user_agent_id
   end
 
   def test_request_with_missing_payload_returns_error
@@ -51,7 +53,8 @@ class CreatePayloadTest < MiniTest::Test
     register_app
     Payload.create(url_id: 1, requested_at: "2013-02-16 21:38:28 -0700", responded_in: 40,
                    reference_id: 1, request_type_id: 1, event_id: 1,
-                   user_agent_id: 1, resolution_id: 1, ip_id: 1, source_id: 1,
+                   payload_user_agent_id: 1, resolution_id: 1, ip_id: 1,
+                   source_id: 1,
                    digest: "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573bdd")
     post "/sources/jumpstartlab/data", payload_data
     assert_equal 403, last_response.status

@@ -6,27 +6,26 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # pull this out into its own model
-      source = Source.new(params)
-      if source.save
-        status 200
-        body source.simplified_json
-      else
-        status_helper = StatusHelper.new(source.error_response)
-        status status_helper.status
-        body source.error_response
-      end
+      identifier_generator = IdentifierGenerator.call(params)
+      status identifier_generator.status
+      body   identifier_generator.message
+    end
+
+    post '/sources/:identifier/data' do |identifier|
+      payload_generator = PayloadGenerator.call(params[:payload], identifier)
+      status payload_generator.status
+      body   payload_generator.message
     end
 
     get '/sources/:identifier' do |identifier|
-      @identifier = identifier
       source = Source.find_by(identifier: identifier)
       if source
-        @payloads = source.payloads
+        @payloads       = source.payloads
         @urls           = Url.all
+        @relative_paths = Payload.relative_url_paths
         @user_agents    = PayloadUserAgent.all
         @resolutions    = Resolution.all
-        @response_times = Payload.all.map { |payload| payload.responded_in }
+        @response_times = Payload.response_times
         erb :app_details
       else
         erb :unregistered_user
@@ -37,12 +36,6 @@ module TrafficSpy
       #add sad path page if event is not defined
       #link back to events index page
       erb :app_event_details
-    end
-
-    post '/sources/:identifier/data' do |identifier|
-      payload_generator = PayloadGenerator.call(params[:payload], identifier)
-      status payload_generator.status
-      body   payload_generator.message
     end
 
     not_found do
