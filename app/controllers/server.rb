@@ -36,12 +36,14 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
-      binding.pry
       @user = link_user_to_identifier(identifier)
       payload_dissemination(@user, params[:payload])
+      status 200
+      body 'success'
     end
 
     get '/sources/:identifier/events' do |identifier|
+      skip
       @user = link_user_to_identifier(identifier)
       @events = @user.payloads.events.all
       @identifier = identifier
