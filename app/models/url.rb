@@ -4,6 +4,10 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
   has_many :payloads
 
+  def relative_path(uri)
+    URI(uri).path.split('/').last
+  end
+
   def self.create_url(root_url, path)
     root_url + '/' + path
   end
@@ -24,7 +28,7 @@ class Url < ActiveRecord::Base
 
   def self.http_verbs(address)
     url = Url.find_by(address: address)
-    verbs = url.payloads.map { |payload| payload.request_type.http_verb}
+    url.payloads.map { |payload| payload.request_type.http_verb}
   end
 
 
@@ -48,9 +52,4 @@ class Url < ActiveRecord::Base
     times = url.payloads.map { |payload| payload.responded_in }
     times.sort
   end
-
-  def relative_path(uri)
-    URI(uri).path.split('/').last
-  end
-
 end

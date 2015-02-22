@@ -5,13 +5,19 @@ module TrafficSpy
       erb :index
     end
 
-    post '/sources' do
+    post "/sources" do
       identifier_generator = IdentifierGenerator.call(params)
       status identifier_generator.status
       body   identifier_generator.message
     end
 
-    get '/sources/:identifier' do |identifier|
+    post "/sources/:identifier/data" do |identifier|
+      payload_generator = PayloadGenerator.call(params[:payload], identifier)
+      status payload_generator.status
+      body   payload_generator.message
+    end
+
+    get "/sources/:identifier" do |identifier|
       source = Source.find_by(identifier: identifier)
       if source
         @payloads       = source.payloads
@@ -39,12 +45,6 @@ module TrafficSpy
       erb :app_event_details
     end
 
-    post "/sources/:identifier/data" do |identifier|
-      payload_generator = PayloadGenerator.call(params[:payload], identifier)
-      status payload_generator.status
-      body   payload_generator.message
-    end
-
     get "/sources/:identifier/urls/*" do
       root_url = Source.find_by(identifier: params[:identifier]).root_url
       @created_address = Url.create_url(root_url, params[:splat].join("/"))
@@ -60,7 +60,6 @@ module TrafficSpy
         @pop_agent         = Url.popular_user_agent(@created_address)
         erb :url_statistics
       end
-
     end
 
     not_found do
