@@ -5,6 +5,11 @@ module TrafficSpy
       User.find_by_identifier(identifier)
     end
 
+    def payload_dissemination(user, params)
+      payload = @user.payloads.create()
+      payload.events.create(params[:whatever])
+    end
+
     get '/' do
       erb :index
     end
@@ -31,8 +36,9 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
+      binding.pry
       @user = link_user_to_identifier(identifier)
-    	@user.payloads.create(params["payload"])
+      payload_dissemination(@user, params[:payload])
     end
 
     get '/sources/:identifier/events' do |identifier|
