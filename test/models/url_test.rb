@@ -16,4 +16,14 @@ class UrlTest < Minitest::Test
     refute url.valid?
   end
 
+  def test_it_validates_uniqueness
+    url = Url.create({ :page => "http://jumpstartlab.com/blog" })
+    url = Url.create({ :page => "http://jumpstartlab.com/about" })
+    url = Url.create({ :page => "http://jumpstartlab.com/tutorials" })
+    url = Url.create({ :page => "http://jumpstartlab.com/blog" })
+    assert_equal 3, Url.count
+  end
+
+
+
 end
