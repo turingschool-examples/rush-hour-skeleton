@@ -4,7 +4,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
 
   def test_the_page_displays_the_most_received_events_to_least_received_events
     skip
-    visit 'http://localhost:5432/sources/jumpstartlab/events'
+    visit 'http://localhost:9393/sources/jumpstartlab/events'
     assert_equal '/sources/jumpstartlab/events', current_path
     within('#event-index') do
       assert page.has_content?('Events:')
@@ -13,7 +13,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
 
   def test_there_are_hyperlinks_of_each_event_to_display_event_specific_data
     skip
-    visit 'http://localhost:5432/sources/jumpstartlab/events'
+    visit 'http://localhost:9393/sources/jumpstartlab/events'
     assert_equal '/sources/jumpstartlab/events', current_path
     within('#event-index') do
       click_link_or_button("Event-'name'")
