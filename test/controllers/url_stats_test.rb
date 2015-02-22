@@ -1,6 +1,6 @@
 require "./test/test_helper"
 
-class CreateSourceTest < MiniTest::Test
+class UrlStatsTest < MiniTest::Test
   include Rack::Test::Methods
 
   attr_reader :source

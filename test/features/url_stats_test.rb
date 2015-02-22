@@ -1,6 +1,6 @@
 require "./test/test_helper"
 
-class EventIndexTest < FeatureTest
+class UrlViewsTest < FeatureTest
 
   def setup
     Source.create({ identifier: "jumpstartlab",
