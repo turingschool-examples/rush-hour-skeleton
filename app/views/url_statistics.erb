@@ -1,12 +1,12 @@
 <h1>Statistics for url: <%= @created_address %><h1>
 
-<article>
+<article id="response">
   <h3>Response Times</h3>
   <table>
     <tr>
       <th>Longest</th>
       <th>Shortest</th>
-      <th>average</th>
+      <th>Average</th>
     </tr>
     <tr>
       <td><%= @longest_response %>
@@ -16,7 +16,7 @@
   </table>
 </article>
 
-<article>
+<article id="verbs">
   <h3>HTTP Request Types</h3>
   <table>
     <tr>
@@ -33,7 +33,7 @@
     <p><%= @pop_referrer %></p>
 </article>
 
-<article>
+<article id="agents">
   <h3>Most popular user agents</h3>
   <p><%= @pop_agent %>
 </article>
