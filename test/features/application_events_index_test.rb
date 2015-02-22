@@ -10,6 +10,7 @@ module TrafficSpy
     end
 
     def setup
+      super
       @identifier = Identifier.create(name: 'yahoo', root_url: 'yahoo.com')
       setup_yahoo
       visit('/sources/yahoo/events')
@@ -40,7 +41,6 @@ module TrafficSpy
     # I can also see hyperlinks of each event to view event specific data
     def test_presents_hyperlinks_of_event_to_view_specific_data
       find_link("socialLogin").visible?
-      save_and_open_page
       # within whatever nav bar, see hyperlinks
     end
 
