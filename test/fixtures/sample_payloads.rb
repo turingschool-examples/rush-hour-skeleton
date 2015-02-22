@@ -1,10 +1,13 @@
 module SamplePayloads
 
   def payload_dissemination(user, params)
-    binding.pry
     payload = user.payloads.create()
-    payload.events.create({eventName: params[:eventName]})
-    payload.urls.create({page: params[:url]})
+    payload.events.create({eventName: params["eventName"]})
+    payload.requestedats.create({requestedAt: params["requestedAt"]})
+    payload.respondedins.create({respondedIn: params["respondedIn"]})
+    payload.refferedbies.create({refferedBy: params["refferedBy"]})
+    payload.resolutions.create({resolutionWidth: params["resolutionWidth"], resolutionHeight: params["resolutionHeigth"]})
+    payload.ips.create({ip: params["ip"]})
   end
 
   def populate
@@ -17,6 +20,7 @@ module SamplePayloads
              "referredBy"=>"http://jumpstartlab.com",
              "requestType"=>"GET",
              "parameters"=>[],
+             "eventName" => "socialLogin",
              "userAgent"=>"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
              "resolutionWidth"=>"1920",
              "resolutionHeight"=>"1280",
@@ -28,6 +32,7 @@ module SamplePayloads
              "referredBy"=>"http://google.com",
              "requestType"=>"GET",
              "parameters"=>[],
+             "eventName" => "socialLogi",
              "userAgent"=> "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_5_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
              "resolutionWidth"=>"1500",
              "resolutionHeight"=>"1300",
@@ -41,6 +46,7 @@ module SamplePayloads
              "referredBy"=>"http://github.com",
              "requestType"=>"POST",
              "parameters"=>[],
+             "eventName" => "socialLog",
              "userAgent"=>
              "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_5_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
              "resolutionWidth"=>"1500",
@@ -54,6 +60,7 @@ module SamplePayloads
              "referredBy"=>"http://bing.com",
              "requestType"=>"POST",
              "parameters"=>[],
+             "eventName" => "socialLo",
              "userAgent"=>
              "Mozilla/4.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
              "resolutionWidth"=>"1500",
