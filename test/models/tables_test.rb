@@ -14,8 +14,8 @@ class TableTest < Minitest::Test
     assert Url
   end
 
-  def test_referrers_table_exists
-    assert Referrer
+  def test_referred_bies_table_exists
+    assert ReferredBy
   end
 
   def test_request_types_table_exists
