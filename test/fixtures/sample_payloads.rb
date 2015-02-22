@@ -1,7 +1,9 @@
-sample_user = User.create({"identifier" => "jumpstartlab",
-        "rootUrl" => "http://jumpstartlab.com"})
+module SamplePayloads
+  def populate
+    sample_user = User.create({"identifier" => "jumpstartlab",
+          "rootUrl" => "http://jumpstartlab.com"})
 
-  payload1 = User.find(1).payloads.create({
+    payload1 = User.find(1).payloads.create({
            "requestedAt"      => "2013-02-16 21:38:28 -0700",
            "respondedIn"      => 37,
            "referredBy"       => "http://jumpstartlab.com",
@@ -12,7 +14,7 @@ sample_user = User.create({"identifier" => "jumpstartlab",
            "resolutionHeight" => "1280",
            "ip"               => "63.29.38.211"
            })
-  payload2 = User.find(1).payloads.create({
+    payload2 = User.find(1).payloads.create({
            "requestedAt"      => "2013-02-16 21:38:28 -0700",
            "respondedIn"      => 45,
            "referredBy"       => "http://google.com",
@@ -25,7 +27,7 @@ sample_user = User.create({"identifier" => "jumpstartlab",
            })
 
 
-   payload3 = User.find(1).payloads.create({
+    payload3 = User.find(1).payloads.create({
            "requestedAt"      => "2013-02-16 21:38:28 -0700",
            "respondedIn"      => 12,
            "referredBy"       => "http://github.com",
@@ -37,7 +39,7 @@ sample_user = User.create({"identifier" => "jumpstartlab",
            "ip"               => "63.22.38.128"
            })
 
-   payload4 = User.find(1).payloads.create({
+    payload4 = User.find(1).payloads.create({
            "requestedAt"      => "2013-02-16 21:38:28 -0700",
            "respondedIn"      => 92,
            "referredBy"       => "http://bing.com",
@@ -48,3 +50,5 @@ sample_user = User.create({"identifier" => "jumpstartlab",
            "resolutionHeight" => "1900",
            "ip"               => "61.99.18.911"
            })
+  end
+end

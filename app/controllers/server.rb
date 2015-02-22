@@ -7,8 +7,8 @@ module TrafficSpy
 
     def payload_dissemination(user, params)
       payload = @user.payloads.create()
-      payload.events.create(params[:eventName])
-      payload.urls.create(:page => params[:url])
+      payload.events.create({:eventName => params[:eventName]})
+      payload.urls.create({:page => params[:url]})
     end
 
     get '/' do
@@ -33,7 +33,7 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       if @user = link_user_to_identifier(identifier)
-        binding.pry
+        @user
         erb :dashboard
       else
         erb :error

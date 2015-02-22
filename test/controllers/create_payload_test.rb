@@ -12,10 +12,8 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_it_creates_payload
-    skip
     user = User.create({ 'identifier' => 'jumpstartlab',
                       'rootUrl'    => 'http://jumpstartlab.com'})
-    # binding.pry
 
     post '/sources/jumpstartlab/data',
       { "payload" =>
