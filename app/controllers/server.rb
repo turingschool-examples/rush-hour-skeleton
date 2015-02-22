@@ -1,5 +1,10 @@
 module TrafficSpy
   class Server < Sinatra::Base
+
+    def link_user_to_identifier
+      User.find_by_identifier(identifier)
+    end
+
     get '/' do
       erb :index
     end
@@ -21,17 +26,17 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      @user = User.find_by_identifier(identifier)
+      @user = link_user_to_identifier
       erb :dashboard
     end
 
     post '/sources/:identifier/data' do |identifier|
-      @user = User.find_by(:identifier == identifier)
+      @user = link_user_to_identifier
     	@user.payloads.create(params["payload"])
     end
 
     get '/sources/:identifier/events' do |identifier|
-      @user = User.find_by(:identifier == identifier)
+      @user = link_user_to_identifier
       @events = @user.payloads.events.all
       @identifier = identifier
       erb :events
