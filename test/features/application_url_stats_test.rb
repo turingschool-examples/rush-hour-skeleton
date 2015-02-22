@@ -35,12 +35,19 @@ class ApplicationUrlStatsTest < Minitest::Test
     assert_equal '/sources/jumpstartlab/urls', current_path
     visit '/sources/jumpstartlab/urls'
     assert_equal '/sources/jumpstartlab/urls', current_path
-    # visit '/sources/jumpstartlab/urls/jumpstartlab/blog'
-    # assert_equal '/sources/jumpstartlab/urls/jumpstartlab/blog', current_path
+    visit '/sources/jumpstartlab/urls/blog'
+    assert_equal '/sources/jumpstartlab/urls/blog', current_path
+  end
+
+  def test_when_page_doesnt_exist_i_get_error_message
+    visit '/sources/jumpstartlab/urls/sadpath'
+    # assert page.has_content?('Forbidden')
   end
 
   def test_when_i_visit_page_i_can_find_longest_response_time
-    skip
+    visit '/sources/jumpstartlab/urls/blog'
+    binding.pry
+    assert page.has_content?('longest')
   end
   #As a CLIENT
   #when I visit source_path(identifier) http://localhost:9393/sources/jumpstartlab/urls/specific_url
