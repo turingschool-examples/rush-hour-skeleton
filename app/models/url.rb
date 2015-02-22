@@ -1,3 +1,5 @@
+require 'uri'
+
 class Url < ActiveRecord::Base
   validates :address, presence: true
   has_many :payloads
@@ -34,7 +36,9 @@ class Url < ActiveRecord::Base
 
   def self.popular_user_agent(address)
     url = Url.find_by(address: address)
-    agents = url.payloads.map { |payload| payload.payload_user_agent }
+    browsers = url.payloads.map { |payload| payload.payload_user_agent.browser }
+    oss = url.payloads.map { |payload| payload.payload_user_agent.os }
+    [browsers.max, oss.max]
   end
 
   private
@@ -45,5 +49,8 @@ class Url < ActiveRecord::Base
     times.sort
   end
 
+  def relative_path(uri)
+    URI(uri).path.split('/').last
+  end
 
 end

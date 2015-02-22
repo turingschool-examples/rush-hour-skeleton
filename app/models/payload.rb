@@ -1,6 +1,6 @@
 class Payload < ActiveRecord::Base
   validates :url_id, :requested_at, :responded_in, :reference_id,
-            :request_type_id, :event_id, :user_agent_id, :resolution_id, :ip_id,
+            :request_type_id, :event_id, :payload_user_agent_id, :resolution_id, :ip_id,
             :digest, :source_id, presence: true
 
   belongs_to :source
@@ -18,5 +18,13 @@ class Payload < ActiveRecord::Base
 
   def error_response
     errors.full_messages.join ", "
+  end
+
+  def self.relative_url_paths
+    all.map { |payload| payload.url.relative_path(payload.url.address) }
+  end
+
+  def self.response_times
+    all.map { |payload| payload.responded_in }
   end
 end

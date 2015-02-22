@@ -5,15 +5,30 @@ module TrafficSpy
       erb :index
     end
 
-    post "/sources" do
-      source = Source.new(params)
-      if source.save
-        status 200
-        body source.simplified_json
+    post '/sources' do
+      identifier_generator = IdentifierGenerator.call(params)
+      status identifier_generator.status
+      body   identifier_generator.message
+    end
+
+    post '/sources/:identifier/data' do |identifier|
+      payload_generator = PayloadGenerator.call(params[:payload], identifier)
+      status payload_generator.status
+      body   payload_generator.message
+    end
+
+    get '/sources/:identifier' do |identifier|
+      source = Source.find_by(identifier: identifier)
+      if source
+        @payloads       = source.payloads
+        @urls           = Url.all
+        @relative_paths = Payload.relative_url_paths
+        @user_agents    = PayloadUserAgent.all
+        @resolutions    = Resolution.all
+        @response_times = Payload.response_times
+        erb :app_details
       else
-        status_helper = StatusHelper.new(source.error_response)
-        status status_helper.status
-        body source.error_response
+        erb :unregistered_user
       end
     end
 
