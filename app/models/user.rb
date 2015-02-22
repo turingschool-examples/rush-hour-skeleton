@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   def ordered_urls
     # 1. find all urls for user
     # 2. order them from most to least visited.
-		binding.pry
     urls = self.payloads.collect(&:urls).flatten.collect(&:page)
     order_by_instances(urls)
   end

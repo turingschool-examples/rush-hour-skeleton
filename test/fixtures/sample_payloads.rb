@@ -1,9 +1,17 @@
 module SamplePayloads
+
+  def payload_dissemination(user, params)
+    binding.pry
+    payload = user.payloads.create()
+    payload.events.create({eventName: params[:eventName]})
+    payload.urls.create({page: params[:url]})
+  end
+
   def populate
     sample_user = User.create({"identifier" => "jumpstartlab",
           "rootUrl" => "http://jumpstartlab.com"})
 
-    payload1 = User.find(1).payloads.create({
+    payload1 = {
              "requestedAt"=>"2013-02-16 21:38:28 -0700",
              "respondedIn"=>37,
              "referredBy"=>"http://jumpstartlab.com",
@@ -13,8 +21,8 @@ module SamplePayloads
              "resolutionWidth"=>"1920",
              "resolutionHeight"=>"1280",
              "ip"=>"63.29.38.211"
-             })
-    payload2 = User.find(1).payloads.create({
+             }
+    payload2 = {
              "requestedAt"=>"2013-02-16 21:38:28 -0700",
              "respondedIn"=>45,
              "referredBy"=>"http://google.com",
@@ -24,10 +32,10 @@ module SamplePayloads
              "resolutionWidth"=>"1500",
              "resolutionHeight"=>"1300",
              "ip"=>"63.29.38.211"
-             })
+             }
 
 
-    payload3 = User.find(1).payloads.create({
+    payload3 = {
              "requestedAt"=>"2013-02-16 21:38:28 -0700",
              "respondedIn"=>12,
              "referredBy"=>"http://github.com",
@@ -38,9 +46,9 @@ module SamplePayloads
              "resolutionWidth"=>"1500",
              "resolutionHeight"=>"1300",
              "ip"=>"63.22.38.128"
-             })
+             }
 
-    payload4 = User.find(1).payloads.create({
+    payload4 = {
              "requestedAt"=>"2013-02-16 21:38:28 -0700",
              "respondedIn"=>92,
              "referredBy"=>"http://bing.com",
@@ -51,6 +59,11 @@ module SamplePayloads
              "resolutionWidth"=>"1500",
              "resolutionHeight"=>"1900",
              "ip"=>"61.99.18.911"
-             })
+             }
+
+    payload_dissemination(sample_user, payload1)
+    payload_dissemination(sample_user, payload2)
+    payload_dissemination(sample_user, payload3)
+    payload_dissemination(sample_user, payload4)
   end
 end
