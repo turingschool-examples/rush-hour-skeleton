@@ -45,7 +45,7 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
-      @most_received_events = Identifier.find_by(name: "yahoo").payloads.group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
+      @most_received_events = Identifier.find_by(name: identifier).payloads.group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
       erb :events
     end
 
