@@ -12,12 +12,13 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_it_creates_payload
+    skip
     user = User.create({ 'identifier' => 'jumpstartlab',
                       'rootUrl'    => 'http://jumpstartlab.com'})
     # binding.pry
 
-    post '/sources/:identifier/data', 
-      { "payload" => 
+    post '/sources/:identifier/data',
+      { "payload" =>
     		{
           'url'              => "http://jumpstartlab.com/blog",
     		  'requestedAt'      => "2013-02-16 21:38:28 -0700",
