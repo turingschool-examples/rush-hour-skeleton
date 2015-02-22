@@ -56,10 +56,47 @@ class UserViewsURLDetails < FeatureTest
       assert page.has_content?('Most Popular User Agents:')
     end
   end
+
+
+  ###sad path tests
+  ### need to be modified to create an instance of client
+  ### and then assert that that it directs to error page
+  ### if non-existing pages are accessed
+  ###change assertion on 'error page' to assert against actual error page
+
+  def test_the_page_rejects_nonexisting_identifier
+    skip
+    visit 'http://localhost:9393/sources/IDENTIFIER/urls/RELATIVE/PATH'
+    refute '/sources/IDENTIFIER/urls/RELATIVE/PATH'
+    assert_equal 'error page', current_path
+    within('#error') do
+      assert page.has_content?('The Identifier you are trying to access Does Not Currently Exist')
+    end
+  end
+
+  def test_the_page_redirects_to_error_when_missing_relative
+    skip
+    visit 'http://localhost:9393/sources/IDENTIFIER/urls/RELATIVE/PATH'
+    refute '/sources/IDENTIFIER/urls/RELATIVE/PATH'
+    assert_equal 'error page', current_path
+    within('#error') do
+      assert page.has_content?('The Relative You Are Trying To Access Does Not Currently Exist')
+    end
+  end
+
+  def test_the_page_redirects_to_error_when_missing_path
+    skip
+    visit 'http://localhost:9393/sources/IDENTIFIER/urls/RELATIVE/PATH'
+    refute '/sources/IDENTIFIER/urls/RELATIVE/PATH'
+    assert_equal 'error page', current_path
+    within('#error') do
+      assert page.has_content?('The Path You Are Trying To Access Has Not Been Requested')
+    end
+  end
 end
 
 
-# As a client (this implies you are an existing client/sad path could be non-existing client)
+# xxxx As a client (this implies you are an existing client/sad path could be non-existing client)
 # When I visit: http://yourapplication:port/sources/IDENTIFIER/urls/RELATIVE/PATH
 # and that identifier DOES exist
 # and that relative AND that  path exist (sad path for these two conditions not being met / separate test)
@@ -71,7 +108,7 @@ end
 # xxxx And I should see most popular referrers
 # xxxx And I should see most popular user agents
 
-# As a client
-# When I visit: http://yourapplication:port/sources/IDENTIFIER/urls/RELATIVE/PATH
-# and that identifier DOES NOT exists
-# Then I should see a message that the url has not been requested
+# xxx As a client
+# xxxx When I visit: http://yourapplication:port/sources/IDENTIFIER/urls/RELATIVE/PATH
+# xxxx and that identifier DOES NOT exists
+# xxxx Then I should see a message that the url has not been requested
