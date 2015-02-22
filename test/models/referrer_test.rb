@@ -9,4 +9,5 @@ class ReferrerTest < Minitest::Test
     referrer = Referrer.create(name: "http://jumpstartlab.com")
     assert_equal [], referrer.payloads
   end
+
 end

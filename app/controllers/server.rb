@@ -15,7 +15,7 @@ module TrafficSpy
       else
         status 403
         body = "Identifier Already Exists"
-      end
+    end
     end
 
     post '/sources/:identifier/data' do |identifier|
@@ -25,7 +25,6 @@ module TrafficSpy
 
 
       if Payload.find_by(raw_data: params[:payload])
-      # if Payload.find_by(digest: Digest::SHA2.digest(params[:payload]))
         # return correct status and body saying that payload already exists
       elsif source = Source.find_by(identifier: identifier)
         payload_params = JSON.parse(params[:payload]).symbolize_keys
@@ -34,8 +33,7 @@ module TrafficSpy
         # binding.pry
           source.payloads.create({
           url: Url.find_or_create_by(address: payload_params[:url]),
-          # url: payload_data.url,
-          # digest: Digest::SHA2.digest(params[:payload])
+          # url: payload_data.url
           })
           body "successful"
       else
