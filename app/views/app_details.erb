@@ -1,0 +1,8 @@
+<ul>
+  <% @payloads.each do |payload| %>
+    <li>URL Breakdown: <%= payload.url.address %></li>
+    <li>Screen Resolution Height: <%= payload.resolution.resolution_height %></li>
+    <li>Screen Resolution Width: <%= payload.resolution.resolution_width %></li>
+    <li>Response Time: <%= payload.responded_in %></li><br>
+  <% end %>
+</ul>

@@ -14,5 +14,8 @@ DatabaseCleaner.strategy = :truncation, { :except => %w[public.schema_migrations
 class FeatureTest < Minitest::Test
   include Capybara::DSL
 
+  def teardown
+    DatabaseCleaner.clean
+  end
 end
 

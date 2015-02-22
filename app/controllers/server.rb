@@ -18,7 +18,22 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:indentifier/events/:EVENTNAME' do    
+    get '/sources/:identifier' do |identifier|
+      @identifier = identifier
+      source = Source.find_by(identifier: identifier)
+      if source
+        @payloads = source.payloads
+        @urls           = Url.all
+        @user_agents    = PayloadUserAgent.all
+        @resolutions    = Resolution.all
+        @response_times = Payload.all.map { |payload| payload.responded_in }
+        erb :app_details
+      else
+        erb :unregistered_user
+      end
+    end
+
+    get '/sources/:indentifier/events/:EVENTNAME' do
       #add sad path page if event is not defined
       #link back to events index page
       erb :app_event_details
