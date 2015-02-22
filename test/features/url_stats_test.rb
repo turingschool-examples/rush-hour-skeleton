@@ -30,7 +30,6 @@ class EventIndexTest < FeatureTest
       visit "/sources/jumpstartlab/urls/contact"
         within("#agents") do
           assert page.has_content?("user agents")
-          # assert page.has_content?("Chrome")
         end
     end
 

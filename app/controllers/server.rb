@@ -11,12 +11,6 @@ module TrafficSpy
       body   identifier_generator.message
     end
 
-    post '/sources/:identifier/data' do |identifier|
-      payload_generator = PayloadGenerator.call(params[:payload], identifier)
-      status payload_generator.status
-      body   payload_generator.message
-    end
-
     get '/sources/:identifier' do |identifier|
       source = Source.find_by(identifier: identifier)
       if source
