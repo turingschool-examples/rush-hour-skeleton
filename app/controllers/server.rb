@@ -24,7 +24,6 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-      # require 'pry';binding.pry
       payload_generator = PayloadGenerator.call(params[:payload], identifier)
       status payload_generator.status
       body   payload_generator.message
