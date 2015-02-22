@@ -5,15 +5,25 @@
 
 <h3> URLs - most to least requested</h3>
 
-<ol>
-  <% @user.ordered_urls.each do |url| %>
-  <li><%= url %></li>
-  <% end %>
-</ol>
+  <ol>
+    <% @user.ordered_urls.each do |url| %>
+    <li><%= url %></li>
+    <% end %>
+  </ol>
 
 <h3> Web Browsers - breakdown across all requests (userAgent)</h3>
+
+
 <h3> OS Breakdown - across all requests (userAgent)</h3>
+
+
 <h3> Screen Resolutions - across all requests (resolutionWidth x resolutionHeight)</h3>
+
+
 <h3> URL Average Response Time - longest to shortest</h3>
+
+
 <h3> URL-Specific Data - hyperlinks of each url to view url specific data</h3>
+
+
 <h3> Aggregate Event Data - Hyperlink to view aggregate event data</h3>
