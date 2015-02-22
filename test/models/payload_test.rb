@@ -10,7 +10,7 @@ class PayloadTest < Minitest::Test
     payload = Payload.create({url_id: 1,
                               requested_at: "tuesday",
                               responded_in: 37,
-                              referrer_id: 2,
+                              referred_by_id: 2,
                               request_type_id: 3,
                               ip_address_id: 4,
                               event_id: 5,
@@ -23,7 +23,7 @@ class PayloadTest < Minitest::Test
     assert_equal 1, payload.url_id
     assert_equal "tuesday", payload.requested_at
     assert_equal 37, payload.responded_in
-    assert_equal 2, payload.referrer_id
+    assert_equal 2, payload.referred_by_id
     assert_equal 3, payload.request_type_id
     assert_equal 4, payload.ip_address_id
     assert_equal 5, payload.event_id
@@ -41,11 +41,11 @@ class PayloadTest < Minitest::Test
     assert_equal "http://jumpstartlab.com/blog", payload.url.address
   end
 
-  def test_belongs_to_referrer_id
-    referrer = Referrer.create(name: "www.referrer.com")
-    payload = Payload.create({referrer_id: 1})
+  def test_belongs_to_referred_by_id
+    referred_by = ReferredBy.create(name: "www.referred_by.com")
+    payload = Payload.create({referred_by_id: 1})
 
-    assert_equal "www.referrer.com", payload.referrer.name
+    assert_equal "www.referred_by.com", payload.referred_by.name
   end
 
   def test_belongs_to_request_type
