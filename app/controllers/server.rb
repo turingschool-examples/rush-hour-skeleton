@@ -8,6 +8,7 @@ module TrafficSpy
     def payload_dissemination(user, params)
       payload = @user.payloads.create()
       payload.events.create(params[:eventName])
+      payload.urls.create(:page => params[:url])
     end
 
     get '/' do
