@@ -7,8 +7,8 @@ class EventIndexTest < FeatureTest
   end
 
   def test_user_sees_events_page_greeting
-  	source = Source.create!(:identifier => "jumpstartlab",
-                            :root_url => "jump.com")
+    Source.create!(:identifier => "jumpstartlab",
+                   :root_url => "jump.com")
 
     visit "/sources/jumpstartlab/events"
     assert page.has_content?("Application Event Index")
@@ -54,8 +54,8 @@ class EventIndexTest < FeatureTest
                             'startedRegistration, 3',
                             'addedSocialThroughPromptA, 2']
 
-    actual_event_names = page.all("#events li").map {|link| link.text }
 
+    actual_event_names = page.all("#events li").map {|link| link.text }
     assert_equal expected_event_names, actual_event_names
 
   end

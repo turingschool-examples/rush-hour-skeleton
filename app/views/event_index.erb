@@ -5,7 +5,7 @@
 
 	<ol id="events">
 		<%@events.each do |(event, count)| %>
-		<li> <a href="/sources/<%= @source.identifier%>/events/<%= event.name %>"><%=event.name%></a>, <%=count%></li>
+		<li> <a href="/sources/<%= @source.identifier%>/events"><%=event.name%></a></li>
 		<% end %>
 
 	</ol>
