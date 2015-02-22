@@ -1,0 +1,19 @@
+<div id="event-index">
+<h1><%= @identifier %>'s Events</h1>
+
+<h3> URLs - most to least requested</h3>
+
+<ol id="event-list-most-to-least">
+  <% @events.each do |event| %>
+  <li><%= event %></li>
+  <% end %>
+</ol>
+
+
+<ol id="event-hyperlinks">
+  <% @events.each do |event| %>
+  <li><a href=/sources/<%= @identifier %>/<%= event.name %> value=<% event.name%>></li>
+  <% end %>
+</ol>
+
+</div>
