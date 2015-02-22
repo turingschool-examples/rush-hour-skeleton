@@ -2,12 +2,26 @@ require './test/test_helper'
 
 class UserViewsApplicationDetailsTest < FeatureTest
 
+  def test_the_page_displays_the_correct_user
+    visit 'http://localhost:9393/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+    assert page.has_content?('jumpstartlab')
+  end
+
+  def test_page_displays_message_when_identifier_does_not_exist
+    skip
+    visit 'http://yourapplication:port/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+    assert page.has_content?('You havent registered.')
+  end
+
   def test_the_page_displays_the_most_requested_URLS_to_least_requested_URLS
+    skip
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#urls') do
       assert page.has_content?('http://jumpstartlab.com')
-   end
+    end
   end
 
   def test_the_page_displays_web_browser_breakdown_across_all_requests
@@ -64,12 +78,6 @@ class UserViewsApplicationDetailsTest < FeatureTest
     end
   end
 
-  def test_page_displays_message_when_identifier_does_not_exist
-    skip
-    visit 'http://yourapplication:port/sources/jumpstartlab'
-    assert_equal '/sources/jumpstartlab', current_path
-    assert page.has_content?('You havent registered.')
-    end
-  end
+
 
 end
