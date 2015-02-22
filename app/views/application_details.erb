@@ -1,2 +1,60 @@
-<p>hello world</p>
+<h2><%= @identifier %> Page Statistics</h2>
+<h3 id="pages-by-popularity">Pages by popularity</h3>
+<table>
+  <tr>
+    <th>URL</th>
+    <th>Hits</th>
+  </tr>
+  <% @urls_by_popularity.each do |url_id_hits| %>
+    <tr>
+      <td><%= Url.find_by(id: url_id_hits[0]).address %><td>
+      <td><%= url_id_hits[1] %><td>
+    </tr>
+  <% end %>
+</table>
+<h3 id="pages-by-avg-response-time">Pages by average response time</h3>
+<table>
+  <tr>
+    <th>URL</th>
+    <th>Average Response Time</th>
+  </tr>
+  <% @urls_by_response_time.each do |url_id_rs| %>
+    <tr>
+      <td><%= Url.find_by(id: url_id_rs[0]).address %><td>
+      <td><%= url_id_rs[1].to_i %><td>
+    </tr>
+  <% end %>
+</table>
 
+<h3 id="requests">Requests</h3>
+<table>
+  <tr>
+    <th>IP Address</th>
+    <th>Browser</th>
+    <th>OS</th>
+    <th>Screen Resolution</th>
+  </tr>
+  <% @identifier_specific_payloads.each do |payload| %>
+    <tr>
+      <td><%= payload.ip.address %></td>
+      <td><%= payload.agent.browser %></td>
+      <td><%= payload.agent.platform %></td>
+      <td>
+        <span><%= payload.dimension.width %></span>
+        <span> x </span>
+        <span><%= payload.dimension.height %></span>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<h2 id="local-links">
+  <a href="/sources/<%= @identifier %>/events"><%= @identifier %> Events </a>
+</h2>
+<h2>
+  <% @paths.each do |path| %>
+    <span>
+      <a href="/sources/<%= @identifier %>/urls<%= path %>"><%= @identifier + ".com" + path %></a>
+    </span>
+  <% end %>
+</h2>

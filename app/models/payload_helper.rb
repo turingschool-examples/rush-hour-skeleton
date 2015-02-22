@@ -23,6 +23,15 @@ class PayloadHelper
       return ua.browser, ua.version, ua.platform
     end
 
+    def have_ip?(ip)
+      Ip.exists?(address: ip)
+    end
+
+    def have_req_at?(time)
+      Payload.exists?(requested_at: time)
+    end
+
+
     def add_payload_data(payload_value)
       payload = Payload.create(requested_at: payload_value["requestedAt"], responded_in: payload_value["respondedIn"], parameters: payload_value["parameters"])
       @identifier.payloads << payload
