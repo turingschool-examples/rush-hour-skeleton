@@ -7,7 +7,6 @@ module TrafficSpy
 
     def payload_dissemination(user, params)
       payload = @user.payloads.create()
-      binding.pry
       payload.events.create({eventName: params[:eventName]})
       payload.urls.create({page: params[:url]})
     end
