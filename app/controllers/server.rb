@@ -46,10 +46,21 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events' do |identifier|
+      unless Identifier.exists?(name: identifier)
+        return status(403), body("403 Forbidden - Application URL not registered")
+      end
       @identifier = identifier
       @most_received_events = Identifier.find_by(name: identifier).payloads
                               .group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
       erb :events
+    end
+
+    get '/sources/:identifier/events/:event_name' do
+      visitors = Identifier.find_by(name: params[:identifier])
+      events_overview = Event.find_by(name: params[:event_name])
+      @event_name = events_overview.name
+      @event_occurences = events_overview.payloads.count
+      erb :event_details
     end
 
     not_found do
