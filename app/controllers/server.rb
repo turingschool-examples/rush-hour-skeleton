@@ -33,8 +33,10 @@ module TrafficSpy
       end
 
       payload_hash = JSON.parse(params[:payload])
+      ip = payload_hash["ip"]
+      date = payload_hash["requestedAt"]
 
-      if Ip.exists?(address: payload_hash["ip"]) && Payload.exists?(requested_at: payload_hash["requestedAt"])
+      if PayloadHelper.have_ip?(ip) && PayloadHelper.have_req_at?(date)
         return status(403), body("403 Forbidden - Payload Exists")
       end
 
