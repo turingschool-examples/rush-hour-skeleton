@@ -17,13 +17,11 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_validates_uniqueness
-    url = Url.create({ :page => "http://jumpstartlab.com/blog" })
-    url = Url.create({ :page => "http://jumpstartlab.com/about" })
-    url = Url.create({ :page => "http://jumpstartlab.com/tutorials" })
-    url = Url.create({ :page => "http://jumpstartlab.com/blog" })
+    Url.create({ :page => "http://jumpstartlab.com/blog" })
+    Url.create({ :page => "http://jumpstartlab.com/about" })
+    Url.create({ :page => "http://jumpstartlab.com/tutorials" })
+    Url.create({ :page => "http://jumpstartlab.com/blog" })
     assert_equal 3, Url.count
   end
-
-
 
 end
