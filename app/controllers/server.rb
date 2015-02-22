@@ -32,12 +32,15 @@ module TrafficSpy
         # payload_data = PayloadData.call(payload_params)
 
         # binding.pry
-        source.payloads.create({
+          source.payloads.create({
           url: Url.find_or_create_by(address: payload_params[:url]),
           # url: payload_data.url,
           # digest: Digest::SHA2.digest(params[:payload])
           })
+          body "successful"
       else
+        status 403
+        body "source is not registered"
         # status and message that source isn't registered
       end
     end
