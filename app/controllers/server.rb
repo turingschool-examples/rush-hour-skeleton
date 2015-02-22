@@ -48,7 +48,8 @@ module TrafficSpy
 
 
         user_agent = UserAgent.parse(payload_params[:userAgent])
-          source.payloads.create({
+
+        source.payloads.create({
           raw_data: params[:payload],
           url: Url.find_or_create_by(address: payload_params[:url]),
           requested_at: payload_params[:requestedAt],
