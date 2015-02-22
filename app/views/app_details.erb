@@ -1,3 +1,5 @@
+<%= partial "partials/navigation" %>
+
 <ul>
   <% @payloads.each do |payload| %>
     <li>URL Breakdown: <%= payload.url.address %></li>
@@ -8,8 +10,3 @@
     <li>Response Time: <%= payload.responded_in %></li><br>
   <% end %>
 </ul>
-
-<% @relative_paths.each do |relative_path| %>
-  <a href="/sources/urls/<%= relative_path %>">URL Index</a>
-<% end %>
-<a href="/sources/<%= @identifier %>/events">Events</a>
