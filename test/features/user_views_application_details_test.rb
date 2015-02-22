@@ -2,6 +2,11 @@ require './test/test_helper'
 
 class UserViewsApplicationDetailsTest < FeatureTest
 
+  def setup
+    sample_user = User.create({:identifier => "jumpstartlab",
+            :rootUrl => "http://jumpstartlab.com"})
+  end
+
   def test_the_page_displays_the_correct_user
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
