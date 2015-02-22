@@ -17,13 +17,13 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:indentifier/events/:EVENTNAME' do
+    get "/sources/:indentifier/events/:EVENTNAME" do
       #add sad path page if event is not defined
       #link back to events index page
       erb :app_event_details
     end
 
-    post '/sources/:identifier/data' do |identifier|
+    post "/sources/:identifier/data" do |identifier|
       payload_generator = PayloadGenerator.call(params[:payload], identifier)
       status payload_generator.status
       body   payload_generator.message
@@ -31,8 +31,7 @@ module TrafficSpy
 
     get "/sources/:identifier/urls/*" do
       root_url = Source.find_by(identifier: params[:identifier]).root_url
-      @created_address = Url.create_url(params[:identifier], params[:splat].join("/"))
-
+      @created_address = Url.create_url(root_url, params[:splat].join("/"))
       if !Url.exists?(address: @created_address)
         erb :url_error
         status 404
@@ -40,7 +39,7 @@ module TrafficSpy
         @longest_response  = Url.longest_response(@created_address)
         @shortest_response = Url.shortest_response(@created_address)
         @average_response  = Url.average_response(@created_address)
-        @htt_verbs         = Url.http_verbs(@created_address)
+        @http_verbs         = Url.http_verbs(@created_address)
         @pop_referrer      = Url.popular_referrer(@created_address)
         @pop_agent         = Url.popular_user_agent(@created_address)
         erb :url_statistics

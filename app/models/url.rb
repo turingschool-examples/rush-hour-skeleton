@@ -2,8 +2,8 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
   has_many :payloads
 
-  def self.create_url(identifier, path)
-    identifier + '/urls' + '/' + path
+  def self.create_url(root_url, path)
+    root_url + '/' + path
   end
 
   def self.longest_response(address)
@@ -24,6 +24,7 @@ class Url < ActiveRecord::Base
     url = Url.find_by(address: address)
     verbs = url.payloads.map { |payload| payload.request_type.http_verb}
   end
+
 
   def self.popular_referrer(address)
     url = Url.find_by(address: address)
