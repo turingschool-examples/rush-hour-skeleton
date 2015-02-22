@@ -40,5 +40,6 @@ module TrafficSpy
       @events = @user.payloads.events.all
       @identifier = identifier
       erb :events
+    end
   end
 end

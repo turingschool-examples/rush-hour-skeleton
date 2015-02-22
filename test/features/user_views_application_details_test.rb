@@ -69,7 +69,6 @@ class UserViewsApplicationDetailsTest < FeatureTest
     visit 'http://yourapplication:port/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     assert page.has_content?('You havent registered.')
-    end
   end
 
 end
