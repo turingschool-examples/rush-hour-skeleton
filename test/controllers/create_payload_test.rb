@@ -16,8 +16,8 @@ class CreatePayloadTest < Minitest::Test
                       'rootUrl'    => 'http://jumpstartlab.com'})
     # binding.pry
 
-    post '/sources/:identifier/data', 
-      { "payload" => 
+    post '/sources/jumpstartlab/data',
+      { "payload" =>
     		{
           'url'              => "http://jumpstartlab.com/blog",
     		  'requestedAt'      => "2013-02-16 21:38:28 -0700",
