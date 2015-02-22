@@ -36,6 +36,7 @@ class CreateIdentifierTest < Minitest::Test
     message = "400 Bad Request\nName can't be blank Root url can't be blank"
     post '/sources', {}
     assert_equal 400, last_response.status
+    # binding.pry
     assert_equal 0, Identifier.count
     assert_equal message, last_response.body
   end

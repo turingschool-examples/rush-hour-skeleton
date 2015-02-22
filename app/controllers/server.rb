@@ -43,6 +43,12 @@ module TrafficSpy
       status(200)
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      @identifier = identifier
+      @most_received_events = Identifier.find_by(name: "yahoo").payloads.group(:event_id).count(:event_id).sort_by {|key,value| value}.reverse
+      erb :events
+    end
+
     not_found do
       erb :error
     end
