@@ -1,7 +1,8 @@
 class Source < ActiveRecord::Base
-  validates_presence_of   :identifier
-  validates_presence_of   :root_url
+  validates :identifier, :root_url, presence: true
   validates_uniqueness_of :identifier
+
+  has_many :payloads
 
   def simplified_json
     { "identifier" => identifier }.to_json

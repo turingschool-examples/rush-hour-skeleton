@@ -1,0 +1,40 @@
+<h1>Statistics for url: <%= @created_address %><h1>
+
+<article id="response">
+  <h3>Response Times</h3>
+  <table>
+    <tr>
+      <th>Longest</th>
+      <th>Shortest</th>
+      <th>Average</th>
+    </tr>
+    <tr>
+      <td><%= @longest_response %>
+      <td><%= @shortest_response %>
+      <td><%= @average_response %>
+    </tr>
+  </table>
+</article>
+
+<article id="verbs">
+  <h3>HTTP Request Types</h3>
+  <table>
+    <tr>
+      <th>Verb</th>
+    </tr>
+    <% @http_verbs.each do |verb| %>
+      <tr><td><%= verb %></td></tr>
+    <% end %>
+  </table>
+</article>
+
+<article>
+  <h3>Most popular referrer</h3>
+    <p><%= @pop_referrer %></p>
+</article>
+
+<article id="agents">
+  <h3>Most popular user agents</h3>
+  <p>Browser: <%= @pop_agent.first %></p>
+  <p>Operating system: <%= @pop_agent.last %></p>
+</article>
