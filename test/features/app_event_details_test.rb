@@ -6,16 +6,12 @@ class EventDetailsTest < FeatureTest
   #then I see how many times it was received overall
   def test_user_sees_event_details_by_hour
   	visit "/sources/jumpstartlab/events/startedRegistration"
-    within('#events-detail-hour') do
-      assert page.has_content?("Hour by Hour")
-    end
+    assert page.has_content?("Hour by Hour")
   end 
    
    def test_user_sees_overall_number_of_event_details
     visit "/sources/jumpstartlab/events/startedRegistration"
-    within('#events-detail-overall') do
-      assert page.has_content?("received")
-    end
+    assert page.has_content?("received")
   end 
 
 end

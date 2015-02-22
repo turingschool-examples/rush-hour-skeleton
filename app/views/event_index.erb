@@ -1,15 +1,14 @@
-<div id="events-detail-hour">
-<h2>Application Event Index for "#{@identifier}"</h2>
+	<h2>Application Event Index for:</h2>
 
 	<h4>Received Events:</h4>
 	<h3>(sorted most to least)</h3> 
 
-		<ol>
-		<!--#name of event with number of occurrencesy-->
-			<li></li>
-			<li></li>
-			<li></li>
-		</ol>l>
+	<ol id="events">
+		<%@events.each do |(event, count)| %>
+		<li> <a href="/sources/<%= @source.identifier%>/events/<%= event.name %>"><%=event.name%></a>, <%=count%></li>
+		<% end %>
+
+	</ol>
 
 
-</div>
+
