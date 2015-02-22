@@ -48,6 +48,15 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+      @identifier = identifier
+      @urls_by_popularity = Identifier.find_by(name: identifier).payloads.group(:url_id).count(:url_id).sort
+      @urls_by_response_time = Identifier.find_by(name: "yahoo").payloads.group(:url_id).average(:responded_in).sort_by { |key, value| value }
+      @identifier_specific_payloads = Identifier.find_by(name: identifier).payloads.to_a|| []
+      root_url = "http://" + Identifier.find_by(name: identifier).root_url
+      @paths = @urls_by_popularity.map do |url_id|
+        full_url = Url.find_by(id: url_id[0]).address
+        full_url.slice(root_url.length, full_url.length)
+      end
       erb :application_details
     end
   end
