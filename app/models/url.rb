@@ -1,6 +1,6 @@
 class Url < ActiveRecord::Base
 
-  belongs_to :payload
+  has_many :payload
   validates :page, presence: true
   validates_uniqueness_of :page
 
