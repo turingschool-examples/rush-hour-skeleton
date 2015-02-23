@@ -81,16 +81,16 @@
       <th>Average Response Time</th>
     </tr>
     <tr>
-      <%# @user.response_times.each do |time| %>
-      <%# #res = res.split(',') %>
+      <% @user.response_times.each do |time| %>
+      <% time = time.split(',') %>
 
       <!-- displays browser -->
-      <td><%#= time %></td>
+      <td><%= time[0] %></td>
 
       <!-- displays number of requests -->
-      <td><%#= time %></td>
+      <td><%= time[1] %></td>
 
-      <%# end %>
+      <% end %>
 
 </tr>
 <h3> URL-Specific Data - hyperlinks of each url to view url specific data</h3>
