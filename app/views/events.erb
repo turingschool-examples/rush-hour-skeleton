@@ -1,0 +1,21 @@
+<h1><%= @identifier %> Events</h1>
+  <div class="event_stats">
+    <h2>Events Ranked By Popularity</h2>
+    <table>
+      <tr>
+        <th>Event</th>
+        <th>Frequency</th>
+      </tr>
+      <% @most_received_events.each do |id_and_frequency| %>
+        <tr>
+          <td>
+            <a href="/sources/yahoo/events/<%= Event.find(id_and_frequency[0]).name %>"><%= Event.find(id_and_frequency[0]).name %></a>
+          </td>
+          <td>
+              <%= id_and_frequency[1] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>

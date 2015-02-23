@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'sinatra', require: 'sinatra/base'
+gem 'sinatra', require: 'sinatra/base', git: 'https://github.com/sinatra/sinatra.git'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
+gem 'useragent'
 
 group :development, :test do
   gem 'shotgun'
@@ -12,6 +13,9 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
+  gem 'database_cleaner'
+  gem 'pry'
+  gem 'byebug'
 end
 
 group :evaluations do
