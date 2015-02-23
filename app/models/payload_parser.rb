@@ -1,6 +1,9 @@
+require 'json'
+
 class PayloadParser < ActiveRecord::Base
 
   def self.parse(user, payload)
+    payload = JSON.parse(payload)
     user_payload = user.payloads.create({
       :requestedAt      => payload["requestedAt"],
       :respondedIn      => payload["respondedIn"],
