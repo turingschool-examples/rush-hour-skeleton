@@ -3,7 +3,7 @@ require './test/test_helper'
 class UserViewsApplicationDetailsTest < FeatureTest
 
   def setup
-    populate
+    #populate
   end
 
   def test_the_page_displays_the_correct_user
@@ -47,10 +47,11 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_page_displays_longest_average_response_time_per_URL_to_shortest_average_response_time_per_URL
-    skip
+    DatabaseCleaner.clean
+    populate
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    assert page.has_content?('37, http://jumpstartlab.com')
+    assert page.has_content?('37')
   end
 
   def test_page_displays_hyperlinks_of_each_url_to_view_url_specific_data
