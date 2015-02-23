@@ -1,12 +1,25 @@
+
 <nav><%= partial 'partials/navigation' %></nav>
+
+<ul>Ranked URLs:
+  <% @urls.each do |url, count| %>
+    <li><a href="/"><%= url %></a>: <%= count %></li>
+  <% end %></ul>
 
 <ul>
   <% @payloads.each do |payload| %>
-    <li>URL Breakdown: <%= payload.url.address %></li>
     <li>Browser Breakdown: <%= payload.payload_user_agent.browser %></li>
     <li>OS Breakdown: <%= payload.payload_user_agent.os %></li>
     <li>Screen Resolution Height: <%= payload.resolution.resolution_height %></li>
     <li>Screen Resolution Width: <%= payload.resolution.resolution_width %></li>
     <li>Response Time: <%= payload.responded_in %></li><br>
-  <% end %>
+  <% end %></li>
 </ul>
+
+
+<p>Views</p>
+<% @relative_paths.each do |relative_path| %>
+  <a href="/sources/<%= @identifier %>/urls/<%= relative_path %>"><%= relative_path.capitalize %></a><br>
+<% end %>
+<p>Events</p>
+<a href="/sources/<%= @identifier %>/events">Event Index</a>

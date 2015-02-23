@@ -43,4 +43,15 @@ class Url < ActiveRecord::Base
     [browsers.max, oss.max]
   end
 
+  def self.most_to_least_requested
+    all.inject(Hash.new(0)) {|sum,url| sum[url.address]+=1; sum }.sort_by { |key, val| -val }.to_h
+  end
+
+  private
+
+  def self.response_times(address)
+    url = Url.find_by(address: address)
+    times = url.payloads.map { |payload| payload.responded_in }
+    times.sort
+  end
 end
