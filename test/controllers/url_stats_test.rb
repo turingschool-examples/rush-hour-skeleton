@@ -38,8 +38,8 @@ class UrlStatsTest < MiniTest::Test
     assert_equal "http://jumpstartlab.com/blog", url
   end
 
-  def test_when_the__url_does_not_exist_return_error
-    register_app
+  def test_when_the_url_does_not_exist_return_error
+    data_setup
     get "/sources/jumpstartlab/urls/kyra"
     assert_equal 404, last_response.status
   end

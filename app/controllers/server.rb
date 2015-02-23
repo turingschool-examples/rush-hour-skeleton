@@ -26,6 +26,7 @@ module TrafficSpy
         @user_agents    = PayloadUserAgent.all
         @resolutions    = Resolution.all
         @response_times = Payload.response_times
+        @identifier     = identifier
         erb :app_details
       else
         erb :unregistered_user
@@ -36,6 +37,8 @@ module TrafficSpy
       @source = Source.find_by!(identifier: params[:identifier])
       events_by_source = @source.payloads.map {|payload| payload.event }
       @events = events_by_source.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}
+      @relative_paths = Payload.relative_url_paths
+      @identifier = params[:identifier]
       erb :event_index
     end
 
@@ -58,6 +61,8 @@ module TrafficSpy
         @http_verbs        = Url.http_verbs(@created_address)
         @pop_referrer      = Url.popular_referrer(@created_address)
         @pop_agent         = Url.popular_user_agent(@created_address)
+        @relative_paths    = Payload.relative_url_paths
+        @identifier        = params[:identifier]
         erb :url_statistics
       end
     end

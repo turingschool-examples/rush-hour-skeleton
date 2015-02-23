@@ -1,5 +1,6 @@
 <a href="/">Home</a>
 <% @relative_paths.each do |relative_path| %>
-  <a href="/sources/<%= @identifier %>/urls/<%= relative_path %>">URL Index</a>
+  <a href="/sources/<%= @identifier %>/urls/<%= relative_path %>">Specific URL</a>
 <% end %>
-<a href="/sources/<%= @identifier %>/events">Events</a>
+<a href="/sources/<%= @identifier %>/events">Events Index</a>
+<a href="/sources/<%= @identifier %>">App Details</a>

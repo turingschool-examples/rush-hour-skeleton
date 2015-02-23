@@ -1,7 +1,9 @@
+<%= partial 'partials/navigation' %>
+
 	<h2>Application Event Index for:</h2>
 
 	<h4>Received Events:</h4>
-	<h3>(sorted most to least)</h3> 
+	<h3>(sorted most to least)</h3>
 
 	<ol id="events">
 		<%@events.each do |(event, count)| %>
@@ -9,6 +11,3 @@
 		<% end %>
 
 	</ol>
-
-
-
