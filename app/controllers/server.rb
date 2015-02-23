@@ -50,15 +50,7 @@ module TrafficSpy
 
     get "/sources/:identifier/urls/*" do
       if Source.exists?(identifier: params[:identifier])
-        root_url = Source.find_by(identifier: params[:identifier]).root_url
-        @created_address = Url.create_url(root_url, params[:splat].join("/"))
-        if !Url.exists?(address: @created_address)
-          erb :url_error
-          status 404
-        else
-          url_stats
-          erb :url_statistics
-        end
+        validate_url
       else
         erb :unregistered_user
       end
@@ -69,6 +61,25 @@ module TrafficSpy
     end
 
   private
+
+    def root_url
+      Source.find_by(identifier: params[:identifier]).root_url
+    end
+
+    def address
+      Url.create_url(root_url, params[:splat].join("/"))
+    end
+
+    def validate_url
+      @created_address = address
+      if !Url.exists?(address: address)
+        erb :url_error
+        status 404
+      else
+        url_stats
+        erb :url_statistics
+      end
+    end
 
     def url_stats
       @longest_response  = Url.longest_response(@created_address)
