@@ -14,7 +14,7 @@ class EventIndexTest < FeatureTest
   def test_user_sees_events_page_greeting
     Source.create(:identifier => "jumpstartlab",
                    :root_url => "jump.com")
-    payload_generator        
+    payload_generator
 
     visit "/sources/jumpstartlab/events"
     assert page.has_content?("Received Events")
@@ -55,10 +55,9 @@ class EventIndexTest < FeatureTest
     end
 
     visit "/sources/jumpstartlab/events"
-    save_and_open_page
-    expected_event_names = ['addedSocialThroughPromptB, 4',
-                            'startedRegistration, 3',
-                            'addedSocialThroughPromptA, 2']
+    expected_event_names = ['addedSocialThroughPromptB',
+                            'startedRegistration,'
+                            'addedSocialThroughPromptA']
 
 
     actual_event_names = page.all("#events li").map {|link| link.text }
