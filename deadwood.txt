@@ -1,0 +1,32 @@
+	<% @source.payloads.each do |payload| %>
+		<h4>
+		<%= link_to payload.event.name, payload.event %>
+
+
+	How to find the	sources
+
+Sources
+id   identifier:    root_url
+1    yahoo         http://yahoo.com
+2    google        http://google.com
+
+
+/sources/yahoo/events
+identifier = yahoo   params[identifier]
+
+
+Source.where(identifier: params[:identifier]).first
+source = Source.find_by(identifier: params[:identifier])
+
+Payload.where(source_id: source.id)
+
+source.payloads.map {|payload| Event.find(payload.event_id) }
+source.payloads.map {|payload| payload.event } #these lines are equivalent
+
+
+
+words.inject(Hash.new(0)) {|sum,word| sum[word]+=1; sum }.sort_by {|k,v| -v}.to_h
+
+
+
+
