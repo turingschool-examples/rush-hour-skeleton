@@ -33,19 +33,33 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:identifier/events' do
-      @source = Source.find_by!(identifier: params[:identifier])
-      events_by_source = @source.payloads.map {|payload| payload.event }
-      @events = events_by_source.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}
-      @relative_paths = Payload.relative_url_paths
-      @identifier = params[:identifier]
-      erb :event_index
+    get '/sources/:identifier/events' do |identifier|
+      @source = Source.find_by(identifier: identifier)
+
+      if @source and !@source.payloads.empty?
+        @events_by_source = @source.payloads.map {|payload| payload.event }
+        @events = @events_by_source.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}
+        erb :event_index
+      else
+        erb :event_index_error
+      end
     end
 
-    get "/sources/:indentifier/events/:EVENTNAME" do
-      #add sad path page if event is not defined
-      #link back to events index page
-      erb :event_details
+    get '/sources/:indentifier/events/:EVENTNAME' do |identifier, event_name|
+      @source = Source.find_by(identifier: identifier)
+
+      if Event.exists?(name: event_name)
+        @all_events = @source.payloads.map {|payload| payload.event }
+        @event_name = event_name
+        @event = @all_events.find {|event| event_name == event.name }
+        # require 'pry';binding.pry
+        @event_count = @event.payloads.count
+        @hours_breakdown = @event.hour_by_hour_breakdown
+
+        erb :event_details
+      else
+        erb :event_details_error
+      end
     end
 
     get "/sources/:identifier/urls/*" do

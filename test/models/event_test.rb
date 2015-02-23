@@ -81,43 +81,5 @@ class EventTest < MiniTest::Test
     assert_equal events_by_total,  event.most_to_least_received_events
   end
 
-  def test_it_can_return_the_total_number_of_events
-    skip
-    source = Source.create!(:identifier => "jumpstartlab",
-                            :root_url => "jump.com")
-    events = []
-
-    events << Event.create( :name => "startedRegistration" )
-    events << Event.create( :name => "addedSocialThroughPromptA" )
-    events << Event.create( :name => "addedSocialThroughPromptB" )
-
-    3.times do
-      Payload.create!(  :source_id => source.id, :url_id => 1,
-                      :requested_at => DateTime.new, :responded_in => 1,
-                      :request_type_id => 1, :event_id => events[0].id,
-                      :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
-                      :reference_id =>1)
-    end
-
-    2.times do
-      Payload.create!(  :source_id => source.id, :url_id => 1,
-                      :requested_at => DateTime.new, :responded_in => 1,
-                      :request_type_id => 1, :event_id => events[1].id,
-                      :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
-                      :reference_id =>1)
-    end
-
-    4.times do
-      Payload.create!(  :source_id => source.id, :url_id => 1,
-                      :requested_at => DateTime.new, :responded_in => 1,
-                      :request_type_id => 1, :event_id => events[2].id,
-                      :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
-                      :reference_id =>1)
-    end
-
-    events_by_total = { "addedSocialThroughPromptA" => 2,
-                        "startedRegistration" => 3,
-                        "addedSocialThroughPromptB" => 4}
-    assert_equal 9,  events.count
-  end
+  
 end
