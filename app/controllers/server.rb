@@ -73,8 +73,8 @@ module TrafficSpy
     def validate_url
       @created_address = address
       if !Url.exists?(address: address)
+        status 400
         erb :url_error
-        status 404
       else
         url_stats
         erb :url_statistics

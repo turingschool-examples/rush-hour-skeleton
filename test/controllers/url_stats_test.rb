@@ -41,7 +41,7 @@ class UrlStatsTest < MiniTest::Test
   def test_when_the_url_does_not_exist_return_error
     data_setup
     get "/sources/jumpstartlab/urls/kyra"
-    assert_equal 404, last_response.status
+    assert_equal 400, last_response.status
   end
 
   def test_can_find_response_times
