@@ -13,17 +13,15 @@ class Url < ActiveRecord::Base
   end
 
   def self.longest_response(address)
-    @address = address
-    self.response_times(address).last
+    Url.find_by(address: address).payloads.maximum(:responded_in)
   end
 
   def self.shortest_response(address)
-    self.response_times(address).first
+    Url.find_by(address: address).payloads.minimum(:responded_in)
   end
 
   def self.average_response(address)
-    times = self.response_times(address)
-    times.reduce(:+) / times.length
+    Url.find_by(address: address).payloads.average(:responded_in).to_i
   end
 
   def self.http_verbs(address)
@@ -45,11 +43,4 @@ class Url < ActiveRecord::Base
     [browsers.max, oss.max]
   end
 
-  private
-
-  def self.response_times(address)
-    url = Url.find_by(address: address)
-    times = url.payloads.map { |payload| payload.responded_in }
-    times.sort
-  end
 end
