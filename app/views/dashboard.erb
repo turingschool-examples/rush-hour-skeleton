@@ -1,33 +1,98 @@
 
 <h1>Traffic Spyer Dashboard</h1>
 
-<h3>Hello, <%= @user.identifier %>!
+<h3>Hello, <%= @user.identifier.capitalize %>!
 
 <div id="urls">
+  <h4> URLs - most to least requested</h4>
 
-<h3> URLs - most to least requested</h3>
-
-  <ol>
-    <% @user.ordered_urls.each do |url| %>
-    <li><%= url %></li>
-    <% end %>
-  </ol>
-
+    <ol>
+      <% @user.ordered_urls.each do |url| %>
+      <li><%= url.split(',')[0] %></li>
+      <% end %>
+    </ol>
 </div>
 
-<h3> Web Browsers - breakdown across all requests (userAgent)</h3>
+<h3> Web Browsers - breakdown across all requests (most used to least used)</h3>
+  <table>
+    <tr>
+      <th>Browser</th>
+      <th>Number of Requests</th>
+    </tr>
+    <tr>
+      <% @user.browsers.each do |browser| %>
+      <% browser = browser.split(',') %>
 
+      <!-- displays browser -->
+      <td><%= browser[0] %> </td>
+
+      <!-- displays number of requests -->
+      <td><%= browser[1] %></td>
+
+      <% end %>
+    </tr>
+  </table>
 
 
 <h3> OS Breakdown - across all requests (userAgent)</h3>
+  <table>
+    <tr>
+      <th>Operating System</th>
+      <th>Number of Requests</th>
+    </tr>
+    <tr>
+      <% @user.operating_system.each do |os| %>
+      <% os = os.split(',') %>
 
+      <!-- displays browser -->
+      <td><%= os[0] %></td>
+
+      <!-- displays number of requests -->
+      <td><%= os[1] %></td>
+
+      <% end %>
+    </tr>
+  </table>
 
 <h3> Screen Resolutions - across all requests (resolutionWidth x resolutionHeight)</h3>
+  <table>
+    <tr>
+      <th>Screen Resolution</th>
+      <th>Number of Requests</th>
+    </tr>
+    <tr>
+      <% @user.screen_res.each do |res| %>
+      <% res = res.split(',') %>
 
+      <!-- displays browser -->
+      <td><%= res[0] %></td>
+
+      <!-- displays number of requests -->
+      <td><%= res[1] %></td>
+
+      <% end %>
+    </tr>
+  </table>
 
 <h3> URL Average Response Time - longest to shortest</h3>
+  <table>
+    <tr>
+      <th>URL</th>
+      <th>Average Response Time</th>
+    </tr>
+    <tr>
+      <% @user.response_times.each do |time| %>
+      <% #res = res.split(',') %>
 
+      <!-- displays browser -->
+      <td><%= time %></td>
 
+      <!-- displays number of requests -->
+      <td><%= time %></td>
+
+      <% end %>
+
+</tr>
 <h3> URL-Specific Data - hyperlinks of each url to view url specific data</h3>
 
 
