@@ -2,4 +2,110 @@
 
  <h2> For <%= @event_name %> </h2>
 
- <h3> Occurences: <%= @event_occurences %> </h3>
+  <h3> Occurrences: <%= @event_occurences %> </h3>
+
+  <p>Below is an hour-by-hour breakdown of events</p>
+  <table id="event_table">
+    <thead>
+      <tr>
+        <th>Time of Day</th>
+        <th>Number of Events</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>Midnight</td>
+      <td><%=@event_time["12AM"].nil? ? 0 : @event_time["12AM"].count%></td>
+    </tr>
+    <tr>
+      <td>1 AM</td>
+      <td><%=@event_time["01AM"].nil? ? 0 : @event_time["01AM"].count%></td>
+    </tr>
+    <tr>
+      <td>2 AM</td>
+      <td><%=@event_time["02AM"].nil? ? 0 : @event_time["02AM"].count%></td>
+    </tr>
+    <tr>
+      <td>3 AM</td>
+      <td><%=@event_time["03AM"].nil? ? 0 : @event_time["03AM"].count%></td>
+    </tr>
+    <tr>
+      <td>4 AM</td>
+      <td><%=@event_time["04AM"].nil? ? 0 : @event_time["04AM"].count%></td>
+    </tr>
+    <tr>
+      <td>5 AM</td>
+      <td><%=@event_time["05AM"].nil? ? 0 : @event_time["05AM"].count%></td>
+    </tr>
+    <tr>
+      <td>6 AM</td>
+      <td><%=@event_time["06AM"].nil? ? 0 : @event_time["06AM"].count%></td>
+    </tr>
+    <tr>
+      <td>7 AM</td>
+      <td><%=@event_time["07AM"].nil? ? 0 : @event_time["07AM"].count%></td>
+    </tr>
+    <tr>
+      <td>8 AM</td>
+      <td><%=@event_time["08AM"].nil? ? 0 : @event_time["08AM"].count%></td>
+    </tr>
+    <tr>
+      <td>9 AM</td>
+      <td><%=@event_time["09AM"].nil? ? 0 : @event_time["09AM"].count%></td>
+    </tr>
+    <tr>
+      <td>10 AM</td>
+      <td><%=@event_time["10AM"].nil? ? 0 : @event_time["10AM"].count%></td>
+    </tr>
+    <tr>
+      <td>11 AM</td>
+      <td><%=@event_time["11AM"].nil? ? 0 : @event_time["11AM"].count%></td>
+    </tr>
+      <tr>
+        <td>Noon</td>
+        <td><%= @event_time["12:00PM"].nil? ? 0 : @event_time["12:00PM"].count %></td>
+      </tr>
+      <tr>
+        <td>1 PM</td>
+        <td><%= @event_time["01:00PM"].nil? ? 0 : @event_time["01:00PM"].count %></td>
+      </tr>
+      <tr>
+        <td>2 PM</td>
+        <td><%=@event_time["02PM"].nil? ? 0 : @event_time["02PM"].count%></td>
+      </tr>
+      <tr>
+        <td>3 PM</td>
+        <td><%=@event_time["03PM"].nil? ? 0 : @event_time["03PM"].count%></td>
+      </tr>
+      <tr>
+        <td>4 PM</td>
+        <td><%=@event_time["04PM"].nil? ? 0 : @event_time["04PM"].count%></td>
+      </tr>
+      <tr>
+        <td>5 PM</td>
+        <td><%=@event_time["05PM"].nil? ? 0 : @event_time["05PM"].count%></td>
+      </tr>
+      <tr>
+        <td>6 PM</td>
+        <td><%=@event_time["06PM"].nil? ? 0 : @event_time["06PM"].count%></td>
+      </tr>
+      <tr>
+        <td>7 PM</td>
+        <td><%=@event_time["07PM"].nil? ? 0 : @event_time["07PM"].count%></td>
+      </tr>
+      <tr>
+        <td>8 PM</td>
+        <td><%=@event_time["08PM"].nil? ? 0 : @event_time["08PM"].count%></td>
+      </tr>
+      <tr>
+        <td>9 PM</td>
+        <td><%=@event_time["09PM"].nil? ? 0 : @event_time["09PM"].count %></td>
+      </tr>
+      <tr>
+        <td>10 PM</td>
+        <td><%=@event_time["10PM"].nil? ? 0 : @event_time["10PM"].count%></td>
+      </tr>
+      <tr>
+        <td>11 PM</td>
+        <td><%=@event_time["11PM"].nil? ? 0 : @event_time["11PM"].count%></td>
+      </tr>
+  </table>

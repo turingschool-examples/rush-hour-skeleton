@@ -16,12 +16,6 @@ module TrafficSpy
       visit('/sources/yahoo/events')
     end
 
-    # http://yourapplication:port/sources/jumpstartlab/events/startedRegistration
-    # http://yourapplication:port/sources/jumpstartlab/events/addedSocialThroughPromptA
-    # http://yourapplication:port/sources/jumpstartlab/events/addedSocialThroughPromptB
-    #
-    # When I identify an event
-    # I will see an hour by hour breakdown of when the event was received.
     def test_it_can_view_a_details_page
       click_link_or_button("beginRegistration")
       assert "sources/yahoo/events/beginRegistration", current_path
@@ -29,20 +23,15 @@ module TrafficSpy
     end
 
     def test_sees_hour_by_hour_breakdown
-      skip
+      click_link_or_button("beginRegistration")
+      assert "sources/yahoo/events/beginRegistration", current_path
+      assert page.has_content?("Occurrences:")
     end
 
-    # I can see how many were shown at noon
-    # I can see how many were shown at 1pm, 2pm etc.
-    # I can do it for all 24 hours.
-    # I will be able to see how many times it was received overall
-    #
-    # When the event has not been defined:
-    #
-    # Message that no event with the given name has been defined
-    # Hyperlink to the Application Events Index
-
-
+    def test_we_get_to_error_message_when_no_proper_name
+      visit "/sources/yahoo/events/carts"
+      assert page.has_content?("No event with the given name has been defined. Try a different one.")
+    end
 
     def setup_yahoo
       @payload_1 = 'payload={"url":"http://yahoo.com/weather","requestedAt":"2013-01-13 21:38:28 -0700","respondedIn":37,"referredBy":"http://apple.com","requestType":"GET","parameters":["what","huh"],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"800","resolutionHeight":"600","ip":"63.29.38.214"}'

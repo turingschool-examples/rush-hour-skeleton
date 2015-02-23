@@ -56,10 +56,14 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events/:event_name' do
-      visitors = Identifier.find_by(name: params[:identifier])
+      @visitor = Identifier.find_by(name: params[:identifier])
+      unless @visitor.payloads.to_a.map(&:event).uniq.map(&:name).include?(params[:event_name])
+        return erb(:no_events_error)
+      end
       events_overview = Event.find_by(name: params[:event_name])
-      @event_name = events_overview.name
-      @event_occurences = events_overview.payloads.count
+      @event_name = params[:event_name]
+      @event_occurences = events_overview.payloads.where(identifier_id: @visitor.id).count
+      @event_time = events_overview.payloads.where(identifier_id: @visitor.id).group_by {|hour| Time.parse(hour.requested_at).strftime("%I%p")}
       erb :event_details
     end
 
