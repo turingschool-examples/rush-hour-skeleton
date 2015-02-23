@@ -16,6 +16,8 @@ require 'useragent'
 DatabaseCleaner.strategy = :transaction
 
 class MiniTest::Test
+  include Capybara::DSL
+
   def setup
     DatabaseCleaner.start
   end
