@@ -1,14 +1,10 @@
-	<h2>Application Event Index for:</h2>
+<h2>Application Event Index for:</h2>
 
-	<h4>Received Events:</h4>
-	<h3>(sorted most to least)</h3> 
+<h4>Received Events:</h4>
+<h3>(sorted most to least)</h3>
 
-	<ol id="events">
-		<%@events.each do |(event, count)| %>
-		<li> <a href="/sources/<%= @source.identifier%>/events"><%=event.name%></a></li>
-		<% end %>
-
-	</ol>
-
-
-
+<ol id="events">
+  <%@events.each do |event, count| %>
+    <li><a href="/sources/<%= @source.identifier%>/events"><%=event.name%></a></li>
+  <% end %>
+</ol>

@@ -20,8 +20,12 @@ class Payload < ActiveRecord::Base
     errors.full_messages.join ", "
   end
 
+  def self.ranked_urls_hash
+    all.map { |payload| payload.url }.inject(Hash.new(0)) {|sum,url| sum[url.address]+=1; sum }.sort_by { |key, val| -val }.to_h
+  end
+
   def self.relative_url_paths
-    all.map { |payload| payload.url.relative_path(payload.url.address) }
+    all.map { |payload| payload.url.relative_path(payload.url.address) }.uniq
   end
 
   def self.response_times
