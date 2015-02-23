@@ -21,7 +21,7 @@ class UrlTest < Minitest::Test
     Url.create({ :page => "http://jumpstartlab.com/about" })
     Url.create({ :page => "http://jumpstartlab.com/tutorials" })
     Url.create({ :page => "http://jumpstartlab.com/blog" })
-    assert_equal 3, Url.count
+    assert_equal 4, Url.count
   end
 
 end
