@@ -1,25 +1,3 @@
-body{
-	background-color:#f4a01a;
-	color:#03264e;
-	font-family:sans-serif;
-	text-align:center;
-	}
-#welcome{
-	padding:50px;
-}
 
-	#events-details-hour {
-	font-style: bold;
-  font-family: fantasy;
-  font-size: 20pt;
-}
 
-#events-details-overall {
-	font-style: bold;
-  font-family: fantasy;
-  font-size: 20pt;
-}
-
-#events {
-	font-size: 12 pt;
-}
+/*# sourceMappingURL=style.css.map */
