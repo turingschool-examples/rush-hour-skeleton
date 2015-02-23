@@ -14,7 +14,9 @@ module SamplePayloads
            "resolutionHeight" => "1280",
            "ip"               => "63.29.38.211"
            })
-    payload2 = User.find(1).payloads.create({
+url1 = Payload.find(1).urls.create({:page => 'http://jumpstartlab.com/turds' })
+
+  payload2 = User.find(1).payloads.create({
            "requestedAt"      => "2013-02-16 21:38:28 -0700",
            "respondedIn"      => 45,
            "referredBy"       => "http://google.com",
@@ -25,6 +27,7 @@ module SamplePayloads
            "resolutionHeight" => "1300",
            "ip"               => "63.29.38.211"
            })
+url2 = Payload.find(2).urls.create({:page => 'http://jumpstartlab.com/blog' })
 
 
     payload3 = User.find(1).payloads.create({
@@ -38,6 +41,8 @@ module SamplePayloads
            "resolutionHeight" => "1300",
            "ip"               => "63.22.38.128"
            })
+url3 = Payload.find(3).urls.create({:page => 'http://jumpstartlab.com/blog' })
+
 
     payload4 = User.find(1).payloads.create({
            "requestedAt"      => "2013-02-16 21:38:28 -0700",
@@ -50,5 +55,7 @@ module SamplePayloads
            "resolutionHeight" => "1900",
            "ip"               => "61.99.18.911"
            })
+  url4 = Payload.find(4).urls.create({:page => 'http://jumpstartlab.com/moose' })
+
   end
 end

@@ -27,11 +27,11 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_the_page_displays_the_most_requested_URLS_to_least_requested_URLS
-    skip
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
     within('#urls') do
       assert page.has_content?('http://jumpstartlab.com/blog')
+      assert_equal 'http://jumpstartlab.com/blog', page.first('li').text
     end
   end
 
