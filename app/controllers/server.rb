@@ -41,8 +41,9 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
-      @user = link_user_to_identifier(identifier)
-      payload_dissemination(@user, params[:payload])
+      @user = User.find_by_identifier(identifier)
+      PayloadParser.parse(@user, params[:payload])
+      #payload_dissemination(@user, params[:payload])
       status 200
       body 'success'
     end
