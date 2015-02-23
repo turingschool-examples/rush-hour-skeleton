@@ -1,0 +1,14 @@
+<nav><%= partial 'partials/navigation' %></nav>
+
+<h2>Application Event Details for:<%=@event_name%></h2>
+
+	<h4>Number of times the event was received overall:<%=@event_count%></h4>
+
+
+	<h4>Hour by Hour Breakdown of when the event was received:</h4>
+
+	<%=@hours_breakdown%>
+
+<a href="/sources/<%= @source.identifier %>/events">Return to: Event Index</a>
+
+</div>
