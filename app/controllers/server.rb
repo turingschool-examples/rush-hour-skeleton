@@ -39,6 +39,8 @@ module TrafficSpy
       if @source and !@source.payloads.empty?
         @events_by_source = @source.payloads.map {|payload| payload.event }
         @events = @events_by_source.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}
+        @relative_paths = Payload.relative_url_paths
+        @identifier = identifier
         erb :event_index
       else
         erb :event_index_error
@@ -55,6 +57,7 @@ module TrafficSpy
         # require 'pry';binding.pry
         @event_count = @event.payloads.count
         @hours_breakdown = @event.hour_by_hour_breakdown
+        @relative_paths = Payload.relative_url_paths
 
         erb :event_details
       else

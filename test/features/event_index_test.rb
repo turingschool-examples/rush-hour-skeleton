@@ -23,7 +23,7 @@ class EventIndexTest < FeatureTest
   def test_user_sees_index_and_links_to_details
     source = Source.create!(:identifier => "jumpstartlab",
                             :root_url => "jump.com")
-
+    payload_generator
     events = []
 
     events << Event.create( :name => "startedRegistration" )
@@ -31,38 +31,38 @@ class EventIndexTest < FeatureTest
     events << Event.create( :name => "addedSocialThroughPromptB" )
 
     3.times do
-                Payload.create!(  :source_id => source.id, :url_id => 1,
-                                  :requested_at => DateTime.new, :responded_in => 1,
-                                  :request_type_id => 1, :event_id => events[0].id,
-                                  :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
-                                  :reference_id =>1)
+      Payload.create!(:source_id => source.id, :url_id => 1,
+                      :requested_at => DateTime.new, :responded_in => 1,
+                      :request_type_id => 1, :event_id => events[0].id,
+                      :payload_user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
+                      :reference_id =>1,
+                      :digest => "abcdefg12345677")
     end
 
     2.times do
-                Payload.create!(  :source_id => source.id, :url_id => 1,
-                                  :requested_at => DateTime.new, :responded_in => 1,
-                                  :request_type_id => 1, :event_id => events[1].id,
-                                  :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
-                                  :reference_id =>1)
+      Payload.create!(:source_id => source.id, :url_id => 1,
+                      :requested_at => DateTime.new, :responded_in => 1,
+                      :request_type_id => 1, :event_id => events[1].id,
+                      :payload_user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
+                      :reference_id =>1,
+                      :digest => "abcdefg12345677")
     end
 
     4.times do
-                Payload.create!(  :source_id => source.id, :url_id => 1,
-                                  :requested_at => DateTime.new, :responded_in => 1,
-                                  :request_type_id => 1, :event_id => events[2].id,
-                                  :user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
-                                  :reference_id =>1)
+      Payload.create!(:source_id => source.id, :url_id => 1,
+                      :requested_at => DateTime.new, :responded_in => 1,
+                      :request_type_id => 1, :event_id => events[2].id,
+                      :payload_user_agent_id => 1, :resolution_id => 1, :ip_id => 1,
+                      :reference_id =>1,
+                      :digest => "abcdefg12345677")
     end
 
     visit "/sources/jumpstartlab/events"
     expected_event_names = ['addedSocialThroughPromptB',
-                            'startedRegistration,'
-                            'addedSocialThroughPromptA']
-
+                            'startedRegistration',
+                            'addedSocialThroughPromptA', 'socialLogin']
 
     actual_event_names = page.all("#events li").map {|link| link.text }
     assert_equal expected_event_names, actual_event_names
-
   end
-
 end
