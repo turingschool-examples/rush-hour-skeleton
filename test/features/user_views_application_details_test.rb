@@ -1,26 +1,19 @@
 require './test/test_helper'
 
 class UserViewsApplicationDetailsTest < FeatureTest
-  # this isn't working, but something like it
-  # gives a wrong number of arguments 1 for 0 error
+
   def setup
     populate
   end
-  #   binding.pry
-  #   run './test/fixtures/sample_payloads.rb'
 
   def test_the_page_displays_the_correct_user
-    skip
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    # assertion below this retuns true for has_content?("Error")
-    # fix source
     refute page.has_content?("Error")
     assert page.has_content?('jumpstartlab')
   end
 
   def test_page_displays_error_message_when_identifier_does_not_exist
-    skip
     visit 'http://localhost:9393/sources/bad_identifier'
     assert_equal '/sources/bad_identifier', current_path
     assert page.has_content?('Error Page')
@@ -36,39 +29,28 @@ class UserViewsApplicationDetailsTest < FeatureTest
   end
 
   def test_the_page_displays_web_browser_breakdown_across_all_requests
-    skip
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    within('#browser-breakdown') do
-      assert page.has_content?('Chrome')
-    end
+    assert page.has_content?('Chrome')
   end
 
   def test_page_displays_an_OS_breakdown_across_all_requests
-    skip
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    within('#OS-breakdown') do
-      assert page.has_content?('Macintosh')
-    end
+    assert page.has_content?('Macintosh')
   end
 
   def test_page_displays_screen_resolutions_across_all_requests
-    skip
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    within('#screen-resolutions') do
-      assert page.has_content?('1920 x 1080')
-    end
+    assert page.has_content?('1920 x 1280')
   end
 
   def test_page_displays_longest_average_response_time_per_URL_to_shortest_average_response_time_per_URL
     skip
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    within('#response-times') do
-      assert page.has_content?('37, http://jumpstartlab.com')
-    end
+    assert page.has_content?('37, http://jumpstartlab.com')
   end
 
   def test_page_displays_hyperlinks_of_each_url_to_view_url_specific_data

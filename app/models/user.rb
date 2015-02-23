@@ -13,22 +13,38 @@ class User < ActiveRecord::Base
     order_by_instances(urls)
   end
 
-  def order_by_instances(urls)
-    urls.each_with_object(Hash.new(0)) { |urls,counts| counts[urls] += 1 }.sort_by{ |_k,v| v }.reverse.collect(&:first)
+  def order_by_instances(items)
+    items.each_with_object(Hash.new(0)) { |items,counts| counts[items] += 1 }.sort_by{ |k,v| v }.reverse.map {|x| "#{x[0]}, #{x[1]}"}
   end
 
 
   def browsers
-    # This method will return an array of arrays with 3 elements in each array: 1) the browser, 2) the number of requests received from this browser, and 3) percentage of total requests received from this browser.
-
-
+    # This method will return an array of arrays with 2 elements in each array: 1) the browser, 2) the number of requests received from this browser
+    browsers = self.payloads.collect(&:userAgent).map{|x| UserAgent.parse(x).browser}
+    order_by_instances(browsers)
   end
 
   def operating_system
-    # This method will return an array of arrays with 3 elements in each array: 1) the operating system, 2) the number of requests received from this operating system, and 3) percentage of total requests received from this operating system.
-
+    oses = self.payloads.collect(&:userAgent).map{|x| UserAgent.parse(x).platform}
+    order_by_instances(oses)
   end
 
+  def screen_res
+    res = self.payloads.map{|x| "#{x.resolutionWidth} x #{x.resolutionHeight}"}
+    order_by_instances(res)
+  end
 
+  def response_times
+  # urls_and_times = self.payloads.map {|x| "#{x.urls.first.page},#{x.respondedIn}"}
+  # urls_pointing_to_times = urls_and_times.group_by {|(url, time)| url}
+  # urls_pointing_to_times.map { |x| "#{x.key}, #{x.values.sum/x.count}"}
+
+  # example from stackoverflow to model after(?):
+  #fruits.group_by {|(fruit, day)| fruit }.map {|fruit, match| [fruit, match.count] }
+
+  # unfinished method approach:
+  # self.payloads.map{|x| x.urls.first.page, x.respondedIn}.sort_by
+
+  end
 
 end
