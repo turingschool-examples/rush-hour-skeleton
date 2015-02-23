@@ -35,9 +35,9 @@ class User < ActiveRecord::Base
   end
 
   def response_times
-  urls_and_times = self.payloads.map {|x| "#{x.urls.first.page},#{x.respondedIn}"}
-  urls_pointing_to_times = urls_and_times.group_by {|(url, time)| url}
-  urls_pointing_to_times.map { |x| "#{x.key}, #{x.values.sum/x.count}"}
+  # urls_and_times = self.payloads.map {|x| "#{x.urls.first.page},#{x.respondedIn}"}
+  # urls_pointing_to_times = urls_and_times.group_by {|(url, time)| url}
+  # urls_pointing_to_times.map { |x| "#{x.key}, #{x.values.sum/x.count}"}
 
   # example from stackoverflow to model after(?):
   #fruits.group_by {|(fruit, day)| fruit }.map {|fruit, match| [fruit, match.count] }
