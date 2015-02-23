@@ -47,14 +47,20 @@ module TrafficSpy
 
     get '/sources/:indentifier/events/:EVENTNAME' do |identifier, event_name|
       @source = Source.find_by(identifier: identifier)
-      @all_events = @source.payloads.map {|payload| payload.event }
-      @event = @all_events.find {|event| event_name == event.name }
-      @event_count = @event.payloads.count
-      @hours_breakdown = @event.hour_by_hour_breakdown
+      
+      if Event.exists?(name: event_name)
+        @all_events = @source.payloads.map {|payload| payload.event }
+        @event_name = event_name
+        @event = @all_events.find {|event| event_name == event.name }
+        # require 'pry';binding.pry
+        @event_count = @event.payloads.count
+        @hours_breakdown = @event.hour_by_hour_breakdown
        
          # hour_by_hour_breakdown.each {|k,v| p "#{k}:#{v}"}
         erb :event_details
-      
+      else
+        erb :event_details_error
+      end
     end
 
     get "/sources/:identifier/urls/*" do
