@@ -2,10 +2,11 @@ module SamplePayloads
 
   def payload_dissemination(user, params)
     payload = user.payloads.create()
+    binding.pry
     payload.events.create({eventName: params["eventName"]})
-    payload.requestedats.create({requestedAt: params["requestedAt"]})
-    payload.respondedins.create({respondedIn: params["respondedIn"]})
-    payload.refferedbies.create({refferedBy: params["refferedBy"]})
+    payload.requestedAts.create({requestedAt: params["requestedAt"]})
+    payload.respondedIns.create({respondedIn: params["respondedIn"]})
+    payload.refferedBies.create({refferedBy: params["refferedBy"]})
     payload.resolutions.create({resolutionWidth: params["resolutionWidth"], resolutionHeight: params["resolutionHeigth"]})
     payload.ips.create({ip: params["ip"]})
   end
