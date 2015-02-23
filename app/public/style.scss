@@ -1,0 +1,39 @@
+@import "url_stats";
+$main-font:#03264e;
+
+body{
+  background-color:#f4a01a;
+  color:$main-font;
+  font-family:sans-serif;
+  text-align:center;
+  }
+#welcome{
+  padding:50px;
+}
+nav{
+  padding:30px;
+}
+a{
+  padding:15px;
+  text-decoration:none;
+  color:lighten($main-font, .5);
+
+  &:hover{
+    color:#015eaf;
+  }
+}
+  #events-details-hour {
+  font-style: bold;
+  font-family: fantasy;
+  font-size: 20pt;
+}
+
+#events-details-overall {
+  font-style: bold;
+  font-family: fantasy;
+  font-size: 20pt;
+}
+
+#events {
+  font-size: 12 pt;
+}
