@@ -1,17 +1,14 @@
 <h2>Application Event Details</h2>
 
-	<h4>How many times the event was received overall:</h4>
-	CODE HERE
+	<h4>Number of times the event was received overall:<%=@event_count%> times</h4>
 
 
 	<h4>Hour by Hour Breakdown of when the event was received:</h4>
+	
+	<%=@hours_breakdown%>
 
-	<ol id>
-		<%@events.each do |(event, count)| %>
-		<li> <a href="/sources/<%= @source.identifier%>/events/<%= event.name %>"><%=event.name%></a></li>
-		<% end %>
 
-	</ol>
 
 </div>
 
+		

@@ -10,7 +10,7 @@ class Event < ActiveRecord::Base
 	end
 
 	def hour_by_hour_breakdown
-		#hour_by_hour_breakdown.each {|k,v| p "#{k}:#{v}"}
+
 		hours_range = (0..23)
 		hours_range.each_with_object({}) do |hour, hash|
 			hash[hour] = requested_at_hour.select { |x| x == hour }

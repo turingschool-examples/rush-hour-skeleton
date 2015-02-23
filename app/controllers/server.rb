@@ -32,17 +32,29 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:identifier/events' do
-      @source = Source.find_by!(identifier: params[:identifier])
-      events_by_source = @source.payloads.map {|payload| payload.event }
-      @events = events_by_source.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}
-      erb :event_index
+    get '/sources/:identifier/events' do |identifier|
+      # need to check if :identifier has any events
+      @source = Source.find_by(identifier: identifier)
+
+      if @source and !@source.payloads.empty?
+        @events_by_source = @source.payloads.map {|payload| payload.event }
+        @events = @events_by_source.inject(Hash.new(0)) {|sum,event| sum[event]+=1; sum }.sort_by {|k,v| -v}
+        erb :event_index
+      else
+        erb :event_index_error 
+      end
     end
 
-    get '/sources/:indentifier/events/:EVENTNAME' do
-      #add sad path page if event is not defined
-      #link back to events index page
-      erb :event_details
+    get '/sources/:indentifier/events/:EVENTNAME' do |identifier, event_name|
+      @source = Source.find_by(identifier: identifier)
+      @all_events = @source.payloads.map {|payload| payload.event }
+      @event = @all_events.find {|event| event_name == event.name }
+      @event_count = @event.payloads.count
+      @hours_breakdown = @event.hour_by_hour_breakdown
+       
+         # hour_by_hour_breakdown.each {|k,v| p "#{k}:#{v}"}
+        erb :event_details
+      
     end
 
     get "/sources/:identifier/urls/*" do
