@@ -50,9 +50,7 @@ class UserViewsApplicationDetailsTest < FeatureTest
     skip
     visit 'http://localhost:9393/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
-    within('#response-times') do
-      assert page.has_content?('37, http://jumpstartlab.com')
-    end
+    assert page.has_content?('37, http://jumpstartlab.com')
   end
 
   def test_page_displays_hyperlinks_of_each_url_to_view_url_specific_data
