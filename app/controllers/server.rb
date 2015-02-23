@@ -49,26 +49,37 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/urls/*" do
-      root_url = Source.find_by(identifier: params[:identifier]).root_url
-      @created_address = Url.create_url(root_url, params[:splat].join("/"))
-      if !Url.exists?(address: @created_address)
-        erb :url_error
-        status 404
+      if Source.exists?(identifier: params[:identifier])
+        root_url = Source.find_by(identifier: params[:identifier]).root_url
+        @created_address = Url.create_url(root_url, params[:splat].join("/"))
+        if !Url.exists?(address: @created_address)
+          erb :url_error
+          status 404
+        else
+          url_stats
+          erb :url_statistics
+        end
       else
-        @longest_response  = Url.longest_response(@created_address)
-        @shortest_response = Url.shortest_response(@created_address)
-        @average_response  = Url.average_response(@created_address)
-        @http_verbs        = Url.http_verbs(@created_address)
-        @pop_referrer      = Url.popular_referrer(@created_address)
-        @pop_agent         = Url.popular_user_agent(@created_address)
-        @relative_paths    = Payload.relative_url_paths
-        @identifier        = params[:identifier]
-        erb :url_statistics
+        erb :unregistered_user
       end
     end
 
     not_found do
       erb :error
     end
+
+  private
+
+    def url_stats
+      @longest_response  = Url.longest_response(@created_address)
+      @shortest_response = Url.shortest_response(@created_address)
+      @average_response  = Url.average_response(@created_address)
+      @http_verbs        = Url.http_verbs(@created_address)
+      @pop_referrer      = Url.popular_referrer(@created_address)
+      @pop_agent         = Url.popular_user_agent(@created_address)
+      @relative_paths    = Payload.relative_url_paths
+      @identifier        = params[:identifier]
+    end
+
   end
 end
