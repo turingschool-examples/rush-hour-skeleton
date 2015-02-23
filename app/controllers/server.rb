@@ -46,18 +46,20 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-      erb :unique_urls
-    end
 
-    post '/sources/:identifier/urls/:path' do |identifier, path|
-      full_url = "#{identifier}" + "#{path}"
+      website = Identifier.find_by(name: params[:identifier]).root_url
+      full_url = "http://#{website}/#{path}"
 
-      if Url.exist?(full_url)
-        binding.pry
-        @longest_response_time = Url.longest_response_time(identifier, path)
+      if Url.exists?(address: full_url)
+        @longest_response_time = Url.longest_response_time(full_url)
+        @shortest_response_time = Url.shortest_response_time(full_url)
+        @average_response_time = Url.average_response_time(full_url)
       else
         return status(403), body("403 Forbidden - Application URL not registered")
       end
+
+      erb :unique_urls
+    end
 
     get '/sources/:identifier/events' do |identifier|
       unless Identifier.exists?(name: identifier)

@@ -71,5 +71,4 @@ class ApplicationDetailsTest < Minitest::Test
     post '/sources/yahoo/data', @payload_5
     post '/sources/yahoo/data', @payload_6
   end
->>>>>>> master
 end
