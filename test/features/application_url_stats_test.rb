@@ -49,22 +49,24 @@ class ApplicationUrlStatsTest < Minitest::Test
 
   def test_when_two_http_verbs_have_been_used
     visit '/sources/yahoo/urls/not_news'
-    save_and_open_page
     assert page.has_content?('GET')
     assert page.has_content?('POST')
   end
 
   def test_most_popular_referrers
-
+    visit '/sources/yahoo/urls/weather'
+    assert page.has_content?('jumpstart')
   end
 
-  def test_most_popular_user_agents
-
+  def test_most_popular_user_agent_browser
+    visit '/sources/yahoo/urls/weather'
+    save_and_open_page
+    assert page.has_content?('Chrome')
   end
-
-  # Which HTTP verbs have been used
-  # Most popular referrrers
-  # Most popular user agents
+  def test_most_popular_user_agent_platform
+    visit '/sources/yahoo/urls/weather'
+    assert page.has_content?('Windows')
+  end
 
   def setup_yahoo
     @payload_1 = 'payload={"url":"http://yahoo.com/weather","requestedAt":"2013-01-13 21:38:28 -0700","respondedIn":37,"referredBy":"http://apple.com","requestType":"GET","parameters":["what","huh"],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"800","resolutionHeight":"600","ip":"63.29.38.214"}'
