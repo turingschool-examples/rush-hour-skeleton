@@ -1,20 +1,20 @@
 <nav><%= partial "partials/navigation" %></nav>
-<h1>Statistics for url: <%= @created_address %><h1>
+<h1>Statistics for url: <%= @created_address %></h1>
 
 <article id="response">
-  <h1>Response Times</h1>
-  <table>
-    <tr>
-      <th>Longest</th>
-      <th>Shortest</th>
-      <th>Average</th>
-    </tr>
-    <tr>
-      <td><%= @longest_response %>
-      <td><%= @shortest_response %>
-      <td><%= @average_response %>
-    </tr>
-  </table>
+  <h3>Response Times</h3>
+    <table class="center-block">
+      <tr>
+        <th>Longest</th>
+        <th>Shortest</th>
+        <th>Average</th>
+      </tr>
+      <tr>
+        <td><%= @longest_response %>
+        <td><%= @shortest_response %>
+        <td><%= @average_response %>
+      </tr>
+    </table>
 </article>
 
 <article id="verbs">
@@ -31,11 +31,11 @@
 
 <article id="referrer">
   <h3>Most popular referrer</h3>
-    <p><%= @pop_referrer %></p>
+    <p class="little"><%= @pop_referrer %></p>
 </article>
 
 <article id="agents">
   <h3>Most popular user agents</h3>
-  <p>Browser: <%= @pop_agent.first %></p>
-  <p>Operating system: <%= @pop_agent.last %></p>
+  <p class="little">Browser: <%= @pop_agent.first %></p>
+  <p class="little">Operating system: <%= @pop_agent.last %></p>
 </article>
