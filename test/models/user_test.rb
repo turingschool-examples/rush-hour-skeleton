@@ -7,8 +7,8 @@ class UserTest < Minitest::Test
   end
 
   def test_it_is_valid_with_an_identifier_and_root_url
-  	user = User.create({ 'identifier' => 'jumpstartlab',
-  		                'rootUrl'    => 'http://jumpstartlab.com'})
+  	user = User.create({ 'identifier' => 'jumpstartlab1',
+  		                   'rootUrl'    => 'http://jumpstartlab.com1'})
   	assert user.valid?
   end
 
