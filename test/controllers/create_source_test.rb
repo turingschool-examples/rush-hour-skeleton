@@ -28,7 +28,7 @@ class CreateSourceTest < Minitest::Test
     assert_equal "jumpstartlab", source.identifier
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
-    assert_equal "success", last_response.body
+    assert_equal "{\"identifier\":\"jumpstartlab\"}", last_response.body
   end 
 
   def test_create_it_cannot_create_source_without_identifier
@@ -39,5 +39,23 @@ class CreateSourceTest < Minitest::Test
     assert_equal 400, last_response.status
     assert_equal "Identifier can't be blank", last_response.body
   end 
+
+  def test_create_it_cannot_create_source_without_root_url
+    source_count = Source.count
+    post '/sources', 'identifier=jumpstartlab'
+
+    assert_equal source_count, Source.count
+    assert_equal 400, last_response.status
+    assert_equal "Root url can't be blank", last_response.body
+  end 
+
+  def test_it_returns_error_when_identifier_already_exists
+    post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    assert_equal "jumpstartlab", Source.first.identifier
+
+    post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    assert_equal 403, last_response.status
+    assert_equal "Identifier already exists", last_response.body
+  end
 
 end
