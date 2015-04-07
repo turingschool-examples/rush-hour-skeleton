@@ -11,7 +11,9 @@ group :development, :test do
   gem 'tux'
   gem 'capybara'
   gem 'launchy'
+  gem 'byebug'
   gem 'rack-test'
+  gem 'database_cleaner'
 end
 
 group :evaluations do
