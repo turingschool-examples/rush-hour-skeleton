@@ -21,16 +21,23 @@ class CreateSourceTest < Minitest::Test
   #   skip
   # end
 
-  def test_create_source_with_an_identifier_and_rootURL
+  def test_create_source_with_an_identifier_and_root_url
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
-    #post '/sources', "{\"identifier\":\"jumpstartlabs\",\"rootURL\":\"http://www.jumpstartlabs.com\"}"
-    #post '/sources', { "identifier" => "jumpstartlabs", "rootURL" => "http://www.jumpstartlabs.com" }.to_json
     source = Source.first
 
     assert_equal "jumpstartlab", source.identifier
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
     assert_equal "success", last_response.body
+  end 
+
+  def test_create_it_cannot_create_source_without_identifier
+    source_count = Source.count
+    post '/sources', 'rootUrl=http://jumpstartlab.com'
+
+    assert_equal source_count, Source.count
+    assert_equal 400, last_response.status
+    assert_equal "Identifier can't be blank", last_response.body
   end 
 
 end

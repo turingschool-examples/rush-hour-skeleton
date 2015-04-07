@@ -11,9 +11,14 @@ module TrafficSpy
     end
 
     post '/sources' do 
-      source = Source.create(root_url: params["rootUrl"], identifier: params["identifier"])
-      status 200
-      body "success"
+      source = Source.new(root_url: params["rootUrl"], identifier: params["identifier"])
+      if source.save
+        status 200
+        body "success"
+      else
+        status 400
+        body source.errors.full_messages
+      end
     end
   end
 end
