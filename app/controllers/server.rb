@@ -11,8 +11,9 @@ module TrafficSpy
     end
 
     post '/sources' do 
-      attributes = JSON.parse(params)
-      source = Source.new(attributes)
+      source = Source.create(root_url: params["rootUrl"], identifier: params["identifier"])
+      status 200
+      body "success"
     end
   end
 end
