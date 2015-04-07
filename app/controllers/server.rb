@@ -1,4 +1,5 @@
 require 'json'
+require 'byebug'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -22,6 +23,23 @@ module TrafficSpy
         status 400
         body source.errors.full_messages
       end
+    end
+
+    post '/sources/:identifier/data' do |identifier|
+      payload = Payload.create(
+        url: params[:payload => "url"],
+        requested_at: params[:payload => "requestedAt"],
+        responded_in: params[:payload => "respondedIn"],
+        referred_by: params[:payload => "referredBy"],
+        request_type: params[:payload => "requestType"],
+        parameters: params[:payload => "parameters"],
+        event_name: params[:payload => "eventName"],
+        user_agent: params[:payload => "userAgent"],
+        resolution_width: params[:payload => "resolutionWidth"],
+        resolution_height: params[:payload => "resolutionHeight"],
+        ip: params[:payload => "ip"],
+        source_id: params[:payload => Source.find_by(identifier: identifier).id]
+        )
     end
   end
 end
