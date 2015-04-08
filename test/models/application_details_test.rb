@@ -19,8 +19,16 @@ class ApplicationDetailsTest < Minitest::Test
     DatabaseCleaner.clean
   end
 
-  def test_it_finds_and_list_urls_from_most_Requested_to_least_requested
+  def test_it_finds_and_list_urls_from_most_requested_to_least_requested
     result = ApplicationDetails.sort_tracked_sites
+    require 'pry' ; binding.pry
     assert_equal "http://yahoo.com/weather", result.first
   end
+
+  # def test_it_returns_an_array_of_urls_from_most_requested_to_least_requested
+  #   result = ApplicationDetails.sort_tracked_sites
+  #   expected = ["http://yahoo.com/weather", "http://yahoo.com/news", "http://google.com/about", "http://jumpstartlab.com/blog", "http://apple.com/blog"]
+  #   assert_equal expected, result
+  # end
+
 end

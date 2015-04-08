@@ -1,6 +1,7 @@
 # require your gems
 require 'json'
 require 'bundler'
+require 'rickshaw'
 Bundler.require
 
 
