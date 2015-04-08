@@ -16,7 +16,7 @@ class ProcessRequestTest < Minitest::Test
   end
 
   def test_it_processes_a_payload
-    post '/sources',{ "identifier": "username", "rootUrl": "http://turing.io"}
+    post '/sources',{ "identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}
     
     payload = {
       "url":"http://jumpstartlab.com/blog",

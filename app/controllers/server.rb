@@ -13,9 +13,12 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
-      p = params
       require 'pry'; binding.pry
-      status 200
+      data = PayloadParser.parse(params)
+      @payload = PayloadValidator.validate(data)
+      # @client_id = Client.where(identifier: identifier).select(:id).first.id
+      # @client = Client.where(name: identifier).id
+      status @payload[:code]
     end
 
     not_found do
