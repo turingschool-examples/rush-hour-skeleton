@@ -9,6 +9,6 @@ class Payload < ActiveRecord::Base
   belongs_to :request
   belongs_to :agent
 
-  # validates :requested_at, presence: true, uniqueness: true
-  
+  validates :composite_key, presence: true, uniqueness: true
+  validates :tracked_site_id, presence: true
 end
