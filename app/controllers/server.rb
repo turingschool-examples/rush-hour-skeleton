@@ -25,6 +25,11 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier' do |identifier|
+      @source = Source.find_by(identifier: identifier)
+      erb :aggregate_data
+    end
+
     post '/sources/:identifier/data' do |identifier|
       payload_hash = JSON.parse(params[:payload])
       if PayloadHelper.source_exists?(identifier)

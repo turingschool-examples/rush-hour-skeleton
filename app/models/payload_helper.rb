@@ -25,5 +25,4 @@ class PayloadHelper
           source_id: Source.find_by(identifier: identifier).id 
           )
   end
-
 end

@@ -16,10 +16,6 @@ class CreateSourceTest < Minitest::Test
     DatabaseCleaner.clean
   end
 
-  # def test_it_parses_json
-  #   skip
-  # end
-
   def test_create_source_with_an_identifier_and_root_url
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
     source = Source.first
