@@ -121,7 +121,6 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_it_returns_403_when_application_not_registered
-    skip
     post '/sources/turing/data', 'payload={
          "url":"http://turing.io/blog",
          "requestedAt":"2013-02-16 21:38:28 -0700",
