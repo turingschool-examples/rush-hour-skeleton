@@ -16,7 +16,7 @@ class PayloadParser < ActiveRecord::Base
       data.each_value do |value|
         composite_key << value
       end
-      composite_key = composite_key.join
+      composite_key = composite_key.join.to_sha1
     end
 
     payload_data = {
