@@ -26,20 +26,32 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
-      payload = Payload.create(
-        url: params[:payload => "url"],
-        requested_at: params[:payload => "requestedAt"],
-        responded_in: params[:payload => "respondedIn"],
-        referred_by: params[:payload => "referredBy"],
-        request_type: params[:payload => "requestType"],
-        parameters: params[:payload => "parameters"],
-        event_name: params[:payload => "eventName"],
-        user_agent: params[:payload => "userAgent"],
-        resolution_width: params[:payload => "resolutionWidth"],
-        resolution_height: params[:payload => "resolutionHeight"],
-        ip: params[:payload => "ip"],
-        source_id: params[:payload => Source.find_by(identifier: identifier).id]
+      payload_hash = JSON.parse(params[:payload])
+      payload = Payload.new(
+        url: payload_hash["url"],
+        requested_at: payload_hash["requestedAt"],
+        responded_in: payload_hash["respondedIn"],
+        referred_by: payload_hash["referredBy"],
+        request_type: payload_hash["requestType"],
+        parameters: payload_hash["parameters"],
+        event_name: payload_hash["eventName"],
+        user_agent: payload_hash["userAgent"],
+        resolution_width: payload_hash["resolutionWidth"],
+        resolution_height: payload_hash["resolutionHeight"],
+        id: payload_hash["id"],
+        source_id: Source.find_by(identifier: identifier).id 
         )
+      if Payload.find_by(requested_at: payload.requested_at) &&
+         Payload.find_by(source_id: payload.source_id)
+        status 403
+        body "Already Received Request"
+      elsif payload.save
+        status 200
+        body "OK"
+      else
+        status 400
+        body "Payload can't be blank"
+      end
     end
   end
 end
