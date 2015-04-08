@@ -1,6 +1,6 @@
 class PayloadParser < ActiveRecord::Base
 
-  def self.parse(data)
+  def self.parse(data, composite_key = [])
     address_id      = Address.find_or_create_by(ip: data[:ip]).id
     agent_id        = Agent.find_or_create_by(user_agent: data[:userAgent]).id
     client_id       = Client.find_or_create_by(identifier: data[:identifier]).id
@@ -13,7 +13,10 @@ class PayloadParser < ActiveRecord::Base
     if address_id  == nil
       composite_key = nil
     else
-      composite_key = "#{address_id}#{data[:requestedAt]}"
+      data.each_value do |value|
+        composite_key << value
+      end
+      composite_key = composite_key.join
     end
 
     payload_data = {
