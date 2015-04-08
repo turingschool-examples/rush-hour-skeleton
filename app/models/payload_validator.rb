@@ -5,7 +5,6 @@ class PayloadValidator < Payload
 
     payload_nil = data.each_value.all? {|value| value.nil?}
     if payload_nil
-
       {code: 400, message: "Payload cannot be nil"}
     elsif payload.save
       {code: 200}

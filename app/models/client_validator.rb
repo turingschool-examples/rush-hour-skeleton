@@ -1,8 +1,9 @@
 class ClientValidator < Client
-  
-  def self.validate(data) 
-    client = Client.new(data)
-    
+
+  def self.validate(data)
+    info = ClientParser.parse(data)
+    client = Client.new(info)
+
     if client.save  # Refactor if we have time
       json_body = JSON.generate({identifier:data["identifier"]})
       {code: 200, message: json_body}
@@ -12,8 +13,8 @@ class ClientValidator < Client
     else
       errors = client.errors.full_messages
       {code: 400, message: errors}
-    end  
-  
+    end
+
   end
 
 end

@@ -15,11 +15,11 @@ class RegistrationTest < Minitest::Test
     DatabaseCleaner.clean
   end
 
-  def test_registers_with_identifier_and_rootUrl
+  def test_registers_with_identifier_and_root_url
     post '/sources',{ "identifier": "username", "rootUrl": "http://turing.io"}
     t = Client.last
     assert_equal "username", t.identifier
-    assert_equal "http://turing.io", t.rootUrl
+    assert_equal "http://turing.io", t.root_url
     assert_equal 200, last_response.status
     message = JSON.generate({identifier:"username"})
     assert_equal message , last_response.body
@@ -37,10 +37,10 @@ class RegistrationTest < Minitest::Test
     assert_equal "Identifier can't be blank", last_response.body
   end
 
-  def test_it_reports_missing_rootUrl
+  def test_it_reports_missing_root_url
     post '/sources', { "identifier": "username" }
     assert_equal 400, last_response.status
-    assert_equal "Rooturl can't be blank", last_response.body
+    assert_equal "Root url can't be blank", last_response.body
   end
 
   def test_it_reports_duplicate_identifier

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408054539) do
+ActiveRecord::Schema.define(version: 20150408173223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,22 +21,22 @@ ActiveRecord::Schema.define(version: 20150408054539) do
   end
 
   create_table "agents", force: :cascade do |t|
-    t.string "userAgent"
+    t.string "user_agent"
   end
 
   create_table "clients", force: :cascade do |t|
     t.string "identifier"
-    t.string "rootUrl"
+    t.string "root_url"
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "eventName"
+    t.string "event_name"
   end
 
   create_table "payloads", force: :cascade do |t|
     t.string  "parameters"
-    t.integer "respondedIn"
-    t.string  "requestedAt"
+    t.integer "responded_in"
+    t.string  "requested_at"
     t.integer "address_id"
     t.integer "agent_id"
     t.integer "client_id"
@@ -49,16 +49,16 @@ ActiveRecord::Schema.define(version: 20150408054539) do
   end
 
   create_table "referers", force: :cascade do |t|
-    t.string "referredBy"
+    t.string "referred_by"
   end
 
   create_table "requests", force: :cascade do |t|
-    t.string "requestType"
+    t.string "request_type"
   end
 
   create_table "resolutions", force: :cascade do |t|
-    t.string "resolutionHeight"
-    t.string "resolutionWidth"
+    t.string "resolution_height"
+    t.string "resolution_width"
   end
 
   create_table "tracked_sites", force: :cascade do |t|
