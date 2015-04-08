@@ -1,3 +1,4 @@
 class Referer < ActiveRecord::Base
-  belongs_to :payload
+  has_many :payloads
+  validates :referredBy, presence: true, uniqueness: true
 end

@@ -1,5 +1,5 @@
 class Client < ActiveRecord::Base
-  belongs_to :payload
+  has_many :payloads
   
   validates :identifier, presence: true, uniqueness: true
   validates :rootUrl, presence: true

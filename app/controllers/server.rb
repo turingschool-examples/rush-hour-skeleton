@@ -6,16 +6,16 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # require 'pry';binding.pry
       validation = ClientValidator.validate(params)
       status validation[:code]
       body validation[:message]
     end
 
     post '/sources/:identifier/data' do |identifier|
-      p = params
-      require 'pry'; binding.pry
-      status 200
+      data = PayloadParser.parse(params)
+      @payload = PayloadValidator.validate(data)
+      status @payload[:code]
+      body @payload.fetch(:message, nil)
     end
 
     not_found do

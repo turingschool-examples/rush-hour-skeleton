@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
-  belongs_to :payload
+ has_many :payloads 
+
+ validates :eventName, presence: true, uniqueness: true
   
 end

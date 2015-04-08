@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407232653) do
+ActiveRecord::Schema.define(version: 20150408054539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "ip"
+  end
+
+  create_table "agents", force: :cascade do |t|
+    t.string "userAgent"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "identifier"
@@ -22,38 +30,39 @@ ActiveRecord::Schema.define(version: 20150407232653) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "ips", force: :cascade do |t|
-    t.string "address"
+    t.string "eventName"
   end
 
   create_table "payloads", force: :cascade do |t|
-    t.string   "parameters"
-    t.integer  "responded_in"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "requested_at"
+    t.string  "parameters"
+    t.integer "respondedIn"
+    t.string  "requestedAt"
+    t.integer "address_id"
+    t.integer "agent_id"
+    t.integer "client_id"
+    t.integer "event_id"
+    t.integer "referer_id"
+    t.integer "request_id"
+    t.integer "resolution_id"
+    t.integer "tracked_site_id"
+    t.string  "composite_key"
   end
 
   create_table "referers", force: :cascade do |t|
-    t.string "url"
+    t.string "referredBy"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string "requestType"
   end
 
   create_table "resolutions", force: :cascade do |t|
-    t.string "height"
-    t.string "width"
+    t.string "resolutionHeight"
+    t.string "resolutionWidth"
   end
 
   create_table "tracked_sites", force: :cascade do |t|
     t.string "url"
-  end
-
-  create_table "user_agents", force: :cascade do |t|
-    t.string "web_browser"
-    t.string "OS"
-    t.string "OS_version"
   end
 
 end
