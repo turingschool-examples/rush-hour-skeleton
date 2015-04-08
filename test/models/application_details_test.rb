@@ -20,9 +20,7 @@ class ApplicationDetailsTest < Minitest::Test
   end
 
   def test_it_finds_and_list_urls_from_most_Requested_to_least_requested
-    require 'pry' ; binding.pry
     result = ApplicationDetails.sort_tracked_sites
     assert_equal "http://yahoo.com/weather", result.first
-
   end
 end
