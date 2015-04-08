@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
- has_many :payloads 
+ has_many :payloads
 
- validates :eventName, presence: true, uniqueness: true
-  
+ validates :event_name, presence: true, uniqueness: true
+
 end

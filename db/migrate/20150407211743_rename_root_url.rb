@@ -1,5 +1,5 @@
-class RenameRootUrl < ActiveRecord::Migration
+class Renameroot_url < ActiveRecord::Migration
   def change
-    rename_column :clients, :root_url, :rootUrl
+    rename_column :clients, :root_url, :root_url
   end
 end
