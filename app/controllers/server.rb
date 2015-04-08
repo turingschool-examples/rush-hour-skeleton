@@ -12,6 +12,12 @@ module TrafficSpy
       body validation[:message]
     end
 
+    post '/sources/:identifier/data' do |identifier|
+      p = params
+      require 'pry'; binding.pry
+      status 200
+    end
+
     not_found do
       erb :error
     end

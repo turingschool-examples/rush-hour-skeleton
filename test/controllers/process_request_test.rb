@@ -32,7 +32,7 @@ class ProcessRequestTest < Minitest::Test
       "ip":"63.29.38.211"
     }
 
-    post '/sources/jumpstartlab/data',payload
+    post '/sources/jumpstartlab/data', payload
     assert_equal 200, last_response.status
   end
 
