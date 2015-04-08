@@ -15,9 +15,7 @@ class PayloadParser
   end
 
   def parse_payload(data)
-
     conversion(JSON.parse(data[:payload]))
-    #conversion(JSON.parse(params[data.key]))
   end
 
   def conversion(data)
