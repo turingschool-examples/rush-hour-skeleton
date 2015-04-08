@@ -13,7 +13,3 @@ class PayloadParserTest < Minitest::Test
     assert_equal :responded_at, var.keys.first
   end
 end
-    # we're taking in the payload request information
-    # we're sending that to the JSON.parse method
-    # before the JSON.parse method is called, we want to make sure the info is valid
-    # it can't be nil or an empty hash
