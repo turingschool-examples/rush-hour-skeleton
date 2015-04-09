@@ -11,9 +11,6 @@ require 'minitest/pride'
 Capybara.app = TrafficSpy::Server
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
-
-#DatabaseCleaner.strategy = :transaction
-
 class MiniTest::Test
   include Capybara::DSL
 
