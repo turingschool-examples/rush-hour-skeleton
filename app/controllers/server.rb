@@ -6,7 +6,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      validation = ClientValidator.validate(params["identifier"])
+      validation = ClientValidator.validate(params)
       status validation[:code]
       body validation[:message]
     end

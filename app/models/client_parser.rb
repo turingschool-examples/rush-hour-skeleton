@@ -4,7 +4,7 @@ class ClientParser
     if data.nil?
       @data = {}
     else
-      @data = JSON.parse(data)
+      @data = data
     end
   end
 
