@@ -31,21 +31,11 @@ module TrafficSpy
     end
 
     post '/sources/:title/data' do
+      # client is accessing the handle above
+      # server is returning a request body in the form of a string
+      # take in the url handler, parse it, check to see if anything in the title matches inside it
+      # create user
+      message, status_code == PayloadParser.new.valid?
       payload_data = parse(params[:payload])
-        if payload_data.nil? || payload_data.empty?
-          status 400
-          body identifier.errors.full_messages
-        elsif
-          payload = Payload.new(payload_data)
-          status 200
-          body "success"
-        #elsif identifier.title.nil?
-          #status 400
-          #body identifier.errors.full_messages
-        else
-          status 403
-          body payload.errors.full_messages
-        end
     end
-  end
 end
