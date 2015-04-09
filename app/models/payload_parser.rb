@@ -7,7 +7,7 @@ class PayloadParser
     @status_code = ""
   end
 
-  def valid?
+  def self.valid?(data)
     if data.empty?
       message = "Payload is missing or empty"
       status_code = 400
@@ -15,24 +15,27 @@ class PayloadParser
     end
   end
 
-  def parse(data)
-    conversion(JSON.parse(data[:payload]))
+  def fdjhs
+    if application_registered?
+      []
+    elsif valid?
+      []
+    end
   end
 
-  def conversion(data)
-    new_data = data.keys.map do |key|
-      key.chars.map do |char|
-        if char == char.upcase
-          char = "_" + char.downcase
-        else
-          char
-        end
-      end.join.to_sym
+  def application_registered?
+    if !payload.include?(Identifier.title.to_s)
+      message = "Application is not registered"
+      status_code = 403
+      [message, status_code]
     end
-    data_keys = new_data
-    data_values = data.values
-    new_table_names = Hash[data_keys.zip(data_values)]
   end
+
+  def parse(data)
+    InputConverter.conversion(JSON.parse(data[:payload]))
+  end
+
+# pull converter out to separate class so that functionality can be used for both source and payload
 
         #if PayloadPars
           #status 400
