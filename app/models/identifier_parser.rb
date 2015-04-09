@@ -14,31 +14,31 @@ class IdentifierParser
   end
 
   def initialize(data)
-    @status = generate_status
-    @body = assign_body[status]
-    if params_exist?(data)
-      formatted_data = InputConverter.conversion(data)
-      @source = Source.new(formatted_data).save
+    if data.present?
+      @data = InputConverter.conversion(data)
+      @source = Source.new(@data).save
+    else
+      @data = {}
     end
   end
 
-  def params_exist?(data)
-    false if data.nil? || data.empty?
-  end
-
-  def generate_status
-    if @source[:identifier].nil?
+  def status
+    if @data[:identifier].nil?
       400
-    elsif @source[:root_url].nil?
+    elsif @data[:root_url].nil?
       400
-    elsif @source.save
+    elsif @data.save
       200
      else
       403
      end
   end
 
-  def assign_body
+  def body
+    status_messages[status]
+  end
+
+  def status_messages
     {
       200  => "Success",
       400  => "Parameters cannot be empty",
