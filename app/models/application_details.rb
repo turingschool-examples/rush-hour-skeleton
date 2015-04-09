@@ -15,8 +15,6 @@ class ApplicationDetails < ActiveRecord::Base
 
   end
 
-
-
   #THIS WORKS TOO: Payload.group("tracked_site_id").where(client_id: 1).order("average_responded_in desc").average("responded_in").keys
   def self.average_response(client_id, responses = {})
     tracked_site_id_query(client_id).each do |url_id|
@@ -39,20 +37,20 @@ class ApplicationDetails < ActiveRecord::Base
 
   def self.user_agent_os(client_id)
     user_agent_breakdown(client_id).map do |user_agent|
-      UserAgent.parse(user_agent).platform 
+      UserAgent.parse(user_agent).platform
     end.uniq
   end
 
   def self.user_agent_browser(client_id)
     user_agent_breakdown(client_id).map do |user_agent|
-      UserAgent.parse(user_agent).browser 
+      UserAgent.parse(user_agent).browser
     end.uniq
   end
 
   def self.user_agent_breakdown(client_id)
     user_agent_query(client_id).map do |id|
       Agent.find(id).user_agent
-    end  
+    end
   end
 
   def self.user_agent_query(client_id)

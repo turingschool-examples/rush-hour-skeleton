@@ -3,6 +3,8 @@ require 'json'
 require 'bundler'
 require 'rickshaw'
 require 'useragent'
+require 'pry'
+require 'byebug'
 Bundler.require
 
 
