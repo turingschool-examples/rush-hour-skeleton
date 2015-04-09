@@ -34,7 +34,10 @@ class PayloadParser
     new_table_names = Hash[data_keys.zip(data_values)]
   end
 
-        #if PayloadPars
+  #def valid_identifier(data)
+    #data[:payload]
+  #end
+  ##if PayloadPars
           #status 400
           #body identifier.errors.full_messages
         #elsif

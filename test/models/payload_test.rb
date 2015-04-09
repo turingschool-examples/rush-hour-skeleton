@@ -1,4 +1,7 @@
-#require './test/tes
-#class PayloadTest < Minitest::Test
+require './test/test_helper'
 
-#end
+class PayloadTest < Minitest::Test
+  def test_it_validates_identifier
+   skip
+  end
+end

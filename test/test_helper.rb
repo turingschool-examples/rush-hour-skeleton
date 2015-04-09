@@ -1,5 +1,4 @@
 ENV["RACK_ENV"] ||= "test"
-
 require 'bundler'
 Bundler.require
 
@@ -10,10 +9,10 @@ require 'database_cleaner'
 require 'minitest/pride'
 
 Capybara.app = TrafficSpy::Server
-#DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
+DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 
-DatabaseCleaner.strategy = :transaction
+#DatabaseCleaner.strategy = :transaction
 
 class MiniTest::Test
   include Capybara::DSL
