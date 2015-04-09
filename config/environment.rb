@@ -1,6 +1,10 @@
 # require your gems
+require 'json'
 require 'bundler'
+require 'rickshaw'
+require 'useragent'
 Bundler.require
+
 
 # set the pathname for the root of the app
 require 'pathname'
