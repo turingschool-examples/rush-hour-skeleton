@@ -19,8 +19,11 @@ module TrafficSpy
 
     end
 
-  #  post '/sources/:title/data' do
+    post '/sources/:identifier/data' do |identifier|
+      url = JSON.parse(params["payload"])["url"]
+      Payload.create(url: url)
 
+      "Success"
       # client is accessing the handle above
       # server is returning a request body in the form of a string
       # take in the url handler, parse it, check to see if anything in the title matches insidethe identifier db
@@ -28,6 +31,6 @@ module TrafficSpy
       # create
       #message, status_code = PayloadParser.new.valid?
       #payload_data = parse(params[:payload])
-    #end
+    end
   end
 end
