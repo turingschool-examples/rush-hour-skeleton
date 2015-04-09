@@ -10,12 +10,11 @@ class ApplicationDetailsTest < Minitest::Test
   def setup
     DatabaseCleaner.start
     TestData.clients.each do |client|
-      ClientValidator.validate(client)
+      ClientValidator.validate(client["identifier"])
     end
     TestData.payloads.each do |payload|
       client = "jumpstartlab&rootUrl=http://jumpstartlab.com"
-      data = PayloadParser.parse(payload["payload"], client)
-      PayloadValidator.validate(data)
+      PayloadValidator.validate(payload["payload"], client)
     end
   end
 

@@ -3,9 +3,9 @@ class ClientValidator < Client
   def self.validate(data)
     info = ClientParser.parse(data)
     client = Client.new(info)
-
     if client.save  # Refactor if we have time
-      json_body = JSON.generate({identifier:data["identifier"]})
+      json_body = JSON.generate({"identifier"=>client.identifier})
+      # binding.pry
       {code: 200, message: json_body}
     elsif Client.find_by(identifier: client.identifier)
       errors = client.errors.full_messages
