@@ -1,0 +1,3 @@
+class AggregateDataTest < FeatureTest
+
+end

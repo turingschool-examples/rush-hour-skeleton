@@ -14,7 +14,7 @@ class RegistrationTest < Minitest::Test
   def teardown
     DatabaseCleaner.clean
   end
-
+  
   def test_registers_with_identifier_and_root_url
     post '/sources',{ "identifier": "username", "rootUrl": "http://turing.io"}
     t = Client.last
