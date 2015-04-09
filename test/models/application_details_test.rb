@@ -46,6 +46,10 @@ class ApplicationDetailsTest < Minitest::Test
   def test_it_can_find_average_response_time_per_url
     result = ApplicationDetails.average_response(1)
     expected = {"http://yahoo.com/weather"=>91, "http://yahoo.com/news"=>123, "http://google.com/about"=>315, "http://apple.com/blog"=>105, "http://jumpstartlab.com/blog"=>37}
+    # JOSH MAGIC
+    # client.urls.each do |url|
+    #   url.average_response_time
+    # end
     assert_equal expected, result
   end
 
