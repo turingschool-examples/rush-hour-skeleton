@@ -16,7 +16,7 @@ class ProcessRequestTest < Minitest::Test
   end
 
   def test_it_processes_a_payload
-    post '/sources',{ "identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}
+    post '/sources',{"identifier" =>{"identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}.to_json}
 
     payload = {"payload" => {
       "url"=>"http://jumpstartlab.com/blog",
@@ -38,7 +38,7 @@ class ProcessRequestTest < Minitest::Test
 
   def test_it_returns_error_for_duplicate_payloads
 
-    post '/sources',{ "identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}
+    post '/sources',{"identifier" =>{"identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}.to_json}
 
     payload = {"payload" => {
       "url"=>"http://jumpstartlab.com/blog",
@@ -63,7 +63,7 @@ class ProcessRequestTest < Minitest::Test
   end
 
   def test_it_returns_error_for_nonexistent_url
-    post '/sources',{ "identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}
+    post '/sources',{"identifier" =>{"identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}.to_json}
 
     payload = {"payload" => {
       "url"=> nil,
@@ -85,7 +85,7 @@ class ProcessRequestTest < Minitest::Test
   end
 
   def test_it_returns_error_for_nill_payload_values
-    post '/sources',{ "identifier": nil, "rootUrl": nil}
+    post '/sources',{ "identifier" => {"identifier": nil, "rootUrl": nil}.to_json}
 
     payload = {"payload" => {}.to_json}
 
@@ -95,7 +95,7 @@ class ProcessRequestTest < Minitest::Test
   end
 
   def test_it_return_error_if_there_is_no_payload
-    post '/sources',{ "identifier": nil, "rootUrl": nil}
+    post '/sources', {"identifier"=> {"identifier": nil, "rootUrl": nil}.to_json}
 
     post '/sources/jumpstartlab/data'
     assert_equal 400, last_response.status

@@ -6,14 +6,14 @@ module TrafficSpy
     end
 
     post '/sources' do
-      validation = ClientValidator.validate(params)
+      validation = ClientValidator.validate(params["identifier"])
       status validation[:code]
       body validation[:message]
     end
 
     post '/sources/:identifier/data' do |identifier|
-      data = PayloadParser.parse(params["payload"], identifier)
-      @payload = PayloadValidator.validate(data)
+
+      @payload = PayloadValidator.validate(params["payload"], identifier)
       status @payload[:code]
       body @payload.fetch(:message, nil)
     end
