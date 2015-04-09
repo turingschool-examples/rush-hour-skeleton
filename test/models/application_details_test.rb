@@ -14,7 +14,7 @@ class ApplicationDetailsTest < Minitest::Test
     end
     TestData.payloads.each do |payload|
       client = "jumpstartlab&rootUrl=http://jumpstartlab.com"
-      data = PayloadParser.parse(payload, client)
+      data = PayloadParser.parse(payload["payload"], client)
       PayloadValidator.validate(data)
     end
   end
