@@ -1,4 +1,4 @@
 class Payload < ActiveRecord::Base
- #validates :url, presence: true
-
+  validates :ip, uniqueness: { scope: :requested_at,
+  message: "Application has already been received" }
 end
