@@ -42,10 +42,19 @@ class UserViewsSiteDataTest < FeatureTest
                                             "1280",
                                             "63.29.38.210",
                                             source)
+
+   
     #as a client
     #When I visit the page for my site
     visit '/sources/jumpstartlab'
     #I expect to see the identifier for my site
     assert page.has_content?("jumpstartlab")
+    within ('ul.urls li:nth-child(1)'){
+        assert page.has_content?("http://jumpstartlab.com/blog")
+    }
+    within ('ul.urls li:nth-child(2)'){
+        assert page.has_content?("http://jumpstartlab.com/courses")
+    }
   end
+
 end

@@ -24,7 +24,7 @@ class CreatePayloadTest < ControllerTest
          "resolutionWidth":"1920",
          "resolutionHeight":"1280",
          "ip":"63.29.38.211"}'
-    payload = Payload.first
+    payload = TrafficSpy::Payload.first
     assert_equal 1, payload.url_id
     assert_equal 1, payload.source_id
     assert_equal "socialLogin", payload.event_name
@@ -46,7 +46,7 @@ class CreatePayloadTest < ControllerTest
          "resolutionWidth":"1920",
          "resolutionHeight":"1280",
          "ip":"63.29.38.211"}'
-    payload = Payload.first
+    payload = TrafficSpy::Payload.first
 
     assert_equal 1, payload.url_id
     assert_equal 2, payload.source_id 
@@ -72,17 +72,17 @@ class CreatePayloadTest < ControllerTest
   end
 
   def test_it_returns_400_when_payload_blank
-    payload_count = Payload.count
+    payload_count = TrafficSpy::Payload.count
     post '/sources/jumpstartlab/data'
-    assert_equal payload_count, Payload.count
+    assert_equal payload_count, TrafficSpy::Payload.count
     assert_equal 400, last_response.status
     assert_equal "Payload can't be blank", last_response.body
   end
 
   def test_it_returns_400_when_missing_payload
-    payload_count = Payload.count
+    payload_count = TrafficSpy::Payload.count
     post '/sources/jumpstartlab/data', 'payload={}'
-    assert_equal payload_count, Payload.count
+    assert_equal payload_count, TrafficSpy::Payload.count
     assert_equal 400, last_response.status
     assert_equal "Payload can't be blank", last_response.body
   end
