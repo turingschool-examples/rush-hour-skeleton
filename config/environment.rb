@@ -2,6 +2,7 @@
 require 'json'
 require 'bundler'
 require 'rickshaw'
+require 'useragent'
 Bundler.require
 
 

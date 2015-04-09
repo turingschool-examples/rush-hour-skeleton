@@ -1,22 +1,27 @@
 class PayloadParser < ActiveRecord::Base
 
-  def self.parse(data, composite_key = [])
+  def self.parse(data, identifier, composite_key = [])
     address_id      = Address.find_or_create_by(ip: data[:ip]).id
     agent_id        = Agent.find_or_create_by(user_agent: data[:userAgent]).id
-    client_id       = Client.find_or_create_by(identifier: data[:identifier]).id
+    client_id       = Client.find_or_create_by(identifier: identifier).id
     event_id        = Event.find_or_create_by(event_name: data[:eventName]).id
     referer_id      = Referer.find_or_create_by(referred_by: data[:referredBy]).id
     request_id      = Request.find_or_create_by(request_type: data[:requestType]).id
-    resolution_id   = Resolution.find_or_create_by(resolution_height: data[:resolutionHeight], resolution_width: data[:resolutionWidth]).id
     tracked_site_id = TrackedSite.find_or_create_by(url: data[:url]).id
+
+    
+    #NEED TO REFACTOR THIS HUGE ASS HACK
 
     if address_id  == nil
       composite_key = nil
+      resolution = nil
     else
       data.each_value do |value|
         composite_key << value
       end
       composite_key = composite_key.join.to_sha1
+      resolution = "#{data[:resolutionHeight]} x #{data[:resolutionWidth]}"
+      resolution_id   = Resolution.find_or_create_by(height_width: resolution).id
     end
 
     payload_data = {
