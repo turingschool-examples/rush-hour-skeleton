@@ -1,20 +1,13 @@
 require './test/test_helper'
 require 'byebug'
 
-class CreatePayloadTest < Minitest::Test
-  include Rack::Test::Methods
-
+class CreatePayloadTest < ControllerTest
   def app 
     TrafficSpy::Server
   end
 
   def setup
-    DatabaseCleaner.start
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
-  end
-
-  def teardown
-    DatabaseCleaner.clean
   end
 
   def test_creates_data_when_passed_payload
@@ -32,8 +25,7 @@ class CreatePayloadTest < Minitest::Test
          "resolutionHeight":"1280",
          "ip":"63.29.38.211"}'
     payload = Payload.first
-
-    assert_equal "http://jumpstartlab.com/blog", payload.url
+    assert_equal 1, payload.url_id
     assert_equal 1, payload.source_id
     assert_equal "socialLogin", payload.event_name
   end
@@ -56,7 +48,7 @@ class CreatePayloadTest < Minitest::Test
          "ip":"63.29.38.211"}'
     payload = Payload.first
 
-    assert_equal "http://turing.io/blog", payload.url
+    assert_equal 1, payload.url_id
     assert_equal 2, payload.source_id 
     assert_equal "socialLogin", payload.event_name
   end
@@ -79,10 +71,17 @@ class CreatePayloadTest < Minitest::Test
     assert_equal "OK", last_response.body
   end
 
+  def test_it_returns_400_when_payload_blank
+    payload_count = Payload.count
+    post '/sources/jumpstartlab/data'
+    assert_equal payload_count, Payload.count
+    assert_equal 400, last_response.status
+    assert_equal "Payload can't be blank", last_response.body
+  end
+
   def test_it_returns_400_when_missing_payload
     payload_count = Payload.count
     post '/sources/jumpstartlab/data', 'payload={}'
-
     assert_equal payload_count, Payload.count
     assert_equal 400, last_response.status
     assert_equal "Payload can't be blank", last_response.body

@@ -1,19 +1,9 @@
 require './test/test_helper'
 require 'byebug'
 
-class CreateSourceTest < Minitest::Test
-  include Rack::Test::Methods
-
+class CreateSourceTest < ControllerTest
   def app 
     TrafficSpy::Server
-  end
-
-  def setup
-    DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
   end
 
   def test_create_source_with_an_identifier_and_root_url
@@ -45,7 +35,8 @@ class CreateSourceTest < Minitest::Test
   end 
 
   def test_it_returns_error_when_identifier_already_exists
-    post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    # post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     assert_equal "jumpstartlab", Source.first.identifier
 
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'

@@ -1,4 +1,32 @@
+require 'json'
+
 class PayloadHelper
+  attr_accessor :status, :body
+
+  def self.call(params, identifier)
+    if params[:payload] == nil
+        @status = 400
+        @body = "Payload can't be blank"
+    else
+      payload_hash = JSON.parse(params[:payload])
+      if source_exists?(identifier)
+        payload = add_payload(identifier, payload_hash)
+        if duplicate_source?(payload)
+          @status = 403
+          @body = "Already Received Request"
+        elsif payload.save
+          @status = 200
+          @body = "OK"
+        else
+          @status = 400
+          @body = "Payload can't be blank"
+        end
+      else
+        @status = 403
+        @body = "Application not registered"  
+      end
+    end
+  end
 
   def self.source_exists?(identifier)
     Source.exists?(identifier: identifier)
@@ -11,7 +39,7 @@ class PayloadHelper
 
   def self.add_payload(identifier, payload_hash)
     Payload.new(
-          url: payload_hash["url"],
+          url: Url.find_or_create_by(name: payload_hash["url"]),
           requested_at: payload_hash["requestedAt"],
           responded_in: payload_hash["respondedIn"],
           referred_by: payload_hash["referredBy"],
@@ -21,8 +49,16 @@ class PayloadHelper
           user_agent: payload_hash["userAgent"],
           resolution_width: payload_hash["resolutionWidth"],
           resolution_height: payload_hash["resolutionHeight"],
-          id: payload_hash["id"],
-          source_id: Source.find_by(identifier: identifier).id 
+          ip: payload_hash["ip"],
+          source: Source.find_by(identifier: identifier)
           )
+  end
+
+  def self.status
+    @status
+  end
+
+  def self.body
+    @body
   end
 end
