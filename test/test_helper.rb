@@ -22,7 +22,7 @@ class TestData
      {"identifier": "apple&rootUrl=http://apple.com", "rootUrl":  "http://localhost:9393/sources"},
      {"identifier": "microsoft&rootUrl=http://microsoft.com", "rootUrl":  "http://localhost:9393/sources"},
      {"identifier": "palantir&rootUrl=http://palantir.com", "rootUrl":  "http://localhost:9393/sources"},
-     {"identifier": "yahoo&rootUrl=http://yahoo.com", "rootUrl":  "http://localhost:9393/sources"},      
+     {"identifier": "yahoo&rootUrl=http://yahoo.com", "rootUrl":  "http://localhost:9393/sources"},
      {"identifier": "turing&rootUrl=http://turing.io", "rootUrl":  "http://localhost:9393/sources"},
      {"identifier": "facebook&rootUrl=http://facebook.com", "rootUrl":  "http://localhost:9393/sources"}
     ]
