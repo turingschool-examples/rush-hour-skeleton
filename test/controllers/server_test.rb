@@ -9,43 +9,8 @@ class ServerTest < Minitest::Test
 
   def setup
     DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
-  end
-
-  def test_create_registration_with_parameter
-    post '/sources' ,{identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
-    assert_equal 200, last_response.status
-    assert_equal "success", last_response.body
-  end
-
-  def test_fail_when_create_with_missing_title
-    post '/sources' ,{identifier: {root_url: "http://jumpstartlab.com" }}
-    assert_equal 400, last_response.status
-    assert_equal "Title can't be blank", last_response.body
-  end
-
-  def test_fail_when_create_with_missing_root_url
-    post '/sources' ,{identifier: {title: "jumpstartlab"}}
-    assert_equal 400, last_response.status
-    assert_equal "Root url can't be blank", last_response.body
-  end
-
-  def test_identifier_already_exist_error
-    post '/sources' ,{identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
-    assert_equal 200, last_response.status
-    assert_equal "success", last_response.body
-    post '/sources' ,{identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
-    assert_equal 403, last_response.status
-    assert_equal "Title has already been taken", last_response.body
-  end
-
-  def test_payload_returns_200_when_request_is_unique
-    skip
-    post '/sources' ,{identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
-    post '/sources/jumpstartlab/data', {payload: '{"url": "http://jumpstartlab.com/blog",
+    @pload =
+    'payload={"url": "http://jumpstartlab.com/blog",
       "requested_at"       : "2013-02-16 21:38:28 -0700",
       "responded_in"       : 37,
       "referred_by"        : "http://jumpstartlab.com",
@@ -55,9 +20,61 @@ class ServerTest < Minitest::Test
       "user_agent"         : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolution_width"   : "1920",
       "resolution_height"  : "1280",
-      "ip"                 : "63.29.38.211"}'}
+      "ip"                 : "63.29.38.211"}'
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
+
+  def test_create_registration_with_parameter
+    assert_equal 0, Identifier.count
+    post '/sources' ,{identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
+    assert_equal 1, Identifier.count
     assert_equal 200, last_response.status
     assert_equal "success", last_response.body
+  end
+
+  def test_fail_when_create_with_missing_title
+    assert_equal 0, Identifier.count
+    post '/sources' ,{identifier: {root_url: "http://jumpstartlab.com" }}
+    assert_equal 0, Identifier.count
+    assert_equal 400, last_response.status
+    assert_equal "Title can't be blank", last_response.body
+  end
+
+  def test_fail_when_create_with_missing_root_url
+    assert_equal 0, Identifier.count
+    post '/sources' ,{identifier: {title: "jumpstartlab"}}
+    assert_equal 0, Identifier.count
+    assert_equal 400, last_response.status
+    assert_equal "Root url can't be blank", last_response.body
+  end
+
+  def test_identifier_already_exist_error
+    assert_equal 0, Identifier.count
+    post '/sources' ,{identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
+    assert_equal 1, Identifier.count
+    assert_equal 200, last_response.status
+    assert_equal "success", last_response.body
+    post '/sources' ,{identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
+    assert_equal 1, Identifier.count
+    assert_equal 403, last_response.status
+    assert_equal "Title has already been taken", last_response.body
+  end
+
+  def test_payload_returns_200_when_request_is_unique
+    post '/sources', {identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
+    post '/sources/jumpstartlab/data', @pload
+    assert_equal 200, last_response.status
+    assert_equal "success", last_response.body
+  end
+
+  def test_response_when_identifier_doesnt_exist
+    post '/sources', {identifier: {title: "jumpstartlab", root_url: "http://jumpstartlab.com" }}
+    post '/sources/jadvaerbaerbllltarklab/data', @pload
+    assert_equal 403, last_response.status
+    assert_equal "application url does not exist", last_response.body
   end
 
   def test_payload_returns_400_when_payload_missing_or_empty_hash
