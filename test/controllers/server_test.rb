@@ -30,49 +30,49 @@ class ServerTest < Minitest::Test
 
   def test_create_registration_with_parameter
     assert_equal 0, Source.count
-    post '/sources' , {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" }
+    post '/sources' , {"identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
-    assert_equal "success", last_response.body
+    assert_equal "Success", last_response.body
   end
 
   def test_fail_when_create_with_missing_title
     assert_equal 0, Source.count
-    post '/sources' ,{root_url: "http://jumpstartlab.com" }
+    post '/sources' ,{"rootUrl" => "http://jumpstartlab.com" }
     assert_equal 0, Source.count
     assert_equal 400, last_response.status
-    assert_equal "Identifier can't be blank", last_response.body
+    assert_equal "Parameters cannot be empty", last_response.body
   end
 
   def test_fail_when_create_with_missing_root_url
     assert_equal 0, Source.count
-    post '/sources' ,{identifier: "jumpstartlab"}
+    post '/sources' ,{"identifier" => "jumpstartlab"}
     assert_equal 0, Source.count
     assert_equal 400, last_response.status
-    assert_equal "Root url can't be blank", last_response.body
+    assert_equal "Parameters cannot be empty", last_response.body
   end
 
   def test_identifier_already_exist_error
     assert_equal 0, Source.count
-    post '/sources' ,{identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" }
+    post '/sources' ,{"identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
-    assert_equal "success", last_response.body
-    post '/sources' ,{identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" }
+    assert_equal "Success", last_response.body
+    post '/sources' ,{"identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     assert_equal 1, Source.count
     assert_equal 403, last_response.status
     assert_equal "Identifier has already been taken", last_response.body
   end
 
   def test_payload_returns_200_when_request_is_unique
-    post '/sources', {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" }
+    post '/sources', {"identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', @pload
     assert_equal 200, last_response.status
-    assert_equal "success", last_response.body
+    assert_equal "Success", last_response.body
   end
 
   def test_response_when_identifier_doesnt_exist
-    post '/sources', {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" }
+    post '/sources', {"identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jadvaerbaerbllltarklab/data', @pload
     assert_equal 403, last_response.status
     assert_equal "application url does not exist", last_response.body
@@ -89,7 +89,7 @@ class ServerTest < Minitest::Test
 
 
 
-    #post '/sources' ,{identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" }
+    #post '/sources' ,{identifier: "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     #post '/sources/jumpstartlab/data', {payload: '{}'}
     #assert_equal 400, last_response.status
     #assert_equal "bad_request", last_response.body

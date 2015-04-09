@@ -15,6 +15,12 @@ class IdentifierParserTest < Minitest::Test
     assert_equal "http://jumpstartlab.com", source[:root_url]
   end
 
+  def test_data_is_success
+    data = {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
+    source = InputConverter.conversion(data)
+    assert_equal 200, IdentifierParser.new(data).status
+  end
+
   def test_url_exist
     data = {"identifier"=>"jumpstartlab"}
     IdentifierParser.validate(data)

@@ -3,20 +3,12 @@ require 'byebug'
 class IdentifierParser
   def self.validate(data)
       new(data)
-    # end
-    # check_for_keys
-
-    # create identifier if everything looks good
-    # check for identifier, check for root url
-    # set instance variable for status
-    # set instance variable for body
-    # return IdentifierParser.new(identifier)
   end
 
   def initialize(data)
     if data.present?
       @data = InputConverter.conversion(data)
-      @source = Source.new(@data).save
+      @source = Source.new(@data)
     else
       @data = {}
     end
@@ -27,7 +19,7 @@ class IdentifierParser
       400
     elsif @data[:root_url].nil?
       400
-    elsif @data.save
+    elsif @source.save
       200
      else
       403
