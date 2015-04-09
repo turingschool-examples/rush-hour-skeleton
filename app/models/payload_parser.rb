@@ -1,26 +1,44 @@
 class PayloadParser
   attr_accessor :data, :message, :status_code
 
-  def initialize(data={})
-    @data = data
-    @message = ""
-    @status_code = ""
+  def self.validate(data)
+    new(data)
   end
 
-  def self.valid?(data)
-    if data.empty?
-      message = "Payload is missing or empty"
-      status_code = 400
-      [message, status_code]
+  def initialize(data)
+    if data.present?
+      @data = InputConverter.conversion(data)
+      @payload = Payload.new(@data)
+    else
+      @data = {}
     end
   end
 
-  def fdjhs
-    if application_registered?
-      []
+  def status
+    if application_duplicate?
+      400
     elsif valid?
-      []
+      200
     end
+  end
+
+  def body
+    status_messages[status]
+  end
+
+  def status_messages
+    {
+      400 => "Payload is missing or empty",
+      200 => "success"
+    }
+  end
+
+  def valid?
+    data.present?
+  end
+
+  def application_duplicate?
+    !@payload.save
   end
 
   def application_registered?
