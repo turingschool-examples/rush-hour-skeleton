@@ -62,6 +62,9 @@ ActiveRecord::Schema.define(version: 20150409004813) do
 
   create_table "tracked_sites", force: :cascade do |t|
     t.string "url"
+    #avg response time
+    #longest response time
+    #shortest response time
   end
 
 end
