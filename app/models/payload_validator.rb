@@ -2,7 +2,6 @@ class PayloadValidator < Payload
 
   def self.validate(data)
     payload = Payload.new(data)
-
     payload_nil = data.each_value.all? {|value| value.nil?}
     if payload_nil
       {code: 400, message: "Payload cannot be nil"}
