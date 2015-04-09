@@ -12,7 +12,7 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
-      data = PayloadParser.parse(params, identifier)
+      data = PayloadParser.parse(params["payload"], identifier)
       @payload = PayloadValidator.validate(data)
       status @payload[:code]
       body @payload.fetch(:message, nil)
