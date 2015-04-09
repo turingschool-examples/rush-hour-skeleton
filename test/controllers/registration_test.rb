@@ -16,7 +16,7 @@ class RegistrationTest < Minitest::Test
   end
 
   def test_registers_with_identifier_and_root_url
-    post '/sources',{ "identifier" => {"identifier": "username", "rootUrl": "http://turing.io"}.to_json}
+    post '/sources', {"identifier": "username", "rootUrl": "http://turing.io"}
     t = Client.last
     assert_equal "username", t.identifier
     assert_equal "http://turing.io", t.root_url
@@ -26,27 +26,27 @@ class RegistrationTest < Minitest::Test
   end
 
   def test_it_stores_client_identifier
-    post '/sources', { "identifier" => {"identifier": "username", "rootUrl": "http://turing.io"}.to_json}
+    post '/sources', {"identifier": "username", "rootUrl": "http://turing.io"}
     t = Client.last
     assert_equal "username", t.identifier
   end
 
   def test_it_reports_missing_title
-    post '/sources', { "identifier" => {"rootUrl": "http://turing.io"}.to_json}
+    post '/sources', {"rootUrl": "http://turing.io"}
     assert_equal 400, last_response.status
     assert_equal "Identifier can't be blank", last_response.body
   end
 
   def test_it_reports_missing_root_url
-    post '/sources', { "identifier" => {"identifier": "username" }.to_json}
+    post '/sources', {"identifier": "username" }
     assert_equal 400, last_response.status
     assert_equal "Root url can't be blank", last_response.body
   end
 
   def test_it_reports_duplicate_identifier
-    post '/sources', { "identifier" => {"identifier": "username", "rootUrl": "http://turing.io"}.to_json}
+    post '/sources', {"identifier": "username", "rootUrl": "http://turing.io"}
     assert_equal 200, last_response.status
-    post '/sources', { "identifier" => {"identifier": "username", "rootUrl": "http://turing.io"}.to_json}
+    post '/sources', {"identifier": "username", "rootUrl": "http://turing.io"}
     assert_equal 403, last_response.status
     assert_equal "Identifier has already been taken", last_response.body
   end
