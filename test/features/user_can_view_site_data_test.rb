@@ -5,10 +5,16 @@ class UserViewsSiteDataTest < FeatureTest
   include CreateSourcesAndPayloads
 
   def test_user_views_identifier
+    # TrafficSpy::Url.create(name: "http://jumpstartlab.com/blog")
+    # TrafficSpy::Url.create(name: "http://jumpstartlab.com/courses")
+
+    # url = TrafficSpy::Url.first
+    # url2 = TrafficSpy::Url.last
+
     source = CreateSourcesAndPayloads.create_source("jumpstartlab", "http://www.jumpstartlab.com")
     CreateSourcesAndPayloads.create_payload("http://jumpstartlab.com/blog",
                                             "2014-02-16 21:38:28 -0700",
-                                            37,
+                                            10,
                                             "http://jumpstartlab.com",
                                             "GET",
                                             [],
@@ -20,7 +26,7 @@ class UserViewsSiteDataTest < FeatureTest
                                             source)
     CreateSourcesAndPayloads.create_payload("http://jumpstartlab.com/blog",
                                             "2014-03-16 21:38:30 -0700",
-                                            37,
+                                            20,
                                             "http://jumpstartlab.com",
                                             "GET",
                                             [],
@@ -49,11 +55,19 @@ class UserViewsSiteDataTest < FeatureTest
     visit '/sources/jumpstartlab'
     #I expect to see the identifier for my site
     assert page.has_content?("jumpstartlab")
+
     within ('ul.urls li:nth-child(1)'){
         assert page.has_content?("http://jumpstartlab.com/blog")
     }
     within ('ul.urls li:nth-child(2)'){
         assert page.has_content?("http://jumpstartlab.com/courses")
+    }
+
+    within ('ul.average_urls li:nth-child(1)'){
+        assert page.has_content?("http://jumpstartlab.com/courses: 37")
+    }
+    within ('ul.average_urls li:nth-child(2)'){
+        assert page.has_content?("http://jumpstartlab.com/blog: 15")
     }
   end
 
