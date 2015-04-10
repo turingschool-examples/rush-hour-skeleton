@@ -18,7 +18,12 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-
+      client = Client.find_by(identifier: identifier)
+        if client.nil?
+          erb :no_client_error
+        else
+          erb :client_main_page, :locals => {:client => client}
+      end
     end
 
     post '/sources/:identifier' do |identifier|

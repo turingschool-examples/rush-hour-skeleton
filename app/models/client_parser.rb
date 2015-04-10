@@ -1,21 +1,23 @@
-class ClientParser
+module TrafficSpy
+  class ClientParser
 
-  def initialize(data)
-    if data.nil?
-      @data = {}
-    else
-      @data = data
+    def initialize(data)
+      if data.nil?
+        @data = {}
+      else
+        @data = data
+      end
     end
-  end
 
-  def parse
-    {
-      identifier: @data["identifier"],
-      root_url: @data["rootUrl"]
-    }
-  end
+    def parse
+      {
+        identifier: @data["identifier"],
+        root_url: @data["rootUrl"]
+      }
+    end
 
-  def self.parse(data)
-    new(data).parse
+    def self.parse(data)
+      new(data).parse
+    end
   end
 end
