@@ -12,21 +12,22 @@ module TrafficSpy
     end
 
     post '/sources' do
-      parser = IdentifierParser.validate(params)
-      status parser.status
-      body parser.body
-      #identifier.new shouldhappen in the parse
-
+      parsed_source = IdentifierParser.validate(params)
+      status parsed_source.status
+      body parsed_source.body
     end
 
-    post '/sources/:identifier/data' do #|identifier|
-      if Source.where(identifier: params[:identifier]).count > 0
-        url = JSON.parse(params["payload"])["url"]
-        Payload.create(url: url)
-        "Success"
-      else
-        "application url does not exist"
-      end
+    post '/sources/:identifier/data' do |identifier|
+      json_parsed = JSON.parse(params['payload'])
+      parsed_payload = PayloadParser.validate(json_parsed, identifier)
+      status parsed_payload.status
+      body parsed_payload.body
+    end
+
+    get '/sources/:identifier' do |identifier|
+      Sources.order(url: :desc)
+
+    end
       # client is accessing the handle above
       # server is returning a request body in the form of a string
       # take in the url handler, parse it, check to see if anything in the title matches insidethe identifier db
@@ -34,6 +35,5 @@ module TrafficSpy
       # create
       #message, status_code = PayloadParser.new.valid?
       #payload_data = parse(params[:payload])
-    end
   end
 end
