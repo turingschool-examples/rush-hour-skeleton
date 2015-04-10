@@ -1,0 +1,15 @@
+<h1><%= @source.identifier %></h1>
+
+<h2>Visited URLS</h2>
+<ul class="urls">
+  <% @source.ordered_urls.each do |url| %>
+  <li><%= url %></li>
+  <% end %>
+</ul>
+
+<h2>Average Reponse Times</h2>
+<ul class="average_urls">
+  <% @source.ordered_url_response_times.each do |url| %>
+  <li><%= url %></li>
+  <% end %>
+</ul>
