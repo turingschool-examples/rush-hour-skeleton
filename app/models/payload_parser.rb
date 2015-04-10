@@ -1,11 +1,12 @@
 class PayloadParser
   attr_accessor :data, :message, :status_code
 
-  def self.validate(data)
-    new(data)
+  def self.validate(data, identifier = nil)
+    new(data, identifier)
   end
 
-  def initialize(data)
+  def initialize(data, identifier = nil)
+      @identifier = identifier
     if data.present?
       @data = InputConverter.conversion(data)
       @payload = Payload.new(@data)
@@ -17,20 +18,21 @@ class PayloadParser
   def status
     if application_duplicate?
       403
+    elsif identifier_doesnt_exist?
+      403
     elsif valid?
       200
     end
   end
 
   def body
-    status_messages[status]
-  end
-
-  def status_messages
-    {
-      403 => "Payload is missing or empty",
-      200 => "success"
-    }
+    if application_duplicate?
+      "this is duplicate request"
+    elsif identifier_doesnt_exist?
+      "application url does not exist"
+    elsif valid?
+      "success"
+    end
   end
 
   def valid?
@@ -41,17 +43,9 @@ class PayloadParser
     !@payload.save
   end
 
-  #def identifier_exists?
-    #account = params[:identifier]??
-    #if Source.identifiers.any? do |identifier|
-      #identifier == account
-    #end
-    #if identifier.include?(Source.identifier.to_s)
-      #message = "Application is not registered"
-      #status_code = 403
-      #[message, status_code]
-    #end
-  #end
+  def identifier_doesnt_exist?
+    Source.where(identifier: @identifier).count == 0
+  end
 
   def parse(data)
     InputConverter.conversion(JSON.parse(data[:payload]))
