@@ -19,22 +19,21 @@ module TrafficSpy
 
     end
 
-    post '/sources/:identifier/data' do |identifier|
-      # if source = Source.find_by(identifier: identifier) # if cannot find source, return 403: application not registered
-
-    #   # client is accessing the handle above
-    #   # server is returning a request body in the form of a string
-    #   # take in the url handler, parse it, check to see if anything in the identifier matches inside it
-    #   # create user
-    #   message, status_code = PayloadParser.new.valid?
-    #   payload_data = parse(params[:payload])
+    post '/sources/:identifier/data' do #|identifier|
+      if Source.where(identifier: params[:identifier]).count > 0
+        url = JSON.parse(params["payload"])["url"]
+        Payload.create(url: url)
+        "Success"
+      else
+        "application url does not exist"
+      end
+      # client is accessing the handle above
+      # server is returning a request body in the form of a string
+      # take in the url handler, parse it, check to see if anything in the title matches insidethe identifier db
+      # if there's a match then
+      # create
+      #message, status_code = PayloadParser.new.valid?
+      #payload_data = parse(params[:payload])
     end
-
-    # get '/lfkdshf' do
-    #   @payloads = Payload.order(:col_name)
-
-
-
-    # end
-end
+  end
 end

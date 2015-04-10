@@ -12,5 +12,4 @@ class PayloadTest < Minitest::Unit::TestCase
     assert_equal ["Application has already been received"], request2.errors[:ip]
   end
 
-
 end
