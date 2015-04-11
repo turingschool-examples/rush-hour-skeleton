@@ -6,8 +6,18 @@
 <% client.ordered_most_to_least.each do |site| %>
 
 
-  <li> <%= site %> </li>
+  <li><a href="<%= site %>"> <%= site %> </a></li>
 
 
 <% end %>
 </ol>
+
+<ul>
+<% client.resolution_information.each do |res| %>
+
+
+  <li> <%= res %> </li>
+
+
+<% end %>
+</ul>
