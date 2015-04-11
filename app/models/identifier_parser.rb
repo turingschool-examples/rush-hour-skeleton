@@ -6,7 +6,7 @@ class IdentifierParser
   end
 
   def initialize(data)
-    byebug
+    #byebug
     if data.present?
       @data = InputConverter.conversion(data)
       @source = Source.new(@data)

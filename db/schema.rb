@@ -1,5 +1,6 @@
 # encoding: UTF-8
-# This file is auto-generated from the current state of the database. Instead # of editing this file, please use the migrations feature of Active Record to
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409160840) do
+ActiveRecord::Schema.define(version: 20150411160033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +30,26 @@ ActiveRecord::Schema.define(version: 20150409160840) do
     t.string  "ip"
   end
 
+  create_table "screen_resolutions", force: :cascade do |t|
+    t.string "height"
+    t.string "width"
+  end
+
   create_table "sources", force: :cascade do |t|
     t.string "identifier"
     t.string "root_url"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.string "url"
+    t.string "requested_at"
+    t.string "responded_in"
+    t.string "relative_path"
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.string "web_browser"
+    t.string "os"
   end
 
 end

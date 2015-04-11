@@ -26,8 +26,8 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-     # Sources.order(url: :desc)
-     byebug
+      Sources.order(url: :desc)
+     #byebug
       @source = Source.find_by(identifier: identifier)
       @urls = @source.urls
       erb :show
