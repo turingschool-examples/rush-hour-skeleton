@@ -1,0 +1,27 @@
+<h1> Welcome <%= @client.identifier %> </h1>
+
+
+
+<ol>
+<% @client.ordered_most_to_least_sites.each do |site| %>
+
+
+  <li><a href="<%= site %>"> <%= site %> </a></li>
+
+
+<% end %>
+</ol>
+
+<ul>
+<% @client.resolution_information.each do |res| %>
+
+
+  <li> <%= res %> </li>
+
+
+<% end %>
+</ul>
+
+<% @client.count_events_by_hour(@event_id).each do |event| %>
+<h2><%= event %></h2>
+<% end %>
