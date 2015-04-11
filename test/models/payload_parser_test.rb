@@ -14,7 +14,7 @@ class PayloadParserTest < Minitest::Test
 
   def test_duplicate_application
     #assert_equal 0, Payload.count
-    request1 = PayloadParser.validate({"url" => "happy","ip" => 2, "requestedAt" => "today"},"happy" )
+    request1 = PayloadParser.validate({"ip" => 2, "requestedAt" => "today"},"happy" )
     # assert_equal 1, Payload.count
     # assert_equal 200, request1.status
 

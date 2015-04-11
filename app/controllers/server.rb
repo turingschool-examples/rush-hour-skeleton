@@ -25,6 +25,11 @@ module TrafficSpy
       body parsed_payload.body
     end
 
+    get '/show' do
+      erb :show
+
+    end
+
     get '/sources/:identifier' do |identifier|
       @source = Source.find_by(identifier: identifier)
       @urls = @source.root_url
