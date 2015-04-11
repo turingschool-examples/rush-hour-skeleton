@@ -28,6 +28,8 @@ class ServerTest < Minitest::Test
     DatabaseCleaner.clean
   end
 
+  def test
+
   def test_create_registration_with_parameter
     assert_equal 0, Source.count
     post '/sources' , {"identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
@@ -84,15 +86,6 @@ class ServerTest < Minitest::Test
 
   def test_payload_returns_400_when_payload_missing_or_empty_hash
     skip
-    # we're taking in the payload request information
-    # we're sending that to the JSON.parse method
-    # before the JSON.parse method is called, we want to make sure the info is valid
-    # it can't be nil or an empty hash
-    # if it isn't then we run it through JSON parse
-    # and create a new object
-
-
-
     #post '/sources' ,{identifier: "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     #post '/sources/jumpstartlab/data', {payload: '{}'}
     #assert_equal 400, last_response.status

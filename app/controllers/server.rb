@@ -26,12 +26,16 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      Sources.order(url: :desc)
-     #byebug
       @source = Source.find_by(identifier: identifier)
-      @urls = @source.urls
+      @urls = @source.root_url
       erb :show
     end
+
+    get '/sources/:identifier/url' do
+      Sources.order(url: :desc)
+    end
+
+
       # client is accessing the handle above
       # server is returning a request body in the form of a string
       # take in the url handler, parse it, check to see if anything in the title matches insidethe identifier db
