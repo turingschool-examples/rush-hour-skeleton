@@ -5,6 +5,7 @@ module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
       erb :index
+      #this will show a welcome page and link to the
     end
 
     not_found do
@@ -25,8 +26,11 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      Sources.order(url: :desc)
-
+     # Sources.order(url: :desc)
+     byebug
+      @source = Source.find_by(identifier: identifier)
+      @urls = @source.urls
+      erb :show
     end
       # client is accessing the handle above
       # server is returning a request body in the form of a string
@@ -36,4 +40,5 @@ module TrafficSpy
       #message, status_code = PayloadParser.new.valid?
       #payload_data = parse(params[:payload])
   end
+
 end
