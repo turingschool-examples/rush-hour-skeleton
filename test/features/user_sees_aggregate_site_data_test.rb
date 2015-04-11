@@ -11,9 +11,9 @@ module TrafficSpy
       TestData.clients.each do |client|
         ClientValidator.validate(client)
       end
-      TestData.payloads.each do |payload|
-        client = Client.all.first.identifier
-        PayloadValidator.validate(payload["payload"], client)
+
+      TestData.feature_tests.each do |payload|
+        PayloadValidator.validate(payload[0]["payload"], payload[1])
       end
     end
 
@@ -22,6 +22,7 @@ module TrafficSpy
     end
 
     def test_user_can_see_most_requested_to_least_requested_urls
+      binding.pry
       visit '/sources/jumpstartlab'
       assert_equal '/sources/jumpstartlab', current_path
       save_and_open_page
