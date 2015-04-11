@@ -12,8 +12,8 @@ module TrafficSpy
     end
 
     get '/sources' do
-      cool_guy = "kenney"
-      string = Client.all
+      cool_guy              = "kenney"
+      string                = Client.all
       erb :sources, :locals => {:clients => string, guy: cool_guy}
     end
 

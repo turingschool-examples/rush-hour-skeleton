@@ -1,31 +1,31 @@
 body {
-  background-image: url(/images/traffic.jpg);
-  background-size: cover;
+  background-image:  url(/images/traffic.jpg);
+  background-size:   cover;
   background-repeat: no-repeat;
 }
 
 #menu_bar {
-  background: black;
-  height: 50px;
-  width: 100%;
-  position: fixed;
-  top: 0px;
+  background:   black;
+  height:       50px;
+  width:        100%;
+  position:     fixed;
+  top:          0px;
   border-style: solid;
   border-color: black black #383838 black;
   border-width: 2px;
 }
 
 #menu_bar ul {
-  list-style: none;
-  position: relative;
+  list-style:  none;
+  position:    relative;
   white-space: nowrap;
-  float: right;
+  float:       right;
 }
 
 #menu_bar li {
-  display: inline-block;
+  display:  inline-block;
   position: relative;
-  color: yellow;
+  color:    yellow;
 
 }
 
@@ -34,29 +34,29 @@ body {
 }
 
 #head_tabs a {
-  color: white;
+  color:     white;
   font-size: 125%;
 }
 
 #head_tabs a:hover {
-  color: yellow;
+  color:           yellow;
   text-decoration: none;
 }
 
 #content {
-  color: white;
-  margin-top: 60px;
+  color:       white;
+  margin-top:  60px;
   margin-left: 20px;
 }
 
 footer {
-  background: black;
-  height: 125px;
-  width: 100%;
-  position: fixed;
-  bottom: 0%;
+  background:   black;
+  height:       125px;
+  width:        100%;
+  position:     fixed;
+  bottom:       0%;
   border-style: solid;
   border-color: #383838 black black black;
   border-width: 2px;
-  margin: 0%;
+  margin:       0%;
 }

@@ -36,8 +36,8 @@ module TrafficSpy
           composite_key << value
         end
         composite_key = composite_key.join.to_sha1
-        resolution = "#{@data["resolutionHeight"]} x #{@data["resolutionWidth"]}"
-        resolution_id   = Resolution.find_or_create_by(height_width: resolution).id
+        resolution    = "#{@data["resolutionHeight"]} x #{@data["resolutionWidth"]}"
+        resolution_id = Resolution.find_or_create_by(height_width: resolution).id
       end
 
       payload_data = {

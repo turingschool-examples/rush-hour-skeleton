@@ -2,7 +2,7 @@ module TrafficSpy
   class ClientValidator < Client
 
     def self.validate(data)
-      info = ClientParser.parse(data)
+      info   = ClientParser.parse(data)
       client = Client.new(info)
       if client.save  # Refactor if we have time
         json_body = JSON.generate({"identifier"=>client.identifier})
