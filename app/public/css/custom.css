@@ -4,6 +4,17 @@ body {
   background-repeat: no-repeat;
 }
 
+#content table {
+  border: 5px solid white;
+}
+
+#content th td {
+  padding: 10px;
+}
+
+#content ul {
+  border: 5px solid white;
+}
 #menu_bar {
   background: black;
   height: 50px;
