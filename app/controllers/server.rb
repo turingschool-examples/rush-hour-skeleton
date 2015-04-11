@@ -12,9 +12,8 @@ module TrafficSpy
     end
 
     get '/sources' do
-      cool_guy = "kenney"
-      string = Client.all
-      erb :sources, :locals => {:clients => string, guy: cool_guy}
+      clients = Client.all
+      erb :sources, :locals => {:clients => clients}
     end
 
     get '/sources/:identifier' do |identifier|
@@ -43,7 +42,7 @@ module TrafficSpy
       erb :urls, :locals => {sites: sites}
     end
 
-    post '/sources/:identifier/urls/:path/:rel_path' do |identifier, path, rel_path|
+    post '/sources/:identifier/urls/:path' do |identifier, path|
 
     end
 

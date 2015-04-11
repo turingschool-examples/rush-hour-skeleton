@@ -19,6 +19,10 @@ module TrafficSpy
       user_agent_information.map { |info| UserAgent.parse(info).browser }
     end
 
+    def operating_systems_information
+      user_agent_information.map { |info| UserAgent.parse(info).os }
+    end
+
     def resolution_information
       payloads.map { |load| load.resolution.height_width }
     end
@@ -26,10 +30,7 @@ module TrafficSpy
     def avg_response_ordered_most_to_least
       payloads.map do |load|
         {url: load.tracked_site.url, avg_time: load.tracked_site.average_response_time}
-      end.uniq 
+      end.uniq
     end
-
-    
-
   end
 end
