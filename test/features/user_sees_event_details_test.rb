@@ -1,6 +1,8 @@
 require './test/test_helper'
+
 module TrafficSpy
-  class AggregateDataTest < FeatureTest
+  class EventDetailsTest < FeatureTest
+    include Rack::Test::Methods
 
     def app
       TrafficSpy::Server
@@ -20,13 +22,17 @@ module TrafficSpy
       DatabaseCleaner.clean
     end
 
-    def test_user_can_see_most_requested_to_least_requested_urls
-      visit '/sources/jumpstartlab'
-      binding.pry
-      assert_equal '/sources/jumpstartlab', current_path
+    def test_user_can_see_longest_response_time_for_the_url 
+      visit '/sources/yahoo/events/socialLogin'
+      assert_equal '/sources/yahoo/events/socialLogin', current_path
       save_and_open_page
-      assert page.has_content?('jumpstartlab.com/blog')
+      assert page.has_content?("12")
+      assert page.has_content?("9 PM")
     end
+
+  # As a user
+  # When i visit "/sources/identifier/(some_url)" 
+  # I should see longest response time for that URL
 
   end
 end

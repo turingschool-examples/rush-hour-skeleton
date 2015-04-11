@@ -72,7 +72,10 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-
+      @event_id = Event.find_by(event_name: event_name).id
+      @client = Client.find_by(identifier: identifier)
+      binding.pry
+      erb :client_main_page
     end
 
     post '/sources/:identifier/events/:event_name' do |identifier, event_name|

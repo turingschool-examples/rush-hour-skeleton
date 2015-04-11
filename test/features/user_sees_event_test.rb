@@ -6,14 +6,13 @@ module TrafficSpy
       TrafficSpy::Server
     end
 
-    def setup
+     def setup
       DatabaseCleaner.start
       TestData.clients.each do |client|
         ClientValidator.validate(client)
       end
-      TestData.payloads.each do |payload|
-        client = Client.all.first.identifier
-        PayloadValidator.validate(payload["payload"], client)
+      TestData.feature_tests.each do |payload|
+        PayloadValidator.validate(payload[0]["payload"], payload[1])
       end
     end
 
