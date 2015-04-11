@@ -1,5 +1,4 @@
-<h1>THE SOURCE</h1>
-<% clients.each do |x| %>
-<h2><%= x.identifier  %></h2>
+<h1>All Spies using TrafficSpy</h1>
+<% clients.each do |client| %>
+<h2><a href="/sources/<%= client.identifier %>"><%= client.identifier  %></a></h2>
 <% end %>
-<h1><%= guy %></h1>

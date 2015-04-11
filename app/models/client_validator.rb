@@ -4,9 +4,8 @@ module TrafficSpy
     def self.validate(data)
       info   = ClientParser.parse(data)
       client = Client.new(info)
-      if client.save  # Refactor if we have time
+      if client.save 
         json_body = JSON.generate({"identifier"=>client.identifier})
-        # binding.pry
         {code: 200, message: json_body}
       elsif Client.find_by(identifier: client.identifier)
         errors = client.errors.full_messages

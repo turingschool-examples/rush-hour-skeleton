@@ -4,6 +4,17 @@ body {
   background-repeat: no-repeat;
 }
 
+#content table {
+  border: 5px solid white;
+}
+
+#content th td {
+  padding: 10px;
+}
+
+#content ul {
+  border: 5px solid white;
+}
 #menu_bar {
   background:   black;
   height:       50px;
@@ -58,5 +69,10 @@ footer {
   border-style: solid;
   border-color: #383838 black black black;
   border-width: 2px;
+<<<<<<< HEAD
   margin:       0%;
 }
+=======
+  margin: 0%;
+}
+>>>>>>> b103a41847125bf629bbcfed9ac10cf6a2e9f8f2

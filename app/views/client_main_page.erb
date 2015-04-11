@@ -1,23 +1,33 @@
-<h1> Welcome <%= client.identifier %> </h1>
+<h1> Welcome <%= client.identifier.capitalize %> </h1>
 
 
-
-<ol>
-<% client.ordered_most_to_least.each do |site| %>
-
-
-  <li><a href="<%= site %>"> <%= site %> </a></li>
-
-
-<% end %>
-</ol>
-
-<ul>
-<% client.resolution_information.each do |res| %>
-
-
-  <li> <%= res %> </li>
-
-
-<% end %>
-</ul>
+      <h3>Most Visited Urls</h3>
+        <ol>
+          <% client.ordered_most_to_least.each do |site| %>
+            <li><a href="/sources/<%= client.identifier %>/urls<%= URI(site).path %>"><%= site %></a></li>
+          <% end %>
+        </ol>
+      <h3>Web Browsers Used to Visit Your Pages</h3>
+        <ul>
+          <% client.browser_information.uniq.each do |browser| %>
+            <li><%= browser %></li>
+          <% end %>
+        </ul>
+      <h3>Operating Systems Used to Visit Your Pages</h3>
+        <ul>
+          <% client.operating_systems_information.uniq.each do |os| %>
+            <li><%= os %></li>
+          <% end %>
+        </ul>
+        <h3>Resolutions While Visiting Your Pages</h3>
+        <ul>
+          <% client.resolution_information.each do |res| %>
+            <li><%= res %></li>
+          <% end %>
+        </ul>
+        <h3>Average Response Times</h3>
+        <ol>
+          <% client.avg_response_ordered_most_to_least.each do |url_time| %>
+            <li><%= url_time[:url] %> - <%= url_time[:avg_time] %>ms</li>
+          <% end %>
+        </ol>

@@ -12,9 +12,14 @@ module TrafficSpy
     end
 
     get '/sources' do
+<<<<<<< HEAD
       cool_guy              = "kenney"
       string                = Client.all
       erb :sources, :locals => {:clients => string, guy: cool_guy}
+=======
+      clients = Client.all
+      erb :sources, :locals => {:clients => clients}
+>>>>>>> b103a41847125bf629bbcfed9ac10cf6a2e9f8f2
     end
 
     get '/sources/:identifier' do |identifier|
@@ -43,7 +48,7 @@ module TrafficSpy
       erb :urls, :locals => {sites: sites}
     end
 
-    post '/sources/:identifier/urls/:path/:rel_path' do |identifier, path, rel_path|
+    post '/sources/:identifier/urls/:path' do |identifier, path|
 
     end
 
@@ -72,7 +77,10 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-
+      @event_id = Event.find_by(event_name: event_name).id
+      @client = Client.find_by(identifier: identifier)
+      binding.pry
+      erb :client_main_page
     end
 
     post '/sources/:identifier/events/:event_name' do |identifier, event_name|
