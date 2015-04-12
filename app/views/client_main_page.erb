@@ -4,33 +4,25 @@
 
       <h3>Most Visited Urls</h3>
       <h4>(Ordered Most to Least Visited)</h4>
-        <ol>
           <% client.ordered_most_to_least_sites.uniq.each do |site| %>
-            <li><a href="/sources/<%= client.identifier %>/urls<%= URI(site).path %>"><%= site %></a></li>
+            <p><a href="/sources/<%= client.identifier %>/urls<%= URI(site).path %>"><%= site %></a></p>
           <% end %>
-        </ol>
       <h3>Web Browsers Used to Visit Your Pages</h3>
-        <ul>
+        
           <% client.browser_information.uniq.each do |browser| %>
-            <li><%= browser %></li>
+            <p><%= browser %></p>
           <% end %>
-        </ul>
       <h3>Operating Systems Used to Visit Your Pages</h3>
-        <ul>
           <% client.operating_systems_information.uniq.each do |os| %>
-            <li><%= os %></li>
+            <p><%= os %></p>
           <% end %>
-        </ul>
       <h3>Resolutions While Visiting Your Pages</h3>
-        <ul>
           <% client.resolution_information.each do |res| %>
-            <li><%= res %></li>
+            <p><%= res %></p>
           <% end %>
-        </ul>
         <h3>Average Response Times</h3>
-          <ul>
             <% client.ordered_most_to_least_avg_response.each do |url_time| %>
-              <li><%= url_time[:url]  %> - <%= url_time[:avg_time] %>ms</li>
+              <p><%= url_time[:url]  %> - <%= url_time[:avg_time] %>ms</p>
             <% end %>
-          </ul>
+        <h3><a href="/sources/<%= client.identifier %>/events">Event Data</a></h3>
 </div>
