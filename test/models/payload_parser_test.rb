@@ -3,6 +3,10 @@ require './test/test_helper'
 class PayloadParserTest < Minitest::Test
   include Rack::Test::Methods
 
+  def app
+    TrafficSpy::Server
+  end
+
   def setup
     @pload =
     'payload={"url": "http://jumpstartlab.com/blog",
@@ -24,17 +28,17 @@ class PayloadParserTest < Minitest::Test
   end
 
   def test_duplicate_application
-    # assert_equal 0, Payload.count
-    #Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    post '/sources/jadvaerbaerbllltarklab/data',  @pload
+    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    # post '/sources/jadvaerbaerbllltarklab/data',  @pload
+    post2 = post '/sources/jumpstartlab/data', @pload
     # request1 = PayloadParser.validate({"ip" => 2, "requestedAt" => "today"}, "happy")
-    # assert_equal 1, Payload.count
-    assert_equal 200, request1.status
-
-    post '/sources/jadvaerbaerbllltarklab/data',  @pload
+    assert_equal 1, Payload.count
+    assert_equal 200, post2.status
+    post1 = post '/sources/jumpstartlab/data', @pload
     # request2 = PayloadParser.validate({"ip" => 2, "requestedAt" => "today"},"happy")
     # assert request2.application_duplicate?
-    assert_equal 403, request2.status
+    assert_equal 403, post1.status
+    # refute something.valid?
     # assert request2.invalid
     # assert_equal ["Application has already been received"], request2.errors[:ip]
   end

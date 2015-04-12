@@ -25,6 +25,7 @@ module TrafficSpy
     end
 
     get '/show' do
+      @url = Url.order(url: :desc)
       erb :show
 
     end
@@ -34,11 +35,6 @@ module TrafficSpy
       @urls = @source.root_url
       erb :show
     end
-
-    get '/sources/:identifier/url' do
-      Url.order(url: :desc)
-    end
-
 
       # client is accessing the handle above
       # server is returning a request body in the form of a string
