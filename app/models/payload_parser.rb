@@ -1,15 +1,16 @@
 class PayloadParser
   attr_accessor :data, :message, :status_code
 
-  def self.validate(data, identifier = nil)
+  def self.validate(data, identifier = {})
     new(data, identifier)
   end
 
-  def initialize(data, identifier = nil)
+  def initialize(data, identifier = {})
+    #byebug
       @identifier = identifier
-    if data.present?
+    if data.present? && status == 200
       @data = InputConverter.conversion(data)
-      @payload = Payload.new(@data)
+      @payload = new_payload(@data, @identifier)
     else
       @data = {}
     end
@@ -36,7 +37,7 @@ class PayloadParser
   end
 
   def valid?
-    data.present?
+    data.save
   end
 
   def application_duplicate?
@@ -53,7 +54,7 @@ class PayloadParser
 
   def new_payload(parsed_params, identifier)
     Payload.new(
-    source_id: Source.find_by(identifier: identifier).id,
+    source_id: Source.find_by(identifier: @identifier).id,
     url_id: Url.find_or_create_by(url: parsed_params[:url], relative_path: URI(parsed_params[:url]).path).id,
     requested_at: parsed_params[:requested_at],
     responded_in: parsed_params[:responded_in],

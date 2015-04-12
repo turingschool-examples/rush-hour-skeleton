@@ -1,6 +1,5 @@
 require 'byebug'
 
-
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -37,7 +36,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/url' do
-      Sources.order(url: :desc)
+      Url.order(url: :desc)
     end
 
 

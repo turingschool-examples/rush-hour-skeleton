@@ -83,6 +83,13 @@ class ServerTest < Minitest::Test
     assert_equal "application url does not exist", last_response.body
   end
 
+  # def test_response_when_payload_is_identical
+  #   post '/sources/jadvaerbaerbllltarklab/data',  @pload
+  #   assert_equal 200, last_response.status
+    # post '/sources/jadvaerbaerbllltarklab/data',  @pload
+  #   assert_equal 403, last_response.status
+  # end
+
   # def test_payload_returns_400_when_payload_missing_or_empty_hash
   #   skip
     #post '/sources' ,{identifier: "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
