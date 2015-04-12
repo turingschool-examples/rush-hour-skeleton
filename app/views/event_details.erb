@@ -1,0 +1,11 @@
+<h1><%= client.identifier.capitalize %> Event Breakdown</h1>
+
+<h3>"<%= event.event_name %>" occurred a total of <%= client.count_events(event.id) %> times: </h3>
+  <ul>
+      <% client.count_events_by_hour(event.id).each do |time|%>
+        <li><%= time[:count] %> event(s) occured at <%= time[:time] %></li>
+      <% end %>
+  </ul>
+
+  <a href="/sources/<%= URI(client.identifier) %>/events">Return to Events Index</a>
+
