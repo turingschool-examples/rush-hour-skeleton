@@ -77,22 +77,21 @@ class ServerTest < Minitest::Test
 
   def test_response_when_identifier_doesnt_exist
     # Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" )
-    post '/sources/jadvaerbaerbllltarklab/data', @pload
+    post '/sources/jadvaerbaerbllltarklab/data',  'payload={"url": "http://jumpstartlab.com/blog",
+                  "ip"                 : "63.29.38.211"}'
    #  assert_equal 403, last_response.status
     assert_equal "application url does not exist", last_response.body
   end
 
-  def test_payload_returns_400_when_payload_missing_or_empty_hash
-    skip
-    # we're taking in the payload request information
-    # we're sending that to the JSON.parse method
-    # before the JSON.parse method is called, we want to make sure the info is valid
-    # it can't be nil or an empty hash
-    # if it isn't then we run it through JSON parse
-    # and create a new object
+  # def test_response_when_payload_is_identical
+  #   post '/sources/jadvaerbaerbllltarklab/data',  @pload
+  #   assert_equal 200, last_response.status
+    # post '/sources/jadvaerbaerbllltarklab/data',  @pload
+  #   assert_equal 403, last_response.status
+  # end
 
-
-
+  # def test_payload_returns_400_when_payload_missing_or_empty_hash
+  #   skip
     #post '/sources' ,{identifier: "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     #post '/sources/jumpstartlab/data', {payload: '{}'}
     #assert_equal 400, last_response.status
@@ -100,5 +99,5 @@ class ServerTest < Minitest::Test
     #post '/sources/jumpstartlab/data', {payload: nil }
     #assert_equal 400, last_response.status
     #assert_equal "bad_request", last_response.body
-  end
+  # end
 end
