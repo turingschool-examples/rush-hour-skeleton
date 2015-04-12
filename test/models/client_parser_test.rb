@@ -1,11 +1,11 @@
 require './test/test_helper'
 
 module TrafficSpy
-  class ClientParserTest < Minitest::Test 
+  class ClientParserTest < Minitest::Test
 
 
     def test_it_can_parse_an_identifier
-      data    = {"identifier" => "jumpstartlab"} 
+      data    = {"identifier" => "jumpstartlab"}
       result  = ClientParser.parse(data)
       assert_equal "jumpstartlab", result[:identifier]
     end
@@ -35,6 +35,6 @@ module TrafficSpy
       assert_equal nil, result[:identifier]
       assert_equal nil, result[:root_url]
     end
-
+    
   end
 end
