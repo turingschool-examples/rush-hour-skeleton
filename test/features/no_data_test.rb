@@ -21,7 +21,6 @@ module TrafficSpy
       visit '/sources/boogiewoogie/events'
       assert_equal '/sources/boogiewoogie/events', current_path
       assert page.has_content?("There are no events yet for ")
-      save_and_open_page
     end
 
   end

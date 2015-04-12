@@ -5,19 +5,19 @@ body {
 }
 
 body h1 {
-  text-align: center;
+  text-align:       center;
   background-color: 2A282F;
 }
 
 .information_board {
-  height: 55%;
-  width: 55%;
-  margin: auto;
+  height:           55%;
+  width:            55%;
+  margin:           auto;
   background-color: 2A282F;
-  text-align: center;
-  padding-bottom: 25px;
-  overflow: auto;
-  opacity: .8;
+  text-align:       center;
+  padding-bottom:   25px;
+  overflow:         auto;
+  opacity:          .8;
 }
 
 .information_board p{
@@ -33,12 +33,12 @@ body a {
 }
 
 body a:hover {
-  color: white;
+  color:            white;
   background-color: 6B427A;
-  border: 2px solid white;
-  border-radius: 5px;
-  padding: 2px;
-  text-decoration: none;
+  border:           2px solid white;
+  border-radius:    5px;
+  padding:          2px;
+  text-decoration:  none;
 }
 
 #menu_bar {
@@ -98,7 +98,3 @@ footer {
 <<<<<<< HEAD
   margin:       0%;
 }
-=======
-  margin: 0%;
-}
->>>>>>> b103a41847125bf629bbcfed9ac10cf6a2e9f8f2

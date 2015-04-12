@@ -21,7 +21,6 @@ module TrafficSpy
     # def test_user_can_see_longest_response_time_for_the_url
     #   visit '/sources/yahoo/events/socialLogin'
     #   assert_equal '/sources/yahoo/events/socialLogin', current_path
-    #   save_and_open_page
     #   assert page.has_content?("12")
     #   assert page.has_content?("9 PM")
     # end
