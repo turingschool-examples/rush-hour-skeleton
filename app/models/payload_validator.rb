@@ -2,7 +2,6 @@ module TrafficSpy
   class PayloadValidator < Payload
 
     def self.validate(data, identifier)
-      # binding.pry
       info = PayloadParser.parse(data, identifier)
       payload = Payload.new(info)
       payload_nil = info.each_value.all? {|value| value.nil?}
