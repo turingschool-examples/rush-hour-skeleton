@@ -21,10 +21,31 @@ module TrafficSpy
       visit '/sources/yahoo/urls/weather'
       assert '/sources/yahoo/urls/weather'
       assert page.has_content?('Longest Response Time')
+      assert page.has_content?('200ms')
       assert page.has_content?('Shortest Response Time')
+      assert page.has_content?('37ms')
       assert page.has_content?('Average Response Time')
+      assert page.has_content?('91ms')
     end
 
+    def test_it_shows_the_http_verbs_used
+      visit '/sources/yahoo/urls/weather'
+      assert '/sources/yahoo/urls/weather'
+      assert page.has_content?('GET')
+    end
+
+    def test_it_shows_most_popular_referers
+      visit '/sources/yahoo/urls/weather'
+      assert '/sources/yahoo/urls/weather'
+      assert page.has_content?('http://apple.com')
+    end
+
+    def test_it_shows_most_popular_user_agents
+      visit '/sources/yahoo/urls/weather'
+      assert '/sources/yahoo/urls/weather'
+      save_and_open_page
+      assert page.has_content?('Mozilla/5.0 [(]Macintosh%3B Intel Mac OS X 10_8_2)')
+    end
 
     def teardown
       DatabaseCleaner.clean

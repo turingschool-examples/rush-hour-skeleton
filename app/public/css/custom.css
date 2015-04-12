@@ -2,16 +2,18 @@ body {
   background-image:  url(/images/traffic.jpg);
   background-size:   cover;
   background-repeat: no-repeat;
+
 }
 
 body h1 {
-<<<<<<< HEAD
-  text-align: center;
-  
-=======
   text-align:       center;
->>>>>>> 721116e4c25e82af0714afa2da13f6daaa7a42c9
-  background-color: 2A282F;
+  background-color: 372240;
+  opacity:          .8;
+  height:           auto;
+  width:            55%;
+  margin:           auto;
+  border:           1px solid white;
+  border-radius:    10px 10px 0px 0px;
 }
 
 .information_board {
@@ -23,6 +25,8 @@ body h1 {
   padding-bottom:   25px;
   overflow:         auto;
   opacity:          .8;
+  border:           2px solid white;
+  border-radius:    0px 0px 5px 5px;
 }
 
 .information_board p{
@@ -47,7 +51,7 @@ body a:hover {
 }
 
 #menu_bar {
-  background:   black;
+  background-color:   181324;
   height:       50px;
   width:        100%;
   position:     fixed;
@@ -55,6 +59,7 @@ body a:hover {
   border-style: solid;
   border-color: black black #383838 black;
   border-width: 2px;
+  opacity:      .8;
 }
 
 #menu_bar ul {
@@ -87,12 +92,12 @@ body a:hover {
 
 #content {
   color:       white;
-  margin-top:  60px;
+  margin-top:  80px;
   margin-left: 20px;
 }
 
 footer {
-  background:   black;
+  background-color:   181324;
   height:       125px;
   width:        100%;
   position:     fixed;
@@ -100,6 +105,6 @@ footer {
   border-style: solid;
   border-color: #383838 black black black;
   border-width: 2px;
-<<<<<<< HEAD
   margin:       0%;
+  opacity:      .8;
 }
