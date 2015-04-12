@@ -5,7 +5,7 @@
     <p><% client.count_events_by_hour(event.id).each do |time|%>
       <%= time[:count] %> event(s) occured at <%= time[:time] %>
     <% end %></p>
+  <a href="/sources/<%= URI(client.identifier) %>/events">Return to Events Index</a>
   </div>
 
-  <a href="/sources/<%= URI(client.identifier) %>/events">Return to Events Index</a>
 
