@@ -28,7 +28,11 @@ module TrafficSpy
     get '/sources/:identifier/urls/:path' do |identifier, path|
       client             = Client.find_by(identifier: identifier)
       site               = TrackedSite.find_by(url: "#{client.root_url}/#{path}")
-      erb :urls, :locals => {site: site, client: client}
+      if site
+        erb :urls, :locals => {site: site, client: client}
+      else
+       erb :urls_error
+      end
     end
 
     get '/sources/:identifier/events' do |identifier|
@@ -52,8 +56,8 @@ module TrafficSpy
       body @payload.fetch(:message, nil)
     end
 
-    not_found do
-      erb :error
-    end
+    # not_found do
+    #   erb :error
+    # end
   end
 end
