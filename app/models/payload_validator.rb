@@ -2,9 +2,8 @@ module TrafficSpy
   class PayloadValidator < Payload
 
     def self.validate(data, identifier)
-      # binding.pry
-      info = PayloadParser.parse(data, identifier)
-      payload = Payload.new(info)
+      info        = PayloadParser.parse(data, identifier)
+      payload     = Payload.new(info)
       payload_nil = info.each_value.all? {|value| value.nil?}
       if payload_nil
         {code: 400, message: "Payload cannot be nil"}

@@ -12,6 +12,21 @@ task :capy_test do
   Dir.glob('./test/features/*_test.rb') { |file| require file }
 end
 
+namespace :no_feature_test do 
+
+  desc "Test the models"
+  task :model_test do 
+    Dir.glob('./test/models/*_test.rb') { |file| require file }
+  end
+
+  desc "Test the controllers"
+  task :controller_test do 
+    Dir.glob('./test/controllers/*_test.rb') { |file| require file }
+  end
+
+  "Check models and controllers tests"
+  task :all => [:model_test, :controller_test]
+end
 
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"

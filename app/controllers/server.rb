@@ -25,68 +25,25 @@ module TrafficSpy
       end
     end
 
-    post '/sources/:identifier' do |identifier|
-
-    end
-
-    get '/sources/registration_error' do
-
-    end
-
-    post '/sources/registration_error' do
-
-    end
-
     get '/sources/:identifier/urls/:path' do |identifier, path|
       client = Client.find_by(identifier: identifier)
       site = TrackedSite.find_by(url: "#{client.root_url}/#{path}")
       erb :urls, :locals => {site: site, client: client}
     end
 
-    post '/sources/:identifier/urls/:path' do |identifier, path|
-
-    end
-
-    get '/sources/:identifier/urls/url_error' do |identifier|
-
-    end
-
-    post '/sources/:identifier/urls/url_error' do |identifier|
-
-    end
-
     get '/sources/:identifier/events' do |identifier|
-
-    end
-
-    post '/sources/:identifier/events' do |identifier|
-
-    end
-
-    get '/sources/:identifier/no_events_error' do |identifier|
-
-    end
-
-    post '/sources/:identifier/no_events_error' do |identifier|
-
+      client = Client.find_by(identifier: identifier)
+      if client.ordered_most_to_least_events.empty?
+        erb :no_events, :locals => {client: client}
+      else
+        erb :events, :locals => {client: client}
+      end
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-      @event_id = Event.find_by(event_name: event_name).id
-      @client = Client.find_by(identifier: identifier)
-      erb :client_main_page
-    end
-
-    post '/sources/:identifier/events/:event_name' do |identifier, event_name|
-
-    end
-
-    get '/sources/:identifier/events/event_name_error' do |identifier|
-
-    end
-
-    post '/sources/:identifier/events/event_name_error' do |identifier|
-
+      event  = Event.find_by(event_name: event_name)
+      client = Client.find_by(identifier: identifier)
+      erb :event_details, :locals => {event: event, client: client}
     end
 
     post '/sources/:identifier/data' do |identifier|
