@@ -4,17 +4,43 @@ body {
   background-repeat: no-repeat;
 }
 
-#content table {
-  border: 5px solid white;
+body h1 {
+  text-align: center;
+  background-color: 2A282F;
 }
 
-#content th td {
-  padding: 10px;
+.information_board {
+  height: 55%;
+  width: 55%;
+  margin: auto;
+  background-color: 2A282F;
+  text-align: center;
+  padding-bottom: 25px;
+  overflow: auto;
+  opacity: .8;
 }
 
-#content ul {
-  border: 5px solid white;
+.information_board p{
+  color: white;
 }
+
+.information_board li {
+  list-style: none;
+}
+
+body a {
+  color: FFEF88;
+}
+
+body a:hover {
+  color: white;
+  background-color: 6B427A;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 2px;
+  text-decoration: none;
+}
+
 #menu_bar {
   background: black;
   height: 50px;

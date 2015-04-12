@@ -1,9 +1,11 @@
 <h1> Welcome <%= client.identifier.capitalize %> </h1>
 
+<div class="information_board">
 
       <h3>Most Visited Urls</h3>
+      <h4>(Ordered Most to Least Visited)</h4>
         <ol>
-          <% client.ordered_most_to_least.each do |site| %>
+          <% client.ordered_most_to_least_sites.uniq.each do |site| %>
             <li><a href="/sources/<%= client.identifier %>/urls<%= URI(site).path %>"><%= site %></a></li>
           <% end %>
         </ol>
@@ -19,15 +21,16 @@
             <li><%= os %></li>
           <% end %>
         </ul>
-        <h3>Resolutions While Visiting Your Pages</h3>
+      <h3>Resolutions While Visiting Your Pages</h3>
         <ul>
           <% client.resolution_information.each do |res| %>
             <li><%= res %></li>
           <% end %>
         </ul>
         <h3>Average Response Times</h3>
-        <ol>
-          <% client.avg_response_ordered_most_to_least.each do |url_time| %>
-            <li><%= url_time[:url] %> - <%= url_time[:avg_time] %>ms</li>
-          <% end %>
-        </ol>
+          <ul>
+            <% client.ordered_most_to_least_avg_response.each do |url_time| %>
+              <li><%= url_time[:url]  %> - <%= url_time[:avg_time] %>ms</li>
+            <% end %>
+          </ul>
+</div>

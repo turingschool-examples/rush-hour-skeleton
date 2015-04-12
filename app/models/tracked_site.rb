@@ -13,11 +13,11 @@ module TrafficSpy
     end
 
     def longest_response_time
-      payloads_response_time.order('responded_in desc').first
+      payloads.maximum(:responded_in).to_f.round
     end
 
     def shortest_response_time
-      payloads_response_time.order('responded_in desc').last
+      payloads.minimum(:responded_in).to_f.round
     end
 
     def http_verbs
