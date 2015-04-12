@@ -37,9 +37,10 @@ module TrafficSpy
 
     end
 
-    get '/sources/:identifier/urls/:path/:rel_path' do |identifier, path, rel_path|
-      sites = TrackedSite.find_by(url: "http://#{path}/#{rel_path}")
-      erb :urls, :locals => {sites: sites}
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      client = Client.find_by(identifier: identifier)
+      site = TrackedSite.find_by(url: "#{client.root_url}/#{path}")
+      erb :urls, :locals => {site: site, client: client}
     end
 
     post '/sources/:identifier/urls/:path' do |identifier, path|
