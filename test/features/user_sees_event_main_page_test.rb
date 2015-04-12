@@ -20,18 +20,18 @@ module TrafficSpy
       DatabaseCleaner.clean
     end
 
-    # def test_user_can_see_the_page_title
-    #   visit '/sources/jumpstartlab/events'
-    #   assert_equal '/sources/jumpstartlab/events', current_path
-    #   # assert page.has_content?('Events Index')
-    #   save_and_open_page
-    # end
+    def test_user_can_see_the_page_title
+      visit '/sources/jumpstartlab/events'
+      assert_equal '/sources/jumpstartlab/events', current_path
+      # assert page.has_content?('Events Index')
+    end
 
-    # def test_user_can_see_the_page_title
-    #   visit '/sources/jumpstartlab/events'
-    #   assert page.has_content?('Events Index')
-    #   assert page.has_content?("socialLogin")
-    # end
+    def test_user_can_see_the_page_title
+      visit '/sources/jumpstartlab/events'
+      assert page.has_content?('Events Index')
+      assert page.has_content?("socialLogin")
+      # save_and_open_page
+    end
 
   end
 end

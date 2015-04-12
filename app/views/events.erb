@@ -1,6 +1,8 @@
-<h1>Events Index</h1>
-<% @event.each do |event| %>
-  <a href="#{event_address}"><%= event.event_name %>
-  <!-- <p><%= event.event_name %></p> -->
-<% end %>
- <!-- <a href="#{event.">  -->
+<h1> Welcome <%= client.identifier.capitalize %> </h1>
+
+<h3>Events Index</h3>
+  <ol>
+      <% events.each do |event| %>
+        <%= event.event_name %>
+      <% end %>
+  </ol>
