@@ -91,6 +91,11 @@ body a:hover {
   margin-left: 20px;
 }
 
+.eventnames {
+  color: #E8E790;
+  opacity: 1;
+}
+
 footer {
   background:   black;
   height:       125px;
