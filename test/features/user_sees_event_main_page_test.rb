@@ -6,7 +6,7 @@ module TrafficSpy
       TrafficSpy::Server
     end
 
-     def setup
+    def setup
       DatabaseCleaner.start
       TestData.clients.each do |client|
         ClientValidator.validate(client)
@@ -27,11 +27,21 @@ module TrafficSpy
     end
 
     def test_user_can_see_the_page_title
-      visit '/sources/jumpstartlab/events'
-      assert page.has_content?('Events Index')
+      visit '/sources/yahoo/events'
+      assert page.has_content?('Events Ordered By Occurrance')
       assert page.has_content?("socialLogin")
-      # save_and_open_page
+      assert page.has_content?("beginRegistration")
+      click_link('socialLogin')
+      assert_equal '/sources/yahoo/events/socialLogin', current_path
     end
+
+    # def test_no_events_page
+    #   DatabaseCleaner.clean
+    #   visit '/sources/yahoo/events'
+    #   assert_equal '/sources/yahoo/events', current_path
+    #   assert page.has_content?("There are no events yet for ")
+    #   save_and_open_page
+    # end
 
   end
 end

@@ -3,7 +3,7 @@
 
       <h3>Most Visited Urls</h3>
         <ol>
-          <% client.ordered_most_to_least.each do |site| %>
+          <% client.ordered_most_to_least_events.each do |site| %>
             <li><a href="/sources/<%= client.identifier %>/urls<%= URI(site).path %>"><%= site %></a></li>
           <% end %>
         </ol>
@@ -27,7 +27,7 @@
         </ul>
         <h3>Average Response Times</h3>
         <ol>
-          <% client.avg_response_ordered_most_to_least.each do |url_time| %>
+          <% client.ordered_most_to_least_avg_response.each do |url_time| %>
             <li><%= url_time[:url] %> - <%= url_time[:avg_time] %>ms</li>
           <% end %>
         </ol>

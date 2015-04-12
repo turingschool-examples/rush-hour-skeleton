@@ -56,12 +56,11 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       client = Client.find_by(identifier: identifier)
-      events = client.ordered_most_to_least_events
-        if client.nil?
-          erb :#make a page for this
-        else
-          erb :events, :locals => {events: event}
-        end
+      if client.ordered_most_to_least_events.empty?
+        erb :no_events, :locals => {client: client}
+      else
+        erb :events, :locals => {client: client}
+      end
     end
 
     post '/sources/:identifier/events' do |identifier|
@@ -77,10 +76,9 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-      # @event_id = Event.find_by(event_name: event_name).id
-      # @client = Client.find_by(identifier: identifier)
-      # binding.pry
-      # erb :client_main_page
+      event  = Event.find_by(event_name: event_name)
+      client = Client.find_by(identifier: identifier)
+      erb :event_details, :locals => {event: event, client: client}
     end
 
     post '/sources/:identifier/events/:event_name' do |identifier, event_name|
