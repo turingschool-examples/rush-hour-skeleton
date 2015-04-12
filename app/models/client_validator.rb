@@ -4,6 +4,7 @@ module TrafficSpy
     def self.validate(data)
       info   = ClientParser.parse(data)
       client = Client.new(info)
+      
       if client.save 
         json_body = JSON.generate({"identifier"=>client.identifier})
         {code: 200, message: json_body}
