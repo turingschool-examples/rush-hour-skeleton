@@ -13,7 +13,6 @@ task :capy_test do
 end
 
 task :delete_cap do 
-  puts "HERE"
   Dir.glob('capybara*') do |file| 
     rm file 
   end

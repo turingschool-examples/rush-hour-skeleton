@@ -59,7 +59,7 @@ module TrafficSpy
 
       post '/sources/jumpstartlab/data', payload
       assert_equal 403, last_response.status
-      assert_equal "Composite key has already been taken", last_response.body
+      assert_equal "Cannot save. Duplicate payload", last_response.body
     end
 
     def test_it_returns_error_for_nonexistent_url

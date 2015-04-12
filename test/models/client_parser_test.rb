@@ -3,7 +3,6 @@ require './test/test_helper'
 module TrafficSpy
   class ClientParserTest < Minitest::Test
 
-
     def test_it_can_parse_an_identifier
       data    = {"identifier" => "jumpstartlab"}
       result  = ClientParser.parse(data)
