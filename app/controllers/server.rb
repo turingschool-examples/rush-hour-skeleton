@@ -37,9 +37,10 @@ module TrafficSpy
 
     end
 
-    get '/sources/:identifier/urls/:path/:rel_path' do |identifier, path, rel_path|
-      sites = TrackedSite.find_by(url: "http://#{path}/#{rel_path}")
-      erb :urls, :locals => {sites: sites}
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      client = Client.find_by(identifier: identifier)
+      site = TrackedSite.find_by(url: "#{client.root_url}/#{path}")
+      erb :urls, :locals => {site: site, client: client}
     end
 
     post '/sources/:identifier/urls/:path' do |identifier, path|
@@ -73,7 +74,6 @@ module TrafficSpy
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @event_id = Event.find_by(event_name: event_name).id
       @client = Client.find_by(identifier: identifier)
-      binding.pry
       erb :client_main_page
     end
 

@@ -64,7 +64,6 @@ module TrafficSpy
 
     def test_it_returns_error_for_nonexistent_url
       post '/sources',{"identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}
-
       payload = {"payload" => {
         "url"=> nil,
         "requestedAt"=>"2013-02-16 21:38:28 -0700",

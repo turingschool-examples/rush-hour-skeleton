@@ -20,9 +20,6 @@ module TrafficSpy
       end
     end
 
-    def teardown
-      DatabaseCleaner.clean
-    end
 
     def test_it_finds_and_list_urls_from_most_requested_to_least_requested
       result = ApplicationDetails.sort_tracked_sites(1)
@@ -36,6 +33,7 @@ module TrafficSpy
 
     def test_OS_can_be_broken_down_across_all_requests
       result = ApplicationDetails.user_agent_os(1)
+      binding.pry
       assert_equal ["Macintosh%3B Intel Mac OS X 10_8_2", "Windows"],result
     end
 
@@ -59,5 +57,8 @@ module TrafficSpy
       assert_equal "",""
     end
 
+    def teardown
+      DatabaseCleaner.clean
+    end
   end
 end
