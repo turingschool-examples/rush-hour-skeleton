@@ -18,11 +18,8 @@ module TrafficSpy
       end
     end
 
-    def teardown
-      DatabaseCleaner.clean
-    end
 
-    # def test_user_can_see_longest_response_time_for_the_url 
+    # def test_user_can_see_longest_response_time_for_the_url
     #   visit '/sources/jumpstartlab/urls/jumpstartlab.com/blog'
     #   assert_equal '/sources/jumpstartlab/urls/jumpstartlab.com/blog', current_path
     #   save_and_open_page
@@ -34,5 +31,8 @@ module TrafficSpy
   # When i visit "/sources/identifier/(some_url)"
   # I should see longest response time for that URL
 
+    def teardown
+      DatabaseCleaner.clean
+    end
   end
 end

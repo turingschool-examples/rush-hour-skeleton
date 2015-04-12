@@ -16,9 +16,6 @@ module TrafficSpy
       end
     end
 
-    def teardown
-      DatabaseCleaner.clean
-    end
 
     # def test_user_can_see_the_page_title
     #   visit '/sources/jumpstartlab/events'
@@ -33,5 +30,8 @@ module TrafficSpy
     #   assert page.has_content?("socialLogin")
     # end
 
+    def teardown
+      DatabaseCleaner.clean
+    end
   end
 end
