@@ -18,10 +18,10 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       client = Client.find_by(identifier: identifier)
-        if client.nil?
-          erb :no_client_error
-        else
-          erb :client_main_page, :locals => {:client => client}
+      if client
+        erb :client_main_page, :locals => {:client => client}
+      else
+        erb :no_client_error
       end
     end
 
@@ -53,8 +53,8 @@ module TrafficSpy
       body @payload.fetch(:message, nil)
     end
 
-    not_found do
-      erb :error
-    end
-  end
+   #  not_found do
+   #    erb :error
+   # end
+ end
 end

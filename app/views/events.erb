@@ -1,8 +1,7 @@
 <h1> Welcome <%= client.identifier.capitalize %> </h1>
 <div class="information_board">
 <h3>Events Ordered By Occurrance:</h3>
-  <div class="information_board">
         <% client.ordered_most_to_least_events.each do |event| %>
         <p><a href="/sources/<%= URI(client.identifier).path %>/events/<%= URI(event).path %>"><%= event%></a></p>
         <% end %>
-  </div>
+</div>
