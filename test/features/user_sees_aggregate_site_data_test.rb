@@ -16,10 +16,6 @@ module TrafficSpy
       end
     end
 
-    def teardown
-      DatabaseCleaner.clean
-    end
-
     def test_user_can_see_most_requested_to_least_requested_urls
       visit '/sources/jumpstartlab'
       assert_equal '/sources/jumpstartlab', current_path
@@ -33,8 +29,9 @@ module TrafficSpy
     end
 
     def test_user_can_see_OS_used_to_visit_site
-      visit '/sources/jumpstartlab'
-      assert_equal '/sources/jumpstartlab', current_path
+      visit '/sources/yahoo'
+      assert_equal '/sources/yahoo', current_path
+      save_and_open_page
       assert page.has_content?('OS X 10.8.2')
     end
 
@@ -42,6 +39,7 @@ module TrafficSpy
       visit '/sources/jumpstartlab'
       assert_equal '/sources/jumpstartlab', current_path
       assert page.has_content?('1280 x 1920')
+      # save_and_open_page
     end
 
     def test_user_can_see_longest_to_shortest_average_response_time_per_url
@@ -56,8 +54,11 @@ module TrafficSpy
       assert_equal '/sources/yahoo', current_path
       assert page.has_content?('http://yahoo.com/weather')
       click_link_or_button("http://yahoo.com/weather")
-      save_and_open_page
       assert_equal '/sources/yahoo/urls/weather', current_path
+    end
+
+    def teardown
+      DatabaseCleaner.clean
     end
   end
 end

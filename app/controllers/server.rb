@@ -25,15 +25,25 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:identifier/urls/:path/:rel_path' do |identifier, path, rel_path|
-      sites = TrackedSite.find_by(url: "http://#{path}/#{rel_path}")
-      erb :urls, :locals => {sites: sites}
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      client = Client.find_by(identifier: identifier)
+      site = TrackedSite.find_by(url: "#{client.root_url}/#{path}")
+      erb :urls, :locals => {site: site, client: client}
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      client = Client.find_by(identifier: identifier)
+      if client.ordered_most_to_least_events.empty?
+        erb :no_events, :locals => {client: client}
+      else
+        erb :events, :locals => {client: client}
+      end
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-      @event_id = Event.find_by(event_name: event_name).id
-      @client = Client.find_by(identifier: identifier)
-      erb :client_main_page
+      event  = Event.find_by(event_name: event_name)
+      client = Client.find_by(identifier: identifier)
+      erb :event_details, :locals => {event: event, client: client}
     end
 
     post '/sources/:identifier/data' do |identifier|

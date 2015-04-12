@@ -19,8 +19,8 @@ module TrafficSpy
     #THIS WORKS TOO: Payload.group("tracked_site_id").where(client_id: 1).order("average_responded_in desc").average("responded_in").keys
     def self.average_response(client_id, responses = {})
       tracked_site_id_query(client_id).each do |url_id|
-        site = TrackedSite.find(url_id).url
-        avg_response = Payload.where(tracked_site_id: url_id).average(:responded_in).to_i
+        site            = TrackedSite.find(url_id).url
+        avg_response    = Payload.where(tracked_site_id: url_id).average(:responded_in).to_i
         responses[site] = avg_response
       end
       responses

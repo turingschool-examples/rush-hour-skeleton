@@ -6,7 +6,7 @@ module TrafficSpy
     validates :root_url, presence: true
 
     def ordered_most_to_least_sites
-      payloads.order('tracked_site_id').map { |load| load.tracked_site.url }.uniq
+        payloads.order('tracked_site_id').map { |load| load.tracked_site.url}
     end
 
     def user_agent_information
@@ -51,5 +51,7 @@ module TrafficSpy
     def count_events(event_id)
       payloads.where(event_id: event_id).count
     end
+
+
   end
 end
