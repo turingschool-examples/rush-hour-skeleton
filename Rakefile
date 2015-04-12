@@ -12,6 +12,13 @@ task :capy_test do
   Dir.glob('./test/features/*_test.rb') { |file| require file }
 end
 
+task :delete_cap do 
+  puts "HERE"
+  Dir.glob('capybara*') do |file| 
+    rm file 
+  end
+end  
+
 namespace :no_feature_test do 
 
   desc "Test the models"
