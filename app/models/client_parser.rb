@@ -2,11 +2,7 @@ module TrafficSpy
   class ClientParser
 
     def initialize(data)
-      if data.nil?
-        @data = {}
-      else
-        @data = data
-      end
+      @data = data
     end
 
     def parse
@@ -16,7 +12,7 @@ module TrafficSpy
       }
     end
 
-    def self.parse(data)
+    def self.parse(data = {})
       new(data).parse
     end
     

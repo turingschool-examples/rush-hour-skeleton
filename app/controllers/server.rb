@@ -47,7 +47,8 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
-      @payload = PayloadValidator.validate(params["payload"], identifier)
+      payload = params["payload"] ||= nil
+      @payload = PayloadValidator.validate(payload, identifier)
       status @payload[:code]
       body @payload.fetch(:message, nil)
     end
