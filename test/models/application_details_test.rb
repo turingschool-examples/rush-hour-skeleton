@@ -33,7 +33,6 @@ module TrafficSpy
 
     def test_OS_can_be_broken_down_across_all_requests
       result = ApplicationDetails.user_agent_os(1)
-      binding.pry
       assert_equal ["Macintosh%3B Intel Mac OS X 10_8_2", "Windows"],result
     end
 
