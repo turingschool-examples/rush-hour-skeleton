@@ -16,7 +16,6 @@ module TrafficSpy
       end
     end
 
-
     def test_it_shows_longest_shortest_and_average_response_times
       visit '/sources/yahoo/urls/weather'
       assert '/sources/yahoo/urls/weather'
