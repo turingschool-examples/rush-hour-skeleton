@@ -4,6 +4,10 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
+gem 'rickshaw'
+gem 'useragent'
+gem 'json'
+
 
 group :development, :test do
   gem 'shotgun'
@@ -12,6 +16,10 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
+  gem 'database_cleaner'
+  gem 'byebug'
+  gem 'pry'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :evaluations do
