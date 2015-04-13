@@ -38,7 +38,8 @@ body h1 {
 }
 
 body a {
-  color: FFEF88;
+  color:           FFEF88;
+  text-decoration: none;
 }
 
 body a:hover {
@@ -48,6 +49,11 @@ body a:hover {
   border-radius:    5px;
   padding:          2px;
   text-decoration:  none;
+}
+
+body a:visited {
+  color:           FFEF88;
+  text-decoration: none;
 }
 
 #menu_bar {
