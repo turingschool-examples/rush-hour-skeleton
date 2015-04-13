@@ -57,15 +57,15 @@ body a:visited {
 }
 
 #menu_bar {
-  background-color:   181324;
-  height:       50px;
-  width:        100%;
-  position:     fixed;
-  top:          0px;
-  border-style: solid;
-  border-color: black black #383838 black;
-  border-width: 2px;
-  opacity:      .8;
+  background-color: 181324;
+  height:           50px;
+  width:            100%;
+  position:         fixed;
+  top:              0px;
+  border-style:     solid;
+  border-color:     black black #383838 black;
+  border-width:     2px;
+  opacity:          .8;
 }
 
 #menu_bar ul {
@@ -103,7 +103,7 @@ body a:visited {
 }
 
 .eventnames {
-  color: #E8E790;
+  color:   #E8E790;
   opacity: 1;
 }
 
