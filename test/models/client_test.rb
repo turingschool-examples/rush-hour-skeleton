@@ -32,9 +32,9 @@ module TrafficSpy
     def test_it_can_find_resolution_information
       client = Client.find(6)
       result = client.resolution_information
-      assert_equal 5, result.count
+      assert_equal 2, result.count
       assert_equal "600 x 800", result.first
-      assert_equal "600 x 800", result.last
+      assert_equal "700 x 500", result.last
     end
 
     def test_it_can_find_average_response_from_most_to_least

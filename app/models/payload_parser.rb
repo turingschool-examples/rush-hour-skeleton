@@ -77,8 +77,8 @@ module TrafficSpy
       if address_id  == nil
         resolution_id = nil
       else
-        resolution = "#{@data["resolutionHeight"]} x #{@data["resolutionWidth"]}"
-        resolution_id   = Resolution.find_or_create_by(height_width: resolution).id
+        res = "#{@data["resolutionHeight"]} x #{@data["resolutionWidth"]}"
+        resolution_id   = Resolution.find_or_create_by(height_width: res).id
       end
     end
 

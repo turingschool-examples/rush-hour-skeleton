@@ -15,6 +15,6 @@ module TrafficSpy
     def self.parse(data = {})
       new(data).parse
     end
-    
+
   end
 end

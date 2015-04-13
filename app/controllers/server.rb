@@ -26,12 +26,13 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-      client             = Client.find_by(identifier: identifier)
-      site               = TrackedSite.find_by(url: "#{client.root_url}/#{path}")
+      client    = Client.find_by(identifier: identifier)
+      site      = TrackedSite.find_by(url: "#{client.root_url}/#{path}")
+      full_path = "#{client.root_url}/#{path}"
       if site
-        erb :urls, :locals => {site: site, client: client}
+        erb :urls, :locals => {site: site, client: client, path: full_path}
       else
-       erb :urls_error
+        erb :urls_error
       end
     end
 

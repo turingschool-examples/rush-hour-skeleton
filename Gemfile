@@ -6,6 +6,7 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'rickshaw'
 gem 'useragent'
+gem 'reek'
 
 group :development, :test do
   gem 'shotgun'
