@@ -1,7 +1,7 @@
 require './test/test_helper'
 
 module TrafficSpy
-  class TrackedSiteTest < Minitest::Test 
+  class TrackedSiteTest < Minitest::Test
 
     def setup
       DatabaseCleaner.start
@@ -38,21 +38,21 @@ module TrafficSpy
       site = TrackedSite.find(3)
       result = site.http_verbs
       assert_equal ["POST"], result
-    end 
+    end
 
     def test_it_returns_referers
       site = TrackedSite.find(3)
       result = site.referers
       expected = ["http://apple.com", "http://jumpstartlab.com"]
       assert_equal expected, result
-    end      
+    end
 
-    def test_it_returns_referers
+    def test_it_returns_useragents
       site = TrackedSite.find(3)
       result = site.ordered_most_popular_user_agents
       expected = {1=>1, 4=>1}
       assert_equal expected, result
-    end 
+    end
 
     def test_it_returns_most_to_least_referers
       site = TrackedSite.find(3)
@@ -66,6 +66,3 @@ module TrafficSpy
     end
   end
 end
-
-
-

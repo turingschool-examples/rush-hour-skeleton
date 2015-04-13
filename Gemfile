@@ -7,6 +7,8 @@ gem 'sinatra-activerecord'
 gem 'rickshaw'
 gem 'useragent'
 gem 'reek'
+gem 'json'
+
 
 group :development, :test do
   gem 'shotgun'
@@ -18,7 +20,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'byebug'
   gem 'pry'
-  gem 'json'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :evaluations do

@@ -29,6 +29,14 @@ body h1 {
   border-radius:    0px 0px 5px 5px;
 }
 
+.information_board p {
+  color: white;
+}
+
+.information_board li {
+  list-style: none;
+}
+
 .error_board {
   height:           55%;
   width:            55%;
@@ -40,8 +48,17 @@ body h1 {
   opacity:          .9;
   border:           2px solid white;
   border-radius:    0px 0px 5px 5px;
-  background-image: url(/images/ERROR.jpg);
   background-size:  cover;
+  -webkit-transition: width 2s, height 2s, -webkit-transform 2s; /* Safari */
+transition: width 2s, height 2s, transform 2s;
+}
+
+.error_board:hover {
+  background-image: url(/images/ERROR.jpg);
+  width: 55%;
+  height: 55%;
+  -webkit-transform: rotate(360deg); /* Safari */
+  transform: rotate(360deg);
 }
 
 .error_board h3 {
@@ -51,21 +68,32 @@ body h1 {
   height:           auto;
   width:            65%;
   margin-top:       4px;
-  /*margin:           auto;*/
   margin-right:     auto;
   margin-left:      auto;
   border:           1px;
   border-radius:    5px;
   padding:          5px;
+
 }
 
-.information_board p{
-  color: white;
+.error_board p {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  background: grey;
+  opacity: .5;
+  border: dashed orange;
+  border-radius: 15px;
+  margin: 1%;
+  -webkit-transition: width 2s, height 2s, -webkit-transform 2s; /* Safari */
+transition: width 2s, height 2s, transform 2s;
 }
 
-.information_board li {
-  list-style: none;
+.error_board:hover p {
+  -webkit-transform: rotate(720deg); /* Safari */
+  transform: rotate(720deg);
 }
+
 
 body a {
   color:           FFEF88;
@@ -96,6 +124,23 @@ body a:visited {
   border-color:     black black #383838 black;
   border-width:     2px;
   opacity:          .8;
+}
+
+#menu_bar h4 {
+  display: inline;
+  color: white;
+  padding-left: 5px;
+}
+
+#menu_bar h3 {
+  display: inline;
+  color: white;
+
+}
+
+#menu_board marquee {
+  -webkit-marquee: auto medium infinite alternate normal;
+overflow-x: -webkit-marquee;
 }
 
 #menu_bar ul {

@@ -25,10 +25,6 @@ module TrafficSpy
       assert page.has_content?("9 PM")
     end
 
-  # As a user
-  # When i visit "/sources/identifier/(some_url)"
-  # I should see longest response time for that URL
-
     def teardown
       DatabaseCleaner.clean
     end

@@ -29,7 +29,6 @@ module TrafficSpy
     def test_no_identifier
       visit '/sources/jumpstartlabs'
       assert_equal '/sources/jumpstartlabs', current_path
-      save_and_open_page
       assert page.has_content?("Identity Not Found")
     end
 

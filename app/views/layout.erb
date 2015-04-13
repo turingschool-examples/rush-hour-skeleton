@@ -6,17 +6,20 @@
     <link rel="icon" type="image/ico" href="<%= url("images/favicon.ico")%>">
   </head>
   <body>
-    
+
     <div id="menu_bar">
+      <h4>What's up with your traffic?</h4>
+      <marquee direction="right" pause="3s"><h3>TrafficSpy</h3></marquee>
       <% erb :nav %>
     </div>
-    
+
     <div id="content">
       <%= yield  %>
     </div>
-    
+
     <footer>
+      <a href="/sources">TrafficSpy User List</a>
     </footer>
-  
+
   </body>
 </html>
