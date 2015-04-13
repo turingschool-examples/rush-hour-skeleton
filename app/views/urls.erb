@@ -1,0 +1,24 @@
+<h1>  <%= path %> </h1>
+
+
+    <div class="information_board">
+
+      <h3>Longest Response Time</h3>
+        <p><%= site.longest_response_time %>ms</p>
+      <h3>Shortest Response Time</h3>
+        <p><%= site.shortest_response_time %>ms</p>
+      <h3>Average Response Time</h3>
+        <p><%= site.average_response_time %>ms</p>
+      <h3>HTTP Verbs Used</h3>
+        <% site.http_verbs.each do |verb| %>
+        <p><%= verb %></p>
+        <% end %>
+      <h3>Most Popular Referrers</h3>
+      <% site.referers.each do |referer| %>
+        <p><%= referer %></p>
+        <% end %>
+      <h3>Most Popular UserAgents</h3>
+      <% site.ordered_most_to_least_agents.each do |agent| %>
+        <p><%= agent %></p>
+        <% end %>
+    </div>

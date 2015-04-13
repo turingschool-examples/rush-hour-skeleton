@@ -1,0 +1,8 @@
+<h1>All Spies Using TrafficSpy</h1>
+<div class="information_board">
+
+<% clients.each do |client| %>
+<h2><a href="/sources/<%= client.identifier %>"><%= client.identifier.capitalize  %></a></h2>
+<% end %>
+
+</div>
