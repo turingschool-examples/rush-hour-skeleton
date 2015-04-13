@@ -6,7 +6,6 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'rickshaw'
 gem 'useragent'
-gem 'reek'
 gem 'json'
 
 
