@@ -21,12 +21,13 @@ module TrafficSpy
     end
 
     def resolution_information
-      payloads.map { |load| load.resolution.height_width }
+      payloads.map { |load| load.resolution.height_width }.uniq
     end
 
     def ordered_most_to_least_avg_response
       payloads.map do |load|
-        {url: load.tracked_site.url, avg_time: load.tracked_site.average_response_time}
+        {url:      load.tracked_site.url,
+         avg_time: load.tracked_site.average_response_time}
       end.uniq
     end
 

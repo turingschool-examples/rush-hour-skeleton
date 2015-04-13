@@ -11,7 +11,7 @@ module TrafficSpy
     end
 
     def validate
-      if @client.save 
+      if @client.save
         json_body = JSON.generate({"identifier"=>@client.identifier})
         {code: 200, message: json_body}
       elsif Client.find_by(identifier: @client.identifier)
