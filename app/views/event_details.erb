@@ -2,6 +2,7 @@
 
 <div class="information_board">
 <h3><span class="eventnames">"<%= event.event_name %>" </span>occurred a total of <%= client.count_events(event.id) %> times: </h3>
+
     <p><% client.count_events_by_hour(event.id).each do |time|%>
       <%= time[:count] %> event(s) occured at <%= time[:time] %>
     <% end %></p>
