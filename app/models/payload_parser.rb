@@ -54,7 +54,11 @@ module TrafficSpy
     end
 
     def client_id
-      Client.find_or_create_by(identifier: @identifier).id
+      if address_id  == nil
+        client_id = nil
+      else
+        Client.find_or_create_by(identifier: @identifier).id
+      end
     end
 
     def event_id

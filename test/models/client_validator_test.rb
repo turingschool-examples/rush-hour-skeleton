@@ -26,7 +26,7 @@ module TrafficSpy
       data     = {"identifier" => "jumpstartlab"}
       result   = ClientValidator.validate(data)
       expected = {:code=>400, :message=>["Root url can't be blank"]}
-      assert_equal expected, result 
+      assert_equal expected, result
     end
 
     def test_it_returns_error_for_missing_identifier
