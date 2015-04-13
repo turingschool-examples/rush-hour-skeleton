@@ -7,5 +7,9 @@ class PageShowMostReuqestedUrlTest < MiniTest::Test
   #   assert_equal '/source/:identifier/url', current_path
   #   assert page.has_content?("")
   # end
+  def test_user_view_most_requested_url
+    visit '/show'
+    assert page.has_content?("www.jumpstartlab.com")
+  end
 
 end

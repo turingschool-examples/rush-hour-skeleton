@@ -1,1 +1,29 @@
-<p>Hello <%= @identifier %></p>
+<h1>Data</h1>
+
+<h2>Most requested to least requested urls</h2>
+<% @source.ordered_url.each do |url| %>
+<li><%= url[0] %></li>
+<% end %>
+<br>
+
+<h2>Browser Used</h2>
+<% @source.web_browser.each do |u| %>
+<li><%= u %></li>
+<% end %>
+<br>
+
+<h2>OS Used</h2>
+<% @source.os_data.each do |u| %>
+<li><%= u %></li>
+<% end %>
+<br>
+
+<h2>Screen Resolutions Used</h2>
+<% @source.screen_resolution_data.each do |u| %>
+<li><%= u %></li>
+<% end %>
+
+<h2>Response times</h2>
+<%= "Average response time: #{@source.avg_response_time} seconds\n" %><br>
+<%= "Slowest response time: #{@source.max_response_time} seconds\n" %><br>
+<%= "Shortest response time: #{@source.min_response_time} seconds\n" %><br>
