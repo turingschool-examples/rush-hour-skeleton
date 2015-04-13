@@ -1,6 +1,11 @@
-<h1><%= @identifier %></h1>
-<ul>
-<% @url.each do |url| %>
- <li><%= url %></li>
+<a href="/sources/">Data</a>
+
+<% @source.ordered_url.each do |url| %>
+<li><%= url[0] %></li>
 <% end %>
-</ul>
+
+<%= @source.identifier %>
+
+<% @source.url_objects do |u| %>
+<li><%= u.url %></li>
+<% end %>

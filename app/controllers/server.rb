@@ -24,16 +24,13 @@ module TrafficSpy
       body parsed_payload.body
     end
 
-    get '/show' do
-      @url = Url.order(url: :desc)
-      erb :show
-
-    end
-
-    get '/sources/:identifier' do |identifier|
+    get '/source/:identifier' do |identifier|
       @source = Source.find_by(identifier: identifier)
-      @urls = @source.root_url
-      erb :show
+      if @source.nil?
+        erb :error
+      else
+        erb :show
+      end
     end
 
       # client is accessing the handle above
