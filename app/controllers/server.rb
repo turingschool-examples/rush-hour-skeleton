@@ -1,7 +1,6 @@
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
-      status 200
       erb :index
     end
 

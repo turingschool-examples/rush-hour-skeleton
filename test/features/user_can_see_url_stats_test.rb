@@ -42,7 +42,6 @@ module TrafficSpy
     def test_it_shows_most_popular_user_agents
       visit '/sources/yahoo/urls/weather'
       assert '/sources/yahoo/urls/weather'
-      save_and_open_page
       assert page.has_content?('Mozilla/5.0 [(]Macintosh%3B Intel Mac OS X 10_8_2)')
     end
 

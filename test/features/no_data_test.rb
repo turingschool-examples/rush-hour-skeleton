@@ -17,7 +17,7 @@ module TrafficSpy
     def test_no_events_page
       visit '/sources/boogiewoogie/events'
       assert_equal '/sources/boogiewoogie/events', current_path
-      assert page.has_content?("There are no events yet for ")
+      assert page.has_content?("There are no events for ")
     end
 
     def test_no_url
@@ -29,7 +29,6 @@ module TrafficSpy
     def test_no_identifier
       visit '/sources/jumpstartlabs'
       assert_equal '/sources/jumpstartlabs', current_path
-      save_and_open_page
       assert page.has_content?("Identity Not Found")
     end
 
