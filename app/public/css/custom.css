@@ -29,6 +29,34 @@ body h1 {
   border-radius:    0px 0px 5px 5px;
 }
 
+.error_board {
+  height:           55%;
+  width:            55%;
+  margin:           auto;
+  background-color: 2A282F;
+  text-align:       center;
+  padding-bottom:   25px;
+  overflow:         auto;
+  opacity:          .9;
+  border:           2px solid white;
+  border-radius:    0px 0px 5px 5px;
+  background-image: url(/images/ERROR.jpg);
+  background-size:  cover;
+}
+
+.error_board h3 {
+  color:            white;
+  background-color: 372240;
+  text-align:       center;
+  height:           auto;
+  width:            65%;
+  margin:           auto;
+  border:           1px;
+  border-radius:    5px;
+  padding:          5px;
+
+}
+
 .information_board p{
   color: white;
 }

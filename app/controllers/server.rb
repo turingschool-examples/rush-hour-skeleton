@@ -52,13 +52,13 @@ module TrafficSpy
 
     post '/sources/:identifier/data' do |identifier|
       payload = params["payload"] ||= nil
-      @payload = PayloadValidator.validate(payload, identifier)
-      status @payload[:code]
-      body @payload.fetch(:message, nil)
+      payload_data = PayloadValidator.validate(payload, identifier)
+      status payload_data[:code]
+      body payload_data.fetch(:message, nil)
     end
 
-    # not_found do
-    #   erb :error
-    # end
+    not_found do
+      erb :error
+    end
   end
 end
