@@ -50,11 +50,13 @@ body h1 {
   text-align:       center;
   height:           auto;
   width:            65%;
-  margin:           auto;
+  margin-top:       4px;
+  /*margin:           auto;*/
+  margin-right:     auto;
+  margin-left:      auto;
   border:           1px;
   border-radius:    5px;
   padding:          5px;
-
 }
 
 .information_board p{
