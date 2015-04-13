@@ -65,7 +65,7 @@ class PayloadParser
     request_type_id: RequestType.find_or_create_by(request_type: parsed_params[:request_type]).id,
     parameters: parsed_params[:parameters],
     event_name_id: EventName.find_or_create_by(event_name: parsed_params[:event_name]).id,
-    user_agent_id: UserAgent.find_or_create_by(web_browser: parsed_params[:user_agent]).id,
+    user_agent_id: TrafficSpy::UserAgent.find_or_create_by(web_browser: parsed_params[:user_agent]).id,
     screen_resolution_id: ScreenResolution.find_or_create_by(resolution_width: parsed_params[:resolution_width], resolution_height: parsed_params[:resolution_height]).id,
     ip: parsed_params[:ip]
     )

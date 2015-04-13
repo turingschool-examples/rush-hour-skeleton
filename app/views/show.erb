@@ -1,11 +1,17 @@
-<a href="/sources/">Data</a>
+<h1>Data</h1>
 
 <% @source.ordered_url.each do |url| %>
 <li><%= url[0] %></li>
 <% end %>
 
-<%= @source.identifier %>
-
 <% @source.url_objects do |u| %>
 <li><%= u.url %></li>
+<% end %>
+
+<% @source.web_browser.each do |u| %>
+<li><%= u %></li>
+<% end %>
+
+<% @source.os_data.each do |u| %>
+<li><%= u %></li>
 <% end %>
