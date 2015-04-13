@@ -17,7 +17,7 @@ module TrafficSpy
     def test_no_events_page
       visit '/sources/boogiewoogie/events'
       assert_equal '/sources/boogiewoogie/events', current_path
-      assert page.has_content?("There are no events yet for ")
+      assert page.has_content?("There are no events for ")
     end
 
     def test_no_url
