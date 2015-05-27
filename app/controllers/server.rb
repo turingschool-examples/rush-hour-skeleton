@@ -7,5 +7,11 @@ module TrafficSpy
     not_found do
       erb :error
     end
+
+    post '/sources' do
+      source = Source.create(params[:source])
+      status 200
+      body "created!"
+    end
   end
 end
