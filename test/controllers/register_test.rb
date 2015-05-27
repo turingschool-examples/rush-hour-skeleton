@@ -16,6 +16,13 @@ class RegisterTest < ControllerTest
     assert_equal "missing identifier or rootUrl", last_response.body
   end
 
+  def test_rejects_request_without_root_url
+    post '/sources', { identifier: "jumpstartlab" }
+
+    assert_equal 403, last_response.status
+    assert_equal "missing identifier or rootUrl", last_response.body
+  end
+
 end
 
 
