@@ -1,3 +1,4 @@
+require 'pry'
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -9,9 +10,15 @@ module TrafficSpy
     end
 
     post '/sources' do
-      source = Source.create(params[:source])
+      # binding.prly
+      @source = Source.create(params[:source])
+      @source.to_json
       status 200
-      body "created!"
+      # body "created!"
     end
   end
 end
+
+
+# register Sinatra::Partial
+#   set :partial_template_engine, :erb

@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20150527171319) do
 
   create_table "sources", force: :cascade do |t|
     t.text     "identifier"
-    t.text     "rootURL"
+    t.text     "root_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
