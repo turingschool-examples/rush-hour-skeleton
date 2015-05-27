@@ -9,7 +9,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      source = Source.new(params[:source])
+      source = Source.new(identifier: params[:identifier], rooturl: params[:rootUrl])
       if source.save
         status 200
         body "Registration complete."

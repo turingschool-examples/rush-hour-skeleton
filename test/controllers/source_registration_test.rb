@@ -18,7 +18,7 @@ class SourceRegistrationTest < Minitest::Test
   def test_valid_registration_with_identifier_and_rooturl
     init_count = Source.count
 
-    post('/sources', { source: { identifier: "anIdentifier", rooturl: "some/root/url"} } )
+    post('/sources', { identifier: "anIdentifier", rootUrl: "some/root/url" } )
 
     ende_count = Source.count
 
@@ -30,7 +30,7 @@ class SourceRegistrationTest < Minitest::Test
   def test_invalid_registration_with_no_identifier
     init_count = Source.count
 
-    post('/sources', { source: { rooturl: "some/root/url"} } )
+    post('/sources', { rootUrl: "some/root/url" } )
 
     ende_count = Source.count
 
@@ -42,7 +42,7 @@ class SourceRegistrationTest < Minitest::Test
   def test_invalid_registration_with_no_rooturl
     init_count = Source.count
 
-    post('/sources', { source: { identifier: "anIdentifier"} } )
+    post('/sources', { identifier: "anIdentifier" } )
 
     ende_count = Source.count
 
@@ -52,11 +52,11 @@ class SourceRegistrationTest < Minitest::Test
   end
 
   def test_invalid_registration_with_existent_identifier
-    post('/sources', { source: { identifier: "anIdentifier", rooturl: "some/root/url"} } )
+    post('/sources', { identifier: "anIdentifier", rootUrl: "some/root/url" } )
 
     init_count = Source.count
 
-    post('/sources', { source: { identifier: "anIdentifier", rooturl: "some/other/url"} } )
+    post('/sources', { identifier: "anIdentifier", rootUrl: "some/other/url" } )
 
     ende_count = Source.count
 
