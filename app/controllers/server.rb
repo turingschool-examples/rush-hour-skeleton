@@ -9,11 +9,12 @@ module TrafficSpy
     end
 
     post '/sources' do
-      client = Client.new(params)
+      client = Client.new({identifier: params[:identifier], root_url: params[:rootUrl]})
       if client.save
         "{'identifier':'#{client.identifier}'}"
       else
-        status 400
+        status 403
+        "missing identifier or rootUrl"
       end
     end
   end

@@ -9,8 +9,11 @@ class RegisterTest < ControllerTest
     
   end
 
-  def test_
-    
+  def test_rejects_request_without_identifier
+    post '/sources', { rootUrl: "http://jumpstartlab.com" }
+
+    assert_equal 403, last_response.status
+    assert_equal "missing identifier or rootUrl", last_response.body
   end
 
 end
