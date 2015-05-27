@@ -12,7 +12,7 @@ module TrafficSpy
       source = Source.new(identifier: params[:identifier], rooturl: params[:rootUrl])
       if source.save
         status 200
-        body "Registration complete."
+        body "{'identifier':'#{source.identifier}'}"   #"Registration complete."
       elsif source.errors.full_messages.include?("Identifier has already been taken")
         status 403
         body source.errors.full_messages
