@@ -22,7 +22,7 @@ class RegisterSourceTest < Minitest::Test
   def test_it_posts_to_sources_with_valid_data
     post "/sources", {source: {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"} }
     assert_equal 200, last_response.status
-    assert_equal "{'identifier':'jumpstartlab'}", last_response.body
+    assert_equal "{\"identifier\":\"jumpstartlab\"}", last_response.body
   end
 
  #  def test_register_a_source_with_an_identifier_and_root_url
