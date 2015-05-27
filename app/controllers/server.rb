@@ -10,10 +10,16 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # binding.prly
-      @source = Source.create(params[:source])
-      @source.to_json
+      source_hash = params[:source]
+
+      converted_hash = {identifier: source_hash['identifier'], root_url: source_hash['rootUrl']}
+
+      @source = Source.create(converted_hash)
+      hash = {}
+      hash['identifier']=@source.identifier
+  
       status 200
+      body "#{hash.to_json}"
       # body "created!"
     end
   end
