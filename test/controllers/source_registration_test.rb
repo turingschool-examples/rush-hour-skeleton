@@ -34,7 +34,7 @@ class SourceRegistrationTest < Minitest::Test
 
     ende_count = Source.count
 
-    assert_equal 403, last_response.status
+    assert_equal 400, last_response.status
     assert_equal "Identifier can't be blank", last_response.body
     assert_equal init_count, ende_count
   end
@@ -46,8 +46,22 @@ class SourceRegistrationTest < Minitest::Test
 
     ende_count = Source.count
 
-    assert_equal 403, last_response.status
+    assert_equal 400, last_response.status
     assert_equal "Rooturl can't be blank", last_response.body
+    assert_equal init_count, ende_count
+  end
+
+  def test_invalid_registration_with_existent_identifier
+    post('/sources', { source: { identifier: "anIdentifier", rooturl: "some/root/url"} } )
+
+    init_count = Source.count
+
+    post('/sources', { source: { identifier: "anIdentifier", rooturl: "some/other/url"} } )
+
+    ende_count = Source.count
+
+    assert_equal 403, last_response.status
+    assert_equal "Identifier has already been taken", last_response.body
     assert_equal init_count, ende_count
   end
 end

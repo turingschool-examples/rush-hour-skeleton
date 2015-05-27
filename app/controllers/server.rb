@@ -13,8 +13,11 @@ module TrafficSpy
       if source.save
         status 200
         body "Registration complete."
-      else
+      elsif source.errors.full_messages.include?("Identifier has already been taken")
         status 403
+        body source.errors.full_messages
+      else
+        status 400
         body source.errors.full_messages
       end
       # params (identifier rooturl)
