@@ -17,6 +17,10 @@ module TrafficSpy
       status(result.status)
       body(result.body)
     end
+
+    post "/sources/:identifier/data" do |identifier|
+      binding.pry
+    end
   end
 end
 
