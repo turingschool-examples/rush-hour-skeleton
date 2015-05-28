@@ -2,6 +2,11 @@
 
 module TrafficSpy
   class Server < Sinatra::Base
+
+    STATUS_CODES = { 200 => "200 OK",
+                     400 => "400 Bad Request",
+                     403 => "403 Forbidden" }
+
     get '/' do
       erb :index
     end
@@ -20,15 +25,15 @@ module TrafficSpy
       else
         @source = Source.create(source_data)
         if @source.valid?
-          status 200
           hash = {identifier: @source.identifier}
           body hash.to_json
         else
           status 400
-          body @source.errors.messages
+          body "Missing parameter, the required parameters are 'identifier' and 'rootUrl'"
         end
       end
     end
+
   end
 end
 
