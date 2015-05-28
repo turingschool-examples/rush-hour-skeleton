@@ -25,16 +25,16 @@ class RegisterSourceTest < Minitest::Test
     assert_equal "{\"identifier\":\"jumpstartlab\"}", last_response.body
   end
 
-  def test_it_returns_an_error_if_missing_paramater
+  def test_it_returns_an_error_if_missing_identifier_paramater
     post "/sources", { source: { rootUrl: "http://jumpstartlab.com"} }
     assert_equal 400, last_response.status
-    assert_equal "", last_response.body
+    assert_equal "[:identifier, [\"can't be blank\"]]", last_response.body
   end
 
   def test_it_returns_an_error_if_missing_paramater_root_url
     post "/sources", { source: {identifier: "jumpstartlab"} }
     assert_equal 400, last_response.status
-    assert_equal "", last_response.body
+    assert_equal "[:root_url, [\"can't be blank\"]]", last_response.body
   end
 end
 
