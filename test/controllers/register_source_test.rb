@@ -8,6 +8,7 @@ class RegisterSourceTest < ControllerTest
 
     assert_equal 200, last_response.status
     assert_equal "{'identifier':'jumpstartlab'}", last_response.body
+    #fix quotes
     assert_equal 1, final_count - initial_count
   end
 
