@@ -1,4 +1,5 @@
 # require your gems
+require 'json'
 require 'bundler'
 Bundler.require
 
