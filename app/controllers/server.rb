@@ -24,8 +24,13 @@ module TrafficSpy
       # curl -i -d 'identifier=(thing)&rooturl=(thing)' http://ourapp:port/sources
     end
 
-    get '/sources/:identifier/data' do
-
+    post '/sources/:identifier/data' do |identifier|
+      if Source.find_by_identifier(identifier)
+        status 200
+      else
+        status 403
+        "Application Not Registered"
+      end
     end
 
     not_found do

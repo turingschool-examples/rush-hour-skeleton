@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class SourceRegistrationTest < Minitest::Test
+class ProcessingRequestsTests < Minitest::Test
   include Rack::Test::Methods
 
   def app
@@ -32,8 +32,15 @@ class SourceRegistrationTest < Minitest::Test
     }')
   end
 
+  def test_invalid_identifier_errors
+    post('/sources/doesnotexist/data', { payload: valid_source } )
+
+    assert_equal 403, last_response.status
+    assert_equal 'Application Not Registered', last_response.body
+  end
+
   def test_valid_payload_structure_gets_logged
-    Source.create(identifier: 'jumpstartlab')
+    Source.create!(identifier: 'jumpstartlab', rooturl: 'http://jumpstartlab.com')
 
     post('/sources/jumpstartlab/data', { payload: valid_source } )
 
@@ -41,7 +48,7 @@ class SourceRegistrationTest < Minitest::Test
   end
 
   def test_already_received_payload
-    Source.create(identifier: 'jumpstartlab')
+    Source.create!(identifier: 'jumpstartlab', rooturl: 'http://jumpstartlab.com')
 
     # Send it once, it should work
     post('/sources/jumpstartlab/data', { payload: valid_source } )
@@ -55,10 +62,4 @@ class SourceRegistrationTest < Minitest::Test
     assert_equal 'Already Received Request', last_response.body
   end
 
-  def test_invalid_identifier_errors
-    post('/sources/doesnotexist/data', { payload: valid_source } )
-
-    assert_equal 403, last_response.status
-    assert_equal 'Application Not Registered', last_response.body
-  end
 end
