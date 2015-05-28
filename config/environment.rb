@@ -1,8 +1,7 @@
 # require your gems
 require 'bundler'
 Bundler.require
-require 'pry'
-require 'byebug'
+
 # set the pathname for the root of the app
 require 'pathname'
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))

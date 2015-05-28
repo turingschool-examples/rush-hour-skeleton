@@ -1,4 +1,5 @@
-require 'pry'
+# require 'byebug'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -10,14 +11,22 @@ module TrafficSpy
     end
 
     post '/sources' do
-      @source = Source.create(identifier: params["identifier"], root_url: params["rootUrl"])
-      if @source.valid?
-        status 200
-        hash = {identifier: @source.identifier}
-        body hash.to_json
+      source_data = { identifier: params["identifier"],
+                        root_url: params["rootUrl"] }
+
+      if Source.exists?(source_data)
+        status 403
+        body "Identifier already exists"
       else
-        status 400
-        body @source.errors.messages
+        @source = Source.create(source_data)
+        if @source.valid?
+          status 200
+          hash = {identifier: @source.identifier}
+          body hash.to_json
+        else
+          status 400
+          body @source.errors.messages
+        end
       end
     end
   end
