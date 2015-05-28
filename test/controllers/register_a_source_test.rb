@@ -25,7 +25,7 @@ class RegisterSourceTest < Minitest::Test
     assert_equal "{\"identifier\":\"jumpstartlab\"}", last_response.body
   end
 
-  def test_it_returns_an_error_if_missing_paramater_
+  def test_it_returns_an_error_if_missing_paramater
     post "/sources", { source: { rootUrl: "http://jumpstartlab.com"} }
     assert_equal 400, last_response.status
     assert_equal "", last_response.body
