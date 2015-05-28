@@ -20,11 +20,22 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
+      # response = PayloadCreator.new(params, identifier)
+      # status(response.status)
+      # body(response.body)
+
       result = PayloadCreator.new
       result.result(params, identifier)
       status(result.status)
       body(result.body)
     end
+
+    get "/sources/:identifier" do |identifier|
+      if Source.where(identifier: identifier).exists?
+        # erb :whatevez
+      else
+        redirect "/"
+      end
+    end
   end
 end
-
