@@ -1,3 +1,6 @@
+require  'digest/sha1'
+require 'pry'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -25,8 +28,20 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
-      if Source.find_by_identifier(identifier)
-        status 200
+      # identifier.insert(-2, ",\"payhash\":\"#{Digest::SHA1.hexdigest(identifier)}\”")
+      # binding.pry
+
+      yyy = Digest::SHA1.hexdigest(params[:payload])
+
+      x = Source.find_by_identifier(identifier)
+      if x == Source.find_by_identifier(identifier)
+        if x.payloads.find_by_payhash(yyy) #looking for payloads that match this source
+          status 403
+          body "Already Exists"
+        else
+          x.payloads.create(payhash: yyy)
+          status 200
+        end
       else
         status 403
         "Application Not Registered"
@@ -38,3 +53,4 @@ module TrafficSpy
     end
   end
 end
+

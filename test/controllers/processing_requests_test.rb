@@ -29,7 +29,7 @@ class ProcessingRequestsTests < Minitest::Test
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"
-    }')
+}')
   end
 
   def test_invalid_identifier_errors
