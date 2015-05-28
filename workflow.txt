@@ -1,0 +1,20 @@
+1. start a waffle.io issue for the specific task you are about to work on
+2. pull from remote master into your local master
+3. checkout branch
+4. do work, commit.
+5. when you're ready to push...don't yet! switch to your local master and pull from master
+6. then switch back to your branch and "git merge master", this will merge your updated local master into your branch
+7. fix any merge conflicts
+8. run your tests, fix any broken tests
+9. add, commit
+10. now it's ok to push your branch and open a PR "git push origin HEAD" or "git push origin <branch name>"
+11. open pull request on GitHub.
+12. close waffle.io issue
+13. as soon as a branch is merged to master on GitHub, make your entire team pull from master
+
+
+
+Waffle.io issue structure:
+As a user,
+when I send a POST request to http://yourapplication:port/sources with the parameters 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com',
+then I expect a 200 response with JSON data like {"identifier":"jumpstartlab"}
