@@ -33,7 +33,7 @@ class ProcessingRequestsTests < Minitest::Test
   end
 
   def test_invalid_identifier_errors
-    post('/sources/doesnotexist/data', { payload: valid_source } )
+    post('/sources/doesnotexist/data', { payload: valid_source.to_json } )
 
     assert_equal 403, last_response.status
     assert_equal 'Application Not Registered', last_response.body
@@ -42,7 +42,7 @@ class ProcessingRequestsTests < Minitest::Test
   def test_valid_payload_structure_gets_logged
     Source.create!(identifier: 'jumpstartlab', rooturl: 'http://jumpstartlab.com')
 
-    post('/sources/jumpstartlab/data', { payload: valid_source } )
+    post('/sources/jumpstartlab/data', { payload: valid_source.to_json } )
 
     assert_equal 200, last_response.status
   end
@@ -51,12 +51,12 @@ class ProcessingRequestsTests < Minitest::Test
     Source.create!(identifier: 'jumpstartlab', rooturl: 'http://jumpstartlab.com')
 
     # Send it once, it should work
-    post('/sources/jumpstartlab/data', { payload: valid_source } )
+    post('/sources/jumpstartlab/data', { payload: valid_source.to_json } )
 
     assert_equal 200, last_response.status
 
     # Send it again, it should error
-    post('/sources/jumpstartlab/data', { payload: valid_source })
+    post('/sources/jumpstartlab/data', { payload: valid_source.to_json })
 
     assert_equal 403, last_response.status
     assert_equal 'Already Received Request', last_response.body
