@@ -1,19 +1,6 @@
 require_relative '../test_helper'
 
-class CreateSourceTest < Minitest::Test
-  include Rack::Test::Methods     # allows us to use get, post, last_request, etc.
-
-  def app     # def app is something that Rack::Test is looking for
-    TrafficSpy::Server
-  end
-
-  def setup
-    DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
-  end
+class CreateSourceTest < ControllerTest
 
   def test_can_create_source_with_identifier_and_root_url
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
@@ -43,23 +30,7 @@ class CreateSourceTest < Minitest::Test
   end
 
 end
-#   As a user
-#   When I send a POST request to  http://yourapplication:port/sources with the parameters 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
-#   Then I expect a 200 response with data as JSON {"identifier":"jumpstartlab"}
-#
-#   As a user
-#   When I send a POST request to  http://yourapplication:port/sources with the parameters 'rootUrl=http://jumpstartlab.com'
-#   Then I expect a 400 response with data as "Please provide an identifier"
-#
-#   As a user
-#   When I send a POST request to  http://yourapplication:port/sources with the parameters 'identifier=jumpstartlab'
-#   Then I expect a 400 response with data as "Please provide a url"
-#
-#   As a user
-#   When I send a POST request to  http://yourapplication:port/sources with the parameters ''identifier=jumpstartlab&rootUrl=http://jumpstartlab.com' and it already exists
-# Then I expect a 403 response with data as "identifier and url already exist"
 
-#
 #
 # class CreateTaskTest < Minitest::Test
 #   include Rack::Test::Methods     # allows us to use get, post, last_request, etc.

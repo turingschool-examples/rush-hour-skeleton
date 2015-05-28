@@ -1,4 +1,5 @@
 # require_relative '../models/source'
+require 'json'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -33,6 +34,32 @@ module TrafficSpy
         "missing a parameter ya doofus"
       end
     end
+
+    post '/sources/:identifier/data' do
+      # require 'pry'; binding.pry
+      payload = TrafficSpy::Payload.new(request.params)
+      if payload.save
+        status 200
+      else
+        status 400
+      end
+
+    end
+
+    # post '/sources/:identifier/data' do
+    #   require 'pry'; binding.pry
+    #   data = JSON.parse(params)
+    #   payload = TrafficSpy::Payload.new(request.params)
+    #   if payload.save
+    #     status 200
+    #   else
+    #     status 400
+    #   end
+    #
+    # end
+
+
+
 
     not_found do
       erb :error
