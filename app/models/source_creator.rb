@@ -1,4 +1,5 @@
 require_relative "source"
+require 'json'
 
 class SourceCreator
   attr_reader :status, :body
@@ -7,7 +8,7 @@ class SourceCreator
     source = Source.new(identifier: params[:identifier], root_url: params[:rootUrl])
     if source.save
       @status = 200
-      @body = "{'identifier':'jumpstartlab'}"
+      @body = {identifier: params[:identifier]}.to_json 
     elsif Source.all.any? { |s| s.identifier == source.identifier }
       @status = 403
       @body = "Identifier already exists"
