@@ -14,3 +14,19 @@ require 'byebug'
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 Capybara.app = TrafficSpy::Server
+
+class ControllersTest < Minitest::Test
+  include Rack::Test::Methods
+
+  def app     # def app is something that Rack::Test is looking for
+    TrafficSpy::Server
+  end
+
+  def setup
+    DatabaseCleaner.start #move these two methods to test helper
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
+end

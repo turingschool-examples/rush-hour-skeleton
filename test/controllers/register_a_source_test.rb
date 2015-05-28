@@ -1,19 +1,6 @@
 require './test/test_helper'
 
-class RegisterSourceTest < Minitest::Test
-  include Rack::Test::Methods     # allows us to use get, post, last_request, etc.
-
-  def app     # def app is something that Rack::Test is looking for
-    TrafficSpy::Server
-  end
-
-  def setup
-    DatabaseCleaner.start #move these two methods to test helper
-  end
-
-  def teardown
-    DatabaseCleaner.clean
-  end
+class RegisterSourceTest < ControllersTest
 
   def test_it_runs
     assert_equal 2, 1+1
