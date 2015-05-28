@@ -12,7 +12,7 @@ class RegisterSourceTest < Minitest::Test
   end
 
   def teardown
-    DatabaseCleaner.clean
+    # DatabaseCleaner.clean
   end
 
   def test_it_runs
@@ -25,22 +25,36 @@ class RegisterSourceTest < Minitest::Test
     assert_equal "{\"identifier\":\"jumpstartlab\"}", last_response.body
   end
 
- #  def test_register_a_source_with_an_identifier_and_root_url
- #   post '/sources', { source: { identifier: "something", rootUrl: "else"} }
- #  #  assert_equal 1, Source.count
- #   assert_equal 200, last_response.status
- #  #  assert_equal "created!", last_response.body
- # end
+  def test_it_returns_an_error_if_missing_paramater
+    post "/sources", { source: { rootUrl: "http://jumpstartlab.com"} }
+    assert_equal 400, last_response.status
+    assert_equal "", last_response.body
+  end
+
+  def test_it_returns_an_error_if_missing_paramater_root_url
+    post "/sources", { source: {identifier: "jumpstartlab"} }
+    assert_equal 400, last_response.status
+    assert_equal "", last_response.body
+  end
 end
 
 
-# As a user:
-# When I send a POST request to
-# http://yourapplication:port/sources
-# with the paramaters:
-# 'identifier=jumpstartlab and rootUrl=http://jumpstartlab.com'
-# Then I expect a 200 response with the data as JSON {"identifier":"jumpstartlab"}
+#   As a user:
+#   When I send a POST request to
+#   http://yourapplication:port/sources
+#   with the paramaters:
+#   'rootUrl=http://jumpstartlab.com'
+#   Then I expect a 400 response with a descriptive error message
+# end
 #
+# class Person < ActiveRecord::Base
+#   validates :name, presence: true
+# end
+#
+# Person.create(name: "John Doe").valid? # => true
+# Person.create(name: nil).valid? # => false
+# Then I expect a 200 response with the data as JSON {"identifier":"jumpstartlab"}
+
 
 
 # As a user:

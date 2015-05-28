@@ -11,16 +11,17 @@ module TrafficSpy
 
     post '/sources' do
       source_hash = params[:source]
-
       converted_hash = {identifier: source_hash['identifier'], root_url: source_hash['rootUrl']}
 
       @source = Source.create(converted_hash)
       hash = {}
       hash['identifier']=@source.identifier
-  
-      status 200
-      body "#{hash.to_json}"
-      # body "created!"
+      if converted_hash[:identifier].nil? || converted_hash[:root_url].nil?
+        status 400
+      else
+        status 200
+        body "#{hash.to_json}"
+      end
     end
   end
 end
