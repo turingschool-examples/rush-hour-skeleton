@@ -22,8 +22,16 @@ module TrafficSpy
 
     post '/sources' do
       source = TrafficSpy::Source.new(params)
-      source.save
-        {identifier: source.identifier}.to_json.gsub('\\','')
+      if source.save
+        {identifier: source.identifier}.to_json
+      elsif source.errors.full_messages == ["Identifier has already been taken"]
+        status 403
+        "identifier already exists"
+      else
+        # source.errors.full_messages == ["Rooturl can't be blank"]
+        status 400
+        "missing a parameter ya doofus"
+      end
     end
 
     not_found do
