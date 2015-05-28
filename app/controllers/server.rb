@@ -1,5 +1,5 @@
 # require_relative '../models/source'
-require 'json'
+
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -23,6 +23,7 @@ module TrafficSpy
 
     post '/sources' do
       source = TrafficSpy::Source.new(params)
+      Source.create(root_url: params["rootUrl"], identifier: params[:identifier])
       if source.save
         {identifier: source.identifier}.to_json
       elsif source.errors.full_messages == ["Identifier has already been taken"]
@@ -35,20 +36,9 @@ module TrafficSpy
       end
     end
 
-    post '/sources/:identifier/data' do
-      # require 'pry'; binding.pry
-      payload = TrafficSpy::Payload.new(request.params)
-      if payload.save
-        status 200
-      else
-        status 400
-      end
-
-    end
-
+    #
     # post '/sources/:identifier/data' do
-    #   require 'pry'; binding.pry
-    #   data = JSON.parse(params)
+    #   # require 'pry'; binding.pry
     #   payload = TrafficSpy::Payload.new(request.params)
     #   if payload.save
     #     status 200
@@ -57,6 +47,31 @@ module TrafficSpy
     #   end
     #
     # end
+
+    # post '/sources/:identifier/data' do
+    #   require 'json'
+    #
+    #   json_params = params.to_json
+    #
+    #   data = JSON.parse(json_params)
+    #   payload = TrafficSpy::Payload.new(data)
+    #   if payload.save
+    #     status 200
+    #   else
+    #     status 400
+    #   end
+    #
+    # end
+
+    post '/sources/:identifier/data' do
+      payload = PayloadParser.parse(params)
+      if payload.has_key?("payload")
+          status 200
+        else
+          status 400
+        end
+
+    end
 
 
 
