@@ -38,6 +38,7 @@ class ProcessingPayloadTest < ControllerTest
     final_count = Payload.count
     
     assert_equal 400, last_response.status
+    assert_equal "Missing payload data", last_response.body
     assert_equal final_count, initial_count
   end
 
@@ -49,6 +50,7 @@ class ProcessingPayloadTest < ControllerTest
     final_count = Payload.count
 
     assert_equal 403, last_response.status
+    assert_equal "Already received payload", last_response.body
     assert_equal 1, final_count - initial_count
   end
 
@@ -58,9 +60,7 @@ class ProcessingPayloadTest < ControllerTest
     final_count = Payload.count
 
     assert_equal 403, last_response.status
+    assert_equal "Unregistered source", last_response.body
     assert_equal final_count, initial_count
   end
 end
-
-###Do error messages
-###Create PayloadCreator

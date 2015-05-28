@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class RegisterSourceTest < ControllerTest
   def test_registers_source_with_valid_attributes
     initial_count = Source.count
-    post('/sources/id/data', {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" })
+    post('/sources', {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" })
     final_count = Source.count
 
     assert_equal 200, last_response.status

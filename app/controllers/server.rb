@@ -20,15 +20,10 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-      return status 403 unless Source.all.any? { |s| s.identifier == identifier }
-      return status 400 if params[:payload].nil?
-      payload_data = JSON.parse(params[:payload])
-      payload = Payload.new(requested_at: payload_data["requestedAt"])
-      if payload.save
-        status 200
-      else
-        status 403
-      end
+      result = PayloadCreator.new
+      result.result(params, identifier)
+      status(result.status)
+      body(result.body)
     end
   end
 end
