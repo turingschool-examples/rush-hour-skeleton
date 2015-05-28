@@ -24,6 +24,10 @@ module TrafficSpy
       # curl -i -d 'identifier=(thing)&rooturl=(thing)' http://ourapp:port/sources
     end
 
+    get '/sources/:identifier/data' do
+
+    end
+
     not_found do
       erb :error
     end
