@@ -34,8 +34,8 @@ module TrafficSpy
       end
     end
 
-    post '/sources/:id/data' do |id|
-      if Source.exists?(id)
+    post '/sources/:identifier/data' do |identifier|
+      if Source.exists?(:identifier)
         status 200
       end
     end

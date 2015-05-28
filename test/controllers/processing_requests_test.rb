@@ -23,7 +23,7 @@ class ProcessingRequestTest < ControllersTest
 
   def test_a_payload_can_be_received
     post "/sources", { identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" }
-    post "/sources/1/data", JSON.parse(payload)
+    post "/sources/jumpstartlab/data", JSON.parse(payload)
     assert_equal 200, last_response.status
     # assert_equal "", last_response.body
   end
