@@ -9,7 +9,7 @@ class ClientCreator
     client = Client.new({identifier: params[:identifier], root_url: params[:rootUrl]})
     if client.save
       @status = 200
-      @body = {'identifier':"#{client.identifier}"}.to_json
+      @body = {identifier:"#{client.identifier}"}.to_json
     else
       checker(client)
     end
