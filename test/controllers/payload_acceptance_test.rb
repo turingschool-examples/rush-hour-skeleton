@@ -2,28 +2,59 @@ require_relative '../test_helper'
 
 class PayloadAcceptanceTest < ControllerTest
 
+  # def test_can_accept_proper_payload
+  #   post '/sources/jumpstartlab/data', {
+  #     "url":"http://jumpstartlab.com/blog",
+  #     "requestedAt":"2013-02-16 21:38:28 -0700",
+  #     "respondedIn":37,
+  #     "referredBy":"http://jumpstartlab.com",
+  #     "requestType":"GET",
+  #     "parameters":[],
+  #     "eventName": "socialLogin",
+  #     "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+  #     "resolutionWidth":"1920",
+  #     "resolutionHeight":"1280",
+  #     "ip":"63.29.38.211"
+  #   }
+  #   assert_equal 200, last_response.status
+  # end
+
+
   def test_can_accept_proper_payload
-    post '/sources/jumpstartlab/data', {
-      "url":"http://jumpstartlab.com/blog",
-      "requestedAt":"2013-02-16 21:38:28 -0700",
-      "respondedIn":37,
-      "referredBy":"http://jumpstartlab.com",
-      "requestType":"GET",
-      "parameters":[],
-      "eventName": "socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
-      "ip":"63.29.38.211"
-    }
+    post '/sources/jumpstartlab/data', { "payload" => "" }
     assert_equal 200, last_response.status
   end
 
-  def test_will_send_back_400_status_if_no_payload
-    post '/sources/jumpstartlab/data', {}
-    assert_equal 400, last_response.status
-  end
 
+  # def test_can_accept_proper_payload
+  #
+  #
+  #   payload = {
+  #     "url":"http://jumpstartlab.com/blog",
+  #     "requestedAt":"2013-02-16 21:38:28 -0700",
+  #     "respondedIn":37,
+  #     "referredBy":"http://jumpstartlab.com",
+  #     "requestType":"GET",
+  #     "parameters":[],
+  #     "eventName": "socialLogin",
+  #     "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+  #     "resolutionWidth":"1920",
+  #     "resolutionHeight":"1280",
+  #     "ip":"63.29.38.211"
+  #   }
+  #   require 'json'
+  #   json_payload = payload.to_json
+  #   p json_payload.class
+  #
+  #   post '/sources/jumpstartlab/data', json_payload
+  #   assert_equal 200, last_response.status
+  # end
+
+  # def test_will_send_back_400_status_if_no_payload
+  #   post '/sources/jumpstartlab/data', {}
+  #   assert_equal 400, last_response.status
+  # end
+  #
 
 end
 
