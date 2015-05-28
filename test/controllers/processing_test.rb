@@ -1,0 +1,3 @@
+class ProcessingTest < ControllerTest
+
+end
