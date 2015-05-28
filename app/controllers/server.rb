@@ -1,5 +1,5 @@
 # require_relative '../models/source'
-
+require 'pry'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -22,8 +22,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      source = TrafficSpy::Source.new(params)
-      Source.create(root_url: params["rootUrl"], identifier: params[:identifier])
+      source = Source.new(rootUrl: params[:rootUrl], identifier: params[:identifier])
       if source.save
         {identifier: source.identifier}.to_json
       elsif source.errors.full_messages == ["Identifier has already been taken"]
@@ -36,45 +35,23 @@ module TrafficSpy
       end
     end
 
-    #
-    # post '/sources/:identifier/data' do
-    #   # require 'pry'; binding.pry
-    #   payload = TrafficSpy::Payload.new(request.params)
-    #   if payload.save
-    #     status 200
-    #   else
-    #     status 400
-    #   end
-    #
-    # end
-
-    # post '/sources/:identifier/data' do
-    #   require 'json'
-    #
-    #   json_params = params.to_json
-    #
-    #   data = JSON.parse(json_params)
-    #   payload = TrafficSpy::Payload.new(data)
-    #   if payload.save
-    #     status 200
-    #   else
-    #     status 400
-    #   end
-    #
-    # end
-
     post '/sources/:identifier/data' do
-      payload = PayloadParser.parse(params)
+      payload_parser = PayloadParser.new
+      payload = payload_parser.parse(params)
+
       if payload.has_key?("payload")
-          status 200
-        else
-          status 400
-        end
+        raw_payload = payload_parser.parse(params[:payload])
+        payload = payload_parser.change_names(raw_payload)
+        payload_sha = ShaGenerator.create_sha(payload)
+        payload["sha"] = payload_sha
+        # binding.pry
+        Payload.create(payload)
 
+      else
+        status 400
+        "missing payload"
+      end
     end
-
-
-
 
     not_found do
       erb :error
@@ -83,3 +60,30 @@ module TrafficSpy
     end
   end
 end
+
+#
+# post '/sources/:identifier/data' do
+#   # require 'pry'; binding.pry
+#   payload = TrafficSpy::Payload.new(request.params)
+#   if payload.save
+#     status 200
+#   else
+#     status 400
+#   end
+#
+# end
+
+# post '/sources/:identifier/data' do
+#   require 'json'
+#
+#   json_params = params.to_json
+#
+#   data = JSON.parse(json_params)
+#   payload = TrafficSpy::Payload.new(data)
+#   if payload.save
+#     status 200
+#   else
+#     status 400
+#   end
+#
+# end
