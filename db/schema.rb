@@ -20,5 +20,4 @@ ActiveRecord::Schema.define(version: 20150527172715) do
     t.text "identifier"
     t.text "root_url"
   end
-
 end

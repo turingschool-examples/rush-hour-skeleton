@@ -1,4 +1,5 @@
 require 'pry'
+require_relative '../models/source_creator'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -11,15 +12,10 @@ module TrafficSpy
     end
     
     post '/sources' do
-      source = Source.new(identifier: params[:identifier], root_url: params[:rootUrl])
-      # binding.pry
-      if source.save
-        status 200
-        body "{'identifier':'jumpstartlab'}"
-      else
-        status 400
-        body source.errors.full_messages.join
-      end
+      result = SourceCreator.new
+      result.result(params)
+      status(result.status)
+      body(result.body)
     end
   end
 end
