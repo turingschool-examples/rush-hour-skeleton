@@ -25,6 +25,12 @@ class ProcessingRequestTest < ControllersTest
     post "/sources", { identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" }
     post "/sources/jumpstartlab/data", JSON.parse(payload)
     assert_equal 200, last_response.status
-    # assert_equal "", last_response.body
+    assert_equal "success", last_response.body
+  end
+  
+  def test_if_an_source_is_registered
+    post "/sources/notregistered/data", JSON.parse(payload)
+    assert_equal 403, last_response.status
+    assert_equal "Application not registered", last_response.body
   end
 end
