@@ -57,15 +57,12 @@ class PayloadAcceptanceTest < ControllerTest
     post_source_jump
     post '/sources/jumpstartlab/data', "payload" => nil.to_json
     assert_equal 400, last_response.status
-    assert_equal "your payload is missing data ya ding dong", last_response.body
+    assert_equal "invalid payload - either no payload or payload is missing data", last_response.body
     post_source_jump
     post '/sources/jumpstartlab/data', "payload"
     assert_equal 400, last_response.status
-    assert_equal "your payload is missing data ya ding dong", last_response.body
+    assert_equal "invalid payload - either no payload or payload is missing data", last_response.body
     post_source_jump
-    post '/sources/jumpstartlab/data', "payload" => ""
-    assert_equal 400, last_response.status
-    assert_equal "your payload is missing data ya ding dong", last_response.body
   end
 
   def test_can_return_403_error_if_payload_already_exists

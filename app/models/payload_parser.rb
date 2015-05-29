@@ -4,21 +4,8 @@ require 'pry'
 module TrafficSpy
   class PayloadParser
     def parse(input)
-      json_params = input.to_json
-      if json_params != "null"
-        # require 'pry'; binding.pry
-        JSON.parse(json_params)
-      else
-        {}
-      end
-    end
-
-    def change_names(input)
-      # new_input = input.to_json
-      # payload = JSON.parse(new_input)
-      payload = JSON.parse(input["payload"])
-        # binding.pry
-        new_hash = {
+      payload = JSON.parse(input)
+        payload_headers = {
         :url => payload["url"],
         :requested_at => payload["requestedAt"],
         :responded_in => payload["respondedIn"],
@@ -34,3 +21,12 @@ module TrafficSpy
     end
   end
 end
+
+
+# def parse(input)
+#   if input != "null"
+#     JSON.parse(input)
+#   else
+#     {}
+#   end
+# end

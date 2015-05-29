@@ -27,24 +27,13 @@ module TrafficSpy
       validator.validate(params)
       status validator.status
       body validator.message
-
-      # source = Source.new(rootUrl: params[:rootUrl], identifier: params[:identifier])
-      # if source.save
-      #   {identifier: source.identifier}.to_json
-      # elsif source.errors.full_messages.include?("Identifier has already been taken")
-      #   status 403
-      #   "identifier already exists"
-      # else
-      #   status 400
-      #   "missing a parameter ya doofus"
-      # end
     end
 
     post '/sources/:identifier/data' do |identifier|
-      something = PayloadValidator.new(params, identifier)
-      something.validate
-      status something.status
-      body something.message
+      validator = PayloadValidator.new(params[:payload], identifier)
+      validator.validate
+      status validator.status
+      body validator.message
     end
 
     not_found do
