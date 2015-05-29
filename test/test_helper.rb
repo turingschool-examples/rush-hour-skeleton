@@ -2,6 +2,7 @@ ENV["RACK_ENV"] ||= "test"
 
 
 require 'bundler'
+require 'tilt/erb'
 require 'byebug'
 require 'minitest/pride'
 Bundler.require

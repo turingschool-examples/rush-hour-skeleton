@@ -3,7 +3,7 @@ module TrafficSpy
     attr_reader :message, :status
 
     def validate(params)
-      source = Source.new(rootUrl: params[:rootUrl], identifier: params[:identifier])
+      source = Source.new(root_url: params[:rootUrl], identifier: params[:identifier])
       if source.save
         @message = {identifier: source.identifier}.to_json
       elsif source.errors.full_messages.include?("Identifier has already been taken")

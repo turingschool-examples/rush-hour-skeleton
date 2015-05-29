@@ -19,6 +19,11 @@ module TrafficSpy
     # end
 
     get '/' do
+      erb :dashboard
+    end
+
+    get '/sources' do
+      @sources = Source.all
       erb :index
     end
 
@@ -34,6 +39,11 @@ module TrafficSpy
       validator.validate
       status validator.status
       body validator.message
+    end
+
+    get '/sources/:identifier' do |identifier|
+      @id = identifier
+      erb :source_page
     end
 
     not_found do
