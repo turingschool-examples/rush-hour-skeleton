@@ -15,6 +15,9 @@ Dir[APP_ROOT.join('app', 'models', '*.rb')].each { |file| require file }
 # require your database configurations
 require APP_ROOT.join('config', 'database')
 
+#Prevents non-thread-safe tilting
+require 'tilt/erb'
+
 # configure Server settings
 module TrafficSpy
   class Server < Sinatra::Base

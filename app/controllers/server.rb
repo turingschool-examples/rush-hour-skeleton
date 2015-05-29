@@ -20,7 +20,7 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-      response = PayloadCreator.new(params, identifier)
+      response = PayloadCreator.new(params[:payload], identifier)
       status(response.status)
       body(response.body)
     end
