@@ -13,9 +13,12 @@ module TrafficSpy
       end
     end
 
-    def change_names(payload)
-      payload = payload["payload"]
-      new_hash = {
+    def change_names(input)
+      # new_input = input.to_json
+      # payload = JSON.parse(new_input)
+      payload = JSON.parse(input["payload"])
+        # binding.pry
+        new_hash = {
         :url => payload["url"],
         :requested_at => payload["requestedAt"],
         :responded_in => payload["respondedIn"],
