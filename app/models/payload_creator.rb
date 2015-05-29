@@ -5,6 +5,7 @@ class PayloadCreator
   def initialize(params, identifier)
     @params = params
     @identifier = identifier
+    
     payload_data = json_parser(:payload) unless missing_payload?
     @payload = Payload.new(requested_at: payload_data["requestedAt"]) unless missing_payload?
   end
