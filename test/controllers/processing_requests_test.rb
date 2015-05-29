@@ -23,20 +23,20 @@ class ProcessingRequestTest < ControllersTest
 
   def test_a_payload_can_be_received
     post "/sources", { identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" }
-    post "/sources/jumpstartlab/data", JSON.parse(payload)
+    post "/sources/jumpstartlab/data", { "payload" => JSON.parse(payload) }
     assert_equal 200, last_response.status
     assert_equal "success", last_response.body
   end
-  
+
   def test_if_an_source_is_registered
-    post "/sources/notregistered/data", JSON.parse(payload)
+    post "/sources/notregistered/data", { :payload => JSON.parse(payload) }
     assert_equal 403, last_response.status
     assert_equal "Application not registered", last_response.body
   end
 
   def test_that_it_is_not_valid_if_missing_a_payload
     post "/sources", { identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" }
-    post "/sources/jumpstartlab/data" 
+    post "/sources/jumpstartlab/data"
 
     assert_equal 400, last_response.status
     assert_equal "Payload missing", last_response.body
