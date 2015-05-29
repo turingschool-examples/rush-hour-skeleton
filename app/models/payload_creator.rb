@@ -36,4 +36,3 @@ class PayloadCreator
     end
   end
 end
-
