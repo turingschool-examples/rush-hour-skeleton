@@ -52,13 +52,6 @@ class PayloadAcceptanceTest < ControllerTest
     assert_equal 403, last_response.status
   end
 
-  # As a registered user,
-  # when I send a POST request to http://yourapplication:port/sources/IDENTIFIER/data with NO payload,
-  # then I expect a 400 response (bad request)
-
-  # As a registered user,
-  # when I send a POST request to http://yourapplication:port/sources/IDENTIFIER/data with a payload that has already been sent,
-  # then I expect a 403 response (forbidden)
 
 
   # def test_can_accept_proper_payload
