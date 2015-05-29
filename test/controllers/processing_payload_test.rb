@@ -2,8 +2,8 @@ require_relative '../test_helper'
 require 'json'
 
 class ProcessingPayloadTest < ControllerTest
-  def create_source
-    post('/sources', {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" })
+  def create_source(identifier)
+    post('/sources', {identifier: identifier, rootUrl: "http://#{identifier}.com" })
   end
   
   def create_payload_post
@@ -22,7 +22,7 @@ class ProcessingPayloadTest < ControllerTest
   end
   
   def test_processes_unique_payload_for_source
-    create_source
+    create_source("jumpstartlab")
     initial_count = Payload.count
     create_payload_post
     final_count = Payload.count
@@ -32,7 +32,7 @@ class ProcessingPayloadTest < ControllerTest
   end
 
   def test_returns_error_for_missing_payload_data
-    create_source
+    create_source("jumpstartlab")
     initial_count = Payload.count
     post('/sources/jumpstartlab/data', {identifier: "jumpstartlab"})
     final_count = Payload.count
@@ -43,7 +43,7 @@ class ProcessingPayloadTest < ControllerTest
   end
 
   def test_it_returns_error_for_already_received_request
-    create_source
+    create_source("jumpstartlab")
     initial_count = Payload.count
     create_payload_post
     create_payload_post
