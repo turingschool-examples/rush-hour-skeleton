@@ -3,4 +3,5 @@ class Source < ActiveRecord::Base
   validates :identifier, uniqueness: true, presence: true
 
   has_many :payloads
+  
 end
