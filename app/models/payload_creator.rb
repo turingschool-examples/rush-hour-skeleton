@@ -5,8 +5,8 @@ class PayloadCreator
   def initialize(params, identifier)
     @params = params
     @identifier = identifier
-    payload_data = JSON.parse(@params[:payload])
-    @payload = Payload.new(requested_at: payload_data["requestedAt"])
+    payload_data = json_parser(:payload) unless missing_payload?
+    @payload = Payload.new(requested_at: payload_data["requestedAt"]) unless missing_payload?
   end
 
   def status
@@ -25,6 +25,10 @@ class PayloadCreator
     @params[:payload].nil?
   end
 
+  def json_parser(data)
+    JSON.parse(@params[data])
+  end
+
   def result
     return [403, "Unregistered source"] unless registered?
     return [400, "Missing payload data"] if missing_payload?
@@ -36,4 +40,6 @@ class PayloadCreator
     end
   end
 end
+
+
 
