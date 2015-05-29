@@ -33,4 +33,12 @@ class ProcessingRequestTest < ControllersTest
     assert_equal 403, last_response.status
     assert_equal "Application not registered", last_response.body
   end
+
+  def test_that_it_is_not_valid_if_missing_a_payload
+    post "/sources", { identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" }
+    post "/sources/jumpstartlab/data" 
+
+    assert_equal 400, last_response.status
+    assert_equal "Payload missing", last_response.body
+  end
 end
