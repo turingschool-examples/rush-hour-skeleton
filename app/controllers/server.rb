@@ -4,6 +4,7 @@ require 'json'
 
 module TrafficSpy
   class Server < Sinatra::Base
+    
     get '/' do
       erb :index
     end
@@ -32,9 +33,11 @@ module TrafficSpy
 
     get "/sources/:identifier" do |identifier|
       if Source.where(identifier: identifier).exists?
-        # erb :whatevez
+        @source = Source.find_by(identifier: identifier)
+        erb :dashboard
       else
-        redirect "/"
+        message = "oops"
+        redirect to("/?message=#{message}")
       end
     end
   end

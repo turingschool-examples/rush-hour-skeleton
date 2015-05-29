@@ -30,3 +30,6 @@ class Minitest::Test
   end
 end
 
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+end
