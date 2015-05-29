@@ -2,28 +2,38 @@ require_relative "source"
 require 'json'
 
 class PayloadCreator
-  attr_reader :status, :body
+  def initialize(params, identifier)
+    @params = params
+    @identifier = identifier
+  end
 
-  def result(params, identifier)
-    if Source.all.none? { |s| s.identifier == identifier }
-      @status = 403
-      @body = "Unregistered source"
-      return
-    end
+  def status
+    result[0]
+  end
 
-    if params[:payload].nil?
-      @status = 400
-      @body = "Missing payload data"
-      return
-    end
+  def body
+    result[1]
+  end
 
-    payload_data = JSON.parse(params[:payload])
+  def registered?
+    Source.exists?(identifier: @identifier)
+  end
+
+  def missing_payload?
+    @params[:payload].nil?
+  end
+
+  def result
+    return [403, "Unregistered source"] unless registered?
+    return [400, "Missing payload data"] if missing_payload?
+
+    payload_data = JSON.parse(@params[:payload])
     payload = Payload.new(requested_at: payload_data["requestedAt"])
+
     if payload.save
-      @status = 200
+      [200, "OK"]
     else
-      @status = 403
-      @body = "Already received payload"
+      [403, "Already received payload"]
     end
   end
 end

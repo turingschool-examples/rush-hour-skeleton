@@ -14,21 +14,15 @@ module TrafficSpy
     end
 
     post '/sources' do
-      result = SourceCreator.new
-      result.result(params)
-      status(result.status)
-      body(result.body)
+      response = SourceCreator.new(params)
+      status(response.status)
+      body(response.body)
     end
 
     post "/sources/:identifier/data" do |identifier|
-      # response = PayloadCreator.new(params, identifier)
-      # status(response.status)
-      # body(response.body)
-
-      result = PayloadCreator.new
-      result.result(params, identifier)
-      status(result.status)
-      body(result.body)
+      response = PayloadCreator.new(params, identifier)
+      status(response.status)
+      body(response.body)
     end
 
     get "/sources/:identifier" do |identifier|
