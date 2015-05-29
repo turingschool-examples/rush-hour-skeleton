@@ -1,4 +1,5 @@
 require 'json'
+require 'pry'
 
 module TrafficSpy
   class PayloadParser
@@ -13,18 +14,19 @@ module TrafficSpy
     end
 
     def change_names(payload)
+      payload = payload["payload"]
       new_hash = {
-        :url => payload[:url],
-        :requested_at => payload[:requestedAt],
-        :responded_in => payload[:respondedIn],
-        :referred_by =>  payload[:referredBy],
-        :request_type => payload[:requestType],
-        :event_name => payload[:eventName],
-        :user_agent => payload[:userAgent],
-        :resolution_width => payload[:resolutionWidth],
-        :resolution_height => payload[:resolutionHeight],
-        :ip => payload[:ip],
-        :sha => payload[:sha]
+        :url => payload["url"],
+        :requested_at => payload["requestedAt"],
+        :responded_in => payload["respondedIn"],
+        :referred_by =>  payload["referredBy"],
+        :request_type => payload["requestType"],
+        :event_name => payload["eventName"],
+        :user_agent => payload["userAgent"],
+        :resolution_width => payload["resolutionWidth"],
+        :resolution_height => payload["resolutionHeight"],
+        :ip => payload["ip"],
+        :sha => payload["sha"]
       }
     end
   end

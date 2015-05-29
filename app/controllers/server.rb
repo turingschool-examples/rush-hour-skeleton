@@ -25,7 +25,7 @@ module TrafficSpy
       source = Source.new(rootUrl: params[:rootUrl], identifier: params[:identifier])
       if source.save
         {identifier: source.identifier}.to_json
-      elsif source.errors.full_messages == ["Identifier has already been taken"]
+      elsif source.errors.full_messages.include?("Identifier has already been taken")
         status 403
         "identifier already exists"
       else
@@ -40,16 +40,20 @@ module TrafficSpy
       payload = payload_parser.parse(params)
 
       if payload.has_key?("payload")
-        raw_payload = payload_parser.parse(params[:payload])
+        raw_payload = payload_parser.parse(params)
         payload = payload_parser.change_names(raw_payload)
         payload_sha = ShaGenerator.create_sha(payload)
-        payload["sha"] = payload_sha
-        # binding.pry
-        Payload.create(payload)
-
+        payload[:sha] = payload_sha
+        pi = Payload.create(payload)
+          if pi.errors.full_messages.include?("Sha has already been taken")
+            status 403
+            "payload has already been created"
+          else
+            status 200
+          end
       else
         status 400
-        "missing payload"
+        "missing payload ya ding dong"
       end
     end
 

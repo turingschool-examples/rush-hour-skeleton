@@ -1,4 +1,5 @@
 require 'json'
+require 'pry'
 
 module TrafficSpy
   class ShaGenerator

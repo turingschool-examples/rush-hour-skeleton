@@ -1,4 +1,5 @@
 require_relative '../test_helper'
+require 'pry'
 
 class PayloadAcceptanceTest < ControllerTest
 
@@ -19,10 +20,12 @@ class PayloadAcceptanceTest < ControllerTest
   #   assert_equal 200, last_response.status
   # end
 
-  attr_reader :payload
+  attr_reader :payload, :payload2
 
   def setup
-    @payload = {"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}
+    @payload = {"url":"http://labs.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}
+    @payload2 = {"url":"http://google.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}
+
   end
 
   def test_can_accept_proper_payload
@@ -41,8 +44,12 @@ class PayloadAcceptanceTest < ControllerTest
     #{"hello" => "hi", "goodbye" => "bye"}
     post '/sources/jumpstartlab/data', { "payload" => payload }
     assert_equal 200, last_response.status
-    # post '/sources/jumpstartlab/data', { "payload" => payload }
-    # assert_equal 403, last_response.status
+    post '/sources/jumpstartlab/data', { "payload" => payload }
+    assert_equal 403, last_response.status
+    post '/sources/jumpstartlab/data', { "payload" => payload2 }
+    assert_equal 200, last_response.status
+    post '/sources/jumpstartlab/data', { "payload" => payload2 }
+    assert_equal 403, last_response.status
   end
 
   # As a registered user,
