@@ -1,4 +1,6 @@
 class Source < ActiveRecord::Base
-  validates_presence_of :root_url
+  has_many :payloads
+
+  validates :root_url, presence: true
   validates :identifier, uniqueness: true, presence: true
 end
