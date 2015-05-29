@@ -1,6 +1,5 @@
-# require 'byebug'
 require 'digest'
-
+require 'byebug'
 module TrafficSpy
   class Server < Sinatra::Base
 
@@ -17,9 +16,8 @@ module TrafficSpy
                         root_url: params["rootUrl"] }
 
       if Source.exists?(source_data)
-        #  Source.duplicate_identifier  
-         status 403
-         body "Identifier already exists"
+        status 403
+        body "Identifier already exists"
       else
         @source = Source.create(source_data)
         if @source.valid?
@@ -30,36 +28,31 @@ module TrafficSpy
           body "Missing parameter, the required parameters are 'identifier' and 'rootUrl'"
         end
       end
-
     end
 
     post '/sources/:identifier/data' do |identifier|
-      unless Source.exists?(identifier: identifier)
-        body "Application not registered"
-        status 403 
-      else
+      
+      if Source.exists?(identifier: identifier)
+
         sha = Payload.generate_sha(params.values.join)
+
         if Payload.exists?(sha: sha)
           status 403
           body "Duplicate payload detected!"
         else
-         Payload.create({sha: sha})
-         body "success"
+          Payload.create({sha: sha})
+          body "success"
+        end
+      else
+        if params.keys.size == 3
+          status 400
+          body "Payload missing"
+        else
+          status 403 
+          body "Application not registered"
         end
       end
     end
-
-
-    #given a registered user  we need to
-    #convert the payload string into a SHA1 and check to make sure
-    #it's not in the payload table.
-    #
-    #  Digest::SHA1.hexdigest(payload)
-    #  
-    #require 'digest'
   end
 end
 
-
-# register Sinatra::Partial
-#   set :partial_template_engine, :erb
