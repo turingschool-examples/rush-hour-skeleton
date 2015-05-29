@@ -30,32 +30,16 @@ module TrafficSpy
         status 403
         "identifier already exists"
       else
-        # source.errors.full_messages == ["Rooturl can't be blank"]
         status 400
         "missing a parameter ya doofus"
       end
     end
 
-    post '/sources/:identifier/data' do
-      payload_parser = PayloadParser.new
-      payload = payload_parser.parse(params)
-
-      if payload.has_key?("payload")
-        raw_payload = payload_parser.parse(params)
-        payload = payload_parser.change_names(raw_payload)
-        payload_sha = ShaGenerator.create_sha(payload)
-        payload[:sha] = payload_sha
-        pi = Payload.create(payload)
-          if pi.errors.full_messages.include?("Sha has already been taken")
-            status 403
-            "payload has already been created"
-          else
-            status 200
-          end
-      else
-        status 400
-        "missing payload ya ding dong"
-      end
+    post '/sources/:identifier/data' do |identifier|
+      something = PayloadValidator.new(params, identifier)
+      something.validate
+      status something.status
+      something.message
     end
 
     not_found do
