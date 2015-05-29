@@ -6,7 +6,6 @@ module TrafficSpy
     get '/' do
       erb :index
     end
-
     not_found do
       erb :error
     end
@@ -39,18 +38,16 @@ module TrafficSpy
         if Payload.exists?(sha: sha)
           status 403
           body "Duplicate payload detected!"
+        elsif Payload.confirm_payload(params)
+          status 400
+          body "Payload missing"
         else
           Payload.create({sha: sha})
           body "success"
         end
       else
-        if params.keys.size == 3
-          status 400
-          body "Payload missing"
-        else
-          status 403 
-          body "Application not registered"
-        end
+        status 403 
+        body "Application not registered"
       end
     end
   end
