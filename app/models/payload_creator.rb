@@ -30,7 +30,8 @@ class PayloadCreator
                          url:          payload_data["url"],
                          responded_in: payload_data["respondedIn"],
                          resolution_width: payload_data["resolutionWidth"],
-                         resolution_height: payload_data["resolutionHeight"]})
+                         resolution_height: payload_data["resolutionHeight"],
+                         event_name:   payload_data["eventName"]})
   end
   
   def result

@@ -41,4 +41,8 @@ class Source < ActiveRecord::Base
   def resolution_info
     payloads.group(:resolution_width, :resolution_height).count
   end
+
+  def events
+    payloads.group(:event_name).count.sort_by {|k, v| -v}
+  end
 end

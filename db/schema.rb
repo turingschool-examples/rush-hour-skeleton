@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150530221812) do
     t.integer "responded_in"
     t.text    "resolution_width"
     t.text    "resolution_height"
+    t.text    "event_name"
   end
 
   create_table "sources", force: :cascade do |t|

@@ -34,6 +34,11 @@ module TrafficSpy
         redirect to("/?message=#{message}")
       end
     end
+    
+    get "/sources/:identifier/events" do |identifier|
+      @source = Source.find_by(identifier: identifier)
+      erb :events
+    end
   end
 end
 
