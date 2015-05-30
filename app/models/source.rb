@@ -37,4 +37,8 @@ class Source < ActiveRecord::Base
   def average_times
     payloads.group(:url).average(:responded_in).sort_by { |k, v| v }.reverse
   end
+
+  def resolution_info
+    payloads.group(:resolution_width, :resolution_height).count
+  end
 end
