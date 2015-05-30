@@ -47,6 +47,12 @@ class SourceHomePage < FeatureTest
 
   def test_can_display_most_hit_url
     skip
+# urls = []
+    # Payload.where(source_id: 1).find_each do |payload|
+    #   urls << payload.url
+    # end
+
+    # or within source... payloads.order
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/:identifier'
