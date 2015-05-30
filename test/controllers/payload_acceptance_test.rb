@@ -5,7 +5,7 @@ class PayloadAcceptanceTest < ControllerTest
   attr_reader :payload, :payload2
 
   def setup
-    @payload = {
+    @payload = '{
       "url":"http://labs.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":37,
@@ -16,8 +16,8 @@ class PayloadAcceptanceTest < ControllerTest
       "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
-      "ip":"63.29.38.211"}.to_json
-    @payload2 = {
+      "ip":"63.29.38.211"}'
+    @payload2 = '{
       "url":"http://google.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":37,
@@ -28,7 +28,7 @@ class PayloadAcceptanceTest < ControllerTest
       "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
-      "ip":"63.29.38.211"}.to_json
+      "ip":"63.29.38.211"}'
   end
 
   def post_source_jump
