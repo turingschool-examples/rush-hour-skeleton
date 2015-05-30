@@ -29,4 +29,15 @@ class SourceTest < Minitest::Test
 
     refute source.valid?
   end
+
+  def test_group_urls_will_return_hash_with_count_as_value
+    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0700"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0710"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0720"})
+    source = Source.find_by(identifier: "jumpstartlab")
+
+    assert_equal 1, source.group_urls.last[1]
+    assert_equal 2, source.group_urls.first[1]
+  end
 end
