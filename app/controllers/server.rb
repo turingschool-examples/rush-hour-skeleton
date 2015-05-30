@@ -47,8 +47,10 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @id = identifier
+      # binding.pry
       @source = Source.find_by(:identifier == identifier)
-      x = @source
+      @urls_count = @source.list_urls
+      # x = @source
       erb :source_page
     end
 

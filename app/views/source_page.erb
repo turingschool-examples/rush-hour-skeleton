@@ -2,8 +2,8 @@
 
 
 <h1>Most Visited Urls</h1>
-
-<ol>
-  <%= @source.list_urls %>
-</ol>
-
+  <ol>
+    <% @urls_count.each do |key, value| %>
+      <li><%= key %> - Hit <%= value %> times</li>
+    <% end %>
+  </ol>
