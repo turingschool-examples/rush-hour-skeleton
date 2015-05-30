@@ -30,5 +30,11 @@ class Source < ActiveRecord::Base
     end
   end
   
-  
+  def group_urls
+    payloads.group(:url).count.sort_by { |k, v| v }.reverse
+  end
+
+  def average_times
+    payloads.group(:url).average(:responded_in).sort_by { |k, v| v }.reverse
+  end
 end

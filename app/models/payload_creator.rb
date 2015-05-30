@@ -26,7 +26,9 @@ class PayloadCreator
   def generate_payload
     source = Source.find_by(identifier: @identifier)
     source.payloads.new({requested_at: payload_data["requestedAt"],
-                         user_agent:   payload_data["userAgent"]})
+                         user_agent:   payload_data["userAgent"],
+                         url:          payload_data["url"],
+                         responded_in: payload_data["respondedIn"]})
   end
   
   def result
