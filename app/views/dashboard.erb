@@ -1,1 +1,9 @@
 <h1>Site data for <%= @source.identifier %></h1>
+
+<% @source.browser_info.each do |key, val| %>
+  <li><%= "#{key}: #{val}" %></li>
+<% end %>
+
+<% @source.platform_info.each do |key, val| %>
+  <li><%= "#{key}: #{val}" %></li>
+<% end %>
