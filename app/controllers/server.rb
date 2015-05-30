@@ -39,10 +39,17 @@ module TrafficSpy
       validator.validate
       status validator.status
       body validator.message
+
+      # payload = Payload.find_by
+      # source_id = Source.find_by(:identifier == identifier).id
+      # payload.update_attributes
     end
 
     get '/sources/:identifier' do |identifier|
       @id = identifier
+
+      @source = Source.find_by(:identifier == identifier)
+      @source.find_payloads
       erb :source_page
     end
 

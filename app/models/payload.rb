@@ -16,5 +16,6 @@ module TrafficSpy
                           :sha
 
     validates_uniqueness_of :sha
+
   end
 end
