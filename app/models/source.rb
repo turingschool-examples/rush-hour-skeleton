@@ -1,3 +1,5 @@
+require 'uri'
+
 class Source < ActiveRecord::Base
   validates :root_url, presence: true
   validates :identifier, uniqueness: true, presence: true
@@ -6,6 +8,10 @@ class Source < ActiveRecord::Base
 
   def grouped_urls
     payloads.group(:url)
+  end
+
+  def path(url)
+    URI(url).path
   end
 
   def requested_urls
@@ -41,4 +47,22 @@ class Source < ActiveRecord::Base
   def average_times
     grouped_urls.average(:responded_in).sort_by { |k, v| v }.reverse
   end
+
+  def url_payloads(url)
+    payloads.where(url: url)
+  end
+
+  def longest_time(url)
+    url_payloads(url).maximum(:responded_in)
+  end
+
+  def shortest_time(url)
+    url_payloads(url).minimum(:responded_in)
+  end
+
+  def average_time(url)
+    url_payloads(url).average(:responded_in)
+  end
+
+  def 
 end
