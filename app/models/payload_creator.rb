@@ -28,7 +28,8 @@ class PayloadCreator
     source.payloads.new({requested_at: payload_data["requestedAt"],
                          user_agent:   payload_data["userAgent"],
                          url:          payload_data["url"],
-                         responded_in: payload_data["respondedIn"]})
+                         responded_in: payload_data["respondedIn"],
+                         event_name:   payload_data["eventName"]})
   end
   
   def result

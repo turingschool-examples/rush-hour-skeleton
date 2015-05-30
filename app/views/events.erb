@@ -1,0 +1,15 @@
+ <h1>Site events for <%= @source.identifier %></h1>
+ 
+ 
+<h2>Events:</h2>
+ <p>
+ <% if @source.events.empty? %>
+   You have no events!
+ <% else %>
+ <ol>
+   <% @source.events.each do |key, val| %>
+     <li><%= "#{key}: #{val}" %></li>
+   <% end %>
+ <% end %>
+ </ol>
+ </p>

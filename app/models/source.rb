@@ -37,4 +37,8 @@ class Source < ActiveRecord::Base
   def average_times
     payloads.group(:url).average(:responded_in).sort_by { |k, v| v }.reverse
   end
+  
+  def events
+    payloads.group(:event_name).count.sort_by {|k, v| -v}
+  end
 end
