@@ -4,12 +4,23 @@ module TrafficSpy
     validates_presence_of :identifier, :root_url
     validates :identifier, uniqueness: true
 
-    def find_payloads
-      Payload.find_by(source_id: self.id)
-    end
+    # def find_payloads
+    #   Payload.find_by(source_id: self.id)
+    # end
 
-    def find_urls
-      Payload.all
+    def list_urls
+
+      urls = payloads.group(:url).order('count_url DESC').count(:url)
+      urls.each do |key, value|
+
+        p value
+        p key
+
+      end
+      # keys = payloads.group(:url).order('count_url DESC').count(:url).keys
+      # keys.each do |key|
+      #   payloads.group(:url).order('count_url DESC').count(:url)
+      # end
     end
 
   end

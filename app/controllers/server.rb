@@ -47,9 +47,8 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @id = identifier
-
       @source = Source.find_by(:identifier == identifier)
-      @source.find_payloads
+      x = @source
       erb :source_page
     end
 

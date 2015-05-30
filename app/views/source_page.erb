@@ -1,3 +1,9 @@
 <h1>Welcome <%= @id %></h1>
 
-<%= @source.find_urls %>
+
+<h1>Most Visited Urls</h1>
+
+<ol>
+  <%= @source.list_urls %>
+</ol>
+
