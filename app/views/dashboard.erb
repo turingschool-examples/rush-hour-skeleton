@@ -1,13 +1,34 @@
 <h1>Site data for <%= @source.identifier %></h1>
+
+<h2>Browser Breakdown</h2>
+<p>
+  <ul>
+    <% @source.browser_info.each do |key, val| %>
+      <li><%= "#{key}: #{val}" %></li>
+    <% end %>
+  </ul>
+</p>
+
+<h2>Platform Breakdown</h2>
+<p>
+  <ul>
+    <% @source.platform_info.each do |key, val| %>
+      <li><%= "#{key}: #{val}" %></li>
+    <% end %>
+  </ul>
+</p>
+
 <h2>URLs</h2>
 <ol>
   <% @source.group_urls.each do |url, count| %>
   <li><%= url %> <%= count %></li>
   <% end %>
 </ol>
+
 <h2>Average Response Times</h2>
 <ol>
   <% @source.average_times.each do |url, count| %>
   <li><%= url %> <%= count %></li>
   <% end %>
 </ol>
+

@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150530164348) do
   create_table "payloads", force: :cascade do |t|
     t.text    "requested_at"
     t.integer "source_id"
+    t.text    "user_agent"
     t.text    "url"
     t.integer "responded_in"
   end
