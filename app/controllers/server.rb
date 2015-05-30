@@ -16,7 +16,7 @@ module TrafficSpy
     post '/sources' do
       # status SourceResponder.new(params).status
       # body SourceResponder.new(params).body
-
+      @source_responder = SourceResponder.new(params) 
       source_data = { identifier: params["identifier"],
                       root_url: params["rootUrl"] }
 
@@ -51,15 +51,7 @@ module TrafficSpy
         else
           payload = params['payload']
           parser = ParamsParser.new(payload, sha)
-                
           parser.parse
-          # payload = { "payload" => JSON.parse(payload) }
-          # create ParamsParser class for all of these
-          #  payload = JSON.parse(payload)
-          #  url = payload['url']
-          # url = JSON.parse(params[:payload])['url']
-          # Payload.create({sha: sha})
-          # Page.create({url: url}) 
           body "success"
         end
       else

@@ -8,8 +8,6 @@ module TrafficSpy
       @sha = sha
     end
 
-       # payload = JSON.parse(payload)
-       # url = JSON.parse(params[:payload])['url']
     def parse
       Payload.create({sha: sha})
       Page.create({url: url}) 
