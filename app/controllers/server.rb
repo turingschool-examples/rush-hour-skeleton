@@ -49,7 +49,11 @@ module TrafficSpy
       @id = identifier
       # binding.pry
       @source = Source.find_by(:identifier == identifier)
+
       @urls_count = @source.list_urls
+      # binding.pry
+      @response_time_count = @source.list_response_times
+
       # x = @source
       erb :source_page
     end
@@ -59,4 +63,3 @@ module TrafficSpy
     end
   end
 end
-

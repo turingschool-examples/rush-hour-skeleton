@@ -1,9 +1,16 @@
 <h1>Welcome <%= @id %></h1>
 
 
-<h1>Most Visited Urls</h1>
+<h2>Most Visited Urls</h2>
   <ol>
     <% @urls_count.each do |key, value| %>
       <li><%= key %> - Hit <%= value %> times</li>
+    <% end %>
+  </ol>
+
+<h2>Average Response Times</h2>
+  <ol>
+    <% @response_time_count.each do |key, value| %>
+      <li><%= key %> - Average response time <%= value.to_i %> seconds</li>
     <% end %>
   </ol>

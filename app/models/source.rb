@@ -18,5 +18,9 @@ module TrafficSpy
       # end
     end
 
+    def list_response_times
+      payloads.group(:url).order('average_responded_in DESC').average(:responded_in)
+    end
+
   end
 end
