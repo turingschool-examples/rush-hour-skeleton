@@ -32,3 +32,7 @@ class ControllerTest < Minitest::Test
 
 end
 
+class FeatureTest < ControllerTest
+  include Capybara::DSL
+end
+
