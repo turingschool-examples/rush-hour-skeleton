@@ -50,13 +50,16 @@ module TrafficSpy
           body "Payload missing"
         else
           payload = params['payload']
-         # payload = { "payload" => JSON.parse(payload) }
+          parser = ParamsParser.new(payload, sha)
+                
+          parser.parse
+          # payload = { "payload" => JSON.parse(payload) }
           # create ParamsParser class for all of these
-          payload = JSON.parse(payload)
-          url = payload['url']
-         # url = JSON.parse(params[:payload])['url']
-          Payload.create({sha: sha})
-          Page.create({url: url}) 
+          #  payload = JSON.parse(payload)
+          #  url = payload['url']
+          # url = JSON.parse(params[:payload])['url']
+          # Payload.create({sha: sha})
+          # Page.create({url: url}) 
           body "success"
         end
       else
