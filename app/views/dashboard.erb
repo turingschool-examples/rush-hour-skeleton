@@ -1,8 +1,13 @@
 <h1>Site data for <%= @source.identifier %></h1>
 <h2>URLs</h2>
 <ol>
-  <% @source.group_urls.each do |url, number| %>
-  <li><%= url %> <%= number %></li>
+  <% @source.group_urls.each do |url, count| %>
+  <li><%= url %> <%= count %></li>
   <% end %>
 </ol>
-
+<h2>Average Response Times</h2>
+<ol>
+  <% @source.average_times.each do |url, count| %>
+  <li><%= url %> <%= count %></li>
+  <% end %>
+</ol>

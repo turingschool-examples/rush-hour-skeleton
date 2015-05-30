@@ -30,14 +30,30 @@ class SourceTest < Minitest::Test
     refute source.valid?
   end
 
-  def test_group_urls_will_return_hash_with_count_as_value
+  def test_group_urls_will_return_ordered_nested_array_by_count_with_url
     Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0700"})
     Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0710"})
     Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0720"})
     source = Source.find_by(identifier: "jumpstartlab")
 
+    assert_equal "http://jumpstartlab.com/asdf", source.group_urls.last[0]
     assert_equal 1, source.group_urls.last[1]
+    assert_equal "http://jumpstartlab.com/blog", source.group_urls.first[0]
     assert_equal 2, source.group_urls.first[1]
+  end
+
+  def test_average_times_will_return_ordered_nested_array_by_avg_time_with_url
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0701", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0700", responded_in: 20})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0722", responded_in: 200})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0723", responded_in: 199})
+    source = Source.find_by(identifier: "jumpstartlab")
+
+    assert_equal "http://jumpstartlab.com/asdf", source.average_times.first[0]
+    assert_equal 199.5, source.average_times.first[1]
+    assert_equal "http://jumpstartlab.com/blog", source.average_times.last[0]
+    assert_equal 15.0, source.average_times.last[1]
   end
 end
