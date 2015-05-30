@@ -1,7 +1,7 @@
 <h1>Site data for <%= @source.identifier %></h1>
 <h2>URLs</h2>
 <ol>
-  <% @source.group_urls.each do |url, count| %>
+  <% @source.requested_urls.each do |url, count| %>
   <li><%= url %> <%= count %></li>
   <% end %>
 </ol>

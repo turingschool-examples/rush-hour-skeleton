@@ -37,10 +37,10 @@ class SourceTest < Minitest::Test
     Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0720"})
     source = Source.find_by(identifier: "jumpstartlab")
 
-    assert_equal "http://jumpstartlab.com/asdf", source.group_urls.last[0]
-    assert_equal 1, source.group_urls.last[1]
-    assert_equal "http://jumpstartlab.com/blog", source.group_urls.first[0]
-    assert_equal 2, source.group_urls.first[1]
+    assert_equal "http://jumpstartlab.com/asdf", source.requested_urls.last[0]
+    assert_equal 1, source.requested_urls.last[1]
+    assert_equal "http://jumpstartlab.com/blog", source.requested_urls.first[0]
+    assert_equal 2, source.requested_urls.first[1]
   end
 
   def test_average_times_will_return_ordered_nested_array_by_avg_time_with_url

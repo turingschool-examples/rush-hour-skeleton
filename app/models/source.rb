@@ -4,11 +4,16 @@ class Source < ActiveRecord::Base
 
   has_many :payloads
 
-  def group_urls
-    payloads.group(:url).count.sort_by { |k, v| v }.reverse
+
+  def grouped_urls
+    payloads.group(:url)
+  end
+
+  def requested_urls
+    grouped_urls.count.sort_by { |k, v| v }.reverse
   end
 
   def average_times
-    payloads.group(:url).average(:responded_in).sort_by { |k, v| v }.reverse
+    grouped_urls.average(:responded_in).sort_by { |k, v| v }.reverse
   end
 end
