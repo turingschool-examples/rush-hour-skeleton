@@ -56,7 +56,7 @@ module TrafficSpy
           url = payload['url']
          # url = JSON.parse(params[:payload])['url']
           Payload.create({sha: sha})
-          Page.create(url: url) 
+          Page.create({url: url}) 
           body "success"
         end
       else
