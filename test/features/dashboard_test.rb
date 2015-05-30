@@ -14,4 +14,40 @@ class DashboardTest < FeatureTest
     assert page.has_content?("Hello, Traffic Spyer")
     assert page.has_content?("oops")
   end
+
+  def test_it_displays_url
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0100"})
+
+    visit '/sources/jumpstartlab'
+    assert page.has_content?("http://jumpstartlab.com/blog")
+  end
+
+  def test_it_displays_url_in_order_from_most_to_least_requested
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0700"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0710"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0720"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2213-02-16 21:38:28 -0710"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2113-02-16 21:38:28 -0710"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-12 21:38:28 -0720"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/lol", requested_at: "2233-02-16 21:38:28 -0720"})
+
+    visit '/sources/jumpstartlab'
+    assert page.has_content?("http://jumpstartlab.com/blog 4")
+    assert page.has_content?("http://jumpstartlab.com/asdf 2")
+  end
+
+  def test_it_displays_average_response_times_for_urls
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0701", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0700", responded_in: 20})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0705", responded_in: 5})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0799", responded_in: 6})
+
+    visit '/sources/jumpstartlab'
+    assert page.has_content?("Average Response Times")
+    assert page.has_content?("http://jumpstartlab.com/blog 15.0")
+    assert page.has_content?("http://jumpstartlab.com/asdf 5.5")
+  end
 end
