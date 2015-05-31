@@ -56,6 +56,10 @@ module TrafficSpy
       payloads.group(:platform).order('count_platform DESC').count(:platform)
     end
 
+    def most_popular_http_verb
+      payloads.group(:request_type).order('count_request_type DESC').count(:request_type)
+    end
+
     def count_events(event_name)
       payloads.where(event_name: event_name).count
     end
