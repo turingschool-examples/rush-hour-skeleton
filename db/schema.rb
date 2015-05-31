@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20150531174658) do
     t.text    "event_name"
     t.text    "request_type"
     t.text    "referred_by"
+    t.text    "resolution_height"
+    t.text    "resolution_width"
   end
 
   create_table "sources", force: :cascade do |t|
