@@ -1,10 +1,13 @@
 require 'json'
 require 'pry'
+require 'useragent'
 
 module TrafficSpy
   class PayloadParser
     def parse(input)
       payload = JSON.parse(input)
+      browser = UserAgent.parse(payload["userAgent"]).browser
+      platform = UserAgent.parse(payload["userAgent"]).platform
         payload_headers = {
         :url => payload["url"],
         :requested_at => payload["requestedAt"],
@@ -12,11 +15,12 @@ module TrafficSpy
         :referred_by =>  payload["referredBy"],
         :request_type => payload["requestType"],
         :event_name => payload["eventName"],
-        :user_agent => payload["userAgent"],
         :resolution_width => payload["resolutionWidth"],
         :resolution_height => payload["resolutionHeight"],
         :ip => payload["ip"],
-        :sha => payload["sha"]
+        :sha => payload["sha"],
+        :browser => browser,
+        :platform => platform
       }
     end
   end

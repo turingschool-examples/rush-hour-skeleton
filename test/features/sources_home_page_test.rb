@@ -14,7 +14,7 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
@@ -26,7 +26,7 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (X11; Linux x86_64; rv:17.0) Gecko/20121202 Firefox/17.0 Iceweasel/17.0.1",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
@@ -38,7 +38,7 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLoginyay",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Cyberdog/2.0 (Macintosh; PPC)",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
@@ -135,5 +135,23 @@ class SourceHomePage < FeatureTest
     refute page.has_content?('notarealidentifier')
     assert page.has_content?('The identifier you entered cannot be found')
   end
+
+  def test_can_display_browser_breakdown
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    post '/sources/jumpstartlab/data', "payload" => payload4
+    post '/sources/jumpstartlab/data', "payload" => payload5
+    post '/sources/jumpstartlab/data', "payload" => payload6
+    visit '/sources/jumpstartlab'
+    save_and_open_page
+    assert page.has_content?('Browser Breakdown')
+    assert page.has_content?('Chrome')
+    assert page.has_content?('Firefox')
+    assert page.has_content?('Cyberdog')
+  end
+
+
 
 end
