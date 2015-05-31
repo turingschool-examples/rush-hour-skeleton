@@ -59,14 +59,9 @@ module TrafficSpy
       end
     end
 
-    # post '/sources/:identifier' do |identifier|
-    #   source = Source.find_by(:identifier == identifier)
-    #   if source
-    #     erb :source_page
-    #   else
-    #     erb :error_page
-    #   end
-    # end
+    get 'sources/:identifier/urls/RELATIVE/PATH' do
+      erb :url_stats
+    end
 
     not_found do
       erb :error

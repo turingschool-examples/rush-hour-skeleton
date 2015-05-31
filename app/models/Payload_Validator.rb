@@ -54,6 +54,5 @@ module TrafficSpy
         false
       end
     end
-
   end
 end

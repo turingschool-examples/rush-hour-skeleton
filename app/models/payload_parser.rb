@@ -8,7 +8,7 @@ module TrafficSpy
       payload = JSON.parse(input)
       browser = UserAgent.parse(payload["userAgent"]).browser
       platform = UserAgent.parse(payload["userAgent"]).platform
-        payload_headers = {
+      payload_headers = {
         :url => payload["url"],
         :requested_at => payload["requestedAt"],
         :responded_in => payload["respondedIn"],
