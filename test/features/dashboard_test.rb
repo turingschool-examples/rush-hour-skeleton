@@ -76,6 +76,14 @@ class DashboardTest < FeatureTest
     assert page.has_content?("http://jumpstartlab.com/asdf 5.5")
   end
 
+  def test_events_has_a_link
+    create_source("jumpstartlab")
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0701"})
+
+    visit '/sources/jumpstartlab/events'
+    assert page.has_link?("socialLogin")
+  end
+
   def test_it_displays_browser_breakdown
     create_source ("jumpstartlab")
     create_payload("jumpstartlab")

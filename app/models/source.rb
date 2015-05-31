@@ -65,7 +65,11 @@ class Source < ActiveRecord::Base
   def ordered_attribute_list(attribute)
     payloads.group(attribute).count.sort_by {|k, v| -v }
   end
-  
+
+  def screen_res
+    payloads.group(:resolution_width, :resolution_height).count
+  end
+
   def events
     ordered_attribute_list(:event_name)
   end
@@ -76,5 +80,13 @@ class Source < ActiveRecord::Base
 
   def top_platform(url)
     top_attribute(url, :platform)
+  end
+
+  def total_events_received(event_name)
+    payloads.where(event_name: event_name).count
+  end
+
+  def event_hourly(event_name)
+    payloads.where(event_name: event_name).group_by_hour_of_day(:requested_at, format: "%l %P").count
   end
 end

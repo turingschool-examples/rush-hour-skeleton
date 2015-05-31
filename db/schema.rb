@@ -19,19 +19,21 @@ ActiveRecord::Schema.define(version: 20150531211331) do
   create_table "payloads", force: :cascade do |t|
     t.text    "requested_at"
     t.integer "source_id"
+    t.text    "user_agent"
     t.text    "url"
     t.integer "responded_in"
-    t.text    "user_agent"
+    t.text    "event_name"
     t.text    "request_type"
     t.text    "referred_by"
     t.text    "event_name"
     t.text    "browser"
     t.text    "platform"
+    t.text    "resolution_height"
+    t.text    "resolution_width"
   end
 
   create_table "sources", force: :cascade do |t|
     t.text "identifier"
     t.text "root_url"
   end
-
 end
