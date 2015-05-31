@@ -86,21 +86,9 @@ class SourceHomePageTest < FeatureTest
     visit '/sources/jumpstartlab'
     # save_and_open_page
     assert page.has_content?('jumpstartlab')
-
-    #
-    # fill_in "skill[title]", with: "skill1"
-    # fill_in "skill[description]", with: "juggling"
-    # click_button "submit"
-    # assert_equal "/skills", current_path
-    # assert page.has_content?("skill1")
   end
 
   def test_can_display_most_hit_url
-    # urls = []
-    # Payload.where(source_id: 1).find_each do |payload|
-    #   urls << payload.url
-    # end
-    # or within source... payloads.order
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -177,11 +165,8 @@ class SourceHomePageTest < FeatureTest
   end
 
   def test_can_access_url_hyperlinks
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
-    # post '/sources/jumpstartlab/data', "payload" => payload2
-    # post '/sources/jumpstartlab/data', "payload" => payload3
     visit '/sources/jumpstartlab'
     click_link_or_button('http://jumpstartlab.com/blog')
     # save_and_open_page
@@ -189,12 +174,11 @@ class SourceHomePageTest < FeatureTest
   end
 
   def test_can_access_event_data_hyperlink
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab'
     click_link_or_button('socialLogin')
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('Here are all your stats for the socialLogin')
   end
 end

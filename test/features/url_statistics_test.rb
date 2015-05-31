@@ -150,7 +150,6 @@ class UrlStatisticsTest < FeatureTest
   end
 
   def test_can_view_longest_response_time_verb_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -164,7 +163,6 @@ class UrlStatisticsTest < FeatureTest
   end
 
   def test_can_view_average_response_time_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2

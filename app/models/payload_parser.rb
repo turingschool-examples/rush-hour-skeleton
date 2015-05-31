@@ -25,12 +25,3 @@ module TrafficSpy
     end
   end
 end
-
-
-# def parse(input)
-#   if input != "null"
-#     JSON.parse(input)
-#   else
-#     {}
-#   end
-# end
