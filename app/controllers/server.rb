@@ -40,10 +40,6 @@ module TrafficSpy
       validator.validate
       status validator.status
       body validator.message
-
-      # payload = Payload.find_by
-      # source_id = Source.find_by(:identifier == identifier).id
-      # payload.update_attributes
     end
 
     get '/sources/:identifier' do |identifier|
@@ -56,6 +52,7 @@ module TrafficSpy
         @resolution_count = @source.list_resolution
         @browser_breakdown = @source.browser_breakdown
         @os_breakdown = @source.os_breakdown
+        @events = @source.list_events
         erb :source_page
       else
         erb :error
@@ -84,10 +81,9 @@ module TrafficSpy
       @event_name = event_name
       @source = Source.find_by(:identifier == identifier)
       @source.event_hour_breakdown(@event_name)
-
-      @event_by_hour = @source.event_by_hour(@event_name)
-      @all_hours = ((1..12).to_a.zip(("AM "*12).split(" ")).map { |a| a.join(" ")} + (1..12).to_a.zip(("PM "*12).split(" ")).map { |a| a.join(" ")})
-     @hour_breakdown = @source.count_events_by_hour(@event_name)
+     #  @event_by_hour = @source.event_by_hour(@event_name)
+     #  @all_hours = ((1..12).to_a.zip(("AM "*12).split(" ")).map { |a| a.join(" ")} + (1..12).to_a.zip(("PM "*12).split(" ")).map { |a| a.join(" ")})
+     # @hour_breakdown = @source.count_events_by_hour(@event_name)
       erb :event_index
     end
 

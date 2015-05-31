@@ -46,3 +46,10 @@
     <% end %>
   </ul>
 
+<h2>Events</h2>
+<ul>
+  <% @events.each do |key, value| %>
+    <li><%= key %> - <%= value %> times</li>
+    <p><a href="/sources/<%= @id %>/events/<%= key %>"><%= key %></a></p>
+  <% end %>
+</ul>
