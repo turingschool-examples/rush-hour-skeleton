@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../test_helper'
 
-class SourceHomePage < FeatureTest
+class EventDetailsPageTest < FeatureTest
   attr_reader :payload, :payload2, :payload3, :payload5, :payload4, :payload6
 
   def setup
@@ -89,7 +89,7 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/events/socialLogin'
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('jumpstartlab')
   end
 
@@ -100,6 +100,13 @@ class SourceHomePage < FeatureTest
     click_link_or_button('eventindex')
     # save_and_open_page
     assert_equal "/sources/jumpstartlab/events", current_path
+  end
+
+  def test_can_display_error_page_when_event_doesnt_exist
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    visit '/sources/jumpstartlab/events/laksjkj'
+    assert page.has_content?('No event with the given name has been defined')
   end
 end
 

@@ -46,7 +46,6 @@ module TrafficSpy
       if Source.exists?(:identifier => identifier)
         @id = identifier
         @source = Source.find_by(:identifier == identifier)
-        # binding.pry
         @urls_count = @source.list_urls
         @response_time_count = @source.list_response_times
         @resolution_count = @source.list_resolution
@@ -63,8 +62,6 @@ module TrafficSpy
     get '/sources/:identifier/urls/*' do |identifier, splat|
       @source = Source.find_by(:identifier == identifier)
       @url = @source.root_url + '/' + splat
-      # @splat = splat
-      # binding.pry
       if @source.path_exists?(@url)
         @id = identifier
         erb :url_stats

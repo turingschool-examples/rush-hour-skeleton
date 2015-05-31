@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../test_helper'
 
-class SourceHomePage < FeatureTest
+class SourceHomePageTest < FeatureTest
   attr_reader :payload, :payload2, :payload3, :payload5, :payload4, :payload6
 
   def setup
