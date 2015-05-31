@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150531174658) do
 
   # These are extensions that must be enabled in order to support this database
@@ -21,6 +22,8 @@ ActiveRecord::Schema.define(version: 20150531174658) do
     t.integer "source_id"
     t.text    "url"
     t.integer "responded_in"
+    t.text    "resolution_width"
+    t.text    "resolution_height"
     t.text    "user_agent"
     t.text    "request_type"
     t.text    "referred_by"

@@ -57,6 +57,31 @@ class SourceTest < Minitest::Test
     assert_equal 15.0, source.average_times.last[1]
   end
 
+  def test_screen_resolution_breakdown
+    source = Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, resolution_width: "1920", resolution_height: "1280", requested_at: "2013-02-16 21:38:28 -0701"})
+    Payload.create({source_id: 1, resolution_width: "800", resolution_height: "600", requested_at: "2013-02-16 21:38:28 -0702"})
+
+    result = {["1920", "1280"]=>1, ["800", "600"]=>1}
+    assert_equal result, source.screen_res
+  end
+
+  def test_returns_total_events_received
+    source = Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0701"})
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0702"})
+
+    assert_equal 2, source.total_events_received("socialLogin")
+  end
+
+  def test_returns_event_hourly
+    source = Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0701"})
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0702"})
+
+    assert_equal "12 am", source.event_hourly("socialLogin").keys.first
+  end
+
   def test_http_routes_returns_array_of_unique_routes
     Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
     Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET"})
