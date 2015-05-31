@@ -14,3 +14,10 @@
       <li><%= key %> - Average response time of <%= value.to_i %> seconds</li>
     <% end %>
   </ol>
+
+<h2>Browser Breakdown</h2>
+  <ol>
+    <% @browser_breakdown.each do |key, value| %>
+      <li><%= key %> was used <%= value %> times</li>
+    <% end %>
+  </ol>
