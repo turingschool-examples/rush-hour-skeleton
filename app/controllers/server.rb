@@ -72,7 +72,12 @@ module TrafficSpy
       @id = identifier
       @source = Source.find_by(:identifier == identifier)
       @events = @source.list_events
-      erb :events
+      binding.pry
+      if @events.keys.count == 0
+        erb :events_error
+      else
+        erb :events
+      end
     end
 
 
@@ -80,6 +85,7 @@ module TrafficSpy
       @id = identifier
       @event_name = event_name
       @source = Source.find_by(:identifier == identifier)
+      binding.pry
       @source.event_hour_breakdown(@event_name)
      #  @event_by_hour = @source.event_by_hour(@event_name)
      #  @all_hours = ((1..12).to_a.zip(("AM "*12).split(" ")).map { |a| a.join(" ")} + (1..12).to_a.zip(("PM "*12).split(" ")).map { |a| a.join(" ")})
