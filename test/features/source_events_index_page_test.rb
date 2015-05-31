@@ -106,20 +106,6 @@ class SourceHomePage < FeatureTest
     # assert page.has_content?("skill1")
   end
 
-  def test_can_navigate_to_event_details_page
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    post '/sources/jumpstartlab/data', "payload" => payload
-    visit '/sources/jumpstartlab/events'
-    click_link_or_button('socialLogin')
-    # save_and_open_page
-    assert_equal "/sources/jumpstartlab/events/socialLogin", current_path
-  end
 
-  def test_can_display_error_page_when_no_events_exist
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    visit '/sources/jumpstartlab/events'
-    save_and_open_page
-    assert page.has_content?('Sorry, no events have been defined.')
-  end
 
 end
