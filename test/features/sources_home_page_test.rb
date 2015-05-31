@@ -178,13 +178,13 @@ class SourceHomePage < FeatureTest
   end
 
   def test_can_access_url_hyperlinks
-    skip
+    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
     post '/sources/jumpstartlab/data', "payload" => payload3
     visit '/sources/jumpstartlab'
-    click_link_or_button('#urllink')
+    click_link_or_button('http://labs.com/blog')
 
     assert page.has_content?('URL-Specific Statistics')
   end

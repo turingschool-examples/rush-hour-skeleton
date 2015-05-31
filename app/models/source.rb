@@ -40,7 +40,7 @@ module TrafficSpy
     end
 
     def event_hour_breakdown(event_name)
-      payloads.where(event_name: event_name).group_by_hour_of_day(:requested_at, format: ("%l %p") )
+      payloads.where(event_name: event_name).group_by_hour_of_day(:requested_at, format: ("%l %p"))
     end
 
 
