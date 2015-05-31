@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531174658) do
+ActiveRecord::Schema.define(version: 20150531211331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20150531174658) do
     t.text    "event_name"
     t.text    "request_type"
     t.text    "referred_by"
+    t.text    "event_name"
+    t.text    "browser"
+    t.text    "platform"
     t.text    "resolution_height"
     t.text    "resolution_width"
   end
@@ -33,5 +36,4 @@ ActiveRecord::Schema.define(version: 20150531174658) do
     t.text "identifier"
     t.text "root_url"
   end
-
 end
