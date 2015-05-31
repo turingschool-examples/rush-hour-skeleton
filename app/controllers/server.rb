@@ -80,7 +80,7 @@ module TrafficSpy
       if @events.keys.count == 0
         erb :events_error
       else
-        erb :events
+        erb :event_index
       end
     end
 
@@ -91,7 +91,7 @@ module TrafficSpy
         @source = Source.find_by(:identifier == identifier)
         @events = @source.list_events
         @source.event_hour_breakdown(@event_name)
-        erb :event_index
+        erb :event_details
       else
         erb :event_name_error
       end

@@ -41,7 +41,7 @@
   <ul>
     <% @urls_count.each do |key| %>
       <li>
-        <a id='<%= key %>' href="/sources/<%= @id %>/urls<%= @source.end_path(key)%>"><%= key.first %></a>
+        <a id='<% key %>' href="/sources/<%= @id %>/urls<%= @source.end_path(key)%>"><%= key.first %></a>
       </li>
     <% end %>
   </ul>
@@ -49,6 +49,6 @@
 <h2>Events</h2>
 <ul>
   <% @events.each do |key, value| %>
-    <a href="/sources/<%= @id %>/events/<%= key %>"><li><%= key %></li></a>
+    <a id='<% key %>' href="/sources/<%= @id %>/events/<%= key %>"><li><%= key %></li></a>
   <% end %>
 </ul>

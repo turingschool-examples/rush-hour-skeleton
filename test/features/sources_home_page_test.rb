@@ -184,7 +184,17 @@ class SourceHomePage < FeatureTest
     # post '/sources/jumpstartlab/data', "payload" => payload3
     visit '/sources/jumpstartlab'
     click_link_or_button('http://jumpstartlab.com/blog')
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('URL-Specific Statistics')
+  end
+
+  def test_can_access_event_data_hyperlink
+    # skip
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    visit '/sources/jumpstartlab'
+    click_link_or_button('socialLogin')
+    save_and_open_page
+    assert page.has_content?('Here are all your stats for the socialLogin')
   end
 end
