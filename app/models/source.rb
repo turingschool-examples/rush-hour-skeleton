@@ -38,8 +38,9 @@ class Source < ActiveRecord::Base
     payloads.group(:url).average(:responded_in).sort_by { |k, v| v }.reverse
   end
 
-  def resolution_info
+  def screen_res
     payloads.group(:resolution_width, :resolution_height).count
+      # .sort_by { |k, v| v }
   end
 
   def events

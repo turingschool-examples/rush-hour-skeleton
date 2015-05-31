@@ -56,4 +56,12 @@ class SourceTest < Minitest::Test
     assert_equal "http://jumpstartlab.com/blog", source.average_times.last[0]
     assert_equal 15.0, source.average_times.last[1]
   end
+
+  def test_screen_resolution_breakdown
+    source = Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, resolution_width: "1920", resolution_height: "1280", requested_at: "2013-02-16 21:38:28 -0701"})
+    Payload.create({source_id: 1, resolution_width: "800", resolution_height: "600", requested_at: "2013-02-16 21:38:28 -0702"})
+
+    assert_equal [[["1920", "1280"],1], [["800", "600"],1]], source.screen_res
+  end
 end

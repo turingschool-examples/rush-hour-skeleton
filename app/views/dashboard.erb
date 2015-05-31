@@ -32,5 +32,12 @@
   <% end %>
 </ol>
 
+<h2>Screen Resolution Breakdown</h2>
+<ul>
+  <% @source.screen_res.each do |res, count| %>
+    <li><%= res[0] %> x <%= res[1] %>, <%= count %> </li>
+  <% end %>
+</ul>
+
 <h2><a href="/sources/<%= @source.identifier %>/events">View events</a></h2>
 

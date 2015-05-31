@@ -50,4 +50,15 @@ class DashboardTest < FeatureTest
     assert page.has_content?("http://jumpstartlab.com/blog 15.0")
     assert page.has_content?("http://jumpstartlab.com/asdf 5.5")
   end
+
+  def test_it_displays_screen_resolution_breakdown
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, resolution_width: "1920", resolution_height: "1280", requested_at: "2013-02-16 21:38:28 -0799", responded_in: 6})
+    Payload.create({source_id: 1, resolution_width: "800", resolution_height: "600", requested_at: "2013-02-16 21:38:28 -0702"})
+
+    visit 'sources/jumpstartlab'
+    assert page.has_content?("Screen Resolution Breakdown")
+    assert page.has_content?("1920 x 1280, 1")
+    assert page.has_content?("800 x 600, 1")
+  end
 end
