@@ -55,17 +55,18 @@ module TrafficSpy
         @events = @source.list_events
         erb :source_page
       else
+        @error_message
         erb :error
       end
     end
 
     get '/sources/:identifier/urls/*' do |identifier, splat|
-      if Payload.exists?(:url => url)
+      @source = Source.find_by(:identifier == identifier)
+      @url = @source.root_url + '/' + splat
+      # @splat = splat
+      # binding.pry
+      if @source.path_exists?(@url)
         @id = identifier
-        @splat = splat
-        @source = Source.find_by(:identifier == identifier)
-        @url = @source.root_url + '/' + splat
-        @message = "alsdjflkajsdlkfjlkasdjkfljskj"
         erb :url_stats
       else
         erb :url_error
@@ -88,6 +89,7 @@ module TrafficSpy
         @id = identifier
         @event_name = event_name
         @source = Source.find_by(:identifier == identifier)
+        @events = @source.list_events
         @source.event_hour_breakdown(@event_name)
         erb :event_index
       else
@@ -98,7 +100,5 @@ module TrafficSpy
     not_found do
       erb :error
     end
-
-
   end
 end

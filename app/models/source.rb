@@ -93,5 +93,9 @@ module TrafficSpy
       payloads.average(:responded_in)
     end
 
+    def path_exists?(url)
+      payloads.exists?(url: url)
+    end
+
   end
 end
