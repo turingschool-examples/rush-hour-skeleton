@@ -1,6 +1,5 @@
 module TrafficSpy
   class Payload < ActiveRecord::Base
-    # validates_presence_of :payload
     belongs_to :source
 
     validates_presence_of :url,
@@ -16,6 +15,5 @@ module TrafficSpy
                           :sha
 
     validates_uniqueness_of :sha
-
   end
 end

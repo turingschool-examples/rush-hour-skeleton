@@ -1,7 +1,6 @@
 <h1>Welcome <%= @id %></h1>
 <p>Here is a handy list of all your cool stats!</p>
 
-
 <h2>Most Visited Urls</h2>
   <ol>
     <% @urls_count.each do |key, value| %>
@@ -22,3 +21,26 @@
     <li><%= resolution %> pixel screen -  <%= count %> times </li>
   <% end %>
 </ol>
+
+<h2>Browser Breakdown</h2>
+  <ol>
+    <% @browser_breakdown.each do |key, value| %>
+      <li><%= key %> was used <%= value %> times</li>
+    <% end %>
+  </ol>
+
+<h2>Operating System Breakdown</h2>
+  <ol>
+    <% @os_breakdown.each do |key, value| %>
+      <li><%= key %> was used <%= value %> times</li>
+      <% end %>
+  </ol>
+
+<h2>URL Statistics</h2>
+  <ul>
+    <% @urls_count.each do |key| %>
+      <li>
+        <a id='urllink' href="/sources/<%= @source.identifier %>/urls/<%= key.split('/').last %>"><%= key %></a>
+      </li>
+    <% end %>
+  </ul>

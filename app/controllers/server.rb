@@ -52,20 +52,17 @@ module TrafficSpy
         @urls_count = @source.list_urls
         @response_time_count = @source.list_response_times
         @resolution_count = @source.list_resolution
+        @browser_breakdown = @source.browser_breakdown
+        @os_breakdown = @source.os_breakdown
         erb :source_page
       else
         erb :error
       end
     end
 
-    # post '/sources/:identifier' do |identifier|
-    #   source = Source.find_by(:identifier == identifier)
-    #   if source
-    #     erb :source_page
-    #   else
-    #     erb :error_page
-    #   end
-    # end
+    get 'sources/:identifier/urls/RELATIVE/PATH' do
+      erb :url_stats
+    end
 
     not_found do
       erb :error

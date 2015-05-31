@@ -14,9 +14,9 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"2",
-      "resolutionHeight":"4",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
     @payload2 = '{
       "url":"http://google.com/blog",
@@ -26,9 +26,9 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"2",
-      "resolutionHeight":"4",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
     @payload3 = '{
       "url":"http://google.com/blog",
@@ -38,9 +38,9 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLoginyay",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1234",
-      "resolutionHeight":"5678",
+      "userAgent":"Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
     @payload4 = '{
       "url":"http://goo.com/blog",
@@ -50,7 +50,7 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLoginyay",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
@@ -62,7 +62,7 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLoginyay",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
@@ -74,7 +74,7 @@ class SourceHomePage < FeatureTest
       "requestType":"GET",
       "parameters":[],
       "eventName": "socialLoginyay",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (Windows NT 6.3; rv:36.0) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
@@ -150,4 +150,43 @@ class SourceHomePage < FeatureTest
     assert page.has_content?('The identifier you entered cannot be found')
   end
 
+  def test_can_display_browser_breakdown
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    post '/sources/jumpstartlab/data', "payload" => payload4
+    post '/sources/jumpstartlab/data', "payload" => payload5
+    post '/sources/jumpstartlab/data', "payload" => payload6
+    visit '/sources/jumpstartlab'
+    # save_and_open_page
+    assert page.has_content?('Browser Breakdown')
+    assert page.has_content?('Chrome')
+  end
+
+  def test_can_display_os_breakdown
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    post '/sources/jumpstartlab/data', "payload" => payload4
+    post '/sources/jumpstartlab/data', "payload" => payload5
+    post '/sources/jumpstartlab/data', "payload" => payload6
+    visit '/sources/jumpstartlab'
+    # save_and_open_page
+    assert page.has_content?('Operating System Breakdown')
+    assert page.has_content?('Macintosh')
+  end
+
+  def test_can_access_url_hyperlinks
+    skip
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    visit '/sources/jumpstartlab'
+    click_link_or_button('#urllink')
+
+    assert page.has_content?('URL-Specific Statistics')
+  end
 end
