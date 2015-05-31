@@ -4,6 +4,13 @@
 
 
 <ul>
+  <% @source.event_hour_breakdown(@event_name).count.keys.each do |hour| %>
+    <li><%= hour %> :: this is how many times this event was hit in this hour <%= @source.event_hour_breakdown(@event_name).count[hour] %></li>
+  <% end %>
+</ul>
+
+
+<ul>
   <% @all_hours.each do |hour| %>
     <li><%= hour %> :: this is how many times this event was hit in this hour <%= @hour_breakdown[hour] %></li>
   <% end %>

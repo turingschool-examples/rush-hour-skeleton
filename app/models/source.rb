@@ -30,6 +30,14 @@ module TrafficSpy
       payloads.group(:event_name).order('event_name DESC').count(:event_name)
     end
 
+
+
+
+    def event_hour_breakdown(event_name)
+      payloads.where(event_name: event_name).group_by_hour_of_day(:requested_at, format: ("%l %p") )
+    end
+
+
     def event_by_hour(event_name)
      payloads.where(event_name: event_name).map do |event|
         Time.parse(event.requested_at).strftime("%l %p")
