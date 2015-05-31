@@ -148,6 +148,9 @@ hr.small {
     margin: 5px 5px 0 0;
 }
 
+.nav {
+  
+}
 /* Header */
 
 .header {
@@ -160,7 +163,7 @@ hr.small {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-    color: red;
+    color: white;
 }
 
 /* About */
