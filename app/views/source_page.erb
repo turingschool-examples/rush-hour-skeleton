@@ -40,7 +40,8 @@
   <ul>
     <% @urls_count.each do |key| %>
       <li>
-        <a id='urllink' href="/sources/<%= @source.identifier %>/urls/<%= key.split('/').last %>"><%= key %></a>
+        <a id='urllink' href="/sources/<%= @source.identifier %>/urls/<%= key.first.split('/').last %>"><%= key.first %></a>
       </li>
     <% end %>
   </ul>
+
