@@ -62,7 +62,7 @@ module TrafficSpy
       payloads.group(:platform).order('count_platform DESC').count(:platform)
     end
 
-    def most_popular_http_verb
+    def http_verbs_used
       payloads.group(:request_type).order('count_request_type DESC').count(:request_type)
     end
 
@@ -85,9 +85,13 @@ module TrafficSpy
       uri.path
     end
 
-  def end_path(input)
-    URI(input.first).path
-  end
+    def end_path(input)
+      URI(input.first).path
+    end
+
+    def average_response_time
+      payloads.average(:responded_in)
+    end
 
   end
 end

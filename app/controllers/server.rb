@@ -60,31 +60,39 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/*' do |identifier, splat|
-      @id = identifier
-      @splat = splat
-      @source = Source.find_by(:identifier == identifier)
-      @url = @source.root_url + '/' + splat
-      # binding.pry
-      erb :url_stats
+      if Payload.exists?(:url => url)
+        @id = identifier
+        @splat = splat
+        @source = Source.find_by(:identifier == identifier)
+        @url = @source.root_url + '/' + splat
+        @message = "alsdjflkajsdlkfjlkasdjkfljskj"
+        erb :url_stats
+      else
+        erb :url_error
+      end
     end
 
     get '/sources/:identifier/events' do |identifier|
       @id = identifier
       @source = Source.find_by(:identifier == identifier)
       @events = @source.list_events
-      erb :events
+      if @events.keys.count == 0
+        erb :events_error
+      else
+        erb :events
+      end
     end
 
-
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-      @id = identifier
-      @event_name = event_name
-      @source = Source.find_by(:identifier == identifier)
-      @source.event_hour_breakdown(@event_name)
-     #  @event_by_hour = @source.event_by_hour(@event_name)
-     #  @all_hours = ((1..12).to_a.zip(("AM "*12).split(" ")).map { |a| a.join(" ")} + (1..12).to_a.zip(("PM "*12).split(" ")).map { |a| a.join(" ")})
-     # @hour_breakdown = @source.count_events_by_hour(@event_name)
-      erb :event_index
+      if Payload.exists?(:event_name => event_name)
+        @id = identifier
+        @event_name = event_name
+        @source = Source.find_by(:identifier == identifier)
+        @source.event_hour_breakdown(@event_name)
+        erb :event_index
+      else
+        erb :event_name_error
+      end
     end
 
     not_found do

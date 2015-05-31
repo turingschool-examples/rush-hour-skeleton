@@ -144,7 +144,6 @@ class SourceHomePage < FeatureTest
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/notarealidentifier'
-
     refute page.has_content?('notarealidentifier')
     assert page.has_content?('The identifier you entered cannot be found')
   end
@@ -237,7 +236,7 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    # save_and_open_page
+    save_and_open_page
     assert page.has_content?('POST')
   end
 
@@ -250,7 +249,7 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('POST')
   end
 
@@ -266,4 +265,18 @@ class SourceHomePage < FeatureTest
     # save_and_open_page
     assert page.has_content?('POST')
   end
+
+  def test_can_view_average_response_time_for_specific_url
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    post '/sources/jumpstartlab/data', "payload" => payload4
+    post '/sources/jumpstartlab/data', "payload" => payload5
+    post '/sources/jumpstartlab/data', "payload" => payload6
+    visit '/sources/jumpstartlab/urls/blog'
+    # save_and_open_page
+    assert page.has_content?('43')
+  end
+
 end
