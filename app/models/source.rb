@@ -40,17 +40,15 @@ module TrafficSpy
     def count_events(event_name)
       payloads.where(event_name: event_name).count
     end
-    # counts = Hash.new 0
-    #
-    # words.each do |word|
-    #   counts[word] += 1
-    # end
 
     def count_events_by_hour(event_name)
       events = event_by_hour(event_name)
-      events.map do |hour|
-        {time: hour, count: events.count(hour)}
-      end.uniq
+      counts = Hash.new 0
+      events.each do |hour|
+        hour[0] = ''
+        counts[hour] += 1
+      end
+      counts
     end
 
   end

@@ -66,6 +66,7 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @id = identifier
+      @source = Source.find_by(:identifier == identifier)
       @events = @source.list_events
       erb :events
     end
@@ -76,7 +77,7 @@ module TrafficSpy
       @event_name = event_name
       @source = Source.find_by(:identifier == identifier)
       @event_by_hour = @source.event_by_hour(@event_name)
-      @all_hours = ((1..12).to_a.zip(("am "*12).split(" ")).map(&:join) + (1..12).to_a.zip(("pm "*12).split(" ")).map(&:join))
+      @all_hours = ((1..12).to_a.zip(("AM "*12).split(" ")).map { |a| a.join(" ")} + (1..12).to_a.zip(("PM "*12).split(" ")).map { |a| a.join(" ")})
      @hour_breakdown = @source.count_events_by_hour(@event_name)
       erb :event_index
     end
