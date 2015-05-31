@@ -3,8 +3,8 @@
 <h2>Browser Breakdown</h2>
 <p>
   <ul>
-    <% @source.browser_info.each do |key, val| %>
-      <li><%= "#{key}: #{val}" %></li>
+    <% @source.browser_info.each do |platform, count| %>
+      <li><%= "#{platform}: #{count}" %></li>
     <% end %>
   </ul>
 </p>
@@ -12,8 +12,8 @@
 <h2>Platform Breakdown</h2>
 <p>
   <ul>
-    <% @source.platform_info.each do |key, val| %>
-      <li><%= "#{key}: #{val}" %></li>
+    <% @source.platform_info.each do |platform, count| %>
+      <li><%= "#{platform}: #{count}" %></li>
     <% end %>
   </ul>
 </p>

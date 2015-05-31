@@ -5,9 +5,8 @@ class PayloadCreator
   attr_reader :status, :body
   
   def initialize(payload, identifier)
-    @payload = payload
-    @identifier = identifier
-    
+    @payload       = payload
+    @identifier    = identifier
     @status, @body = result
   end
 
@@ -25,15 +24,14 @@ class PayloadCreator
 
   def generate_payload
     source = Source.find_by(identifier: @identifier)
-    source.payloads.new({requested_at: payload_data["requestedAt"],
-                         user_agent:   payload_data["userAgent"],
-                         url:          payload_data["url"],
-                         responded_in: payload_data["respondedIn"],
-                         resolution_width: payload_data["resolutionWidth"],
-                         resolution_height: payload_data["resolutionHeight"],
-                         request_type: payload_data["requestType"],
-                         referred_by:  payload_data["referredBy"],
-                         event_name:   payload_data["eventName"]})
+    source.payloads.new({ requested_at: payload_data["requestedAt"],
+                          url:          payload_data["url"],
+                          responded_in: payload_data["respondedIn"],
+                          request_type: payload_data["requestType"],
+                          referred_by:  payload_data["referredBy"],
+                          event_name:   payload_data["eventName"],
+                          browser:      UserAgent.parse(payload_data["userAgent"]).browser,
+                          platform:     UserAgent.parse(payload_data["userAgent"]).platform})
   end
   
   def result

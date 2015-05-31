@@ -15,7 +15,7 @@ class Source < ActiveRecord::Base
   end
 
   def requested_urls
-    grouped_urls.count.sort_by { |k, v| v }.reverse
+    ordered_attribute_list(:url)
   end
   
   def user_agent_data
@@ -23,25 +23,11 @@ class Source < ActiveRecord::Base
   end
   
   def browser_info
-    user_agent_data.inject({}) do |browsers, agent|
-      if browsers.has_key?(agent.browser)
-        browsers[agent.browser] += 1
-      else
-        browsers[agent.browser] = 1
-      end
-      browsers
-    end
+    ordered_attribute_list(:browser)
   end
   
   def platform_info
-    user_agent_data.inject({}) do |platforms, agent|
-      if platforms.has_key?(agent.platform)
-        platforms[agent.platform] += 1
-      else
-        platforms[agent.platform] = 1
-      end
-      platforms
-    end
+    ordered_attribute_list(:platform)
   end
 
   def average_times
@@ -68,8 +54,16 @@ class Source < ActiveRecord::Base
     url_payloads(url).select(:request_type).uniq
   end
 
+  def top_attribute(url, attribute)
+    url_payloads(url).group(attribute).count.sort_by { |k, v| -v }.first.first
+  end
+
   def top_referrer(url)
-    url_payloads(url).order(:referred_by).first.referred_by
+    top_attribute(url, :referred_by)
+  end
+
+  def ordered_attribute_list(attribute)
+    payloads.group(attribute).count.sort_by {|k, v| -v }
   end
 
   def screen_res
@@ -77,7 +71,15 @@ class Source < ActiveRecord::Base
   end
 
   def events
-    payloads.group(:event_name).count.sort_by {|k, v| -v}
+    ordered_attribute_list(:event_name)
+  end
+
+  def top_browser(url)
+    top_attribute(url, :browser)
+  end
+
+  def top_platform(url)
+    top_attribute(url, :platform)
   end
 
   def total_events_received(event_name)

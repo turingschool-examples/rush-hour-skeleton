@@ -1,4 +1,3 @@
-require 'pry'
 require_relative '../models/source_creator'
 require 'json'
 
@@ -30,7 +29,7 @@ module TrafficSpy
         @source = Source.find_by(identifier: identifier)
         erb :dashboard
       else
-        message = "oops"
+        message = "ERROR: Identifier doesn't exist."
         redirect to("/?message=#{message}")
       end
     end
