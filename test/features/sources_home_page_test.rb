@@ -15,8 +15,8 @@ class SourceHomePage < FeatureTest
       "parameters":[],
       "eventName": "socialLogin",
       "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
+      "resolutionWidth":"2",
+      "resolutionHeight":"4",
       "ip":"63.29.38.211"}'
     @payload2 = '{
       "url":"http://google.com/blog",
@@ -27,8 +27,8 @@ class SourceHomePage < FeatureTest
       "parameters":[],
       "eventName": "socialLogin",
       "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
+      "resolutionWidth":"2",
+      "resolutionHeight":"4",
       "ip":"63.29.38.211"}'
     @payload3 = '{
       "url":"http://google.com/blog",
@@ -39,8 +39,8 @@ class SourceHomePage < FeatureTest
       "parameters":[],
       "eventName": "socialLoginyay",
       "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
+      "resolutionWidth":"1234",
+      "resolutionHeight":"5678",
       "ip":"63.29.38.211"}'
     @payload4 = '{
       "url":"http://goo.com/blog",
@@ -125,6 +125,20 @@ class SourceHomePage < FeatureTest
     # save_and_open_page
     assert page.has_content?('Average Response Times')
     assert page.has_content?('Average response time of')
+  end
+
+  def test_can_display_resolution_info
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    post '/sources/jumpstartlab/data', "payload" => payload4
+    post '/sources/jumpstartlab/data', "payload" => payload5
+    post '/sources/jumpstartlab/data', "payload" => payload6
+    visit '/sources/jumpstartlab'
+    save_and_open_page
+    assert page.has_content?('Resolution')
+    assert page.has_content?('1280')
   end
 
   def test_it_returns_error_if_no_identifier_found

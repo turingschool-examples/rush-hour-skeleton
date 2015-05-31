@@ -51,6 +51,7 @@ module TrafficSpy
         @source = Source.find_by(:identifier == identifier)
         @urls_count = @source.list_urls
         @response_time_count = @source.list_response_times
+        @resolution_count = @source.list_resolution
         erb :source_page
       else
         erb :error

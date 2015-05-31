@@ -22,5 +22,11 @@ module TrafficSpy
       payloads.group(:url).order('average_responded_in DESC').average(:responded_in)
     end
 
+    def list_resolution
+      width = payloads.group(:resolution_width).order('count_resolution_width DESC').count(:resolution_width)
+      height = payloads.group(:resolution_height).order('count_resolution_height DESC').count(:resolution_height)
+      width.keys.zip(height.keys).map { |inner_array| inner_array.join("x")}.zip(width.values)
+    end
+
   end
 end
