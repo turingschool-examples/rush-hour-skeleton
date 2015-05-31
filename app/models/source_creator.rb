@@ -2,17 +2,12 @@ require_relative "source"
 require 'json'
 
 class SourceCreator
+  attr_reader :status, :body
+
   def initialize(params)
-    @params = params
-    @source = Source.new(identifier: @params[:identifier], root_url: @params[:rootUrl])
-  end
-
-  def status
-    result[0]
-  end
-
-  def body
-    result[1]
+    @params        = params
+    @source        = Source.new(identifier: @params[:identifier], root_url: @params[:rootUrl])
+    @status, @body = result
   end
 
   def registered?
