@@ -96,7 +96,7 @@ class SourceHomePage < FeatureTest
   end
 
   def test_can_display_most_hit_url
-# urls = []
+    # urls = []
     # Payload.where(source_id: 1).find_each do |payload|
     #   urls << payload.url
     # end
@@ -122,8 +122,18 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    save_and_open_page
-    assert page.has_content?('http://labs.com/blog')
+    # save_and_open_page
+    assert page.has_content?('Average Response Times')
+    assert page.has_content?('Average response time of')
+  end
+
+  def test_it_returns_error_if_no_identifier_found
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    visit '/sources/notarealidentifier'
+
+    refute page.has_content?('notarealidentifier')
+    assert page.has_content?('The identifier you entered cannot be found')
   end
 
 end

@@ -46,17 +46,25 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      @id = identifier
-      # binding.pry
-      @source = Source.find_by(:identifier == identifier)
-
-      @urls_count = @source.list_urls
-      # binding.pry
-      @response_time_count = @source.list_response_times
-
-      # x = @source
-      erb :source_page
+      if Source.exists?(:identifier => identifier)
+        @id = identifier
+        @source = Source.find_by(:identifier == identifier)
+        @urls_count = @source.list_urls
+        @response_time_count = @source.list_response_times
+        erb :source_page
+      else
+        erb :error
+      end
     end
+
+    # post '/sources/:identifier' do |identifier|
+    #   source = Source.find_by(:identifier == identifier)
+    #   if source
+    #     erb :source_page
+    #   else
+    #     erb :error_page
+    #   end
+    # end
 
     not_found do
       erb :error
