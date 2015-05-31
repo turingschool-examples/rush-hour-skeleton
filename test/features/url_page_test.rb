@@ -58,4 +58,16 @@ class URLPageTest < FeatureTest
     assert page.has_content?("Most Popular Referrer")
     assert page.has_content?("asdf")
   end
+
+  def test_page_displays_most_popular_browser
+    skip
+    create_data
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET", referred_by: "asdf", user_agent: "Chrome"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2014-02-16 21:38:28 -0702", responded_in: 13, request_type: "POST", referred_by: "asdf", user_agent: "Chrome"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2022-02-16 21:37:28 -0701", responded_in: 13, request_type: "GET", referred_by: "haha", user_agent: "Safari"})
+
+    visit '/sources/jumpstartlab/urls/blog'
+    assert page.has_content?("Most Popular Browser")
+    assert page.has_content?("Chrome")
+  end
 end
