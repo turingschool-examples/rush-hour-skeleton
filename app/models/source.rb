@@ -43,13 +43,6 @@ module TrafficSpy
       payloads.where(event_name: event_name).group_by_hour_of_day(:requested_at, format: ("%l %p"))
     end
 
-
-    def event_by_hour(event_name)
-     payloads.where(event_name: event_name).map do |event|
-        Time.parse(event.requested_at).strftime("%l %p")
-     end
-    end
-
     def popular_referrer
       payloads.group(:referred_by).order('count_referred_by DESC').count(:referred_by)
     end
@@ -64,25 +57,6 @@ module TrafficSpy
 
     def http_verbs_used
       payloads.group(:request_type).order('count_request_type DESC').count(:request_type)
-    end
-
-    def count_events(event_name)
-      payloads.where(event_name: event_name).count
-    end
-
-    def count_events_by_hour(event_name)
-      events = event_by_hour(event_name)
-      counts = Hash.new 0
-      events.each do |hour|
-        hour[0] = ''
-        counts[hour] += 1
-      end
-      counts
-    end
-
-    def path
-      uri = URI(@url)
-      uri.path
     end
 
     def end_path(input)
