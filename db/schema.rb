@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20150531174658) do
 
   # These are extensions that must be enabled in order to support this database
@@ -20,14 +19,14 @@ ActiveRecord::Schema.define(version: 20150531174658) do
   create_table "payloads", force: :cascade do |t|
     t.text    "requested_at"
     t.integer "source_id"
+    t.text    "user_agent"
     t.text    "url"
     t.integer "responded_in"
-    t.text    "resolution_width"
-    t.text    "resolution_height"
-    t.text    "user_agent"
+    t.text    "event_name"
     t.text    "request_type"
     t.text    "referred_by"
-    t.text    "event_name"
+    t.text    "resolution_height"
+    t.text    "resolution_width"
   end
 
   create_table "sources", force: :cascade do |t|

@@ -16,6 +16,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rack-test'
   gem 'database_cleaner'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :evaluations do

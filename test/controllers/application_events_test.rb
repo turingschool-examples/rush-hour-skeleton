@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class ProcessingPayloadTest < ControllerTest
+class ApplicationEventsTest < ControllerTest
 
   def create_source(identifier)
     post('/sources', {identifier: identifier, rootUrl: "http://#{identifier}.com" })

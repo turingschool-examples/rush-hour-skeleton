@@ -23,4 +23,19 @@ class PayloadTest < Minitest::Test
     assert_equal "1920", payload.resolution_width
     assert_equal "1280", payload.resolution_height
   end
+
+  def test_valid_uniqueness_of_requested_at
+     payload_one = Payload.create({requested_at: "2013-02-16 21:38:28 -0700"})
+     payload_two = Payload.create({requested_at: "2013-02-16 21:38:28 -0700"})
+     
+     assert payload_one.valid?
+     refute payload_two.valid?
+     assert_equal 1, Payload.count
+   end
+
+   def test_invalid_without_requested_at
+     payload = Payload.create
+     
+     refute payload.valid?
+   end
 end
