@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150531174658) do
     t.text    "user_agent"
     t.text    "request_type"
     t.text    "referred_by"
+    t.text    "event_name"
   end
 
   create_table "sources", force: :cascade do |t|

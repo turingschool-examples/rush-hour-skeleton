@@ -30,7 +30,8 @@ class PayloadCreator
                          url:          payload_data["url"],
                          responded_in: payload_data["respondedIn"],
                          request_type: payload_data["requestType"],
-                         referred_by:  payload_data["referredBy"]})
+                         referred_by:  payload_data["referredBy"],
+                         event_name:   payload_data["eventName"]})
   end
   
   def result

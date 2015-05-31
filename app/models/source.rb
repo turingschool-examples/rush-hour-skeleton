@@ -71,4 +71,8 @@ class Source < ActiveRecord::Base
   def top_referrer(url)
     url_payloads(url).order(:referred_by).first.referred_by
   end
+  
+  def events
+    payloads.group(:event_name).count.sort_by {|k, v| -v}
+  end
 end
