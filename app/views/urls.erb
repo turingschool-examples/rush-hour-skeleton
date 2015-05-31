@@ -6,7 +6,11 @@
 <h2>Average Response Time</h2>
 <p><%= @source.average_time(@url)%></p>
 <h2>HTTP Routes Used</h2>
-<p></p>
+<ul>
+  <% @source.http_routes(@url).each do |element| %>
+  <li><%= element.request_type %></li>
+    <% end %>
+</ul>
 <h2>Most Popular Referrer</h2>
 <p></p>
 <h2>Most Popular User Agent</h2>

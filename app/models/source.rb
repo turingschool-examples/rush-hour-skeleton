@@ -63,4 +63,8 @@ class Source < ActiveRecord::Base
   def average_time(url)
     url_payloads(url).average(:responded_in)
   end
+
+  def http_routes(url)
+    url_payloads(url).select(:request_type).uniq
+  end
 end

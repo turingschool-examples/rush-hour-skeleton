@@ -56,4 +56,16 @@ class SourceTest < Minitest::Test
     assert_equal "http://jumpstartlab.com/blog", source.average_times.last[0]
     assert_equal 15.0, source.average_times.last[1]
   end
+
+  def test_http_routes_returns_array_of_unique_routes
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0704", responded_in: 13, request_type: "GET"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0702", responded_in: 13, request_type: "POST"})
+    source = Source.find_by(identifier: "jumpstartlab")
+
+    assert_equal 2, source.http_routes("http://jumpstartlab.com/blog").length
+    assert_equal 'GET',  source.http_routes("http://jumpstartlab.com/blog")[1].request_type
+    assert_equal 'POST', source.http_routes("http://jumpstartlab.com/blog")[0].request_type
+  end
 end

@@ -34,6 +34,17 @@ class URLPageTest < FeatureTest
     visit '/sources/jumpstartlab/urls/blog'
     assert page.has_content?("Shortest Response Time")
     assert page.has_content?("10")
-    save_and_open_page
+  end
+
+  def test_page_displays_http_routes_used
+    create_data
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0702", responded_in: 13, request_type: "POST"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2022-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET"})
+
+    visit '/sources/jumpstartlab/urls/blog'
+    assert page.has_content?("HTTP Routes Used")
+    assert page.has_content?("GET")
+    assert page.has_content?("POST")
   end
 end
