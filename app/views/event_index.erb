@@ -2,21 +2,17 @@
 
 <h2>Here are all your stats for <%= @event_name %>  displayed in a visually appealing format</h2>
 
-<ol>
-  <% @event_by_hour.each do |hour| %>
-    <li><%= hour %> </li>
-  <% end %>
-</ol>
 
-<ol>
+<ul>
+  <% @source.event_hour_breakdown(@event_name).count.keys.each do |hour| %>
+    <li><%= hour %> :: this is how many times this event was hit in this hour <%= @source.event_hour_breakdown(@event_name).count[hour] %></li>
+  <% end %>
+</ul>
+
+
+<ul>
   <% @all_hours.each do |hour| %>
-    <li><%= hour %> </li>
+    <li><%= hour %> :: this is how many times this event was hit in this hour <%= @hour_breakdown[hour] %></li>
   <% end %>
-</ol>
+</ul>
 
-<ol>
-  <% @hour_breakdown.each do |key, value| %>
-    <li><%= key %> - <%= value %> times</li>
-    <p><a href="/sources/<%= @id %>/events/<%= key %>"><%= key %></a></p>
-  <% end %>
-</ol>
