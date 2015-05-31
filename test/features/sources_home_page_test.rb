@@ -178,13 +178,13 @@ class SourceHomePage < FeatureTest
   end
 
   def test_can_access_url_hyperlinks
-    skip
+    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
     post '/sources/jumpstartlab/data', "payload" => payload3
     visit '/sources/jumpstartlab'
-    click_link_or_button('#urllink')
+    click_link_or_button('http://labs.com/blog')
 
     assert page.has_content?('URL-Specific Statistics')
   end
@@ -211,7 +211,7 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('Chrome')
   end
 
@@ -229,6 +229,32 @@ class SourceHomePage < FeatureTest
   end
 
   def test_can_view_most_popular_http_verb_for_specific_url
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    post '/sources/jumpstartlab/data', "payload" => payload4
+    post '/sources/jumpstartlab/data', "payload" => payload5
+    post '/sources/jumpstartlab/data', "payload" => payload6
+    visit '/sources/jumpstartlab/urls/blog'
+    # save_and_open_page
+    assert page.has_content?('POST')
+  end
+
+  def test_can_view_shortest_response_time_for_specific_url
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    post '/sources/jumpstartlab/data', "payload" => payload4
+    post '/sources/jumpstartlab/data', "payload" => payload5
+    post '/sources/jumpstartlab/data', "payload" => payload6
+    visit '/sources/jumpstartlab/urls/blog'
+    save_and_open_page
+    assert page.has_content?('POST')
+  end
+
+  def test_can_view_longest_response_time_verb_for_specific_url
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
