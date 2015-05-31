@@ -3,7 +3,6 @@
 <h2>Here are all your events displayed in a visually appealing format</h2>
 <ol>
   <% @events.each do |key, value| %>
-    <li><%= key %> - <%= value %> times</li>
-    <p><a href="/sources/<%= @id %>/events/<%= key %>"><%= key %></a></p>
+    <a id="<%= key %>" href="/sources/<%= @id %>/events/<%= key %>"><li><%= key %> - <%= value %> times</li></a>
   <% end %>
 </ol>
