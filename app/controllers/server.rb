@@ -1,6 +1,7 @@
 # require_relative '../models/source'
 require 'pry'
 require 'byebug'
+require 'uri'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -50,7 +51,7 @@ module TrafficSpy
         @id = identifier
         @source = Source.find_by(:identifier == identifier)
         # binding.pry
-        @urls_count =@source.list_urls
+        @urls_count = @source.list_urls
         @response_time_count = @source.list_response_times
         @resolution_count = @source.list_resolution
         @browser_breakdown = @source.browser_breakdown
@@ -63,7 +64,10 @@ module TrafficSpy
 
     get '/sources/:identifier/urls/*' do |identifier, splat|
       @id = identifier
+      @splat = splat
       @source = Source.find_by(:identifier == identifier)
+      @url = @source.root_url + '/' + splat
+      # binding.pry
       erb :url_stats
     end
 
