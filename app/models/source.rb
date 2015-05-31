@@ -30,5 +30,28 @@ module TrafficSpy
       payloads.group(:event_name).order('event_name DESC').count(:event_name)
     end
 
+    def event_by_hour(event_name)
+     payloads.where(event_name: event_name).map do |event|
+        Time.parse(event.requested_at).strftime("%l %p")
+     end
+    end
+
+
+    def count_events(event_name)
+      payloads.where(event_name: event_name).count
+    end
+    # counts = Hash.new 0
+    #
+    # words.each do |word|
+    #   counts[word] += 1
+    # end
+
+    def count_events_by_hour(event_name)
+      events = event_by_hour(event_name)
+      events.map do |hour|
+        {time: hour, count: events.count(hour)}
+      end.uniq
+    end
+
   end
 end
