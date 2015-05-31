@@ -63,6 +63,4 @@ class Source < ActiveRecord::Base
   def average_time(url)
     url_payloads(url).average(:responded_in)
   end
-
-  def 
 end
