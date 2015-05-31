@@ -70,6 +70,5 @@ module TrafficSpy
     def path_exists?(url)
       payloads.exists?(url: url)
     end
-
   end
 end

@@ -92,7 +92,7 @@ class EventIndexPageTest < FeatureTest
   def test_can_display_error_page_when_no_events_exist
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     visit '/sources/jumpstartlab/events'
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('Sorry, no events have been defined.')
   end
 
