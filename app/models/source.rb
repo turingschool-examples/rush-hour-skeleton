@@ -50,7 +50,7 @@ class Source < ActiveRecord::Base
     payloads.where(event_name: event_name).count
   end
 
-  def event_hourly
-    payloads.where(event_name: event_name).group_by_hour_of_day(:resquested_at, format: "%l %P").count.keys.first
+  def event_hourly(event_name)
+    payloads.where(event_name: event_name).group_by_hour_of_day(:requested_at, format: "%l %P").count
   end
 end

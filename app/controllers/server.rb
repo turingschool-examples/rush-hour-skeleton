@@ -42,7 +42,7 @@ module TrafficSpy
 
     get "/sources/:identifier/events/:event_name" do |identifier, event_name|
       @source = Source.find_by(identifier: identifier)
-      @event_name = params[event_name: event_name]
+      @event_name = event_name
       erb :event_details
     end
   end
