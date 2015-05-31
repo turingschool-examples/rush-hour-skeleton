@@ -51,14 +51,35 @@ class DashboardTest < FeatureTest
     assert page.has_content?("http://jumpstartlab.com/asdf 5.5")
   end
 
+  def test_events_has_a_link
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0701"})
+
+    visit '/sources/jumpstartlab/events'
+    assert page.has_link?("socialLogin")
+  end
+
   def test_it_displays_screen_resolution_breakdown
     Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
-    Payload.create({source_id: 1, resolution_width: "1920", resolution_height: "1280", requested_at: "2013-02-16 21:38:28 -0799", responded_in: 6})
+    Payload.create({source_id: 1, resolution_width: "1920", resolution_height: "1280", requested_at: "2013-02-16 21:38:28 -0799"})
     Payload.create({source_id: 1, resolution_width: "800", resolution_height: "600", requested_at: "2013-02-16 21:38:28 -0702"})
 
-    visit 'sources/jumpstartlab'
+    visit '/sources/jumpstartlab'
     assert page.has_content?("Screen Resolution Breakdown")
-    assert page.has_content?("1920 x 1280, 1")
-    assert page.has_content?("800 x 600, 1")
+    assert page.has_content?("1920 x 1280: 1")
+    assert page.has_content?("800 x 600: 1")
+  end
+
+  def test_it_displays_hourly_breakdown
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0701"})
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0702"})
+
+    visit '/sources/jumpstartlab/events/socialLogin'
+
+    assert page.has_content?("socialLogin")
+    assert page.has_content?("Hour by Hour Breakdown")
+    assert page.has_content?("Times Received")
+    assert page.has_link?("Return to Events Index")
   end
 end

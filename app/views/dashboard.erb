@@ -35,7 +35,7 @@
 <h2>Screen Resolution Breakdown</h2>
 <ul>
   <% @source.screen_res.each do |res, count| %>
-    <li><%= res[0] %> x <%= res[1] %>, <%= count %> </li>
+    <li><%= res[0] %> x <%= res[1] %>: <%= count %> </li>
   <% end %>
 </ul>
 
