@@ -20,15 +20,15 @@
 
 <h2>URLs</h2>
 <ol>
-  <% @source.group_urls.each do |url, count| %>
-  <li><%= url %> <%= count %></li>
+  <% @source.requested_urls.each do |url, count| %>
+  <li><a href="/sources/<%= @source.identifier %>/urls<%= @source.path(url) %>"><%= url %></a> <%= count %></li>
   <% end %>
 </ol>
 
 <h2>Average Response Times</h2>
 <ol>
   <% @source.average_times.each do |url, count| %>
-  <li><%= url %> <%= count %></li>
+  <li><a href="/sources/<%= @source.identifier %>/urls<%= @source.path(url) %>"><%= url %></a> <%= count %></li>
   <% end %>
 </ol>
 

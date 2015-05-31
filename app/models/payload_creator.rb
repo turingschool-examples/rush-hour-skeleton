@@ -29,6 +29,8 @@ class PayloadCreator
                          user_agent:   payload_data["userAgent"],
                          url:          payload_data["url"],
                          responded_in: payload_data["respondedIn"],
+                         request_type: payload_data["requestType"],
+                         referred_by:  payload_data["referredBy"],
                          event_name:   payload_data["eventName"]})
   end
   
