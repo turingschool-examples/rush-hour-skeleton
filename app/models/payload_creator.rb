@@ -31,6 +31,8 @@ class PayloadCreator
                          responded_in: payload_data["respondedIn"],
                          resolution_width: payload_data["resolutionWidth"],
                          resolution_height: payload_data["resolutionHeight"],
+                         request_type: payload_data["requestType"],
+                         referred_by:  payload_data["referredBy"],
                          event_name:   payload_data["eventName"]})
   end
   

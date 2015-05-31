@@ -37,10 +37,10 @@ class SourceTest < Minitest::Test
     Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0720"})
     source = Source.find_by(identifier: "jumpstartlab")
 
-    assert_equal "http://jumpstartlab.com/asdf", source.group_urls.last[0]
-    assert_equal 1, source.group_urls.last[1]
-    assert_equal "http://jumpstartlab.com/blog", source.group_urls.first[0]
-    assert_equal 2, source.group_urls.first[1]
+    assert_equal "http://jumpstartlab.com/asdf", source.requested_urls.last[0]
+    assert_equal 1, source.requested_urls.last[1]
+    assert_equal "http://jumpstartlab.com/blog", source.requested_urls.first[0]
+    assert_equal 2, source.requested_urls.first[1]
   end
 
   def test_average_times_will_return_ordered_nested_array_by_avg_time_with_url
@@ -80,5 +80,27 @@ class SourceTest < Minitest::Test
     Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0702"})
 
     assert_equal "12 am", source.event_hourly("socialLogin").keys.first
+  end
+
+  def test_http_routes_returns_array_of_unique_routes
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0704", responded_in: 13, request_type: "GET"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0702", responded_in: 13, request_type: "POST"})
+    source = Source.find_by(identifier: "jumpstartlab")
+
+    assert_equal 2, source.http_routes("http://jumpstartlab.com/blog").length
+    assert source.http_routes("http://jumpstartlab.com/blog").one? { |el| el.request_type == 'GET'}
+    assert source.http_routes("http://jumpstartlab.com/blog").one? { |el| el.request_type == 'POST'}
+  end
+
+  def test_top_referrer_returns_most_popular_referrer
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET", referred_by: "asdf"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0704", responded_in: 13, request_type: "GET", referred_by: "asdf"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0702", responded_in: 13, request_type: "POST", referred_by: "haha"})
+    source = Source.find_by(identifier: "jumpstartlab")
+
+    assert_equal "asdf", source.top_referrer("http://jumpstartlab.com/blog")
   end
 end

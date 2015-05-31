@@ -34,7 +34,18 @@ module TrafficSpy
         redirect to("/?message=#{message}")
       end
     end
-    
+
+    get "/sources/:identifier/urls/*" do |identifier, splat|
+      @source = Source.find_by(identifier: identifier)
+      @url = @source.root_url + "/" + splat
+      if @source.grouped_urls.exists?(url: @url)
+        erb :urls
+      else
+        message = "ERROR: URL has not been requested."
+        redirect to("/?message=#{message}")
+      end
+    end
+
     get "/sources/:identifier/events" do |identifier|
       @source = Source.find_by(identifier: identifier)
       erb :events

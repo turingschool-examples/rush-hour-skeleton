@@ -1,8 +1,22 @@
+require 'uri'
+
 class Source < ActiveRecord::Base
   validates :root_url, presence: true
   validates :identifier, uniqueness: true, presence: true
 
   has_many :payloads
+
+  def grouped_urls
+    payloads.group(:url)
+  end
+
+  def path(url)
+    URI(url).path
+  end
+
+  def requested_urls
+    grouped_urls.count.sort_by { |k, v| v }.reverse
+  end
   
   def user_agent_data
     payloads.pluck(:user_agent).map { |data| UserAgent.parse(data) }
@@ -29,13 +43,33 @@ class Source < ActiveRecord::Base
       platforms
     end
   end
-  
-  def group_urls
-    payloads.group(:url).count.sort_by { |k, v| v }.reverse
-  end
 
   def average_times
-    payloads.group(:url).average(:responded_in).sort_by { |k, v| v }.reverse
+    grouped_urls.average(:responded_in).sort_by { |k, v| v }.reverse
+  end
+
+  def url_payloads(url)
+    payloads.where(url: url)
+  end
+
+  def longest_time(url)
+    url_payloads(url).maximum(:responded_in)
+  end
+
+  def shortest_time(url)
+    url_payloads(url).minimum(:responded_in)
+  end
+
+  def average_time(url)
+    url_payloads(url).average(:responded_in)
+  end
+
+  def http_routes(url)
+    url_payloads(url).select(:request_type).uniq
+  end
+
+  def top_referrer(url)
+    url_payloads(url).order(:referred_by).first.referred_by
   end
 
   def screen_res
