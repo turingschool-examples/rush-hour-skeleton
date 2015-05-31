@@ -44,6 +44,17 @@ module TrafficSpy
      end
     end
 
+    def popular_referrer
+      payloads.group(:referred_by).order('count_referred_by DESC').count(:referred_by)
+    end
+
+    def most_popular_browser
+      payloads.group(:browser).order('count_browser DESC').count(:browser)
+    end
+
+    def most_popular_operating_system
+      payloads.group(:platform).order('count_platform DESC').count(:platform)
+    end
 
     def count_events(event_name)
       payloads.where(event_name: event_name).count
