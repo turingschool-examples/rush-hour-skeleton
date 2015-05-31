@@ -40,10 +40,17 @@ class Source < ActiveRecord::Base
 
   def screen_res
     payloads.group(:resolution_width, :resolution_height).count
-      # .sort_by { |k, v| v }
   end
 
   def events
     payloads.group(:event_name).count.sort_by {|k, v| -v}
+  end
+
+  def total_events_received(event_name)
+    payloads.where(event_name: event_name).count
+  end
+
+  def event_hourly
+    payloads.where(event_name: event_name).group_by_hour_of_day(:resquested_at, format: "%l %P").count.keys.first
   end
 end

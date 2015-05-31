@@ -1,0 +1,12 @@
+<h1>Application Details for <%= @source.identifier %></h1>
+
+<h2><%= @event_name %></h2>
+
+<h3>Hour Breakdown</h3>
+
+<h3>Times Received</h3>
+  <p>
+    <% @source.total_events_received(@event_name) %>
+  </p>
+
+<a href="/sources/<%= @source.identifier %>/events">Return to Events Index</a>
