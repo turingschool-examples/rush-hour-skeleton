@@ -37,10 +37,11 @@
   </ol>
 
 <h2>URL Statistics</h2>
+
   <ul>
     <% @urls_count.each do |key| %>
       <li>
-        <a id='urllink' href="/sources/<%= @id %>/urls/<%= @splat %>"><%= key.first %></a>
+        <a id='<%= key %>' href="/sources/<%= @id %>/urls<%= @source.end_path(key)%>"><%= key.first %></a>
       </li>
     <% end %>
   </ul>
