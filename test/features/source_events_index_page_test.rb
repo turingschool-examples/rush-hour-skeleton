@@ -78,6 +78,18 @@ class SourceHomePage < FeatureTest
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"}'
+    @payload7 = '{
+      "url":"http://goo.com/blog",
+      "requestedAt":"2013-02-16 21:38:28 -0700",
+      "respondedIn":55,
+      "referredBy":"http://jumpstartlab.com",
+      "requestType":"GET",
+      "parameters":[],
+      "eventName":,
+      "userAgent":"Mozilla/5.0 (Windows NT 6.3; rv:36.0) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"63.29.38.211"}'
   end
 
   def test_can_view_data
@@ -94,23 +106,20 @@ class SourceHomePage < FeatureTest
     # assert page.has_content?("skill1")
   end
 
-  def test_can_display_most_hit_url
-    # urls = []
-    # Payload.where(source_id: 1).find_each do |payload|
-    #   urls << payload.url
-    # end
-    # or within source... payloads.order
+  def test_can_navigate_to_event_details_page
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
-    post '/sources/jumpstartlab/data', "payload" => payload2
-    post '/sources/jumpstartlab/data', "payload" => payload3
-    post '/sources/jumpstartlab/data', "payload" => payload4
-    post '/sources/jumpstartlab/data', "payload" => payload5
-    post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/events'
-    save_and_open_page
-    assert page.has_content?('http://labs.com/blog')
+    click_link_or_button('socialLogin')
+    # save_and_open_page
+    assert_equal "/sources/jumpstartlab/events/socialLogin", current_path
   end
 
+  def test_can_display_error_page_when_no_events_exist
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    visit '/sources/jumpstartlab/events'
+    save_and_open_page
+    assert page.has_content?('Sorry, no events have been defined.')
+  end
 
 end
