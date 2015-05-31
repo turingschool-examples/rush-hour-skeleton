@@ -26,5 +26,9 @@ module TrafficSpy
       payloads.group(:platform).order('count_platform DESC').count(:platform)
     end
 
+    def list_events
+      payloads.group(:event_name).order('event_name DESC').count(:event_name)
+    end
+
   end
 end

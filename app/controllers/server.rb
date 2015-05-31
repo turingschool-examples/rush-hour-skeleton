@@ -64,8 +64,26 @@ module TrafficSpy
       erb :url_stats
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      @id = identifier
+      @source = Source.find_by(:identifier == identifier)
+      @events = @source.list_events
+      erb :events
+    end
+
+
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @id = identifier
+      @event_name = event_name
+      @source = Source.find_by(:identifier == identifier)
+      @events = @source.list_events
+      erb :event_index
+    end
+
     not_found do
       erb :error
     end
+
+
   end
 end

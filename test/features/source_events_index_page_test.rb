@@ -83,9 +83,8 @@ class SourceHomePage < FeatureTest
   def test_can_view_data
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
-    visit '/sources/jumpstartlab'
-    # save_and_open_page
-    assert page.has_content?('jumpstartlab')
+    visit '/sources/jumpstartlab/events'
+    assert page.has_content?('socialLogin')
 
     #
     # fill_in "skill[title]", with: "skill1"
@@ -108,83 +107,10 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload4
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
-    visit '/sources/jumpstartlab'
-    # save_and_open_page
+    visit '/sources/jumpstartlab/events'
+    save_and_open_page
     assert page.has_content?('http://labs.com/blog')
   end
 
-  def test_can_display_longest_to_shortest_average_response_times
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    post '/sources/jumpstartlab/data', "payload" => payload
-    post '/sources/jumpstartlab/data', "payload" => payload2
-    post '/sources/jumpstartlab/data', "payload" => payload3
-    post '/sources/jumpstartlab/data', "payload" => payload4
-    post '/sources/jumpstartlab/data', "payload" => payload5
-    post '/sources/jumpstartlab/data', "payload" => payload6
-    visit '/sources/jumpstartlab'
-    # save_and_open_page
-    assert page.has_content?('Average Response Times')
-    assert page.has_content?('Average response time of')
-  end
 
-  def test_can_display_resolution_info
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    post '/sources/jumpstartlab/data', "payload" => payload
-    post '/sources/jumpstartlab/data', "payload" => payload2
-    post '/sources/jumpstartlab/data', "payload" => payload3
-    post '/sources/jumpstartlab/data', "payload" => payload4
-    post '/sources/jumpstartlab/data', "payload" => payload5
-    post '/sources/jumpstartlab/data', "payload" => payload6
-    visit '/sources/jumpstartlab'
-    assert page.has_content?('Resolution')
-    assert page.has_content?('1280')
-  end
-
-  def test_it_returns_error_if_no_identifier_found
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    post '/sources/jumpstartlab/data', "payload" => payload
-    visit '/sources/notarealidentifier'
-
-    refute page.has_content?('notarealidentifier')
-    assert page.has_content?('The identifier you entered cannot be found')
-  end
-
-  def test_can_display_browser_breakdown
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    post '/sources/jumpstartlab/data', "payload" => payload
-    post '/sources/jumpstartlab/data', "payload" => payload2
-    post '/sources/jumpstartlab/data', "payload" => payload3
-    post '/sources/jumpstartlab/data', "payload" => payload4
-    post '/sources/jumpstartlab/data', "payload" => payload5
-    post '/sources/jumpstartlab/data', "payload" => payload6
-    visit '/sources/jumpstartlab'
-    # save_and_open_page
-    assert page.has_content?('Browser Breakdown')
-    assert page.has_content?('Chrome')
-  end
-
-  def test_can_display_os_breakdown
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    post '/sources/jumpstartlab/data', "payload" => payload
-    post '/sources/jumpstartlab/data', "payload" => payload2
-    post '/sources/jumpstartlab/data', "payload" => payload3
-    post '/sources/jumpstartlab/data', "payload" => payload4
-    post '/sources/jumpstartlab/data', "payload" => payload5
-    post '/sources/jumpstartlab/data', "payload" => payload6
-    visit '/sources/jumpstartlab'
-    assert page.has_content?('Operating System Breakdown')
-    assert page.has_content?('Macintosh')
-  end
-
-  def test_can_access_url_hyperlinks
-    skip
-    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
-    post '/sources/jumpstartlab/data', "payload" => payload
-    post '/sources/jumpstartlab/data', "payload" => payload2
-    post '/sources/jumpstartlab/data', "payload" => payload3
-    visit '/sources/jumpstartlab'
-    click_link_or_button('#urllink')
-
-    assert page.has_content?('URL-Specific Statistics')
-  end
 end
