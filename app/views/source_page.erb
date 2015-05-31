@@ -21,3 +21,10 @@
       <li><%= key %> was used <%= value %> times</li>
     <% end %>
   </ol>
+
+<h2>Operating System Breakdown</h2>
+  <ol>
+    <% @os_breakdown.each do |key, value| %>
+      <li><%= key %> was used <%= value %> times</li>
+      <% end %>
+  </ol>
