@@ -65,7 +65,17 @@ class SourceTest < Minitest::Test
     source = Source.find_by(identifier: "jumpstartlab")
 
     assert_equal 2, source.http_routes("http://jumpstartlab.com/blog").length
-    assert_equal 'GET',  source.http_routes("http://jumpstartlab.com/blog")[1].request_type
-    assert_equal 'POST', source.http_routes("http://jumpstartlab.com/blog")[0].request_type
+    assert source.http_routes("http://jumpstartlab.com/blog").one? { |el| el.request_type == 'GET'}
+    assert source.http_routes("http://jumpstartlab.com/blog").one? { |el| el.request_type == 'POST'}
+  end
+
+  def test_top_referrer_returns_most_popular_referrer
+    Source.create({identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" })
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET", referred_by: "asdf"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0704", responded_in: 13, request_type: "GET", referred_by: "asdf"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0702", responded_in: 13, request_type: "POST", referred_by: "haha"})
+    source = Source.find_by(identifier: "jumpstartlab")
+
+    assert_equal "asdf", source.top_referrer("http://jumpstartlab.com/blog")
   end
 end

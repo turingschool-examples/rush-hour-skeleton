@@ -67,4 +67,8 @@ class Source < ActiveRecord::Base
   def http_routes(url)
     url_payloads(url).select(:request_type).uniq
   end
+
+  def top_referrer(url)
+    url_payloads(url).order(:referred_by).first.referred_by
+  end
 end

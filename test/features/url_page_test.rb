@@ -47,4 +47,15 @@ class URLPageTest < FeatureTest
     assert page.has_content?("GET")
     assert page.has_content?("POST")
   end
+
+  def test_page_displays_most_popular_referrer
+    create_data
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2012-02-16 21:38:28 -0701", responded_in: 13, request_type: "GET", referred_by: "asdf"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2014-02-16 21:38:28 -0702", responded_in: 13, request_type: "POST", referred_by: "asdf"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2022-02-16 21:37:28 -0701", responded_in: 13, request_type: "GET", referred_by: "haha"})
+
+    visit '/sources/jumpstartlab/urls/blog'
+    assert page.has_content?("Most Popular Referrer")
+    assert page.has_content?("asdf")
+  end
 end

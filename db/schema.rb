@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531161638) do
+ActiveRecord::Schema.define(version: 20150531174658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150531161638) do
     t.integer "responded_in"
     t.text    "user_agent"
     t.text    "request_type"
+    t.text    "referred_by"
   end
 
   create_table "sources", force: :cascade do |t|
