@@ -1,0 +1,22 @@
+<h1>Hello, <%= @id %> </h1>
+
+<h2>Here are all your stats for <%= @event_name %>  displayed in a visually appealing format</h2>
+
+<ol>
+  <% @event_by_hour.each do |hour| %>
+    <li><%= hour %> </li>
+  <% end %>
+</ol>
+
+<ol>
+  <% @all_hours.each do |hour| %>
+    <li><%= hour %> </li>
+  <% end %>
+</ol>
+
+<ol>
+  <% @hour_breakdown.each do |key, value| %>
+    <li><%= key %> - <%= value %> times</li>
+    <p><a href="/sources/<%= @id %>/events/<%= key %>"><%= key %></a></p>
+  <% end %>
+</ol>

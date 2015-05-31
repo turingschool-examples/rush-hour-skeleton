@@ -1,0 +1,9 @@
+<h1>Hello, <%= @id %> </h1>
+
+<h2>Here are all your events displayed in a visually appealing format</h2>
+<ol>
+  <% @events.each do |key, value| %>
+    <li><%= key %> - <%= value %> times</li>
+    <p><a href="/sources/<%= @id %>/events/<%= key %>"><%= key %></a></p>
+  <% end %>
+</ol>

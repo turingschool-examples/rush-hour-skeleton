@@ -1,4 +1,5 @@
 <h1>Welcome <%= @id %></h1>
+<p>Here is a handy list of all your cool stats!</p>
 
 <h2>Most Visited Urls</h2>
   <ol>
@@ -13,6 +14,13 @@
       <li><%= key %> - Average response time of <%= value.to_i %> seconds</li>
     <% end %>
   </ol>
+
+<h2>Resolution</h2>
+<ol>
+  <% @resolution_count.each do |resolution, count| %>
+    <li><%= resolution %> pixel screen -  <%= count %> times </li>
+  <% end %>
+</ol>
 
 <h2>Browser Breakdown</h2>
   <ol>

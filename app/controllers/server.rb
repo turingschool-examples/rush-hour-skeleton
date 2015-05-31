@@ -51,6 +51,7 @@ module TrafficSpy
         @source = Source.find_by(:identifier == identifier)
         @urls_count = @source.list_urls
         @response_time_count = @source.list_response_times
+        @resolution_count = @source.list_resolution
         @browser_breakdown = @source.browser_breakdown
         @os_breakdown = @source.os_breakdown
         erb :source_page
@@ -63,8 +64,27 @@ module TrafficSpy
       erb :url_stats
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      @id = identifier
+      @events = @source.list_events
+      erb :events
+    end
+
+
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @id = identifier
+      @event_name = event_name
+      @source = Source.find_by(:identifier == identifier)
+      @event_by_hour = @source.event_by_hour(@event_name)
+      @all_hours = ((1..12).to_a.zip(("am "*12).split(" ")).map(&:join) + (1..12).to_a.zip(("pm "*12).split(" ")).map(&:join))
+     @hour_breakdown = @source.count_events_by_hour(@event_name)
+      erb :event_index
+    end
+
     not_found do
       erb :error
     end
+
+
   end
 end
