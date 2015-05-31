@@ -145,7 +145,7 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('Browser Breakdown')
     assert page.has_content?('Chrome')
   end
@@ -159,11 +159,20 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    save_and_open_page
+    # save_and_open_page
     assert page.has_content?('Operating System Breakdown')
     assert page.has_content?('Macintosh')
   end
 
+  def test_can_access_url_hyperlinks
+    skip
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    post '/sources/jumpstartlab/data', "payload" => payload2
+    post '/sources/jumpstartlab/data', "payload" => payload3
+    visit '/sources/jumpstartlab'
+    click_link_or_button('#urllink')
 
-
+    assert page.has_content?('URL-Specific Statistics')
+  end
 end

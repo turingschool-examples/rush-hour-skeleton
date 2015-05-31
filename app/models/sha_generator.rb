@@ -3,7 +3,6 @@ require 'pry'
 
 module TrafficSpy
   class ShaGenerator
-
     def self.create_sha(input)
       sha_message= ""
       input.keys.map do |key|

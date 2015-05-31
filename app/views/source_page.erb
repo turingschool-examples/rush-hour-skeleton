@@ -1,6 +1,5 @@
 <h1>Welcome <%= @id %></h1>
 
-
 <h2>Most Visited Urls</h2>
   <ol>
     <% @urls_count.each do |key, value| %>
@@ -28,3 +27,12 @@
       <li><%= key %> was used <%= value %> times</li>
       <% end %>
   </ol>
+
+<h2>URL Statistics</h2>
+  <ul>
+    <% @urls_count.each do |key| %>
+      <li>
+        <a id='urllink' href="/sources/<%= @source.identifier %>/urls/<%= key.split('/').last %>"><%= key %></a>
+      </li>
+    <% end %>
+  </ul>
