@@ -30,6 +30,7 @@ class ViewingEventsTest < FeatureTest
     create_payload("yahoo", "socialLogin")
     
     visit '/sources/yahoo/events'
+    # save_and_open_page
     assert page.has_content?("socialLogin: 1")
     refute page.has_content?("You have no events!")
   end

@@ -8,7 +8,7 @@
  <% else %>
  <ol>
    <% @source.events.each do |key, val| %>
-     <li><a href="/sources/<%= @source.identifier %>/events/<%= key %>"><%= key %> <%= val %></a></li>
+     <li><a href="/sources/<%= @source.identifier %>/events/<%= key %>"><%= key %>: <%= val %></a></li>
    <% end %>
  <% end %>
  </ol>
