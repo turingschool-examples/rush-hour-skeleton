@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../test_helper'
 
-class SourceHomePage < FeatureTest
+class EventIndexPageTest < FeatureTest
   attr_reader :payload, :payload2, :payload3, :payload5, :payload4, :payload6
 
   def setup
@@ -80,15 +80,19 @@ class SourceHomePage < FeatureTest
       "ip":"63.29.38.211"}'
   end
 
-  def test_can_view_data
+  def test_can_navigate_to_event_details_page
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
-    post '/sources/jumpstartlab/data', "payload" => payload2
-    post '/sources/jumpstartlab/data', "payload" => payload3
-    post '/sources/jumpstartlab/data', "payload" => payload4
-    post '/sources/jumpstartlab/data', "payload" => payload5
-    post '/sources/jumpstartlab/data', "payload" => payload6
-    visit '/sources/jumpstartlab/events/socialLogin'
-    assert page.has_content?('jumpstartlab')
+    visit '/sources/jumpstartlab/events'
+    click_link_or_button('socialLogin')
+    assert_equal "/sources/jumpstartlab/events/socialLogin", current_path
   end
+
+  def test_can_display_error_page_when_no_events_exist
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    visit '/sources/jumpstartlab/events'
+    # save_and_open_page
+    assert page.has_content?('Sorry, no events have been defined.')
+  end
+
 end

@@ -19,6 +19,12 @@ module TrafficSpy
     #   end
     # end
 
+    helpers do
+      def source_id(id)
+        @source = Source.find_by(identifier: id)
+      end
+    end
+
     get '/' do
       erb :dashboard
     end
@@ -45,8 +51,7 @@ module TrafficSpy
     get '/sources/:identifier' do |identifier|
       if Source.exists?(:identifier => identifier)
         @id = identifier
-        @source = Source.find_by(:identifier == identifier)
-        # binding.pry
+        source_id(identifier)
         @urls_count = @source.list_urls
         @response_time_count = @source.list_response_times
         @resolution_count = @source.list_resolution
@@ -61,10 +66,8 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/*' do |identifier, splat|
-      @source = Source.find_by(:identifier == identifier)
+      source_id(identifier)
       @url = @source.root_url + '/' + splat
-      # @splat = splat
-      # binding.pry
       if @source.path_exists?(@url)
         @id = identifier
         erb :url_stats
@@ -75,12 +78,12 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @id = identifier
-      @source = Source.find_by(:identifier == identifier)
+      source_id(identifier)
       @events = @source.list_events
       if @events.keys.count == 0
         erb :events_error
       else
-        erb :events
+        erb :event_index
       end
     end
 
@@ -88,10 +91,10 @@ module TrafficSpy
       if Payload.exists?(:event_name => event_name)
         @id = identifier
         @event_name = event_name
-        @source = Source.find_by(:identifier == identifier)
+        source_id(identifier)
         @events = @source.list_events
         @source.event_hour_breakdown(@event_name)
-        erb :event_index
+        erb :event_details
       else
         erb :event_name_error
       end

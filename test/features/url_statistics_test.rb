@@ -93,7 +93,6 @@ class UrlStatisticsTest < FeatureTest
   end
 
   def test_can_view_most_popular_browser_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2

@@ -8,6 +8,7 @@ gem 'pry'
 gem 'json'
 gem 'useragent'
 gem 'groupdate'
+gem 'simplecov', :require => false, :group => :test
 
 group :development, :test do
   gem 'shotgun'

@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../test_helper'
 
-class SourceHomePage < FeatureTest
+class SourceHomePageTest < FeatureTest
   attr_reader :payload, :payload2, :payload3, :payload5, :payload4, :payload6
 
   def setup
@@ -160,11 +160,18 @@ class SourceHomePage < FeatureTest
   end
 
   def test_can_access_url_hyperlinks
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab'
     click_link_or_button('http://jumpstartlab.com/blog')
     assert page.has_content?('URL-Specific Statistics')
+  end
+
+  def test_can_access_event_data_hyperlink
+    post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', "payload" => payload
+    visit '/sources/jumpstartlab'
+    click_link_or_button('socialLogin')
+    assert page.has_content?('Here are all your stats for the socialLogin')
   end
 end
