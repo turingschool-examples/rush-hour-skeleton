@@ -50,14 +50,14 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       if Source.exists?(:identifier => identifier)
-        @id = identifier
+        @id                  = identifier
         source_id(identifier)
-        @urls_count = @source.list_urls
+        @urls_count          = @source.list_urls
         @response_time_count = @source.list_response_times
-        @resolution_count = @source.list_resolution
-        @browser_breakdown = @source.browser_breakdown
-        @os_breakdown = @source.os_breakdown
-        @events = @source.list_events
+        @resolution_count    = @source.list_resolution
+        @browser_breakdown   = @source.browser_breakdown
+        @os_breakdown        = @source.os_breakdown
+        @events              = @source.list_events
         erb :source_page
       else
         @error_message
@@ -89,10 +89,10 @@ module TrafficSpy
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       if Payload.exists?(:event_name => event_name)
-        @id = identifier
-        @event_name = event_name
+        @id         = identifier
         source_id(identifier)
-        @events = @source.list_events
+        @event_name = event_name
+        @events     = @source.list_events
         @source.event_hour_breakdown(@event_name)
         erb :event_details
       else
