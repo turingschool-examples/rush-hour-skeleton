@@ -27,8 +27,8 @@
 
 <h2>Average Response Times</h2>
 <ol>
-  <% @source.average_times.each do |url, count| %>
-  <li><a href="/sources/<%= @source.identifier %>/urls<%= @source.path(url) %>"><%= url %></a> <%= count %></li>
+  <% @source.average_times.each do |url, time| %>
+  <li><a href="/sources/<%= @source.identifier %>/urls<%= @source.path(url) %>"><%= url %></a> <%= time.round(2) %></li>
   <% end %>
 </ol>
 

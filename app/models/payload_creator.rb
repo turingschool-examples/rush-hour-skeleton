@@ -24,14 +24,16 @@ class PayloadCreator
 
   def generate_payload
     source = Source.find_by(identifier: @identifier)
-    source.payloads.new({ requested_at: payload_data["requestedAt"],
-                          url:          payload_data["url"],
-                          responded_in: payload_data["respondedIn"],
-                          request_type: payload_data["requestType"],
-                          referred_by:  payload_data["referredBy"],
-                          event_name:   payload_data["eventName"],
-                          browser:      UserAgent.parse(payload_data["userAgent"]).browser,
-                          platform:     UserAgent.parse(payload_data["userAgent"]).platform})
+    source.payloads.new({ requested_at:      payload_data["requestedAt"],
+                          url:               payload_data["url"],
+                          responded_in:      payload_data["respondedIn"],
+                          request_type:      payload_data["requestType"],
+                          referred_by:       payload_data["referredBy"],
+                          event_name:        payload_data["eventName"],
+                          browser:           UserAgent.parse(payload_data["userAgent"]).browser,
+                          platform:          UserAgent.parse(payload_data["userAgent"]).platform,
+                          resolution_height: payload_data["resolutionHeight"],
+                          resolution_width:  payload_data["resolutionWidth"]})
   end
   
   def result

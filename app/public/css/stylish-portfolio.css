@@ -19,7 +19,17 @@ body {
 .text-vertical-center {
     display: table-cell;
     text-align: center;
-    vertical-align: middle;
+    top: 30%;
+    right: 25%;
+    margin: 0 auto;
+    position: absolute;
+    zoom: 1;
+    width: 50%;
+    padding: 1.5%;
+    background: rgba(60, 59, 59, 0.86);
+    opacity: 0.7;
+    /*color: rgba(236, 229, 231, 0.86);*/
+    color: white;
 }
 
 .text-vertical-center h1 {
@@ -29,6 +39,18 @@ body {
     font-weight: 700;
 }
 
+.dashboard-display {
+  display: table-cell;
+  top: 10%;
+  right: 25%;
+  margin: 0 auto;
+  position: absolute;
+  zoom: 1;
+  width: 50%;
+  padding: 1.5%;
+  background: rgba(60, 59, 59, 0.86);
+  opacity: 0.7;
+}
 /* Custom Button Styles */
 
 .btn-dark {
@@ -148,9 +170,6 @@ hr.small {
     margin: 5px 5px 0 0;
 }
 
-.nav {
-  
-}
 /* Header */
 
 .header {
