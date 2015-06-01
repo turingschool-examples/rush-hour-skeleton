@@ -1,18 +1,11 @@
-<h1>Application Details for <%= @source.identifier %></h1>
-
-<h2><%= @event_name %></h2>
-
-<h3>Hour by Hour Breakdown</h3>
-
-<ul>
-  <% @source.event_hourly(@event_name).each do |hour, count| %>
-  <li>
-    <%= hour %>: <%= count %>
-  </li>
+<section class="center-table">
+  <h1>Application Details for <%= @source.identifier %></h1>
+  
+  <% if @source.events.flatten.include?(@event_name) %>
+    <%= erb :_show_event_details %>
+  <% else %>
+    There are no <%= @event_name %> events!
   <% end %>
-</ul>
-
-<h3>Times Received</h3>
-<p><%= @event_name %>: <%= @source.total_events_received(@event_name)%></p>
-
-<a href="/sources/<%= @source.identifier %>/events">Return to Events Index</a>
+  
+  <p><%= anchor("/sources/#{@source.identifier}/events", "Return to Events Index") %></p>
+</section>
