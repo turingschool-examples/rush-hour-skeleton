@@ -1,0 +1,14 @@
+<h1>Hello, <%= @id %> </h1>
+
+<h2>Here are all your stats for the <%= @event_name %> event displayed in a visually appealing format</h2>
+<h3>This event was received <%= @events[@event_name] %> times</h3>
+
+<ul>
+  <% @source.event_hour_breakdown(@event_name).count.keys.each do |hour| %>
+    <li><%= hour %> :: this is how many times this event was hit in this hour <%= @source.event_hour_breakdown(@event_name).count[hour] %></li>
+  <% end %>
+</ul>
+
+
+<a class="button" id="eventindex" href="/sources/<%= @id %>/events">Take me back to the Application Events Index</a>
+

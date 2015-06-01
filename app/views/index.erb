@@ -1,1 +1,7 @@
-<h1>Hello, Traffic Spyer</h1>
+<h1>ALL SOURCES</h1>
+
+<% @sources.each do |source| %>
+  <ol>
+    <li><a href="/sources/<%= source.identifier %>"><%= source.id %>. <%= source.identifier %></a></li><br>
+  </ol>
+<% end %>
