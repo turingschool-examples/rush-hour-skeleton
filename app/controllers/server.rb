@@ -6,8 +6,8 @@ require 'uri'
 module TrafficSpy
   class Server < Sinatra::Base
 
-    # register Sinatra::Partial
-    # set :partial_template_engine, :erb
+    register Sinatra::Partial
+    set :partial_template_engine, :erb
     #
     # helpers do
     #   def image_tag(url, alt)
@@ -20,8 +20,9 @@ module TrafficSpy
     # end
 
     helpers do
-      def source_id(id)
-        @source = Source.find_by(identifier: id)
+      def source_id(identifier)
+        @source = Source.find_by(:identifier == identifier)
+        # @source = Source.find_by(identifier: id)
       end
     end
 
@@ -49,8 +50,10 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+
       if Source.exists?(:identifier => identifier)
         @id = identifier
+        # @source = Source.find_by(:identifier == identifier)
         source_id(identifier)
         @urls_count = @source.list_urls
         @response_time_count = @source.list_response_times
@@ -66,6 +69,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/*' do |identifier, splat|
+      # @source = Source.find_by(:identifier == identifier)
       source_id(identifier)
       @url = @source.root_url + '/' + splat
       if @source.path_exists?(@url)
@@ -78,6 +82,7 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @id = identifier
+      # @source = Source.find_by(:identifier == identifier)
       source_id(identifier)
       @events = @source.list_events
       if @events.keys.count == 0
@@ -91,6 +96,7 @@ module TrafficSpy
       if Payload.exists?(:event_name => event_name)
         @id = identifier
         @event_name = event_name
+        # @source = Source.find_by(:identifier == identifier)
         source_id(identifier)
         @events = @source.list_events
         @source.event_hour_breakdown(@event_name)
