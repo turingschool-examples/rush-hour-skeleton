@@ -89,7 +89,6 @@ class UrlStatisticsTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    save_and_open_page
     assert page.has_content?('http://jumpstartlab.com')
   end
 
@@ -103,12 +102,10 @@ class UrlStatisticsTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    # save_and_open_page
     assert page.has_content?('Chrome')
   end
 
   def test_can_view_most_popular_operating_system_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -117,12 +114,10 @@ class UrlStatisticsTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    # save_and_open_page
     assert page.has_content?('Macintosh')
   end
 
   def test_can_view_most_popular_http_verb_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -131,12 +126,10 @@ class UrlStatisticsTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    save_and_open_page
     assert page.has_content?('POST')
   end
 
   def test_can_view_shortest_response_time_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -145,12 +138,10 @@ class UrlStatisticsTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    # save_and_open_page
     assert page.has_content?('POST')
   end
 
   def test_can_view_longest_response_time_verb_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -159,12 +150,10 @@ class UrlStatisticsTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    # save_and_open_page
     assert page.has_content?('POST')
   end
 
   def test_can_view_average_response_time_for_specific_url
-    # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -173,7 +162,6 @@ class UrlStatisticsTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/urls/blog'
-    # save_and_open_page
     assert page.has_content?('43')
   end
 
@@ -181,7 +169,6 @@ class UrlStatisticsTest < FeatureTest
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab/urls/alskjdf'
-    save_and_open_page
     assert page.has_content?('This url has not been requested')
   end
 end

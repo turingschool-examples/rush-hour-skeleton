@@ -84,23 +84,10 @@ class SourceHomePage < FeatureTest
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('jumpstartlab')
-
-    #
-    # fill_in "skill[title]", with: "skill1"
-    # fill_in "skill[description]", with: "juggling"
-    # click_button "submit"
-    # assert_equal "/skills", current_path
-    # assert page.has_content?("skill1")
   end
 
   def test_can_display_most_hit_url
-    # urls = []
-    # Payload.where(source_id: 1).find_each do |payload|
-    #   urls << payload.url
-    # end
-    # or within source... payloads.order
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     post '/sources/jumpstartlab/data', "payload" => payload2
@@ -109,7 +96,6 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('http://jumpstartlab.com/blog')
   end
 
@@ -122,7 +108,6 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('Average Response Times')
     assert page.has_content?('Average response time of')
   end
@@ -157,7 +142,6 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('Browser Breakdown')
     assert page.has_content?('Chrome')
   end
@@ -171,7 +155,6 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('Operating System Breakdown')
     assert page.has_content?('Macintosh')
   end
@@ -180,11 +163,8 @@ class SourceHomePage < FeatureTest
     # skip
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
-    # post '/sources/jumpstartlab/data', "payload" => payload2
-    # post '/sources/jumpstartlab/data', "payload" => payload3
     visit '/sources/jumpstartlab'
     click_link_or_button('http://jumpstartlab.com/blog')
-    save_and_open_page
     assert page.has_content?('URL-Specific Statistics')
   end
 end

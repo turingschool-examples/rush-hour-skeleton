@@ -89,17 +89,6 @@ class SourceHomePage < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/events/socialLogin'
-    save_and_open_page
     assert page.has_content?('jumpstartlab')
-
-    #
-    # fill_in "skill[title]", with: "skill1"
-    # fill_in "skill[description]", with: "juggling"
-    # click_button "submit"
-    # assert_equal "/skills", current_path
-    # assert page.has_content?("skill1")
   end
-
-
-
 end
