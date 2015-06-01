@@ -1,0 +1,7 @@
+<p>
+<ul>
+  <% @source.platform_info.each do |platform, count| %>
+    <li><%= "#{platform}: #{count}" %></li>
+  <% end %>
+</ul>
+</p>

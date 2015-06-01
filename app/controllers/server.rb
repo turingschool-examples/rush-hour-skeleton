@@ -55,6 +55,12 @@ module TrafficSpy
       @event_name = event_name
       erb :event_details
     end
+    
+    helpers do
+      def anchor(url, text)
+        "<a href=#{url}>#{text}</a>"
+      end
+    end
   end
 end
 

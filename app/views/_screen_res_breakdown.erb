@@ -1,0 +1,5 @@
+<ul>
+  <% @source.screen_res.each do |res, count| %>
+    <li><%= res[0] %> x <%= res[1] %>: <%= count %> </li>
+  <% end %>
+</ul>

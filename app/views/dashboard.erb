@@ -1,42 +1,18 @@
 <h1>Site data for <%= @source.identifier %></h1>
 
 <h2>Browser Breakdown</h2>
-<p>
-  <ul>
-    <% @source.browser_info.each do |platform, count| %>
-      <li><%= "#{platform}: #{count}" %></li>
-    <% end %>
-  </ul>
-</p>
+<%= erb :_browser_breakdown %>
 
 <h2>Platform Breakdown</h2>
-<p>
-  <ul>
-    <% @source.platform_info.each do |platform, count| %>
-      <li><%= "#{platform}: #{count}" %></li>
-    <% end %>
-  </ul>
-</p>
+<%= erb :_platform_breakdown %>
 
 <h2>URLs</h2>
-<ol>
-  <% @source.requested_urls.each do |url, count| %>
-  <li><a href="/sources/<%= @source.identifier %>/urls<%= @source.path(url) %>"><%= url %></a> <%= count %></li>
-  <% end %>
-</ol>
+<%= erb :_urls %>
 
 <h2>Average Response Times</h2>
-<ol>
-  <% @source.average_times.each do |url, time| %>
-  <li><a href="/sources/<%= @source.identifier %>/urls<%= @source.path(url) %>"><%= url %></a> <%= time.round(2) %></li>
-  <% end %>
-</ol>
+<%= erb :_avg_response_times %>
 
 <h2>Screen Resolution Breakdown</h2>
-<ul>
-  <% @source.screen_res.each do |res, count| %>
-    <li><%= res[0] %> x <%= res[1] %>: <%= count %> </li>
-  <% end %>
-</ul>
+<%= erb :_screen_res_breakdown %>
 
-<h2><a href="/sources/<%= @source.identifier %>/events">View events</a></h2>
+<h2><%= anchor("/sources/#{@source.identifier}/events", "View events") %></h2>
