@@ -1,0 +1,20 @@
+<section class="center-table">
+  <h1>Site data for <%= @source.identifier %></h1>
+
+  <h2>Browser Breakdown</h2>
+    <%= erb :_browser_breakdown %>
+  
+  <h2>Platform Breakdown</h2>
+    <%= erb :_platform_breakdown %>
+  
+  <h2>URLs</h2>
+    <%= erb :_urls %>
+  
+  <h2>Average Response Times</h2>
+   <%= erb :_avg_response_times %>
+  
+  <h2>Screen Resolution Breakdown</h2>
+    <%= erb :_screen_res_breakdown %>
+  
+  <h2><%= anchor("/sources/#{@source.identifier}/events", "View events") %></h2>
+</section>

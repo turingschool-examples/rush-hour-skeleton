@@ -1,0 +1,5 @@
+<ul>
+  <% @source.http_routes(@url).each do |element| %>
+    <li><%= element.request_type %></li>
+  <% end %>
+</ul>

@@ -1,0 +1,15 @@
+<h2><%= @event_name %></h2>
+
+<h3>Hour by Hour Breakdown</h3>
+
+<ul>
+  <% @source.event_hourly(@event_name).each do |hour, count| %>
+    <li>
+      <%= hour %>: <%= count %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Times Received</h3>
+<p><%= @event_name %>: <%= @source.total_events_received(@event_name)%></p>
+  

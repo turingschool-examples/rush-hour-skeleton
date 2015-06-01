@@ -1,0 +1,11 @@
+<section class="center-table">
+  <h1>Application Details for <%= @source.identifier %></h1>
+  
+  <% if @source.events.flatten.include?(@event_name) %>
+    <%= erb :_show_event_details %>
+  <% else %>
+    There are no <%= @event_name %> events!
+  <% end %>
+  
+  <p><%= anchor("/sources/#{@source.identifier}/events", "Return to Events Index") %></p>
+</section>

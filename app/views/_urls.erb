@@ -1,0 +1,5 @@
+<ol>
+  <% @source.requested_urls.each do |url, count| %>
+    <li><%= anchor("/sources/#{@source.identifier}/urls#{@source.path(url)}", url) %> <%= count %></li>
+  <% end %>
+</ol>

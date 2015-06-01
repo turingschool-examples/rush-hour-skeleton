@@ -1,0 +1,24 @@
+<section class="center-table">
+  <h1>URL Statistics for <%= @url %></h1>
+  
+  <h2>Longest Response Time</h2>
+  <p><%= @source.longest_time(@url) %></p>
+  
+  <h2>Shortest Response Time</h2>
+  <p><%= @source.shortest_time(@url) %></p>
+  
+  <h2>Average Response Time</h2>
+  <p><%= @source.average_time(@url)%></p>
+  
+  <h2>HTTP Routes Used</h2>
+  <%= erb :_http_routes %>
+  
+  <h2>Most Popular Referrer</h2>
+  <p><%= @source.top_referrer(@url) %></p>
+  
+  <h2>Most Popular Browser</h2>
+  <p><%= @source.top_browser(@url) %></p>
+  
+  <h2>Most Popular Platform</h2>
+  <p><%= @source.top_platform(@url) %></p>
+</section>

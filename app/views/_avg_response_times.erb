@@ -1,0 +1,5 @@
+<ol>
+  <% @source.average_times.each do |url, time| %>
+    <li><%= anchor("/sources/#{@source.identifier}/urls#{@source.path(url)}", url) %> <%= time.round(2) %></li>
+  <% end %>
+</ol>
