@@ -1,54 +1,53 @@
 <h1>Welcome <%= @id %></h1>
-<p>Here is a handy list of all your cool stats!</p>
+<h2>Here is a handy list of all your cool stats!</h2>
 
-<h2>Most Visited Urls</h2>
+<h3>Most Visited Urls</h3>
   <ol>
     <% @urls_count.each do |key, value| %>
       <li><%= key %> - Hit <%= value %> times</li>
     <% end %>
   </ol>
 
-<h2>Average Response Times</h2>
+<h3>Average Response Times</h3>
   <ol>
     <% @response_time_count.each do |key, value| %>
       <li><%= key %> - Average response time of <%= value.to_i %> seconds</li>
     <% end %>
   </ol>
 
-<h2>Resolution</h2>
+<h3>Resolution</h3>
 <ol>
   <% @resolution_count.each do |resolution, count| %>
     <li><%= resolution %> pixel screen -  <%= count %> times </li>
   <% end %>
 </ol>
 
-<h2>Browser Breakdown</h2>
+<h3>Browser Breakdown</h3>
   <ol>
     <% @browser_breakdown.each do |key, value| %>
       <li><%= key %> was used <%= value %> times</li>
     <% end %>
   </ol>
 
-<h2>Operating System Breakdown</h2>
+<h3>Operating System Breakdown</h3>
   <ol>
     <% @os_breakdown.each do |key, value| %>
       <li><%= key %> was used <%= value %> times</li>
       <% end %>
   </ol>
 
-<h2>URL Statistics</h2>
-
-  <ul>
+<h3>URL Statistics</h3>
+  <ol>
     <% @urls_count.each do |key| %>
       <li>
         <a id='<% key %>' href="/sources/<%= @id %>/urls<%= @source.end_path(key)%>"><%= key.first %></a>
       </li>
     <% end %>
-  </ul>
+  </ol>
 
-<h2>Events</h2>
-<ul>
-  <% @events.each do |key, value| %>
-    <a id='<% key %>' href="/sources/<%= @id %>/events/<%= key %>"><li><%= key %></li></a>
-  <% end %>
-</ul>
+<h3>Events</h3>
+  <ol>
+    <% @events.each do |key, value| %>
+      <a id='<% key %>' href="/sources/<%= @id %>/events/<%= key %>"><li><%= key %></li></a>
+    <% end %>
+  </ol>

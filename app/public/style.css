@@ -1,0 +1,111 @@
+a {
+  color: #45D6B8;
+  text-decoration: none;
+  font-family: Roboto Condensed, sans-serif;
+}
+
+a:hover {
+  color: black;
+}
+
+.container {
+  text-align: center;
+}
+
+/*******HEADERS*********/
+h3 {
+  font-family: Roboto Condensed, sans-serif;
+  font-size: 16px;
+  margin-left: 200px;
+  margin-right: 200px;
+  padding: 0 0 2px 0;
+  color: black;
+  text-decoration: underline;
+}
+
+h2 {
+  font-family: Roboto Condensed, sans-serif;
+  font-size: 20px;
+  margin-left: 200px;
+  margin-right: 200px;
+  padding: 0 0 2px 0;
+  color: black;
+}
+/*******OTHERSTUFF*******/
+body {
+  font-family: Roboto Condensed, sans-serif;
+}
+
+.footer {
+  position: fixed;
+  text-align: right;
+  bottom: 2px;
+  color: #333333;
+  width: 95%;
+  padding: 0 0 0 5px;
+}
+
+ol {
+  font-family: Roboto Condensed, sans-serif;
+  font-size: 16px;
+  font-weight: 100;
+  color: #333333;
+  text-align:center;
+  list-style-type: none;
+}
+
+ul {
+  font-family: Roboto Condensed, sans-serif;
+  font-size: 16px;
+  font-weight: 100;
+  color: #333333;
+  text-align:center;
+  list-style-type: none;
+}
+
+.hours {
+  text-align: justify;
+}
+
+body {
+  background-image: url("/img/ugh.jpg");
+  background-repeat: no-repeat;
+  margin: 0px;
+}
+
+h1 {
+  font-family: Roboto Condensed, sans-serif;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #333333;
+  font-weight: 300;
+  padding: 0 0 5px;
+  margin: 0px;
+}
+
+.splash-header {
+  font-family: Roboto Condensed Condensed, sans-serif;
+  font-size: 50px;
+  color: black;
+  text-align: center;
+  font-weight: 300;
+  padding: 300px 0 20px 0;
+}
+
+/*******BUTTONS*********/
+.button{
+  text-decoration:none;
+  text-align:center;
+  padding:11px 32px;
+  top: 3px;
+  border:solid 2px #45D6B8;
+  font:18px Roboto Condensed, sans-serif;
+  color: #45D6B8;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background: #45D6B8;
+  color: white;
+}
+
