@@ -9,6 +9,7 @@ gem 'json'
 gem 'useragent'
 gem 'groupdate'
 gem 'simplecov', :require => false, :group => :test
+gem 'sinatra-partial', require: 'sinatra/partial'
 
 group :development, :test do
   gem 'shotgun'

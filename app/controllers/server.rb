@@ -5,19 +5,8 @@ require 'uri'
 
 module TrafficSpy
   class Server < Sinatra::Base
-
-    # register Sinatra::Partial
-    # set :partial_template_engine, :erb
-    #
-    # helpers do
-    #   def image_tag(url, alt)
-    #     "<img src='#{url}' alt='#{alt}' />"
-    #   end
-    #
-    #   def date_object_parser_thing
-    #
-    #   end
-    # end
+    register Sinatra::Partial
+    set :partial_template_engine, :erb
 
     helpers do
       def source_id(id)
@@ -88,8 +77,8 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @id         = identifier
       if Payload.exists?(:event_name => event_name)
-        @id         = identifier
         source_id(identifier)
         @event_name = event_name
         @events     = @source.list_events
