@@ -85,7 +85,6 @@ class EventIndexPageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab/events'
     click_link_or_button('socialLogin')
-    # save_and_open_page
     assert_equal "/sources/jumpstartlab/events/socialLogin", current_path
   end
 

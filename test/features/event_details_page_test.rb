@@ -89,7 +89,6 @@ class EventDetailsPageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab/events/socialLogin'
-    # save_and_open_page
     assert page.has_content?('jumpstartlab')
   end
 
@@ -98,7 +97,6 @@ class EventDetailsPageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab/events/socialLogin'
     click_link_or_button('eventindex')
-    # save_and_open_page
     assert_equal "/sources/jumpstartlab/events", current_path
   end
 

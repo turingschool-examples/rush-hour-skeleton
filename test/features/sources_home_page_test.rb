@@ -84,7 +84,6 @@ class SourceHomePageTest < FeatureTest
     post '/sources' , { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('jumpstartlab')
   end
 
@@ -97,7 +96,6 @@ class SourceHomePageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('http://jumpstartlab.com/blog')
   end
 
@@ -110,7 +108,6 @@ class SourceHomePageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('Average Response Times')
     assert page.has_content?('Average response time of')
   end
@@ -145,7 +142,6 @@ class SourceHomePageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('Browser Breakdown')
     assert page.has_content?('Chrome')
   end
@@ -159,7 +155,6 @@ class SourceHomePageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload5
     post '/sources/jumpstartlab/data', "payload" => payload6
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content?('Operating System Breakdown')
     assert page.has_content?('Macintosh')
   end
@@ -169,7 +164,6 @@ class SourceHomePageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab'
     click_link_or_button('http://jumpstartlab.com/blog')
-    # save_and_open_page
     assert page.has_content?('URL-Specific Statistics')
   end
 
@@ -178,7 +172,6 @@ class SourceHomePageTest < FeatureTest
     post '/sources/jumpstartlab/data', "payload" => payload
     visit '/sources/jumpstartlab'
     click_link_or_button('socialLogin')
-    # save_and_open_page
     assert page.has_content?('Here are all your stats for the socialLogin')
   end
 end
