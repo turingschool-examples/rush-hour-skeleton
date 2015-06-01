@@ -49,13 +49,13 @@ class DashboardTest < FeatureTest
   def test_it_displays_url_in_order_from_most_to_least_requested
     create_source("jumpstartlab")
     
-    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0700"})
-    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0710"})
-    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0720"})
-    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2213-02-16 21:38:28 -0710"})
-    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2113-02-16 21:38:28 -0710"})
-    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-12 21:38:28 -0720"})
-    Payload.create({source_id: 1, url: "http://jumpstartlab.com/lol", requested_at: "2233-02-16 21:38:28 -0720"})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0700", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2013-02-16 21:38:28 -0710", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-16 21:38:28 -0720", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2213-02-16 21:38:28 -0710", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/blog", requested_at: "2113-02-16 21:38:28 -0710", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/asdf", requested_at: "2013-02-12 21:38:28 -0720", responded_in: 10})
+    Payload.create({source_id: 1, url: "http://jumpstartlab.com/lol", requested_at: "2233-02-16 21:38:28 -0720",  responded_in: 10})
 
     visit '/sources/jumpstartlab'
     assert page.has_content?("http://jumpstartlab.com/blog 4")
@@ -78,7 +78,7 @@ class DashboardTest < FeatureTest
 
   def test_events_has_a_link
     create_source("jumpstartlab")
-    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0701"})
+    Payload.create({source_id: 1, event_name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0701", responded_in: 10})
 
     visit '/sources/jumpstartlab/events'
     assert page.has_link?("socialLogin")
