@@ -26,7 +26,6 @@ module TrafficSpy
       parsed_payload[:sha] = parsed_payload_sha
       parsed_payload[:source_id] = 0
       payload_entry = Payload.create(parsed_payload)
-
       source_id = Source.find_by(:identifier => identifier).id
       payload_entry.update_attribute(:source_id, source_id)
       return_status_and_message(payload_entry)
