@@ -1,0 +1,6 @@
+rake db:test:prepare
+- 'rake' automatically assumes development environment
+- different ways to set up rake to run in test environment
+      (e.g. RACK_ENV=test rake db:create, RACK_ENV=test rake db:migrate)
+- prepares test db to match dev db
+- will often need to run it after every migration
