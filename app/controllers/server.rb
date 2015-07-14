@@ -10,8 +10,16 @@ module TrafficSpy
     end
 
     post '/sources' do
-      status 400
-      body "Missing Parameters - 400 Bad Request"
+
+
+
+      if params[:identifier] == nil || params[:url] == nil
+        status 400
+        body "Missing Parameters - 400 Bad Request"
+      else
+        status 200
+        body "{'identifier' : '#{params[:identifier]}'}"
+      end
     end
 
   end

@@ -13,5 +13,11 @@ class SourcesPathTest < ControllerTest
     assert_equal 400, last_response.status
     assert_equal "Missing Parameters - 400 Bad Request", last_response.body
   end
-  
+
+  def test_registration_is_successful
+    post '/sources', {url: "other things", identifier: "things and stuff"}
+    assert_equal 200, last_response.status
+    assert_equal "{'identifier' : 'things and stuff'}", last_response.body
+  end
+
 end
