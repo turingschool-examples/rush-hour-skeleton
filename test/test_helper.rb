@@ -14,14 +14,14 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 class Minitest::Test
-  
-  def setup
-    DatabaseCleaner.start
-  end
 
-  def teardown
-    DatabaseCleaner.clean
-  end
+  # def setup
+  #   DatabaseCleaner.start
+  # end
+  #
+  # def teardown
+  #   DatabaseCleaner.clean
+  # end
 
 end
 
@@ -29,7 +29,7 @@ class ControllerTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
-    # code goes here
+    TrafficSpy::Server 
   end
 
 end
