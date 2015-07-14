@@ -11,16 +11,16 @@ class RegistrationTest < ControllerTest
   end
 
   def test_an_application_cannot_register_if_missing_parameter
-    skip
     post '/sources', { identifier: "jumpstartlab"}
     assert_equal 400, last_response.status
-    assert_equal "missing parameters", last_response.body
+    assert_equal "Root url can't be blank", last_response.body
   end
 
-  def test_an_application_cannot_register_if_id_exists
-    skip
+  def test_an_application_cannot_register_if_identifier_exists
+    post '/sources', { identifier: "jumpstartlab", root_url: "http://google.com"}
     post '/sources', { identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
-    post '/sources', { identifier: "jumpstartlab", root_url: "http://umpstartlab.com"}
+    assert_equal 403, last_response.status
+    assert_equal "identifier already exists", last_response.body
   end
 
 

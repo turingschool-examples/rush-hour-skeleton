@@ -5,18 +5,17 @@ module TrafficSpy
       erb :index
     end
 
-
-
     post '/sources' do
       source = Source.new(params)
-      return_value = Hash.new
-      return_value['identifier'] = source.identifier
-      if source.save
+      if Source.find_by(identifier: source.identifier)
+        status 403
+        "identifier already exists"
+      elsif source.save
         status 200
-        body "#{return_value}"
+        body JSON.generate({:identifier=>source.identifier})
       else
         status 400
-        "missing parameters"
+        body source.errors.full_messages.join(", ")
       end
     end
 
