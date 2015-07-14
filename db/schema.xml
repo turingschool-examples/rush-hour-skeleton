@@ -28,7 +28,7 @@
                                                                                     <type label="Date" length="0" sql="DATE" quote="'"/>
                                                                                         <type label="Time" length="0" sql="TIME" quote="'"/>
                                                                                             <type label="Datetime" length="0" sql="DATETIME" quote="'"/>
-                                                                                                <type label="Year" length="0" sql="YEAR" quote="/>
+                                                                                                <type label="Year" length="0" sql="YEAR" quote=""/>
                                                                                                     <type label="Timestamp" length="0" sql="TIMESTAMP" quote="'"/>
                                                                                                       </group>
 
