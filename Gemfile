@@ -5,7 +5,6 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'rake'
-gem 'pry'
 gem 'json'
 
 group :development, :test do
@@ -15,6 +14,8 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
+  gem 'pry'
+  gem 'database_cleaner'
 end
 
 group :evaluations do
