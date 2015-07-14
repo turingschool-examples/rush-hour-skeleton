@@ -1,3 +1,4 @@
+require 'json'
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -7,8 +8,11 @@ module TrafficSpy
     not_found do
       erb :error
     end
-  end
-  post '/sources' do
+
+    post '/sources' do
+      status 400
+      body "Missing Parameters - 400 Bad Request"
+    end
 
   end
 end

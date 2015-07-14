@@ -4,6 +4,9 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
+gem 'rake'
+gem 'pry'
+gem 'json'
 
 group :development, :test do
   gem 'shotgun'
