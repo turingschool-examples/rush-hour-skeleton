@@ -9,6 +9,10 @@ module TrafficSpy
       sort_urls
     end
 
+    def browser_breakdown
+      sort_browsers
+    end
+
     private
 
     def urls
@@ -24,6 +28,20 @@ module TrafficSpy
     def sort_urls
       urls.uniq.sort_by {|v| url_counts[v]}.reverse
     end
+
+    def browsers
+      payloads.map do |payload|
+        payload.browser.name
+      end
+    end
+
+    def browser_counts
+      browsers.reduce(Hash.new(0)) {|h, v| h[v] += 1; h}
+    end
+
+    def sort_browsers
+      browsers.uniq.sort_by {|v| browser_counts[v]}.reverse
+    end 
 
   end
 end
