@@ -19,6 +19,12 @@ module TrafficSpy
       end
     end
 
+    post '/sources/IDENTIFIER/data' do
+      digest = Digest::SHA1.hexdigest(params.to_s)
+      payload = Payload.new(digest: digest)
+      
+    end
+
     not_found do
       erb :error
     end
