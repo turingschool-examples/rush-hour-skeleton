@@ -10,23 +10,22 @@ module TrafficSpy
     end
 
     post '/sources' do
-      reg = Registration.create(params)
 
-      if params[:identifier] == nil || params[:url] == nil
+      reg = Registration.new({ identifier: params["identifier"], url: params["rootUrl"] })
+
+      if params['identifier'] == nil || params['rootUrl'] == nil
         status 400
         body "Missing Parameters - 400 Bad Request"
-
       else
         if reg.save
-        status 200
-        body "{'identifier' : '#{params[:identifier]}'}"
-      else
-        status 403
-        body "Identifier Already Exists - 403 Forbidden"
-      end
+          status 200
+          body "{'identifier' : '#{params['identifier']}'}"
+        else
+          status 403
+          body "Identifier Already Exists - 403 Forbidden"
+        end
 
       end
     end
-
   end
 end
