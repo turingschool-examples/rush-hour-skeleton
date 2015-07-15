@@ -29,6 +29,14 @@ module TrafficSpy
       assert_equal expected, source.os_breakdown
     end
 
+    def test_source_returns_screen_resolution_breakdown
+      populate
+      source = Source.find_by(identifier: 'jumpstartlab')
+      source.resolution_breakdown
+      expected = []
+      assert_equal expected, source.resolution_breakdown
+    end
+
     private
 
     def populate
@@ -36,6 +44,7 @@ module TrafficSpy
       save_urls_to_table
       save_browsers_to_table
       save_os_to_table
+      save_screen_resolutions_to_table
       save_payloads_to_table
     end
 
@@ -61,6 +70,12 @@ module TrafficSpy
       OperatingSystem.create(name: "Linux")
     end
 
+    def save_screen_resolutions_to_table
+      ScreenResolution.create(width: "800", height: "720")
+      ScreenResolution.create(width: "1280", height: "720")
+      ScreenResolution.create(width: "900", height: "540")
+    end
+
     def save_payloads_to_table
       source = Source.find_by(identifier: "jumpstartlab")
       payload_sample.each do |datum|
@@ -69,12 +84,24 @@ module TrafficSpy
     end
 
     def payload_sample
-      [{"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"), "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh")},
-       {"digest":"3", "url_id":find_url_id("http://jumpstartlab.com"), "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Windows")},
-       {"digest":"4", "url_id":find_url_id("http://jumpstartlab.com/blog"), "browser_id":find_browser_id("Firefox"), "operating_system_id":find_os_id("Macintosh")},
-       {"digest":"1", "url_id":find_url_id("http://jumpstartlab.com/apply"), "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Linux")},
-       {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"), "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Windows")},
-       {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com"), "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh")}]
+      [{"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"),
+        "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh"),
+        "resolution_id":find_screen_resolution_id("1280", "720")},
+       {"digest":"3", "url_id":find_url_id("http://jumpstartlab.com"),
+         "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Windows"),
+         "resolution_id":find_screen_resolution_id("800", "720")},
+       {"digest":"4", "url_id":find_url_id("http://jumpstartlab.com/blog"),
+         "browser_id":find_browser_id("Firefox"), "operating_system_id":find_os_id("Macintosh"),
+         "resolution_id":find_screen_resolution_id("1280", "720")},
+       {"digest":"1", "url_id":find_url_id("http://jumpstartlab.com/apply"),
+         "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Linux"),
+         "resolution_id":find_screen_resolution_id("800", "720")},
+       {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"),
+         "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Windows"),
+         "resolution_id":find_screen_resolution_id("1280", "720")},
+       {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com"),
+         "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh"),
+         "resolution_id":find_screen_resolution_id("900", "540")}]
     end
 
     def find_url_id(url)
@@ -87,6 +114,10 @@ module TrafficSpy
 
     def find_os_id(url)
       OperatingSystem.find_by(name: url).id
+    end
+
+    def find_screen_resolution_id(width, height)
+      ScreenResolution.find_by_width_and_height(width, height).id
     end
 
   end
