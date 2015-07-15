@@ -1,4 +1,3 @@
-
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -19,10 +18,11 @@ module TrafficSpy
       end
     end
 
-    post '/sources/IDENTIFIER/data' do
-      digest = Digest::SHA1.hexdigest(params.to_s)
-      payload = Payload.new(digest: digest)
-      
+    post '/sources/:identifier/data' do |identifier|
+      payload = PayloadParser.new(params[:payload], identifier)
+      payload.parse
+      status payload.result[:status]
+      body payload.result[:body]
     end
 
     not_found do
