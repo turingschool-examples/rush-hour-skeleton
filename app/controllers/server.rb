@@ -1,4 +1,3 @@
-
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -17,6 +16,13 @@ module TrafficSpy
         status 400
         body source.errors.full_messages.join(", ")
       end
+    end
+
+    post '/sources/:identifier/data' do |identifier|
+      payload = PayloadParser.new(params[:payload], identifier)
+      payload.parse
+      status payload.result[:status]
+      body payload.result[:body]
     end
 
     not_found do
