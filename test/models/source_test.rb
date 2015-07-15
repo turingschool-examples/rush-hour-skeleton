@@ -9,8 +9,18 @@ module TrafficSpy
       save_payloads_to_table
       source = Source.find_by(identifier: 'jumpstartlab')
       source.most_requested_urls
+      expected = ["http://jumpstartlab.com/apply",
+                 "http://jumpstartlab.com",
+                 "http://jumpstartlab.com/blog"]
+     assert_equal expected, source.most_requested_urls
+    end
 
-
+    def test_source_returns_browser_breakdown
+      register_application
+      save_browsers_to_table
+      save_payloads_to_table
+      source = Source.find_by(identifier: 'jumpstartlab')
+      source.browser_breakdown
     end
 
     private
@@ -24,6 +34,8 @@ module TrafficSpy
       Url.create(address: "http://jumpstartlab.com")
       Url.create(address: "http://jumpstartlab.com/apply")
     end
+
+    
 
     def save_payloads_to_table
       source = Source.find_by(identifier: "jumpstartlab")
@@ -47,5 +59,3 @@ module TrafficSpy
 
   end
 end
-
-
