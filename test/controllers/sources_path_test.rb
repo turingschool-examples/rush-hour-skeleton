@@ -46,4 +46,5 @@ class SourcesPathTest < ControllerTest
     assert_equal 403, last_response.status
     assert_equal "Identifier Already Exists - 403 Forbidden", last_response.body
   end
+
 end
