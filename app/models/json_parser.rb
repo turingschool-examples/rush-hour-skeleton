@@ -14,7 +14,8 @@ class JsonParser
     end
 
     payload_with_user_agent = Hash[parsed_payload.map { |k,v| [new_keys[k].to_sym, v]}]
-    get_browser_and_platform(payload_with_user_agent)
+    payload_with_browser_platform = get_browser_and_platform(payload_with_user_agent)
+    replace_url_with_path(payload_with_browser_platform)
   end
 
   def self.get_browser_and_platform(payload)
@@ -29,5 +30,9 @@ class JsonParser
     UserAgent.parse(user_agent)
   end
 
+  def self.replace_url_with_path(payload)
+    payload[:path] = payload.delete(:url)
+    payload
+  end
 
 end
