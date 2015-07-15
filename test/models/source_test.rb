@@ -33,9 +33,12 @@ module TrafficSpy
     end
 
     def payload_sample
-      [{"digest":"3", "url_id":find_url_id("http://jumpstartlab.com")},
+      [{"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply")},
+       {"digest":"3", "url_id":find_url_id("http://jumpstartlab.com")},
        {"digest":"4", "url_id":find_url_id("http://jumpstartlab.com/blog")},
-       {"digest":"1", "url_id":find_url_id("http://jumpstartlab.com/apply")}]
+       {"digest":"1", "url_id":find_url_id("http://jumpstartlab.com/apply")},
+       {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply")},
+       {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com")}]
     end
 
     def find_url_id(url)

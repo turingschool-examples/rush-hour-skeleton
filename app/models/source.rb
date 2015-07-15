@@ -6,17 +6,24 @@ module TrafficSpy
     has_many :urls, through: :payloads
 
     def most_requested_urls
-      payloads
-    #   urls = payloads.order('url_id').map do |x|
-    #     x.url.address
-    #   end
-    #   urls_frequencies = urls.group_by
+      sort_urls
     end
 
-    # def sorted_urls
-    #   frequency = urls.reduce(Hash.new(0)) { |h, v| h[v] += 1; h}
-    #   urls.uniq.sort_by {|v| frequency[v] }.reverse
-    # end
+    private
+
+    def urls
+      payloads.map do |payload|
+        payload.url.address
+      end
+    end
+
+    def url_counts
+      urls.reduce(Hash.new(0)) {|h, v| h[v] += 1; h}
+    end
+
+    def sort_urls
+      urls.uniq.sort_by {|v| url_counts[v]}.reverse
+    end
 
   end
 end
