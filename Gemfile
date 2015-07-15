@@ -5,6 +5,7 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'sinatra-partial', require: 'sinatra/partial'
+gem 'useragent'
 
 group :development, :test do
   gem 'pry'
