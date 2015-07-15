@@ -1,6 +1,5 @@
 class JsonParser
-  def self.parse(params)
-    payload = params[:payload]
+  def self.parse(payload)
     parsed_payload = JSON.parse(payload)
     new_keys = JSON.parse(payload)
 

@@ -23,7 +23,7 @@ module TrafficSpy
       erb :error
     end
 
-    post "/sources/#{params[:identifier]}/data" do
+    post "/sources/:identifier/data" do
       payload = JsonParser.parse(params[:payload])
       Payload.new(payload)
     end
