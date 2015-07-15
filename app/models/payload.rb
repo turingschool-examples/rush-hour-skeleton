@@ -1,7 +1,7 @@
 module TrafficSpy
-  class Payload < ActiveRecord::Base   
-    # @digest Digest::SHA1.hexdigest
+  class Payload < ActiveRecord::Base
     belongs_to :source
+    belongs_to :url
 
   end
 end
