@@ -22,5 +22,10 @@ module TrafficSpy
     not_found do
       erb :error
     end
+
+    post "/sources/#{params[:identifier]}/data" do
+      payload = JsonParser.parse(params[:payload])
+      Payload.new(payload)
+    end
   end
 end
