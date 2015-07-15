@@ -20,7 +20,7 @@ module TrafficSpy
       sort_operating_systems
     end
 
-    def resolution_breakdown
+    def screen_resolution_breakdown
       sort_screen_resolutions
     end
 
@@ -70,8 +70,9 @@ module TrafficSpy
 
     def screen_resolutions
       payloads.map do |payload|
-        binding.pry 
-        payload.screen_resolution.name
+        w = payload.screen_resolution.width
+        h = payload.screen_resolution.height
+        [w, h]
       end
     end
 

@@ -32,9 +32,9 @@ module TrafficSpy
     def test_source_returns_screen_resolution_breakdown
       populate
       source = Source.find_by(identifier: 'jumpstartlab')
-      source.resolution_breakdown
-      expected = []
-      assert_equal expected, source.resolution_breakdown
+      source.screen_resolution_breakdown
+      expected = [["1280", "720"], ["800", "720"], ["900", "540"]]
+      assert_equal expected, source.screen_resolution_breakdown
     end
 
     private
@@ -86,22 +86,22 @@ module TrafficSpy
     def payload_sample
       [{"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"),
         "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh"),
-        "resolution_id":find_screen_resolution_id("1280", "720")},
+        "screen_resolution_id":find_screen_resolution_id("1280", "720")},
        {"digest":"3", "url_id":find_url_id("http://jumpstartlab.com"),
          "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Windows"),
-         "resolution_id":find_screen_resolution_id("800", "720")},
+         "screen_resolution_id":find_screen_resolution_id("800", "720")},
        {"digest":"4", "url_id":find_url_id("http://jumpstartlab.com/blog"),
          "browser_id":find_browser_id("Firefox"), "operating_system_id":find_os_id("Macintosh"),
-         "resolution_id":find_screen_resolution_id("1280", "720")},
+         "screen_resolution_id":find_screen_resolution_id("1280", "720")},
        {"digest":"1", "url_id":find_url_id("http://jumpstartlab.com/apply"),
          "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Linux"),
-         "resolution_id":find_screen_resolution_id("800", "720")},
+         "screen_resolution_id":find_screen_resolution_id("800", "720")},
        {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"),
          "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Windows"),
-         "resolution_id":find_screen_resolution_id("1280", "720")},
+         "screen_resolution_id":find_screen_resolution_id("1280", "720")},
        {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com"),
          "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh"),
-         "resolution_id":find_screen_resolution_id("900", "540")}]
+         "screen_resolution_id":find_screen_resolution_id("900", "540")}]
     end
 
     def find_url_id(url)
