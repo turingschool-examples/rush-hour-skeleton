@@ -1,6 +1,6 @@
 module TrafficSpy
-  class Broswer < ActiveRecord::Base 
-
+  class Browser < ActiveRecord::Base
+    has_many :payloads 
 
   end
 
