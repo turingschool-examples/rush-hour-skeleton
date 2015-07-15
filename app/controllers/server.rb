@@ -27,5 +27,23 @@ module TrafficSpy
 
       end
     end
+
+    post "/sources/:identifier/data" do |identifier|
+      exist = Registration.exists?(identifier: identifier)
+
+      if !exist
+        status 403
+        body "Application Not Registered - 403 Forbidden"
+      elsif params[:payload] == nil
+        status 400
+        body "Missing Payload - 400 Bad Request"
+      else
+        registration = Registration.find_by(:identifier => identifier)
+        registration.urls.create(params[:payload])
+        status 200
+        body " yay "
+      end
+    end
+
   end
 end

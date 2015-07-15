@@ -11,7 +11,7 @@ curl -i -d 'identifier=facebook&rootUrl=http://facebook.com'  http://localhost:9
 
 curl -i -d 'payload={"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}' http://localhost:9393/sources/jumpstartlab/data
 
-curl -i -d 'payload={"url":"http://apple.com/blog","requestedAt":"2014-02-16 21:38:28 -0700","respondedIn":105,"referredBy":"http://apple.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"640","resolutionHeight":"480","ip":"63.29.38.212"}' http://localhost:9393/sources/apple/data
+curl -i -d 'payload={"url":"http://apple.com/blog"}' http://localhost:9393/sources/facebook/data
 
 curl -i -d 'payload={"url":"http://google.com/about","requestedAt":"2013-01-16 21:38:28 -0700","respondedIn":90,"referredBy":"http://apple.com","requestType":"POST","parameters":["what","huh"],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1080","ip":"63.29.38.213"}' http://localhost:9393/sources/google/data
 
