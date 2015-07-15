@@ -38,10 +38,21 @@ module TrafficSpy
         status 400
         body "Missing Payload - 400 Bad Request"
       else
-        registration = Registration.find_by(:identifier => identifier)
-        registration.urls.create(params[:payload])
-        status 200
-        body " yay "
+
+        current_sha = Digest::SHA1.hexdigest(params[:payload].to_s)
+
+        if Payload.exists?(payload_sha: current_sha)
+          status 403
+          body "Already Received Request - 403 Forbidden"
+        else
+          registration = Registration.find_by(:identifier => identifier)
+          registration.urls.create(params[:payload])
+          payload = registration.payloads.last
+          payload.update(payload_sha: current_sha)
+          status 200
+          body "Success"
+        end
+
       end
     end
 

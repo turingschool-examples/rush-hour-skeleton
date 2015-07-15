@@ -22,16 +22,15 @@ class IdentifierDataPathTest < ControllerTest
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
     id = Registration.all.first.identifier
 
-    post "/sources/#{id}/data", {payload: {"url":"http://google.com/about"}}
+    post "/sources/#{id}/data", { payload: { "url": "http://google.com/about" } }
 
     assert_equal "http://google.com/about", Url.all.first.url
   end
 
   def test_if_the_payload_has_already_been_recieved
-    skip
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
-    id = Registration.all.first.identifier
-   payload =  {payload: {"url":"http://google.com/about","requestedAt":"2013-01-16 21:38:28 -0700","respondedIn":90,      "referredBy":"http://apple.com","requestType":"POST","parameters":["what","huh"],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1080","ip":"63.29.38.213"}}
+    id      = Registration.all.first.identifier
+    payload = { payload: { "url": "http://google.com/about" } }
 
     post "/sources/#{id}/data", payload
     post "/sources/#{id}/data", payload
