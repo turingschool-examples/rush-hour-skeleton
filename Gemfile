@@ -8,6 +8,7 @@ gem 'pry'
 gem 'byebug'
 gem 'user_agent'
 gem 'json'
+gem 'digest' 
 
 group :development, :test do
   gem 'shotgun'
