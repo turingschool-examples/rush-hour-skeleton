@@ -1,5 +1,6 @@
 ENV["RACK_ENV"] ||= "test"
 
+
 require 'bundler'
 Bundler.require
 
@@ -13,6 +14,7 @@ Capybara.app = TrafficSpy::Server
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
+
 class Minitest::Test
 
   def setup
@@ -24,6 +26,9 @@ class Minitest::Test
   end
 
 end
+
+
+
 
 class ControllerTest < Minitest::Test
   include Rack::Test::Methods
