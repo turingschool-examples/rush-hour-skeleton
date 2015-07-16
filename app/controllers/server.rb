@@ -31,9 +31,9 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-      data_handler = DataProcessingHandler.new(params[:payload], identifier)
+      data_handler = DataProcessingHandler.new(params, identifier)
       status data_handler.status
       body data_handler.body
+    end
   end
-end
 end
