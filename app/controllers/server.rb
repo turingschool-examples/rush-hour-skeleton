@@ -31,14 +31,14 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-      site_exists = Site.exists?(:identifier => identifier)
+      site = Site.find_by(:identifier => identifier)
       sha = Payload.create_sha(params[:payload])
       sha_exists = Payload.exists?(:sha => sha)
-
+      require "pry"; binding.pry
       if !params[:payload]
         status 400
         body "Payload is missing"
-      elsif !site_exists
+      elsif site.blank?
         status 403
         body "Application not registered"
       elsif sha_exists
