@@ -1,0 +1,40 @@
+<h1>URL-Specific Statistics</h1>
+
+<h3>Most Popular Referrer</h3>
+  <ol>
+    <li><%= @source.popular_referrer.first.first %></li>
+  </ol>
+
+<h3>Most Popular Browser</h3>
+  <ol>
+    <li><%= @source.most_popular_browser.first.first %></li>
+  </ol>
+
+<h3>Most Popular Operating System</h3>
+  <ol>
+    <li><%= @source.most_popular_operating_system.first.first %></li>
+  </ol>
+
+<h3>HTTP Verbs Used</h3>
+  <ol>
+    <% @source.http_verbs_used.each do |key, value| %>
+      <li><%= key %></li>
+    <% end %>
+  </ol>
+
+<h3>Shortest Response Time</h3>
+  <ol>
+    <li><%= @source.shortest_response_time %> seconds</li>
+  </ol>
+
+<h3>Longest Response Time</h3>
+  <ol>
+    <li><%= @source.longest_response_time %> seconds</li>
+  </ol>
+
+<h3>Average Response Time</h3>
+  <ol>
+    <li><%= @source.average_response_time.to_i %> seconds</li>
+  </ol>
+
+
