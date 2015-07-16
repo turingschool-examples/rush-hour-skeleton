@@ -61,9 +61,15 @@ class PayloadParserTest < Minitest::Test
     assert_equal  expected, parser.url
   end
 
-  def test_returns_screen_resolution
+  def test_returns_screen_resolution_table_data
     expected = { width: "1920", height: "1280"}
 
     assert_equal expected, parser.screen_resolution
+  end
+
+  def test_returns_event_table_data
+    expected = { name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0700", responded_in: 37}
+
+    assert_equal expected, parser.event
   end
 end

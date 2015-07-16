@@ -20,6 +20,10 @@ class PayloadParser
     {width: payload[:resolution_width], height: payload[:resolution_height]}
   end
 
+  def event
+    {name: payload[:event_name], requested_at: payload[:requested_at], responded_in: payload[:responded_in]}
+  end
+
   private
 
   def convert_keys_to_symbols(hash_with_string_keys)
