@@ -23,30 +23,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    1.
-                  </td>
-                  <td>
-                    <a href="#">"/blog"</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  2.
-                  </td>
-                  <td>
-                    <a href="#">"/admin"</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    3.
-                  </td>
-                  <td>
-                    <a href="#">"/blog/traffic-spy"</a>
-                  </td>
-                </tr>
+
+
+                  <% if @sorted_urls.blank? %>
+                  <tr>
+                    <td>
+                    </td>
+                    <td>
+                      No URLs visited
+                    </td>
+                  </tr>
+                  <% else %>
+                    <% count = 1 %>
+                    <% @sorted_urls.each do |pair| %>
+                      <tr class="foo">
+                        <td>
+                          <%= count %>.
+                        </td>
+                        <td>
+                          <a href="<%= pair[0].path %>"><%= pair[0].path %></a>
+                        </td>
+                      </tr>
+                      <% count += 1 %>
+                    <% end %>
+                  <% end %>
+
+
               </tbody>
             </table>
         </div>

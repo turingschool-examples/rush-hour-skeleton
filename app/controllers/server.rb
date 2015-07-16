@@ -21,12 +21,17 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      if Site.exists?(:identifier => identifier)
-        @identifier = identifier
-        erb :dashboard
-      else
+      site = Site.find_by(:identifier => identifier)
+      @identifier = identifier
+
+      if site.blank?
         @message = "The identifier, #{identifier}, does not exist."
         erb :message
+      else
+        @sorted_urls = site.payloads.group(:url).count.sort_by do |k, v|
+          v
+      end.reverse
+        erb :dashboard
       end
 
     end
