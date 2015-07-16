@@ -1,4 +1,4 @@
 class Url < ActiveRecord::Base
-  belongs_to :payload
+  has_many :payloads
   # belongs_to :registration, through: :payloads
 end

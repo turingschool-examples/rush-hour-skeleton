@@ -1,14 +1,21 @@
 class Parser
 
-  def self.parse(payload)
-    data = payload[7..-1]
-    payload_hash = JSON.parse(data)
-    converted = {}
-    payload_hash.each do |key, value|
-      converted[convert(key).to_sym] = value
+  def self.parse(payload, type=nil)
+    if type.nil?
+      parse_worker(payload)
+      @converted
+    else
+      parse_worker(payload)
+      {type.to_sym => @converted[type.to_sym]}
     end
+  end
 
-    converted
+  def self.parse_worker(payload)
+    payload_hash = JSON.parse(payload)
+    @converted = {}
+    payload_hash.each do |key, value|
+      @converted[convert(key).to_sym] = value
+    end
   end
 
   def self.convert(key)
@@ -16,5 +23,4 @@ class Parser
       word.downcase
     end.join("_")
   end
-
 end

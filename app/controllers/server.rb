@@ -10,7 +10,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-
+      # registration_hander = RegistrationHander.new(params)
+      # status registration_hander.status
+      # body registration_hander.body
       reg = Registration.new({ identifier: params["identifier"], url: params["rootUrl"] })
 
       if params['identifier'] == nil || params['rootUrl'] == nil
@@ -29,35 +31,9 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-
-      exist = Registration.exists?(identifier: identifier)
-
-      if !exist
-        status 403
-        body "Application Not Registered - 403 Forbidden"
-      elsif params[:payload] == nil
-        status 400
-        body "Missing Payload - 400 Bad Request"
-      else
-
-        current_sha = Digest::SHA1.hexdigest(Parser.parse(params[:payload].to_s).to_s)
-
-        if Payload.exists?(payload_sha: current_sha)
-          status 403
-          body "Already Received Request - 403 Forbidden"
-        else
-
-
-          registration = Registration.find_by(:identifier => identifier)
-          registration.urls.create(Parser.parse(params[:payload].to_s))
-          payload = registration.payloads.last
-          payload.update(payload_sha: current_sha)
-          status 200
-          body "Success"
-        end
-
-      end
+      data_handler = DataProcessingHandler.new(params, identifier)
+      status data_handler.status
+      body data_handler.body
     end
-
   end
 end
