@@ -22,7 +22,7 @@ class IdentifierDataPathTest < ControllerTest
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
     id = Registration.all.first.identifier
 
-    post "/sources/#{id}/data", { payload: { "url": "http://google.com/about" } }
+    post "/sources/#{id}/data", @payload
 
     assert_equal "http://google.com/about", Url.all.first.url
   end
@@ -30,10 +30,9 @@ class IdentifierDataPathTest < ControllerTest
   def test_if_the_payload_has_already_been_recieved
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
     id      = Registration.all.first.identifier
-    payload = { payload: { "url": "http://google.com/about" } }
 
-    post "/sources/#{id}/data", payload
-    post "/sources/#{id}/data", payload
+    post "/sources/#{id}/data", @payload
+    post "/sources/#{id}/data", @payload
 
     assert_equal 403, last_response.status
     assert_equal "Already Received Request - 403 Forbidden", last_response.body
