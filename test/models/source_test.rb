@@ -6,7 +6,6 @@ module TrafficSpy
     def test_source_returns_most_requested_urls
       populate
       source = Source.find_by(identifier: 'jumpstartlab')
-      source.most_requested_urls
       expected = ["http://jumpstartlab.com/apply",
                  "http://jumpstartlab.com",
                  "http://jumpstartlab.com/blog"]
@@ -16,7 +15,6 @@ module TrafficSpy
     def test_source_returns_browser_breakdown
       populate
       source = Source.find_by(identifier: 'jumpstartlab')
-      source.browser_breakdown
       expected = ["Chrome", "Safari", "Firefox"]
       assert_equal expected, source.browser_breakdown
     end
@@ -24,7 +22,6 @@ module TrafficSpy
     def test_source_returns_os_breakdown
       populate
       source = Source.find_by(identifier: 'jumpstartlab')
-      source.browser_breakdown
       expected = ["Macintosh", "Windows", "Linux"]
       assert_equal expected, source.os_breakdown
     end
@@ -32,9 +29,18 @@ module TrafficSpy
     def test_source_returns_screen_resolution_breakdown
       populate
       source = Source.find_by(identifier: 'jumpstartlab')
-      source.screen_resolution_breakdown
       expected = [["1280", "720"], ["800", "720"], ["900", "540"]]
       assert_equal expected, source.screen_resolution_breakdown
+    end
+
+    def test_source_returns_avg_response_times_per_url_by_longest_to_shortest
+      populate
+      source = Source.find_by(identifier: 'jumpstartlab')
+      source.avg_response_times_per_url
+      expected = {"http://jumpstartlab.com/apply": 6,
+                  "http://jumpstartlab.com/blog": 7,
+                  "http://jumpstartlab.com": 8}
+      assert_equal expected, source.sorted_avg_response_times
     end
 
     private
@@ -86,22 +92,28 @@ module TrafficSpy
     def payload_sample
       [{"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"),
         "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh"),
-        "screen_resolution_id":find_screen_resolution_id("1280", "720")},
+        "screen_resolution_id":find_screen_resolution_id("1280", "720"),
+       "response_time":6},
        {"digest":"3", "url_id":find_url_id("http://jumpstartlab.com"),
          "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Windows"),
-         "screen_resolution_id":find_screen_resolution_id("800", "720")},
+         "screen_resolution_id":find_screen_resolution_id("800", "720"),
+        "response_time":8},
        {"digest":"4", "url_id":find_url_id("http://jumpstartlab.com/blog"),
          "browser_id":find_browser_id("Firefox"), "operating_system_id":find_os_id("Macintosh"),
-         "screen_resolution_id":find_screen_resolution_id("1280", "720")},
+         "screen_resolution_id":find_screen_resolution_id("1280", "720"),
+       "response_time":7},
        {"digest":"1", "url_id":find_url_id("http://jumpstartlab.com/apply"),
          "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Linux"),
-         "screen_resolution_id":find_screen_resolution_id("800", "720")},
+         "screen_resolution_id":find_screen_resolution_id("800", "720"),
+        "response_time":6},
        {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com/apply"),
          "browser_id":find_browser_id("Safari"), "operating_system_id":find_os_id("Windows"),
-         "screen_resolution_id":find_screen_resolution_id("1280", "720")},
+         "screen_resolution_id":find_screen_resolution_id("1280", "720"),
+        "response_time":6},
        {"digest":"6", "url_id":find_url_id("http://jumpstartlab.com"),
          "browser_id":find_browser_id("Chrome"), "operating_system_id":find_os_id("Macintosh"),
-         "screen_resolution_id":find_screen_resolution_id("900", "540")}]
+         "screen_resolution_id":find_screen_resolution_id("900", "540"),
+        "response_time":8}]
     end
 
     def find_url_id(url)
@@ -119,6 +131,8 @@ module TrafficSpy
     def find_screen_resolution_id(width, height)
       ScreenResolution.find_by_width_and_height(width, height).id
     end
+
+
 
   end
 end

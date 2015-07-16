@@ -24,7 +24,19 @@ module TrafficSpy
       sort_screen_resolutions
     end
 
+    def avg_response_times_per_url
+      urls_response_times = Hash.new
+
+      payloads.map do |payload|
+        urls_response_times[payload.id] = {get_url(payload) => payload.response_time}
+      end
+    end
+
     private
+
+    def get_url(payload)
+      payload.url.address
+    end
 
     def urls
       payloads.map do |payload|
