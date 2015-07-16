@@ -26,7 +26,6 @@ class PayloadParser
     @operating_system  = {
       name: UserAgent.parse(payload[:user_agent]).platform
     }
-
   end
 
   private
