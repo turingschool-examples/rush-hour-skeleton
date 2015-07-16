@@ -20,6 +20,12 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier' do |identifier|
+
+      "Hello #{identifier}"
+
+    end
+
     post "/sources/:identifier/data" do |identifier|
       site_exists = Site.exists?(:identifier => identifier)
       sha = Payload.create_sha(params[:payload])
