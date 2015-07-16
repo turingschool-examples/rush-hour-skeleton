@@ -21,8 +21,12 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-
-      "Hello #{identifier}"
+      if Site.exists?(:identifier => identifier)
+        @identifier = identifier
+        erb :dashboard
+      else
+        "The identifier, jumpstartlab, does not exist."
+      end
 
     end
 
