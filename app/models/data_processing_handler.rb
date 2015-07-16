@@ -27,7 +27,7 @@ module TrafficSpy
 
     def check_for_repeat_payload
       parser = PayloadParser.new(payload)
-      current_sha = Digest::SHA1.hexdigest(parser.parse.to_s)
+      current_sha = Digest::SHA1.hexdigest(parser.payload.to_s)
       if Payload.exists?(payload_sha: current_sha)
         @status = 403
         @body = "Already Received Request - 403 Forbidden"

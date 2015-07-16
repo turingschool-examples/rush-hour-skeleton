@@ -3,17 +3,21 @@ class PayloadParser
               :url
 
   def initialize(input)
-    @payload = JSON.parse(input[:payload])
+    @payload = parse(input[:payload])
     @url = {}
   end
 
-  def parse
-    snake_case = convert_keys_to_snakecase(payload)
+  def parse(input)
+    snake_case = convert_keys_to_snakecase(JSON.parse(input))
     convert_keys_to_symbols(snake_case)
   end
 
   def url
-    parse.select {|k, v| k.eql?(:url)}
+    {url: payload[:url]}
+  end
+
+  def screen_resolution
+    {width: payload[:resolution_width], height: payload[:resolution_height]}
   end
 
   private
