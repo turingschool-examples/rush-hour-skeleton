@@ -18,6 +18,14 @@ class ProcessingRequestsTest < ControllerTest
     assert_equal "Payload is missing", last_response.body
   end
 
+  #TODO: Come back and test
+  # def test_payload_is_empty
+  #   post '/sources/jumpstartlab/data', { payload:  }
+  #
+  #   assert_equal 400, last_response.status
+  #   assert_equal "Payload is missing", last_response.body
+  # end
+
   def test_already_received_payload
     post '/sources/jumpstartlab/data', payload
     post '/sources/jumpstartlab/data', payload
