@@ -1,0 +1,9 @@
+html {
+  background: black;
+  background-image: url('world_map.jpg');
+  background-size: cover;
+  text: white;
+}
+body {
+  color: white;
+}
