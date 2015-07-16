@@ -55,21 +55,33 @@ class PayloadParserTest < Minitest::Test
     assert_equal "63.29.38.211", parser.payload[:ip]
   end
 
-  def test_returns_url_table_data
+  def test_returns_url_table_input
     expected = { url: "http://jumpstartlab.com/blog" }
 
     assert_equal  expected, parser.url
   end
 
-  def test_returns_screen_resolution_table_data
+  def test_returns_screen_resolution_table_input
     expected = { width: "1920", height: "1280"}
 
     assert_equal expected, parser.screen_resolution
   end
 
-  def test_returns_event_table_data
+  def test_returns_event_table_input
     expected = { name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0700", responded_in: 37}
 
     assert_equal expected, parser.event
   end
+
+  def test_returns_browser_table_input
+    expected = { name: "Chrome"}
+
+    assert_equal expected, parser.browser
+  end
+
+  # def test_returns_operating_system_table_input
+  #   expected = { name: "something"}
+  #
+  #   assert_equal expected, parser.operating_system
+  # end
 end
