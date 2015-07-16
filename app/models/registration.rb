@@ -11,4 +11,7 @@ class Registration < ActiveRecord::Base
   #   end
   # end
 
+  def screen_resolutions
+  payloads.group(:screen_resolution).count
+  end
 end

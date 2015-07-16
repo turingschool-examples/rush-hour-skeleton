@@ -25,4 +25,21 @@ class RegistrationTest < Minitest::Test
     assert_equal 3, registration.urls.size
   end
 
+  def test_registration_returns_one_screen_resolution
+    registration = Registration.new(identifier: "myspace", url: "facebook.com")
+    registration.save
+    registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by({width: 1920, height: 1080}))
+    assert_equal 1, registration.screen_resolutions.size
+  end
+
+  def test_registration_returns_one_screen_resolution
+    registration = Registration.new(identifier: "myspace", url: "facebook.com")
+    registration.save
+    registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by({width: 1920, height: 1080}))
+    registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by({width: 1440, height: 960}))
+    registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by({width: 2880, height: 1200}))
+
+    assert_equal 3, registration.screen_resolutions.size
+  end
+
 end
