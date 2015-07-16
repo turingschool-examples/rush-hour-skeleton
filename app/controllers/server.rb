@@ -10,7 +10,10 @@ module TrafficSpy
     end
 
     post '/sources' do
-      source = Source.new(params)
+
+      new_params = {identifier: params[:identifier], root_url: params[:rootUrl]}
+
+      source = Source.new(new_params)
       if Source.find_by(identifier: source.identifier)
         status 403
         "identifier already exists"
