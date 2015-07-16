@@ -6,7 +6,7 @@ class PayloadParser
 
   def initialize(input)
     @payload = parse(input[:payload])
-    @url     = {}
+    @url     = { url: payload[:url] }
   end
 
   def parse(input)
@@ -26,13 +26,12 @@ class PayloadParser
     { name: payload[:event_name], requested_at: payload[:requested_at], responded_in: payload[:responded_in] }
   end
 
-  # def browser
-  #   { name: UserAgent.parse(payload[:user_agent]).browser }
-  # end
+  def browser
+    { name: UserAgent.parse(payload[:user_agent]).browser }
+  end
 
   def operating_system
-    binding.pry
-    { name: UserAgent.parse(payload[:user_agent]).operating_system }
+    { name: UserAgent.parse(payload[:user_agent]).platform }
   end
 
   private

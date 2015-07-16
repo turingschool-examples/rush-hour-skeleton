@@ -79,9 +79,9 @@ class PayloadParserTest < Minitest::Test
     assert_equal expected, parser.browser
   end
 
-  # def test_returns_operating_system_table_input
-  #   expected = { name: "something"}
-  #
-  #   assert_equal expected, parser.operating_system
-  # end
+  def test_returns_operating_system_table_input
+    expected = { name: "Macintosh%3B Intel Mac OS X 10_8_2"}
+
+    assert_equal expected, parser.operating_system
+  end
 end
