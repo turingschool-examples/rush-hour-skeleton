@@ -32,7 +32,7 @@ class RegistrationTest < Minitest::Test
     assert_equal 1, registration.screen_resolutions.size
   end
 
-  def test_registration_returns_one_screen_resolution
+  def test_registration_returns_many_screen_resolutions
     registration = Registration.new(identifier: "myspace", url: "facebook.com")
     registration.save
     registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by({width: 1920, height: 1080}))
