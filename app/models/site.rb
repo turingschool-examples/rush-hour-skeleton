@@ -3,4 +3,5 @@ class Site < ActiveRecord::Base
   validates_presence_of :root_url
 
   has_many :urls
+  has_many :payloads, through: :urls
 end
