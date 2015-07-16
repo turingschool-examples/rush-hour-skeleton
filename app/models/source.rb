@@ -25,11 +25,9 @@ module TrafficSpy
     end
 
     def avg_response_times_per_url
-      urls_response_times = Hash.new
-
-      payloads.map do |payload|
-        urls_response_times[payload.id] = {get_url(payload) => payload.response_time}
-      end
+      urls_response_times.map do |url, response_times|
+        [url, response_times.reduce { |sum, time| sum + time }.to_f / response_times.size]
+      end.to_h
     end
 
     private
@@ -96,5 +94,13 @@ module TrafficSpy
       screen_resolutions.uniq.sort_by {|v| screen_resolution_counts[v]}.reverse
     end
 
+    def urls_response_times
+      urls_response_times = Hash.new{ |h,k| h[k] = [] } 
+      payloads.each do |payload|
+        urls_response_times[get_url(payload).to_sym] << payload.response_time
+      end
+      urls_response_times
+    end
+    
   end
 end

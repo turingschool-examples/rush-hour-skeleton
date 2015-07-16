@@ -36,11 +36,10 @@ module TrafficSpy
     def test_source_returns_avg_response_times_per_url_by_longest_to_shortest
       populate
       source = Source.find_by(identifier: 'jumpstartlab')
-      source.avg_response_times_per_url
       expected = {"http://jumpstartlab.com/apply": 6,
                   "http://jumpstartlab.com/blog": 7,
                   "http://jumpstartlab.com": 8}
-      assert_equal expected, source.sorted_avg_response_times
+      assert_equal expected, source.avg_response_times_per_url
     end
 
     private
@@ -131,8 +130,6 @@ module TrafficSpy
     def find_screen_resolution_id(width, height)
       ScreenResolution.find_by_width_and_height(width, height).id
     end
-
-
 
   end
 end
