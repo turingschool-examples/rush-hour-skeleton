@@ -86,21 +86,13 @@
                 </tr>
               </thead>
               <tbody>
+              <% @platforms.each do |pair| %>
                 <tr>
                   <td>
-                    Macintosh <span class="badge"> 100 </span>
+                    <%= pair[0].name %> <span class="badge"> <%= pair[1] %> </span>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    Windows <span class="badge"> 80 </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Linux <span class="badge"> 10 </span>
-                  </td>
-                </tr>
+              <% end %>
               </tbody>
             </table>
         </div>
