@@ -10,11 +10,11 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # registration_hander = RegistrationHander.new(params)
-      # status registration_hander.status
-      # body registration_hander.body
-      reg = Registration.new({ identifier: params["identifier"], url: params["rootUrl"] })
+      # handler = RegistrationHandler.new(params)
+      # status handler.status
+      # body handler.body
 
+      reg = Registration.new({ identifier: params["identifier"], url: params["rootUrl"] })
       if params['identifier'] == nil || params['rootUrl'] == nil
         status 400
         body "Missing Parameters - 400 Bad Request"

@@ -39,10 +39,8 @@ module TrafficSpy
     def save_payload(current_sha)
       registration = Registration.find_by(:identifier => identifier)
       parser = PayloadParser.new(payload)
+      registration.payloads.create(url: Url.find_or_create_by(parser.url))
 
-      Url.create(parser.url)
-
-      registration.payloads.create
       payload = registration.payloads.last
       payload.update(payload_sha: current_sha)
       @status = 200
