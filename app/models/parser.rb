@@ -1,23 +1,20 @@
 class Parser
 
   def self.parse(payload, type=nil)
-    data = payload
-    # [8..-1]
     if type.nil?
-      payload_hash = JSON.parse(data)
-      converted = {}
-      payload_hash.each do |key, value|
-        converted[convert(key).to_sym] = value
-      end
-      converted
+      parse_worker(payload)
+      @converted
     else
-      payload_hash = JSON.parse(data)
-      converted_t = {}
-      payload_hash.each do |key, value|
-        converted_t[convert(key).to_sym] = value
-      end
+      parse_worker(payload)
+      {type.to_sym => @converted[type.to_sym]}
+    end
+  end
 
-      {type.to_sym => converted_t[type.to_sym]}
+  def self.parse_worker(payload)
+    payload_hash = JSON.parse(payload)
+    @converted = {}
+    payload_hash.each do |key, value|
+      @converted[convert(key).to_sym] = value
     end
   end
 

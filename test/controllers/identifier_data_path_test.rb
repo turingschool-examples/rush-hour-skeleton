@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class IdentifierDataPathTest < ControllerTest
 
   def test_registration_returns_403_when_identifier_not_registered
-    post '/sources/identifier_not_in_database/data', 'who cares'
+    post '/sources/identifier_not_in_database/data', @payload
 
     assert_equal 403, last_response.status
     assert_equal 'Application Not Registered - 403 Forbidden', last_response.body
