@@ -12,7 +12,52 @@ module TrafficSpy
       register_application
       post '/sources/jumpstartlab/data', payload
       assert_equal "2013-02-16 21:38:28 -0700", Payload.first.requested_at
-    end 
+    end
+
+    def test_it_returns_responded_in_data_in_the_correct_format
+      register_application
+      post '/sources/jumpstartlab/data', payload
+      assert_equal 37, Payload.first.responded_in
+    end
+
+    def test_it_returns_referred_by_data_in_the_correct_format
+      register_application
+      post '/sources/jumpstartlab/data', payload
+      assert_equal "http://jumpstartlab.com", Payload.first.referred_by
+    end
+
+    def test_it_returns_request_type_data_in_the_correct_format
+      register_application
+      post '/sources/jumpstartlab/data', payload
+      assert_equal "GET", Payload.first.request_type
+    end
+
+    def test_it_returns_event_name_data_in_the_correct_format
+      register_application
+      post '/sources/jumpstartlab/data', payload
+      assert_equal "socialLogin", Event.first.name
+      assert_equal "socialLogin", Payload.first.event.name
+    end
+
+    def test_it_returns_OS_data_in_the_correct_format
+      register_application
+      post '/sources/jumpstartlab/data', payload
+      assert_equal "macintosh", OperatingSystem.first.name
+    end
+
+    def test_it_returns_browser_data_in_the_correct_format
+      register_application
+      post '/sources/jumpstartlab/data', payload
+      assert_equal "chrome", Browser.first.name
+    end
+
+    def test_it_returns_resolution_in_the_correct_format
+      register_application
+      post '/sources/jumpstartlab/data', payload
+      assert_equal "1920", ScreenResolution.first.width
+      assert_equal "1280", ScreenResolution.first.height
+    end
+
 
     private
 
