@@ -58,7 +58,6 @@ module TrafficSpy
       assert_equal "1280", ScreenResolution.first.height
     end
 
-
     private
 
     def register_application
