@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class SourcesPathTest < ControllerTest
 
   def test_registration_returns_400_when_missing_identifier_parameter
-    post '/sources', { "rootUrl" => "http://facebook.com" }
+    post '/sources', {"rootUrl" => "http://facebook.com"}
 
     assert_equal 400, last_response.status
     assert_equal "Missing Parameters - 400 Bad Request", last_response.body
