@@ -29,7 +29,7 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-
+# require 'pry'; binding.pry
       exist = Registration.exists?(identifier: identifier)
 
       if !exist
@@ -49,7 +49,8 @@ module TrafficSpy
 
 
           registration = Registration.find_by(:identifier => identifier)
-          registration.urls.create(Parser.parse(params[:payload].to_s))
+
+          registration.urls.create(Parser.parse(params[:payload].to_s, "url"))
           payload = registration.payloads.last
           payload.update(payload_sha: current_sha)
           status 200

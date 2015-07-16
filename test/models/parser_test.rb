@@ -8,7 +8,8 @@ class ParserTest< Minitest::Test
   end
 
   def the_payload
-    "parser="+@payload
+    # "parser="+
+    @payload[8..-1]
   end
 
   def test_it_can_parse_for_responded_in_column

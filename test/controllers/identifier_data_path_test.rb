@@ -19,12 +19,12 @@ class IdentifierDataPathTest < ControllerTest
   end
 
   def test_url_is_saved
-    post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
+    post '/sources', { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     id = Registration.all.first.identifier
 
     post "/sources/#{id}/data", @payload
 
-    assert_equal "http://google.com/about", Url.all.first.url
+    assert_equal "http://jumpstartlab.com/blog", Url.all.first.url
   end
 
   def test_if_the_payload_has_already_been_recieved
