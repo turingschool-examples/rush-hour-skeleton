@@ -1,0 +1,210 @@
+<!-- Title -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Hello, <%= "#{@identifier}" %></h3>
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Page Features -->
+<div class="row text-center">
+
+    <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Visited Urls
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+
+                  <% if @sorted_urls.blank? %>
+                  <tr>
+                    <td>
+                    </td>
+                    <td>
+                      No URLs visited
+                    </td>
+                  </tr>
+                  <% else %>
+                    <% count = 1 %>
+                    <% @sorted_urls.each do |pair| %>
+                      <tr class="foo">
+                        <td>
+                          <%= count %>.
+                        </td>
+                        <td>
+                          <a href="<%= pair[0].path %>"><%= pair[0].path %></a>
+                        </td>
+                      </tr>
+                      <% count += 1 %>
+                    <% end %>
+                  <% end %>
+
+
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    Visits per Browser
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Chrome <span class="badge"> 100 </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Firefox <span class="badge"> 80 </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Explorer <span class="badge"> 10 </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    Visits per Operating System
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Macintosh <span class="badge"> 100 </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Windows <span class="badge"> 80 </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Linux <span class="badge"> 10 </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    Visits per Screen Resolution
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    1900x1700 <span class="badge"> 100 </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    1500x1500 <span class="badge"> 80 </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    1200x900 <span class="badge"> 10 </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!-- /.row -->
+
+<div class="row text-center">
+  <div class="col-sm-12 hero-feature">
+      <div class="table-responsive">
+          <table class="table">
+            <caption>Url Response Times</caption>
+            <thead>
+              <tr>
+                <th>
+                  Url
+                </th>
+                <th>
+                  Fastest Average
+                </th>
+                <th>
+                  Slowest Average
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  /blog
+                </td>
+                <td>
+                  <span class="badge">1ms</span>
+                </td>
+                <td>
+                  <span class="badge">125ms</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  /blog/12
+                </td>
+                <td>
+                  <span class="badge">1ms</span>
+                </td>
+                <td>
+                  <span class="badge">125ms</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  /admin
+                </td>
+                <td>
+                  <span class="badge">1ms</span>
+                </td>
+                <td>
+                  <span class="badge">125ms</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+<!-- /.row -->

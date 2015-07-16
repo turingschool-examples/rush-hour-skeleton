@@ -11,55 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715223413) do
+ActiveRecord::Schema.define(version: 20150716172631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "browsers", force: :cascade do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text "name"
   end
 
   create_table "events", force: :cascade do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text "name"
   end
 
   create_table "payloads", force: :cascade do |t|
-    t.text     "resolution_width"
-    t.text     "resolution_height"
-    t.text     "requested_at"
-    t.integer  "responded_in"
-    t.integer  "url_id"
-    t.integer  "event_id"
-    t.integer  "referrer_id"
-    t.integer  "browser_id"
-    t.integer  "platform_id"
-    t.integer  "request_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "sha"
+    t.text    "resolution_width"
+    t.text    "resolution_height"
+    t.text    "requested_at"
+    t.integer "responded_in"
+    t.integer "url_id"
+    t.integer "event_id"
+    t.integer "referrer_id"
+    t.integer "browser_id"
+    t.integer "platform_id"
+    t.integer "request_type_id"
+    t.text    "sha"
   end
 
   create_table "platforms", force: :cascade do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text "name"
   end
 
   create_table "referrers", force: :cascade do |t|
-    t.text     "path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text "path"
   end
 
   create_table "request_types", force: :cascade do |t|
-    t.text     "verb"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text "verb"
   end
 
   create_table "sites", force: :cascade do |t|
@@ -70,10 +58,8 @@ ActiveRecord::Schema.define(version: 20150715223413) do
   end
 
   create_table "urls", force: :cascade do |t|
-    t.text     "path"
-    t.integer  "site_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text    "path"
+    t.integer "site_id"
   end
 
 end
