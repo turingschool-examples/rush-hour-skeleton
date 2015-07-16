@@ -1,5 +1,5 @@
 module TrafficSpy
-  class EventName < ActiveRecord::Base
+  class Event < ActiveRecord::Base
     has_many :payloads
   end
 end
