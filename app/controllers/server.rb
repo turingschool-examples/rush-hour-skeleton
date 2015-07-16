@@ -46,61 +46,20 @@ module TrafficSpy
         body "Payload already received"
       else
         parsed_payload = JsonParser.parse(params[:payload])
-        #url_data = parsed_payload.select { |k, _| k == :path }
-        url = Url.find_by(path: parsed_payload[:path])
-        if url.blank?
-          url = Url.create(path: parsed_payload[:path])
-          event = Event.find_by(name: parsed_payload[:event_name])
-          if event.blank?
-            event = Event.create(name: parsed_payload[:event_name])
-          end
-          referrer = Referrer.find_by(path: parsed_payload[:referred_by])
-          if referrer.blank?
-            referrer = Referrer.create(path: parsed_payload[:referred_by])
-          end
-          browser = Browser.find_by(name: parsed_payload[:browser] )
-          if browser.blank?
-            browser = Browser.create(name: parsed_payload[:browser] )
-          end
-          platform = Platform.find_by(name: parsed_payload[:platform] )
-          if platform.blank?
-            platform = Platform.create(name: parsed_payload[:platform] )
-          end
-          request_type = RequestType.find_by(verb: parsed_payload[:request_type])
-          if request_type.blank?
-            request_type = RequestType.create(verb: parsed_payload[:request_type] )
-          end
-          payload = url.payloads.new(resolution_width: parsed_payload[:resolution_width], resolution_height: parsed_payload[:resolution_height],requested_at: parsed_payload[:requested_at], responded_in: parsed_payload[:responded_in], event_id: event.id, referrer_id: referrer.id, browser_id: browser.id,
-          platform_id: platform.id, request_type_id: request_type.id, sha: sha)
-        else
-          event = Event.find_by(name: parsed_payload[:event_name])
-          if event.blank?
-            event = Event.create(name: parsed_payload[:event_name])
-          end
-          referrer = Referrer.find_by(path: parsed_payload[:referred_by])
-          if referrer.blank?
-            referrer = Referrer.create(path: parsed_payload[:referred_by])
-          end
-          browser = Browser.find_by(name: parsed_payload[:browser] )
-          if browser.blank?
-            browser = Browser.create(name: parsed_payload[:browser] )
-          end
-          platform = Platform.find_by(name: parsed_payload[:platform] )
-          if platform.blank?
-            platform = Platform.create(name: parsed_payload[:platform] )
-          end
-          request_type = RequestType.find_by(verb: parsed_payload[:request_type])
-          if request_type.blank?
-            request_type = RequestType.create(verb: parsed_payload[:request_type] )
-          end
-          payload = url.payloads.new(resolution_width: parsed_payload[:resolution_width], resolution_height: parsed_payload[:resolution_height],requested_at: parsed_payload[:requested_at], responded_in: parsed_payload[:responded_in], event_id: event.id, referrer_id: referrer.id, browser_id: browser.id,
-          platform_id: platform.id, request_type_id: request_type.id, sha: sha)
-          if payload.save
-            status 200
+        url = Url.find_or_create_by(path: parsed_payload[:path], site_id: site.id)
+        event = Event.find_or_create_by(name: parsed_payload[:event_name])
+        referrer = Referrer.find_or_create_by(path: parsed_payload[:referred_by])
+        browser = Browser.find_or_create_by(name: parsed_payload[:browser] )
+        platform = Platform.find_or_create_by(name: parsed_payload[:platform] )
+        request_type = RequestType.find_or_create_by(verb: parsed_payload[:request_type])
+        payload = url.payloads.new(resolution_width: parsed_payload[:resolution_width], resolution_height: parsed_payload[:resolution_height],requested_at: parsed_payload[:requested_at], responded_in: parsed_payload[:responded_in], event_id: event.id, referrer_id: referrer.id, browser_id: browser.id,
+        platform_id: platform.id, request_type_id: request_type.id, sha: sha)
+
+        if payload.save
+          status 200
         end
       end
     end
-  end
 
 
 
