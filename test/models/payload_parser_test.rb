@@ -5,15 +5,13 @@ module TrafficSpy
     def test_it_returns_url_data_in_the_correct_format
       register_application
       post '/sources/jumpstartlab/data', payload
-      source = Source.find_by(identifier: "jumpstartlab")
       assert_equal "http://jumpstartlab.com/blog", Url.first.address
     end 
 
-    def test_it_returns_url_data_in_the_correct_format
+    def test_it_returns_requested_at_data_in_the_correct_format
       register_application
       post '/sources/jumpstartlab/data', payload
-      source = Source.find_by(identifier: "jumpstartlab")
-      assert_equal "http://jumpstartlab.com/blog", Url.first.address
+      assert_equal "2013-02-16 21:38:28 -0700", Payload.first.requested_at
     end 
 
     private
