@@ -1,9 +1,6 @@
 require './test/test_helper'
 
-class ClientCanViewAggregateSiteDataTest < FeatureTest
-  def register_site
-    @site = Site.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-  end
+class ClientCanViewMostToLeastURLsTest < FeatureTest
 
   def test_that_an_identifier_does_not_exist
     visit '/sources/jumpstartlab'
@@ -23,7 +20,7 @@ class ClientCanViewAggregateSiteDataTest < FeatureTest
     register_site
     Url.create(path: "http://jumpstartlab.com/blog", site_id: @site.id)
     Payload.create(url_id: 1, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
 
     visit '/sources/jumpstartlab'
 
@@ -44,11 +41,11 @@ class ClientCanViewAggregateSiteDataTest < FeatureTest
     Url.create(path: "http://jumpstartlab.com/blog/2", site_id: @site.id)
     Url.create(path: "http://jumpstartlab.com/blog/3", site_id: @site.id)
     Payload.create(url_id: 1, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "someddfftime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "aldddddddddddkdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "aldddddddddddkdjflkj")
     Payload.create(url_id: 3, resolution_width: "900", resolution_height: "1100",requested_at: "someasdftime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "alddddddskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "alddddddskdjflkj")
 
     visit '/sources/jumpstartlab'
 
@@ -63,21 +60,21 @@ class ClientCanViewAggregateSiteDataTest < FeatureTest
     url2 = Url.create(path: "http://jumpstartlab.com/blog/2", site_id: @site.id)
     url3 = Url.create(path: "http://jumpstartlab.com/blog/3", site_id: @site.id)
     Payload.create(url_id: 1, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "someddfftime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "aldddddddddddkdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "aldddddddddddkdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "someasdftime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "alddddddskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "alddddddskdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "somfffetime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "aldddddskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "aldddddskdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "soddmetime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "alddddskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "alddddskdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "sosmetime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "adddskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "adddskdjflkj")
     Payload.create(url_id: 3, resolution_width: "900", resolution_height: "1100",requested_at: "somasdfsadfetime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "aldskdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "aldskdjflkj")
     Payload.create(url_id: 3, resolution_width: "900", resolution_height: "1100",requested_at: "soasdfmetime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
-        platform_id: 1, request_type_id: 1, sha: "alssaasdfkdjflkj")
+                   platform_id: 1, request_type_id: 1, sha: "alssaasdfkdjflkj")
 
     visit '/sources/jumpstartlab'
 
@@ -85,5 +82,5 @@ class ClientCanViewAggregateSiteDataTest < FeatureTest
     assert page.has_content?("http://jumpstartlab.com/blog/3")
     assert page.has_content?("http://jumpstartlab.com/blog/1")
   end
-
 end
+

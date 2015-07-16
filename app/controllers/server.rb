@@ -28,9 +28,8 @@ module TrafficSpy
         @message = "The identifier, #{identifier}, does not exist."
         erb :message
       else
-        @sorted_urls = site.payloads.group(:url).count.sort_by do |k, v|
-          v
-      end.reverse
+        @sorted_urls = site.payloads.group(:url).count.sort_by {  |_, v| v }.reverse
+        @browsers = site.payloads.group(:browser).count.sort_by { |_, v| v }.reverse
         erb :dashboard
       end
 

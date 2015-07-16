@@ -36,7 +36,7 @@
                   <% else %>
                     <% count = 1 %>
                     <% @sorted_urls.each do |pair| %>
-                      <tr class="foo">
+                      <tr>
                         <td>
                           <%= count %>.
                         </td>
@@ -47,8 +47,6 @@
                       <% count += 1 %>
                     <% end %>
                   <% end %>
-
-
               </tbody>
             </table>
         </div>
@@ -65,21 +63,13 @@
                 </tr>
               </thead>
               <tbody>
+              <% @browsers.each do |pair| %>
                 <tr>
                   <td>
-                    Chrome <span class="badge"> 100 </span>
+                    <%= pair[0].name %> <span class="badge"> <%= pair[1] %> </span>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    Firefox <span class="badge"> 80 </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Explorer <span class="badge"> 10 </span>
-                  </td>
-                </tr>
+              <% end %>
               </tbody>
             </table>
         </div>
