@@ -31,31 +31,9 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-      # require 'pry'; binding.pry
-      exist = Registration.exists?(identifier: identifier)
-
-      if !exist
-        status 403
-        body "Application Not Registered - 403 Forbidden"
-      elsif params[:payload] == nil
-        status 400
-        body "Missing Payload - 400 Bad Request"
-      else
-        current_sha = Digest::SHA1.hexdigest(Parser.parse(params[:payload].to_s).to_s)
-        # current_sha = Digest::SHA1.hexdigest(params[:payload])
-
-        if Payload.exists?(payload_sha: current_sha)
-          status 403
-          body "Already Received Request - 403 Forbidden"
-        else
-          registration = Registration.find_by(:identifier => identifier)
-          registration.urls.create(Parser.parse(params[:payload].to_s, "url"))
-          payload = registration.payloads.last
-          payload.update(payload_sha: current_sha)
-          status 200
-          body "Success"
-        end
-      end
-    end
+      data_handler = DataProcessingHandler.new(params[:payload], identifier)
+      status data_handler.status
+      body data_handler.body
   end
+end
 end
