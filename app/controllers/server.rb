@@ -30,6 +30,7 @@ module TrafficSpy
       else
         @sorted_urls = site.payloads.group(:url).count.sort_by {  |_, v| v }.reverse
         @browsers = site.payloads.group(:browser).count.sort_by { |_, v| v }.reverse
+        @platforms = site.payloads.group(:platform).count.sort_by { |_, v| v }.reverse
         erb :dashboard
       end
 
