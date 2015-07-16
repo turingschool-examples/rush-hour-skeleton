@@ -1,22 +1,39 @@
+require 'useragent'
+
 class PayloadParser
   attr_reader :payload,
-              :url
+              :url,
+              :screen_resolution,
+              :event,
+              :browser,
+              :operating_system
 
   def initialize(input)
-    @payload = JSON.parse(input[:payload])
-    @url = {}
-  end
-
-  def parse
-    snake_case = convert_keys_to_snakecase(payload)
-    convert_keys_to_symbols(snake_case)
-  end
-
-  def url
-    parse.select {|k, v| k.eql?(:url)}
+    @payload           = parse(input[:payload])
+    @url               = { url: payload[:url] }
+    @screen_resolution = {
+      width:  payload[:resolution_width],
+      height: payload[:resolution_height]
+    }
+    @event             = {
+      name:         payload[:event_name],
+      requested_at: payload[:requested_at],
+      responded_in: payload[:responded_in]
+    }
+    @browser           = {
+      name: UserAgent.parse(payload[:user_agent]).browser
+    }
+    @operating_system  = {
+      name: UserAgent.parse(payload[:user_agent]).platform
+    }
   end
 
   private
+
+  def parse(input)
+    snake_case = convert_keys_to_snakecase(JSON.parse(input))
+    convert_keys_to_symbols(snake_case)
+  end
 
   def convert_keys_to_symbols(hash_with_string_keys)
     hash_with_string_keys.reduce({}) do |symbolized, (k, v)|
