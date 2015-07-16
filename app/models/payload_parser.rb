@@ -9,7 +9,7 @@ module TrafficSpy
       @identifier = identifier
     end
 
-    def parse
+    def validate
       if missing_payload?
         @result = { status: 400, body: "missing payload" }
       elsif already_received_request?
@@ -42,7 +42,10 @@ module TrafficSpy
     end
 
     def normalized_payload_data
-      { digest: @digest }
+      parsed_data = JSON.parse(@data)
+      { digest: @digest,
+        url_id: Url.find_or_create_by(address: parsed_data["url"]).id,
+      }
     end
   end
 end
