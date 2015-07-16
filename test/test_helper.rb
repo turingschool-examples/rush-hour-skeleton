@@ -52,4 +52,8 @@ end
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
+
+  def register_site
+    @site = Site.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+  end
 end
