@@ -49,6 +49,19 @@ module TrafficSpy
       erb :url_data
     end
 
+    get '/sources/:indentifier/events' do |indentifier|
+      @indentifier = indentifier
+
+      erb :event_index
+    end
+
+    get '/sources/:indentifier/events/:event_name' do |indentifier, event_name|
+      @indentifier = indentifier
+      @event_name = event_name
+
+      erb :event_data
+    end
+
     post "/sources/:identifier/data" do |identifier|
       site = Site.find_by(:identifier => identifier)
       sha = Payload.create_sha(params[:payload])
