@@ -5,13 +5,12 @@ class Registration < ActiveRecord::Base
   def urls
     payloads.group(:url).count
   end
-  #
-  # def user_agents
-  #   UserAgent.all.map do |
-  #   end
-  # end
 
   def screen_resolutions
   payloads.group(:screen_resolution).count
+  end
+
+  def browsers
+    payloads.group(:browser).count
   end
 end

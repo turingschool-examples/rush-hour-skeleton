@@ -8,7 +8,6 @@ class RegistrationTest < Minitest::Test
     assert_equal 0, registration.urls.size
   end
 
-
   def test_registration_returns_one_URL
     registration = Registration.new(identifier: "myspace", url: "facebook.com")
     registration.save
