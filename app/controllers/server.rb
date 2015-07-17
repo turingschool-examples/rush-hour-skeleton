@@ -21,21 +21,32 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      site = Site.find_by(:identifier => identifier)
+      @site = Site.find_by(:identifier => identifier)
       @identifier = identifier
 
-      if site.blank?
+      if @site.blank?
         @message = "The identifier, #{identifier}, does not exist."
         erb :message
       else
-        @sorted_urls = site.payloads.group(:url).count.sort_by {  |_, v| v }.reverse
-        @browsers = site.payloads.group(:browser).count.sort_by { |_, v| v }.reverse
-        @platforms = site.payloads.group(:platform).count.sort_by { |_, v| v }.reverse
-        @screens = site.payloads.group(:resolution_width, :resolution_height).count.sort_by { |_, v| v }.reverse
-        @response_times = site.payloads.group(:url).average(:responded_in).sort_by {  |_, v| v }
+        @sorted_urls = @site.payloads.group(:url).count.sort_by {  |_, v| v }.reverse
+        @browsers = @site.payloads.group(:browser).count.sort_by { |_, v| v }.reverse
+        @platforms = @site.payloads.group(:platform).count.sort_by { |_, v| v }.reverse
+        @screens = @site.payloads.group(:resolution_width, :resolution_height).count.sort_by { |_, v| v }.reverse
+        @response_times = @site.payloads.group(:url).average(:responded_in).sort_by {  |_, v| v }
+        @paths = @site.urls.map do |url|
+          path = url.path
+          path.slice!(@site.root_url)
+          path
+        end
         erb :dashboard
       end
 
+    end
+
+    get '/sources/:identifier/urls/:relative_path' do |indentifier, relative_path|
+      @relative_path = relative_path
+
+      erb :url_data
     end
 
     post "/sources/:identifier/data" do |identifier|

@@ -41,7 +41,9 @@
                           <%= count %>.
                         </td>
                         <td>
-                          <a href="<%= pair[0].path %>"><%= pair[0].path %></a>
+                          <% relative_path = pair[0].path.clone %>
+                          <% relative_path.slice!(@site.root_url) %>
+                          <a href="/sources/<%= "#{@identifier}" %>/urls<%= relative_path %>"><%= pair[0].path %></a>
                         </td>
                       </tr>
                       <% count += 1 %>
@@ -160,6 +162,9 @@
             </tbody>
           </table>
       </div>
+  </div>
+  <div class="col-md-6 col-sm-12 hero-feature">
+    <a class="btn btn-block" href="#"> Event Index </a>
   </div>
 </div>
 <!-- /.row -->

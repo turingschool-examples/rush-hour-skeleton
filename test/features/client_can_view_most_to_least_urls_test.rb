@@ -19,6 +19,8 @@ class ClientCanViewMostToLeastURLsTest < FeatureTest
   def test_identifier_has_a_url
     register_site
     Url.create(path: "http://jumpstartlab.com/blog", site_id: @site.id)
+    Browser.create(name: "Chrome")
+    Platform.create(name: "Macintosh")
     Payload.create(url_id: 1, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
                    platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
 
@@ -40,6 +42,8 @@ class ClientCanViewMostToLeastURLsTest < FeatureTest
     Url.create(path: "http://jumpstartlab.com/blog/1", site_id: @site.id)
     Url.create(path: "http://jumpstartlab.com/blog/2", site_id: @site.id)
     Url.create(path: "http://jumpstartlab.com/blog/3", site_id: @site.id)
+    Browser.create(name: "Chrome")
+    Platform.create(name: "Macintosh")
     Payload.create(url_id: 1, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
                    platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "someddfftime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
@@ -59,6 +63,8 @@ class ClientCanViewMostToLeastURLsTest < FeatureTest
     url1 = Url.create(path: "http://jumpstartlab.com/blog/1", site_id: @site.id)
     url2 = Url.create(path: "http://jumpstartlab.com/blog/2", site_id: @site.id)
     url3 = Url.create(path: "http://jumpstartlab.com/blog/3", site_id: @site.id)
+    Browser.create(name: "Chrome")
+    Platform.create(name: "Macintosh")
     Payload.create(url_id: 1, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
                    platform_id: 1, request_type_id: 1, sha: "alskdjflkj")
     Payload.create(url_id: 2, resolution_width: "900", resolution_height: "1100",requested_at: "someddfftime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: 1,
@@ -82,5 +88,19 @@ class ClientCanViewMostToLeastURLsTest < FeatureTest
     assert page.has_content?("http://jumpstartlab.com/blog/3")
     assert page.has_content?("http://jumpstartlab.com/blog/1")
   end
-end
 
+  def test_urls_links_to_proper_route
+    register_site
+    url = @site.urls.create(path: "http://jumpstartlab.com/blog")
+    browser = Browser.create(name: "Chrome")
+    platform = Platform.create(name: "Macintosh")
+    Payload.create(url_id: url.id, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: browser.id,
+                   platform_id: platform.id, request_type_id: 1, sha: "alskdjflkj")
+
+    visit '/sources/jumpstartlab'
+    click_link("http://jumpstartlab.com/blog")
+
+    assert page.has_content?("blog page data")
+
+  end
+end
