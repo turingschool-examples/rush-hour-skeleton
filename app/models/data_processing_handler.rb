@@ -1,4 +1,3 @@
-module TrafficSpy
   class DataProcessingHandler
     attr_reader :payload, :identifier, :body, :status
 
@@ -50,4 +49,3 @@ module TrafficSpy
       @body   = "Success"
     end
   end
-end
