@@ -10,24 +10,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # handler = RegistrationHandler.new(params)
-      # status handler.status
-      # body handler.body
-
-      reg = Registration.new({ identifier: params["identifier"], url: params["rootUrl"] })
-      if params['identifier'] == nil || params['rootUrl'] == nil
-        status 400
-        body "Missing Parameters - 400 Bad Request"
-      else
-        if reg.save
-          status 200
-          body "{'identifier' : '#{params['identifier']}'}"
-        else
-          status 403
-          body "Identifier Already Exists - 403 Forbidden"
-        end
-
-      end
+      sources_handler = RegistrationHandler.new(params)
+      status sources_handler.status
+      body sources_handler.body
     end
 
     post "/sources/:identifier/data" do |identifier|

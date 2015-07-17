@@ -12,7 +12,7 @@ class IdentifierDataPathTest < ControllerTest
   def test_if_the_payload_is_missing
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
     id = Registration.all.first.identifier
-    post "/sources/#{id}/data", {stuff: "stuff"}
+    post "/sources/#{id}/data", { stuff: "stuff" }
 
     assert_equal 400, last_response.status
     assert_equal "Missing Payload - 400 Bad Request", last_response.body
@@ -29,7 +29,7 @@ class IdentifierDataPathTest < ControllerTest
 
   def test_if_the_payload_has_already_been_recieved
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
-    id      = Registration.all.first.identifier
+    id = Registration.all.first.identifier
 
     post "/sources/#{id}/data", @payload
     post "/sources/#{id}/data", @payload
