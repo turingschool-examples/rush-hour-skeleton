@@ -13,4 +13,8 @@ class Registration < ActiveRecord::Base
   def browsers
     payloads.group(:browser).count
   end
+
+  def operating_systems
+  payloads.group(:operating_system).count
+  end
 end

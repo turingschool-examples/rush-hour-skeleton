@@ -42,6 +42,7 @@ module TrafficSpy
       registration.payloads.create(url: Url.find_or_create_by(parser.url))
       registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by(parser.screen_resolution))
       registration.payloads.create(browser: Browser.find_or_create_by(parser.browser))
+      registration.payloads.create(operating_system: OperatingSystem.find_or_create_by(parser.operating_system))
       payload = registration.payloads.last
       payload.update(payload_sha: current_sha)
       @status = 200
