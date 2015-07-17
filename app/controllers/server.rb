@@ -31,6 +31,8 @@ module TrafficSpy
         @sorted_urls = site.payloads.group(:url).count.sort_by {  |_, v| v }.reverse
         @browsers = site.payloads.group(:browser).count.sort_by { |_, v| v }.reverse
         @platforms = site.payloads.group(:platform).count.sort_by { |_, v| v }.reverse
+        @screens = site.payloads.group(:resolution_width, :resolution_height).count.sort_by { |_, v| v }.reverse
+        @response_times = site.payloads.group(:url).average(:responded_in).sort_by {  |_, v| v }
         erb :dashboard
       end
 
