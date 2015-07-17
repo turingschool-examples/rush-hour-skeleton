@@ -68,9 +68,9 @@ class PayloadParserTest < Minitest::Test
   end
 
   def test_returns_event_table_input
-    expected = { name: "socialLogin", requested_at: "2013-02-16 21:38:28 -0700", responded_in: 37}
+    expected = "socialLogin"
 
-    assert_equal expected, parser.event
+    assert_equal expected, parser.event[:name]
   end
 
   def test_returns_browser_table_input
