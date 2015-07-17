@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20150717003248) do
     t.datetime "updated_at"
   end
 
+  create_table "operating_systems", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "payloads", force: :cascade do |t|
     t.integer "url_id"
     t.integer "registration_id"
@@ -37,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150717003248) do
     t.integer "screen_resolution_id"
     t.integer "browser_id"
     t.integer "event_id"
+    t.integer "operating_system_id"
   end
 
   create_table "registrations", force: :cascade do |t|
