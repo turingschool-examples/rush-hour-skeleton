@@ -39,4 +39,25 @@ class RegistrationHandlerTest < Minitest::Test
     assert_equal "{'identifier' : 'facebook'}", handler.body
   end
 
+  def test_saves_url_data_when_registration_successful
+    RegistrationHandler.new(raw_input)
+    result = Registration.find_by(identifier: raw_input['identifier'])[:identifier]
+
+    assert_equal 'facebook', result
+  end
+
+  def test_returns_403_when_already_registered
+    RegistrationHandler.new(raw_input)
+    handler = RegistrationHandler.new(raw_input)
+
+    assert_equal 403, handler.status
+    assert_equal "Identifier Already Exists - 403 Forbidden", handler.body
+  end
+
+  def test_url_data_not_save_when_already_registered
+    RegistrationHandler.new(raw_input)
+    RegistrationHandler.new(raw_input)
+
+    assert_equal 1, Registration.all.count
+  end
 end
