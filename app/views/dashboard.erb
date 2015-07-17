@@ -68,7 +68,7 @@
               <% @browsers.each do |pair| %>
                 <tr>
                   <td>
-                    <%= pair[0].name %> <span class="badge"> <%= pair[1] %> </span>
+                    <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
                   </td>
                 </tr>
               <% end %>
@@ -91,7 +91,7 @@
               <% @platforms.each do |pair| %>
                 <tr>
                   <td>
-                    <%= pair[0].name %> <span class="badge"> <%= pair[1] %> </span>
+                    <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
                   </td>
                 </tr>
               <% end %>
@@ -114,7 +114,7 @@
               <% @screens.each do |pair| %>
                 <tr>
                   <td>
-                    <%= pair[0][0] %>x<%= pair[0][1] %> <span class="badge"><%= pair[1] %> </span>
+                    <%= pair[0][0] %>x<%= pair[0][1] %> <span class="label label-primary label-as-badge"><%= pair[1] %> </span>
                   </td>
                 </tr>
               <% end %>
@@ -154,7 +154,7 @@
                     <%= pair[0].path %>
                   </td>
                   <td>
-                  <span class="badge"> <%= pair[1].to_i %> ms </span>
+                  <span class="label label-primary label-as-badge"> <%= pair[1].to_i %> ms </span>
                   </td>
                 </tr>
                 <% count += 1 %>
@@ -164,7 +164,7 @@
       </div>
   </div>
   <div class="col-md-6 col-sm-12 hero-feature">
-    <a class="btn btn-block" href="#"> Event Index </a>
+    <a class="btn btn-block" href="/sources/<%= "#{@identifier}" %>/events"> Event Index </a>
   </div>
 </div>
 <!-- /.row -->
