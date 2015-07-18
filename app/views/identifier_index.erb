@@ -36,8 +36,8 @@ Shortest Response Time: <%=@short_response_times%><br>
 
 <ol>Links Visited
 <% if !@links.nil? %>
-<% @links.map do |website| %>
-  <a href = <%=website%>> ><li>Website<%=website%></li></a>
+<% @link_paths.map do |path|%>
+  <a href = <%=params[:identifier]%><%=path%> > <li>http://<%=params[:identifier]%><%=path%></li></a>
 <% end %>
 <% end %>
 </ol>
