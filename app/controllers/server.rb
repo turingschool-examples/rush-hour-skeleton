@@ -78,61 +78,65 @@ module TrafficSpy
 
     get '/sources/:indentifier/events' do |identifier|
       @identifier = identifier
-      site = Site.find_by(:identifier => identifier)
+      site = Site.find_by(:identifier => @identifier)
       @events = site.payloads.group(:event).count.sort_by { |_, v| v }.reverse
 
       erb :event_index
     end
 
     get '/sources/:indentifier/events/:event_name' do |identifier, event_name|
+      site = Site.find_by(:identifier => identifier)
+      event = site.events.find_by(:name => event_name)
+
+      render_event_data(identifier, event_name, site, event)
+    end
+
+    def render_event_data(identifier, event_name, site, event)
       @identifier = identifier
       @event_name = event_name
-      site = Site.find_by(:identifier => identifier)
-      @event = site.events.find_by(:name => @event_name)
 
-      if @event.blank?
+      if event.blank?
         @message = "The event, '#{@event_name}', has not been requested."
 
         erb :message
       else
-      events = site.payloads.where(:event_id => @event.id)
-      hours = events.map { |event| Time.parse(event[:requested_at]).hour }
-      @hour_count = hours.group_by{ |h| h }
-      @day = {
-        0 => 0,
-        1 => 0,
-        2 => 0,
-        3 => 0,
-        4 => 0,
-        5 => 0,
-        6 => 0,
-        7 => 0,
-        8 => 0,
-        9 => 0,
-        10 => 0,
-        11 => 0,
-        12 => 0,
-        13 => 0,
-        14 => 0,
-        15 => 0,
-        16 => 0,
-        17 => 0,
-        18 => 0,
-        19 => 0,
-        20 => 0,
-        21 => 0,
-        22 => 0,
-        23 => 0,
-      }
-      @day.map do |k, v|
-        if @hour_count[k] != nil
-          @day[k] = @hour_count[k].size
+        events = site.payloads.where(:event_id => event.id)
+        hours = events.map { |event| Time.parse(event[:requested_at]).hour }
+        hour_count = hours.group_by{ |h| h }
+        @day = {
+          0 => 0,
+          1 => 0,
+          2 => 0,
+          3 => 0,
+          4 => 0,
+          5 => 0,
+          6 => 0,
+          7 => 0,
+          8 => 0,
+          9 => 0,
+          10 => 0,
+          11 => 0,
+          12 => 0,
+          13 => 0,
+          14 => 0,
+          15 => 0,
+          16 => 0,
+          17 => 0,
+          18 => 0,
+          19 => 0,
+          20 => 0,
+          21 => 0,
+          22 => 0,
+          23 => 0,
+        }
+        @day.map do |k, v|
+          if hour_count[k] != nil
+            @day[k] = hour_count[k].size
+          end
         end
       end
 
       erb :event_data
-    end
-
     end
 
     post "/sources/:identifier/data" do |identifier|
@@ -165,12 +169,8 @@ module TrafficSpy
       end
     end
 
-
-
-
-        not_found do
+    not_found do
       erb :error
     end
-
   end
 end
