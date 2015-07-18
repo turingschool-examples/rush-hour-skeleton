@@ -68,6 +68,8 @@ module TrafficSpy
 
     get '/sources/:indentifier/events' do |identifier|
       @identifier = identifier
+      site = Site.find_by(:identifier => identifier)
+      @events = site.payloads.group(:event).count.sort_by { |_, v| v }.reverse
 
       erb :event_index
     end
