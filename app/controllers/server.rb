@@ -47,9 +47,9 @@ module TrafficSpy
       @identifier = identifier
       @relative_path = relative_path
       site = Site.find_by(:identifier => identifier)
-      @url = Url.find_by(:site_id => site.id)
+      @url = site.urls.find_by(:path => "#{site.root_url}/#{@relative_path}")
 
-      if @url.relative_path != @relative_path
+      if @url.blank?
         @message = "The URL path, /#{@relative_path}, has not been requested."
 
         erb :message
@@ -67,7 +67,7 @@ module TrafficSpy
     end
 
     get '/sources/:indentifier/events' do |identifier|
-      @identifier = indentifier
+      @identifier = identifier
 
       erb :event_index
     end

@@ -39,9 +39,7 @@
                           <%= count %>.
                         </td>
                         <td>
-                          <% relative_path = pair[0].path.clone %>
-                          <% relative_path.slice!(@site.root_url) %>
-                          <a href="/sources/<%= "#{@identifier}" %>/urls<%= relative_path %>"><%= pair[0].path %></a>
+                          <a href="/sources/<%= "#{@identifier}" %>/urls/<%= pair.first.relative_path %>"><%= pair.first.path %></a>
                         </td>
                       </tr>
                       <% count += 1 %>
