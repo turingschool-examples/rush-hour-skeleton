@@ -43,14 +43,27 @@ module TrafficSpy
 
     end
 
-    get '/sources/:identifier/urls/:relative_path' do |indentifier, relative_path|
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @identifier = identifier
       @relative_path = relative_path
+      site = Site.find_by(:identifier => identifier)
+      @url = Url.find_by(:site_id => site.id)
 
-      erb :url_data
+      if @url.relative_path != @relative_path
+        @message = "The URL path, /#{@relative_path}, has not been requested."
+
+        erb :message
+      else
+        @fastest_response_time = @url.payloads.minimum(:responded_in)
+        @slowest_response_time = @url.payloads.maximum(:responded_in)
+        @average_response_time = @url.payloads.average(:responded_in)
+
+        erb :url_data
+      end
     end
 
-    get '/sources/:indentifier/events' do |indentifier|
-      @indentifier = indentifier
+    get '/sources/:indentifier/events' do |identifier|
+      @identifier = indentifier
 
       erb :event_index
     end
