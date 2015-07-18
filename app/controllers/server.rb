@@ -73,14 +73,8 @@ module TrafficSpy
       body data_handler.body
     end
 
-    get '/sources/:identifier/urls/:relative' do |identifier, relative|
-      urls_handler = UrlStatisticsHandler.new(identifier, relative)
-      @message = urls_handler.message
-      erb urls_handler.erb
-    end
-
-    get '/sources/:identifier/urls/:relative/:path' do |identifier, relative, path|
-      urls_handler = UrlStatisticsHandler.new(identifier, relative, path)
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      urls_handler = UrlStatisticsHandler.new(identifier, path)
       @message = urls_handler.message
       erb urls_handler.erb
     end

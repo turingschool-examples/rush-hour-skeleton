@@ -1,9 +1,8 @@
 class UrlStatisticsHandler
-attr_reader :identifier, :relative, :erb, :message, :path
-  def initialize(identifier, relative, path = nil)
+attr_reader :identifier, :path, :erb, :message
+  def initialize(identifier, path)
     @identifier = identifier
-    @relative   = relative
-    @path       = path
+    @path   = path
     call
     self
   end
@@ -15,12 +14,10 @@ attr_reader :identifier, :relative, :erb, :message, :path
       @erb     =  :identifier_error
     else
       urls         = registration.urls.select{|url, count| url != nil}
-      require 'pry'
-      binding.pry
-      url          =   urls.find {|url, count| url.relative == relative && url.path == nil}
+      # url          =   urls.find {|url, count| url.path == path }
 
       if url.nil?
-        @message = "The url #{relative}/#{path} does not exist."
+        @message = "The url #{path} does not exist."
         @erb     = :url_error
       else
         @erb     = :urls_index
