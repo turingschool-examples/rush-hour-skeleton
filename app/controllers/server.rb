@@ -5,6 +5,20 @@ module TrafficSpy
       erb :index
     end
 
+    get '/sources' do
+
+      erb :new
+    end
+    get '/sources/:identifier' do
+      url_hash = Payload.all.group(:url).count
+      @urls = url_hash.map do |key, value|
+        if !key.nil?
+          [value, key[:url]]
+        end
+      end.compact.sort.reverse
+      erb :identifier_index
+    end
+
     not_found do
       erb :error
     end
