@@ -29,7 +29,7 @@ class DataProcessingHandler
         @status = 403
         @body   = 'Already Received Request - 403 Forbidden'
       else
-        poplate_data(registration)
+        store_payload(registration)
         store_payload_sha(current_sha, registration)
         @status = 200
         @body   = 'Success'
@@ -45,7 +45,7 @@ class DataProcessingHandler
     payload.update(payload_sha: current_sha)
   end
 
-  def poplate_data(registration)
+  def store_payload(registration)
     registration.payloads.create(url: Url.find_or_create_by(parser.url))
     registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by(parser.screen_resolution))
     registration.payloads.create(browser: Browser.find_or_create_by(parser.browser))
