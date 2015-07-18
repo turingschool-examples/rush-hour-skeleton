@@ -94,8 +94,10 @@ class ClientCanViewMostToLeastURLsTest < FeatureTest
     url = @site.urls.create(path: "http://jumpstartlab.com/blog")
     browser = Browser.create(name: "Chrome")
     platform = Platform.create(name: "Macintosh")
-    Payload.create(url_id: url.id, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: 1, browser_id: browser.id,
-                   platform_id: platform.id, request_type_id: 1, sha: "alskdjflkj")
+    request_type = RequestType.create(verb: "GET")
+    referrer = Referrer.create(path: "espn.com")
+    Payload.create(url_id: url.id, resolution_width: "900", resolution_height: "1100",requested_at: "sometime", responded_in: 37, event_id: 1, referrer_id: referrer.id, browser_id: browser.id,
+                   platform_id: platform.id, request_type_id: request_type.id, sha: "alskdjflkj")
 
     visit '/sources/jumpstartlab'
     click_link("http://jumpstartlab.com/blog")
