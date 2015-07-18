@@ -9,5 +9,4 @@ class Site < ActiveRecord::Base
   has_many :events, through: :payloads
   has_many :request_types, through: :payloads
   has_many :referrers, through: :payloads
-
 end
