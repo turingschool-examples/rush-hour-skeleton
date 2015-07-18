@@ -18,4 +18,8 @@ class Registration < ActiveRecord::Base
   def operating_systems
   payloads.group(:operating_system).count
   end
+
+  def response_time
+    
+  end
 end
