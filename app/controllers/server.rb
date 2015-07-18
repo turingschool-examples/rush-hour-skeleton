@@ -9,14 +9,22 @@ module TrafficSpy
 
       erb :new
     end
+
     get '/sources/:identifier' do
-      url_hash = Payload.all.group(:url).count
-      @urls = url_hash.map do |key, value|
-        if !key.nil?
-          [value, key[:url]]
-        end
-      end.compact.sort.reverse
-      erb :identifier_index
+      registration = Registration.find_by(:identifier => params[:identifier])
+      identifier = params[:identifier]
+      if registration.nil?
+        @message = "The #{identifier} identifier does not exist"
+        erb :identifier_error
+      else
+        url_hash = registration.payloads.group(:url).count
+        @urls = url_hash.map do |key, value|
+          if !key.nil?
+            [value, key[:url]]
+          end
+        end.compact.sort.reverse
+        erb :identifier_index
+      end
     end
 
     not_found do
