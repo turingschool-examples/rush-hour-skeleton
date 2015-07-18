@@ -32,7 +32,7 @@ class DataProcessingHandler
         store_payload(registration)
         store_payload_sha(current_sha, registration)
         @status = 200
-        @body   = 'Success'
+        @body   = 'Success - 200 OK'
       end
 
     end
