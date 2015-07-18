@@ -43,7 +43,7 @@ module TrafficSpy
     end.compact.sort.reverse
 
     @avg_response_times = registration.events.average(:responded_in)
-    @long_response_times = registration.events.maximum(:responded_in)
+    @long_response_times = registragit tion.events.maximum(:responded_in)
     @short_response_times = registration.events.minimum(:responded_in)
 
     @links = registration.urls.map do |key, value|
@@ -58,7 +58,7 @@ module TrafficSpy
 
 
     not_found do
-    erb :error
+      erb :error
     end
 
     post '/sources' do
@@ -74,7 +74,16 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:relative' do |identifier, relative|
-      erb :urls_index
+      urls_handler = UrlStatisticsHandler.new(identifier, relative)
+      @message = urls_handler.message
+      erb urls_handler.erb
     end
+
+    get '/sources/:identifier/urls/:relative/:path' do |identifier, relative, path|
+      urls_handler = UrlStatisticsHandler.new(identifier, relative, path)
+      @message = urls_handler.message
+      erb urls_handler.erb
+    end
+
   end
 end
