@@ -8,8 +8,14 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara'
 require 'pry'
+require 'tilt/erb'
 
 Capybara.app = TrafficSpy::Server
+
+class FeatureTest <Minitest::Test
+  include Capybara::DSL
+end
+
 
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}

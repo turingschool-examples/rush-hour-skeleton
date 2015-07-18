@@ -41,3 +41,11 @@ Shortest Response Time: <%=@short_response_times%><br>
 <% end %>
 <% end %>
 </ol>
+
+<ol>Event Data Links
+<% if !@links.nil? %>
+<% @link_paths.map do |path|%>
+  <a href = <%=params[:identifier]%>/events > <li>http://<%=params[:identifier]%><%=path%></li></a>
+<% end %>
+<% end %>
+</ol>
