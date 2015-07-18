@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class IdentifierDataPathTest < ControllerTest
 
   def test_registration_returns_403_when_identifier_not_registered
-    post '/sources/identifier_not_in_database/data', @payload
+    post '/sources/identifier_not_in_database/data', @raw_payload
 
     assert_equal 403, last_response.status
     assert_equal 'Application Not Registered - 403 Forbidden', last_response.body
@@ -22,7 +22,7 @@ class IdentifierDataPathTest < ControllerTest
     post '/sources', { "identifier" => "jumpstartlab", "rootUrl" => "http://jumpstartlab.com" }
     id = Registration.all.first.identifier
 
-    post "/sources/#{id}/data", @payload
+    post "/sources/#{id}/data", @raw_payload
 
     assert_equal "http://jumpstartlab.com/blog", Url.all.first[:url]
   end
@@ -31,8 +31,8 @@ class IdentifierDataPathTest < ControllerTest
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
     id = Registration.all.first.identifier
 
-    post "/sources/#{id}/data", @payload
-    post "/sources/#{id}/data", @payload
+    post "/sources/#{id}/data", @raw_payload
+    post "/sources/#{id}/data", @raw_payload
 
     assert_equal 403, last_response.status
     assert_equal "Already Received Request - 403 Forbidden", last_response.body
