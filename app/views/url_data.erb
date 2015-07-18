@@ -28,13 +28,13 @@
               <tbody>
                 <tr>
                   <td>
-                    <span class="label label-success label-as-badge">1</span>
+                    <span class="label label-success label-as-badge"><%= @fastest_response_time %></span>
                   </td>
                   <td>
-                    <span class="label label-primary label-as-badge ">12</span>
+                    <span class="label label-primary label-as-badge "><%= @average_response_time %></span>
                   </td>
                   <td>
-                    <span class="label label-danger label-as-badge">23</span>
+                    <span class="label label-danger label-as-badge"><%= @slowest_response_time %></span>
                   </td>
                 </tr>
               </tbody>
@@ -56,24 +56,16 @@
                 </tr>
               </thead>
               <tbody>
-
+              <% @http_verbs.each do |pair| %>
                 <tr>
                   <td>
-                    GET
+                    <%= pair[0].verb %>
                   </td>
                   <td>
-                    <span class="label label-primary label-as-badge">14</span>
+                    <span class="label label-primary label-as-badge"><%= pair[1] %></span>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    POST
-                  </td>
-                  <td>
-                    <span class="label label-primary label-as-badge">2</span>
-                  </td>
-                </tr>
-
+              <% end %>
               </tbody>
             </table>
         </div>
@@ -92,24 +84,16 @@
                 </tr>
               </thead>
               <tbody>
-
-                <tr>
-                  <td>
-                    JumpstartLab
-                  </td>
-                  <td>
-                    <span class="label label-primary label-as-badge">14</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Google
-                  </td>
-                  <td>
-                    <span class="label label-primary label-as-badge">2</span>
-                  </td>
-                </tr>
-
+              <% @top_referrers.each do |pair| %>
+                  <tr>
+                    <td>
+                      <%= pair[0].path %>
+                    </td>
+                    <td>
+                      <span class="label label-primary label-as-badge"><%= pair[1] %></span>
+                    </td>
+                  </tr>
+              <% end %>
               </tbody>
             </table>
         </div>
@@ -119,32 +103,42 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>
+                  <th colspan="2">
                     Top User Agents
-                  </th>
-                  <th>
-                    #
                   </th>
                 </tr>
               </thead>
               <tbody>
+              <tr>
+                <th>Browsers</th>
+                <th>#</th>
+              </tr>
+              <% @top_browsers.each do |pair| %>
 
-                <tr>
-                  <td>
-                    JumpstartLab
-                  </td>
-                  <td>
-                    <span class="label label-primary label-as-badge">14</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Google
-                  </td>
-                  <td>
-                    <span class="label label-primary label-as-badge">2</span>
-                  </td>
-                </tr>
+                  <tr>
+                    <td>
+                      <%= pair[0].name %>
+                    </td>
+                    <td>
+                      <span class="label label-primary label-as-badge"><%= pair[1] %></span>
+                    </td>
+                  </tr>
+              <% end %>
+              <tr>
+                <th>Platforms</th>
+                <th>#</th>
+              </tr>
+              <% @top_platforms.each do |pair| %>
+
+                  <tr>
+                    <td>
+                      <%= pair[0].name %>
+                    </td>
+                    <td>
+                      <span class="label label-primary label-as-badge"><%= pair[1] %></span>
+                    </td>
+                  </tr>
+              <% end %>
 
               </tbody>
             </table>
