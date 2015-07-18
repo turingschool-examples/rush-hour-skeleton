@@ -1,4 +1,5 @@
 require 'json'
+require 'uri'
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -52,6 +53,10 @@ module TrafficSpy
       end
     end.compact
 
+    @link_paths = @links.map do |link|
+    URI(link.join).path
+
+  end
         erb :identifier_index
       end
     end

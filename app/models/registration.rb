@@ -20,6 +20,6 @@ class Registration < ActiveRecord::Base
   end
 
   def response_time
-    
+
   end
 end
