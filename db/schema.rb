@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20150717003248) do
     t.text    "payload_sha"
     t.integer "screen_resolution_id"
     t.integer "browser_id"
-    t.integer "event_id"
     t.integer "operating_system_id"
+    t.integer "event_id"
   end
 
   create_table "registrations", force: :cascade do |t|

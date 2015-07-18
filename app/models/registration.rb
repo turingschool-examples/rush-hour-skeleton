@@ -1,6 +1,7 @@
 class Registration < ActiveRecord::Base
   validates_uniqueness_of :identifier
   has_many :payloads
+  has_many :events, through: :payloads
 
   def urls
     payloads.group(:url).count
@@ -16,5 +17,9 @@ class Registration < ActiveRecord::Base
 
   def operating_systems
   payloads.group(:operating_system).count
+  end
+
+  def response_time
+
   end
 end
