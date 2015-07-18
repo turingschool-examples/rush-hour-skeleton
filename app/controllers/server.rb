@@ -27,10 +27,10 @@ module TrafficSpy
     get '/sources/:identifier' do |identifier|
       site = Site.find_by(:identifier => identifier)
 
-      get_dashboard(identifier, site)
+      render_dashboard(identifier, site)
     end
 
-    def get_dashboard(identifier, site)
+    def render_dashboard(identifier, site)
       @identifier = identifier
       @site = site
 
@@ -49,10 +49,15 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
-      @identifier = identifier
-      @relative_path = relative_path
       site = Site.find_by(:identifier => identifier)
-      @url = site.urls.find_by(:path => "#{site.root_url}/#{@relative_path}")
+      url = site.urls.find_by(:path => "#{site.root_url}/#{relative_path}")
+
+      render_url_specific_data(relative_path, url)
+    end
+
+    def render_url_specific_data(relative_path, url)
+      @relative_path = relative_path
+      @url = url
 
       if @url.blank?
         @message = "The URL path, /#{@relative_path}, has not been requested."
