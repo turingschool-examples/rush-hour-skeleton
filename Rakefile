@@ -3,6 +3,13 @@ Bundler.require
 
 require "sinatra/activerecord/rake"
 
+require "rake/testtask"
+
+Rake::TestTask.new do |t|
+ t.test_files = FileList['test/**/*_test.rb']
+end
+
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do

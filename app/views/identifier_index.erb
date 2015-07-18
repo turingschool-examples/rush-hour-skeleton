@@ -1,0 +1,43 @@
+<ol>Most Visited Websites
+<% if !@urls.nil? %>
+<% @urls.map do |num, website| %>
+  <li>Number of Visits: <%=num%> Website: <%=website%></li>
+<% end %>
+<% end %>
+</ol>
+
+<ol>Most Used Browsers
+<% if !@browsers.nil? %>
+<% @browsers.map do |num, browser| %>
+  <li>Number of Visits: <%=num%> Browser Used: <%=browser%></li>
+<% end %>
+<% end %>
+</ol>
+
+<ol>Most Used Operating System
+<% if !@os.nil? %>
+<% @os.map do |num, os| %>
+  <li>Number of Visits: <%=num%> Operating System Used: <%=os%></li>
+<% end %>
+<% end %>
+</ol>
+
+<ol>Most Used Screen Resolutions
+<% if !@resolutions.nil? %>
+<% @resolutions.map do |num, width, height| %>
+  <li>Number of Visits: <%=num%> Screen Resolution: <%=width%>x<%=height%></li>
+<% end %>
+<% end %>
+</ol>
+
+Average Response Time: <%=@avg_response_times%><br>
+Longest Response Time: <%=@long_response_times%><br>
+Shortest Response Time: <%=@short_response_times%><br>
+
+<ol>Links Visited
+<% if !@links.nil? %>
+<% @links.map do |website| %>
+  <a href = <%=website%>> ><li>Website<%=website%></li></a>
+<% end %>
+<% end %>
+</ol>
