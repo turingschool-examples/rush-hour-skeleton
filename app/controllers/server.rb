@@ -16,12 +16,42 @@ module TrafficSpy
         @message = "The #{identifier} identifier does not exist"
         erb :identifier_error
       else
-        url_hash = registration.payloads.group(:url).count
+        url_hash = registration.urls
         @urls = url_hash.map do |key, value|
           if !key.nil?
             [value, key[:url]]
           end
         end.compact.sort.reverse
+
+        browser_hash = registration.browsers
+        @browsers = browser_hash.map do |key, value|
+          if !key.nil?
+            [value, key[:name]]
+          end
+        end.compact.sort.reverse
+
+    @os = registration.operating_systems.map do |key, value|
+      if !key.nil?
+        [value, key[:name]]
+      end
+    end.compact.sort.reverse
+
+    @resolutions = registration.screen_resolutions.map do |key, value|
+      if !key.nil?
+        [value, key[:width],key[:height]]
+      end
+    end.compact.sort.reverse
+
+    @avg_response_times = registration.events.average(:responded_in)
+    @long_response_times = registration.events.maximum(:responded_in)
+    @short_response_times = registration.events.minimum(:responded_in)
+
+    @links = registration.urls.map do |key, value|
+      if !key.nil?
+        [key[:url]]
+      end
+    end.compact
+
         erb :identifier_index
       end
     end
