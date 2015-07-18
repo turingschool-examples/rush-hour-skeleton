@@ -31,32 +31,32 @@ module TrafficSpy
           end
         end.compact.sort.reverse
 
-    @os = registration.operating_systems.map do |key, value|
-      if !key.nil?
-        [value, key[:name]]
-      end
-    end.compact.sort.reverse
+        @os = registration.operating_systems.map do |key, value|
+          if !key.nil?
+            [value, key[:name]]
+          end
+        end.compact.sort.reverse
 
-    @resolutions = registration.screen_resolutions.map do |key, value|
-      if !key.nil?
-        [value, key[:width],key[:height]]
-      end
-    end.compact.sort.reverse
+        @resolutions = registration.screen_resolutions.map do |key, value|
+          if !key.nil?
+            [value, key[:width],key[:height]]
+          end
+        end.compact.sort.reverse
 
-    @avg_response_times = registration.events.average(:responded_in)
-    @long_response_times = registration.events.maximum(:responded_in)
-    @short_response_times = registration.events.minimum(:responded_in)
+        @avg_response_times = registration.events.average(:responded_in)
+        @long_response_times = registration.events.maximum(:responded_in)
+        @short_response_times = registration.events.minimum(:responded_in)
 
-    @links = registration.urls.map do |key, value|
-      if !key.nil?
-        [key[:url]]
-      end
-    end.compact
+        @links = registration.urls.map do |key, value|
+          if !key.nil?
+            [key[:url]]
+          end
+        end.compact
 
-    @link_paths = @links.map do |link|
-    URI(link.join).path
+        @link_paths = @links.map do |link|
+          URI(link.join).path
 
-  end
+        end
         erb :identifier_index
       end
     end
