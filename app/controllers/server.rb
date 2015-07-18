@@ -8,6 +8,10 @@ module TrafficSpy
       parsed_params = HashParser.parse(params)
       site = Site.new(parsed_params)
 
+      get_registration_status_and_message(site)
+    end
+
+    def get_registration_status_and_message(site)
       if site.save
         status 200
         body "{'#{params.keys.first}':'#{site.identifier}'}"
@@ -21,8 +25,14 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      @site = Site.find_by(:identifier => identifier)
+      site = Site.find_by(:identifier => identifier)
+
+      get_dashboard(identifier, site)
+    end
+
+    def get_dashboard(identifier, site)
       @identifier = identifier
+      @site = site
 
       if @site.blank?
         @message = "The identifier, #{identifier}, does not exist."
@@ -33,14 +43,9 @@ module TrafficSpy
         @platforms = @site.payloads.group(:platform).count.sort_by { |_, v| v }.reverse
         @screens = @site.payloads.group(:resolution_width, :resolution_height).count.sort_by { |_, v| v }.reverse
         @response_times = @site.payloads.group(:url).average(:responded_in).sort_by {  |_, v| v }
-        @paths = @site.urls.map do |url|
-          path = url.path
-          path.slice!(@site.root_url)
-          path
-        end
+
         erb :dashboard
       end
-
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
