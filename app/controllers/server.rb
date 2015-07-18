@@ -56,7 +56,8 @@ module TrafficSpy
       else
         @fastest_response_time = @url.payloads.minimum(:responded_in)
         @slowest_response_time = @url.payloads.maximum(:responded_in)
-        @average_response_time = @url.payloads.average(:responded_in)
+        @average_response_time = @url.payloads.average(:responded_in).round(2)
+        @http_verbs = @url.payloads.group(:request_type).count.sort_by { |_, v| v }.reverse
 
         erb :url_data
       end

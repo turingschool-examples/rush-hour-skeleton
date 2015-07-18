@@ -56,24 +56,16 @@
                 </tr>
               </thead>
               <tbody>
-
+              <% @http_verbs.each do |pair| %>
                 <tr>
                   <td>
-                    GET
+                    <%= pair[0].verb %>
                   </td>
                   <td>
-                    <span class="label label-primary label-as-badge">14</span>
+                    <span class="label label-primary label-as-badge"><%= pair[1] %></span>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    POST
-                  </td>
-                  <td>
-                    <span class="label label-primary label-as-badge">2</span>
-                  </td>
-                </tr>
-
+              <% end %>
               </tbody>
             </table>
         </div>
