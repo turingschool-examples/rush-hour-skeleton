@@ -6,9 +6,9 @@ module TrafficSpy
     end
 
     get '/sources' do
-
       erb :new
     end
+
     get '/sources/:identifier' do
       url_hash = Payload.all.group(:url).count
       @urls = url_hash.map do |key, value|
@@ -19,8 +19,9 @@ module TrafficSpy
       erb :identifier_index
     end
 
+
     not_found do
-      erb :error
+    erb :error
     end
 
     post '/sources' do
@@ -33,6 +34,10 @@ module TrafficSpy
       data_handler = DataProcessingHandler.new(params, identifier)
       status data_handler.status
       body data_handler.body
+    end
+
+    get '/sources/:identifier/urls/:relative' do |identifier, relative|
+      erb :urls_index
     end
   end
 end
