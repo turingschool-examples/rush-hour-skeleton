@@ -10,6 +10,7 @@ require 'capybara'
 require 'json'
 
 Capybara.app = TrafficSpy::Server
+Capybara.save_and_open_page_path = "/tmp"
 
 require 'database_cleaner'
 
@@ -46,5 +47,13 @@ class ControllerTest < Minitest::Test
 
   def app
     TrafficSpy::Server
+  end
+end
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+
+  def register_site
+    @site = Site.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
   end
 end
