@@ -84,4 +84,10 @@ class PayloadParserTest < Minitest::Test
 
     assert_equal expected, parser.operating_system
   end
+
+  def test_returns_nil_when_no_payload
+    parser = PayloadParser.new({data: 'no payload'})
+
+    assert_equal nil, parser.payload
+  end
 end

@@ -9,6 +9,7 @@ class PayloadParser
               :operating_system
 
   def initialize(input)
+    return nil if input[:payload].nil?
     @payload           = parse(input[:payload])
     @url               = { url: payload[:url] }
     @screen_resolution = {
