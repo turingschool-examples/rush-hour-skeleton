@@ -143,6 +143,11 @@ module TrafficSpy
       site = Site.find_by(:identifier => identifier)
       sha = Payload.create_sha(params[:payload])
       sha_exists = Payload.exists?(:sha => sha)
+
+      process_payload(site, sha, sha_exists)
+    end
+
+    def process_payload(site, sha, sha_exists)
       if !params[:payload]
         status 400
         body "Payload is missing"
