@@ -6,7 +6,6 @@ class RegistrationHandler
 
   def initialize(input)
     @reg_data = input
-
     process(input['identifier'], input['rootUrl'])
   end
 
@@ -32,7 +31,6 @@ class RegistrationHandler
   end
 
   def set_return_values(status, body)
-
     @status = status
     @body   = body
   end

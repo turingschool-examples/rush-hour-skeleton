@@ -1,5 +1,5 @@
 class UrlStatisticsHandler
-  attr_reader :identifier, :path, :erb, :message
+  attr_reader :identifier, :path, :erb, :message, :url
 
   def initialize(identifier, path)
     @identifier = identifier
@@ -18,7 +18,7 @@ class UrlStatisticsHandler
       @message = "The #{identifier} identifier does not exist"
       @erb     =  :identifier_error
     else
-      url      = find_url(registration)
+      @url      = find_url(registration)
       check_for_nil_url(url)
     end
   end
@@ -36,7 +36,7 @@ class UrlStatisticsHandler
 
   def find_url(registration)
     urls         = registration.urls.select{|url, count| url != nil}
-    urls.find {|url, count| url.path == "/#{path}" }
+    urls.find {|url, count| url.path == "/#{path}" }.first
   end
 
 end

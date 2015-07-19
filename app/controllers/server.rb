@@ -1,6 +1,7 @@
 require 'json'
 require 'uri'
 module TrafficSpy
+
   class Server < Sinatra::Base
     get '/' do
       @identifier = params[:identifier]
@@ -47,11 +48,19 @@ module TrafficSpy
 
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-
+      @registration = Registration.find_by(:identifier => params[:identifier])
       urls_handler = UrlStatisticsHandler.new(identifier, path)
+      @url = urls_handler.url
       @message = urls_handler.message
       erb urls_handler.erb
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      if Registration.find_by(:identifier => identifier)
+        erb :events
+      else
+        redirect '/not_found'
+      end
+    end
   end
 end
