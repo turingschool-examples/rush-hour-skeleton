@@ -15,7 +15,7 @@ class EventDataRenderer
     events = @site.payloads.where(:event_id => @event.id)
     hours = events.map { |event| Time.parse(event[:requested_at]).hour }
     hour_count = hours.group_by{ |h| h }
-    requests_per_hour = {
+    day = {
       0 => 0,
       1 => 0,
       2 => 0,
@@ -42,13 +42,16 @@ class EventDataRenderer
       23 => 0
     }
 
-    requests_per_hour.map do |k, v|
+    calculate_requests_per_hour(day, hour_count)
+  end
+
+  def calculate_requests_per_hour(day, hour_count)
+    day.map do |k, v|
       if hour_count[k] != nil
-        requests_per_hour[k] = hour_count[k].size
+        day[k] = hour_count[k].size
       end
     end
 
-    requests_per_hour
+    day
   end
-
 end
