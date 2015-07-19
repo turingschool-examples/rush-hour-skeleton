@@ -7,19 +7,4 @@ class Registration < ActiveRecord::Base
     payloads.group(:url).count
   end
 
-  def screen_resolutions
-  payloads.group(:screen_resolution).count
-  end
-
-  def browsers
-    payloads.group(:browser).count
-  end
-
-  def operating_systems
-  payloads.group(:operating_system).count
-  end
-
-  def response_time
-
-  end
 end
