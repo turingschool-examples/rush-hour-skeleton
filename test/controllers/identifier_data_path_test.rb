@@ -30,7 +30,7 @@ class IdentifierDataPathTest < ControllerTest
   def test_if_the_payload_has_already_been_recieved
     post '/sources', { "identifier" => "facebook", "rootUrl" => "http://facebook.com" }
     id = Registration.all.first.identifier
-
+    
     post "/sources/#{id}/data", @raw_payload
     post "/sources/#{id}/data", @raw_payload
 

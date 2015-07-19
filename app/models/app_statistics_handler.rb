@@ -47,7 +47,8 @@ class AppDataHandler
   end
 
   def response_times
-    registration.events.average(:responded_in)
+    # require 'pry'; binding.pry
+    # registration.urls.average(:responded_in)
   end
 
   def link_list
