@@ -31,7 +31,6 @@ class RegistrationHandler
   end
 
   def set_return_values(status, body)
-
     @status = status
     @body   = body
   end
