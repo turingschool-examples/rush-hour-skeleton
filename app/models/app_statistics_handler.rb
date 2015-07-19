@@ -14,11 +14,13 @@ class AppDataHandler
   end
 
   def url_stats
-    registration.urls.map do |key, value|
+    urls = registration.urls.keys.compact
+    count =  urls.each_with_object(Hash.new(0)) { |url,counts| counts[url[:url]] += 1 }
+    count.map do |key, value|
       if !key.nil?
-        [value, key[:url]]
+        [value, key]
       end
-    end.compact.sort.reverse
+    end.uniq.compact.sort.reverse
   end
 
 
