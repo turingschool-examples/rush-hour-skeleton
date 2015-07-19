@@ -42,21 +42,13 @@ module TrafficSpy
     end
 
     def render_url_specific_data(relative_path, url)
-      @relative_path = relative_path
-      @url = url
 
-      if @url.blank?
-        @message = "The URL path, /#{@relative_path}, has not been requested."
+      if url.blank?
+        @message = "The URL path, /#{relative_path}, has not been requested."
 
         erb :message
       else
-        @fastest_response_time = @url.payloads.minimum(:responded_in)
-        @slowest_response_time = @url.payloads.maximum(:responded_in)
-        @average_response_time = @url.payloads.average(:responded_in).round(2)
-        @http_verbs = @url.payloads.group(:request_type).count.sort_by { |_, v| v }.reverse
-        @top_referrers = @url.payloads.group(:referrer).count.sort_by { |_, v| v }.reverse
-        @top_browsers = @url.payloads.group(:browser).count.sort_by { |_, v| v }.reverse
-        @top_platforms = @url.payloads.group(:platform).count.sort_by { |_, v| v }.reverse
+        @url_data_renderer = UrlDataRenderer.new(relative_path, url)
 
         erb :url_data
       end
