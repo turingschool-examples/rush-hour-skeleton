@@ -1,66 +1,34 @@
 require 'json'
 require 'uri'
 module TrafficSpy
+
   class Server < Sinatra::Base
     get '/' do
+      @identifier = params[:identifier]
       erb :index
     end
+
 
     get '/sources' do
       erb :new
     end
 
     get '/sources/:identifier' do
-      registration = Registration.find_by(:identifier => params[:identifier])
-      identifier   = params[:identifier]
-      if registration.nil?
-        @message = "The #{identifier} identifier does not exist"
-        erb :identifier_error
+      app_handler = AppDataHandler.new(params[:identifier])
+      if app_handler.registration.nil?
+        @message = app_handler.message
+        erb app_handler.erb
       else
-        url_hash = registration.urls
-        @urls    = url_hash.map do |key, value|
-          if !key.nil?
-            [value, key[:url]]
-          end
-        end.compact.sort.reverse
-
-        browser_hash = registration.browsers
-        @browsers    = browser_hash.map do |key, value|
-          if !key.nil?
-            [value, key[:name]]
-          end
-        end.compact.sort.reverse
-
-        @os = registration.operating_systems.map do |key, value|
-          if !key.nil?
-            [value, key[:name]]
-          end
-        end.compact.sort.reverse
-
-        @resolutions = registration.screen_resolutions.map do |key, value|
-          if !key.nil?
-            [value, key[:width], key[:height]]
-          end
-        end.compact.sort.reverse
-
-        @avg_response_times   = registration.events.average(:responded_in)
-        @long_response_times  = registration.events.maximum(:responded_in)
-        @short_response_times = registration.events.minimum(:responded_in)
-
-        @links = registration.urls.map do |key, value|
-          if !key.nil?
-            [key[:url]]
-          end
-        end.compact
-
-        @link_paths = @links.map do |link|
-          URI(link.join).path
-
-        end
+        @urls = app_handler.url_stats
+        @browsers = app_handler.browser_stats
+        @os = app_handler.os_stats
+        @resolutions = app_handler.resolution_stats
+        @avg_response_times = app_handler.response_times
+        @links = app_handler.link_list
+        @link_paths = app_handler.link_paths
         erb :identifier_index
       end
     end
-
 
     not_found do
       erb :error
@@ -82,7 +50,8 @@ module TrafficSpy
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @registration = Registration.find_by(:identifier => params[:identifier])
       urls_handler = UrlStatisticsHandler.new(identifier, path)
-      @message     = urls_handler.message
+      @url = urls_handler.url
+      @message = urls_handler.message
       erb urls_handler.erb
     end
 
@@ -97,6 +66,5 @@ module TrafficSpy
         erb :events
       end
     end
-
   end
 end

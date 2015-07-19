@@ -1,51 +1,136 @@
-<ol>Most Visited Websites
-<% if !@urls.nil? %>
-<% @urls.map do |num, website| %>
-  <li>Number of Visits: <%=num%> Website: <%=website%></li>
-<% end %>
-<% end %>
-</ol>
+<table id="visit-table">
+  <caption>Most Visited Webpages</caption>
+  <thead>
+  <tr>
+    <th>Number of Visits</th>
+    <th>Webpage Address</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if !@urls.nil? %>
+      <% @urls.map do |num, website| %>
+          <tr>
+            <td><%= num %></td>
+            <td><%= website %></td>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
 
-<ol>Most Used Browsers
-<% if !@browsers.nil? %>
-<% @browsers.map do |num, browser| %>
-  <li>Number of Visits: <%=num%> Browser Used: <%=browser%></li>
-<% end %>
-<% end %>
-</ol>
+<table id="browser-table">
+  <caption>Most Used Browsers</caption>
+  <thead>
+  <tr>
+    <th>Number of Visits</th>
+    <th>Browser Used</th>
+  </thead>
+  <tbody>
+  <% if !@browsers.nil? %>
+      <% @browsers.map do |num, browser| %>
+          <tr>
+            <td><%= num %></td>
+            <td><%= browser %></td>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
 
-<ol>Most Used Operating System
-<% if !@os.nil? %>
-<% @os.map do |num, os| %>
-  <li>Number of Visits: <%=num%> Operating System Used: <%=os%></li>
-<% end %>
-<% end %>
-</ol>
+<table id="os-list">
+  <caption>Most Used Operating System</caption>
+  <thead>
 
-<ol>Most Used Screen Resolutions
-<% if !@resolutions.nil? %>
-<% @resolutions.map do |num, width, height| %>
-  <li>Number of Visits: <%=num%> Screen Resolution: <%=width%>x<%=height%></li>
-<% end %>
-<% end %>
-</ol>
+  <tr>
+    <th>Number of Visits</th>
+    <th>Operating System Used</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if !@os.nil? %>
+      <% @os.map do |num, os| %>
+          <tr>
+            <td><%= num %></td>
+            <td><%= os %></td>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
 
-Average Response Time: <%=@avg_response_times%><br>
-Longest Response Time: <%=@long_response_times%><br>
-Shortest Response Time: <%=@short_response_times%><br>
+<table id="res-list">
+  <caption>Most Used Screen Resolutions</caption>
+  <thead>
+  <tr>
+    <th>Number of Visits</th>
+    <th>Screen Resolution</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if !@resolutions.nil? %>
+      <% @resolutions.map do |num, width, height| %>
+          <tr>
+            <td><%= num %></td>
+            <td><%= width %>x<%= height %></td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
 
-<ol>Links Visited
-<% if !@links.nil? %>
-<% @link_paths.map do |path|%>
-  <a href = <%=params[:identifier]%>/urls<%=path%> > <li>http://<%=params[:identifier]%><%=path%></li></a>
-<% end %>
-<% end %>
-</ol>
+<table id="response-table">
+  <caption>Average Response Times by Webpage</caption>
+  <thead>
+  <tr>
+    <th>Webpage Name</th>
+    <th>Average Response Time</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
 
-<ol>Event Data Links
-<% if !@links.nil? %>
-<% @link_paths.map do |path|%>
-  <a href = <%=params[:identifier]%>/events > <li>http://<%=params[:identifier]%><%=path%></li></a>
-<% end %>
-<% end %>
-</ol>
+    <td><%= @avg_response_times %></td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Longest Response Time: <%= @long_response_times %><br>
+        Shortest Response Time: <%= @short_response_times %><br>
+        </div></ul> -->
+
+<table id="link-list">
+  <thead>
+    <caption>Webpage Data</caption>
+  <tr>
+    <th>Links
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if !@links.nil? %>
+      <% @link_paths.map do |path| %>
+          <tr>
+            <td><a href=<%= params[:identifier] %>/urls<%= path %> >http://<%= params[:identifier] %><%= path %></td>
+            </a>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<table id="event-list">
+  <thead>
+    <caption>Event Data Links</caption>
+  <tr>
+    <th>Links</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if !@links.nil? %>
+
+      <% @link_paths.map do |path| %>
+          <tr>
+            <td><a href=<%= params[:identifier] %>/events>http://<%= params[:identifier] %><%= path %></td>
+            </a>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>

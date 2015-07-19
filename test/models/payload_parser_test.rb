@@ -56,7 +56,7 @@ class PayloadParserTest < Minitest::Test
   end
 
   def test_returns_url_table_input
-    expected = { url: "http://jumpstartlab.com/blog" }
+    expected = { url: "http://jumpstartlab.com/blog", :request_type=>"GET", :referred_by=>"http://jumpstartlab.com", :responded_in=>37}
 
     assert_equal  expected, parser.url
   end
