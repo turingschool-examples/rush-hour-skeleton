@@ -11,7 +11,7 @@ class ApplicationDataTest < FeatureTest
   def test_it_renders_the_name_field
     visit "/sources"
 
-    assert page.has_content?("Company Name")
+    assert page.has_content?("Website Identifier")
   end
 
   def test_it_renders_the_website_field
