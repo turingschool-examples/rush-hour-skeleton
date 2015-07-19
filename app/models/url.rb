@@ -9,7 +9,7 @@ class Url < ActiveRecord::Base
   end
 
   def urls
-    payloads.group(:url).count
+    payloads.group(:url, [:url]).count
   end
 
   def user_agents
