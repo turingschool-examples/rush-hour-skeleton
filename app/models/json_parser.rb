@@ -1,39 +1,22 @@
 class JsonParser
   def self.parse(payload)
-
     parsed_payload = JSON.parse(payload)
-    new_keys = JSON.parse(payload)
 
-    new_keys.keys.each do |key|
-      new_keys[key] = key.chars.map do |char|
-        if char == char.upcase
-          char.insert(0, "_")
-        else
-          char
-        end
-      end.join.downcase
-    end
+    formatted_payload = {}
+    formatted_payload[:path] = parsed_payload["url"]
+    formatted_payload[:requested_at] = parsed_payload["requestedAt"]
+    formatted_payload[:responded_in] = parsed_payload["respondedIn"]
+    formatted_payload[:referred_by] = parsed_payload["referredBy"]
+    formatted_payload[:request_type] = parsed_payload["requestType"]
+    formatted_payload[:event_name] = parsed_payload["eventName"]
+    formatted_payload[:resolution_width] = parsed_payload["resolutionWidth"]
+    formatted_payload[:resolution_height] = parsed_payload["resolutionHeight"]
 
-    payload_with_user_agent = Hash[parsed_payload.map { |k,v| [new_keys[k].to_sym, v]}]
-    payload_with_browser_platform = get_browser_and_platform(payload_with_user_agent)
-    replace_url_with_path(payload_with_browser_platform)
+    formatted_payload[:browser] = UserAgent.parse(
+      parsed_payload["userAgent"]).browser
+    formatted_payload[:platform] = UserAgent.parse(
+      parsed_payload["userAgent"]).platform
+
+    formatted_payload
   end
-
-  def self.get_browser_and_platform(payload)
-    user_agent = parse_user_agent(payload[:user_agent])
-    payload.delete(:user_agent)
-    payload[:browser] = user_agent.browser
-    payload[:platform] = user_agent.platform
-    payload
-  end
-
-  def self.parse_user_agent(user_agent)
-    UserAgent.parse(user_agent)
-  end
-
-  def self.replace_url_with_path(payload)
-    payload[:path] = payload.delete(:url)
-    payload
-  end
-
 end

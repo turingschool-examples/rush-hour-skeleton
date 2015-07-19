@@ -1,7 +1,7 @@
 <!-- Title -->
 <div class="row">
   <div class="col-lg-12">
-    <h1>Hello, <%= "#{@identifier}" %></h1>
+    <h1>Hello, <%= "#{@dashboard_renderer.identifier}" %></h1>
   </div>
 </div>
 <!-- /.row -->
@@ -23,7 +23,7 @@
               </tr>
             </thead>
             <tbody>
-                <% if @sorted_urls.blank? %>
+                <% if @dashboard_renderer.urls.blank? %>
                 <tr>
                   <td>
                   </td>
@@ -33,13 +33,13 @@
                 </tr>
                 <% else %>
                   <% count = 1 %>
-                  <% @sorted_urls.each do |pair| %>
+                  <% @dashboard_renderer.urls.each do |pair| %>
                     <tr>
                       <td>
                         <%= count %>.
                       </td>
                       <td>
-                        <a href="/sources/<%= "#{@identifier}" %>/urls/<%= pair.first.relative_path %>"><%= pair.first.path %></a>
+                        <a href="/sources/<%= "#{@dashboard_renderer.identifier}" %>/urls/<%= pair.first.relative_path %>"><%= pair.first.path %></a>
                       </td>
                     </tr>
                     <% count += 1 %>
@@ -62,7 +62,7 @@
               </tr>
             </thead>
             <tbody>
-            <% @browsers.each do |pair| %>
+            <% @dashboard_renderer.browsers.each do |pair| %>
               <tr>
                 <td>
                   <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
@@ -86,7 +86,7 @@
             </tr>
           </thead>
           <tbody>
-          <% @platforms.each do |pair| %>
+          <% @dashboard_renderer.platforms.each do |pair| %>
             <tr>
               <td>
                 <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
@@ -98,7 +98,6 @@
       </div>
     </div>
   </div>
-
   <div class="col-md-3 col-sm-6 hero-feature">
     <div class="table-responsive">
       <div class="panel">
@@ -111,7 +110,7 @@
             </tr>
           </thead>
           <tbody>
-          <% @screens.each do |pair| %>
+          <% @dashboard_renderer.screens.each do |pair| %>
             <tr>
               <td>
                 <%= pair[0][0] %>x<%= pair[0][1] %> <span class="label label-primary label-as-badge"><%= pair[1] %> </span>
@@ -146,7 +145,7 @@
           </thead>
           <tbody>
           <% count = 1 %>
-          <% @response_times.each do |pair| %>
+          <% @dashboard_renderer.response_times.each do |pair| %>
               <tr>
                 <td>
                   <%= count %>.
