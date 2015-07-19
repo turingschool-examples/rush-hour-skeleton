@@ -38,11 +38,6 @@ module TrafficSpy
       site = Site.find_by(:identifier => identifier)
       url = site.urls.find_by(:path => "#{site.root_url}/#{relative_path}")
 
-      render_url_specific_data(relative_path, url)
-    end
-
-    def render_url_specific_data(relative_path, url)
-
       if url.blank?
         @message = "The URL path, /#{relative_path}, has not been requested."
 
