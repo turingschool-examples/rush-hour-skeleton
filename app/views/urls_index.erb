@@ -7,11 +7,14 @@
     <%=calculator.find_longest_response_time%></li>
   <li><strong>Shortest Response Time: </strong>
     <%=calculator.find_shortest_response_time%></li>
-  <li><strong>Shortest Response Time: </strong>
+  <li><strong>Average Response Time: </strong>
     <%=calculator.find_average_response_time%></li>
   <li><strong>Request Type Used: </strong>
       <%=calculator.get_http_verbs%></li>
-  <!-- <li><strong>Referred By: </strong>
-      <%=calculator.get_referred_by%></li> -->
+  <li><strong>Most Popular Referrals: </strong>
+      <%=calculator.get_referred_by%></li>
+  <!-- <li><strong>Most Popular User Agents: </strong>
+      <%=calculator.get_user_agents%></li> -->
+
     <%end%>
 </ul>

@@ -1,11 +1,19 @@
 require 'uri'
 class Url < ActiveRecord::Base
   has_many :payloads
-  has_many :events, through: :payloads
-  has_many :urls, through: :payloads
+
+
 
   def path
     "#{URI(self[:url]).path}"
+  end
+
+  def urls
+    payloads.group(:url).count
+  end
+
+  def user_agents
+    payloads.group(:operating_system).count
   end
 
 
