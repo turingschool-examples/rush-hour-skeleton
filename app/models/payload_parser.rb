@@ -20,8 +20,8 @@ class PayloadParser
     @event             = {
       name:         payload[:event_name],
       requested_at: DateTime.parse(payload[:requested_at]),
-      responded_in: payload[:responded_in].to_i,
-      referred_by:  payload[:referred_by]
+      # responded_in: payload[:responded_in].to_i,
+      # referred_by:  payload[:referred_by]
     }
     @browser           = {
       name: UserAgent.parse(payload[:user_agent]).browser

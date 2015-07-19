@@ -6,9 +6,8 @@ class UrlsStatisticsCalculator
   end
 
   def find_longest_response_time
-    binding.pry
-    if !url.events.empty?
-      url.events.order(responded_in: :desc).last[:responded_in]
+    if !url.urls.nil?
+      url.urls.order(responded_in: :desc).last[:responded_in]
     else
       nil
     end
@@ -16,16 +15,16 @@ class UrlsStatisticsCalculator
 
 
   def find_shortest_response_time
-    if !url.events.empty?
-      url.events.order(responded_in: :desc).last[:responded_in]
+    if !url.urls.empty?
+      url.urls.order(responded_in: :desc).last[:responded_in]
     else
       nil
     end
   end
 
   def find_average_response_time
-    if !url.events.empty?
-      url.events.average(:responded_in)
+    if !url.urls.empty?
+      url.urls.average(:responded_in)
     else
       nil
     end

@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class ApplicationDataTest < FeatureTest
+class SourcesFeatureTest < FeatureTest
 
   def test_it_renders_the_application_registration_page
   visit "/sources"
