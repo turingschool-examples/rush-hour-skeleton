@@ -66,14 +66,14 @@ class EventsDataTest < FeatureTest
   end
 
   def create_events(name, how_many)
-    event_payload = return_event_with_name(name)
-    (0..how_many).each do
+    (1..how_many).each do
+      event_payload = return_event_with_name(name)
       DataProcessingHandler.new(return_unique_payload(event_payload), @identifier)
     end
   end
 
   def return_event_with_name(name)
-    payload = {}
+    payload            = {}
     payload['payload'] = @raw_payload['payload'].sub('socialLogin', name)
     payload
   end

@@ -65,6 +65,7 @@ module TrafficSpy
         @events_by_popularity = registration.events.group(:name).order('count_name desc').count(:name)
         erb :events
       end
+
     end
   end
 end
