@@ -1,29 +1,42 @@
 class UrlsStatisticsCalculator
-  attr_reader :registration
+  attr_reader :url
 
-  def initialize(registration)
-    @registration = registration
+  def initialize(url)
+    @url = url
   end
 
   def find_longest_response_time
-
-    registration.events.order(responded_in: :desc).first[:responded_in]
+    binding.pry
+    if !url.events.empty?
+      url.events.order(responded_in: :desc).last[:responded_in]
+    else
+      nil
+    end
   end
 
+
   def find_shortest_response_time
-    registration.events.order(responded_in: :desc).last[:responded_in]
+    if !url.events.empty?
+      url.events.order(responded_in: :desc).last[:responded_in]
+    else
+      nil
+    end
   end
 
   def find_average_response_time
-    registration.events.average(:responded_in)
+    if !url.events.empty?
+      url.events.average(:responded_in)
+    else
+      nil
+    end
   end
 
   def get_http_verbs
-    registration.payloads.map do |payload|
-      if payload.url
-        payload.url[:request_type]
-      end
-    end.compact.uniq.join(", ")
+    "here"
+  end
+
+  def get_referred_by
+    url.payloads.first.registration[:url]
   end
 
 end
