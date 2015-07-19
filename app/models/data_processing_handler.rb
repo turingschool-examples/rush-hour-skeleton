@@ -5,12 +5,12 @@ class DataProcessingHandler
               :parser
 
   def initialize(raw_payload, identifier)
-    @parser       = PayloadParser.new(raw_payload)
-    @payload      = @parser.payload
-    @registration = Registration.find_by(identifier: identifier)
-    @status       = 0
-    @body         = ''
-    process(@registration, @payload)
+    @parser      = PayloadParser.new(raw_payload)
+    @payload     = @parser.payload
+    @status      = 0
+    @body        = ''
+    registration = Registration.find_by(identifier: identifier)
+    process(registration, @payload)
   end
 
   def process(registration, payload)

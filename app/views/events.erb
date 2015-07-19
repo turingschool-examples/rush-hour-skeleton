@@ -1,3 +1,26 @@
 <h2>Events Statistics</h2>
 
+  <% if @events_by_popularity.empty? %>
+    <h4>No Events to Display</h4>
+  <% else %>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Number of Requests</th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @events_by_popularity.map do |name, count| %>
+            <tr>
+              <td><a href="events/<%= name %>"><%= name %></a></td>
+              <td><%= count %></td>
+            </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+<% end %>
+
+
 
