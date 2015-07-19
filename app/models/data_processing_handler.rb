@@ -46,11 +46,13 @@ class DataProcessingHandler
   end
 
   def store_payload(registration)
-    registration.payloads.create(url: Url.find_or_create_by(parser.url))
-    registration.payloads.create(screen_resolution: ScreenResolution.find_or_create_by(parser.screen_resolution))
-    registration.payloads.create(browser: Browser.find_or_create_by(parser.browser))
-    registration.payloads.create(event: Event.find_or_create_by(parser.event))
-    registration.payloads.create(operating_system: OperatingSystem.find_or_create_by(parser.operating_system))
+    registration.payloads.create(
+      url:               Url.find_or_create_by(parser.url),
+      screen_resolution: ScreenResolution.find_or_create_by(parser.screen_resolution),
+      browser:           Browser.find_or_create_by(parser.browser),
+      event:             Event.find_or_create_by(parser.event),
+      operating_system:  OperatingSystem.find_or_create_by(parser.operating_system)
+    )
   end
 
 end
