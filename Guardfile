@@ -9,6 +9,6 @@
 
 guard 'rake', :task => 'test' do
   watch(%r{^test/.+_test\.rb$})
-  watch(%r{^app/(.+)\.rb$})     { |m| "test/lib/#{m[1]}_spec.rb" }
+  watch(%r{^app/(.+)\.rb$})
   watch('test/test_helper.rb')  { "test" }
 end
