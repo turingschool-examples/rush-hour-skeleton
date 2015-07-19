@@ -86,11 +86,15 @@ module TrafficSpy
       erb urls_handler.erb
     end
 
+
     get '/sources/:identifier/events' do |identifier|
-      if Registration.find_by(:identifier => identifier)
-        erb :events
-      else
+      registration = Registration.find_by(:identifier => identifier)
+
+      if registration.nil?
         redirect '/not_found'
+      else
+        @events_by_popularity = registration.events.group(:name).order('count_name desc').count(:name)
+        erb :events
       end
     end
 

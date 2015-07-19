@@ -2,14 +2,19 @@ require_relative '../test_helper'
 
 class EventsDataTest < FeatureTest
 
-  def test_user_sees_index_page_when_identifier_registered
+  def setup
+    super
+
     @identifier = 'test_event_identifier'
-    RegistrationHandler.new({ 'identifier' => @identifier, 'rootUrl' => 'http://facebook.com' })
-    path = "/sources/#{@identifier}/events"
+    register(@identifier)
+    @path = "/sources/#{@identifier}/events"
+  end
 
-    visit path
 
-    assert_equal path, current_path
+  def test_user_sees_index_page_when_identifier_registered
+    visit @path
+
+    assert_equal @path, current_path
     assert_equal 'Events Statistics', find('h2').text
   end
 
@@ -23,17 +28,52 @@ class EventsDataTest < FeatureTest
   end
 
   def test_user_sees_most_to_least_received_event
-    skip
-    @identifier = 'test_event_identifier'
-    RegistrationHandler.new({ 'identifier' => @identifier, 'rootUrl' => 'http://facebook.com' })
-    DataProcessingHandler.new(@raw_payload, @identifier)
-    DataProcessingHandler.new(@raw_payload['payload'].sub('1920', '1111'), @identifier)
-    DataProcessingHandler.new(@raw_payload['payload'].sub('socialLogin', 'otherEvent'), @identifier)
-    path = "/sources/#{@identifier}/events"
+    create_events('goldMedal', 5)
+    create_events('silverMedal', 3)
+    create_events('bronzeMedal', 1)
 
-    visit path
+    visit @path
 
-    assert_equal 2, Event.all.count
+    assert_equal 3, all('tbody tr').count
+    assert_equal 'goldMedal', all('tbody tr td').first.text
+    assert_equal '1', all('tbody tr').last.all('td').last.text
+  end
+
+  def test_user_goes_to_event_details_page_when_clicks_on_event_name
+    event_name = 'i_should_be_a_link_to_event_details'
+    create_events(event_name, 10)
+    expected_path = "/sources/test_event_identifier/events/#{event_name}"
+
+    visit @path
+    assert_equal true, find_link(event_name).visible?
+
+    click_link(event_name)
+    assert_equal expected_path, current_path
+  end
+
+  private
+
+  def register(identifier)
+    RegistrationHandler.new({ 'identifier' => identifier, 'rootUrl' => 'http://facebook.com' })
+  end
+
+  def create_events(name, how_many)
+    event_payload = return_event_with_name(name)
+    (0..how_many).each do
+      DataProcessingHandler.new(return_unique_payload(event_payload), @identifier)
+    end
+  end
+
+  def return_event_with_name(name)
+    payload = {}
+    payload['payload'] = @raw_payload['payload'].sub('socialLogin', name)
+    payload
+  end
+
+  def return_unique_payload(original_payload)
+    # Couldn't figure out how to make a static counter for the test class so just used random for now
+    original_payload['payload'] = original_payload['payload'].sub('1920', Random.new().rand(9999).to_s)
+    original_payload
   end
 
 end
