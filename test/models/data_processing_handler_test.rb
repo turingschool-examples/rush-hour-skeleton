@@ -33,7 +33,7 @@ class DataProcessingHandlerTest < Minitest::Test
     handler = DataProcessingHandler.new(@raw_payload, @identifier)
 
     assert_equal 200, handler.status
-    assert_equal 'Success', handler.body
+    assert_equal 'Success - 200 OK', handler.body
   end
 
   def test_payload_saved_when_post_successful

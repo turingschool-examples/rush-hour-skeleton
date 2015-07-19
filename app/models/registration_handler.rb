@@ -6,7 +6,6 @@ class RegistrationHandler
 
   def initialize(input)
     @reg_data = input
-
     process(input['identifier'], input['rootUrl'])
   end
 

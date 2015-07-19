@@ -80,7 +80,7 @@ module TrafficSpy
 
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-
+      @registration = Registration.find_by(:identifier => params[:identifier])
       urls_handler = UrlStatisticsHandler.new(identifier, path)
       @message     = urls_handler.message
       erb urls_handler.erb
