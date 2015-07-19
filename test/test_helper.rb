@@ -10,15 +10,9 @@ require 'capybara'
 require 'pry'
 require 'tilt/erb'
 
-Capybara.app = TrafficSpy::Server
-
-class FeatureTest <Minitest::Test
-  include Capybara::DSL
-end
-
 
 require 'database_cleaner'
-DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
+DatabaseCleaner.strategy = :truncation, { except: %w[public.schema_migrations] }
 
 
 class Minitest::Test
@@ -37,10 +31,18 @@ class Minitest::Test
   end
 end
 
+
 class ControllerTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
     TrafficSpy::Server
   end
+end
+
+
+Capybara.app = TrafficSpy::Server
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
 end

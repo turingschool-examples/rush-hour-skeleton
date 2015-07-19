@@ -12,20 +12,20 @@ module TrafficSpy
 
     get '/sources/:identifier' do
       registration = Registration.find_by(:identifier => params[:identifier])
-      identifier = params[:identifier]
+      identifier   = params[:identifier]
       if registration.nil?
         @message = "The #{identifier} identifier does not exist"
         erb :identifier_error
       else
         url_hash = registration.urls
-        @urls = url_hash.map do |key, value|
+        @urls    = url_hash.map do |key, value|
           if !key.nil?
             [value, key[:url]]
           end
         end.compact.sort.reverse
 
         browser_hash = registration.browsers
-        @browsers = browser_hash.map do |key, value|
+        @browsers    = browser_hash.map do |key, value|
           if !key.nil?
             [value, key[:name]]
           end
@@ -39,12 +39,12 @@ module TrafficSpy
 
         @resolutions = registration.screen_resolutions.map do |key, value|
           if !key.nil?
-            [value, key[:width],key[:height]]
+            [value, key[:width], key[:height]]
           end
         end.compact.sort.reverse
 
-        @avg_response_times = registration.events.average(:responded_in)
-        @long_response_times = registration.events.maximum(:responded_in)
+        @avg_response_times   = registration.events.average(:responded_in)
+        @long_response_times  = registration.events.maximum(:responded_in)
         @short_response_times = registration.events.minimum(:responded_in)
 
         @links = registration.urls.map do |key, value|
@@ -85,6 +85,14 @@ module TrafficSpy
       @url = urls_handler.url
       @message = urls_handler.message
       erb urls_handler.erb
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      if Registration.find_by(:identifier => identifier)
+        erb :events
+      else
+        redirect '/not_found'
+      end
     end
 
   end
