@@ -11,7 +11,8 @@ class PayloadParser
   def initialize(input)
     return nil if input['payload'].nil?
     @payload           = parse(input['payload'])
-    @url               = {url: payload[:url], request_type: payload[:request_type]}
+    @url               = {url: payload[:url], request_type: payload[:request_type],
+                          referred_by: payload[:referred_by], responded_in: payload[:responded_in]}
     @screen_resolution = {
       width:  payload[:resolution_width],
       height: payload[:resolution_height]
