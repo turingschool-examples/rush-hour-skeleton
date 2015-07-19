@@ -9,18 +9,10 @@ class AppDataHandler
   end
 
   def check_registration
-    # if registration.nil?
     @message = "The #{identifier} identifier does not exist"
     @erb     =  :identifier_error
-
-    # end
   end
 
-
-  # if registration.nil?
-  #   @message = "The #{identifier} identifier does not exist"
-  #   erb :identifier_error
-  # else
   def url_stats
     registration.urls.map do |key, value|
       if !key.nil?
@@ -56,9 +48,6 @@ class AppDataHandler
 
   def response_times
     registration.events.average(:responded_in)
-    # require 'pry'; binding.pry
-    # @long_response_times = registration.events.maximum(:responded_in)
-    # @short_response_times = registration.events.minimum(:responded_in)
   end
 
   def link_list
