@@ -1,0 +1,51 @@
+<!-- Title -->
+<div class="row">
+  <div class="col-lg-12">
+    <h1><%= "#{@identifier}" %>'s Event Index</h1>
+  </div>
+</div>
+<!-- /.row -->
+
+<!-- Event Details -->
+<div class="row text-center">
+  <div class="col-md-3 col-sm-6 hero-feature">
+    <div class="panel">
+      <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th colspan="2">
+                  All events
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <% if @events.blank? %>
+                <tr>
+                  <td>
+                  </td>
+                  <td>
+                    No Events
+                  </td>
+                </tr>
+                <% else %>
+                  <% count = 1 %>
+                  <% @events.each do |pair| %>
+                    <tr>
+                      <td>
+                        <%= count %>.
+                      </td>
+                      <td>
+                        <a href="/sources/<%= "#{@identifier}" %>/events/<%= pair.first.name %>"><%= pair.first.name %></a>
+                      </td>
+                    </tr>
+                    <% count += 1 %>
+                  <% end %>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- /.row -->

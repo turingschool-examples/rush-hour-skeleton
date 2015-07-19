@@ -1,0 +1,109 @@
+<!-- Title -->
+<div class="row">
+  <div class="col-lg-12">
+    <h1><%= @event_data_renderer.identifier  %> had <%= @event_data_renderer.requests_per_hour.values.reduce(:+) %> total requests from '<%= @event_data_renderer.event_name %>'</h1>
+  </div>
+</div>
+<!-- /.row -->
+
+<!-- Event Data by Hour -->
+<div class="row text-center">
+  <div class="col-md-12 col-sm-12 hero-feature">
+    <div class="panel">
+      <div class="table-responsive">
+        <table class="table">
+          <caption>Hours</caption>
+          <thead>
+            <tr>
+              <th>
+                12 AM
+              </th>
+              <th>
+                1
+              </th>
+              <th>
+                2
+              </th>
+              <th>
+                3
+              </th>
+              <th>
+                4
+              </th>
+              <th>
+                5
+              </th>
+              <th>
+                6
+              </th>
+              <th>
+                7
+              </th>
+              <th>
+                8
+              </th>
+              <th>
+                9
+              </th>
+              <th>
+                10
+              </th>
+              <th>
+                11
+              </th>
+              <th>
+                12 PM
+              </th>
+              <th>
+                1
+              </th>
+              <th>
+                2
+              </th>
+              <th>
+                3
+              </th>
+              <th>
+                4
+              </th>
+              <th>
+                5
+              </th>
+              <th>
+                6
+              </th>
+              <th>
+                7
+              </th>
+              <th>
+                8
+              </th>
+              <th>
+                9
+              </th>
+              <th>
+                10
+              </th>
+              <th>
+                11
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            <% @event_data_renderer.requests_per_hour.each do |hour, count| %>
+              <td>
+                <% if count == 0 %>
+                  <span class="label label-primary label-as-badge"><%= count %></span>
+                <% else %>
+                  <span class="label label-success label-as-badge"><%= count %></span>
+                <% end %>
+              </td>
+            <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

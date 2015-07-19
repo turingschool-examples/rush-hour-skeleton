@@ -1,0 +1,151 @@
+
+body {
+  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+  background: url(/images/traffic-red.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif !important;
+  color: #ffffff;
+}
+p, div, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+h1 {
+  font-size: 36px;
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 40px;
+}
+.navbar-default {
+    border-color: rgba(34,34,34,.05);
+    background-color: #fff;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+.navbar-default .navbar-header .navbar-brand {
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #f05f40;
+}
+.navbar-default .navbar-header .navbar-brand:hover,
+.navbar-default .navbar-header .navbar-brand:focus {
+    color: #eb3812;
+}
+.navbar-default .nav > li>a,
+.navbar-default .nav>li>a:focus {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 400;
+    color: #222;
+}
+.navbar-default .nav > li>a:hover,
+.navbar-default .nav>li>a:focus:hover {
+    color: #f05f40;
+}
+.navbar-default .nav > li.active>a,
+.navbar-default .nav>li.active>a:focus {
+    color: #f05f40!important;
+    background-color: transparent;
+}
+.navbar-default .nav > li.active>a:hover,
+.navbar-default .nav>li.active>a:focus:hover {
+    background-color: transparent;
+}
+.label-as-badge {
+  border-radius: 1em;
+}
+.btn-primary, .label-primary {
+  background-color: #000000;
+  border-color: #000000;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #f05f40;
+  border-color: #f05f40;
+}
+.btn {
+  border-radius: 0px;
+}
+th {
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  text-align: center;
+}
+.table>thead>tr>th {
+  border-bottom: 1px solid #ddd;
+}
+td a {
+  color: #f05f40;
+}
+td a:hover, td a:focus {
+  color: #ffffff;
+}
+.jumbotron, .panel {
+  background-color: rgba(255,255,255,.2);
+  border-radius: 0px;
+}
+.panel h1 {
+  text-align: center;
+  text-transform: capitalize;
+}
+.label-success {
+  background-color: #f05f40;
+}
+.hero-spacer {
+  margin-top: 50px;
+}
+.hero-feature {
+  margin-bottom: 30px;
+}
+footer {
+  position:absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+}
+
+@media (min-width:768px) {
+  .navbar-default {
+    border-color: rgba(255,255,255,.3);
+    background-color: transparent;
+  }
+  .navbar-default .navbar-header .navbar-brand {
+    color: rgba(255,255,255,.7);
+  }
+  .navbar-default .navbar-header .navbar-brand:hover,
+  .navbar-default .navbar-header .navbar-brand:focus {
+      color: #fff;
+  }
+  .navbar-default .nav > li>a,
+  .navbar-default .nav>li>a:focus {
+    color: rgba(255,255,255,.7);
+  }
+  .navbar-default .nav > li>a:hover,
+  .navbar-default .nav>li>a:focus:hover {
+    color: #fff;
+  }
+  .navbar-default.affix {
+    border-color: rgba(34,34,34,.05);
+    background-color: #fff;
+  }
+  .navbar-default.affix .navbar-header .navbar-brand {
+    font-size: 14px;
+    color: #f05f40;
+  }
+  .navbar-default.affix .navbar-header .navbar-brand:hover,
+  .navbar-default.affix .navbar-header .navbar-brand:focus {
+    color: #eb3812;
+  }
+  .navbar-default.affix .nav > li>a,
+  .navbar-default.affix .nav>li>a:focus {
+    color: #222;
+  }
+  .navbar-default.affix .nav > li>a:hover,
+  .navbar-default.affix .nav>li>a:focus:hover {
+    color: #f05f40;
+  }
+}
