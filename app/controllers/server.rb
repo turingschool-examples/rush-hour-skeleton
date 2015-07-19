@@ -1,5 +1,7 @@
 module TrafficSpy
   class Server < Sinatra::Base
+    register Sinatra::Partial
+    set :partial_template_engine, :erb
     get '/' do
       erb :index
     end
@@ -21,6 +23,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+      @identifier = identifier
       site = Site.find_by(:identifier => identifier)
 
       if site.blank?
@@ -35,6 +38,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @identifier = identifier
       site = Site.find_by(:identifier => identifier)
       url = site.urls.find_by(:path => "#{site.root_url}/#{relative_path}")
 
@@ -49,15 +53,23 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:indentifier/events' do |identifier|
+    get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
       site = Site.find_by(:identifier => @identifier)
-      @events = site.payloads.group(:event).count.sort_by { |_, v| v }.reverse
 
-      erb :event_index
+      if site.blank?
+        @message = "The identifier, #{identifier}, does not exist."
+
+        erb :message
+      else
+        @events = site.payloads.group(:event).count.sort_by { |_, v| v }.reverse
+
+        erb :event_index
+      end
     end
 
-    get '/sources/:indentifier/events/:event_name' do |identifier, event_name|
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @identifier = identifier
       site = Site.find_by(:identifier => identifier)
       event = site.events.find_by(:name => event_name)
 
@@ -73,6 +85,7 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
+      @identifier = identifier
       site = Site.find_by(:identifier => identifier)
       sha = Payload.create_sha(params[:payload])
       sha_exists = Payload.exists?(:sha => sha)
@@ -94,7 +107,9 @@ module TrafficSpy
     end
 
     not_found do
-      erb :error
+      @message = "AHHHHH! 404 not found!"
+
+      erb :message
     end
   end
 end

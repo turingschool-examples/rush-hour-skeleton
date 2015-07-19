@@ -1,129 +1,15 @@
 <!-- Title -->
 <div class="row">
-    <div class="col-lg-12">
-        <h3>Hello, <%= "#{@dashboard_renderer.identifier}" %></h3>
-    </div>
+  <div class="col-lg-12">
+    <h1>Hello, <%= "#{@dashboard_renderer.identifier}" %></h1>
+  </div>
 </div>
 <!-- /.row -->
 
-<!-- Page Features -->
+<!-- Dashboard -->
 <div class="row text-center">
-
-    <div class="col-md-3 col-sm-6 hero-feature">
-        <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>
-                    #
-                  </th>
-                  <th>
-                    Visited Urls
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                  <% if @dashboard_renderer.urls.blank? %>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>
-                      No URLs visited
-                    </td>
-                  </tr>
-                  <% else %>
-                    <% count = 1 %>
-                    <% @dashboard_renderer.urls.each do |pair| %>
-                      <tr>
-                        <td>
-                          <%= count %>.
-                        </td>
-                        <td>
-                          <a href="/sources/<%= "#{@dashboard_renderer.identifier}" %>/urls/<%= pair.first.relative_path %>"><%= pair.first.path %></a>
-                        </td>
-                      </tr>
-                      <% count += 1 %>
-                    <% end %>
-                  <% end %>
-              </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="col-md-3 col-sm-6 hero-feature">
-        <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>
-                    Visits per Browser
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-              <% @dashboard_renderer.browsers.each do |pair| %>
-                <tr>
-                  <td>
-                    <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
-                  </td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="col-md-3 col-sm-6 hero-feature">
-        <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>
-                    Visits per Operating System
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-              <% @dashboard_renderer.platforms.each do |pair| %>
-                <tr>
-                  <td>
-                    <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
-                  </td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="col-md-3 col-sm-6 hero-feature">
-        <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>
-                    Visits per Screen Resolution
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-              <% @dashboard_renderer.screens.each do |pair| %>
-                <tr>
-                  <td>
-                    <%= pair[0][0] %>x<%= pair[0][1] %> <span class="label label-primary label-as-badge"><%= pair[1] %> </span>
-                  </td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
-        </div>
-    </div>
-
-</div>
-<!-- /.row -->
-
-<div class="row text-center">
-  <div class="col-md-6 col-sm-12 hero-feature">
+  <div class="col-md-3 col-sm-6 hero-feature">
+    <div class="panel">
       <div class="table-responsive">
           <table class="table">
             <thead>
@@ -132,35 +18,151 @@
                   #
                 </th>
                 <th>
-                  URL
-                </th>
-                <th>
-                  Average Response Time
+                  Visited Urls
                 </th>
               </tr>
             </thead>
             <tbody>
-            <% count = 1 %>
-            <% @dashboard_renderer.response_times.each do |pair| %>
+                <% if @dashboard_renderer.urls.blank? %>
                 <tr>
                   <td>
-                    <%= count %>.
                   </td>
                   <td>
-                    <%= pair[0].path %>
-                  </td>
-                  <td>
-                  <span class="label label-primary label-as-badge"> <%= pair[1].to_i %> ms </span>
+                    No URLs visited
                   </td>
                 </tr>
-                <% count += 1 %>
+                <% else %>
+                  <% count = 1 %>
+                  <% @dashboard_renderer.urls.each do |pair| %>
+                    <tr>
+                      <td>
+                        <%= count %>.
+                      </td>
+                      <td>
+                        <a href="/sources/<%= "#{@dashboard_renderer.identifier}" %>/urls/<%= pair.first.relative_path %>"><%= pair.first.path %></a>
+                      </td>
+                    </tr>
+                    <% count += 1 %>
+                  <% end %>
+                <% end %>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 hero-feature">
+    <div class="panel">
+      <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  Visits per Browser
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @dashboard_renderer.browsers.each do |pair| %>
+              <tr>
+                <td>
+                  <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
+                </td>
+              </tr>
             <% end %>
             </tbody>
           </table>
       </div>
+    </div>
   </div>
+  <div class="col-md-3 col-sm-6 hero-feature">
+    <div class="panel">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Visits per Operating System
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @dashboard_renderer.platforms.each do |pair| %>
+            <tr>
+              <td>
+                <%= pair[0].name %> <span class="label label-primary label-as-badge"> <%= pair[1] %> </span>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 hero-feature">
+    <div class="table-responsive">
+      <div class="panel">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Visits per Screen Resolution
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @dashboard_renderer.screens.each do |pair| %>
+            <tr>
+              <td>
+                <%= pair[0][0] %>x<%= pair[0][1] %> <span class="label label-primary label-as-badge"><%= pair[1] %> </span>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+
+<div class="row text-center">
   <div class="col-md-6 col-sm-12 hero-feature">
-    <a class="btn btn-block" href="/sources/<%= "#{@dashboard_renderer.identifier}" %>/events"> Event Index </a>
+    <div class="panel">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                #
+              </th>
+              <th>
+                URL
+              </th>
+              <th>
+                Average Response Time
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <% count = 1 %>
+          <% @dashboard_renderer.response_times.each do |pair| %>
+              <tr>
+                <td>
+                  <%= count %>.
+                </td>
+                <td>
+                  <%= pair[0].path %>
+                </td>
+                <td>
+                <span class="label label-primary label-as-badge"> <%= pair[1].to_i %> ms </span>
+                </td>
+              </tr>
+              <% count += 1 %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 <!-- /.row -->
