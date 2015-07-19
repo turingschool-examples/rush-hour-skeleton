@@ -8,10 +8,6 @@ module TrafficSpy
       parsed_params = HashParser.parse(params)
       site = Site.new(parsed_params)
 
-      get_registration_status_and_message(site)
-    end
-
-    def get_registration_status_and_message(site)
       if site.save
         status 200
         body "{'#{params.keys.first}':'#{site.identifier}'}"
