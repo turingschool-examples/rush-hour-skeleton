@@ -51,6 +51,14 @@ class EventsDataTest < FeatureTest
     assert_equal expected_path, current_path
   end
 
+
+  def test_user_sees_message_when_no_events_to_display
+    message = "No Events to Display"
+    visit @path
+
+    assert_equal message, find('h4').text
+  end
+
   private
 
   def register(identifier)
