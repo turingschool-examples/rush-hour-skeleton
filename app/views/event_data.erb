@@ -1,7 +1,7 @@
 <!-- Title -->
 <div class="row">
     <div class="col-lg-12">
-        <h1><%= @identifier  %> had <%= @day.values.reduce(:+) %> total requests from '<%= @event_name %>'</h1>
+        <h1><%= @event_data_renderer.identifier %> had <%= @event_data_renderer.requests_per_hour.values.reduce(:+) %> total requests from '<%= @event_data_renderer.event_name %>'</h1>
     </div>
 </div>
 <!-- /.row -->
@@ -90,20 +90,18 @@
                 </tr>
               </thead>
               <tbody>
-
                 <tr>
-                <% @day.each do |hour, count| %>
+                <% @event_data_renderer.requests_per_hour.each do |hour, count| %>
                   <td>
                     <span class="label label-success label-as-badge"><%= count %></span>
                   </td>
                 <% end %>
                 </tr>
-
               </tbody>
             </table>
         </div>
     </div>
     <div class="col-md-6 col-sm-12 hero-feature">
-    <a class="btn btn-block" href="/sources/<%= "#{@identifier}" %>/events">Event Index </a>
+    <a class="btn btn-block" href="/sources/<%= "#{@event_data_renderer.identifier}" %>/events">Event Index </a>
   </div>
   </div>
