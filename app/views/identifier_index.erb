@@ -84,16 +84,17 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
 
-    <td><%= @avg_response_times %></td>
-  </tr>
+    <% if !@avg_response_times.nil? %>
+        <% @avg_response_times.map do |time, url| %>
+            <tr>
+              <td><%=time.to_i  %></td>
+              <td><%= url %></td>
+            </tr>
+        <% end %>
+    <% end %>
   </tbody>
 </table>
-
-<!-- Longest Response Time: <%= @long_response_times %><br>
-        Shortest Response Time: <%= @short_response_times %><br>
-        </div></ul> -->
 
 <table id="link-list">
   <thead>

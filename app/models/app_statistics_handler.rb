@@ -14,9 +14,12 @@ class AppDataHandler
   end
 
   def url_stats
-    urls = registration.urls.keys.compact
-    count =  urls.each_with_object(Hash.new(0)) { |url,counts| counts[url[:url]] += 1 }
-    count.map do |key, value|
+    # binding.pry
+    urls = registration.urls.group(:url).count
+    # binding.pry
+    # .keys.compact
+    # count =  urls.each_with_object(Hash.new(0)) { |url,counts| counts[url[:url]] += 1 }
+    urls.map do |key, value|
       if !key.nil?
         [value, key]
       end
@@ -49,10 +52,13 @@ class AppDataHandler
   end
 
   def response_times
-    # require 'pry'; binding.pry
-    # registration.urls.average(:responded_in)
+    res_times = registration.urls.group(:url).average(:responded_in)
+    res_times.map do |key, value|
+      if !key.nil?
+        [value,key]
+      end
+    end.sort.reverse
   end
-
   def link_list
     @links = registration.urls.map do |key, value|
       if !key.nil?
@@ -64,6 +70,6 @@ class AppDataHandler
   def link_paths
     @links.map do |link|
       URI(link.join).path
-    end
+    end.uniq
   end
 end
