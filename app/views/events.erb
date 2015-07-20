@@ -1,3 +1,4 @@
+
 <h2 id="event-main">Events Statistics</h2>
 
   <% if @events_by_popularity.empty? %>
@@ -20,4 +21,10 @@
       </tbody>
 
     </table>
+<% end %>
+
+  <% if @events_by_popularity.empty? %>
+    <h4>No Events to Display</h4>
+  <% else %>
+    <%= erb(:'shared/_events') %>
 <% end %>

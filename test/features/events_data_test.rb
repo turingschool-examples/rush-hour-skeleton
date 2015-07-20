@@ -15,7 +15,6 @@ class EventsDataTest < FeatureTest
     visit @path
 
     assert_equal @path, current_path
-    assert_equal 'Events Statistics', find('h2').text
   end
 
   def test_user_sees_error_page_when_unregistered_identifier
