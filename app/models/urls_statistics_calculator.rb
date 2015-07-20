@@ -40,7 +40,11 @@ class UrlsStatisticsCalculator
 
   def get_user_agents
     agents = all_urls.map do |url|
+      if !url.browsers.empty? && !url.operating_systems.empty?
       [url.browsers.first[:name], url.operating_systems.first[:name]]
+    else
+      return nil
+    end
     end
     styled = agents.map do |agent|
       "OS: #{agent[1]} Browser: #{agent[0]}"
