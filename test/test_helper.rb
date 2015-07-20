@@ -52,8 +52,6 @@ class FeatureTest < Minitest::Test
     RegistrationHandler.new({ 'identifier' => identifier, 'rootUrl' => 'http://facebook.com' })
   end
 
-  private
-
   def create_events(name, how_many)
     (1..how_many).each do
       event_payload = return_event_with_name(name)
