@@ -57,29 +57,4 @@ class EventsDataTest < FeatureTest
     assert page.has_content?("No Events to Display")
   end
 
-  private
-
-  def register(identifier)
-    RegistrationHandler.new({ 'identifier' => identifier, 'rootUrl' => 'http://facebook.com' })
-  end
-
-  def create_events(name, how_many)
-    (1..how_many).each do
-      event_payload = return_event_with_name(name)
-      DataProcessingHandler.new(return_unique_payload(event_payload), @identifier)
-    end
-  end
-
-  def return_event_with_name(name)
-    payload            = {}
-    payload['payload'] = @raw_payload['payload'].sub('socialLogin', name)
-    payload
-  end
-
-  def return_unique_payload(original_payload)
-    # Couldn't figure out how to make a static counter for the test class so just used random for now
-    original_payload['payload'] = original_payload['payload'].sub('1920', Random.new().rand(9999).to_s)
-    original_payload
-  end
-
 end
