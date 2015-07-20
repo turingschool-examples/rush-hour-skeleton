@@ -27,7 +27,8 @@ class ApplicationUrlsTest < FeatureTest
     payload = Payload.new(:id => 1, :registration_id => 1, :url_id => 2, :operating_system_id => 1)
     payload.save
     visit "/sources/jumpstartlab/urls#{@url.path}"
-    assert page.has_content?("Longest Response Time: 37")
+    assert page.has_content?("37")
+    assert page.has_content?("Longest Response Time")
   end
 
   def test_it_has_http_verbs
@@ -41,7 +42,7 @@ class ApplicationUrlsTest < FeatureTest
     payload = Payload.new(:id => 1, :registration_id => 1, :url_id => 2, :operating_system_id => 1)
     payload.save
     visit "/sources/jumpstartlab/urls#{@url.path}"
-    assert page.has_content?("Request Type Used: GET")
+    assert page.has_content?("GET")
   end
 
 end

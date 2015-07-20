@@ -1,20 +1,87 @@
-<h2>URL Statistics </h2>
+<h2 id="url-title">URL Statistics </h2>
 
 <% if @url %>
 <%calculator = UrlsStatisticsCalculator.new(@url)%>
-<ul>
-  <li><strong>Longest Response Time: </strong>
-    <%=calculator.find_longest_response_time%></li>
-  <li><strong>Shortest Response Time: </strong>
-    <%=calculator.find_shortest_response_time%></li>
-  <li><strong>Average Response Time: </strong>
-    <%=calculator.find_average_response_time%></li>
-  <li><strong>Request Type Used: </strong>
-      <%=calculator.get_http_verbs%></li>
-  <li><strong>Most Popular Referrals: </strong>
-      <%=calculator.get_referred_by%></li>
-  <li><strong>Most Popular User Agents: </strong>
-      <%=calculator.get_user_agents%></li>
+<table>
+  <thead>
+    <tr>
+      <th>Longest Response Times</th>
 
-    <%end%>
-</ul>
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td><%=calculator.find_longest_response_time%></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortest Response Times</th>
+
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td><%=calculator.find_shortest_response_time%></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Average Response Time</th>
+
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td><%=calculator.find_average_response_time%></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Type Used</th>
+
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td><%=calculator.get_http_verbs%></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Most Popular Referrals</th>
+
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td><%=calculator.get_referred_by%></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Most Popular User Agents</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td><%=calculator.get_user_agents%></td>
+    </tr>
+  </tbody>
+</table>
+
+        <%end%>
