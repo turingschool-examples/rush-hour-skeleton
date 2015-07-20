@@ -4,27 +4,5 @@
   <% if @events_by_popularity.empty? %>
     <h4>No Events to Display</h4>
   <% else %>
-    <table id="events-table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Number of Requests</th>
-      </tr>
-      </thead>
-      <tbody>
-        <% @events_by_popularity.map do |name, count| %>
-            <tr>
-              <td><a href="events/<%= name %>"><%= name %></a></td>
-              <td><%= count %></td>
-            </tr>
-        <% end %>
-      </tbody>
-
-    </table>
-<% end %>
-
-  <% if @events_by_popularity.empty? %>
-    <h4>No Events to Display</h4>
-  <% else %>
-    <%= erb(:'shared/_events') %>
+    <div id="events-table"> <%= erb(:'shared/_events') %></div>
 <% end %>

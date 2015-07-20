@@ -39,7 +39,7 @@ class EventsDataTest < FeatureTest
   end
 
   def test_user_goes_to_event_details_page_when_clicks_on_event_name
-    event_name = 'i_should_be_a_link_to_event_details'
+    event_name = 'link_to_event_details'
     create_events(event_name, 10)
     expected_path = "/sources/#{@identifier}/events/#{event_name}"
 
@@ -54,7 +54,7 @@ class EventsDataTest < FeatureTest
     message = "No Events to Display"
     visit @path
 
-    assert_equal message, find('h4').text
+    assert page.has_content?("No Events to Display")
   end
 
   private
