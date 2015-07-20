@@ -1,0 +1,8 @@
+<h2 id="event-page">Event</h2>
+
+<% if @event_total.nil? || @event_total.empty? %>
+  <h4>No event named <%= @event_name %> exists</h4>
+  <h3><a href="/sources/<%= @identifier %>/events">Events</a></h3>
+<% else %>
+  <div id="event-table"> <%= erb(:'shared/_event') %></div>
+<% end %>
