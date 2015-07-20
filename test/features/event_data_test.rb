@@ -38,9 +38,20 @@ class EventDataTest < FeatureTest
 
     visit @path
 
-    assert_equal 1, all('tbody tr').count
     assert_equal @event_name, all('tbody tr td').first.text
     assert_equal '5', all('tbody tr td').last.text
+  end
+
+  def test_user_sees_event_by_hour
+    create_events_on_hour(@event_name, 5, 1)
+    create_events_on_hour(@event_name, 3, 4)
+    create_events_on_hour(@event_name, 2, 20)
+
+    visit @path
+
+    assert_equal '1 am', all('tbody').last.all('tr td').first.text
+    assert_equal '8 pm', all('tbody').last.all('tr').last.all('td').first.text
+    assert_equal '2', all('tbody').last.all('tr').last.all('td').last.text
   end
 
 
@@ -53,13 +64,31 @@ class EventDataTest < FeatureTest
   def create_events(name, how_many)
     (1..how_many).each do
       event_payload = return_event_with_name(name)
-      DataProcessingHandler.new(return_unique_payload(event_payload), @identifier)
+      create_event(event_payload)
     end
+  end
+
+  def create_events_on_hour(name, how_many, hour)
+    (1..how_many).each do
+      event_payload = return_event_on_hour(hour, name)
+      create_event(event_payload)
+    end
+  end
+
+  def create_event(event_payload)
+    DataProcessingHandler.new(return_unique_payload(event_payload), @identifier)
   end
 
   def return_event_with_name(name)
     payload            = {}
     payload['payload'] = @raw_payload['payload'].sub('socialLogin', name)
+    payload
+  end
+
+  def return_event_on_hour(hour, name)
+    return nil if hour < 0 || hour > 24
+    payload            = return_event_with_name(name)
+    payload['payload'] = payload['payload'].sub('2013-02-16 21:38:28 -0700', "2013-02-16 #{hour}:00:00")
     payload
   end
 
