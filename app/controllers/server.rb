@@ -62,7 +62,9 @@ module TrafficSpy
       if registration.nil?
         redirect '/not_found'
       else
-        @events_by_popularity = registration.events.group(:name).order('count_name desc').count(:name)
+        @events_by_popularity = registration.events.group(:name)
+                                  .order('count_name desc')
+                                  .count(:name)
         erb :events
       end
 
@@ -78,7 +80,10 @@ module TrafficSpy
       else
         @event_name = event_name
         @event_total = registration.events.group(:name).count(:name)
-        @event_by_times = registration.events.where(:name => @event_name).group(:requested_at).order('requested_at asc').count('requested_at')
+        @event_by_times = registration.events.where(:name => @event_name)
+                            .group(:requested_at)
+                            .order('requested_at asc')
+                            .count('requested_at')
         erb :event
       end
 

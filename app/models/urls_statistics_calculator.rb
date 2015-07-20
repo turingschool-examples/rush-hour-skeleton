@@ -53,7 +53,9 @@ class UrlsStatisticsCalculator
   end
 
   def format(styled)
-    count = styled.each_with_object(Hash.new(0)) { |agent,counts| counts[agent] += 1 }
+    count = styled.each_with_object(Hash.new(0)) do |agent,counts|
+      counts[agent] += 1
+    end
     sorted = count.sort_by{ |key, value| value}.reverse
     return sorted.map{|pair| pair[0] }.join(", ")
   end
