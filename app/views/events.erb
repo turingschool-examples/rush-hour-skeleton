@@ -1,9 +1,9 @@
-<h2>Events Statistics</h2>
+<h2 id="event-main">Events Statistics</h2>
 
   <% if @events_by_popularity.empty? %>
     <h4>No Events to Display</h4>
   <% else %>
-    <table>
+    <table id="events-table">
       <thead>
       <tr>
         <th>Name</th>
@@ -21,6 +21,3 @@
 
     </table>
 <% end %>
-
-
-

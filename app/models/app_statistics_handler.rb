@@ -14,11 +14,7 @@ class AppDataHandler
   end
 
   def url_stats
-    # binding.pry
     urls = registration.urls.group(:url).count
-    # binding.pry
-    # .keys.compact
-    # count =  urls.each_with_object(Hash.new(0)) { |url,counts| counts[url[:url]] += 1 }
     urls.map do |key, value|
       if !key.nil?
         [value, key]
@@ -59,6 +55,7 @@ class AppDataHandler
       end
     end.sort.reverse
   end
+
   def link_list
     @links = registration.urls.map do |key, value|
       if !key.nil?
