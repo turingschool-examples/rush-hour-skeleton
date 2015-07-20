@@ -45,4 +45,43 @@ Capybara.app = TrafficSpy::Server
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
+
+  private
+
+  def register(identifier)
+    RegistrationHandler.new({ 'identifier' => identifier, 'rootUrl' => 'http://facebook.com' })
+  end
+
+  private
+
+  def create_events(name, how_many)
+    (1..how_many).each do
+      event_payload = return_event_with_name(name)
+      create_event(event_payload)
+    end
+  end
+
+  def create_event(event_payload)
+    DataProcessingHandler.new(return_unique_payload(event_payload), @identifier)
+  end
+
+  def return_event_with_name(name)
+    payload            = {}
+    payload['payload'] = @raw_payload['payload'].sub('socialLogin', name)
+    payload
+  end
+
+  def return_event_on_hour(hour, name)
+    return nil if hour < 0 || hour > 24
+    payload            = return_event_with_name(name)
+    payload['payload'] = payload['payload'].sub('2013-02-16 21:38:28 -0700', "2013-02-16 #{hour}:00:00")
+    payload
+  end
+
+  def return_unique_payload(original_payload)
+    # Couldn't figure out how to make a static counter for the test class so just used random for now
+    original_payload['payload'] = original_payload['payload'].sub('1920', Random.new().rand(9999).to_s)
+    original_payload
+  end
+
 end
