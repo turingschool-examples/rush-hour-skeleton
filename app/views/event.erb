@@ -1,39 +1,8 @@
 <h2 id="event-page">Event</h2>
 
-<% if @event.nil? || @event.empty? %>
+<% if @event_total.nil? || @event_total.empty? %>
   <h4>No event named <%= @event_name %> exists</h4>
   <h3><a href="/sources/<%= @identifier %>/events">Events</a></h3>
 <% else %>
-  <table>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Number of Requests</th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @event.first[0] %></td>
-        <td><%= @event.first[1] %></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table>
-    <thead>
-    <tr>
-      <th>Time of Day</th>
-      <th>Number of Requests</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @event_by_times.each do |event_by_time| %>
-      <tr>
-        <td><%=  event_by_time.first.strftime("%l %P") %></td>
-        <td><%= event_by_time.last %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
+  <div id="event-table"> <%= erb(:'shared/_event') %></div>
 <% end %>
