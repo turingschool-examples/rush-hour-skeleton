@@ -78,6 +78,7 @@ module TrafficSpy
       else
         @event_name = event_name
         @event = registration.events.group(:name).count(:name)
+        @event_by_times = registration.events.where(:name => @event_name).group(:requested_at).order('requested_at asc').count('requested_at')
         erb :event
       end
 
