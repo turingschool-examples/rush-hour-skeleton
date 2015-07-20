@@ -1,62 +1,48 @@
 require_relative '../test_helper'
 
-class EventsDataTest < FeatureTest
+class EventDataTest < FeatureTest
 
   def setup
     super
 
     @identifier = 'test_event_identifier'
+    @event_name = 'test_event'
     register(@identifier)
-    @path = "/sources/#{@identifier}/events"
-  end
-
-
-  def test_user_sees_index_page_when_identifier_registered
-    visit @path
-
-    assert_equal @path, current_path
-    assert_equal 'Events Statistics', find('h2').text
+    @path = "/sources/#{@identifier}/events/#{@event_name}"
   end
 
   def test_user_sees_error_page_when_unregistered_identifier
     unregisterd_identifier = 'not_registered'
 
-    visit "/sources/#{unregisterd_identifier}/events"
+    visit "/sources/#{unregisterd_identifier}/events/#{@event_name}"
 
     assert_equal '/not_found', current_path
     assert_equal 'Error Page', find('h1').text
   end
 
-  def test_user_sees_most_to_least_received_event
-    create_events('goldMedal', 5)
-    create_events('silverMedal', 3)
-    create_events('bronzeMedal', 1)
+  def test_user_sees_error_message_when_no_event
+    event_does_not_exist = 'does_not_exist'
+    message = "No event named #{event_does_not_exist} exists"
+    link = "Events"
+    path = "/sources/#{@identifier}/events/#{event_does_not_exist}"
 
-    visit @path
+    visit path
 
-    assert_equal 3, all('tbody tr').count
-    assert_equal 'goldMedal', all('tbody tr td').first.text
-    assert_equal '1', all('tbody tr').last.all('td').last.text
-  end
-
-  def test_user_goes_to_event_details_page_when_clicks_on_event_name
-    event_name = 'i_should_be_a_link_to_event_details'
-    create_events(event_name, 10)
-    expected_path = "/sources/#{@identifier}/events/#{event_name}"
-
-    visit @path
-    assert_equal true, find_link(event_name).visible?
-
-    click_link(event_name)
-    assert_equal expected_path, current_path
-  end
-
-  def test_user_sees_message_when_no_events_to_display
-    message = "No Events to Display"
-    visit @path
-
+    assert_equal path, current_path
     assert_equal message, find('h4').text
+    assert_equal true, find_link(link).visible?
   end
+
+  def test_user_sees_how_many_times_event_recieved
+    create_events(@event_name, 5)
+
+    visit @path
+
+    assert_equal 1, all('tbody tr').count
+    assert_equal @event_name, all('tbody tr td').first.text
+    assert_equal '5', all('tbody tr td').last.text
+  end
+
 
   private
 
