@@ -1,0 +1,32 @@
+<table>
+  <caption>Event</caption>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Number of Requests</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%= @event_total.first[0] %></td>
+    <td><%= @event_total.first[1] %></td>
+  </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+  <tr>
+    <th>Time of Day</th>
+    <th>Number of Requests</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @event_by_times.each do |event_by_time| %>
+    <tr>
+      <td><%=  event_by_time.first.strftime("%l %P") %></td>
+      <td><%= event_by_time.last %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
