@@ -1,0 +1,22 @@
+<h2>Event</h2>
+
+<% if @event.nil? || @event.empty? %>
+  <h4>No event named <%= @event_name %> exists</h4>
+  <h3><a href="/sources/<%= @identifier %>/events">Events</a></h3>
+<% else %>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Number of Requests</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @event.first[0] %></td>
+        <td><%= @event.first[1] %></td>
+      </tr>
+    </tbody>
+
+  </table>
+<% end %>

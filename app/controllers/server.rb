@@ -67,5 +67,21 @@ module TrafficSpy
       end
 
     end
+
+
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @identifier = identifier
+      registration = Registration.find_by(:identifier => @identifier)
+
+      if registration.nil?
+        redirect '/not_found'
+      else
+        @event_name = event_name
+        @event = registration.events.group(:name).count(:name)
+        erb :event
+      end
+
+    end
+
   end
 end
