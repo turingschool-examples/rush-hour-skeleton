@@ -17,7 +17,7 @@ class EventDataTest < FeatureTest
     visit "/sources/#{unregisterd_identifier}/events/#{@event_name}"
 
     assert_equal '/not_found', current_path
-    assert_equal 'Error Page', find('h1').text
+    assert_equal 'Error', find('h1').text
   end
 
   def test_user_sees_error_message_when_no_event
