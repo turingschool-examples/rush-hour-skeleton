@@ -1,0 +1,17 @@
+<h2>URL Statistics </h2>
+
+<% if @url %>
+<%calculator = UrlsStatisticsCalculator.new(@url)%>
+<ul>
+  <li><strong>Longest Response Time: </strong>
+    <%=calculator.find_longest_response_time%></li>
+  <li><strong>Shortest Response Time: </strong>
+    <%=calculator.find_shortest_response_time%></li>
+  <li><strong>Shortest Response Time: </strong>
+    <%=calculator.find_average_response_time%></li>
+  <li><strong>Request Type Used: </strong>
+      <%=calculator.get_http_verbs%></li>
+  <!-- <li><strong>Referred By: </strong>
+      <%=calculator.get_referred_by%></li> -->
+    <%end%>
+</ul>
