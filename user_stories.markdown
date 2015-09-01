@@ -22,3 +22,29 @@ Then I should be redirected to "/sources/IDENTIFIER"
 When I visit "/sources/IDENTIFIER"
 Then the page should display "most requested urls: string(requested x times)"
 Where x is integer
+
+When I visit "/sources/IDENTIFIER"
+Then the page should display "web browser breakdown: string(viewed x times per browser)"
+Where x is integer
+
+When I visit "/sources/IDENTIFIER"
+Then the page should display "OS breakdown: string(viewed x times per OS)"
+Where x is integer
+
+When I visit "/sources/IDENTIFIER"
+Then the page should display "screen resolution breakdown: string(viewed x times per resolutionWidth x resolutionHeight)"
+Where x is integer
+
+When I visit "/sources/IDENTIFIER"
+Then the page should display "average response time per URL breakdown: string"
+Where x is integer
+
+When I visit "/sources/IDENTIFIER"
+Then the page should display "hyperlinks of each url to view url specific data
+
+When I visit "/sources/IDENTIFIER"
+Then the page should display "hyperlink to view aggregate event data"
+
+When I visit "/sources/IDENTIFIER"
+And the identifier does not exist
+Then the page should display "identifier does not exist"
