@@ -31,7 +31,7 @@ class ServerTest < Minitest::Test
     post "/sources", params
     assert_equal 1, Source.count
     assert_equal 403, last_response.status
-    assert_equal "Parameter Already Taken: Identifier has already been taken", last_response.body
+    assert_equal "Non-unique Value: Identifier has already been taken", last_response.body
   end
 
   def setup
