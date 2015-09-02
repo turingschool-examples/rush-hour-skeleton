@@ -5,7 +5,7 @@ class ApplicationRegistrationTest < FeatureTest
   def test_it_creates_a_source
     visit "/sources"
       response = `curl -i -d 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'  http://localhost:9393/sources`
-    # within(.status) do
+      require 'pry'; binding.pry
       assert_equal 1, response
     # end
   end
