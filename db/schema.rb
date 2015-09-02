@@ -16,13 +16,6 @@ ActiveRecord::Schema.define(version: 20150902193928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "sub_urls", force: :cascade do |t|
-    t.text     "sub_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-  end
-
   create_table "responses", force: :cascade do |t|
     t.datetime "requested_at"
     t.integer  "responded_in"
@@ -33,10 +26,18 @@ ActiveRecord::Schema.define(version: 20150902193928) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "sub_urls", force: :cascade do |t|
+    t.text     "sub_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text     "identifier"
     t.text     "root_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
 end
