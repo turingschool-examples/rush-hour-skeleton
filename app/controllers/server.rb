@@ -6,7 +6,13 @@ module TrafficSpy
     end
 
     post '/sources' do
-      messenger = SourceMessenger.new(params)
+      messenger = SourceMessenger.new(params, "Source")
+      status messenger.status
+      body messenger.message
+    end
+
+    post '/sources/:identifier/data' do
+      messenger = VisitMessenger.new(params, "Visit")
       status messenger.status
       body messenger.message
     end
