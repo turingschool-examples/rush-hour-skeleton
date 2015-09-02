@@ -22,6 +22,18 @@ module TrafficSpy
       end
     end
 
+    post "/sources/:identifier/data" do |identifier|
+      payload_params = params.to_json
+      payload_params = JSON.parse(payload_params)
+
+      user = User.find_by_identifier(identifier)
+      sub_url = user.sub_urls.new(:sub_url => payload_params["url"])
+
+      if sub_url.save
+        "cake"
+      end
+    end
+
     not_found do
       erb :error
     end

@@ -9,6 +9,7 @@ require 'minitest/pride'
 require 'capybara'
 require 'database_cleaner'
 require 'pry'
+require 'json'
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migration]}
 
