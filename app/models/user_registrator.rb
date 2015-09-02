@@ -5,7 +5,7 @@ class UserRegistrator
     @message = message
   end
 
-  def error_message
+  def error_status
     if message.include?("can't be blank")
       400
     else
@@ -13,4 +13,11 @@ class UserRegistrator
     end
   end
 
+  def error_message
+    if message.include?("can't be blank")
+      "Bad Request - #{message.first} can't be blank."
+    else
+      "Forbidden - identifier has already been taken."
+    end
+  end
 end

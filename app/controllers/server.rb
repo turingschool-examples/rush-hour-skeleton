@@ -12,11 +12,14 @@ module TrafficSpy
 
       user = User.new(user_params)
 
+
       if user.save
         body "{identifier: #{params[:identifier]}}"
       else
         message = user.errors.messages.to_a.flatten
-        status UserRegistrator.new(message).error_message
+        registrator = UserRegistrator.new(message)
+        status registrator.error_status
+        body registrator.error_message
       end
     end
 
