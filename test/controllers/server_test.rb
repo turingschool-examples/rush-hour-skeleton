@@ -13,16 +13,25 @@ class ServerTest < Minitest::Test
     post "/sources", params
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
-    assert_equal "Successfully created", last_response.body
+    assert_equal "{\"identifier\":\"jumpstartlab\"}", last_response.body
   end
 
   def test_it_doesnt_create_source_with_missing_attributes
-    skip
     params = { rootUrl: "http::/jumpstartlab.com" }
     post "/sources", params
     assert_equal 0, Source.count
     assert_equal 400, last_response.status
-    assert_equal "Description can't be blank", last_response.body
+    assert_equal "Missing Parameters: Identifier can't be blank", last_response.body
+  end
+
+  def test_it_does_not_create_source_with_non_unique_attributes
+    params = { identifier: "jumpstartlab",
+               rootUrl: "http::/jumpstartlab.com" }
+    post "/sources", params
+    post "/sources", params
+    assert_equal 1, Source.count
+    assert_equal 403, last_response.status
+    assert_equal "Parameter Already Taken: Identifier has already been taken", last_response.body
   end
 
   def setup
