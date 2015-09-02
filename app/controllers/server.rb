@@ -12,7 +12,6 @@ module TrafficSpy
 
       user = User.new(user_params)
 
-
       if user.save
         body "{identifier: #{params[:identifier]}}"
       else
