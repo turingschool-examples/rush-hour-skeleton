@@ -1,5 +1,6 @@
 module TrafficSpy
   class Server < Sinatra::Base
+
     get '/' do
       erb :index
     end
@@ -13,10 +14,9 @@ module TrafficSpy
 
       if user.save
         body "{identifier: #{params[:identifier]}}"
-      elsif user.errors.messages.to_a.flatten.include?("can't be blank")
-        status 400
       else
-        status 403
+        message = user.errors.messages.to_a.flatten
+        status UserRegistrator.new(message).error_message
       end
     end
 
