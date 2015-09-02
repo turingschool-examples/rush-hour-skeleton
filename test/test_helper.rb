@@ -8,3 +8,7 @@ require 'minitest/autorun'
 require 'capybara'
 
 Capybara.app = TrafficSpy::Server
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+end
