@@ -7,6 +7,8 @@ class ServerTest < Minitest::Test
     TrafficSpy::Server
   end
 
+  # set up source.create method here
+
   def test_it_creates_a_source_with_valid_attributes
     params = { identifier: "jumpstartlab",
                rootUrl: "http://jumpstartlab.com" }
@@ -27,7 +29,8 @@ class ServerTest < Minitest::Test
   def test_it_does_not_create_source_with_non_unique_attributes
     params = { identifier: "jumpstartlab",
                rootUrl: "http::/jumpstartlab.com" }
-    post "/sources", params
+    Source.create(params)
+    # post "/sources", params. Above is faster. Not going through controller.
     post "/sources", params
     assert_equal 1, Source.count
     assert_equal 403, last_response.status
@@ -38,12 +41,27 @@ class ServerTest < Minitest::Test
     skip
     seed_data = { identifier: "jumpstartlab",
                rootUrl: "http::/jumpstartlab.com" }
-    post "/sources", seed_data
+    Source.create(seed_data)
     params = {payload: "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"}
     post "/sources/jumpstartlab/data", params
 
     assert_equal 200, last_response.status
   end
+
+  def test_it_does_not_create_a_visit_when_payload_has_already_been_recieved
+    skip
+    seed_data = { identifier: "jumpstartlab",
+               rootUrl: "http::/jumpstartlab.com" }
+    post "/sources", seed_data
+    # below, could also be normal ruby hash and call .to_json. no need for escaping strings
+    params = {payload: "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"}
+    post "/sources/jumpstartlab/data", params
+    post "/sources/jumpstartlab/data", params
+
+    assert_equal 403, last_response.status
+    assert_equal "Payload Has Already Been Received", last_response.body
+  end
+
 
   def test_it_does_not_create_visit_when_missing_payload
     skip

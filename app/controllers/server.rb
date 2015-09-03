@@ -12,9 +12,14 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      messenger = Messenger.new(params, "Visit")
-      status messenger.status
-      body messenger.message
+      if params[:payload].nil? || params[:payload].empty?
+        status 400
+        body "Missing Payload"
+      else
+        messenger = VisitMessenger.new(params)
+        status messenger.status
+        body messenger.message
+      end
     end
 
     not_found do

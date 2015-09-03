@@ -24,27 +24,25 @@ class Messenger
   end
 
   def status
-    if valid_record
+    if valid_visit
       "200 OK"
-    elsif error == "can't be blank"
-      "400 Bad Request"
-    elsif error == "has already been taken"
+    else
       "403 Forbidden"
     end
   end
 
   private
 
-  def valid_record
-    record.valid?
+  def valid_visit
+    vist.valid?
   end
 
   def error
-    record.errors.messages.values.flatten.first
+    visit.errors.messages.values.flatten.first
   end
 
   def specific_error
-    record.errors.full_messages.first
+    visit.errors.full_messages.first
   end
 
   def underscore
