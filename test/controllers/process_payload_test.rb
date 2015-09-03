@@ -66,6 +66,16 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 'Bad Request - Needs a payload', last_response.body
   end
 
+  def test_url_data_is_populated_when_payload_is_saved
+    assert_equal 0, Url.count
+
+    post "/sources/jumpstartlab/data", @payload
+
+    # get "/sources/jumpstartlab"
+
+    # assert_equal 1, Url.count
+  end
+
   def teardown
     DatabaseCleaner.clean
   end

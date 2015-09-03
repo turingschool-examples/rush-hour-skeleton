@@ -36,7 +36,8 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      @source = Source.find_by_identifier(identifier)
+      source = Source.find_by_identifier(identifier)
+      @payloads = Payload.where({:source_id => source.id})
       erb :show
     end
 
