@@ -35,6 +35,7 @@ class ServerTest < Minitest::Test
   end
 
   def test_it_creates_visit_with_valid_attributes
+    skip
     seed_data = { identifier: "jumpstartlab",
                rootUrl: "http::/jumpstartlab.com" }
     post "/sources", seed_data
@@ -45,6 +46,7 @@ class ServerTest < Minitest::Test
   end
 
   def test_it_does_not_create_visit_when_missing_payload
+    skip
     seed_data = { identifier: "jumpstartlab",
                rootUrl: "http://jumpstartlab.com" }
     post "/sources", seed_data
