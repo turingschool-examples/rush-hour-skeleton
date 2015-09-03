@@ -1,3 +1,5 @@
+require 'digest'
+
 module TrafficSpy
   class Server < Sinatra::Base
 
@@ -26,11 +28,24 @@ module TrafficSpy
       payload_params = params.to_json
       payload_params = JSON.parse(payload_params)
 
-      user = User.find_by_identifier(identifier)
-      sub_url = user.sub_urls.new(:sub_url => payload_params["url"])
-
-      if sub_url.save
-        "cake"
+      if payload_params['payload'].nil?
+        status 400
+        body 'Bad Request - Needs a payload'
+      else
+        user = User.find_by_identifier(identifier)
+        if user.nil?
+          status 403
+          body 'Forbidden - Must have registered identifier'
+        else
+          sha = Digest::SHA256.hexdigest(params.to_s)
+          generated_sha = Sha.new(sha: sha)
+          if generated_sha.save
+            status 200
+          else
+            status 403
+            body 'Forbidden - Must be unique payload'
+          end
+        end
       end
     end
 
