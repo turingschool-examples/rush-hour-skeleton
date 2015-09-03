@@ -1,11 +1,10 @@
  class PayloadValidator
-
   attr_reader :params,
-              :user
+              :source
 
-  def initialize(params, user)
+  def initialize(params, source)
     @params = params
-    @user = user
+    @source = source
   end
 
   def create_sha
@@ -16,7 +15,7 @@
   def error
     if params['payload'].nil?
       [400, 'Bad Request - Needs a payload']
-    elsif user.nil?
+    elsif source.nil?
       [403, 'Forbidden - Must have registered identifier']
     elsif create_sha.save
       [200, 'OK']

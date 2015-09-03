@@ -1,4 +1,4 @@
-class UserRegistrator
+class SourceRegistrator
   attr_reader :message
 
   def initialize(message)

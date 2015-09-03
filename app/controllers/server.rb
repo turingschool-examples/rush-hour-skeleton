@@ -8,17 +8,17 @@ module TrafficSpy
     end
 
     post "/sources" do
-      user_params = {}
-      user_params[:root_url]    = params[:rootUrl]
-      user_params[:identifier]  = params[:identifier]
+     source_params = {}
+     source_params[:root_url]    = params[:rootUrl]
+     source_params[:identifier]  = params[:identifier]
 
-      user = User.new(user_params)
+     source = Source.new(source_params)
 
-      if user.save
+      if source.save
         body "{identifier: #{params[:identifier]}}"
       else
-        message = user.errors.messages.to_a.flatten
-        registrator = UserRegistrator.new(message)
+        message = source.errors.messages.to_a.flatten
+        registrator = SourceRegistrator.new(message)
         status registrator.error_status
         body registrator.error_message
       end
@@ -28,15 +28,15 @@ module TrafficSpy
       payload_params = params.to_json
       payload_params = JSON.parse(payload_params)
 
-      user = User.find_by_identifier(identifier)
-      validator = PayloadValidator.new(payload_params, user)
+      source = Source.find_by_identifier(identifier)
+      validator = PayloadValidator.new(payload_params, source)
 
       status validator.error[0]
       body validator.error[1]
     end
 
     get '/sources/:identifier' do |identifier|
-      @user = User.find_by_identifier(identifier)
+      @source = Source.find_by_identifier(identifier)
       erb :show
     end
 
