@@ -9,6 +9,14 @@ class ProcessPayloadTest < Minitest::Test
 
   def setup
     DatabaseCleaner.start
+
+    attributes = { identifier: "jumpstartlab",
+                   rootUrl: "http://jumpstartlab.com" }
+    post "/sources", attributes
+
+    assert_equal 1, User.count
+    assert_equal 200, last_response.status
+
     @payload = "payload={\"url\":\"http://jumpstartlab.com/blog\",
       \"requestedAt\":\"2013-02-16 21:38:28 -0700\",
       \"respondedIn\":37,
@@ -23,14 +31,14 @@ class ProcessPayloadTest < Minitest::Test
       }"
   end
 
-  def test_it_checks_a_payloads_uniqueness
-    attributes = { identifier: "jumpstartlab",
-                   rootUrl: "http://jumpstartlab.com" }
-    post "/sources", attributes
+  def test_it_checks_a_payloads_is_processed_correctly
+    post "/sources/jumpstartlab/data", @payload
 
-    assert_equal 1, User.count
+    assert_equal 1, Sha.count
     assert_equal 200, last_response.status
+  end
 
+  def test_it_checks_a_payloads_uniqueness
     post "/sources/jumpstartlab/data", @payload
 
     assert_equal 1, Sha.count
@@ -41,15 +49,19 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 1, Sha.count
     assert_equal 403, last_response.status
     assert_equal 'Forbidden - Must be unique payload', last_response.body
+  end
 
+  def test_payload_must_be_from_a_registered_user
     post "/sources/cakeisawesome/data", @payload
 
     assert_equal 403, last_response.status
     assert_equal 'Forbidden - Must have registered identifier', last_response.body
+  end
 
+  def test_process_must_contain_a_payload
     post "/sources/jumpstartlab/data"
 
-    assert_equal 1, Sha.count
+    assert_equal 0, Sha.count
     assert_equal 400, last_response.status
     assert_equal 'Bad Request - Needs a payload', last_response.body
   end
