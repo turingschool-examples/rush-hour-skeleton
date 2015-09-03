@@ -11,23 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903165346) do
+ActiveRecord::Schema.define(version: 20150903172352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "responses", force: :cascade do |t|
-    t.datetime "requested_at"
-    t.integer  "responded_in"
-    t.inet     "ip"
-    t.integer  "sub_url_id"
-    t.string   "parameters",                array: true
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "shas", force: :cascade do |t|
-    t.string   "sha"
+  create_table "payloads", force: :cascade do |t|
+    t.integer  "source_id"
+    t.string   "digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,11 +30,11 @@ ActiveRecord::Schema.define(version: 20150903165346) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sub_urls", force: :cascade do |t|
-    t.text     "sub_url"
+  create_table "urls", force: :cascade do |t|
+    t.text     "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id"
+    t.integer  "source_id"
   end
 
 end

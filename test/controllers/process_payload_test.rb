@@ -34,19 +34,19 @@ class ProcessPayloadTest < Minitest::Test
   def test_it_checks_a_payloads_is_processed_correctly
     post "/sources/jumpstartlab/data", @payload
 
-    assert_equal 1, Sha.count
+    assert_equal 1, Payload.count
     assert_equal 200, last_response.status
   end
 
   def test_it_checks_a_payloads_uniqueness
     post "/sources/jumpstartlab/data", @payload
 
-    assert_equal 1, Sha.count
+    assert_equal 1, Payload.count
     assert_equal 200, last_response.status
 
     post "/sources/jumpstartlab/data", @payload
 
-    assert_equal 1, Sha.count
+    assert_equal 1, Payload.count
     assert_equal 403, last_response.status
     assert_equal 'Forbidden - Must be unique payload', last_response.body
   end
@@ -61,7 +61,7 @@ class ProcessPayloadTest < Minitest::Test
   def test_process_must_contain_a_payload
     post "/sources/jumpstartlab/data"
 
-    assert_equal 0, Sha.count
+    assert_equal 0, Payload.count
     assert_equal 400, last_response.status
     assert_equal 'Bad Request - Needs a payload', last_response.body
   end
