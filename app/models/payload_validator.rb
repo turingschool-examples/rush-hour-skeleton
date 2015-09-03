@@ -7,9 +7,9 @@
     @source = source
   end
 
-  def create_sha
-     sha = Digest::SHA256.hexdigest(params.to_s)
-     Sha.new(sha: sha)
+  def create_digest
+     digest = Digest::SHA256.hexdigest(params.to_s)
+     Payload.new(digest: digest)
   end
 
   def error
@@ -17,7 +17,7 @@
       [400, 'Bad Request - Needs a payload']
     elsif source.nil?
       [403, 'Forbidden - Must have registered identifier']
-    elsif create_sha.save
+    elsif create_digest.save
       [200, 'OK']
     else
       [403, 'Forbidden - Must be unique payload']
