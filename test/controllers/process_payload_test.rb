@@ -14,7 +14,7 @@ class ProcessPayloadTest < Minitest::Test
                    rootUrl: "http://jumpstartlab.com" }
     post "/sources", attributes
 
-    assert_equal 1, User.count
+    assert_equal 1, Source.count
     assert_equal 200, last_response.status
 
     @payload = "payload={\"url\":\"http://jumpstartlab.com/blog\",
@@ -51,7 +51,7 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 'Forbidden - Must be unique payload', last_response.body
   end
 
-  def test_payload_must_be_from_a_registered_user
+  def test_payload_must_be_from_a_registered_source
     post "/sources/cakeisawesome/data", @payload
 
     assert_equal 403, last_response.status
