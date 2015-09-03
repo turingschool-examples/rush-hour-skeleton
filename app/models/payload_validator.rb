@@ -9,7 +9,7 @@
 
   def create_digest
      digest = Digest::SHA256.hexdigest(params.to_s)
-     Payload.new(digest: digest)
+     Payload.new(digest: digest, source_id: source.id)
   end
 
   def error
