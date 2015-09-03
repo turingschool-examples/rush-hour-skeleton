@@ -41,7 +41,7 @@
 		<type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
 		<type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
 	</group>
-</datatypes><table x="209" y="100" name="visits">
+</datatypes><table x="197" y="34" name="visits">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -66,9 +66,10 @@
   t.string 'title'
   t.string 'tags', array: true</comment>
 </row>
-<row name="event_name" null="1" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>NULL</default></row>
+<row name="events_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="events" row="id" />
+</row>
 <row name="user_agent" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
@@ -85,11 +86,15 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="sources" row="id" />
 </row>
+<row name="sha_identifier" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default><comment>checking for payload uniqueness: convert from .json to hash to string to pull sha_identifier</comment>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="697" y="105" name="sources">
+<table x="566" y="410" name="sources">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -97,6 +102,17 @@
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
 <row name="root_url" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="569" y="122" name="events">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
