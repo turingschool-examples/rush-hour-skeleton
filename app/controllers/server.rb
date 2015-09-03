@@ -28,25 +28,11 @@ module TrafficSpy
       payload_params = params.to_json
       payload_params = JSON.parse(payload_params)
 
-      if payload_params['payload'].nil?
-        status 400
-        body 'Bad Request - Needs a payload'
-      else
-        user = User.find_by_identifier(identifier)
-        if user.nil?
-          status 403
-          body 'Forbidden - Must have registered identifier'
-        else
-          sha = Digest::SHA256.hexdigest(params.to_s)
-          generated_sha = Sha.new(sha: sha)
-          if generated_sha.save
-            status 200
-          else
-            status 403
-            body 'Forbidden - Must be unique payload'
-          end
-        end
-      end
+      user = User.find_by_identifier(identifier)
+      validator = PayloadValidator.new(payload_params, user)
+
+      status validator.error[0]
+      body validator.error[1]
     end
 
     not_found do
