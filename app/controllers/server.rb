@@ -35,6 +35,11 @@ module TrafficSpy
       body validator.error[1]
     end
 
+    get '/sources/:identifier' do |identifier|
+      @user = User.find_by_identifier(identifier)
+      erb :show
+    end
+
     not_found do
       erb :error
     end
