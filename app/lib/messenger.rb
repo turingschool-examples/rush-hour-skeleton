@@ -14,35 +14,38 @@ class Messenger
 
   def message
     if valid_record
-      return_value = {:identifier => record.identifier}.to_json #dynamically build
-      return_value if model == "Source"
+      {:identifier => record.identifier}.to_json if model == "Source"
     elsif error == "can't be blank"
       "Missing Parameters: #{specific_error}"
+    elsif specific_error == "Sha identifier has already been taken"
+      "Payload Has Already Been Received"
     elsif error == "has already been taken"
       "Non-unique Value: #{specific_error}"
     end
   end
 
   def status
-    if valid_visit
+    if valid_record
       "200 OK"
-    else
+    elsif error == "can't be blank"
+      "400 Bad Request"
+    elsif error == "has already been taken"
       "403 Forbidden"
     end
   end
 
   private
 
-  def valid_visit
-    vist.valid?
+  def valid_record
+    record.valid?
   end
 
   def error
-    visit.errors.messages.values.flatten.first
+    record.errors.messages.values.flatten.first
   end
 
   def specific_error
-    visit.errors.full_messages.first
+    record.errors.full_messages.first
   end
 
   def underscore
