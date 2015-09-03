@@ -1,48 +1,43 @@
 class VisitMessenger
 
-  attr_reader :record
+  attr_reader :visit
 
-  def initialize(params, model)
-    attributes = {}
-    attributes[:root_url] = params[:rootUrl] #Dynamically build attributes & snake case
-    attributes[:identifier] = params[:identifier]
-    @record = model.constantize.new(attributes) #Dynamically call model
-    record.save if valid_record
+  def initialize(params)
+    attributes = JSON.parse(params[:payload])
+    attributes_s = attributes.to_s
+    #Keys are currently strings and need to be changed to symbols
+    require 'pry'; binding.pry
+    sha_identifier = Digest::SHA1.hexdigest(attributes_s)
+    attributes[:sha_identifier] = sha_identifier
+    @visit =Visit.new(attributes)
   end
 
   def message
-    if valid_record
-      return_value = {:identifier => record.identifier}.to_json #dynamically build
-      return_value
-    elsif error == "can't be blank"
-      "Missing Parameters: #{specific_error}"
-    elsif error == "has already been taken"
-      "Non-unique Value: #{specific_error}"
+    if !valid_visit
+      "Payload Has Already Been Received"
     end
   end
 
   def status
-    if valid_record
+    if valid_visit
       "200 OK"
-    elsif error == "can't be blank"
-      "400 Bad Request"
-    elsif error == "has already been taken"
+    else
       "403 Forbidden"
     end
   end
 
   private
 
-  def valid_record
-    record.valid?
+  def valid_visit
+    vist.valid?
   end
 
   def error
-    record.errors.messages.values.flatten.first
+    visit.errors.messages.values.flatten.first
   end
 
   def specific_error
-    record.errors.full_messages.first
+    visit.errors.full_messages.first
   end
 
 end
