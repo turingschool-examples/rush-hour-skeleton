@@ -60,6 +60,7 @@ class ServerTest < Minitest::Test
     post "/sources/jumpstartlab/data", params
 
     assert_equal 200, last_response.status
+    assert_equal 1, Visit.find_by(referred_by: "http://jumpstartlab.com").source_id
   end
 
   def test_it_does_not_create_a_visit_when_payload_has_already_been_recieved
