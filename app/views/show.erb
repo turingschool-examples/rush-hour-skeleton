@@ -1,12 +1,12 @@
 <div class="page-header">
-  <h1><%= @identifier %> Site Data</h1>
+  <h1><%= identifier %> Site Data</h1>
 </div>
 
 <div class="row">
   <div class="col-md-3" id="urls">
     <h3>Requested URLs</h3>
     <ol>
-      <% @urls.each do |url, count|%>
+      <% urls.each do |url, count|%>
       <li><%= "#{url}: #{count} visits" %></li>
       <% end %>
     </ol>
@@ -15,7 +15,7 @@
   <div class="col-md-3" id="browsers">
     <h3>Web Browser Breakdown</h3>
     <ol>
-      <% @browsers.each do |browser, count|%>
+      <% browsers.each do |browser, count|%>
       <li><%= "#{browser}: #{count}" %></li>
       <% end %>
     </ol>
@@ -24,7 +24,7 @@
   <div class="col-md-3" id="os">
     <h3>OS Breakdown</h3>
     <ol>
-      <% @os_platforms.each do |os_platform, count|%>
+      <% os_platforms.each do |os_platform, count|%>
       <li><%= "#{os_platform}: #{count}" %></li>
       <% end %>
     </ol>
@@ -33,11 +33,9 @@
   <div class="col-md-3" id="screen_resolutions">
     <h3>Screen Resolutions</h3>
     <ul>
-      <% @screen_resolutions.each do |resolution|%>
+      <% screen_resolutions.each do |resolution|%>
         <li><%= resolution %></li>
         <% end %>
     </ul>
   </div>
 </div>
-
-

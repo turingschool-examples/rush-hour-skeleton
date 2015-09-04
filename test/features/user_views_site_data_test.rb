@@ -24,6 +24,7 @@ class UserViewsSiteDataTest < FeatureTest
                resolution_width: "1920",
                resolution_height: "1280",
                ip: "63.29.38.211",
+               source_id: 1,
                sha_identifier: sha_id}
     Visit.create(params)
   end
@@ -38,8 +39,6 @@ class UserViewsSiteDataTest < FeatureTest
     assert_equal "/sources/jumpstartlab", current_path
 
     within(".page-header") do
-      save_and_open_page
-
       assert page.has_content?("Jumpstartlab Site Data")
     end
 
@@ -52,21 +51,22 @@ class UserViewsSiteDataTest < FeatureTest
     within("#browsers") do
       assert page.has_content?("Web Browser Breakdown")
       assert page.has_content?("Chrome: 3")
-      #put in the important stuff. Need help breaking down useragent
-
     end
 
     within("#os") do
       assert page.has_content?("OS Breakdown")
       assert page.has_content?("Macintosh: 3")
-      #put in the important stuff. Need help breaking down useragent
     end
 
     within("#screen_resolutions") do
       assert page.has_content?("Screen Resolutions")
       assert page.has_content?("1920x1280")
-
     end
+
+    # within("#response_times") do
+    #   skip
+    #   assert page.has_content?("")
+    # end
 
   end
 
@@ -74,12 +74,12 @@ class UserViewsSiteDataTest < FeatureTest
 end
 
 # As a user
-# When I submit a GET request to "/sources/jumpstartlab"
-# Then I should see a page that displays the following:
-#   Most requested URLS to least requested URLS (url)
-#   Web browser breakdown across all requests (userAgent)
-#   OS breakdown across all requests (userAgent)
-#   Screen Resolution across all requests (resolutionWidth x resolutionHeight)
+# XWhen I submit a GET request to "/sources/jumpstartlab"
+# XThen I should see a page that displays the following:
+#   XMost requested URLS to least requested URLS (url)
+#   XWeb browser breakdown across all requests (userAgent)
+#   XOS breakdown across all requests (userAgent)
+#   XScreen Resolution across all requests (resolutionWidth x resolutionHeight)
 #   Longest, average response time per URL to shortest, average response time per URL
 #   Hyperlinks of each url to view url specific data
 #   Hyperlink to view aggregate event data
