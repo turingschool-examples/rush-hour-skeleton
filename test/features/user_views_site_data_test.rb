@@ -63,10 +63,11 @@ class UserViewsSiteDataTest < FeatureTest
       assert page.has_content?("1920x1280")
     end
 
-    # within("#response_times") do
-    #   skip
-    #   assert page.has_content?("")
-    # end
+    within("#response_times") do
+      assert page.has_content?("URL Average Response Times")
+      assert page.has_content?("Longest: http://jumpstartlab.com/blog: 37ms")
+      assert page.has_content?("Shortest: http://jumpstartlab.com/about: 37ms")
+    end
 
   end
 

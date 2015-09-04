@@ -13,7 +13,8 @@ class VariableBuilder
      urls: urls,
      screen_resolutions: screen_resolutions,
      browsers: user_browsers,
-     os_platforms: os_platforms}
+     os_platforms: os_platforms,
+     url_response_times: url_response_times}
   end
 
   private
@@ -49,6 +50,10 @@ class VariableBuilder
      hash[user_agent.platform] += 1
    end
    platforms.to_a.max_by(user_agents.count) {|platform, visits| visits}
+  end
+
+  def url_response_times
+    #need URL table? have number of visits stored. Have response times stored?
   end
 
 end

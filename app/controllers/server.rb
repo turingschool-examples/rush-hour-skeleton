@@ -12,7 +12,7 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      if !set_source(params)
+      if !Source.find_by(identifier: params[:identifier])
         status 403
         body "Application Not Registered"
       elsif params[:payload].nil? || params[:payload].empty?
@@ -26,7 +26,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do
-      if set_source(params)
+      if source = Source.find_by(identifier: params[:identifier])
         builder = VariableBuilder.new(params, source)
         erb :show, locals: builder.variables
       else
@@ -46,10 +46,6 @@ module TrafficSpy
       attributes[:sha_identifier] = sha_identifier
       attributes[:source_id] = Source.find_by(identifier: params[:identifier]).id
       attributes
-    end
-
-    def set_source(params)
-      source = Source.find_by(identifier: params[:identifier])
     end
   end
 end
