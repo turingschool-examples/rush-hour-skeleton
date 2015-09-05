@@ -38,10 +38,17 @@ module TrafficSpy
 
       if Payload.new(digest: digest).valid?
          url = Url.find_or_create_by(url: payload_params['url'])
+         resolution = Resolution.find_or_create_by(
+                        resolution_width: payload_params['resolutionWidth'],
+                        resolution_height: payload_params['resolutionHeight'])
          #this is where we add everything else
 
           unless source.nil?
-            payload = Payload.new(digest: digest, source_id: source.id, url_id: url.id)
+            payload = Payload.new(digest: digest,
+                                  source_id: source.id,
+                                  url_id: url.id,
+                                  resolution_id: resolution.id
+            )
             if payload.save
               status 200
               body "OK"
@@ -63,6 +70,8 @@ module TrafficSpy
       @slugs = @slugs.map do |slug|
         slug[0]
       end
+
+      @resolutions = @source.resolutions.uniq
 
       erb :show
     end

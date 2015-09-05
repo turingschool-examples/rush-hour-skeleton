@@ -11,7 +11,14 @@
         <% end %>
       </ul>
       </br>
-      <h4> Most Viewed Urls</h4>
+      <h4>Screen Resolutions</h4>
+      <ul>
+        <% @resolutions.each do |resolution| %>
+          <li><%= resolution.resolution_width %> x <%=
+          resolution.resolution_height %></li>
+        <% end %>
+      </ul>
+      </br>
     </div>
   </div>
 </div>
