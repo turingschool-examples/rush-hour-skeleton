@@ -1,3 +1,6 @@
 class Url < ActiveRecord::Base
-  belongs_to :payload
+  has_many :payloads
+  has_one :source, through: :payloads
+
+  validates :url, presence: true, uniqueness: true
 end

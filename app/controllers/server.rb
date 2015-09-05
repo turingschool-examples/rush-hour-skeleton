@@ -1,4 +1,3 @@
-require 'digest'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -25,19 +24,46 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-      payload_params = params.to_json
-      payload_params = JSON.parse(payload_params)
+
+      if params['payload'] == nil
+        status 400
+        body 'Bad Request - Needs a payload'
+        break
+      end
 
       source = Source.find_by_identifier(identifier)
-      validator = PayloadValidator.new(payload_params, source)
+      validator = PayloadValidator.new(params['payload'], source)
+      digest = validator.create_digest
+      payload_params = validator.json_parser
 
-      status validator.error[0]
-      body validator.error[1]
+      if Payload.new(digest: digest).valid?
+         url = Url.find_or_create_by(url: payload_params['url'])
+         #this is where we add everything else
+
+          unless source.nil?
+            payload = Payload.new(digest: digest, source_id: source.id, url_id: url.id)
+            if payload.save
+              status 200
+              body "OK"
+            end
+          else
+            status 403
+            body 'Forbidden - Must have registered identifier'
+         end
+      else
+        status 403
+        body 'Forbidden - Must be unique payload'
+      end
     end
 
+
     get '/sources/:identifier' do |identifier|
-      source = Source.find_by_identifier(identifier)
-      @payloads = Payload.where({:source_id => source.id})
+      @source = Source.find_by_identifier(identifier)
+      @slugs = @source.urls.group(:url).count
+      @slugs = @slugs.map do |slug|
+        slug[0]
+      end
+
       erb :show
     end
 
