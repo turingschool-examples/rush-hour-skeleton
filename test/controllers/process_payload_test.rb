@@ -62,27 +62,6 @@ class ProcessPayloadTest < Minitest::Test
     get "/sources/jumpstartlab"
   end
 
-  #   def test_shit
-  #   assert_equal 0, Url.count
-
-
-
-  #   post "/sources/jumpstartlab/data", @payload
-
-
-  #   assert_equal 1, Url.count
-
-
-  #   new_payload = 'payload={"url":"http://jumpstartlab.com/blog"}'
-
-  #   post "/sources/jumpstartlab/data", new_payload
-
-  #   assert_equal 2, Url.count
-
-  #   get "/sources/jumpstartlab"
-
-  # end
-
   def teardown
     DatabaseCleaner.clean
   end
