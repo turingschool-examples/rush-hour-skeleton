@@ -1,6 +1,6 @@
 class Payload < ActiveRecord::Base
   belongs_to :source
-  has_many :urls
+  belongs_to :url
 
   validates :digest, presence: true, uniqueness: true
 end

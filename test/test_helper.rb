@@ -10,6 +10,7 @@ require 'capybara'
 require 'database_cleaner'
 require 'pry'
 require 'json'
+require 'tilt/erb'
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migration]}
 
