@@ -19,7 +19,7 @@ class ServerTest < Minitest::Test
                respondedIn: 37,
                referredBy: "http://jumpstartlab.com",
                requestType: "GET",
-               parameters: [],
+               parameters: "[]",
                eventName: "socialLogin",
                userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
                resolutionWidth: "1920",
@@ -56,11 +56,15 @@ class ServerTest < Minitest::Test
 
   def test_it_creates_visit_with_valid_attributes
     create_source
-    params = payload_hash
-    post "/sources/jumpstartlab/data", params
+    payload = payload_hash
+    post "/sources/jumpstartlab/data", payload
 
+    visit = Visit.find_by(referred_by: "http://jumpstartlab.com")
+    
+    assert_equal 2, Url.count
+    assert_equal 12, visit.url_id
     assert_equal 200, last_response.status
-    assert_equal 1, Visit.find_by(referred_by: "http://jumpstartlab.com").source_id
+    assert_equal 1, visit.source_id
   end
 
   def test_it_does_not_create_a_visit_when_payload_has_already_been_recieved
