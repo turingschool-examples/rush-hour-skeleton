@@ -1,6 +1,7 @@
 class Source < ActiveRecord::Base
   has_many :payloads
   has_many :urls, through: :payloads
+  has_many :responses, through: :payloads
   has_many :browsers, through: :payloads
   has_many :resolutions, through: :payloads
 

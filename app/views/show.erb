@@ -11,6 +11,12 @@
         <% end %>
       </ul>
       </br>
+<<<<<<< HEAD
+      <h4>Average Response Times</h4>
+        <% @average_responses.each do |response| %>
+          <li><%= response.responded_in %></li>
+        <% end %>
+=======
       <h4> Web Broswer Breakdown</h4>
       <% @browser_counts.each do |b| %>
        <li><%= b[0]%>: <%= b[1]%></li>
@@ -23,6 +29,7 @@
         <% end %>
       </ul>
       </br>
+>>>>>>> master
     </div>
   </div>
 </div>
