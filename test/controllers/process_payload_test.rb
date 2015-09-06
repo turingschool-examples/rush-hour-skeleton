@@ -72,6 +72,17 @@ class ProcessPayloadTest < Minitest::Test
     get "/sources/jumpstartlab"
   end
 
+  def test_it_checks_a_url_exists
+    post "/sources/jumpstartlab/data", @payload
+
+    get "/sources/jumpstartlab/urls/blog"
+    assert_equal 200, last_response.status
+
+    get "/sources/jumpstartlab/urls/dog"
+
+    assert_equal 404, last_response.status
+  end
+
   def teardown
     DatabaseCleaner.clean
   end
