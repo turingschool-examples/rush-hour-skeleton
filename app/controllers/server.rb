@@ -35,7 +35,8 @@ module TrafficSpy
       validator = PayloadValidator.new(params['payload'], source)
       digest = validator.create_digest
       payload_params = validator.json_parser
-      browser_payload = validator.browser_parser(payload_params['userAgent'])
+      browser = validator.browser_parser(payload_params['userAgent'])
+      operating_system = validator.os_parser(payload_params['userAgent'])
 
 
       if Payload.new(digest: digest).valid?
@@ -44,7 +45,8 @@ module TrafficSpy
                      requested_at: payload_params['requestedAt'],
                      responded_in: payload_params['respondedIn'],
                      ip: payload_params['ip'])
-        browser = Browser.find_or_create_by(browser: browser_payload)
+        browser = Browser.find_or_create_by(browser: browser, operating_system:
+        operating_system)
         resolution = Resolution.find_or_create_by(
                         resolution_width: payload_params['resolutionWidth'],
                         resolution_height: payload_params['resolutionHeight'])
@@ -75,12 +77,10 @@ module TrafficSpy
     get '/sources/:identifier' do |identifier|
       @source = Source.find_by_identifier(identifier)
       @slugs = Url.new.most_requested(@source)
-
       @average_responses = Response.new.average_response_time(@source)
-
-      @browser_counts = @source.browsers.group(:browser).count
-      @browsers = @browser_counts
-      @resolutions = @source.resolutions.uniq
+      @browser_counts = Browser.new.list_browsers(@source)
+      @os_counts = Browser.new.list_operating_systems(@source)
+      @resolutions = Resolution.new.resolution_size(@source)
 
       erb :show
     end
