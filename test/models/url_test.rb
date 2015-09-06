@@ -39,7 +39,7 @@ class UrlTest < Minitest::Test
   end
 
   def attributes
-    {url: "http://jumpstartlab.com/about",
+    {address: "http://jumpstartlab.com/about",
      source_id: 1,
      visits_count: 3,
      average_response_time: 3}

@@ -6,8 +6,8 @@
   <div class="col-md-3" id="urls">
     <h3>Requested URLs</h3>
     <ol>
-      <% urls.each do |url, count|%>
-        <li><%= "#{url}: #{count} visits" %></li>
+      <% addresses.each do |address, count|%>
+        <li><%= "#{address}: #{count} visits" %></li>
       <% end %>
     </ol>
   </div>
@@ -40,10 +40,10 @@
   </div>
 
   <div class="col-md-4" id="response_times">
-    <h3>Response Times</h3>
+    <h3>URL Average Response Times</h3>
     <ol>
-      <% url_response_times.each do |url, time|%>
-        <li><%= "#{url}: #{time}ms" %></li>
+      <% url_response_times.each do |address, time|%>
+        <li><%= "#{address}: #{time}ms" %></li>
       <% end %>
     </ol>
   </div>

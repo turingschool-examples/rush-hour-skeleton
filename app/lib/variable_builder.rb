@@ -1,16 +1,17 @@
 class VariableBuilder
-  attr_reader :params, :source, :visits, :user_agents
+  attr_reader :params, :source, :visits, :user_agents, :urls
 
   def initialize(params, source)
     @params = params
     @source = source
     @visits = Visit.where(source_id: source.id)
     @user_agents = visits.map {|visit| UserAgent.parse(visit.user_agent)}
+    @urls = Url.where(source_id: source.id)
   end
 
   def variables
     {identifier: identifier,
-     urls: urls,
+     addresses: addresses,
      screen_resolutions: screen_resolutions,
      browsers: user_browsers,
      os_platforms: os_platforms,
@@ -23,12 +24,9 @@ class VariableBuilder
     source.identifier.capitalize
   end
 
-  def urls
-    raw_urls = visits.map {|visit| visit.url}
-    urls = raw_urls.map.with_object(Hash.new(0)) do |url, hash|
-      hash[url] += 1
-    end
-    urls.to_a.max_by(raw_urls.count) {|url, visit_count| visit_count}
+  def addresses
+    raw_addresses = urls.map {|url| [url.address, url.visits_count]}
+    raw_addresses.max_by(raw_addresses.count) {|address, visits| visits}
   end
 
   def screen_resolutions
@@ -53,7 +51,8 @@ class VariableBuilder
   end
 
   def url_response_times
-    #need URL table? have number of visits stored. Have response times stored?
+    raw_times = urls.map {|url| [url.address, url.average_response_time]}
+    raw_times.max_by(raw_times.count) {|address, time| time}
   end
 
 end

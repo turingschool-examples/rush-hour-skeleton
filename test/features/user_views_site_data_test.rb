@@ -4,16 +4,30 @@ class UserViewsSiteDataTest < FeatureTest
 
   def setup
     DatabaseCleaner.start
-    seed_data = { identifier: "jumpstartlab",
+    source_seed_data = { identifier: "jumpstartlab",
                root_url: "http://jumpstartlab.com" }
-    Source.create(seed_data)
+    Source.create(source_seed_data)
     payload_hash
-    payload_hash("2","http://jumpstartlab.com/about")
+    payload_hash("2",2)
     payload_hash("3")
+    url_seed_data = { address: "http://jumpstartlab.com/blog",
+                      source_id: 1,
+                      visits_count: 2,
+                      average_response_time: 46 }
+    url_seed_data2 = { address: "http://jumpstartlab.com/about",
+                       source_id: 1,
+                       visits_count: 1,
+                       average_response_time: 37 }
+    Url.create(url_seed_data)
+    Url.create(url_seed_data2)
   end
 
-  def payload_hash(sha_id = "1", url = "http://jumpstartlab.com/blog")
-    params = {url: url,
+  def teardown
+    DatabaseCleaner.clean
+  end
+
+  def payload_hash(sha_id = "1", url_id = 1)
+    params = {url_id: url_id,
                requested_at: "2013-02-16 21:38:28 -0700",
                responded_in: 37,
                referred_by: "http://jumpstartlab.com",
@@ -27,10 +41,6 @@ class UserViewsSiteDataTest < FeatureTest
                source_id: 1,
                sha_identifier: sha_id}
     Visit.create(params)
-  end
-
-  def teardown
-    DatabaseCleaner.clean
   end
 
   def test_user_sees_aggregate_data
@@ -65,8 +75,8 @@ class UserViewsSiteDataTest < FeatureTest
 
     within("#response_times") do
       assert page.has_content?("URL Average Response Times")
-      assert page.has_content?("Longest: http://jumpstartlab.com/blog: 37ms")
-      assert page.has_content?("Shortest: http://jumpstartlab.com/about: 37ms")
+      assert page.has_content?("http://jumpstartlab.com/blog: 46ms")
+      assert page.has_content?("http://jumpstartlab.com/about: 37ms")
     end
 
   end
