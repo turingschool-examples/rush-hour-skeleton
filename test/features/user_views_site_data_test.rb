@@ -84,25 +84,14 @@ class UserViewsSiteDataTest < FeatureTest
     within("#events_link") do
       assert find_link("Events").visible?
     end
-
   end
 
+  def test_user_sees_error_message_when_identifier_does_not_exist
+    visit "/sources/jumpstartlabsss"
+
+    assert_equal "/sources/jumpstartlabsss", current_path
+    assert page.has_content?("Error Page")
+    assert page.has_content?("The identifier jumpstartlabsss does not exist")
+  end
 
 end
-
-# As a user
-# XWhen I submit a GET request to "/sources/jumpstartlab"
-# XThen I should see a page that displays the following:
-#   XMost requested URLS to least requested URLS (url)
-#   XWeb browser breakdown across all requests (userAgent)
-#   XOS breakdown across all requests (userAgent)
-#   XScreen Resolution across all requests (resolutionWidth x resolutionHeight)
-#   Longest, average response time per URL to shortest, average response time per URL
-#   Hyperlinks of each url to view url specific data
-#   Hyperlink to view aggregate event data
-#
-# As a user
-#   When I submit a GET request to "/sources/jumpstartsslab"
-#   And the identifier does not exist
-#   Then I should see a page that displays the following message:
-#     "That identifier does not exist."

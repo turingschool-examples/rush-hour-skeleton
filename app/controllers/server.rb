@@ -30,6 +30,7 @@ module TrafficSpy
         builder = VariableBuilder.new(params, source)
         erb :show, locals: builder.variables
       else
+        @error_message = "The identifier #{params[:identifier]} does not exist"
         erb :error
       end
     end
