@@ -42,7 +42,6 @@ module TrafficSpy
 
     def build_attributes(params)
       attributes = JSON.parse(params[:payload])
-      url = Url.find_or_create_by(:url, attributes[:url])
       sha_identifier = Digest::SHA1.hexdigest(params[:payload])
       attributes[:sha_identifier] = sha_identifier
       attributes[:source_id] = Source.find_by(identifier: params[:identifier]).id

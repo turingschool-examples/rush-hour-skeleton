@@ -60,9 +60,9 @@ class ServerTest < Minitest::Test
     post "/sources/jumpstartlab/data", payload
 
     visit = Visit.find_by(referred_by: "http://jumpstartlab.com")
-    
-    assert_equal 2, Url.count
-    assert_equal 12, visit.url_id
+
+    assert_equal 1, Url.count
+    assert_equal 1, visit.url_id
     assert_equal 200, last_response.status
     assert_equal 1, visit.source_id
   end

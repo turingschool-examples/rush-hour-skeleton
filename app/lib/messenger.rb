@@ -8,7 +8,19 @@ class Messenger
       [key.to_s.underscore.to_sym, value]
     end
     attributes = attribute_array.to_h
-    @record = eval(model).new(attributes)
+    if model == "Visit"
+      url = Url.find_or_create_by(address: attributes[:url])
+      url.source_id = attributes[:source_id]
+      total_response_time = url.average_response_time * url.visits_count
+      url.visits_count += 1
+      url.average_response_time = (total_response_time + attributes[:responded_in])/url.visits_count
+      attributes.delete(:url)
+      attributes[:url_id] = url.id
+      url.save if url.valid?
+      @record = url.visits.new(attributes)
+    else
+      @record = eval(model).new(attributes)
+    end
     record.save if valid_record
   end
 
