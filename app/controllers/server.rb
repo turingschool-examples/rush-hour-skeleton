@@ -97,7 +97,7 @@ module TrafficSpy
       @source = Source.find_by_identifier(identifier)
       @paths = Url.new.path_parser(@source)
 
-      if @paths.include?(path)
+      if @paths.include?("/" + path)
         status 200
         body 'OK'
         erb :"urls/show"
