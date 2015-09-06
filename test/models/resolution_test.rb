@@ -16,8 +16,6 @@ class ResolutionTest < Minitest::Test
     assert_equal "1280", Resolution.find(resolution.id).resolution_width
   end
 
-  
-
   def teardown
     DatabaseCleaner.clean
   end
