@@ -67,7 +67,7 @@ module TrafficSpy
         else
           status 403
           body 'Forbidden - Must have registered identifier'
-         end
+        end
       else
         status 403
         body 'Forbidden - Must be unique payload'
@@ -91,6 +91,21 @@ module TrafficSpy
       @events = @source.events
 
       erb :event_index
+    end
+
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      @source = Source.find_by_identifier(identifier)
+      @paths = Url.new.path_parser(@source)
+
+      if @paths.include?(path)
+        status 200
+        body 'OK'
+        erb :"urls/show"
+      else
+        status 404
+        body 'URL not found'
+        not_found
+      end
     end
 
     not_found do

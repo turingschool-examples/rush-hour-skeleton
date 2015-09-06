@@ -22,54 +22,65 @@ class ProcessPayloadTest < Minitest::Test
                "respondedIn":37,"ip":"63.29.38.211"}'
   end
 
-  def test_it_checks_a_payloads_is_processed_correctly
+  # def test_it_checks_a_payloads_is_processed_correctly
+    # post "/sources/jumpstartlab/data", @payload
+
+    # assert_equal 1, Payload.count
+    # assert_equal 200, last_response.status
+  # end
+
+  # def test_it_checks_a_payloads_uniqueness
+    # post "/sources/jumpstartlab/data", @payload
+
+    # assert_equal 1, Payload.count
+    # assert_equal 200, last_response.status
+
+    # post "/sources/jumpstartlab/data", @payload
+
+    # assert_equal 1, Payload.count
+    # assert_equal 403, last_response.status
+    # assert_equal 'Forbidden - Must be unique payload', last_response.body
+  # end
+
+  # def test_payload_must_be_from_a_registered_source
+    # post "/sources/cakeisawesome/data", @payload
+
+    # assert_equal 403, last_response.status
+    # assert_equal 'Forbidden - Must have registered identifier', last_response.body
+  # end
+
+  # def test_process_must_contain_a_payload
+    # post "/sources/jumpstartlab/data"
+
+    # assert_equal 0, Payload.count
+    # assert_equal 400, last_response.status
+    # assert_equal 'Bad Request - Needs a payload', last_response.body
+  # end
+
+  # def test_data_is_populated_when_payload_is_saved
+    # assert_equal 0, Url.count
+    # assert_equal 0, Resolution.count
+    # assert_equal 0, Response.count
+    # assert_equal 0, Browser.count
+
+    # post "/sources/jumpstartlab/data", @payload
+    # assert_equal 1, Url.count
+    # assert_equal 1, Resolution.count
+    # assert_equal 1, Response.count
+    # assert_equal 1, Browser.count
+
+    # get "/sources/jumpstartlab"
+  # end
+
+  def test_it_checks_a_url_exists
     post "/sources/jumpstartlab/data", @payload
 
-    assert_equal 1, Payload.count
-    assert_equal 200, last_response.status
-  end
+    # get "/sources/jumpstartlab/urls/blog"
+    # assert_equal 200, last_response.status
 
-  def test_it_checks_a_payloads_uniqueness
-    post "/sources/jumpstartlab/data", @payload
+    get "/sources/jumpstartlab/urls/dog"
 
-    assert_equal 1, Payload.count
-    assert_equal 200, last_response.status
-
-    post "/sources/jumpstartlab/data", @payload
-
-    assert_equal 1, Payload.count
-    assert_equal 403, last_response.status
-    assert_equal 'Forbidden - Must be unique payload', last_response.body
-  end
-
-  def test_payload_must_be_from_a_registered_source
-    post "/sources/cakeisawesome/data", @payload
-
-    assert_equal 403, last_response.status
-    assert_equal 'Forbidden - Must have registered identifier', last_response.body
-  end
-
-  def test_process_must_contain_a_payload
-    post "/sources/jumpstartlab/data"
-
-    assert_equal 0, Payload.count
-    assert_equal 400, last_response.status
-    assert_equal 'Bad Request - Needs a payload', last_response.body
-  end
-
-  def test_data_is_populated_when_payload_is_saved
-    assert_equal 0, Url.count
-    assert_equal 0, Resolution.count
-    assert_equal 0, Response.count
-    assert_equal 0, Browser.count
-
-    post "/sources/jumpstartlab/data", @payload
-    assert_equal 1, Url.count
-    assert_equal 1, Resolution.count
-    assert_equal 1, Response.count
-    assert_equal 1, Browser.count
-
-    get "/sources/jumpstartlab"
+    assert_equal 404, last_response.status
   end
 
   def teardown
