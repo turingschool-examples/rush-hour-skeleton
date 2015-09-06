@@ -1,6 +1,5 @@
  require 'digest'
 
-
  class PayloadValidator
   attr_reader :params,
               :source,
@@ -16,8 +15,12 @@
      JSON.parse(@params)
   end
 
+  def browser_parser(string)
+    UserAgent.parse(string).browser
+  end
+
   def create_digest
-    digest = Digest::SHA256.hexdigest(json_parser.to_s)
+    Digest::SHA256.hexdigest(json_parser.to_s)
   end
 
   def error

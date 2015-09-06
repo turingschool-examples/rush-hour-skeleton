@@ -11,6 +11,7 @@ require 'database_cleaner'
 require 'pry'
 require 'json'
 require 'tilt/erb'
+require 'user_agent'
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migration]}
 

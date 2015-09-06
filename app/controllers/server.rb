@@ -1,4 +1,5 @@
 module TrafficSpy
+
   class Server < Sinatra::Base
 
     get '/' do
@@ -34,29 +35,36 @@ module TrafficSpy
       validator = PayloadValidator.new(params['payload'], source)
       digest = validator.create_digest
       payload_params = validator.json_parser
+      browser_payload = validator.browser_parser(payload_params['userAgent'])
+
 
       if Payload.new(digest: digest).valid?
-         url = Url.find_or_create_by(url: payload_params['url'])
-         response = Response.find_or_create_by(
+        url = Url.find_or_create_by(url: payload_params['url'])
+        response = Response.find_or_create_by(
                      requested_at: payload_params['requestedAt'],
                      responded_in: payload_params['respondedIn'],
-                     ip: payload_params['ip']
-         )
+                     ip: payload_params['ip'])
+        browser = Browser.find_or_create_by(browser: browser_payload)
+        resolution = Resolution.find_or_create_by(
+                        resolution_width: payload_params['resolutionWidth'],
+                        resolution_height: payload_params['resolutionHeight'])
          #this is where we add everything else
 
-          unless source.nil?
+        unless source.nil?
             payload = Payload.new(digest: digest,
-                                   source_id: source.id,
-                                   url_id: url.id,
-                                   response_id: response.id,
-            )
+                                  source_id: source.id,
+                                  url_id: url.id,
+                                  resolution_id: resolution.id,
+                                  browser_id: browser.id,
+                                  response_id: response.id)
+
             if payload.save
               status 200
               body "OK"
             end
-          else
-            status 403
-            body 'Forbidden - Must have registered identifier'
+        else
+          status 403
+          body 'Forbidden - Must have registered identifier'
          end
       else
         status 403
@@ -67,7 +75,13 @@ module TrafficSpy
     get '/sources/:identifier' do |identifier|
       @source = Source.find_by_identifier(identifier)
       @slugs = Url.new.most_requested(@source)
+
       @average_responses = Response.new.average_response_time(@source)
+
+      @browser_counts = @source.browsers.group(:browser).count
+      @browsers = @browser_counts
+      @resolutions = @source.resolutions.uniq
+
       erb :show
     end
 

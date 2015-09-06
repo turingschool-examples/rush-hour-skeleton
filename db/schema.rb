@@ -16,13 +16,29 @@ ActiveRecord::Schema.define(version: 20150905221456) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "browsers", force: :cascade do |t|
+    t.text     "browser"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "source_id"
+  end
+
   create_table "payloads", force: :cascade do |t|
     t.integer  "source_id"
     t.string   "digest"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "url_id"
+    t.integer  "resolution_id"
+    t.integer  "browser_id"
     t.integer  "response_id"
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.string   "resolution_height"
+    t.string   "resolution_width"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "responses", force: :cascade do |t|
