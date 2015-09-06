@@ -11,7 +11,10 @@
         <% end %>
       </ul>
       </br>
-      <h4> Most Viewed Urls</h4>
+      <h4>Average Response Times</h4>
+        <% @average_responses.each do |response| %>
+          <li><%= response.responded_in %></li>
+        <% end %>
     </div>
   </div>
 </div>

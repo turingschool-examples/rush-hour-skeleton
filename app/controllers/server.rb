@@ -1,4 +1,3 @@
-
 module TrafficSpy
   class Server < Sinatra::Base
 
@@ -38,10 +37,19 @@ module TrafficSpy
 
       if Payload.new(digest: digest).valid?
          url = Url.find_or_create_by(url: payload_params['url'])
+         response = Response.find_or_create_by(
+                     requested_at: payload_params['requestedAt'],
+                     responded_in: payload_params['respondedIn'],
+                     ip: payload_params['ip']
+         )
          #this is where we add everything else
 
           unless source.nil?
-            payload = Payload.new(digest: digest, source_id: source.id, url_id: url.id)
+            payload = Payload.new(digest: digest,
+                                   source_id: source.id,
+                                   url_id: url.id,
+                                   response_id: response.id,
+            )
             if payload.save
               status 200
               body "OK"
@@ -56,14 +64,10 @@ module TrafficSpy
       end
     end
 
-
     get '/sources/:identifier' do |identifier|
       @source = Source.find_by_identifier(identifier)
-      @slugs = @source.urls.group(:url).count
-      @slugs = @slugs.map do |slug|
-        slug[0]
-      end
-
+      @slugs = Url.new.most_requested(@source)
+      @average_responses = Response.new.average_response_time(@source)
       erb :show
     end
 
