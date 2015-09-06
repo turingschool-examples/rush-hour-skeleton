@@ -85,6 +85,13 @@ module TrafficSpy
       erb :show
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      @source = Source.find_by_identifier(identifier)
+      @events = @source.events
+
+      erb :event_index
+    end
+
     not_found do
       erb :error
     end
