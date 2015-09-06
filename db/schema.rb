@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903203158) do
+ActiveRecord::Schema.define(version: 20150905221108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "browsers", force: :cascade do |t|
+    t.text     "browser"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "source_id"
+  end
 
   create_table "payloads", force: :cascade do |t|
     t.integer  "source_id"
@@ -22,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150903203158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "url_id"
+    t.integer  "browser_id"
   end
 
   create_table "sources", force: :cascade do |t|
