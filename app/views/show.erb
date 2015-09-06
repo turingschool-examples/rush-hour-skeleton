@@ -1,25 +1,40 @@
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
-
       <h1><%= @source.identifier.capitalize %> Dasboard</h1>
-      </br>
-      <h4> Most Viewed Urls</h4>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <h3> Most Viewed Urls</h3>
       <ul>
         <% @slugs.each do |slug| %>
           <li><%= slug %></li>
         <% end %>
       </ul>
       </br>
-      <h4>Average Response Times</h4>
+
+      <h3>Average Response Times</h3>
+        <ul>
         <% @average_responses.each do |response| %>
           <li><%= response.responded_in %></li>
         <% end %>
-      <h4> Web Broswer Breakdown</h4>
-      <% @browser_counts.each do |b| %>
-       <li><%= b[0]%>: <%= b[1]%></li>
-        <% end %>
-      <h4>Screen Resolutions</h4>
+      </ul>
+      </br>
+
+      <h3> Web Broswer Breakdown</h3>
+      <ul>
+        <% @browser_counts.each do |b| %>
+         <li><%= b[0]%>: <%= b[1]%></li>
+          <% end %>
+        </ul>
+      </br>
+
+      <h3>Screen Resolutions</h3>
       <ul>
         <% @resolutions.each do |resolution| %>
           <li><%= resolution.resolution_width %> x <%=
@@ -27,13 +42,20 @@
         <% end %>
       </ul>
       </br>
-      <h4>Operating System Breakdown</h4>
+
+      <h3 >Operating System Breakdown</h3>
       <ul>
         <% @os_counts.each do |os| %>
-          <li><%= os[0] %>: <%=
-          os[1] %></li>
+          <li><%= os[0] %>: <%= os[1] %></li>
         <% end %>
       </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
       <a href="/sources/<%= @source.identifier %>/events">Events</a>
       </br>
     </div>
