@@ -11,7 +11,10 @@
         <% end %>
       </ul>
       </br>
-      <h4> Most Viewed Urls</h4>
+      <h4> Web Broswer Breakdown</h4>
+      <% @browser_counts.each do |b| %>
+       <li><%= b[0]%>: <%= b[1]%></li>
+        <% end %>
     </div>
   </div>
 </div>

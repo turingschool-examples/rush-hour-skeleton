@@ -1,6 +1,7 @@
  require 'digest'
 
 
+
  class PayloadValidator
   attr_reader :params,
               :source,
@@ -14,6 +15,11 @@
 
   def json_parser
      JSON.parse(@params)
+  end
+
+  def browser_parser(string)
+# sbinding.pry
+    UserAgent.parse(string).browser
   end
 
   def create_digest

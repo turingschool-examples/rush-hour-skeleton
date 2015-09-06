@@ -1,5 +1,5 @@
-
 module TrafficSpy
+
   class Server < Sinatra::Base
 
     get '/' do
@@ -35,13 +35,34 @@ module TrafficSpy
       validator = PayloadValidator.new(params['payload'], source)
       digest = validator.create_digest
       payload_params = validator.json_parser
+      browser_payload = validator.browser_parser(payload_params['userAgent'])
+
 
       if Payload.new(digest: digest).valid?
-         url = Url.find_or_create_by(url: payload_params['url'])
-         #this is where we add everything else
+        url = Url.find_or_create_by(url: payload_params['url'])
+
+        browser = Browser.find_or_create_by(browser: browser_payload)
+
+
+
+
+
+
+
+
+
+        # binding.pry
+# user_agent.browser
+# # => 'Chrome'
+# user_agent.version
+# # => '19.0.1084.56'
+# user_agent.platform
+# # => 'Macintosh'
+
+
 
           unless source.nil?
-            payload = Payload.new(digest: digest, source_id: source.id, url_id: url.id)
+            payload = Payload.new(digest: digest, source_id: source.id, url_id: url.id, browser_id: browser.id)
             if payload.save
               status 200
               body "OK"
@@ -56,13 +77,15 @@ module TrafficSpy
       end
     end
 
-
     get '/sources/:identifier' do |identifier|
       @source = Source.find_by_identifier(identifier)
       @slugs = @source.urls.group(:url).count
       @slugs = @slugs.map do |slug|
         slug[0]
       end
+
+      @browser_counts = @source.browsers.group(:browser).count
+      @browsers = @browser_counts
 
       erb :show
     end
