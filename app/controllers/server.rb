@@ -40,29 +40,18 @@ module TrafficSpy
 
       if Payload.new(digest: digest).valid?
         url = Url.find_or_create_by(url: payload_params['url'])
-
         browser = Browser.find_or_create_by(browser: browser_payload)
-
-
-
-
-
-
-
-
-
-        # binding.pry
-# user_agent.browser
-# # => 'Chrome'
-# user_agent.version
-# # => '19.0.1084.56'
-# user_agent.platform
-# # => 'Macintosh'
-
-
+        resolution = Resolution.find_or_create_by(
+                        resolution_width: payload_params['resolutionWidth'],
+                        resolution_height: payload_params['resolutionHeight'])
 
           unless source.nil?
-            payload = Payload.new(digest: digest, source_id: source.id, url_id: url.id, browser_id: browser.id)
+            payload = Payload.new(digest: digest,
+                                  source_id: source.id,
+                                  url_id: url.id,
+                                  resolution_id: resolution.id,
+                                  browser_id: browser.id
+            )
             if payload.save
               status 200
               body "OK"
@@ -86,6 +75,7 @@ module TrafficSpy
 
       @browser_counts = @source.browsers.group(:browser).count
       @browsers = @browser_counts
+      @resolutions = @source.resolutions.uniq
 
       erb :show
     end

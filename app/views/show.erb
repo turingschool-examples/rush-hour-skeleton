@@ -15,6 +15,14 @@
       <% @browser_counts.each do |b| %>
        <li><%= b[0]%>: <%= b[1]%></li>
         <% end %>
+      <h4>Screen Resolutions</h4>
+      <ul>
+        <% @resolutions.each do |resolution| %>
+          <li><%= resolution.resolution_width %> x <%=
+          resolution.resolution_height %></li>
+        <% end %>
+      </ul>
+      </br>
     </div>
   </div>
 </div>
