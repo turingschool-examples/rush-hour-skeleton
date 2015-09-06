@@ -17,7 +17,7 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
 
-    @payload = 'payload={"url":"http://jumpstartlab.com/blog"}'
+    @payload = 'payload={"url":"http://jumpstartlab.com/blog","resolutionWidth":"1920","resolutionHeight":"1280"}'
   end
 
   def test_it_checks_a_payloads_is_processed_correctly
@@ -55,10 +55,12 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 'Bad Request - Needs a payload', last_response.body
   end
 
-  def test_url_data_is_populated_when_payload_is_saved
+  def test_data_is_populated_when_payload_is_saved
     assert_equal 0, Url.count
+    assert_equal 0, Resolution.count
     post "/sources/jumpstartlab/data", @payload
     assert_equal 1, Url.count
+    assert_equal 1, Resolution.count
     get "/sources/jumpstartlab"
   end
 

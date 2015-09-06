@@ -1,6 +1,5 @@
  require 'digest'
 
-
  class PayloadValidator
   attr_reader :params,
               :source,
