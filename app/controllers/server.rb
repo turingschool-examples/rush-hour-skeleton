@@ -75,12 +75,13 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      @source = Source.find_by_identifier(identifier)
-      @slugs = Url.new.most_requested(@source)
-      @average_responses = Response.new.average_response_time(@source)
-      @browser_counts = Browser.new.list_browsers(@source)
-      @os_counts = Browser.new.list_operating_systems(@source)
-      @resolutions = Resolution.new.resolution_size(@source)
+      @source             = Source.find_by_identifier(identifier)
+      @slugs              = Url.new.most_requested(@source)
+      @average_responses  = Response.new.average_response_time(@source)
+      @browser_counts     = Browser.new.list_browsers(@source)
+      @os_counts          = Browser.new.list_operating_systems(@source)
+      @resolutions        = Resolution.new.resolution_size(@source)
+      @paths              = Url.new.path_parser(@source)
 
       erb :show
     end
