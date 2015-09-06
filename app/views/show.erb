@@ -56,6 +56,19 @@
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
+      <h3 >Url Specific Data</h3>
+    </br>
+       <% @paths.each do |path| %>
+          <a href="http://localhost:9393/sources/<%= @source.identifier %>/urls<%= path %>">http://localhost:9393/sources/<%= @source.identifier %>/urls<%= path %></a>
+        </br>
+       <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
       <a href="/sources/<%= @source.identifier %>/events">Events</a>
       </br>
     </div>
