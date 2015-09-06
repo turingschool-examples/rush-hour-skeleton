@@ -96,6 +96,7 @@ module TrafficSpy
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @source = Source.find_by_identifier(identifier)
       @paths = Url.new.path_parser(@source)
+      @path = path
 
       if @paths.include?("/" + path)
         status 200
