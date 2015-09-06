@@ -77,6 +77,12 @@ class UserViewsSiteDataTest < FeatureTest
       assert page.has_content?("URL Average Response Times")
       assert page.has_content?("http://jumpstartlab.com/blog: 46ms")
       assert page.has_content?("http://jumpstartlab.com/about: 37ms")
+      assert find_link("http://jumpstartlab.com/blog").visible?
+      assert find_link("http://jumpstartlab.com/about").visible?
+    end
+
+    within("#events_link") do
+      assert find_link("Events").visible?
     end
 
   end

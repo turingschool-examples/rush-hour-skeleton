@@ -51,7 +51,10 @@ class VariableBuilder
   end
 
   def url_response_times
-    raw_times = urls.map {|url| [url.address, url.average_response_time]}
+    raw_times = urls.map do |url|
+      path = url.address.gsub(source.root_url, identifier.downcase + "/urls")
+      [url.address, url.average_response_time, path]
+    end
     raw_times.max_by(raw_times.count) {|address, time| time}
   end
 

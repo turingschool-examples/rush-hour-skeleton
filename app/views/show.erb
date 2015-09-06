@@ -38,13 +38,17 @@
       <% end %>
     </ul>
   </div>
+</div>
 
-  <div class="col-md-4" id="response_times">
-    <h3>URL Average Response Times</h3>
-    <ol>
-      <% url_response_times.each do |address, time|%>
-        <li><%= "#{address}: #{time}ms" %></li>
-      <% end %>
-    </ol>
-  </div>
+<div class="col-md-4" id="response_times">
+  <h3>URL Average Response Times</h3>
+  <ol>
+    <% url_response_times.each do |address, time, relative_path|%>
+      <li><a href="/sources/<%="#{relative_path}"%>"><%= "#{address}"%></a><%=": #{time}ms" %></li>
+    <% end %>
+  </ol>
+</div>
+
+<div class="col-md-8" id="events_link">
+  <h3><a href="/sources/<%="#{identifier.downcase}"%>/events">Events</a></h3>
 </div>
