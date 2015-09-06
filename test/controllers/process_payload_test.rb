@@ -17,10 +17,8 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
 
-    @payload = 'payload={"url":"http://jumpstartlab.com/blog",
-                "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2)
-                 AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0
-                Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280"}'
+    @payload = 'payload={"url":"http://jumpstartlab.com/blog","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280"}'
+  end
 
   def test_it_checks_a_payloads_is_processed_correctly
     post "/sources/jumpstartlab/data", @payload

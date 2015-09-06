@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20150905221108) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "url_id"
-    t.integer  "browser_id"
     t.integer  "resolution_id"
+    t.integer  "browser_id"
   end
 
   create_table "resolutions", force: :cascade do |t|
@@ -53,4 +53,5 @@ ActiveRecord::Schema.define(version: 20150905221108) do
     t.datetime "updated_at", null: false
     t.integer  "source_id"
   end
+
 end
