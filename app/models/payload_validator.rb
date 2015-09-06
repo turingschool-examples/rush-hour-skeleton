@@ -19,6 +19,10 @@
     UserAgent.parse(string).browser
   end
 
+  def os_parser(string)
+    UserAgent.parse(string).platform
+  end
+
   def create_digest
     Digest::SHA256.hexdigest(json_parser.to_s)
   end
