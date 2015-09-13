@@ -3,6 +3,7 @@
 development:
   adapter: postgresql
   database: traffic-spy-development
+  host: localhost
 
 test:
   adapter: postgresql

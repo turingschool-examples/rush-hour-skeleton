@@ -1,0 +1,152 @@
+*EACH STORY WILL BE ONE CARD ON WAFFLE.IO*
+
+APPLICATION REGISTRATION
+As a user
+When I submit a POST request to "/sources"
+With an "identifier" set to "jumpstartlab"
+And a "rootUrl" set to "http://jumpstartlab.com"
+Then I should receive a response of 200 OK
+And a response body of "{"identifier": "jumpstartlab"}"
+
+When I submit a POST request to "/sources"
+And I am missing an "identifier" and "rootUrl"
+Then I should receive response of 400 Bad Request
+
+When I submit a POST request to "/sources"
+With an "identifier" of "jumpstartlab"
+And the "identifier" has already been taken
+Then I should receive response of 403 Forbidden
+And I should receive a descriptive error message "That identifier has already been taken."
+
+PROCESSING REQUESTS
+
+As a user
+When I submit a POST request to "/sources/jumpstartlab/data"
+With a request containing JSON data in a unique parameter named "payload"
+Where payload = {
+  "url":"http://jumpstartlab.com/blog",
+  "requestedAt":"2013-02-16 21:38:28 -0700",
+  "respondedIn":37,
+  "referredBy":"http://jumpstartlab.com",
+  "requestType":"GET",
+  "parameters":[],
+  "eventName": "socialLogin",
+  "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+  "resolutionWidth":"1920",
+  "resolutionHeight":"1280",
+  "ip":"63.29.38.211"
+}
+Then I should recieve a response of "200 OK"
+
+As a user
+When I submit a POST request to "/sources/jumpstartlab/data"
+With a request containing JSON data in a parameter named "payload"
+Where payload = {
+  "url":"http://jumpstartlab.com/blog",
+  "requestedAt":"2013-02-16 21:38:28 -0700",
+  "respondedIn":37,
+  "referredBy":"http://jumpstartlab.com",
+  "requestType":"GET",
+  "parameters":[],
+  "eventName": "socialLogin",
+  "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+  "resolutionWidth":"1920",
+  "resolutionHeight":"1280",
+  "ip":"63.29.38.211"
+}
+But the payload has already been received
+Then I should receive a status of "403 Forbidden"
+And a descriptive error message "Payload has already been received"
+
+As a user
+When I submit a POST request to "/sources/jumpstartlabss/data"
+With a request containing JSON data in a unique parameter named "payload"
+Where payload = {
+  "url":"http://jumpstartlab.com/blog",
+  "requestedAt":"2013-02-16 21:38:28 -0700",
+  "respondedIn":37,
+  "referredBy":"http://jumpstartlab.com",
+  "requestType":"GET",
+  "parameters":[],
+  "eventName": "socialLogin",
+  "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+  "resolutionWidth":"1920",
+  "resolutionHeight":"1280",
+  "ip":"63.29.38.211"
+}
+Then I should receive a status of "403 Forbidden"
+And a descriptive error message "URL does not exist"
+
+As a user
+When I submit a POST request to "/sources/jumpstartlab/data"
+Without a payload
+Then I should receive a status of "400 Bad Request"
+And a descriptive error message "Payload is missing"
+
+APPLICATION DETAILS
+
+As a user
+When I submit a GET request to "/sources/jumpstartlab"
+Then I should see a page that displays the following:
+  Most requested URLS to least requested URLS (url)
+  Web browser breakdown across all requests (userAgent)
+  OS breakdown across all requests (userAgent)
+  Screen Resolution across all requests (resolutionWidth x resolutionHeight)
+  Longest, average response time per URL to shortest, average response time per URL
+  Hyperlinks of each url to view url specific data
+  Hyperlink to view aggregate event data
+
+  As a user
+  When I submit a GET request to "/sources/jumpstartsslab"
+  And the identifier does not exist
+  Then I should see a page that displays the following message:
+    "That identifier does not exist."
+
+APPLICATION URL STATISTICS
+
+As a user
+When I submit a GET request to "/sources/jumpstartlab/urls/blog"
+Then I should see a page that displays the following:
+  Longest response time
+  Shortest response time
+  Average response time
+  Which HTTP verbs have been used
+  Most popular referrrers
+  Most popular user agents
+
+  As a user
+  When I submit a GET request to "/sources/jumpstartlab/urls/blargh"
+  And the url for that identifier does not exist
+  Then I should see a page that displays the following message:
+    "That url has not been requested."
+
+APPLICATION EVENTS INDEX
+
+As a user
+When I submit a GET request to "sources/jumpstartlabs/events"
+And those events have been defined
+Then I should see a page that displays the following:
+  Most received event to least received event
+  Hyperlinks of each event to view event specific data
+
+As a user
+When I submit a GET request to "sources/jumpstartlabs/events"
+And no events have been defined
+Then I should see a page that displays the following:
+  "No events have been defined."
+
+APPLICATION EVENT DETAILS
+
+As a user
+When I submit a GET request to "sources/jumpstartlabs/events/startedRegistration"
+And event has been defined
+Then I should see a page that displays the following:
+  Hour by hour breakdown of when the event was received. How many were shown at noon? at 1pm? at 2pm? Do it for all 24 hours.
+  How many times it was recieved overall
+
+As a user
+When I submit a GET request to "sources/jumpstartlabs/events/xlakjd"
+And event has not been defined
+Then I should see a page that displays the following:
+  Message that no event with the given name has been defined
+  Hyperlink to the Application Events Index
