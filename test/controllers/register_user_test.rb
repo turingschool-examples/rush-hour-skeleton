@@ -2,7 +2,7 @@ require './test/test_helper'
 
 module TrafficSpy
   class RegisterSourceTest < Minitest::Test
-    def test_register_a_user_with_valid_attributes
+    def test_register_a_source_with_valid_attributes
       post '/sources', {identifier: "jumpstartlab",
                         rootUrl: "http://jumpstartlab.com"
                        }
@@ -12,7 +12,7 @@ module TrafficSpy
       assert_equal "{\"identifier\":\"jumpstartlab\"}", last_response.body
     end
 
-    def test_cannot_create_a_user_without_identifier
+    def test_cannot_create_a_source_without_identifier
       post '/sources', {rootUrl: "http://jumpstartlab.com"}
 
       assert_equal 0, Source.count
@@ -20,7 +20,7 @@ module TrafficSpy
       assert_equal "Identifier can't be blank", last_response.body
     end
 
-    def test_cannot_register_without_root_url
+    def test_cannot_register_a_source_without_root_url
       post '/sources', {identifier: "jumpstartlab"}
 
       assert_equal 0, Source.count
