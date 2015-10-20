@@ -16,6 +16,15 @@ module TrafficSpy
       end
     end
 
+    post '/sources/jumpstartlab/data' do
+      Payload.new(:payload => params[:payload])
+    end
+
+    get '/sources/jumpstartlab' do
+      erb :source_page
+    end
+
+
     not_found do
       erb :error
     end

@@ -12,3 +12,7 @@ require 'pry'
 Capybara.app = TrafficSpy::Server
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+end
