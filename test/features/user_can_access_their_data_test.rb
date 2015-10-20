@@ -2,8 +2,8 @@ require_relative '../test_helper'
 
 class ApplicationDetailTest < MiniTest::Test
 
-  def test_client_can_see_thier_data_HAPPY
-    create_client(1)
+  def test_user_can_see_thier_data_HAPPY
+    create_user(1)
     visit '/sources/test_company_1'
 
     assert_equal '/sources/test_company_1', current_path
@@ -19,12 +19,12 @@ class ApplicationDetailTest < MiniTest::Test
     #Hyperlink to view aggregate event data
   end
 
-  def test_client_can_see_thier_data_SAD
+  def test_user_can_see_thier_data_SAD
     visit '/sources/test_company_1'
 
     assert_equal '/sources/error', current_path
 
-    assert page.has_content?("Test Company 1 is not a client of traffic spy")
+    assert page.has_content?("Test Company 1 is not a user of traffic spy")
   end
 
 end

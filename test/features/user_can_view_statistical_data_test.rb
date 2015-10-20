@@ -1,6 +1,6 @@
 class UserGetsURLStatisticsTest <FeatureTest
-  def test_registered_client_will_recieve_statistical_data
-    create_client(1)
+  def test_registered_user_will_recieve_statistical_data
+    create_user(1)
     create_url(1)
 
     visit ('/sources/IDENTIFIER/urls/RELATIVE/PATH')
@@ -16,7 +16,7 @@ class UserGetsURLStatisticsTest <FeatureTest
   end
 
   def test_if_identifier_relative_or_path_is_missing_it_redirects_to_error_page
-    create_client(1)
+    create_user(1)
 
     visit ('/sources/IDENTIFIER/urls/RELATIVE/PATH')
 
