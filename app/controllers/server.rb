@@ -17,7 +17,10 @@ module TrafficSpy
         status 400
         body user.errors.full_messages.join(", ")
       end
+    end
 
+    get '/identifier' do
+      erb :identifier
     end
 
     not_found do
