@@ -24,4 +24,19 @@ class SourceRegistrationTest < Minitest::Test
     assert_equal 200, last_response.status
   end
 
+  def test_user_receives_400_error_when_missing_identifier
+    post '/sources', { rootUrl:     "http://jumpstartlab.com" }
+
+    assert_equal 0, TrafficSpy::Source.count
+    assert_equal 400, last_response.status
+    assert_equal "Identifier can't be blank", last_response.body
+  end
+
+  def test_user_receives_400_error_when_missing_rootUrl
+    post '/sources', { identifier:  "jumpstartlab" }
+
+    assert_equal 0, TrafficSpy::Source.count
+    assert_equal 400, last_response.status
+    assert_equal "Root url can't be blank", last_response.body
+  end
 end
