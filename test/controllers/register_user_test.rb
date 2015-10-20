@@ -11,10 +11,24 @@ class RegisterUserTest < Minitest::Test
     assert_equal "User Saved!", last_response.body
   end
 
-  def test_cannont_create_a_user_without_identifier
+  def test_cannot_create_a_user_without_identifier
     post '/sources', {user: {rootUrl: "http://jumpstartlab.com"
                              } }
 
     assert_equal 0, User.count
+    assert_equal 400, last_response.status
+    assert_equal "Identifier can't be blank", last_response.body
   end
+
+  def test_it_cannot_register_without_root_url
+    post '/sources', {user: {identifier: "JumpstartLab"
+                             } }
+
+    assert_equal 0, User.count
+    assert_equal 400, last_response.status
+    assert_equal "Rooturl can't be blank", last_response.body
+  end
+
+
+
 end
