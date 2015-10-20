@@ -1,3 +1,5 @@
+require 'database_cleaner'
+
 ENV["RACK_ENV"] ||= "test"
 
 require 'bundler'
@@ -11,14 +13,16 @@ Capybara.app = TrafficSpy::Server
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
-def setup
-  DatabaseCleaner.start
-end
+class Minitest::Test
+  def setup
+    DatabaseCleaner.start
+  end
 
-def teardown
-  DatabaseCleaner.clean
+  def teardown
+    DatabaseCleaner.clean
+  end
 end
 
 def app
-  TrafficSpy
+  TrafficSpy::Server
 end
