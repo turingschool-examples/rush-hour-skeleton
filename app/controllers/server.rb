@@ -9,13 +9,12 @@ module TrafficSpy
     end
 
     post '/sources' do
-      user = User.new(params[:user])
-
-      if user.save
-        "User Saved!"
+      source = Source.new({identifier: params[:identifier], root_url: params[:rootUrl]})
+      if source.save
+        {identifier: source.identifier}.to_json
       else
         status 400
-        body user.errors.full_messages.join(", ")
+        body source.errors.full_messages.join(", ")
       end
     end
 
