@@ -17,4 +17,12 @@ class FeatureTest < MiniTest::Test
     # will create some users here - the INVENTORY variables
     # I'll give it the name test_company_1 where i is num
   end
+
+  def create_event(num)
+    # will create some users here - the INVENTORY variables
+    # I'll give it the name event_1 where i is num
+  end
+
+  def create_url(num)
+  end
 end
