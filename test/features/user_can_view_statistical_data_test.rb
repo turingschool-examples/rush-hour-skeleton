@@ -14,7 +14,6 @@ class UserGetsURLStatisticsTest <FeatureTest
 
   def test_if_identifier_relative_or_path_is_missing_it_redirects_to_error_page
     visit('http://yourapplication:port/sources/IDENTIFIER/urls/RELATIVE/PATH')
-
     assert_equal 'yourapplication:port/error', current_path
 
 end
