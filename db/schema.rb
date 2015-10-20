@@ -16,4 +16,9 @@ ActiveRecord::Schema.define(version: 20151020205924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "sources", force: :cascade do |t|
+    t.text "identifier"
+    t.text "root_url"
+  end
+
 end

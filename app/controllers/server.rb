@@ -9,12 +9,18 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # check if identifier Exists (via params)
-      
-        #if not
-          # post data to database
-          # make new instance of Source
-          # return message
+      # if valid params & not already in database
+      source = Source.new(identifier: params[:identifier], root_url: params[:rootUrl])
+      if source.save
+        status 200
+        body ({"identifier" => params[:identifier]}.to_json)
+      elsif source.errors.full_messages.join(", ").include?("already been taken")
+        status 403
+        body source.errors.full_messages.join(", ")
+      else
+        status 400
+        body source.errors.full_messages.join(", ")
+      end
     end
   end
 end
