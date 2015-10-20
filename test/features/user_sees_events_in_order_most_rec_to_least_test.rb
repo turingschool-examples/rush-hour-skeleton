@@ -4,8 +4,9 @@ class ApplicationEventIndexTest < MiniTest::Test
 
   def test_user_can_see_events_in_order
     create_user(1)
+    user = User.create(identifier: "JumpstartLab", rootUrl: "jumpstartlab.com")
     create_event(1)
-    visit '/sources/#{id}/events'
+    visit "/sources/#{user.identifier}/events"
 
     assert page.has_content?("Most Received Events")
   end

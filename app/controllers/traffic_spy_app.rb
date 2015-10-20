@@ -1,6 +1,7 @@
 class TrafficSpyApp < Sinatra::Base
 
   post '/sources' do
+    require "pry"; binding.pry
     user = User.new(params[:user])
     if user.save
       status 200
@@ -9,4 +10,5 @@ class TrafficSpyApp < Sinatra::Base
       status 400
       body task.errors.full_messages.join(", ")
     end
+  end
 end

@@ -4,12 +4,12 @@ class RegisterUserTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
-    TrafficSpy #may change this name later - SP
+    TrafficSpy::Server #may change this name later - SP
   end
 
   def test_new_user_can_register
     post '/sources' { user: { data_identifier: "example", root_url: "HTTP://Example.com"}}
-
+ # {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
     assert_equal 1, User.count
     assert_equal 200, last_response.status
     assert_equal "Success - 200 OK", last_response.body
@@ -50,7 +50,4 @@ class RegisterUserTest < Minitest::Test
     assert_equal "User already exists 403 - Bad Request", last_response.body
 
   end
-
-
-
 end

@@ -9,6 +9,7 @@ class ApplicationDetailTest < MiniTest::Test
     assert_equal '/sources/test_company_1', current_path
 
     assert page.has_content?("Most Requested URLS")
+    assertpage.has_css?("#urls")
     assert page.has_content?("Web Browser Breakdown")
     assert page.has_content?("OS Breakdown")
     assert page.has_content?("Screen Resolution")
