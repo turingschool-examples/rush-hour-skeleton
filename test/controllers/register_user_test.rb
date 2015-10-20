@@ -10,4 +10,11 @@ class RegisterUserTest < Minitest::Test
     assert_equal 200, last_response.status
     assert_equal "User Saved!", last_response.body
   end
+
+  def test_cannont_create_a_user_without_identifier
+    post '/sources', {user: {rootUrl: "http://jumpstartlab.com"
+                             } }
+
+    assert_equal 0, User.count
+  end
 end

@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  belongs_to :users
+  validates_presence_of :identifier
 end
