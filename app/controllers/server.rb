@@ -9,7 +9,12 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # require 'pry' ; binding.pry
+      # check if identifier Exists (via params)
+      
+        #if not
+          # post data to database
+          # make new instance of Source
+          # return message
     end
   end
 end
