@@ -41,10 +41,9 @@ class RegisterUserTest < Minitest::Test
   end
 
   def test_registered_user_receives_error_when_registering
-    skip
-    # create a user with the data_id "example" and root_url "http://example.com"
+    post '/sources', {"identifier" => "example", "rootUrl" => "HTTP://Example.com"}
     assert_equal 1, User.count
-    post '/sources', { "identifier" => "example", "rootUrl" => "HTTP://Example.com"}
+    post '/sources', {"identifier" => "example", "rootUrl" => "HTTP://Example.com"}
 
     assert_equal 1, User.count
     assert_equal 403, last_response.status

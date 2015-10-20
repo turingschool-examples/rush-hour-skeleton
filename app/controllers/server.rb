@@ -10,7 +10,10 @@ module TrafficSpy
 
     post '/sources' do
       user = User.new(params)
-      if user.save
+      if User.all.include?(User.find_by(params))
+        status 403
+        body "User already exists 403 - Bad Request"
+      elsif user.save
         status 200
         body "Success - 200 OK"
       else
