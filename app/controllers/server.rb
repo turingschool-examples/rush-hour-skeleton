@@ -10,12 +10,7 @@ module TrafficSpy
 
     post '/sources' do
       source = Source.new({identifier: params[:identifier], root_url: params[:rootUrl]})
-      if source.save
-        {identifier: source.identifier}.to_json
-      else
-        status 400
-        body source.errors.full_messages.join(", ")
-      end
+      status, body = Validator.validate(source)
     end
 
     get '/identifier' do

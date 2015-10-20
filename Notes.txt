@@ -21,12 +21,3 @@ PATHS
 /sources/IDENTIFIER/RELATIVE/PATH
 /sources/IDENTIFIER/events
 /sources/IDENTIFIER/events/EVENTNAME
-
-
-
-
-
-
-
-
-Ask if we are simulating requests or actually building an interface to submit them
