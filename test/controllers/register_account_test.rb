@@ -11,8 +11,15 @@ class RegisterAccountTest < Minitest::Test
     assert_equal ({"identifier"=>"jumpstartlab"}), last_response.body
   end
 
-  def test_user_receives_response_missing_parameters
+  def test_user_receives_response_missing_parameters_without_identifier
     post '/sources', { registration_data: { rootUrl: "http://jumpstartlab.com" } }
+    refute Client.registered?
+    assert_equal 400, last_response.status
+    assert_equal "Invalid Parameters", last_response.body
+  end
+
+  def test_user_receives_response_missing_parameters_without_rooturl
+    post '/sources', { registration_data: { identifier: "jumpstartlab"} }
     refute Client.registered?
     assert_equal 400, last_response.status
     assert_equal "Invalid Parameters", last_response.body
