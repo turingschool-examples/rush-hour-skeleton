@@ -1,8 +1,8 @@
 class CreateUsers < ActiveRecord::Migration
   def change
-    create_table :tasks do |t|
-      t.text :data_identifier
-      t.text :root_url
+    create_table :users do |t|
+      t.text :identifier
+      t.text :rootUrl
     end
   end
 end
