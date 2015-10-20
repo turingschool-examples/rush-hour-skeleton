@@ -39,4 +39,15 @@ class SourceRegistrationTest < Minitest::Test
     assert_equal 400, last_response.status
     assert_equal "Root url can't be blank", last_response.body
   end
+
+  def test_user_receives_403_error_when_identifier_already_exists
+    post '/sources', { identifier:  "jumpstartlab",
+                       rootUrl:     "http://jumpstartlab.com" }
+    post '/sources', { identifier:  "jumpstartlab",
+                       rootUrl:     "http://google.com" }
+
+    assert_equal 1, TrafficSpy::Source.count
+    assert_equal 403, last_response.status
+    assert_equal "Identifier has already been taken", last_response.body
+  end
 end
