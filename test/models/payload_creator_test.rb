@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class PayloadValidatorTest < Minitest::Test
+class PayloadCreatorTest < Minitest::Test
 
   def test_can_create_a_payload
     payload = TrafficSpy::Payload
@@ -20,6 +20,6 @@ class PayloadValidatorTest < Minitest::Test
     assert result
   end
 
-  
+
 
 end
