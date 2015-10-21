@@ -14,8 +14,8 @@ class PayloadValidatorTest < Minitest::Test
                     :resolutionWidth=>"1920",
                     :resolutionHeight=>"1280",
                     :ip=>"63.29.38.211"})
-                    
-    assert_equal 0, payloads.count
+
+    assert_equal 0, payloads.all.count
   end
 
   def test_payload_validator_excludes_duplicate_payloads

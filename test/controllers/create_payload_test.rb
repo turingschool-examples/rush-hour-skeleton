@@ -19,6 +19,8 @@ module TrafficSpy
                                                    "ip":"63.29.38.211"}'
 
       assert_equal 1, Payload.count
+      assert_equal 200, last_response.status
+      assert_equal "OK", last_response.body
     end
   end
 end
