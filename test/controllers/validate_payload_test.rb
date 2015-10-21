@@ -21,5 +21,17 @@ module TrafficSpy
       assert_equal 403, last_response.status
       assert_equal "App Not Registered!", last_response.body
     end
+
+    def test_doesnt_validate_a_payload_with_no_data
+      post '/sources', {identifier: "jumpstartlab",
+                        rootUrl: "http://jumpstartlab.com"
+                       }
+
+      post '/sources/jumpstartlab/data', 'payload={}'
+
+      assert_equal 0, Payload.count
+      assert_equal 400, last_response.status
+      assert_equal "Payload Missing", last_response.body
+    end
   end
 end

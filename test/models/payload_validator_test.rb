@@ -54,4 +54,11 @@ class PayloadValidatorTest < Minitest::Test
     #it is a test that interacts with both databases so is it not a model test?
   end
 
+  def test_payload_validator_excludes_missing_payloads
+    payloads = TrafficSpy::Payload
+    result = payloads.create({})
+
+    assert_equal 0, payloads.all.count
+  end
+
 end

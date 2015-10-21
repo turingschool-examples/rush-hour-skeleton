@@ -21,7 +21,7 @@ module TrafficSpy
         elsif Payload.all.exists?(unique_hash: payload.unique_hash)
           [403, "Already Received Request"]
         else
-          "SomeSHIT"
+          [400, "Payload Missing"]
         end
       else
         [403, "App Not Registered!"]
