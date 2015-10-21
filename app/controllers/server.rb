@@ -19,11 +19,11 @@ module TrafficSpy
       end
     end
 
-    post '/sources/jumpstartlab/data' do
-      if params.empty?
+    post '/sources/:identifier/data' do |identifier|
+      if params["payload"].nil?
         status 400
         body "payload can't be blank"
-      else
+      elsif Source.where(:identifier => params["identifier"]).exists?
         json_payload = JSON.parse(params["payload"])
         data = Payload.new(:url => json_payload["url"],
                            :requested_at => json_payload["requestedAt"],
@@ -34,7 +34,6 @@ module TrafficSpy
                            :resolution_height => json_payload["resolutionHeight"],
                            :ip => json_payload["ip"],
                            :hex_digest => Digest::SHA2.hexdigest(params.to_s))
-                           binding.pry
 
         if data.save
           body "Created Successfully"
@@ -42,6 +41,9 @@ module TrafficSpy
           status_message(data)
           body data.errors.full_messages.join(", ")
         end
+      else
+        status 403
+        body "Identifier does not exist"
       end
     end
 
@@ -60,8 +62,8 @@ module TrafficSpy
         status 400
       elsif source.errors.full_messages.join(", ") == "Identifier can't be blank"
         status 400
-      elsif source.errors.full_messages.join(", ") == "Payload can't be blank"
-        status 400
+      elsif source.errors.full_messages.join(", ") == "Hex digest has already been taken"
+        status 403
       end
     end
   end
