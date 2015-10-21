@@ -19,7 +19,7 @@ module TrafficSpy
         [200, "OK"]
       elsif Payload.all.exists?(unique_hash: payload.unique_hash)
         [403, "Already Received Request"]
-      else 
+      elsif  
       end
     end
   end
