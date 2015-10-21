@@ -12,8 +12,7 @@ module TrafficSpy
                           :userAgent,
                           :resolutionHeight,
                           :resolutionWidth,
-                          :ip,
-                          :unique_hash
+                          :ip
 
     validates_uniqueness_of :unique_hash
   end
