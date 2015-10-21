@@ -1,6 +1,8 @@
 module TrafficSpy
   class Server < Sinatra::Base
     require 'json'
+    require 'digest'
+
     get '/' do
       erb :index
     end
@@ -18,7 +20,9 @@ module TrafficSpy
       @source = Source.find_by(:identifier => identifier)
       raw_payload = params[:payload]
       payload = JSON.parse(raw_payload)
-      Payload.create(payload)
+      payload["unique_hash"] = Digest::SHA2.hexdigest(raw_payload)
+      parsed_payload = Payload.new(payload)
+      status, body = Validator.validate_payload(parsed_payload)
     end
 
     get "/sources/:identifier/data" do |identifier|
