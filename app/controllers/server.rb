@@ -47,7 +47,7 @@ module TrafficSpy
       end
     end
 
-    get '/sources/jumpstartlab' do
+    get '/sources/:identifier' do |identifier|
       erb :source_page
     end
 
