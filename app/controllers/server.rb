@@ -4,6 +4,10 @@ module TrafficSpy
       erb :index
     end
 
+    post '/sources/jumpstartlab/data' do
+      erb :data
+    end
+
     not_found do
       erb :error
     end
@@ -20,6 +24,11 @@ module TrafficSpy
         status 400
         body user.errors.full_messages.join(", ")
       end
+    end
+
+    post 'sources/jumpstartlab/data'  do
+      binding.pry
+      data = Payload.new(params)
     end
   end
 end
