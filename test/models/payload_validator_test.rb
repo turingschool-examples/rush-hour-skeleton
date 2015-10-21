@@ -49,4 +49,9 @@ class PayloadValidatorTest < Minitest::Test
     refute payloads.all.include?(result_two)
   end
 
+  def test_payload_validator_excludes_payloads_for_unregistered_source
+    #does this need to be a test??
+    #it is a test that interacts with both databases so is it not a model test?
+  end
+
 end

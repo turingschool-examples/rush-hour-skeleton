@@ -14,11 +14,17 @@ module TrafficSpy
       end
     end
 
-    def self.validate_payload(payload)
-      if payload.save
-        [200, "OK"]
-      elsif Payload.all.exists?(unique_hash: payload.unique_hash)
-        [403, "Already Received Request"]
+    def self.validate_payload(identifier, payload)
+      if Source.find_by(identifier: identifier)
+        if payload.save
+          [200, "OK"]
+        elsif Payload.all.exists?(unique_hash: payload.unique_hash)
+          [403, "Already Received Request"]
+        else
+          "SomeSHIT"
+        end
+      else
+        [403, "App Not Registered!"]
       end
     end
   end

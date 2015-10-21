@@ -22,7 +22,7 @@ module TrafficSpy
       payload = JSON.parse(raw_payload)
       payload["unique_hash"] = Digest::SHA2.hexdigest(raw_payload)
       parsed_payload = Payload.new(payload)
-      status, body = Validator.validate_payload(parsed_payload)
+      status, body = Validator.validate_payload(identifier, parsed_payload)
     end
 
     get "/sources/:identifier/data" do |identifier|
