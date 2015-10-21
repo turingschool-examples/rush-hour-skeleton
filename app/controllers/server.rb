@@ -24,6 +24,21 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
+      digest = Digest::SHA2.hexdigest(params.to_s)
+      payload = Payload.new(url: params[:url],
+                            requested_at: params[:requestedAt],
+                            requested_in: params[:requestedIn],
+                            referred_by: params[:referredBy],
+                            request_type: params[:requestType],
+                            parameters: params[:parameters],
+                            event_name: params[:eventName],
+                            user_agent: params[:userAgent],
+                            resolution_width: params[:resolutionWidth],
+                            resolution_height: params[:resolution_height],
+                            ip: params[:ip],
+                            digest: digest)
+
+      binding.pry
     end
 
 
