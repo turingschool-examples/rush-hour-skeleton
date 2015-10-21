@@ -4,7 +4,7 @@ module TrafficSpy
       @source = source
     end
 
-    def self.validate(source)
+    def self.validate_source(source)
       if source.save
         [200, {identifier: source.identifier}.to_json]
       elsif Source.all.exists?(identifier: source.identifier)
@@ -12,6 +12,9 @@ module TrafficSpy
       else
         [400, source.errors.full_messages.join(", ")]
       end
+    end
+
+    def self.validate_payload(payload)
     end
   end
 end
