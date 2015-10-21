@@ -1,3 +1,5 @@
+require_relative 'parse'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -33,9 +35,10 @@ module TrafficSpy
 
     post '/sources/:identifier/data'  do |identifier|
       user = User.find_by(identifier: identifier)
-      params = ParsePayload.parse(params)
-      data = Payload.new(params)
-      sha = Digest::SHA2.hexdigest('payload.to_s')
+      data = ParsePayload.parse(params)
+      data["sha"] = Digest::SHA2.hexdigest(params.to_s)
+      data["user_id"] = params["identifier"]
+      # Payload.new(identifier, data)
     end
   end
 end

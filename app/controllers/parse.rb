@@ -1,7 +1,9 @@
+require 'json'
+
 class ParsePayload
 
-  def parse(params)
-    JSON.parse(params[:payload])
+  def self.parse(params)
+    JSON.parse(params['payload'])
   end
 
 end
