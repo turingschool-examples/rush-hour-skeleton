@@ -4,8 +4,13 @@ module TrafficSpy
       erb :index
     end
 
-    post '/sources/jumpstartlab/data' do
+    get '/sources/:identifier/data' do |identifier|
+      @user = User.find_by({identifier: identifier})
       erb :data
+    end
+
+    get '/sources' do
+      erb :index
     end
 
     not_found do
@@ -26,9 +31,11 @@ module TrafficSpy
       end
     end
 
-    post 'sources/jumpstartlab/data'  do
-      binding.pry
+    post '/sources/:identifier/data'  do |identifier|
+      user = User.find_by(identifier: identifier)
+      params = ParsePayload.parse(params)
       data = Payload.new(params)
+      sha = Digest::SHA2.hexdigest('payload.to_s')
     end
   end
 end

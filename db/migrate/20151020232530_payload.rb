@@ -6,7 +6,6 @@ class Payload < ActiveRecord::Migration
       t.integer  :respondedIn
       t.text     :referredBy
       t.text     :requestType
-      t.array    :parameters
       t.text     :eventName
       t.text     :userAgent
       t.integer  :resolutionWidth

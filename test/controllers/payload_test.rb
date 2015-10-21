@@ -22,6 +22,7 @@ class PayloadTest < Minitest::Test
                                         "resolutionHeight":"1280",
                                         "ip":"63.29.38.211"
                                         }
+    # sha = Digest::SHA2.hexdigest('payload.to_s')
     assert_equal 200, last_response.status
   end
 
