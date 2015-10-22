@@ -20,10 +20,11 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
+      source = Source.find_by(:identifier => params["identifier"])
       if params["payload"].nil?
         status 400
         body "payload can't be blank"
-      elsif Source.where(:identifier => params["identifier"]).exists?
+      elsif source
         json_payload = JSON.parse(params["payload"])
         data = Payload.new(:url => json_payload["url"],
                            :requested_at => json_payload["requestedAt"],
@@ -33,8 +34,8 @@ module TrafficSpy
                            :resolution_width => json_payload["resolutionWidth"],
                            :resolution_height => json_payload["resolutionHeight"],
                            :ip => json_payload["ip"],
-                           :hex_digest => Digest::SHA2.hexdigest(params.to_s))
-
+                           :hex_digest => Digest::SHA2.hexdigest(params.to_s),
+                           :source_id => source.id)
         if data.save
           body "Created Successfully"
         else
