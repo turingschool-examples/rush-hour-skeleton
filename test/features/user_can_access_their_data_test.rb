@@ -5,7 +5,6 @@ class ApplicationDetailTest < FeatureTest
   def test_user_can_see_thier_data_HAPPY
     create_user(1)
     create_payloads_three
-    binding.pry
     visit '/sources/test_company_1'
 
     assert_equal '/sources/test_company_1', current_path
@@ -38,5 +37,17 @@ class ApplicationDetailTest < FeatureTest
 
     assert page.has_content?("Error Page")
   end
+
+  
+
+
+
+
+
+
+
+
+
+
 
 end

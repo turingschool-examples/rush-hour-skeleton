@@ -8,9 +8,9 @@
       t.text     :requestType
       t.text     :eventName
       t.text     :userAgent
-      t.integer  :resolutionWidth
-      t.integer  :resolutionHeight
-      t.integer  :ip
+      t.text     :resolutionWidth
+      t.text     :resolutionHeight
+      t.text     :ip
     end
   end
 end

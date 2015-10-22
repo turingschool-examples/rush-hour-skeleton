@@ -5,7 +5,16 @@ class Payload < ActiveRecord::Base
   def self.find_urls(user_id)
     urls = []
     urls = Payload.where(:user_id => user_id).pluck(:url)
-    binding.pry
-    urls.group_by
+    url_hash = urls.group_by do |url|
+      url
+    end
+    visited_urls = url_hash.map do |key, value|
+      url_hash[key] = value.count
+    end
+    sort_urls(url_hash)
+  end
+
+  def self.sort_urls(url_hash)
+    url_hash.sort_by { |url, count| count}.reverse
   end
 end
