@@ -1,3 +1,6 @@
+require 'json'
+require 'digest'
+
 module TrafficSpy
   class Validator
     def initialize(source)
@@ -14,9 +17,17 @@ module TrafficSpy
       end
     end
 
-    def self.validate_payload(identifier, payload)
+    def self.prepare_payload(raw_payload)
+      payload = JSON.parse(raw_payload)
+      unique_hash = Digest::SHA2.hexdigest(raw_payload)
+      payload["unique_hash"] = unique_hash
+      payload
+    end
+
+    def self.validate_payload(identifier, payload, source)
       if Source.find_by(identifier: identifier)
         if payload.save
+          payload.update_attribute("source_id", source.id)
           [200, "OK"]
         elsif Payload.all.exists?(unique_hash: payload.unique_hash)
           [403, "Already Received Request"]
