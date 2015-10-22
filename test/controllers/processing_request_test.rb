@@ -87,7 +87,10 @@ class ProcessingRequestTest < Minitest::Test
 
     assert_equal 2, TrafficSpy::Source.count
     assert_equal 2, TrafficSpy::Payload.count
+
     assert_equal 1, TrafficSpy::Payload.first.source_id
+    #assertion about source identifier
+
     assert_equal 2, TrafficSpy::Payload.last.source_id
   end
 

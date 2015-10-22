@@ -1,5 +1,6 @@
 require 'json'
 require 'digest'
+require './app/models/json_parser.rb'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -25,17 +26,7 @@ module TrafficSpy
         status 400
         body "payload can't be blank"
       elsif source
-        json_payload = JSON.parse(params["payload"])
-        data = Payload.new(:url => json_payload["url"],
-                           :requested_at => json_payload["requestedAt"],
-                           :responded_in => json_payload["respondedIn"],
-                           :event_name => json_payload["eventName"],
-                           :user_agent => json_payload["userAgent"],
-                           :resolution_width => json_payload["resolutionWidth"],
-                           :resolution_height => json_payload["resolutionHeight"],
-                           :ip => json_payload["ip"],
-                           :hex_digest => Digest::SHA2.hexdigest(params.to_s),
-                           :source_id => source.id)
+        data = JsonParser.parse_json(params["payload"], source)
         if data.save
           body "Created Successfully"
         else
