@@ -70,11 +70,27 @@ class ProcessingRequestTest < Minitest::Test
   end
 
   def test_user_receives_403_error_for_not_registered
-
     post '/sources/jumpstartlab/data', payload_data
 
     assert_equal 403, last_response.status
     assert_equal "Identifier does not exist", last_response.body
+  end
+
+  def test_payload_given_proper_foreign_key
+    post '/sources', { identifier:  "jumpstartlab",
+                       rootUrl:     "http://jumpstartlab.com" }
+    post '/sources', { identifier:  "id2",
+                       rootUrl:     "http://id2.com" }
+    post '/sources/jumpstartlab/data', payload_data
+    post '/sources/id2/data', payload_data_two
+
+    assert_equal 2, TrafficSpy::Source.count
+    assert_equal 2, TrafficSpy::Payload.count
+
+    assert_equal 1, TrafficSpy::Payload.first.source_id
+    #assertion about source identifier
+
+    assert_equal 2, TrafficSpy::Payload.last.source_id
   end
 
   def payload_data
