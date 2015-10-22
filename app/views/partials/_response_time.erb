@@ -1,0 +1,7 @@
+<div id= "responseTime">
+  <ul>
+    <% Payload.find_one(@user.identifier, :respondedIn).each do |time| %>
+    <li><%= time[0] %> - <%= time[1] %></li>
+    <% end %>
+  </ul>
+</div>

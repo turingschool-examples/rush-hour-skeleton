@@ -1,6 +1,6 @@
 <div id= "urls">
   <ul>
-    <% Payload.find_urls(@user.identifier).each do |url_count| %>
+    <% Payload.find_one(@user.identifier, :url).each do |url_count| %>
     <li><%= url_count[0] %> - <%= url_count[1] %></li>
     <% end %>
   </ul>
