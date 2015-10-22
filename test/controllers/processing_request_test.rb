@@ -70,7 +70,6 @@ class ProcessingRequestTest < Minitest::Test
   end
 
   def test_user_receives_403_error_for_not_registered
-
     post '/sources/jumpstartlab/data', payload_data
 
     assert_equal 403, last_response.status
