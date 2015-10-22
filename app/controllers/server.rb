@@ -17,8 +17,8 @@ module TrafficSpy
     end
 
     get "/sources/:identifier" do |identifier|
-      @source = Source.all.find_by(identifier: identifier)
-      @payload = Payload.where()
+      source = Source.all.find_by(identifier: identifier)
+      @payload = Payload.find_by(source_id: source.id)
       erb :application_details
     end
 
@@ -31,7 +31,6 @@ module TrafficSpy
       parsed_payload.update_attribute("source_id", @source.id)
       status, body = Validator.validate_payload(identifier, parsed_payload)
     end
-
 
     not_found do
       erb :error

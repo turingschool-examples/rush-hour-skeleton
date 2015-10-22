@@ -27,6 +27,31 @@ class Minitest::Test
   def app
     TrafficSpy::Server
   end
+
+  def create_sources(num)
+    num.times do |i|
+      TrafficSpy::Source.create({identifier: "#{i+1}",
+                                 root_url: "#{i+1}"
+                                })
+    end
+  end
+
+  def create_payloads(num)
+    num.times do |i|
+      payloads = TrafficSpy::Payload.create({:url=>"#{i+1}",
+                      :requestedAt=>"#{i+1}",
+                      :respondedIn=>"#{i+1}",
+                      :referredBy=>"#{i+1}",
+                      :requestType=>"#{i+1}",
+                      :parameters=>"#{i+1}",
+                      :eventName=>"#{i+1}",
+                      :userAgent=>"#{i+1}",
+                      :resolutionWidth=>"#{i+1}",
+                      :resolutionHeight=>"#{i+1}",
+                      :ip=>"#{i+1}"})
+    end
+    payloads
+  end
 end
 
 class FeatureTest < Minitest::Test

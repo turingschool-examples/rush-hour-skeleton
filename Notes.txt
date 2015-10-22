@@ -1,5 +1,3 @@
-localhost:9393/sources/identifier='jumpstartlab'&rootUrl='http://jumpstartlab.com'
-
 $ curl -i -d 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'  http://localhost:4567/sources
 
 -i, --include
@@ -21,3 +19,10 @@ PATHS
 /sources/IDENTIFIER/RELATIVE/PATH
 /sources/IDENTIFIER/events
 /sources/IDENTIFIER/events/EVENTNAME
+
+TODO:
+
+source.payloads.create
+source.payloads.new
+
+Pull out userAgent and requestType
