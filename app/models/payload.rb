@@ -1,6 +1,6 @@
 module TrafficSpy
   class Payload < ActiveRecord::Base
-    belongs_to :sources
+    belongs_to :source
 
     validates_presence_of :url,
                           :requestedAt,

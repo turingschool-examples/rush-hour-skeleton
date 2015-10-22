@@ -1,4 +1,4 @@
-ENV["RACK_ENV"] ||= "test"
+ENV["RACK_ENV"] = "test"
 
 require 'bundler'
 Bundler.require
@@ -31,4 +31,8 @@ end
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
+end
+
+class TrafficSpy::Server < Sinatra::Base
+  set :environment, :test
 end
