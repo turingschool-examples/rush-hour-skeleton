@@ -25,8 +25,9 @@ module TrafficSpy
       status, body = Validator.validate_payload(identifier, parsed_payload)
     end
 
-    get "/sources/:identifier/data" do |identifier|
-
+    get "/sources/:identifier" do |identifier|
+        @source = Source.find_by(:identifier => identifier)
+      erb :application_details
     end
 
     not_found do
