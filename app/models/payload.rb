@@ -3,7 +3,7 @@ class Payload < ActiveRecord::Base
   validates_presence_of :user_id
 
   def self.sort(hash)
-    hash.sort_by { |key, count| count}.reverse
+    hash.sort_by { |key, count| key}.sort_by { |key, count| count }.reverse
   end
 
   def self.count(items)

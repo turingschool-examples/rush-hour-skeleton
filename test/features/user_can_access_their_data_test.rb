@@ -32,7 +32,16 @@ class ApplicationDetailTest < FeatureTest
 
     # assert page.has_content?("OS Breakdown")
     # assert page.has_content?("Screen Resolution")
-    # assert page.has_content?("Average Response Time Per URL")
+    assert page.has_content?("Average Response Time listed longest to shortest Per URL")
+    within("#responseTime li:first") do
+      save_and_open_page
+      assert page.has_content?(1)
+      assert page.has_content?(45)
+    end
+    within("#responseTime li:last") do
+      assert page.has_content?(1)
+      assert page.has_content?(27)
+    end
     # assert page.has_content?("Most Requested URLS")
     # assert page.has_content?("Most Requested URLS")
     #Hyperlinks of each url to view url specific data
