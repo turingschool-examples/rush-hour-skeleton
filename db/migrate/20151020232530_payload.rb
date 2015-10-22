@@ -1,4 +1,4 @@
-class Payload < ActiveRecord::Migration
+  class Payload < ActiveRecord::Migration
   def change
     create_table :payloads do |t|
       t.text     :url

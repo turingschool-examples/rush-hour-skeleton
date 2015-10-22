@@ -23,14 +23,16 @@ class Minitest::Test
   def teardown
     DatabaseCleaner.clean
   end
+
 end
 
-class FeatureTest < MiniTest::Test
+class FeatureTest < Minitest::Test
   include Capybara::DSL
 
   def create_user(num)
-    # will create some users here - the INVENTORY variables
-    # I'll give it the name test_company_1 where i is num
+    num.times do |i|
+      User.create("identifier" => "test_company_#{i+1}", "rootUrl" => "HTTP://Example#{i+1}.com")
+    end
   end
 
   def create_event(num)
