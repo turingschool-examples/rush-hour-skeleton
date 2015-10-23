@@ -41,6 +41,13 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+      counts = Hash.new 0
+      TrafficSpy::Payload.find_each do |x|
+          counts[x.url_id] += 1
+        end
+      @max_min_hash = counts.map { |k, v| {TrafficSpy::URL.find(url_id = k).url => v}}
+
+      # TrafficSpy::Payload.max_by()
       erb :source_page
     end
 
