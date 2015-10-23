@@ -19,6 +19,14 @@ module TrafficSpy
 
     def self.prepare_payload(raw_payload)
       payload = JSON.parse(raw_payload)
+      payload["requested_at"] = payload.delete("requestedAt")
+      payload["responded_in"] = payload.delete("respondedIn")
+      payload["referred_by"] = payload.delete("referredBy")
+      payload["request_type"] = payload.delete("requestType")
+      payload["event_name"] = payload.delete("eventName")
+      payload["user_agent"] = payload.delete("userAgent")
+      payload["resolution_width"] = payload.delete("resolutionWidth")
+      payload["resolution_height"] = payload.delete("resolutionHeight")
       unique_hash = Digest::SHA2.hexdigest(raw_payload)
       payload["unique_hash"] = unique_hash
       payload

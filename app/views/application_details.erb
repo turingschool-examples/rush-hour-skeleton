@@ -1,6 +1,13 @@
-<h1>Pay Load data goes here kind of according to Cole</h1>
-<h2>Sources:</h2>
- <%= @payload.source.identifier %>
- <%= @payload.url %>
- <%= @payload.userAgent %>
-<h2>Data</h2>
+<h1>Application Details</h1>
+<h2>Source: <%= @source.identifier %></h2>
+
+<h2>Most Requested URLs</h2>
+
+<% @url_counts.each do |url, count| %>
+<p>URL:<%= url %> Count: <%= count %></p>
+<% end  %>
+
+<h2>Browser Breakdown</h2>
+<% @browser_counts.each do |browser, count| %>
+<p>Browser: <%= browser %> Count: <%= count %></p>
+<% end %>
