@@ -6,14 +6,21 @@ module TrafficSpy
       erb :index
     end
 
+
+    get '/sources/error' do
+      @user = User.new(params)
+      erb :error
+    end
+
     get '/sources' do
       erb :index
     end
 
     get '/sources/:identifier' do |identifier|
       @user = User.find_by({identifier: identifier})
+      @payload = Payload.find_by({user_id: identifier})
       if @user.nil?
-        erb :error
+        redirect '/sources/error'
       else
         erb :user
       end
@@ -28,9 +35,13 @@ module TrafficSpy
       erb :urls_rp
     end
 
-    not_found do
-      erb :error
+    get '/sources/:identifier/events' do |identifier|
+      redirect '/sources/error'
     end
+    #
+    # not_found do
+    #   erb :error
+    # end
 
     post '/sources' do
       user = User.new(params)
