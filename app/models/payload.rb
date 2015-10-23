@@ -3,15 +3,15 @@ module TrafficSpy
     belongs_to :source
 
     validates_presence_of :url,
-                          :requestedAt,
-                          :respondedIn,
-                          :referredBy,
-                          :requestType,
+                          :requested_at,
+                          :responded_in,
+                          :referred_by,
+                          :request_type,
                           :parameters,
-                          :eventName,
-                          :userAgent,
-                          :resolutionHeight,
-                          :resolutionWidth,
+                          :event_name,
+                          :user_agent,
+                          :resolution_height,
+                          :resolution_width,
                           :ip
 
     validates_uniqueness_of :unique_hash

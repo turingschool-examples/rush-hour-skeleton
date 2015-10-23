@@ -39,7 +39,7 @@ class Minitest::Test
   def create_payloads(num)
     num.times do |i|
       payloads = TrafficSpy::Payload.create({:url=>"#{i+1}",
-                      :requestedAt=>"#{i+1}",
+                      :requested_at=>"#{i+1}",
                       :respondedIn=>"#{i+1}",
                       :referredBy=>"#{i+1}",
                       :requestType=>"#{i+1}",
