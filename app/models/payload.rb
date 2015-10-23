@@ -27,4 +27,14 @@ class Payload < ActiveRecord::Base
     counted = count(items)
     sort(counted)
   end
+
+  def self.url_path(user_id, url)
+    root = "http://" + user_id + ".com"
+    path = url.gsub(root, "")
+  end
+
+  def self.url_link(user_id, url_count)
+    path = Payload.url_path(user_id, url_count[0])
+    full_url = "http://localhost:9393/sources/" + user_id + "/urls" + path
+  end
 end

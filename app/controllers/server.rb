@@ -6,6 +6,10 @@ module TrafficSpy
       erb :index
     end
 
+    get '/sources' do
+      erb :index
+    end
+
     get '/sources/:identifier' do |identifier|
       @user = User.find_by({identifier: identifier})
       if @user.nil?
@@ -20,8 +24,8 @@ module TrafficSpy
       erb :data
     end
 
-    get '/sources' do
-      erb :index
+    get '/sources/:identifier/urls/:path' do
+      erb :urls_rp
     end
 
     not_found do

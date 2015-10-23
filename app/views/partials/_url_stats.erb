@@ -1,7 +1,8 @@
 <div id= "urls">
+  <h3>Click each link to learn more about that page</h3>
   <ul>
     <% Payload.find_one(@user.identifier, :url).each do |url_count| %>
-    <li><%= url_count[0] %> - <%= url_count[1] %></li>
+      <li><a href = "<%= Payload.url_link(@user.identifier, url_count) %>"><%= url_count[0] %></a> - <%= url_count[1] %></li> 
     <% end %>
   </ul>
 </div>
