@@ -22,6 +22,7 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do |identifier|
+
       source = Source.find_by(:identifier => params["identifier"])
       if params["payload"].nil?
         status StatusMessages.blank_payload
@@ -38,15 +39,18 @@ module TrafficSpy
         status StatusMessages.blank_identifier
         body "Identifier does not exist"
       end
+      # status, body = Validator.validate_source(source)
     end
 
-    get '/sources/:identifier' do |identifier|
+    get "/sources/:identifier" do |identifier|
+      binding.pry
       counts = Hash.new 0
       TrafficSpy::Payload.find_each do |x|
-          counts[x.url_id] += 1
-        end
+        counts[x.url_id] += 1
+      end
       @max_min_hash = counts.map { |k, v| {TrafficSpy::URL.find(url_id = k).url => v}}
-
+      # binding.pry
+      # # @identifier = identifier
       # TrafficSpy::Payload.max_by()
       erb :source_page
     end
