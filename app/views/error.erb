@@ -1,1 +1,11 @@
-<h1>Error Page</h1>
+<h1>You Have an Error!</h1>
+<div id= "error">
+  <ul>
+  <% if @user.identifier.nil? %>
+    <li> no user error </li>
+    <% elsif @payload.eventName.nil?%>
+    <li> event name does not exist bruh </li>
+    <li>error</li>
+    <% end %>
+  </ul>
+</div>
