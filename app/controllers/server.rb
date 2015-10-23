@@ -6,9 +6,14 @@ module TrafficSpy
       erb :index
     end
 
+
     get '/sources/error' do
       @user = User.new(params)
       erb :error
+    end
+
+    get '/sources' do
+      erb :index
     end
 
     get '/sources/:identifier' do |identifier|
@@ -26,8 +31,8 @@ module TrafficSpy
       erb :data
     end
 
-    get '/sources' do
-      erb :index
+    get '/sources/:identifier/urls/:path' do
+      erb :urls_rp
     end
 
     get '/sources/:identifier/events' do |identifier|
