@@ -1,7 +1,9 @@
+require './test/test_helper'
+
 class UserGetsURLStatisticsTest <FeatureTest
   def test_registered_user_will_recieve_statistical_data
     create_user(1)
-    create_url(1)
+    # create_url(1)
 
     visit ('/sources/IDENTIFIER/urls/RELATIVE/PATH')
 
@@ -29,5 +31,6 @@ class UserGetsURLStatisticsTest <FeatureTest
     refute page.has_content?("Referrrers")
     refute page.has_content?("User agents")
   end
+
 
 end
