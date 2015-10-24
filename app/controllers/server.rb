@@ -5,7 +5,6 @@ require './app/models/json_parser.rb'
 
 module TrafficSpy
   class Server < Sinatra::Base
-    attr_accessor :browsers
     set :show_exceptions, false
 
     get '/' do
@@ -79,12 +78,22 @@ module TrafficSpy
       @urls_display = @max_min_hash.map { |hash| hash.keys.pop }
       @paths = @urls_display.map { |url| URI.parse(url).path }
 
-        erb :source_page
+      erb :source_page
     end
 
-    get "/sources/:identifier/urls/:relative_path" do |identifier, relative_path|
+    get "/sources/:identifier/url/:relative_paths" do |identifier, relative_paths|
+      
       erb :stats_page
     end
+
+    get "/sources/:identifier/events" do |identifier|
+      erb :events_index
+    end
+
+    get "/sources/:identifier/events/:event_name" do |identifier, event_name|
+      erb :event_details
+    end
+
 
     not_found do
       erb :error
