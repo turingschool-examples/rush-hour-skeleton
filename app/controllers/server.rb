@@ -14,21 +14,26 @@ module TrafficSpy
     end
 
     get "/sources/:identifier" do |identifier|
-      @source = Source.where(identifier: identifier).first
-      payload = Payload.where(source_id: @source.id)
-      @url_counts = payload.group(:url).count.sort_by { |url, count| count }.reverse
-      agents = payload.map do |payload|
-        payload.user_agent
+      if Validator.validate_url(identifier) == false
+        erb :error
+
+      else
+        @source = Source.where(identifier: identifier).first
+        payload = Payload.where(source_id: @source.id)
+        @url_counts = payload.group(:url).count.sort_by { |url, count| count }.reverse
+        agents = payload.map do |payload|
+          payload.user_agent
+        end
+        browsers = agents.inject(Hash.new(0)) {|browser, count| browser[count] += 1; browser}.sort
+        @browser_counts = browsers.map do |user_agent, count|
+          [UserAgent.parse(user_agent).browser, count]
+        end
+        os = agents.inject(Hash.new(0)) {|os, count| os[count] += 1; os}.sort
+        @os_counts = browsers.map do |user_agent, count|
+          [UserAgent.parse(user_agent).platform, count]
+        end
+        erb :application_details
       end
-      browsers = agents.inject(Hash.new(0)) {|browser, count| browser[count] += 1; browser}.sort
-      @browser_counts = browsers.map do |user_agent, count|
-        [UserAgent.parse(user_agent).browser, count]
-      end
-      os = agents.inject(Hash.new(0)) {|os, count| os[count] += 1; os}.sort
-      @os_counts = browsers.map do |user_agent, count|
-        [UserAgent.parse(user_agent).platform, count]
-      end
-      erb :application_details
     end
 
     post "/sources/:identifier/data" do |identifier|
