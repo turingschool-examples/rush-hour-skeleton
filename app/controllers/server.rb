@@ -15,7 +15,7 @@ module TrafficSpy
 
     get "/sources/:identifier" do |identifier|
       if Validator.validate_url(identifier) == false
-        erb :error
+        erb :identifier_error
       else
         @source = Source.where(identifier: identifier).first
         payload = Payload.where(source_id: @source.id)
