@@ -4,6 +4,7 @@ require './app/models/json_parser.rb'
 
 module TrafficSpy
   class Server < Sinatra::Base
+    attr_accessor :browsers
     set :show_exceptions, false
 
     get '/' do
@@ -43,16 +44,43 @@ module TrafficSpy
     end
 
     get "/sources/:identifier" do |identifier|
-      binding.pry
       counts = Hash.new 0
-      TrafficSpy::Payload.find_each do |x|
-        counts[x.url_id] += 1
+      TrafficSpy::Payload.find_each do |payload|
+        counts[payload.url_id] += 1
       end
       @max_min_hash = counts.map { |k, v| {TrafficSpy::URL.find(url_id = k).url => v}}
-      # binding.pry
-      # # @identifier = identifier
-      # TrafficSpy::Payload.max_by()
+
+      browser = TrafficSpy::Payload.find_each do |payload|
+        @browsers ||= []
+        @browsers << UserAgent.parse(TrafficSpy::Agent.find(payload.agent_id).agent).browser
+        @browsers.uniq!
+      end
+
+      os_breakdown = TrafficSpy::Payload.find_each do |payload|
+        @os_breakdown ||= []
+        @os_breakdown << UserAgent.parse(TrafficSpy::Agent.find(payload.agent_id).agent).os
+        @os_breakdown.uniq!
+      end
+
+      resolution = TrafficSpy::Payload.find_each do |payload|
+        @resolution ||= []
+        @resolution << "#{payload.resolution_width} x #{payload.resolution_height}"
+        @resolution.uniq!
+      end
+
+      response_time = TrafficSpy::Payload.find_each do |payload|
+        @response_time ||= []
+        @response_time << payload.responded_in.to_i
+        @response_time.sort!.reverse!
+      end
+
+      @urls_display = @max_min_hash.map { |hash| hash.keys.pop }
+
       erb :source_page
+    end
+
+    get "/sources/:identifier/urls/:urls" do
+      ""
     end
 
     not_found do
