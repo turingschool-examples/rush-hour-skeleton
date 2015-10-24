@@ -35,7 +35,6 @@ module TrafficSpy
     def self.validate_payload(identifier, payload, source)
       if Source.find_by(identifier: identifier)
         if payload.save
-          payload.update_attribute("source_id", source.id)
           [200, "OK"]
         elsif Payload.all.exists?(unique_hash: payload.unique_hash)
           [403, "Already Received Request"]
@@ -45,6 +44,10 @@ module TrafficSpy
       else
         [403, "App Not Registered!"]
       end
+    end
+
+    def self.add_source_id(payload, source)
+      payload.update_attribute("source_id", source.id)
     end
   end
 end

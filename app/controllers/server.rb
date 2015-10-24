@@ -34,6 +34,7 @@ module TrafficSpy
     post "/sources/:identifier/data" do |identifier|
       @source = Source.find_by(identifier: identifier)
       payload = Payload.new(Validator.prepare_payload(params["payload"]))
+      Validator.add_source_id(payload, @source)
       status, body = Validator.validate_payload(identifier, payload, @source)
     end
 
