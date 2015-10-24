@@ -11,6 +11,7 @@ module TrafficSpy
     post '/sources' do
       source = Source.new(identifier: params[:identifier], root_url: params[:rootUrl])
       status, body = Validator.validate_source(source)
+      # is status the status we assigned to this variable? and body the right body for this variable? are these being sent back to the user?
     end
 
     get "/sources/:identifier" do |identifier|
@@ -28,7 +29,12 @@ module TrafficSpy
       @os_counts = browsers.map do |user_agent, count|
         [UserAgent.parse(user_agent).platform, count]
       end
+      @resolutions = payload.group(:resolution_height).sort_by { |resolution_height| resolution_height }.reverse
+      @response_times = payload.group(:responded_in).sort_by { |responded_in| responded_in }.reverse
       erb :application_details
+
+      # skinny controllers, fat models - get most of this logic to happen in the models. refactor this and have the source be
+      # the only thing that goes to the views. make these instance variables methods that we call on @source (@source.url_counts) etc.
     end
 
     post "/sources/:identifier/data" do |identifier|

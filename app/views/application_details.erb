@@ -16,3 +16,18 @@
 <% @os_counts.each do |os, count| %>
 <p>Operating System: <%= os %> Count: <%= count %></p>
 <% end %>
+
+<h2>Screen Resolution Across Requests</h2>
+<% @resolutions.each do |height, width| %>
+<p>Resolution Height: <%= height %> Resolution Width: <%= width %></p>
+<% end %>
+
+<h2>Average Response Time Per URL</h2>
+<% @response_times.each do |url, response_time| %>
+<p>URL: <%= url %> Response Time: <%= response_time %></p>
+<% end %>
+
+<h2>Source URL Index</h2>
+<% @url_counts.each do |url| %>
+<p><a href= "<%= %>">URL: <%= url %></a></p>
+<% end %>=
