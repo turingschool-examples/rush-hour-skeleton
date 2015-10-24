@@ -1,1 +1,22 @@
-<h1>hello</h1>
+<h1>Url Statistics</h1>
+
+<h2>Longest Response Time</h2>
+<%= @relevant_payloads.maximum(:responded_in) %>
+
+<h2>Shortest Response Time</h2>
+<%= @relevant_payloads.minimum(:responded_in) %>
+
+<h2>Average Response Time</h2>
+<%= @relevant_payloads.average(:responded_in).to_i %>
+
+<h2>Verb Usage</h2>
+<%= @relevant_payloads.group(:request_type).count.to_a %>
+
+<h2>Most Popular Referrers</h2>
+<%= @relevant_payloads.group(:referred_by).count.to_a %>
+
+<h2>Most Popual User Agents</h2>
+<% agents = @relevant_payloads.group(:user_agent).count.to_a %>
+<% agents.map do |agent, count| %>
+  <%= [UserAgent.parse(agent).platform, count] %>
+<% end %>

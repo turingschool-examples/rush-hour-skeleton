@@ -40,7 +40,8 @@ module TrafficSpy
     get "/sources/:identifier/urls/:rel_path" do |identifier, rel_path|
       @source = Source.find_by(identifier: identifier)
       payload = Payload.where(source_id: @source.id)
-
+      relative_path = "#{@source.root_url}/#{rel_path}"
+      @relevant_payloads = payload.where(url: relative_path)
       erb :url_statistics
     end
 
