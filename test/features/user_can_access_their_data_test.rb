@@ -35,15 +35,14 @@ class ApplicationDetailTest < FeatureTest
       assert page.has_content?("Chrome")
     end
     within("#browser_breakdown li:last") do
-      save_and_open_page
       assert page.has_content?(1)
       assert page.has_content?("Firefox")
     end
 
     assert page.has_content?("OS Breakdown")
-    within("#browser_breakdown") do
-      # save_and_open_page
-      # assert page.has_content?("Screen Resolution")
+    within("#os_breakdown") do
+    save_and_open_page
+    assert page.has_content?("Macintosh")
     end
     assert page.has_content?("Average Response Time listed longest to shortest Per URL")
     within("#responseTime li:first") do
