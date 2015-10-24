@@ -1,5 +1,3 @@
-require_relative 'parse'
-
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -36,8 +34,24 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events' do |identifier|
-      redirect '/sources/error'
+      @user = User.find_by(identifier: identifier)
+      @payload = Payload.find_by(user_id: identifier)
+      if @payload.eventName.nil?
+        redirect '/sources/error'
+      else
+        erb :events
+      end
     end
+
+    get '/sources/:identifier/events/:eventname' do
+      if Payload.select(:eventName).empty?
+        redirect '/sources/error'
+      else
+        erb :event_name
+      end
+    end
+
+
     #
     # not_found do
     #   erb :error
