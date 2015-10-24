@@ -46,6 +46,11 @@ module TrafficSpy
       end
     end
 
+    def self.validate_url(identifier)
+      identifiers = Source.all.map {|source| source.identifier }
+      identifiers.include?(identifier)
+    end
+
     def self.add_source_id(payload, source)
       payload.update_attribute("source_id", source.id)
     end

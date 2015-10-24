@@ -14,11 +14,10 @@ module TrafficSpy
     end
 
     get "/sources/:identifier" do |identifier|
-      identifiers = Source.all.map {|source| source.identifier }
-      unless identifiers.include?(identifier)
+      if Validator.validate_url(identifier) == false
         erb :error
-      else
 
+      else
         @source = Source.where(identifier: identifier).first
         payload = Payload.where(source_id: @source.id)
         @url_counts = payload.group(:url).count.sort_by { |url, count| count }.reverse
