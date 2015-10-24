@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20151021162730) do
     t.text     "resolutionHeight"
     t.text     "ip"
     t.string   "sha"
-    t.integer  "user_id"
+    t.string   "user_id"
   end
 
   create_table "users", force: :cascade do |t|
