@@ -3,7 +3,7 @@ class CreatePayloads < ActiveRecord::Migration
     create_table :payloads do |t|
       t.string :url
       t.timestamp :requested_at
-      t.string :responded_in
+      t.integer :responded_in
       t.string :referred_by
       t.string :request_type
       t.string :parameters

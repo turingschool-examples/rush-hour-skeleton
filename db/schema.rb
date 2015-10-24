@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20151022164629) do
   create_table "payloads", force: :cascade do |t|
     t.string   "url"
     t.datetime "requested_at"
-    t.string   "responded_in"
+    t.integer  "responded_in"
     t.string   "referred_by"
     t.string   "request_type"
     t.string   "parameters"
