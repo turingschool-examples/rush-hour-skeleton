@@ -54,7 +54,7 @@ class FeatureTest < Minitest::Test
                       referredBy: "http://test_company_1.com",
                       requestType: "GET",
                       eventName:  "socialLogin",
-                      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                      userAgent: "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1",
                       resolutionWidth: "2048",
                       resolutionHeight: "1536",
                       sha: "12aewokeo454fe",
