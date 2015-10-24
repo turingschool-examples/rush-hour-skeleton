@@ -34,7 +34,13 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events' do |identifier|
-      redirect '/sources/error'
+      binding.pry
+      @payload = Payload.find_by({user_id: identifier})
+      if Payload.exists?(:eventName)
+        erb :events
+      else
+        redirect '/sources/error'
+      end
     end
     #
     # not_found do

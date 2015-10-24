@@ -1,0 +1,9 @@
+<h1>Most Received Events</h1>
+<div id= "events">
+  <h3>Click each link to learn more about that event</h3>
+  <ul>
+    <% Payload.find_one(@user.identifier, :eventName).each do |url_count| %>
+      <li><a href = "<%= Payload.url_link(@user.identifier, url_count) %>"><%= url_count[0] %></a> - <%= url_count[1] %></li>
+    <% end %>
+  </ul>
+</div>
