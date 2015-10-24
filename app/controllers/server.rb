@@ -1,5 +1,6 @@
 require 'json'
 require 'digest'
+require 'uri'
 require './app/models/json_parser.rb'
 
 module TrafficSpy
@@ -45,6 +46,7 @@ module TrafficSpy
 
     get "/sources/:identifier" do |identifier|
       counts = Hash.new 0
+      @identifier = identifier
       TrafficSpy::Payload.find_each do |payload|
         counts[payload.url_id] += 1
       end
@@ -75,12 +77,13 @@ module TrafficSpy
       end
 
       @urls_display = @max_min_hash.map { |hash| hash.keys.pop }
+      @paths = @urls_display.map { |url| URI.parse(url).path }
 
-      erb :source_page
+        erb :source_page
     end
 
-    get "/sources/:identifier/urls/:urls" do
-      ""
+    get "/sources/:identifier/urls/:relative_path" do |identifier, relative_path|
+      erb :stats_page
     end
 
     not_found do
