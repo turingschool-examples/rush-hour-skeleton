@@ -53,4 +53,15 @@ class Payload < ActiveRecord::Base
     counted = count(browser)
     sort(counted)
   end
+
+  def self.active_record_os(user_id, user_agent)
+    agent_data= Payload.where(:user_id => user_id).pluck(user_agent)
+    browser = []
+    agent_data.each do |string|
+      hash = UserAgent.parse(string)
+      browser << hash.platform
+    end
+    counted = count(browser)
+    sort(counted)
+  end
 end

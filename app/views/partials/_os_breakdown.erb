@@ -1,0 +1,7 @@
+<div id= "os_breakdown">
+  <ul>
+    <% Payload.active_record_os(@user.identifier, :userAgent).each do |url_count| %>
+      <li><a href = "<%= Payload.url_link(@user.identifier, url_count) %>"><%= url_count[0] %></a> - <%= url_count[1] %></li>
+    <% end %>
+  </ul>
+</div>
