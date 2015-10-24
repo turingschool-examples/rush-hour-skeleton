@@ -36,6 +36,4 @@ Average Response Time: <%= data[1] %> ms</p>
 <% end %>
 
 <h2>Aggregate Event Data</h2>
-<% @source.payloads.pluck(:url).uniq.each do |url| %>
-<p>URL: <a href="http://localhost:9393/sources/<%=@source.identifier%>/url/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/url/<%=url.sub("http://#{@source.identifier}.com/","")%></a></p>
-<% end %>
+<p>Events: <a href="http://localhost:9393/sources/<%=@source.identifier%>/events/%>">http://localhost:9393/sources/<%=@source.identifier%>/events</a></p>
