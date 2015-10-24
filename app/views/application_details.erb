@@ -16,3 +16,24 @@
 <% @os_counts.each do |os, count| %>
 <p>Operating System: <%= os %> Count: <%= count %></p>
 <% end %>
+
+<h2>Screen Resolution Across Requests</h2>
+<% @resolutions.each do |data| %>
+<p>Resolution Height: <%= data[0][0] %><br>
+Resolution Width: <%= data[0][1] %><br>
+Count: <%= data[1] %></p>
+<% end %>
+
+<h2>Average Response Time Per URL</h2>
+<% @response_times.each do |data| %>
+<p>URL: <%= data[0] %><br>
+Average Response Time: <%= data[1] %> ms</p>
+<% end %>
+
+<h2>URL Index</h2>
+<% @source.payloads.pluck(:url).uniq.each do |url| %>
+<p>URL: <a href="http://localhost:9393/sources/<%=@source.identifier%>/url/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/url/<%=url.sub("http://#{@source.identifier}.com/","")%></a></p>
+<% end %>
+
+<h2>Aggregate Event Data</h2>
+<p>Events: <a href="http://localhost:9393/sources/<%=@source.identifier%>/events/%>">http://localhost:9393/sources/<%=@source.identifier%>/events</a></p>
