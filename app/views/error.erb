@@ -6,10 +6,10 @@
     <% elsif @payload.eventName.nil?%>
     <li> event name does not exist bruh </li>
     <li>error</li>
-    <!-- <% else @payload.select(eventName:).empty?%>
+    <% else @payload.select(eventName:).empty?%>
     <li> Your event name was not found </li>
     <% binding.pry %>
-    <a href = "http://yourapplication:port/sources/:IDENTIFIER/events"/> index of events </a> -->
+    <a href = "http://yourapplication:port/sources/:IDENTIFIER/events"/> index of events </a>
 
     <% end %>
   </ul>
