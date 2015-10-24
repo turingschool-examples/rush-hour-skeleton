@@ -2,7 +2,6 @@ require './test/test_helper'
 
 class ValidatorTest < Minitest::Test
 
-
   def test_validate_url_method_can_identify_when_the_url_is_not_in_database
     sources = TrafficSpy::Source
     sources.create({identifier: "jumpstartlab",
