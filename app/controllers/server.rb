@@ -16,7 +16,6 @@ module TrafficSpy
     get "/sources/:identifier" do |identifier|
       if Validator.validate_url(identifier) == false
         erb :error
-
       else
         @source = Source.where(identifier: identifier).first
         payload = Payload.where(source_id: @source.id)
@@ -44,11 +43,15 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/urls/:rel_path" do |identifier, rel_path|
-      @source = Source.find_by(identifier: identifier)
-      payload = Payload.where(source_id: @source.id)
-      relative_path = "#{@source.root_url}/#{rel_path}"
-      @relevant_payloads = payload.where(url: relative_path)
-      erb :url_statistics
+      if Validator.validate_url(identifier) == false
+        erb :error
+      else
+        @source = Source.find_by(identifier: identifier)
+        payload = Payload.where(source_id: @source.id)
+        relative_path = "#{@source.root_url}/#{rel_path}"
+        @relevant_payloads = payload.where(url: relative_path)
+        erb :url_statistics
+      end
     end
 
     not_found do
