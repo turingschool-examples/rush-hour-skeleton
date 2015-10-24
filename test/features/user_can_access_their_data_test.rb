@@ -3,7 +3,6 @@ require './test/test_helper'
 class ApplicationDetailTest < FeatureTest
 
   def test_user_can_see_thier_data_HAPPY
-    skip
     create_user(1)
     create_payloads_three
     visit '/sources/test_company_1'
@@ -75,8 +74,8 @@ class ApplicationDetailTest < FeatureTest
   def test_user_can_see_thier_data_SAD
     visit '/sources/test_company_1'
 
-    assert_equal '/sources/test_company_1', current_path
+    assert_equal '/sources/error', current_path
 
-    assert page.has_content?("Error Page")
+    assert page.has_content?("You Have an Error!")
   end
 end
