@@ -1,0 +1,13 @@
+<h1>Event Data</h1>
+<table>
+  <tr>
+    <th>Event</th>
+    <th>Count</th>
+  </tr>
+<% @events.each do |event, count| %>
+  <tr>
+    <td><a href="http://localhost:9393/sources/<%= @source.identifier %>/events/<%= event %>"><%= event %></td>
+    <td> <%= count %> </td>
+  </tr>
+<% end %>
+</table>
