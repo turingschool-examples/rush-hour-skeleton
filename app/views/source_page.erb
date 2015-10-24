@@ -1,7 +1,13 @@
-<h1>Most Requested URLS to Least Requested URLS</h1>
-<p>Web Browser Breakdown</p>
-<p>OS Breakdown</p>
-<p>Screen Resolution</p>
-<p>Longest to Shortest Response Times</p>
-<p>Hyperlinks of each URL</p>
+<p>Most Requested URLS to Least Requested URLS <%= @max_min_hash %></p>
+<p>Web Browser Breakdown <%= @browsers %></p>
+<p>OS Breakdown <%= @os_breakdown %></p>
+<p>Screen Resolution <%= @resolution %></p>
+<p>Longest to Shortest Response Times <%= @response_time %></p>
+
+<p>Hyperlinks of each URL:</p>
+<% @urls_display.each_with_index do |url, index| %>
+<p><a href="/<%= @identifier %>/url<%= @paths[index] %>"><%= url %></a></p>
+<% end %>
+
 <p>Hyperlink to view event data</p>
+<p><a href="/<%= @identifier %>/events">Events</a></p>

@@ -1,4 +1,4 @@
-class TrafficSpy::UserAgent < ActiveRecord::Base
+class TrafficSpy::Agent < ActiveRecord::Base
   belongs_to :payload
-  validates :user_agent, uniqueness: true
+  validates :agent, uniqueness: true
 end

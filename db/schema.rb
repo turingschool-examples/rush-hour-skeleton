@@ -16,6 +16,10 @@ ActiveRecord::Schema.define(version: 20151022203516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "agents", force: :cascade do |t|
+    t.text "agent"
+  end
+
   create_table "events", force: :cascade do |t|
     t.text "event_name"
   end
@@ -29,15 +33,13 @@ ActiveRecord::Schema.define(version: 20151022203516) do
     t.text    "responded_in"
     t.text    "referred_by"
     t.text    "request_type"
-    t.text    "user_agent"
     t.text    "resolution_width"
     t.text    "resolution_height"
-    t.text    "ip"
     t.text    "hex_digest"
     t.integer "source_id"
     t.integer "url_id"
     t.integer "event_id"
-    t.integer "user_agent_id"
+    t.integer "agent_id"
     t.integer "ip_id"
   end
 
@@ -48,10 +50,6 @@ ActiveRecord::Schema.define(version: 20151022203516) do
 
   create_table "urls", force: :cascade do |t|
     t.text "url"
-  end
-
-  create_table "user_agents", force: :cascade do |t|
-    t.text "user_agent"
   end
 
 end
