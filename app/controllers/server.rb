@@ -36,6 +36,7 @@ module TrafficSpy
     get '/sources/:identifier/events' do |identifier|
       @user = User.find_by(identifier: identifier)
       @payload = Payload.find_by(user_id: identifier)
+      binding.pry
       if @payload.eventName.nil?
         redirect '/sources/error'
       else
