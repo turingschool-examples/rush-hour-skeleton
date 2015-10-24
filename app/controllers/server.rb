@@ -37,6 +37,13 @@ module TrafficSpy
       status, body = Validator.validate_payload(identifier, payload, @source)
     end
 
+    get "/sources/:identifier/urls/:rel_path" do |identifier, rel_path|
+      @source = Source.find_by(identifier: identifier)
+      payload = Payload.where(source_id: @source.id)
+
+      erb :url_statistics
+    end
+
     not_found do
       erb :error
     end
