@@ -1,18 +1,16 @@
 <h1>Application Details</h1>
-<h2>Source: <%= @source.identifier %></h2>
 
-<h2>Most Requested URLs</h2>
-
+<h4>Most Requested URLs</h4>
 <% @url_counts.each do |url, count| %>
 <p>URL:<%= url %> Count: <%= count %></p>
 <% end  %>
 
-<h2>Browser Breakdown</h2>
+<h4>Browser Breakdown</h4>
 <% @browser_counts.each do |browser, count| %>
 <p>Browser: <%= browser %> Count: <%= count %></p>
 <% end %>
 
-<h2>OS Breakdown</h2>
+<h4>OS Breakdown</h4>
 <% @os_counts.each do |os, count| %>
 <p>Operating System: <%= os %> Count: <%= count %></p>
 <% end %>

@@ -51,6 +51,11 @@ module TrafficSpy
       identifiers.include?(identifier)
     end
 
+    def self.validate_events(identifier)
+      event_names = Payload.all.map {|payload| payload.event_name }.uniq!
+      event_names.empty?
+    end
+
     def self.add_source_id(payload, source)
       payload.update_attribute("source_id", source.id)
     end

@@ -1,0 +1,27 @@
+<h1><%=@event_name%></h1>
+<% time_counts = @payload.map do |payload| %>
+<% payload.requested_at %>
+<% end %>
+
+
+<% time_counts %>
+<% omg = time_counts.group_by { |utc| DateTime.parse(utc.to_s).hour } %>
+
+<% b = omg.map { |find| find.last.count } %>
+<% a = omg.map { |find| find.first } %>
+<% c = a.zip(b).sort %>
+<% "#{c[0]} :::: #{c[1]}" %>
+
+<table>
+  <tr>
+    <th>Hour</th>
+    <th>Occurrences</th>
+  </tr>
+  <% c.each do |d| %>
+  <tr>
+    <td> <%= d[0] %> </td>
+    <td> <%= d[1] %> </td>
+  </tr>
+  <% end %>
+
+</table>

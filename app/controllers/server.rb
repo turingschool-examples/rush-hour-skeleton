@@ -44,7 +44,7 @@ module TrafficSpy
 
     get "/sources/:identifier/urls/:rel_path" do |identifier, rel_path|
       if Validator.validate_url(identifier) == false
-        erb :error
+        erb :url_error
       else
         @source = Source.find_by(identifier: identifier)
         payload = Payload.where(source_id: @source.id)
@@ -52,6 +52,24 @@ module TrafficSpy
         @relevant_payloads = payload.where(url: relative_path)
         erb :url_statistics
       end
+    end
+
+    get "/sources/:identifier/events" do |identifier|
+      @source = Source.find_by(identifier: identifier)
+      payload = Payload.where(source_id: @source.id)
+      if Validator.validate_events(identifier) == true || payload.empty?
+        erb :event_error
+      else
+        @events = payload.group(:event_name).count.sort_by { |url, count| count }.reverse
+        erb :event_data
+      end
+    end
+
+    get "/sources/:identifier/events/:event_name" do |identifier, event_name|
+      @source = Source.find_by(identifier: identifier)
+      @payload = Payload.where(source_id: @source.id).where(event_name: event_name)
+      @event_name = event_name
+      erb :event_specific_data
     end
 
     not_found do
