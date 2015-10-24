@@ -1,5 +1,3 @@
-require_relative 'parse'
-
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
