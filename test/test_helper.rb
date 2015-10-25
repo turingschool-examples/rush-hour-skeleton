@@ -56,6 +56,18 @@ end
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
+
+  def authorize_admin
+    if page.driver.respond_to?(:basic_auth)
+      page.driver.basic_auth('admin', 'admin')
+    elsif page.driver.respond_to?(:basic_authorize)
+      page.driver.basic_authorize('admin', 'admin')
+    elsif page.driver.respond_to?(:browser) && page.driver.browser.respond_to?(:basic_authorize)
+      page.driver.browser.basic_authorize('admin', 'admin')
+    else
+      raise "Can't login"
+    end
+  end
 end
 
 class TrafficSpy::Server < Sinatra::Base

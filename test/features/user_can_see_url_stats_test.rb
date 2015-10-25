@@ -27,6 +27,7 @@ class ApplicationDetails < FeatureTest
                                                  "resolutionWidth":"1920",
                                                  "resolutionHeight":"1280",
                                                  "ip":"63.29.38.211"}'
+    authorize_admin
     visit '/sources/jumpstartlab'
     visit '/sources/jumpstartlab/urls/blog'
     assert page.has_content?('Url Statistics')
