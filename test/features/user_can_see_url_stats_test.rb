@@ -1,4 +1,3 @@
-
 require_relative '../test_helper'
 
 class ApplicationDetails < FeatureTest
@@ -29,21 +28,26 @@ class ApplicationDetails < FeatureTest
                                                  "resolutionHeight":"1280",
                                                  "ip":"63.29.38.211"}'
     visit '/sources/jumpstartlab'
-
-    assert page.has_content?('Application Details')
-    assert page.has_content?('URL:http://jumpstartlab.com/blog Count: 1')
-    assert page.has_content?('Browser Breakdown')
-    assert page.has_content?('Browser: Chrome Count: 1')
-    assert page.has_content?('Operating System: Macintosh Count: 1')
-    assert page.has_content?('Screen Resolution Across Requests')
-    assert page.has_content?('Resolution Height: 1280')
-    assert page.has_content?('Resolution Width: 1920')
-    assert page.has_content?('Average Response Time Per URL')
-    assert page.has_content?('URL: http://jumpstartlab.com/blog')
-    assert page.has_content?('Average Response Time: 37 ms')
-    assert page.has_content?('URL Index')
-    assert page.has_content?('URL: http://localhost:9393/sources/jumpstartlab/urls/blog')
-    assert page.has_content?('Aggregate Event Data')
-    assert page.has_content?('Events: http://localhost:9393/sources/jumpstartlab/events')
+    visit '/sources/jumpstartlab/urls/blog'
+    assert page.has_content?('Url Statistics')
+    assert page.has_content?('37')
+    assert page.has_content?('Shortest Response Time')
+    assert page.has_content?('37')
+    assert page.has_content?('Average Response Time')
+    assert page.has_content?('Verb Usage')
+    assert page.has_content?('Verb')
+    assert page.has_content?('GET')
+    assert page.has_content?('Count')
+    assert page.has_content?('1')
+    assert page.has_content?('Most Popular Referrers')
+    assert page.has_content?('Referrer')
+    assert page.has_content?('http://jumpstartlab.com')
+    assert page.has_content?('Count')
+    assert page.has_content?('1')
+    assert page.has_content?('Most Popual User Agents')
+    assert page.has_content?('Agent')
+    assert page.has_content?('Macintosh')
+    assert page.has_content?('Count')
+    assert page.has_content?('1')
   end
 end
