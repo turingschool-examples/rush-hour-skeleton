@@ -1,20 +1,6 @@
 require './test/test_helper'
 
-class SourceRegistrationTest < Minitest::Test
-  include Rack::Test::Methods
-
-  def app
-    TrafficSpy::Server
-  end
-
-  def setup
-    DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
-  end
-
+class SourceRegistrationTest < ControllerTest
   def test_user_can_register
     post '/sources', { identifier:  "jumpstartlab",
                        rootUrl:     "http://jumpstartlab.com" }
