@@ -36,21 +36,23 @@ class Minitest::Test
     end
   end
 
-  # def create_payloads(num)
-  #   num.times do |i|
-  #     payloads = TrafficSpy::Payload.create({:url=>"#{i+1}",
-  #                     :requested_at=>"#{i+1}",
-  #                     :responded_in=>("#{i+1}").to_i,
-  #                     :referred_by=>"#{i+1}",
-  #                     :request_type=>"#{i+1}",
-  #                     :parameters=>"#{i+1}",
-  #                     :event_name=>"#{i+1}",
-  #                     :user_agent=>"#{i+1}",
-  #                     :resolution_width=>"#{i+1}",
-  #                     :resolution_height=>"#{i+1}",
-  #                     :ip=>"#{i+1}"})
-  #   end
-  # end
+  def create_payloads(num)
+    num.times do |i|
+      TrafficSpy::Payload.create({:url=>"http://#{i+1}/blog",
+                      :requested_at=>"2013-02-16 21:38:28 -0700",
+                      :responded_in=>37,
+                      :referred_by=>"http://jumpstartlab.com",
+                      :request_type=>"GET",
+                      :parameters=>[],
+                      :event_name=>"socialLogin",
+                      :user_agent=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                      :resolution_width=>"1920",
+                      :resolution_height=>"1280",
+                      :ip=>"63.29.38.211",
+                      :unique_hash=>"#{i+1}"
+                      })
+    end
+  end
 end
 
 class FeatureTest < Minitest::Test
