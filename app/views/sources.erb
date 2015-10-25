@@ -2,7 +2,11 @@
   <h1>Sources</h1>
 </div>
 
-<div class="jumbotron text-center">
-<% @sources.each do |source| %>
-<h3><ul><a href="http://localhost:9393/sources/<%= source.identifier %>"><%= source.identifier.capitalize %></a></ul></h3><br>
-<% end  %>
+  <div class="container jumbotron text-center">
+    <% @sources.each do |source| %>
+    <h3><ul><a href="http://localhost:9393/sources/<%= source.identifier %>"><%= source.identifier.capitalize %></a></ul></h3><br>
+    <% end  %>
+    <% @sources.each do |source| %>
+    <img src="/images/<%= source.identifier %>.png" width="10%" height="10%" alt="<%= source.identifier %>">&nbsp;&nbsp;&nbsp;
+    <% end  %>
+  </div>
