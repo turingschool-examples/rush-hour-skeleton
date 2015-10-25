@@ -57,7 +57,11 @@ module TrafficSpy
     end
 
     def self.add_source_id(payload, source)
-      payload.update_attribute("source_id", source.id)
+      if source.nil?
+        [403, "App Not Registered!"]
+      else
+        payload.update_attribute("source_id", source.id)
+      end
     end
   end
 end
