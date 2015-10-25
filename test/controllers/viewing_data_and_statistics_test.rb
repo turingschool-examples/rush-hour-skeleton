@@ -18,35 +18,6 @@ class ViewStatTest < ControllerTest
     assert_equal "http://jumpstartlab.com/blog", TrafficSpy::URL.find(TrafficSpy::Payload.first.url_id).url
   end
 
-  def test_it_counts_urls_for_max_and_min
-    skip
-    populate
-    get '/sources/jumpstartlab'
-
-    assert_equal '"http://jumpstartlab.com/blog"=>2, "http://jumpstartlab.com/test"=>1', 2
-  end
-
-  def test_it_can_find_browser
-    populate
-    get '/sources/jumpstartlab'
-
-    assert_equal ["chrome", "opers"], TrafficSpy::Server.browsers
-
-  end
-
-  def test_it_can_find_most_reffered
-    populate
-    get "/sources/jumpstartlab/url/blog"
-
-
-  end
-
-  def test_it_can_find_most_reffered
-    populate
-    get "/sources/jumpstartlab/url/blog"
-  end
-
-
   def payload_data
      {"payload" => {"url":"http://jumpstartlab.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
