@@ -5,6 +5,7 @@ module TrafficSpy
     end
 
     get '/sources' do
+      @sources = Source.all
       erb :sources
     end
 

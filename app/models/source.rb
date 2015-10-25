@@ -30,16 +30,16 @@ module TrafficSpy
     end
 
     def browsers(source)
-      agents(source).inject(Hash.new(0)) {|browser, count| browser[count] += 1; browser}.sort
+      agents(source).map { |user_agent| UserAgent.parse(user_agent).browser }
     end
 
     def browser_counts(source)
-      browsers(source).map { |user_agent, count| [UserAgent.parse(user_agent).browser, count] }
+      browsers(source).inject(Hash.new(0)) {|browser, count| browser[count] += 1; browser}.sort
     end
 
     def os_counts(source)
-      os = agents(source).inject(Hash.new(0)) {|os, count| os[count] += 1; os}.sort
-      os_counts = browsers(source).map { |user_agent, count| [UserAgent.parse(user_agent).platform, count] }
+      os = agents(source).map { |user_agent| UserAgent.parse(user_agent).platform}
+      os_counts = os.inject(Hash.new(0)) {|os, count| os[count] += 1; os}.sort
     end
 
     def url_index(source)

@@ -1,37 +1,105 @@
-<h1>Application Details</h1>
+<div class='container-fluid navbar navbar-default navbar-fixed-top text-center'>
+  <a class="navbar navbar-brand navabr-link navbar-nav" href="/sources">Home</a>
+  <h3 class="text-center">Application Details<h3>
+</div>
+<div class="container-fluid">
+  <div class="jumbotron container-fluid text-center">
+    <div class="col-md-4">
+      <div class="container-fluid">
+        <h2>Most Requested URLs</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>URL</th>
+            <th>Count</th>
+          </tr>
+        <% @source.url_counts(@source).each do |url, count| %>
+          <tr>
+            <td> <%= url %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
 
-<h4>Most Requested URLs</h4>
-<% @source.url_counts(@source).each do |url, count| %>
-<p>URL:<%= url %> Count: <%= count %></p>
-<% end  %>
+      <div class="container-fluid">
+        <h2>Browser Breakdown</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>Browser</th>
+            <th>Count</th>
+          </tr>
+        <% @source.browser_counts(@source).each do |browser, count| %>
+          <tr>
+            <td> <%= browser %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
 
-<h4>Browser Breakdown</h4>
-<% @source.browser_counts(@source).each do |browser, count| %>
-<p>Browser: <%= browser %> Count: <%= count %></p>
-<% end %>
+      <div class="container-fluid">
+        <h2>OS Breakdown</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>Operating System</th>
+            <th>Count</th>
+          </tr>
+        <% @source.os_counts(@source).each do |os, count| %>
+          <tr>
+            <td> <%= os %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
 
-<h4>OS Breakdown</h4>
-<% @source.os_counts(@source).each do |os, count| %>
-<p>Operating System: <%= os %> Count: <%= count %></p>
-<% end %>
+    <div class="col-md-5 col-md-offset-3">
+      <div class="container-fluid">
+        <h2>Screen Resolution Across Requests</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>Resolution</th>
+            <th>Count</th>
+          </tr>
+        <% @source.resolutions(@source).each do |res, count| %>
+          <tr>
+            <td> <%= res[0] %>x<%= res[1] %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
 
-<h2>Screen Resolution Across Requests</h2>
-<% @source.resolutions(@source).each do |resolutions| %>
-<p>Resolution Height: <%= resolutions[0][0] %><br>
-Resolution Width: <%= resolutions[0][1] %><br>
-Count: <%= resolutions[1] %></p>
-<% end %>
+      <div class="container-fluid">
+        <h2>Average Response Time Per URL</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>URL</th>
+            <th>Response Time</th>
+          </tr>
+        <% @source.response_times(@source).each do |url, time| %>
+          <tr>
+            <td> <%= url %> </td>
+            <td> <%= time %> ms </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
 
-<h2>Average Response Time Per URL</h2>
-<% @source.response_times(@source).each do |response_times| %>
-<p>URL: <%= response_times[0] %><br>
-Average Response Time: <%= response_times[1] %> ms</p>
-<% end %>
+    </div>
+  </div>
 
-<h2>URL Index</h2>
-<% @source.url_index(@source).each do |url| %>
-<p>URL: <a href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a></p>
-<% end %>
+    <div class="text-center white-text col-md-2 col-md-offset-2">
+      <h2>URL Index</h2>
+      <% @source.url_index(@source).each do |url| %>
+      <a class="white-text inline" href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
+      <% end %>
+    </div>
 
-<h2>Aggregate Event Data</h2>
-<p>Events: <a href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a></p>
+    <div class="text-center white-text col-md-3 col-md-offset-4">
+      <h2>Aggregate Event Data</h2>
+      <a class="white-text" href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a>
+    </div>
+
+</div>

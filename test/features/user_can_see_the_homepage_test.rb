@@ -5,5 +5,9 @@ class HomePageTest < FeatureTest
     visit '/'
 
     assert page.has_content?('Hello, Traffic Spyer')
+
+    click_link('start')
+
+    assert_equal current_path, '/sources'
   end
 end
