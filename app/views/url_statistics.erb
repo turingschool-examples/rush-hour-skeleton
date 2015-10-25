@@ -5,13 +5,13 @@
 <div class="jumbotron text-center">
   <div class="container-fluid">
     <h2>Longest Response Time</h2>
-    <%= @relevant_payloads.maximum(:responded_in) %>
+    <p><%= @relevant_payloads.maximum(:responded_in) %> ms</p>
 
     <h2>Shortest Response Time</h2>
-    <%= @relevant_payloads.minimum(:responded_in) %>
+    <p><%= @relevant_payloads.minimum(:responded_in) %> ms</p>
 
     <h2>Average Response Time</h2>
-    <%= @relevant_payloads.average(:responded_in).to_i %>
+    <p><%= @relevant_payloads.average(:responded_in).to_i %> ms</p>
   </div>
 </div>
 

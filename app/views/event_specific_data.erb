@@ -1,7 +1,7 @@
 <div class='container-fluid navbar navbar-default text-center'>
   <a class="navbar navbar-brand navabr-link navbar-nav" href="/sources">Home</a>
 </div>
-  <h1 class="text-center white-text">Event: <%= @source.identifier %>-<%=@event_name%></h1>
+  <h1 class="text-center white-text"><%=@event_name%></h1>
 <% times = @payload.map do |payload| %>
 <% payload.requested_at %>
 <% end %>

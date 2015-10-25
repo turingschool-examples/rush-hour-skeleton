@@ -28,7 +28,7 @@
       <div class="container-fluid">
         <h2>Screen Resolution Across Requests</h2>
         <% @resolutions.each do |data| %>
-        <p>Resolution: <%= data[0][0] %>x<%= data[0][1] %>px<br>Count: <%= data[1] %></p>
+        <p>Resolution: <%= data[0][1] %>x<%= data[0][0] %> px<br>Count: <%= data[1] %></p>
         <% end %>
       </div>
       <div class="container-fluid">
