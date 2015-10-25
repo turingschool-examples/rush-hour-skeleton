@@ -30,7 +30,8 @@ class Minitest::Test
 
   def create_sources(num)
     num.times do |i|
-      TrafficSpy::Source.create({identifier: "#{i+1}",
+      TrafficSpy::Source.create({id: "#{i+1}",
+                                 identifier: "#{i+1}",
                                  root_url: "#{i+1}"
                                 })
     end
@@ -49,7 +50,8 @@ class Minitest::Test
                       :resolution_width=>"1920",
                       :resolution_height=>"1280",
                       :ip=>"63.29.38.211",
-                      :unique_hash=>"#{i+1}"
+                      :unique_hash=>"#{i+1}",
+                      :source_id=>"#{i+1}"
                       })
     end
   end
