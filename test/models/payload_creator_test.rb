@@ -15,7 +15,7 @@ class PayloadCreatorTest < Minitest::Test
                              :resolution_height=>"1280",
                              :ip=>"63.29.38.211"})
 
-    assert_equal 1, payload.count
-    assert result
+    assert_equal 1, payload.all.count
   end
+
 end

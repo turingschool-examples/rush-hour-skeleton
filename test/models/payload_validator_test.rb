@@ -67,8 +67,6 @@ class PayloadValidatorTest < Minitest::Test
                     :ip=>"63.29.38.211"})
 
     assert_equal [403, "App Not Registered!"],TrafficSpy::Validator.validate_payload(registered, payload_of_unregistered_source, sources)
-    #does this need to be a test?
-    #it is a test that interacts with both databases so is it not a model test?
   end
 
   def test_payload_validator_excludes_missing_payloads

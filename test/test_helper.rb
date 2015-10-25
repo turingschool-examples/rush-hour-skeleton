@@ -36,22 +36,21 @@ class Minitest::Test
     end
   end
 
-  def create_payloads(num)
-    num.times do |i|
-      payloads = TrafficSpy::Payload.create({:url=>"#{i+1}",
-                      :requested_at=>"#{i+1}",
-                      :respondedIn=>"#{i+1}",
-                      :referredBy=>"#{i+1}",
-                      :requestType=>"#{i+1}",
-                      :parameters=>"#{i+1}",
-                      :eventName=>"#{i+1}",
-                      :userAgent=>"#{i+1}",
-                      :resolutionWidth=>"#{i+1}",
-                      :resolutionHeight=>"#{i+1}",
-                      :ip=>"#{i+1}"})
-    end
-    payloads
-  end
+  # def create_payloads(num)
+  #   num.times do |i|
+  #     payloads = TrafficSpy::Payload.create({:url=>"#{i+1}",
+  #                     :requested_at=>"#{i+1}",
+  #                     :responded_in=>("#{i+1}").to_i,
+  #                     :referred_by=>"#{i+1}",
+  #                     :request_type=>"#{i+1}",
+  #                     :parameters=>"#{i+1}",
+  #                     :event_name=>"#{i+1}",
+  #                     :user_agent=>"#{i+1}",
+  #                     :resolution_width=>"#{i+1}",
+  #                     :resolution_height=>"#{i+1}",
+  #                     :ip=>"#{i+1}"})
+  #   end
+  # end
 end
 
 class FeatureTest < Minitest::Test
