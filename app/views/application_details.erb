@@ -12,7 +12,7 @@
             <th>URL</th>
             <th>Count</th>
           </tr>
-        <% @url_counts.each do |url, count| %>
+        <% @source.url_counts(@source).each do |url, count| %>
           <tr>
             <td> <%= url %> </td>
             <td> <%= count %> </td>
@@ -28,7 +28,7 @@
             <th>Browser</th>
             <th>Count</th>
           </tr>
-        <% @browser_counts.each do |browser, count| %>
+        <% @source.browser_counts(@source).each do |browser, count| %>
           <tr>
             <td> <%= browser %> </td>
             <td> <%= count %> </td>
@@ -44,7 +44,7 @@
             <th>Operating System</th>
             <th>Count</th>
           </tr>
-        <% @os_counts.each do |os, count| %>
+        <% @source.os_counts(@source).each do |os, count| %>
           <tr>
             <td> <%= os %> </td>
             <td> <%= count %> </td>
@@ -62,7 +62,7 @@
             <th>Resolution</th>
             <th>Count</th>
           </tr>
-        <% @resolutions.each do |res, count| %>
+        <% @source.resolutions(@source).each do |res, count| %>
           <tr>
             <td> <%= res[0] %>x<%= res[1] %> </td>
             <td> <%= count %> </td>
@@ -75,10 +75,10 @@
         <h2>Average Response Time Per URL</h2>
         <table class="table table-condensed table-bordered">
           <tr>
-            <th>Resolution</th>
-            <th>Count</th>
+            <th>URL</th>
+            <th>Response Time</th>
           </tr>
-        <% @response_times.each do |url, time| %>
+        <% @source.response_times(@source).each do |url, time| %>
           <tr>
             <td> <%= url %> </td>
             <td> <%= time %> ms </td>
@@ -92,7 +92,7 @@
 
     <div class="text-center white-text col-md-2 col-md-offset-2">
       <h2>URL Index</h2>
-      <% @source.payloads.pluck(:url).uniq.each do |url| %>
+      <% @source.url_index(@source).each do |url| %>
       <a class="white-text inline" href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
       <% end %>
     </div>

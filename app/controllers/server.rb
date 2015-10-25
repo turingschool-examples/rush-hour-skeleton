@@ -10,8 +10,8 @@ module TrafficSpy
     end
 
     post '/sources' do
-      source = Source.new(identifier: params[:identifier], root_url: params[:rootUrl])
-      status, body = Validator.validate_source(source)
+      saved_source = Source.new(identifier: params[:identifier], root_url: params[:rootUrl])
+      status, body = Validator.validate_source(saved_source)
     end
 
     get "/sources/:identifier" do |identifier|
@@ -19,26 +19,6 @@ module TrafficSpy
         erb :identifier_error
       else
         @source = Source.where(identifier: identifier).first
-        payload = Payload.where(source_id: @source.id)
-        @url_counts = payload.group(:url).count.sort_by { |url, count| count }.reverse
-        agents = payload.map do |payload|
-          payload.user_agent
-        end
-        browsers = agents.map do |user_agent|
-          UserAgent.parse(user_agent).browser
-        end
-        @browser_counts = browsers.inject(Hash.new(0)) {|browser, count| browser[count] += 1; browser}.sort
-
-        op_systems = agents.map do |user_agent, count|
-          UserAgent.parse(user_agent).platform
-        end
-        @os_counts = op_systems.inject(Hash.new(0)) {|os, count| os[count] += 1; os}.sort
-
-        @resolutions = payload.group(:resolution_height, :resolution_width).count
-        average_response_times = payload.group(:url).average(:responded_in)
-        @response_times = {}
-        average_response_times.each { |k,v| @response_times[k] = v.to_i }
-        @response_times = @response_times.sort_by { |k,v| -v }
         erb :application_details
       end
     end
@@ -76,8 +56,12 @@ module TrafficSpy
     get "/sources/:identifier/events/:event_name" do |identifier, event_name|
       @source = Source.find_by(identifier: identifier)
       @payload = Payload.where(source_id: @source.id).where(event_name: event_name)
-      @event_name = event_name
-      erb :event_specific_data
+      if Validator.validate_events(identifier) == true || @payload.empty?
+        erb :no_event_error
+      else
+        @event_name = event_name
+        erb :event_specific_data
+      end
     end
 
     not_found do
