@@ -66,12 +66,12 @@ module TrafficSpy
         not_found
       end
       @identifier = identifier
-      @referral = UrlData.find_referrals(TrafficSpy::Payload)
+      @referral = UrlData.find_referrals(TrafficSpy::Payload).join
       @shortest_response_time = TrafficSpy::Payload.minimum("responded_in").to_f
       @longest_response_time = TrafficSpy::Payload.maximum("responded_in").to_f
       @average_response_time = TrafficSpy::Payload.average("responded_in").to_f
-      @http_verbs = UrlData.find_http_verbs(TrafficSpy::Payload)
-      @top_agents = UrlData.find_agents(TrafficSpy::Payload, TrafficSpy::Agent)
+      @http_verbs = UrlData.find_http_verbs(TrafficSpy::Payload).join
+      @top_agents = UrlData.find_agents(TrafficSpy::Payload, TrafficSpy::Agent).join
       erb :stats_page
     end
 
