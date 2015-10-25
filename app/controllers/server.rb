@@ -24,14 +24,16 @@ module TrafficSpy
         agents = payload.map do |payload|
           payload.user_agent
         end
-        browsers = agents.inject(Hash.new(0)) {|browser, count| browser[count] += 1; browser}.sort
-        @browser_counts = browsers.map do |user_agent, count|
-          [UserAgent.parse(user_agent).browser, count]
+        browsers = agents.map do |user_agent|
+          UserAgent.parse(user_agent).browser
         end
-        os = agents.inject(Hash.new(0)) {|os, count| os[count] += 1; os}.sort
-        @os_counts = browsers.map do |user_agent, count|
-          [UserAgent.parse(user_agent).platform, count]
+        @browser_counts = browsers.inject(Hash.new(0)) {|browser, count| browser[count] += 1; browser}.sort
+
+        op_systems = agents.map do |user_agent, count|
+          UserAgent.parse(user_agent).platform
         end
+        @os_counts = op_systems.inject(Hash.new(0)) {|os, count| os[count] += 1; os}.sort
+
         @resolutions = payload.group(:resolution_height, :resolution_width).count
         average_response_times = payload.group(:url).average(:responded_in)
         @response_times = {}

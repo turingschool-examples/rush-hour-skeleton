@@ -7,47 +7,99 @@
     <div class="col-md-4">
       <div class="container-fluid">
         <h2>Most Requested URLs</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>URL</th>
+            <th>Count</th>
+          </tr>
         <% @url_counts.each do |url, count| %>
-        <p><%= url %> Count: <%= count %></p>
-        <% end %>
+          <tr>
+            <td> <%= url %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
       </div>
+
       <div class="container-fluid">
         <h2>Browser Breakdown</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>Browser</th>
+            <th>Count</th>
+          </tr>
         <% @browser_counts.each do |browser, count| %>
-        <p>Browser: <%= browser %> Count: <%= count %></p>
-        <% end %>
+          <tr>
+            <td> <%= browser %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
       </div>
+
       <div class="container-fluid">
         <h2>OS Breakdown</h2>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>Operating System</th>
+            <th>Count</th>
+          </tr>
         <% @os_counts.each do |os, count| %>
-        <p>Operating System: <%= os %> Count: <%= count %></p>
-        <% end %>
+          <tr>
+            <td> <%= os %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
       </div>
     </div>
+
     <div class="col-md-5 col-md-offset-3">
       <div class="container-fluid">
         <h2>Screen Resolution Across Requests</h2>
-        <% @resolutions.each do |data| %>
-        <p>Resolution: <%= data[0][1] %>x<%= data[0][0] %> px<br>Count: <%= data[1] %></p>
-        <% end %>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>Resolution</th>
+            <th>Count</th>
+          </tr>
+        <% @resolutions.each do |res, count| %>
+          <tr>
+            <td> <%= res[0] %>x<%= res[1] %> </td>
+            <td> <%= count %> </td>
+          </tr>
+          <% end %>
+        </table>
       </div>
+
       <div class="container-fluid">
         <h2>Average Response Time Per URL</h2>
-        <% @response_times.each do |data| %>
-        <p><%= data[0] %><br>
-        Average Response Time: <%= data[1] %> ms</p>
-        <% end %>
+        <table class="table table-condensed table-bordered">
+          <tr>
+            <th>Resolution</th>
+            <th>Count</th>
+          </tr>
+        <% @response_times.each do |url, time| %>
+          <tr>
+            <td> <%= url %> </td>
+            <td> <%= time %> ms </td>
+          </tr>
+          <% end %>
+        </table>
       </div>
+
     </div>
   </div>
+
     <div class="text-center white-text col-md-2 col-md-offset-2">
       <h2>URL Index</h2>
       <% @source.payloads.pluck(:url).uniq.each do |url| %>
       <a class="white-text inline" href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
       <% end %>
     </div>
+
     <div class="text-center white-text col-md-3 col-md-offset-4">
       <h2>Aggregate Event Data</h2>
       <a class="white-text" href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a>
     </div>
+
 </div>
