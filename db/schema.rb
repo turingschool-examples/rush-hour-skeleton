@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20151022203516) do
 
   create_table "payloads", force: :cascade do |t|
     t.text    "requested_at"
-    t.text    "responded_in"
+    t.integer "responded_in"
     t.text    "referred_by"
     t.text    "request_type"
     t.text    "resolution_width"

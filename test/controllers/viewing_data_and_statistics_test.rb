@@ -48,6 +48,11 @@ class ViewStatTest < Minitest::Test
 
   end
 
+  def test_it_can_find_most_reffered
+    populate
+    get "/sources/jumpstartlab/url/blog"
+  end
+
 
   def payload_data
      {"payload" => {"url":"http://jumpstartlab.com/blog",
@@ -81,7 +86,7 @@ class ViewStatTest < Minitest::Test
      {"payload" => {"url":"http://jumpstartlab.com/test",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":666,
-      "referredBy":"http://jumpstartlab.com",
+      "referredBy":"http://fancyboots.com",
       "requestType":"GET",
       "parameters":[],
       "eventName":"die with your boots on",

@@ -82,7 +82,24 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/url/:relative_paths" do |identifier, relative_paths|
-      
+      @referral = Hash.new 0
+      @popular_agents = Hash.new 0
+      @shortest_response_time = TrafficSpy::Payload.minimum("responded_in").to_f
+      @longest_response_time = TrafficSpy::Payload.maximum("responded_in").to_f
+      @average_response_time = TrafficSpy::Payload.average("responded_in").to_f
+      @http_verbs = TrafficSpy::Payload.find_each do |payload|
+        @http_verbs ||= []
+        @http_verbs << payload.request_type
+        @http_verbs.uniq!
+      end
+      TrafficSpy::Payload.find_each do |payload|
+        @referral[payload.referred_by] += 1
+      end
+      @top_referral = @referral.max(3)
+      TrafficSpy::Payload.find_each do |payload|
+        @popular_agents[payload.agent_id] += 1
+      end
+      @top_agents = @popular_agents.map { |k, v| {TrafficSpy::Agent.find(agent_id = k).agent => v}}
       erb :stats_page
     end
 
