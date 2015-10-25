@@ -2,7 +2,6 @@ require './test/test_helper'
 module TrafficSpy
   class ValidatePayloadTest < Minitest::Test
     def test_doesnt_validate_a_payload_for_an_unregistered_user
-      skip
       post '/sources', {identifier: "jumpstartlab",
                         rootUrl: "http://jumpstartlab.com"
                        }
@@ -17,7 +16,7 @@ module TrafficSpy
                                                    "resolution_width":"1920",
                                                    "resolution_height":"1280",
                                                    "ip":"63.29.38.211"}'
-      #the reason this doesn't pass is b/c add_source_id method in the validator class is trying to add a id.  maybe an if statement in that method?  cole not know                                             
+      #the reason this doesn't pass is b/c add_source_id method in the validator class is trying to add a id.  maybe an if statement in that method?  cole not know
       assert_equal "", Sources.all
       assert_equal 0, Payload.all.count
       assert_equal 403, last_response.status
