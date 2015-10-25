@@ -1,0 +1,19 @@
+body {
+  background-image: url(/images/traffic-spy.jpeg);
+  background-repeat: no-repeat;
+  background-size: 100%, 100%;
+}
+
+body {
+   display: flex;
+   min-height: 100vh;
+   flex-direction: column;
+ }
+
+ main {
+   flex: 1 0 auto;
+ }
+
+.buffer {
+  padding-bottom: 320px;
+}
