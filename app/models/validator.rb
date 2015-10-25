@@ -46,6 +46,11 @@ module TrafficSpy
       end
     end
 
+    def self.validate_data(identifier)
+      source = Source.find_by(identifier: identifier)
+      return false if Payload.where(source_id: source.id).empty?
+    end
+
     def self.validate_url(identifier)
       identifiers = Source.all.map {|source| source.identifier }
       identifiers.include?(identifier)
