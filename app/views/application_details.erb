@@ -89,10 +89,12 @@
     </div>
   </div>
 
-    <div class="custom-padding text-center col-md-2 col-md-offset-2">
+  <div class="custom-padding text-center col-md-2 col-md-offset-2">
       <h2 class="white-text">URL Index</h2>
       <% @source.payloads.pluck(:url).uniq.each do |url| %>
       <a class="white-text" href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
+      <% end %>
+    </div>
 
     <div class="custom-padding text-center white-text col-md-3 col-md-offset-4">
       <h2 class="white-text">Aggregate Event Data</h2>

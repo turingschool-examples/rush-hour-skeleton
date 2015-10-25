@@ -7,10 +7,5 @@
     <% @sources.each do |source| %>
     <h3><ul><a class="white-text" href="http://localhost:9393/sources/<%= source.identifier %>"><%= source.identifier.capitalize %></a></ul></h3><br>
     <% end  %>
-    <div>
-      <% @sources.each do |source| %>
-      <img class="images" src="/images/<%= source.identifier %>.png" alt="<%= source.identifier %>">&nbsp;&nbsp;&nbsp;
-      <% end %>
-    </div>
   </div>
 </div>
