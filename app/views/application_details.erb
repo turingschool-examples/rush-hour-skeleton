@@ -1,37 +1,54 @@
-<h1>Application Details</h1>
+<div class='container-fluid navbar navbar-default text-center'>
+  <h1>Application Details<h1>
+</div>
 
-<h4>Most Requested URLs</h4>
-<% @url_counts.each do |url, count| %>
-<p>URL:<%= url %> Count: <%= count %></p>
-<% end  %>
+<div class="container-fluid">
+  <div class="jumbotron container-fluid text-center">
+    <div class="col-md-4">
+      <div class="container-fluid">
+        <h2>Most Requested URLs</h2>
+        <% @url_counts.each do |url, count| %>
+        <p class="text-muted"><%= url %> Count: <%= count %></p>
+        <% end  %>
+      </div>
+      <div class="container-fluid">
+        <h2>Browser Breakdown</h2>
+        <% @browser_counts.each do |browser, count| %>
+        <p class="text-muted">Browser: <%= browser %> Count: <%= count %></p>
+        <% end %>
+      </div>
+      <div class="container-fluid">
+        <h2>OS Breakdown</h2>
+        <% @os_counts.each do |os, count| %>
+        <p class="text-muted">Operating System: <%= os %> Count: <%= count %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-5 col-md-offset-3">
+      <div class="container-fluid">
+        <h2>Screen Resolution Across Requests</h2>
+        <% @resolutions.each do |data| %>
+        <p class="text-muted">Resolution Height: <%= data[0][0] %><br>
+        Resolution Width: <%= data[0][1] %><br>
+        Count: <%= data[1] %></p>
+        <% end %>
+      </div>
+      <div class="container-fluid">
+        <h2>Average Response Time Per URL</h2>
+        <% @response_times.each do |data| %>
+        <p class="text-muted">URL: <%= data[0] %><br>
+        Average Response Time: <%= data[1] %> ms</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+    <div class="text-center">
+      <h2>URL Index</h2>
+      <% @source.payloads.pluck(:url).uniq.each do |url| %>
+      <a href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
+      <% end %>
 
-<h4>Browser Breakdown</h4>
-<% @browser_counts.each do |browser, count| %>
-<p>Browser: <%= browser %> Count: <%= count %></p>
-<% end %>
-
-<h4>OS Breakdown</h4>
-<% @os_counts.each do |os, count| %>
-<p>Operating System: <%= os %> Count: <%= count %></p>
-<% end %>
-
-<h2>Screen Resolution Across Requests</h2>
-<% @resolutions.each do |data| %>
-<p>Resolution Height: <%= data[0][0] %><br>
-Resolution Width: <%= data[0][1] %><br>
-Count: <%= data[1] %></p>
-<% end %>
-
-<h2>Average Response Time Per URL</h2>
-<% @response_times.each do |data| %>
-<p>URL: <%= data[0] %><br>
-Average Response Time: <%= data[1] %> ms</p>
-<% end %>
-
-<h2>URL Index</h2>
-<% @source.payloads.pluck(:url).uniq.each do |url| %>
-<p>URL: <a href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a></p>
-<% end %>
-
-<h2>Aggregate Event Data</h2>
-<p>Events: <a href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a></p>
+      <h2>Aggregate Event Data</h2>
+      <a href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a>
+    </div>
+</div>
