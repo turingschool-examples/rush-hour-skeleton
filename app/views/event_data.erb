@@ -1,13 +1,19 @@
-<h1>Event Data</h1>
-<table>
-  <tr>
-    <th>Event</th>
-    <th>Count</th>
-  </tr>
-<% @events.each do |event, count| %>
-  <tr>
-    <td><a href="http://localhost:9393/sources/<%= @source.identifier %>/events/<%= event %>"><%= event %></td>
-    <td> <%= count %> </td>
-  </tr>
-<% end %>
-</table>
+<div class='container-fluid navbar navbar-default text-center'>
+  <h1>Event Data</h1>
+</div>
+<div class="jumbotron container-fluid">
+  <div class="col-md-6 col-md-offset-3">
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th>Event</th>
+        <th>Count</th>
+      </tr>
+    <% @events.each do |event, count| %>
+      <tr>
+        <td><a href="http://localhost:9393/sources/<%= @source.identifier %>/events/<%= event %>"><%= event %></td>
+        <td> <%= count %> </td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>

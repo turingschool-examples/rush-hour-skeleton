@@ -1,1 +1,8 @@
-<h1>Sources</h1>
+<div class='container-fluid navbar navbar-default text-center'>
+  <h1>Sources</h1>
+</div>
+
+<div class="jumbotron text-center">
+<% @sources.each do |source| %>
+<h3><ul><a href="http://localhost:9393/sources/<%= source.identifier %>"><%= source.identifier.capitalize %></a></ul></h3><br>
+<% end  %>

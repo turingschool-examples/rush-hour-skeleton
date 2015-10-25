@@ -1,27 +1,30 @@
-<h1><%=@event_name%></h1>
-<% time_counts = @payload.map do |payload| %>
+<div class='container-fluid navbar navbar-default text-center'>
+  <h1>Event: <%= @source.identifier %>-<%=@event_name%></h1>
+</div>
+
+<% times = @payload.map do |payload| %>
 <% payload.requested_at %>
 <% end %>
+<% time_count = times.group_by { |utc| DateTime.parse(utc.to_s).hour } %>
+<% counts = time_count.map { |find| find.last.count } %>
+<% hour = time_count.map { |find| find.first } %>
+<% time_counts = hour.zip(counts).sort %>
 
-
-<% time_counts %>
-<% omg = time_counts.group_by { |utc| DateTime.parse(utc.to_s).hour } %>
-
-<% b = omg.map { |find| find.last.count } %>
-<% a = omg.map { |find| find.first } %>
-<% c = a.zip(b).sort %>
-<% "#{c[0]} :::: #{c[1]}" %>
-
-<table>
-  <tr>
-    <th>Hour</th>
-    <th>Occurrences</th>
-  </tr>
-  <% c.each do |d| %>
-  <tr>
-    <td> <%= d[0] %> </td>
-    <td> <%= d[1] %> </td>
-  </tr>
-  <% end %>
-
-</table>
+<div class="jumbotron col-md-4 col-md-offset-4">
+  <table class="table table-condensed table-bordered">
+    <tr>
+      <th>Hour</th>
+      <th>Occurrences</th>
+    </tr>
+    <% time_counts.each do |d| %>
+    <tr>
+      <td> <%= d[0] %> </td>
+      <td> <%= d[1] %> </td>
+    </tr>
+    <% end %>
+  </table>
+  <div class="text-center">
+    <p>Total Requests:<%= counts.reduce(:+) %></p>
+    <a href="http://localhost:9393/sources/<%= @source.identifier %>/events"><%= @source.identifier %> events index</a>
+  </div>
+</div>

@@ -8,19 +8,19 @@
       <div class="container-fluid">
         <h2>Most Requested URLs</h2>
         <% @url_counts.each do |url, count| %>
-        <p class="text-muted"><%= url %> Count: <%= count %></p>
+        <p><%= url %> Count: <%= count %></p>
         <% end  %>
       </div>
       <div class="container-fluid">
         <h2>Browser Breakdown</h2>
         <% @browser_counts.each do |browser, count| %>
-        <p class="text-muted">Browser: <%= browser %> Count: <%= count %></p>
+        <p>Browser: <%= browser %> Count: <%= count %></p>
         <% end %>
       </div>
       <div class="container-fluid">
         <h2>OS Breakdown</h2>
         <% @os_counts.each do |os, count| %>
-        <p class="text-muted">Operating System: <%= os %> Count: <%= count %></p>
+        <p>Operating System: <%= os %> Count: <%= count %></p>
         <% end %>
       </div>
     </div>
@@ -28,7 +28,7 @@
       <div class="container-fluid">
         <h2>Screen Resolution Across Requests</h2>
         <% @resolutions.each do |data| %>
-        <p class="text-muted">Resolution Height: <%= data[0][0] %><br>
+        <p>Resolution Height: <%= data[0][0] %><br>
         Resolution Width: <%= data[0][1] %><br>
         Count: <%= data[1] %></p>
         <% end %>
@@ -36,19 +36,19 @@
       <div class="container-fluid">
         <h2>Average Response Time Per URL</h2>
         <% @response_times.each do |data| %>
-        <p class="text-muted">URL: <%= data[0] %><br>
+        <p>URL: <%= data[0] %><br>
         Average Response Time: <%= data[1] %> ms</p>
         <% end %>
       </div>
     </div>
   </div>
-    <div class="text-center">
+    <div class="text-center white-text">
       <h2>URL Index</h2>
       <% @source.payloads.pluck(:url).uniq.each do |url| %>
-      <a href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
+      <a class="white-text" href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
       <% end %>
 
       <h2>Aggregate Event Data</h2>
-      <a href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a>
+      <a class="white-text" href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a>
     </div>
 </div>

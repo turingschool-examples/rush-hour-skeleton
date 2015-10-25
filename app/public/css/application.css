@@ -1,0 +1,12 @@
+.background-image {
+  background-image: url('../images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top-left;
+  height: 100vh;
+  width: 100vw;
+}
+
+.white-text {
+  color: #FFFFFF;
+}

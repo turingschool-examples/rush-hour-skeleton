@@ -1,56 +1,63 @@
-<h1>Url Statistics</h1>
+<div class='container-fluid navbar navbar-default text-center'>
+  <h1>Url Statistics</h1>
+</div>
+<div class="jumbotron text-center">
+  <div class="container-fluid">
+    <h2>Longest Response Time</h2>
+    <%= @relevant_payloads.maximum(:responded_in) %>
 
-<h2>Longest Response Time</h2>
-<%= @relevant_payloads.maximum(:responded_in) %>
+    <h2>Shortest Response Time</h2>
+    <%= @relevant_payloads.minimum(:responded_in) %>
 
-<h2>Shortest Response Time</h2>
-<%= @relevant_payloads.minimum(:responded_in) %>
+    <h2>Average Response Time</h2>
+    <%= @relevant_payloads.average(:responded_in).to_i %>
+  </div>
+</div>
 
-<h2>Average Response Time</h2>
-<%= @relevant_payloads.average(:responded_in).to_i %>
+<div class="jumbotron container-fluid col-md-4 col-md-offset-4">
+  <h2>Verb Usage</h2>
+  <% verbs = @relevant_payloads.group(:request_type).count.to_a %>
+  <table class="table table-bordered table-condensed">
+    <tr>
+      <th>Verb</th>
+      <th>Count</th>
+    </tr>
+  <% verbs.each do |verb, count| %>
+    <tr>
+      <td> <%= verb %> </td>
+      <td> <%= count %> </td>
+    </tr>
+  <% end %>
+  </table>
 
-<h2>Verb Usage</h2>
-<% verbs = @relevant_payloads.group(:request_type).count.to_a %>
-<% verbs.each do |verb, count| %>
-<table>
-  <tr>
-    <th>Verb</th>
-    <th>Count</th>
-  </tr>
-  <tr>
-    <td> <%= verb %> </td>
-    <td> <%= count %> </td>
-  </tr>
-</table>
-<% end %>
-
-<h2>Most Popular Referrers</h2>
-<% referrers = @relevant_payloads.group(:referred_by).count.to_a %>
-<% referrers.each do |referrer, count| %>
-<table>
-  <tr>
-    <th>Referrer</th>
-    <th>Count</th>
-  </tr>
-  <tr>
-    <td> <%= referrer %> </td>
-    <td> <%= count %> </td>
-  </tr>
-</table>
-<% end %>
+  <h2>Most Popular Referrers</h2>
+  <% referrers = @relevant_payloads.group(:referred_by).count.to_a %>
+  <table class="table table-bordered table-condensed">
+    <tr>
+      <th>Referrer</th>
+      <th>Count</th>
+    </tr>
+  <% referrers.each do |referrer, count| %>
+    <tr>
+      <td> <%= referrer %> </td>
+      <td> <%= count %> </td>
+    </tr>
+  <% end %>
+  </table>
 
 
-<h2>Most Popual User Agents</h2>
-<% agents = @relevant_payloads.group(:user_agent).count.to_a %>
-<% ag = agents.each do |agent, count| %>
-<table>
-  <tr>
-    <th>Agent</th>
-    <th>Count</th>
-  </tr>
-  <tr>
-    <td> <%= UserAgent.parse(agent).platform %> </td>
-    <td> <%= count %> </td>
-  </tr>
-</table>
-<% end %>
+  <h2>Most Popual User Agents</h2>
+  <% agents = @relevant_payloads.group(:user_agent).count.to_a %>
+  <table class="table table-bordered table-condensed">
+    <tr>
+      <th>Agent</th>
+      <th>Count</th>
+    </tr>
+  <% agents.each do |agent, count| %>
+    <tr>
+      <td> <%= UserAgent.parse(agent).platform %> </td>
+      <td> <%= count %> </td>
+    </tr>
+  <% end %>
+  </table>
+</div>
