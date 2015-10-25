@@ -104,10 +104,11 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/events" do |identifier|
+      @identifier = identifier
       events = Payload.group("event_id").count
       @top_events = events.map { |k, v| {TrafficSpy::Event.find(event_id = k).event_name => v}}
       @event_list = @top_events.map {|hash| hash.keys.pop}
-      
+
       erb :events_index
     end
 
