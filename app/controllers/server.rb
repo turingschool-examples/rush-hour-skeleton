@@ -18,7 +18,13 @@ module TrafficSpy
         body source.errors.full_messages.join(", ")
       end
     end
+
     post '/sources/:identifier/data' do |identifier|
+
+      if Source.where(identifier: identifier) == []
+        not_found
+      end
+
       source = Source.find_by(:identifier => params["identifier"])
       if params["payload"].nil?
         status StatusMessages.blank_payload
@@ -38,7 +44,13 @@ module TrafficSpy
     end
 
     get "/sources/:identifier" do |identifier|
+
+      if Source.where(identifier: identifier) == []
+        not_found
+      end
+
       @identifier = identifier
+
       @max_min_hash = UrlData.find_min_max(TrafficSpy::Payload, TrafficSpy::URL)
       @os_breakdown = UrlData.breakdown_os(TrafficSpy::Payload, TrafficSpy::Agent)
       @browsers = UrlData.find_browser_data(TrafficSpy::Payload, TrafficSpy::Agent)
@@ -50,6 +62,9 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/url/:relative_paths" do |identifier, relative_paths|
+      if Source.where(identifier: identifier) == []
+        not_found
+      end
       @identifier = identifier
       @referral = UrlData.find_referrals(TrafficSpy::Payload)
       @shortest_response_time = TrafficSpy::Payload.minimum("responded_in").to_f
@@ -61,6 +76,9 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/events" do |identifier|
+      if Source.where(identifier: identifier) == []
+        not_found
+      end
       @identifier = identifier
       events = Payload.group("event_id").count
       @top_events = events.map { |k, v| {TrafficSpy::Event.find(event_id = k).event_name => v}}
@@ -69,8 +87,10 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/events/:event_name" do |identifier, event_name|
+      if Source.where(identifier: identifier) == []
+        not_found
+      end
       @identifier = identifier
-
       event = TrafficSpy::Payload.where(event_id: TrafficSpy::Event.find_by(event_name: event_name).id)
       @event_count = event.count
       times = event.map { |event| event.requested_at}
@@ -88,5 +108,6 @@ module TrafficSpy
     not_found do
       erb :error
     end
+
   end
 end

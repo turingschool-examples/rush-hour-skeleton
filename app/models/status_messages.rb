@@ -18,4 +18,5 @@ class StatusMessages
   def self.blank_identifier
     return 403
   end
+
 end
