@@ -1,3 +1,11 @@
-<h1>Event Details!</h1>
+<div class="center">
+  <h1>Event Details!</h1>
 
-<%= @slota %>
+  <p>Total times event received: <%= @event_count %></p>
+  <br>
+  <p>24-Hour Breakdown of When Event Was Received:</P>
+    <div>
+    <%= @breakdown %>
+  </div>
+  <br>
+</div>
