@@ -1,12 +1,16 @@
-<div class='container-fluid navbar navbar-default text-center'>
+<div class='container-fluid navbar navbar-default navbar-fixed-top text-center'>
   <h1>Sources</h1>
 </div>
 
-  <div class="container jumbotron text-center">
+<div class="container text-center">
+  <div class="well right">
     <% @sources.each do |source| %>
-    <h3><ul><a href="http://localhost:9393/sources/<%= source.identifier %>"><%= source.identifier.capitalize %></a></ul></h3><br>
+    <h3><ul><a class="white-text" href="http://localhost:9393/sources/<%= source.identifier %>"><%= source.identifier.capitalize %></a></ul></h3><br>
     <% end  %>
-    <% @sources.each do |source| %>
-    <img src="/images/<%= source.identifier %>.png" width="10%" height="10%" alt="<%= source.identifier %>">&nbsp;&nbsp;&nbsp;
-    <% end %>
+    <div>
+      <% @sources.each do |source| %>
+      <img class="images" src="/images/<%= source.identifier %>.png" alt="<%= source.identifier %>">&nbsp;&nbsp;&nbsp;
+      <% end %>
+    </div>
   </div>
+</div>
