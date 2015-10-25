@@ -49,6 +49,7 @@ module TrafficSpy
       @response_time = UrlData.find_response(TrafficSpy::Payload)
       @urls_display = @max_min_hash.map { |hash| hash.keys.pop }
       @paths = @urls_display.map { |url| URI.parse(url).path }
+      @identifier = identifier
       erb :source_page
     end
 
@@ -78,6 +79,7 @@ module TrafficSpy
       events = Payload.group("event_id").count
       @top_events = events.map { |k, v| {TrafficSpy::Event.find(event_id = k).event_name => v}}
       @event_list = @top_events.map {|hash| hash.keys.pop}
+      @identifier = identifier
 
       erb :events_index
     end
