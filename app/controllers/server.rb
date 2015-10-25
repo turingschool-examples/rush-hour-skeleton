@@ -69,6 +69,19 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/events/:event_name" do |identifier, event_name|
+      @identifier = identifier
+
+      event = TrafficSpy::Payload.where(event_id: TrafficSpy::Event.find_by(event_name: event_name).id)
+      @event_count = event.count
+      times = event.map { |event| event.requested_at}
+      hours = times.map { |time| DateTime.parse(time).hour}
+      hours.sort!
+
+      @breakdown = Hash.new 0
+      hours.each do |hour|
+        @breakdown[hour] += 1
+      end
+
       erb :event_details
     end
 

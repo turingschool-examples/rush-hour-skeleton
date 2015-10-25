@@ -27,10 +27,11 @@ class ViewStatTest < ControllerTest
   end
 
   def test_it_can_find_browser
+    skip
     populate
     get '/sources/jumpstartlab'
 
-    assert_equal ["chrome", "opers"], TrafficSpy::Server.browsers
+    assert_equal ["chrome", "opers"], TrafficSpy::UrlData.find_browser_data
 
   end
 
@@ -44,6 +45,15 @@ class ViewStatTest < ControllerTest
   def test_it_can_find_most_reffered
     populate
     get "/sources/jumpstartlab/url/blog"
+  end
+
+  def test_it_has_hour_by_hour_break_down
+    post '/sources', { identifier:  "jumpstartlab",
+                       rootUrl:     "http://jumpstartlab.com" }
+    post '/sources/jumpstartlab/data', payload_data
+
+    post '/sources/jumpstartlab/data', payload_data_four
+    get "/sources/jumpstartlab/events/socialLogin"
   end
 
 
@@ -83,6 +93,20 @@ class ViewStatTest < ControllerTest
       "requestType":"GET",
       "parameters":[],
       "eventName":"die with your boots on",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"63.29.38.211" }.to_json }
+  end
+
+  def payload_data_four
+     {"payload" => {"url":"http://jumpstartlab.com/blog",
+      "requestedAt":"2013-02-16 19:38:28 -0700",
+      "respondedIn":37,
+      "referredBy":"http://jumpstartlab.com",
+      "requestType":"GET",
+      "parameters":[],
+      "eventName":"socialLogin",
       "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",

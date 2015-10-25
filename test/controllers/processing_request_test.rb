@@ -120,13 +120,13 @@ class ProcessingRequestTest < ControllerTest
 
     post '/sources/jumpstartlab/data', payload_data
 
-    assert_equal 1, TrafficSpy::Payload.first.user_agent_id
-    assert_equal "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", TrafficSpy::UserAgent.first.user_agent
+    assert_equal 1, TrafficSpy::Payload.first.agent_id
+    assert_equal "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", TrafficSpy::Agent.first.agent
 
     post '/sources/id2/data', payload_data_id_2_com
 
-    assert_equal 2, TrafficSpy::Payload.last.user_agent_id
-    assert_equal "Mozilla/5.0 (Linoox; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", TrafficSpy::UserAgent.last.user_agent
+    assert_equal 2, TrafficSpy::Payload.last.agent_id
+    assert_equal "Mozilla/5.0 (Linoox; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", TrafficSpy::Agent.last.agent
   end
 
   def test_payload_given_proper_foreign_key_for_ip_address
