@@ -10,7 +10,7 @@ module TrafficSpy
 
     post '/sources' do
       saved_source = Source.new(identifier: params[:identifier], root_url: params[:rootUrl])
-      status, body = Validator.validate_source(source)
+      status, body = Validator.validate_source(saved_source)
     end
 
     get "/sources/:identifier" do |identifier|
