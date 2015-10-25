@@ -1,7 +1,9 @@
 require 'json'
 require 'digest'
 require 'uri'
+require 'tilt/erb'
 require './app/models/json_parser.rb'
+require './app/models/url_data.rb'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -17,13 +19,10 @@ module TrafficSpy
         {:identifier => source.identifier}.to_json
       else
         status StatusMessages.status_message(source)
-
         body source.errors.full_messages.join(", ")
       end
     end
-
     post '/sources/:identifier/data' do |identifier|
-
       source = Source.find_by(:identifier => params["identifier"])
       if params["payload"].nil?
         status StatusMessages.blank_payload
@@ -40,44 +39,16 @@ module TrafficSpy
         status StatusMessages.blank_identifier
         body "Identifier does not exist"
       end
-      # status, body = Validator.validate_source(source)
     end
 
     get "/sources/:identifier" do |identifier|
-      counts = Hash.new 0
-      @identifier = identifier
-      TrafficSpy::Payload.find_each do |payload|
-        counts[payload.url_id] += 1
-      end
-      @max_min_hash = counts.map { |k, v| {TrafficSpy::URL.find(url_id = k).url => v}}
-
-      browser = TrafficSpy::Payload.find_each do |payload|
-        @browsers ||= []
-        @browsers << UserAgent.parse(TrafficSpy::Agent.find(payload.agent_id).agent).browser
-        @browsers.uniq!
-      end
-
-      os_breakdown = TrafficSpy::Payload.find_each do |payload|
-        @os_breakdown ||= []
-        @os_breakdown << UserAgent.parse(TrafficSpy::Agent.find(payload.agent_id).agent).os
-        @os_breakdown.uniq!
-      end
-
-      resolution = TrafficSpy::Payload.find_each do |payload|
-        @resolution ||= []
-        @resolution << "#{payload.resolution_width} x #{payload.resolution_height}"
-        @resolution.uniq!
-      end
-
-      response_time = TrafficSpy::Payload.find_each do |payload|
-        @response_time ||= []
-        @response_time << payload.responded_in.to_i
-        @response_time.sort!.reverse!
-      end
-
+      @max_min_hash = UrlData.find_min_max(TrafficSpy::Payload, TrafficSpy::URL)
+      @os_breakdown = UrlData.breakdown_os(TrafficSpy::Payload, TrafficSpy::Agent)
+      @browsers = UrlData.find_browser_data(TrafficSpy::Payload, TrafficSpy::Agent)
+      @resolution = UrlData.find_resolution(TrafficSpy::Payload)
+      @response_time = UrlData.find_response(TrafficSpy::Payload)
       @urls_display = @max_min_hash.map { |hash| hash.keys.pop }
       @paths = @urls_display.map { |url| URI.parse(url).path }
-
       erb :source_page
     end
 
@@ -107,14 +78,13 @@ module TrafficSpy
       events = Payload.group("event_id").count
       @top_events = events.map { |k, v| {TrafficSpy::Event.find(event_id = k).event_name => v}}
       @event_list = @top_events.map {|hash| hash.keys.pop}
-      
+
       erb :events_index
     end
 
     get "/sources/:identifier/events/:event_name" do |identifier, event_name|
       erb :event_details
     end
-
 
     not_found do
       erb :error
