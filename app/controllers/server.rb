@@ -73,8 +73,12 @@ module TrafficSpy
     get "/sources/:identifier/events/:event_name" do |identifier, event_name|
       @source = Source.find_by(identifier: identifier)
       @payload = Payload.where(source_id: @source.id).where(event_name: event_name)
-      @event_name = event_name
-      erb :event_specific_data
+      if Validator.validate_events(identifier) == true || @payload.empty?
+        erb :no_event_error
+      else
+        @event_name = event_name
+        erb :event_specific_data
+      end
     end
 
     not_found do
