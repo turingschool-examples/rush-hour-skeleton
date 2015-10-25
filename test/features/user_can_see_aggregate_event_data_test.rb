@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
 class ApplicationDetails < FeatureTest
-  def test_a_user_can_view_application_statistics_via_link_present_on_app_details_page
+  def test_a_user_can_view_event_details_via_link_present_on_app_details_page
     post '/sources', {identifier: "jumpstartlab",
                       rootUrl: "http://jumpstartlab.com"
                      }
@@ -28,26 +28,11 @@ class ApplicationDetails < FeatureTest
                                                  "resolutionHeight":"1280",
                                                  "ip":"63.29.38.211"}'
     visit '/sources/jumpstartlab'
-    visit '/sources/jumpstartlab/urls/blog'
-    assert page.has_content?('Url Statistics')
-    assert page.has_content?('37')
-    assert page.has_content?('Shortest Response Time')
-    assert page.has_content?('37')
-    assert page.has_content?('Average Response Time')
-    assert page.has_content?('Verb Usage')
-    assert page.has_content?('Verb')
-    assert page.has_content?('GET')
+    visit '/sources/jumpstartlab/events'
+
+    assert page.has_content?('Event Data')
+    assert page.has_content?('Event')
+    assert page.has_content?('socialLogin')
     assert page.has_content?('Count')
-    assert page.has_content?('1')
-    assert page.has_content?('Most Popular Referrers')
-    assert page.has_content?('Referrer')
-    assert page.has_content?('http://jumpstartlab.com')
-    assert page.has_content?('Count')
-    assert page.has_content?('1')
-    assert page.has_content?('Most Popual User Agents')
-    assert page.has_content?('Agent')
-    assert page.has_content?('Macintosh')
-    assert page.has_content?('Count')
-    assert page.has_content?('1')
   end
 end
