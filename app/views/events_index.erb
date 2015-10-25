@@ -1,0 +1,6 @@
+<h1>Events Index!</h1>
+
+<p>Hyperlinks of each URL:</p>
+<% @event_list.each_with_index do |event, index| %>
+<p><a href="/sources/<%= @identifier %>/events/<%= event %>"><%= event %></a></p>
+<% end %>
