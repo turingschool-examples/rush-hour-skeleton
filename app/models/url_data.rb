@@ -42,6 +42,31 @@ class UrlData
       @response ||= []
       @response << payload.responded_in.to_i
     end
-    response_time = @response.sort!.reverse!
+    @response_time = @response.sort!.reverse!
+  end
+
+  def self.find_http_verbs(payload)
+    payload.find_each do |payload|
+      @http_array ||= []
+      @http_array << payload.request_type
+    end
+    @http_verbs = @http_array.uniq!
+
+  end
+
+  def self.find_referrals(payload)
+    @referral_hash = Hash.new 0
+    payload.find_each do |payload|
+      @referral_hash[payload.referred_by] += 1
+    end
+    @referral = @referral_hash.max(3)
+  end
+
+  def self.find_agents(payload, agent)
+    @agents = Hash.new 0
+    payload.find_each do |payload|
+      @agents[payload.agent_id] += 1
+    end
+    @top_agents = @agents.map { |k, v| {agent.find(agent_id = k).agent => v}}
   end
 end

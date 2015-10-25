@@ -51,11 +51,13 @@ class ViewStatTest < Minitest::Test
   def test_it_can_find_most_reffered
     populate
     get "/sources/jumpstartlab/url/blog"
+
+
   end
 
   def test_it_can_find_most_reffered
     populate
-    get "/sources/jumpstartlab/events"
+    get "/sources/jumpstartlab/url/blog"
   end
 
 
