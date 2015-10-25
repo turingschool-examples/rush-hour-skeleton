@@ -1,21 +1,7 @@
 require './test/test_helper'
 require 'json'
 
-class ProcessingRequestTest < Minitest::Test
-  include Rack::Test::Methods
-
-  def app
-    TrafficSpy::Server
-  end
-
-  def setup
-    DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
-  end
-
+class ProcessingRequestTest < ControllerTest
   def test_payload_data_equal_json_data
     post '/sources', { identifier:  "jumpstartlab",
                        rootUrl:     "http://jumpstartlab.com" }
@@ -160,6 +146,7 @@ class ProcessingRequestTest < Minitest::Test
     assert_equal "666.666.666.666", TrafficSpy::Ip.last.ip
   end
 
+
   def payload_data
      {"payload" => {"url":"http://jumpstartlab.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
@@ -201,5 +188,4 @@ class ProcessingRequestTest < Minitest::Test
      "resolutionHeight":"1280",
      "ip":"666.666.666.666" }.to_json }
  end
-
 end

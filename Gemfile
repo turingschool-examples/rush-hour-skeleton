@@ -15,6 +15,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :evaluations do

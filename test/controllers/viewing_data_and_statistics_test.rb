@@ -1,20 +1,6 @@
 require './test/test_helper'
 
-class ViewStatTest < Minitest::Test
-  include Rack::Test::Methods
-
-  def app
-    TrafficSpy::Server
-  end
-
-  def setup
-    DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
-  end
-
+class ViewStatTest < ControllerTest
   def populate
     post '/sources', { identifier:  "jumpstartlab",
                        rootUrl:     "http://jumpstartlab.com" }
@@ -102,5 +88,4 @@ class ViewStatTest < Minitest::Test
       "resolutionHeight":"1280",
       "ip":"63.29.38.211" }.to_json }
   end
-
 end
