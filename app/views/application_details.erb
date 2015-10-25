@@ -2,8 +2,8 @@
   <a class="navbar navbar-brand navabr-link navbar-nav" href="/sources">Home</a>
   <h3 class="text-center">Application Details<h3>
 </div>
-<div class="container-fluid">
-  <div class="jumbotron container-fluid text-center">
+
+<div class="well container-fluid text-center">
     <div class="col-md-4">
       <div class="container-fluid">
         <h2>Most Requested URLs</h2>
@@ -86,19 +86,19 @@
           <% end %>
         </table>
       </div>
-
     </div>
   </div>
 
-    <div class="text-center white-text col-md-2 col-md-offset-2">
-      <h2>URL Index</h2>
+
+    <div class="custom-padding text-center col-md-2 col-md-offset-2">
+      <h2 class="white-text">URL Index</h2>
       <% @source.payloads.pluck(:url).uniq.each do |url| %>
-      <a class="white-text inline" href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
+      <a class="white-text" href="http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%>">http://localhost:9393/sources/<%=@source.identifier%>/urls/<%=url.sub("http://#{@source.identifier}.com/","")%></a><br>
       <% end %>
     </div>
 
-    <div class="text-center white-text col-md-3 col-md-offset-4">
-      <h2>Aggregate Event Data</h2>
+    <div class="custom-padding text-center white-text col-md-3 col-md-offset-4">
+      <h2 class="white-text">Aggregate Event Data</h2>
       <a class="white-text" href="http://localhost:9393/sources/<%=@source.identifier%>/events">http://localhost:9393/sources/<%=@source.identifier%>/events</a>
     </div>
 
