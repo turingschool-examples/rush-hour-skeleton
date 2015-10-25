@@ -46,6 +46,7 @@ module TrafficSpy
       @response_time = UrlData.find_response(TrafficSpy::Payload)
       @urls_display = @max_min_hash.map { |hash| hash.keys.pop }
       @paths = @urls_display.map { |url| URI.parse(url).path }
+      binding.pry
       erb :source_page
     end
 

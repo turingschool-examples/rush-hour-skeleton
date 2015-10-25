@@ -18,15 +18,15 @@ class UrlData
       @browser_array ||= []
       @browser_array << UserAgent.parse(agent.find(payload.agent_id).agent).browser
     end
-    browser_data = @browser_array.uniq!
+    @browsers = @browser_array.uniq!
   end
 
   def self.breakdown_os(payload, agent)
     payload.find_each do |payload|
-      @os_breakdown ||= []
-      @os_breakdown << UserAgent.parse(agent.find(payload.agent_id).agent).os
+      @os_hash ||= []
+      @os_hash << UserAgent.parse(agent.find(payload.agent_id).agent).os
     end
-    os_hash = @os_breakdown.uniq!
+    @os_breakdown = @os_hash.uniq!
   end
 
   def self.find_resolution(payload)
@@ -34,7 +34,7 @@ class UrlData
       @resolution_array ||= []
       @resolution_array << "#{payload.resolution_width} x #{payload.resolution_height}"
     end
-    resolution = @resolution_array.uniq!
+    @resolution = @resolution_array.uniq!
   end
 
   def self.find_response(payload)

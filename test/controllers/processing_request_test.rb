@@ -135,6 +135,7 @@ class ProcessingRequestTest < ControllerTest
 
     assert_equal 2, TrafficSpy::Payload.last.ip_id
     assert_equal "666.666.666.666", TrafficSpy::Ip.last.ip
+    get '/sources/jumpstartlab/url/blog'
   end
 
   def identifier
