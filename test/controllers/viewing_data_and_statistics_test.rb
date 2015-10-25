@@ -53,6 +53,11 @@ class ViewStatTest < Minitest::Test
     get "/sources/jumpstartlab/url/blog"
   end
 
+  def test_it_can_find_most_reffered
+    populate
+    get "/sources/jumpstartlab/events"
+  end
+
 
   def payload_data
      {"payload" => {"url":"http://jumpstartlab.com/blog",
