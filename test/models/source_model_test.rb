@@ -52,7 +52,7 @@ module TrafficSpy
                                   :source_id=> 1
                                   })
 
-
+      @source = Source.where(identifier: "jumpstartlab").first
     end
 
     def test_source_and_payload_setup_work
@@ -61,38 +61,33 @@ module TrafficSpy
     end
 
     def test_url_counts_returns_the_count_of_urls
-      source = Source.where(identifier: "jumpstartlab").first
-
-      assert_equal 2, source.url_counts(source)[0][1]
-      assert_equal 1, source.url_counts(source)[1][1]
+      assert @source.url_counts(@source).flatten.include?(2)
+      assert @source.url_counts(@source).flatten.include?(1)
     end
 
     def test_resolutions_returns_height_and_width
-      source = Source.where(identifier: "jumpstartlab").first
-
-      assert_equal "1280", source.resolutions(source).keys[0][0]
-      assert_equal "1920", source.resolutions(source).keys[0][1]
+      assert @source.resolutions(@source).keys.flatten.include?("1280")
+      assert @source.resolutions(@source).keys.flatten.include?("1920")
     end
 
     def test_response_times_returns_response_times
-      source = Source.where(identifier: "jumpstartlab").first
-
-      assert_equal 45, source.response_times(source)[0][1]
-      assert_equal 37, source.response_times(source)[1][1]
+      assert @source.response_times(@source).flatten.include?(45)
+      assert @source.response_times(@source).flatten.include?(37)
     end
 
     def test_browser_counts_returns_browser_counts
-      source = Source.where(identifier: "jumpstartlab").first
-
-      assert_equal "Chrome", source.browser_counts(source)[0][0]
-      assert_equal 3, source.browser_counts(source)[0][1]
+      assert @source.browser_counts(@source).flatten.include?("Chrome")
+      assert @source.browser_counts(@source).flatten.include?(3)
     end
 
     def test_os_counts_returns_os_counts
-      source = Source.where(identifier: "jumpstartlab").first
+      assert @source.os_counts(@source).flatten.include?("Macintosh")
+      assert @source.os_counts(@source).flatten.include?(3)
+    end
 
-      assert_equal "Macintosh", source.os_counts(source)[0][0]
-      assert_equal 3, source.os_counts(source)[0][1]
+    def test_url_index_returns_all_unique_urls
+      assert @source.url_index(@source).include?("http://jumpstartlab.com/blog")
+      assert @source.url_index(@source).include?("http://jumpstartlab.com/about")
     end
   end
 end

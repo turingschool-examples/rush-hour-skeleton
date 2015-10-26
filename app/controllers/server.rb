@@ -28,12 +28,12 @@ module TrafficSpy
     end
 
     get "/sources/:identifier" do |identifier|
-      protected!
       if Validator.validate_url(identifier) == false
         erb :identifier_error
       elsif Validator.validate_data(identifier) == false
         erb :no_data_error
       else
+        protected!
         @source = Source.where(identifier: identifier).first
         erb :application_details
       end
