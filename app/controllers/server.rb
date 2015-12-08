@@ -9,9 +9,10 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # binding.pry
-      # user = User.create(identifier: params[:identifier], root_url: params[:rootUrl])
       user = User.create(identifier: params[:identifier], root_url: params[:rootUrl])
+      id = params[:identifier]
+      hash =   {'identifier': id}
+      JSON.generate(hash)
     end
   end
 end

@@ -7,10 +7,11 @@ class RegisterNewUserTest < TrafficTest
     first_count = User.count
     post '/sources', {rootUrl: 'http://turing.io', identifier: 'turing'}
     second_count = User.count
-    response = {:identifier => "turing"}.to_json
+    response = "{\"identifier\":\"turing\"}"
 
     assert_equal 200, last_response.status
-    # assert_equal response, last_response.body
+
+    assert_equal response, last_response.body
     assert_equal 1, (second_count - first_count)
     # binding.pry
     assert_equal 'http://turing.io', User.find(1).root_url
