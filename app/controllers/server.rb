@@ -6,16 +6,26 @@ module TrafficSpy
     end
 
     post '/sources' do
-      app_reg  = AppRegistrar.create(identifier: params[:identifier],
-                                     root_url: params[:rootUrl])
-      if app_reg.save
-        "{identifier: #{params[:identifier]}}"
+
+      if AppRegistrar.all.include?(:identifier => params[:identifier])
+        status 403
+        body "Identifier Already Exists"
+
       else
-        status 400
-        if params.has_key?(:identifier)
-            body "Missing root URL"
+        app_reg  = AppRegistrar.create(identifier: params[:identifier],
+                                       root_url: params[:rootUrl])
+
+        if app_reg.save
+          "{identifier: #{params[:identifier]}}"
+
         else
-          body "Missing Identifier"
+          status 400
+
+            if params.has_key?('identifier')
+              body "Missing root URL"
+            else
+              body "Missing Identifier"
+            end
         end
       end
     end
