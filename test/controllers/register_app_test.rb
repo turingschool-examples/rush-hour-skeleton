@@ -12,7 +12,7 @@ class RegisterAppTest < ControllerTest
   def test_app_registration_fails_without_identifier
     post '/sources', {rootUrl: "http://turing.io"}
     assert_equal 400, last_response.status
-    assert_equal "Identifier name can't be blank", last_response.body
+    assert_equal "Identifier can't be blank", last_response.body
     assert_equal 0, TrafficSpy::Application.count
   end
 
@@ -24,10 +24,10 @@ class RegisterAppTest < ControllerTest
   end 
 
   def test_app_registration_fails_when_identifier_already_exists
-    post '/sources', { identifier: "turing", rootUrl: "http://turing.io"}
+    TrafficSpy::Application.create({ identifier: "turing", root_url: "http://turing.io"})
     post '/sources', { identifier: "turing", rootUrl: "http://turing.io"}
     assert_equal 403, last_response.status
-    assert_equal "Identifier name has already been taken", last_response.body
+    assert_equal "Identifier has already been taken", last_response.body
     assert_equal 1, TrafficSpy::Application.count
   end 
 end 

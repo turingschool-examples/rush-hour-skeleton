@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20151208181648) do
   enable_extension "plpgsql"
 
   create_table "applications", force: :cascade do |t|
-    t.string "identifier_name"
+    t.string "identifier"
     t.string "root_url"
   end
 
