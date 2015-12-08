@@ -14,10 +14,11 @@ module TrafficSpy
       if application.save 
         status 200
         body JSON.generate(params.select { |k, v| k == 'identifier' })
-      else 
+      else
         status 400
-        body "No identifier provided."
+        body application.errors.full_messages
       end
+
     end
 
     not_found do

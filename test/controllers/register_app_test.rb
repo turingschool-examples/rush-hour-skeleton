@@ -10,13 +10,16 @@ class RegisterAppTest < ControllerTest
   end
 
   def test_app_registration_fails_without_identifier
-# As a guest,
-  post '/sources', {rootUrl: "http://turing.io"}
-# When I POST to '/sources'
-# With no identifier specified,
-# Then I receive a 400 response
-  assert_equal 400, last_response.status
-  assert_equal "No identifier provided.", last_response.body
-# And I receive a error message saying I'm missing the identifier
+    post '/sources', {rootUrl: "http://turing.io"}
+    assert_equal 400, last_response.status
+    assert_equal "Identifier name can't be blank", last_response.body
+    assert_equal 0, TrafficSpy::Application.count
   end
+
+  def test_app_registration_fails_without_url
+    post '/sources', {identifier: "turing"}
+    assert_equal 400, last_response.status
+    assert_equal "Root url can't be blank", last_response.body
+    assert_equal 0, TrafficSpy::Application.count
+  end 
 end 
