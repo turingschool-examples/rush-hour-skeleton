@@ -6,8 +6,8 @@ module TrafficSpy
     end
 
     post '/sources' do
+      if AppRegistrar.all.any? {|app| app.identifier == params[:identifier]}
 
-      if AppRegistrar.all.include?(:identifier => params[:identifier])
         status 403
         body "Identifier Already Exists"
 
