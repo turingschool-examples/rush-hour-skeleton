@@ -1,5 +1,7 @@
 module TrafficSpy
   class RegisterApplication
+    attr_reader :identifier, :root_url, :application
+
     def initialize(params)
       @identifier = params[:identifier]
       @root_url = params[:rootUrl]
@@ -8,7 +10,7 @@ module TrafficSpy
 
     def save
       if valid_params?
-        [200, { identifier: @identifier }.to_json]
+        [200, { identifier: identifier }.to_json]
       elsif error_message == "Identifier has already been taken"
         [403, error_message]
       else
@@ -17,11 +19,11 @@ module TrafficSpy
     end
 
     def error_message
-      @application.errors.full_messages.first
+      application.errors.full_messages.first
     end
 
     def valid_params?
-      @application.save
+      application.save
     end
   end
 end
