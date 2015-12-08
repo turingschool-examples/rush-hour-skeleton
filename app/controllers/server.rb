@@ -7,10 +7,10 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # binding.pry
-      TrafficSpy::Application.create({ identifier_name: params[:applications][:identifier], root_url: params[:applications][:rootUrl] })
+      # require 'pry'; binding.pry
+      TrafficSpy::Application.create({ identifier_name: params[:identifier], root_url: params[:rootUrl] })
       status 200
-      body JSON.generate(params[:applications].select { |k, v| k == 'identifier' })
+      body JSON.generate(params.select { |k, v| k == 'identifier' })
     end
 
     not_found do
