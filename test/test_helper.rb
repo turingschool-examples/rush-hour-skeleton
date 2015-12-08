@@ -3,11 +3,11 @@ ENV["RACK_ENV"] ||= "test"
 require 'bundler'
 Bundler.require(:test)
 
-DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
-
 require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'capybara'
+
+DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 Capybara.app = TrafficSpy::Server
 
