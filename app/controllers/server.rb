@@ -8,6 +8,10 @@ module TrafficSpy
 
     post '/sources' do
       register_app = TrafficSpy::RegisterApplication.new(params)
+      status, body = register_app.save
+
+      status status
+      body body
       # application = TrafficSpy::Application.new({ identifier: params[:identifier], root_url: params[:rootUrl] })
       #
       # if application.save
