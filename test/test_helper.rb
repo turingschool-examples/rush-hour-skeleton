@@ -27,3 +27,13 @@ class ControllerTest < Minitest::Test
     DatabaseCleaner.clean
   end
 end
+
+class ModelTest < Minitest::Test
+  def setup
+    DatabaseCleaner.start
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
+end
