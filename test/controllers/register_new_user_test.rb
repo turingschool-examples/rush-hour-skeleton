@@ -40,3 +40,4 @@ class RegisterNewUserTest < TrafficTest
   end
 
 end
+

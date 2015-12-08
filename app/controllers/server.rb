@@ -14,7 +14,7 @@ module TrafficSpy
         user = User.new(identifier: params[:identifier], root_url: params[:rootUrl])
         if user.save
           id = params[:identifier]
-          hash =   {'identifier': id}
+          hash = {'identifier': id}
           JSON.generate(hash)
         else
           status(403)
@@ -24,6 +24,10 @@ module TrafficSpy
         status(400)
         "Missing all required details."
       end
+    end
+
+    post '/sources/:id/data'  do |id|
+      binding.pry
     end
   end
 end
