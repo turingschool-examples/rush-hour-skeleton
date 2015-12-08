@@ -39,5 +39,4 @@ class RegisterNewUserTest < TrafficTest
     assert_equal "Identifier already exists.", last_response.body
   end
 
-
 end
