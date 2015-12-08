@@ -23,6 +23,16 @@ module TrafficSpy
 
     end
 
+    post '/sources/:id/data' do |id|
+      if params[:payload].nil?
+
+        status 400
+        body "Payload can't be blank"
+      else 
+        status 200
+      end 
+    end
+
     not_found do
       erb :error
     end
