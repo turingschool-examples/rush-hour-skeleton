@@ -1,5 +1,3 @@
-require 'json'
-
 module TrafficSpy
   class RegisterApplication
     def initialize(params)
