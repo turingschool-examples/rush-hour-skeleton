@@ -24,10 +24,14 @@ module TrafficSpy
     end
 
     post '/sources/:id/data' do |id|
+      # binding.pry
       if params[:payload].nil?
 
         status 400
         body "Payload can't be blank"
+      elsif TrafficSpy::Application.find_by(identifier: id).nil?
+        status 403
+        body "Identifier not registered"
       else 
         status 200
       end 
