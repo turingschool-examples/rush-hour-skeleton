@@ -8,9 +8,17 @@ module TrafficSpy
 
     post '/sources' do
       # require 'pry'; binding.pry
-      TrafficSpy::Application.create({ identifier_name: params[:identifier], root_url: params[:rootUrl] })
-      status 200
-      body JSON.generate(params.select { |k, v| k == 'identifier' })
+      application = TrafficSpy::Application.new({ identifier_name: params[:identifier], root_url: params[:rootUrl] })
+
+      # TrafficSpy::Application.create({ identifier_name: params[:identifier], root_url: params[:rootUrl] })
+      if application.save 
+        status 200
+        body JSON.generate(params.select { |k, v| k == 'identifier' })
+      else
+        status 400
+        body application.errors.full_messages
+      end
+
     end
 
     not_found do
