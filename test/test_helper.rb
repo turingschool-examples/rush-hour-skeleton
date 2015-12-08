@@ -5,6 +5,7 @@ Bundler.require
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
+require 'minitest/pride'
 require 'capybara'
 require 'database_cleaner'
 
@@ -14,12 +15,12 @@ Capybara.app = TrafficSpy::Server
 
 class Minitest::Test
 
-  def setup
-    DatabaseCleaner.start
-  end
+  # def setup
+  #   DatabaseCleaner.start
+  # end
+  #
+  # def teardown
+  #   DatabaseCleaner.clean
+  # end
 
-  def teardown
-    DatabaseCleaner.clean
-  end
-  
 end
