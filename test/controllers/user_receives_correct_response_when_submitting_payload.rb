@@ -1,4 +1,9 @@
+require_relative '../test_helper'
+require 'json'
+
 class PayloadTest < TrafficTest
+
+
 
 end
 

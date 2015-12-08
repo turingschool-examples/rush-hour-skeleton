@@ -1,5 +1,10 @@
 require "bundler"
+require "rake/testtask"
 Bundler.require
+
+Rake::TestTask.new do |t|
+  t.test_files = FileList['test/**/*_test.rb']
+end
 
 require "sinatra/activerecord/rake"
 

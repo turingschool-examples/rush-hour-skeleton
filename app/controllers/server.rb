@@ -14,8 +14,7 @@ module TrafficSpy
         user = User.new(identifier: params[:identifier], root_url: params[:rootUrl])
         if user.save
           id = params[:identifier]
-          hash = {'identifier': id}
-          JSON.generate(hash)
+          {'identifier': id}.to_json
         else
           status(403)
           "Identifier already exists."
