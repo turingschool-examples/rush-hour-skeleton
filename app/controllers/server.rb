@@ -5,14 +5,12 @@ module TrafficSpy
     end
 
     post '/sources' do
+      application = Application.new(params)
 
-      application = Application.new(params[:application])
-      "test"
-binding.pry
-      if params[:application][:identifier].nil?
+      if params[:identifier].nil?
         status 400
         "Missing identifier."
-      elsif params[:application][:root_url].nil?
+      elsif params[:rootUrl].nil?
         status 400
         "Missing rootUrl."
       elsif application.save

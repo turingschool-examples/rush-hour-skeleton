@@ -5,7 +5,6 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'pry'
-gem 'pry-debugger'
 
 group :development, :test do
   gem 'shotgun'
