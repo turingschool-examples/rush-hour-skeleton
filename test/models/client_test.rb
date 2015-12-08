@@ -4,6 +4,7 @@ require_relative '../../app/models/client'
 class ClientTest < Minitest::Test
 
   def test_can_create_client
+    skip
     c = Client.new("JumpstartLabs")
 
     assert c
