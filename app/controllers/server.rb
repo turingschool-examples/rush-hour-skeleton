@@ -5,7 +5,17 @@ module TrafficSpy
     end
 
     post '/sources' do
-      c = Client.create(name: params["identifier"], root_url: params["rootUrl"])
+      client = Client.new(name: params["identifier"], root_url: params["rootUrl"])
+
+      if Client.find_by(name: params["identifier"])
+        status 403
+        body "Name already taken." 
+      elsif client.save
+          body "Client created."
+      else
+        status 400
+        body "Missing parameters."
+      end
     end
 
     not_found do
