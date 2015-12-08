@@ -11,7 +11,7 @@ require 'capybara'
 
 Capybara.app = TrafficSpy::Server
 
-def TrafficTest < Minitest::Test
+class TrafficTest < Minitest::Test
   include Rack::Test::Methods     # allows us to use get, post, last_request, etc
 
   def app    #app is a reserved word that should return name of sinatra app
