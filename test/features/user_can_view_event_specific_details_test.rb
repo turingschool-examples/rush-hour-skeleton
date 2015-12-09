@@ -93,16 +93,26 @@ class UserCanViewEventSpecificDetails < FeatureTest
   end
 
   def test_user_can_view_details_from_event_social_login_A
+    # As a registered user,
     register_turing_and_send_multiple_payloads
 
-    visit '/sources/turing/events/socialLoginA'
-
-
-
-    # As a registered user,
     # When I visit '/sources/MY_ID/events/EVENTNAME',
     # And EVENTNAME has been defined,
+    visit '/sources/turing/events/socialLoginA'
+
+    expected = ['Requests',
+                0, 0, 1, 0, 1, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0]
+
     # Then I see the hour by hour breakdown of when the event was received. How many were shown at noon? at 1pm? at 2pm? Do it for all 24 hours.,
+    page.all('tr').each_with_index do |tr, i|
+      next if i == 0
+
+      assert_equal tr.text.split[1].to_i, expected[i]
+    end
+
     # And I see how many times it was recieved overall
   end
 end
