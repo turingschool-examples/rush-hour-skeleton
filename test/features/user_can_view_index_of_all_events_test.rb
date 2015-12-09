@@ -109,4 +109,31 @@ class UserCanViewIndexOfAllEvents < FeatureTest
       assert page.has_content?('socialLoginC')
     end
   end
+
+  def test_displays_error_message_when_no_events_defined
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 80,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    app.payloads.create(payload_data)
+
+    visit '/sources/turing/events'
+
+    # save_and_open_page
+
+    within 'h2' do
+      assert page.has_content?('No events have been defined')
+    end
+  end
 end
