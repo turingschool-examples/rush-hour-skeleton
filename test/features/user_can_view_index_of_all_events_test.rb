@@ -1,4 +1,6 @@
-class UserCanViewApplicationDetailsTest < FeatureTest
+require './test/test_helper'
+
+class UserCanViewIndexOfAllEvents < FeatureTest
   def register_turing_and_send_multiple_payloads
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
@@ -8,7 +10,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       responded_in: 80,
       referred_by:"http://turing.io",
       request_type:"GET",
-      event: "socialLogin",
+      event: "socialLoginC",
       operating_system: "Macintosh",
       browser: "Chrome",
       resolution: {width: "1920", height: "1280"},
@@ -21,7 +23,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       responded_in: 37,
       referred_by:"http://turing.io",
       request_type:"GET",
-      event: "socialLogin",
+      event: "socialLoginA",
       operating_system: "Macintosh",
       browser: "Safari",
       resolution: {width: "600", height: "800"},
@@ -34,7 +36,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       responded_in: 50,
       referred_by:"http://turing.io",
       request_type:"GET",
-      event: "socialLogin",
+      event: "socialLoginA",
       operating_system: "Windows",
       browser: "IE10",
       resolution: {width: "1920", height: "1280"},
@@ -47,7 +49,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       responded_in: 40,
       referred_by:"http://turing.io",
       request_type:"GET",
-      event: "socialLogin",
+      event: "socialLoginB",
       operating_system: "Windows",
       browser: "Chrome",
       resolution: {width: "1920", height: "1080"},
@@ -60,7 +62,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       responded_in: 41,
       referred_by:"http://turing.io",
       request_type:"GET",
-      event: "socialLogin",
+      event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Chrome",
       resolution: {width: "1920", height: "1280"},
@@ -73,7 +75,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       responded_in: 5,
       referred_by:"http://turing.io",
       request_type:"GET",
-      event: "socialLogin",
+      event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Mozilla",
       resolution: {width: "1366", height: "768"},
@@ -90,24 +92,40 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
   end
 
-  def test_user_can_view_details_for_a_registered_application
-    skip
+  def test_user_can_view_list_of_all_events_grouped_by_count
     register_turing_and_send_multiple_payloads
 
-    visit '/sources/turing'
+    # As a registered user,
+    # When I visit '/sources/MY_ID/events',
+    # And events have been defined,
+    # Then I see the most received event to least received event,
+    # And I see hyperlinks of each event to view event specific data
 
-    # Then I see the most requested URLS to least requested URLS (url),]
+    visit '/sources/turing/events'
 
-    # And I see web browser breakdown across all requests (userAgent),
-    # And I see OS breakdown across all requests (userAgent),
-    # And I see screen Resolution across all requests (resolutionWidth x resolutionHeight),
-    # And I see the longest, average response time per URL to shortest, average response time per URL
-    # And I see hyperlinks of each url to view url specific data,
-    # And I see hyperlink to view aggregate event data
+    within 'ol li:nth-child(1)' do
+      assert page.has_content?('socialLoginB')
+      assert page.has_css?("a[href~='/sources/turing/events/socialLoginB']")
+    end
 
+    within 'ol li:nth-child(2)' do
+      assert page.has_content?('socialLoginA')
+      assert page.has_css?("a[href~='/sources/turing/events/socialLoginA']")
+    end
+
+    within 'ol li:nth-child(3)' do
+      assert page.has_content?('socialLoginC')
+      assert page.has_css?("a[href~='/sources/turing/events/socialLoginC']")
+    end
   end
 
-  def test_user_gets_error_if_they_try_to_view_an_unregistered_page
-    skip
+  def test_displays_error_message_when_no_events_defined
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    visit '/sources/turing/events'
+
+    within 'h2' do
+      assert page.has_content?('No events have been defined')
+    end
   end
 end
