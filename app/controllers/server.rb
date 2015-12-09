@@ -25,7 +25,14 @@ module TrafficSpy
     end
 
     post '/sources/:id/data'  do |id|
-      binding.pry
+      # binding.pry
+      p_pams = JSON.parse(params["payload"])
+      identifier = params["id"]
+      user = User.find_by(identifier) #GET USER FROM TABLE
+      ua = UserAgent.parse(p_pams[:UserAgent])
+      p_sha = Digest::SHA1.hexdigest(p_pams)
+      Payload.create(user_id:      url: p_pams[:url], requested_at: p_pams[:requestedAt], responded_in: p_pams[:respondedIn], referred_by: p_pams[:referredBy], request_type: p_pams[:requestType], parameters: p_pams[:parameters], event_name: p_pams[:eventName], user_agent: ua, ip: p_pams[:ip],  payload_sha: p_sha)
+
     end
   end
 end
