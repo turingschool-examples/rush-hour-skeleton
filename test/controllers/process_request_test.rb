@@ -30,10 +30,7 @@ class ProcessRequestTest < ControllerTest
   end 
 
   def test_responds_with_200_for_valid_and_unique_payload
-# As a registered app,
     TrafficSpy::Application.create({ identifier: "turing", root_url: "http://turing.io"})
-# When I POST to '/sources/MY_ID/data'
-# With a valid and unique payload,
     post '/sources/turing/data', {payload: '{
     "url":"http://turing.io/blog",
     "requestedAt":"2013-02-16 21:38:28 -0700",
@@ -47,7 +44,6 @@ class ProcessRequestTest < ControllerTest
     "resolutionHeight":"1280",
     "ip":"63.29.38.211"
     }'}
-# Then I receive a 200 OK status
   assert_equal 200, last_response.status
   # assert_equal 1, TrafficSpy::Payload.count  
   end 
