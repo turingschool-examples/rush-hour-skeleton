@@ -4,15 +4,15 @@
 
 %h5
   Longest Response Time:
-  = @urls.maximum(:responded_in)
+  = @urls.max_response_time
 
 %h5
   Shortest Response Time:
-  = @urls.minimum(:responded_in)
+  = @urls.min_response_time
 
 %h5
   Average Response Time:
-  = @urls.average(:responded_in).round(2)
+  = @urls.avg_response_time
 
 %h5
   HTTP Verbs:

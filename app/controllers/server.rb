@@ -22,7 +22,7 @@ module TrafficSpy
       @url = "/" + path
       @id = id
       @app = TrafficSpy::Application.find_by(identifier: id)
-      @urls = @app.payloads.where(relative_path: @url)
+      @urls = @app.payloads.matching(@url)
 
       if @urls.empty?
         haml :application_url_statistics_error
