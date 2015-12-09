@@ -23,23 +23,18 @@
         = k
         = v
   %h5 Screen Resolution
-  %ol
+  %ol#screen_resolution
     -@app.payloads.group(:resolution).count.each do |k, v|
       %li
         = k
         = v
   %h5 Average Response Times
-  %ol
+  %ol#average_response_times
     -@app.payloads.group(:relative_path).average(:responded_in).sort_by{|k, v| v}.reverse.each do |k, v|
       %li 
         = k 
-        = v
-  %h5 Hyperlinks
-  %ol
-    -@app.payloads.group(:resolution).count.each do |k, v|
-      %li
-        = k
-        = v  
+        = v.to_i 
+        milliseconds
   %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
 
 -else
