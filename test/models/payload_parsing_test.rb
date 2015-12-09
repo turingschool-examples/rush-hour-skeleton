@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class PayloadParserTest < TrafficTest
 
   def register_user
-    parser_setup({"rootUrl"=>"http://turing.io", "identifier"=>"turing"}).parsing_validating
+    parser_setup({"rootUrl"=>"http://jumpstartlab.com", "identifier"=>"jumpstartlab"}).parsing_validating
   end
 
   def payload_params
@@ -33,5 +33,26 @@ class PayloadParserTest < TrafficTest
     assert_equal "Macintosh", payload_parser.os
   end
 
+  def test_creates_payloadparser
+    register_user
+    payload = TrafficSpy::PayloadParser.new(payload_params)
+    response = payload.payload_response
+    assert_equal 1, TrafficSpy::Payload.all.count
+  end
+
+  def test_returns_400_if_user_is_not_registered
+    payload = TrafficSpy::PayloadParser.new(payload_params)
+    response = payload.payload_response
+    assert_equal [403, "jumpstartlab is not registered"], response
+  end
+
+  def test_duplicated_payload_returns_403
+    register_user
+    payload = TrafficSpy::PayloadParser.new(payload_params)
+    payload.payload_response
+    response = payload.payload_response
+    expected_response = [403, "This specific payload already exists in the database..."]
+    assert_equal expected_response, response
+  end
 
 end
