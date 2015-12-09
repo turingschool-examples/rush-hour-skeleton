@@ -8,6 +8,12 @@ module TrafficSpy
       erb :error
     end
 
+    get '/sources/:id' do |id|
+      @id = id
+      erb :application_statistics
+    end
+
+
     post '/sources' do
       TrafficSpy::RegistrationParser.new(params).parsing_validating
     end
