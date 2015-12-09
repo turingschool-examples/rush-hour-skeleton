@@ -3,6 +3,7 @@ class RequestManager
 
   def initialize(params)
     parser = Parser.new(params)
+    request = Request.new(request_hash: parser.request_hash)
 
     # case
     # when parser.payload.nil? then [status, response]
@@ -11,7 +12,6 @@ class RequestManager
       @status = 400
       @response =  "Missing payload."
     else params[:payload]
-      request = Request.new(request_hash: parser.request_hash)
 
       if Application.exists?(identifier: params[:id])
         if request.save

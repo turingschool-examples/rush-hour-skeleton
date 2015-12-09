@@ -10,7 +10,8 @@ attr_reader :payload,
             :event,
             :browser,
             :os,
-            :resolution
+            :resolution,
+            :complete_data
 
   def initialize(params)
 # binding.pry
@@ -32,7 +33,6 @@ attr_reader :payload,
   end
 
   def sha1(string)
-
     Digest::SHA1.hexdigest(string)
   end
 
@@ -41,6 +41,21 @@ attr_reader :payload,
     height = payload['resolutionHeight']
 
     width && height && "#{width}x#{height}"
+  end
+
+  def complete_data
+    { request_hash: request_hash,
+      id: id,
+      url: url,
+      timestamp: timestamp,
+      response_time: response_time,
+      referral: referral,
+      verb: verb,
+      event: event,
+      browser: browser,
+      os: os,
+      resolution: resolution
+    }
   end
 
   def get_user_agent(payload)
@@ -53,4 +68,5 @@ attr_reader :payload,
     agent = UserAgentParser.parse(agent)
     [ agent.to_s, agent.os.to_s ]
   end
+
 end
