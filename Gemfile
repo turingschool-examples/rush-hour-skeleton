@@ -15,6 +15,9 @@ group :development, :test do
   gem 'rack-test'
   gem 'database_cleaner'
   gem 'pry'
+  gem 'json'
+  gem 'useragent'
+  gem 'uri'
 end
 
 group :evaluations do
