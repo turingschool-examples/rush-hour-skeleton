@@ -5,4 +5,11 @@
   <% end %>
 </div>
 
+<div id="mvp_browsers">
+  <h2>Browser Popularity Contest</h2>
+  <% @user.payloads.browser_popularity.each do |k, v| %>
+    <h4><%=k  %>:<%= v %></h4>
+  <% end %>
+</div>
+
 <!-- user_object = TrafficSpy::User.find_by(identifier: @id) -->

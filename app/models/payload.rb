@@ -9,5 +9,9 @@ module TrafficSpy
       group(:url).count
     end
 
+    def self.browser_popularity
+      group(:user_agent).count
+    end
+
   end
 end
