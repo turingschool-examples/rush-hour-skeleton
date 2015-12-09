@@ -19,7 +19,10 @@ module TrafficSpy
       elsif TrafficSpy::Application.find_by(identifier: id).nil?
         status 403
         body "Identifier not registered"
-      else 
+      else
+        parsed_string = TrafficSpy::ProcessRequestParser.new.parse_request(params[:payload])
+        app = TrafficSpy::Application.find_by(identifier: id)
+        app.payloads.create(parsed_string)
         status 200
       end 
     end

@@ -18,7 +18,6 @@ class ProcessRequestParserTest < ModelTest
     parser = TrafficSpy::ProcessRequestParser.new
 
     expected = {
-      identifier: "turing",
       relative_path: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37, 

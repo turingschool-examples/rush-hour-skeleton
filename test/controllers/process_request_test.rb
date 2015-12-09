@@ -45,7 +45,7 @@ class ProcessRequestTest < ControllerTest
     "ip":"63.29.38.211"
     }'}
   assert_equal 200, last_response.status
-  # assert_equal 1, TrafficSpy::Payload.count  
+  assert_equal 1, TrafficSpy::Payload.count  
   end 
 
 end 
