@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class ApplicationTest < ModelTest
+class PayloadTest < ModelTest
   def test_can_create_payload_with_valid_parameters
     payload_data = {
       relative_path: "/blog",
