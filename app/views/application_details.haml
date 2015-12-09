@@ -1,30 +1,31 @@
 -if @app.nil?
   %h3 Identifier has not been registered
+
 -elsif @app.payloads.to_a != []
   %h3= @app.identifier
 
   %h5 Most requested URLS
   %ol#most_requested_urls
-    -@app.payloads.group(:relative_path).order(count: :desc).count.each do |k, v|
+    -@app.payloads.group_count_and_order(:relative_path).each do |k, v|
       %li
         %a{:href => "/sources/#{@app.identifier}/urls#{k}"}
           =k
         = v
   %h5 Web Browser
   %ol#web_browser
-    -@app.payloads.group(:browser).order(count: :desc).count.each do |k, v|
+    -@app.payloads.group_count_and_order(:browser).each do |k, v|
       %li
         = k
         = v
   %h5 Operating System
   %ol#operating_system
-    -@app.payloads.group(:operating_system).order(count: :desc).count.each do |k, v|
+    -@app.payloads.group_count_and_order(:operating_system).each do |k, v|
       %li
         = k
         = v
   %h5 Screen Resolution
   %ol#screen_resolution
-    -@app.payloads.group(:resolution).count.each do |k, v|
+    -@app.payloads.group_count_and_order(:resolution).each do |k, v|
       %li
         = k
         = v

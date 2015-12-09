@@ -6,5 +6,9 @@ module TrafficSpy
                                                      :request_type, :event,
                                                      :operating_system, :browser,
                                                      :resolution, :ip_address]
+
+    def self.group_count_and_order(field)
+      group(field).order(count: :desc).count
+    end
   end
 end

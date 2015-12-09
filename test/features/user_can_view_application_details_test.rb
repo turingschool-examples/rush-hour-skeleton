@@ -98,19 +98,19 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     visit '/sources/turing'
     within 'ol#most_requested_urls li:nth-child(1)' do
       assert page.has_content?('/blog')
-      assert page.has_css?("a[href~='/sources/turing/blog']")
+      assert page.has_css?("a[href~='/sources/turing/urls/blog']")
       assert page.has_content?(3)
     end
 
     within 'ol#most_requested_urls li:nth-child(2)' do
       assert page.has_content?('/team')
-      assert page.has_css?("a[href~='/sources/turing/team']")
+      assert page.has_css?("a[href~='/sources/turing/urls/team']")
       assert page.has_content?(2)
     end
 
     within 'ol#most_requested_urls li:nth-child(3)' do
       assert page.has_content?('/about')
-      assert page.has_css?("a[href~='/sources/turing/about']")
+      assert page.has_css?("a[href~='/sources/turing/urls/about']")
       assert page.has_content?(1)
     end
 
@@ -187,12 +187,12 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
   def test_user_gets_error_if_they_try_to_view_an_unregistered_page
     visit '/sources/galvanize'
-    assert page.has_content?("Identifier has not been registered")   
+    assert page.has_content?("Identifier has not been registered")
   end
 
-  def test_user_gets_error_without_payload 
+  def test_user_gets_error_without_payload
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
     visit '/sources/turing'
     assert page.has_content?("No Payload data has been received for this source")
-  end 
+  end
 end
