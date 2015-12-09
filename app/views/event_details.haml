@@ -1,28 +1,21 @@
--if @event_payloads.empty?
-  %h1
-    event:
-    = @event
-    has not been defined for this application
-  %a{:href => "/sources/#{@app.identifier}/events"} Application Event Index
--else
-  %h1
-    = @app.identifier.capitalize
-    Events Details:
-    = @event
+%h1
+  = @app.identifier.capitalize
+  Events Details:
+  = @event
 
-  %h3#total-request
-    Total Requests:
-    = @event_payloads.count
+%h3#total-request
+  Total Requests:
+  = @event_payloads.count
 
-  %h3 Hour by Hour Breakdown
+%h3 Hour by Hour Breakdown
 
-  %table
+%table
+  %tr
+    %th Hour
+    %th Requests
+  -(0..23).to_a.each do |hour|
     %tr
-      %th Hour
-      %th Requests
-    -(0..23).to_a.each do |hour|
-      %tr
-        %td
-          = "#{hour}:00 - #{hour + 1}:00"
-        %td.request-count
-          = @event_payloads.pluck(:requested_at).map { |t| t.hour }.count(hour)
+      %td
+        = "#{hour}:00 - #{hour + 1}:00"
+      %td.request-count
+        = @event_payloads.pluck(:requested_at).map { |t| t.hour }.count(hour)

@@ -52,7 +52,12 @@ module TrafficSpy
       @app = TrafficSpy::Application.find_by(identifier: id)
       @event_payloads = app.payloads.where(event: event)
       @event = event
-      haml :event_details
+
+      if @event_payloads.empty?
+        haml :event_not_defined
+      else
+        haml :event_details
+      end
     end
 
     not_found do
