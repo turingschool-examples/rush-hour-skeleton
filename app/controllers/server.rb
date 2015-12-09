@@ -5,21 +5,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-      application = Application.new(params)
-
-      if params[:identifier].nil?
-        status 400
-        "Missing identifier."
-      elsif params[:rootUrl].nil?
-        status 400
-        "Missing rootUrl."
-      elsif application.save
-        status 200
-        "Application created."
-      else
-        status 403
-        "Identifier already exists."
-      end
+      registrator = Registrator.new(params)
+      status registrator.status
+      body   registrator.response
     end
 
     not_found do
