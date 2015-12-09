@@ -24,7 +24,7 @@ module TrafficSpy
       end
     end
 
-    post '/sources/:id/data'  do |id|
+    post '/sources/:id/data' do |id|
       if params[:payload].nil?
         status 400
         body "No payload received in the request"
@@ -45,6 +45,10 @@ module TrafficSpy
           Payload.create(user_id: user.id, resolution_id: resolution.id, url: p_pams["url"], requested_at: p_pams["requestedAt"], responded_in: p_pams["respondedIn"], referred_by: p_pams["referredBy"], request_type: p_pams["requestType"], parameters: p_pams["parameters"], event_name: p_pams["eventName"], user_agent: ua, ip: p_pams["ip"],  payload_sha: p_sha)
         end
       end
+
+      # get '/sources/:id' do |id|
+      #
+      # end
     end
   end
 end

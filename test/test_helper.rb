@@ -26,3 +26,7 @@ class TrafficTest < Minitest::Test
     DatabaseCleaner.clean
   end
 end
+
+class FeatureTest < TrafficTest
+  include Capybara::DSL
+end
