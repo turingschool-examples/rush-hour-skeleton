@@ -9,7 +9,8 @@ module TrafficSpy
       url = parsed_request["url"]
       uri = URI(url)
 
-      { :identifier => uri.host.split(".").first,
+      # :identifier => uri.host.split(".").first,
+      { 
         :relative_path => uri.path,
         :requested_at => parsed_request["requestedAt"],
         :responded_in => parsed_request["respondedIn"],
