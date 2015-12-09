@@ -45,7 +45,12 @@ module TrafficSpy
 
     get '/sources/:id/events' do |id|
       @app = TrafficSpy::Application.find_by(identifier: id)
-      haml :events_index
+
+      if @app.payloads.to_a.empty?
+        haml :no_payloads
+      else
+        haml :events_index
+      end
     end
 
     get '/sources/:id/events/:event' do |id, event|

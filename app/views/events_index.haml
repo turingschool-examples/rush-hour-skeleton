@@ -2,12 +2,9 @@
   = @app.identifier.capitalize
   Events Index
 
--if @app.payloads.to_a != []
-  %ol
-    -@app.payloads.group_count_and_order(:event).each do |k, v|
-      %li
-        %a{:href => "/sources/#{@app.identifier}/events/#{k}"}
-          = k
-        = v
--else
-  %h2 No events have been defined
+%ol
+  -@app.payloads.group_count_and_order(:event).each do |k, v|
+    %li
+      %a{:href => "/sources/#{@app.identifier}/events/#{k}"}
+        = k
+      = v
