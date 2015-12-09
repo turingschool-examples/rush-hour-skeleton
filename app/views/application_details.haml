@@ -31,7 +31,7 @@
         = v
   %h5 Average Response Times
   %ol#average_response_times
-    -@app.payloads.group(:relative_path).average(:responded_in).sort_by{|k, v| v}.reverse.each do |k, v|
+    -@app.payloads.group_average_and_order_response_times.each do |k, v|
       %li
         = k
         = v.to_i

@@ -10,5 +10,9 @@ module TrafficSpy
     def self.group_count_and_order(field)
       group(field).order(count: :desc).count
     end
+
+    def self.group_average_and_order_response_times
+      group(:relative_path).average(:responded_in).sort_by{ |_, v| -v }
+    end
   end
 end
