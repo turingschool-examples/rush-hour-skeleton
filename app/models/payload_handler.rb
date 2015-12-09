@@ -5,11 +5,33 @@ class PayloadHandler
     @parameters = parameters
     parse_and_save_payload unless parameters["payload"].nil?
     response_status_and_body
+    distribute_payload if status == 200
+  end
+
+  def distribute_payload
+    client = Client.find_by(name: parameters["identifier"])
+    url = Url.create(path: payload["url"],
+               referred_by: payload["referredBy"],
+               request_type: payload["requestType"],
+               parameters: payload["parameters"])
+    event = Event.create(responded_in: payload["respondedIn"],
+                 requested_at: payload["requestedAt"],
+                 event_name: payload["eventName"])
+    user_agent = UserAgent.create(web_browser: payload["userAgent"],
+                          operating_system: payload["userAgent"],
+                          resolution_width: payload["resolutionWidth"],
+                          resolution_height: payload["resolutionHeight"],
+                          ip_address: payload["ip"])
+    client.urls << url
+    client.events << event
+    url.events << event
+    client.user_agents << user_agent
+    url.user_agents << user_agent
   end
 
   def parse_and_save_payload
     @hashed_payload = Digest::SHA1.hexdigest parameters["payload"]
-    @payload = JSON.parse(parameters["payload"]) unless parameters["payload"].nil?
+    @payload = JSON.parse(parameters["payload"])
   end
 
   def duplicate_payload?
