@@ -13,5 +13,9 @@ module TrafficSpy
       group(:user_agent).count
     end
 
+    def self.os_popularity
+      group(:os).count
+    end
+
   end
 end
