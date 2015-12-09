@@ -1,5 +1,12 @@
-%h1 Event Details
-%h3 
-  Hour by Hour Breakdown
-  Total Events Received
-  Use a snazzy graph
+%h1
+  = @app.identifier.capitalize
+  Events Details:
+  = @event
+%h3 Hour by Hour Breakdown
+
+= puts @event_payloads
+%ul
+  -(0..23).to_a.each do |hour|
+    %li
+      = hour
+      :

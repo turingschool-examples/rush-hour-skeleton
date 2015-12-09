@@ -2,7 +2,7 @@
   = @app.identifier.capitalize
   Events Index
 
--if @app.payloads.pluck(:event).compact != []
+-if @app.payloads.to_a != []
   %ol
     -@app.payloads.group(:event).order(count: :desc).count.each do |k, v|
       %li

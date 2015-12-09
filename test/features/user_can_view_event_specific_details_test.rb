@@ -96,6 +96,13 @@ class UserCanViewEventSpecificDetails < FeatureTest
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing/events/socialLoginA'
+
     
+
+    # As a registered user,
+    # When I visit '/sources/MY_ID/events/EVENTNAME',
+    # And EVENTNAME has been defined,
+    # Then I see the hour by hour breakdown of when the event was received. How many were shown at noon? at 1pm? at 2pm? Do it for all 24 hours.,
+    # And I see how many times it was recieved overall
   end
 end
