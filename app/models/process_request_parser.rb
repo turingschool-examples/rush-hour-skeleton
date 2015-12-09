@@ -1,3 +1,5 @@
+require 'useragent'
+
 module TrafficSpy
   class ProcessRequestParser
     def parse_request(string)
@@ -10,7 +12,7 @@ module TrafficSpy
       uri = URI(url)
 
       # :identifier => uri.host.split(".").first,
-      { 
+      {
         :relative_path => uri.path,
         :requested_at => parsed_request["requestedAt"],
         :responded_in => parsed_request["respondedIn"],
@@ -24,5 +26,5 @@ module TrafficSpy
         :ip_address => parsed_request["ip"]
       }
     end
-  end 
-end 
+  end
+end
