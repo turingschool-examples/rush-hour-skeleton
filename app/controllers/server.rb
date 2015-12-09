@@ -22,9 +22,14 @@ module TrafficSpy
       else
         parsed_string = TrafficSpy::ProcessRequestParser.new.parse_request(params[:payload])
         app = TrafficSpy::Application.find_by(identifier: id)
-        app.payloads.create(parsed_string)
-        status 200
-      end 
+        payload = app.payloads.new(parsed_string)
+        if payload.save
+          status 200
+        else
+          status 403
+          body "Already received request"
+        end
+      end
     end
 
     not_found do
