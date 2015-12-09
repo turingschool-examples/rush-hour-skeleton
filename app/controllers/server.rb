@@ -10,7 +10,6 @@ module TrafficSpy
 
     post '/sources' do
       if params[:identifier] && params[:rootUrl]
-
         user = User.new(identifier: params[:identifier], root_url: params[:rootUrl])
         if user.save
           id = params[:identifier]
