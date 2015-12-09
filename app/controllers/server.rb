@@ -11,9 +11,9 @@ module TrafficSpy
 
       if Client.find_by(name: params["identifier"])
         status 403
-        # body "Name already taken."
+        body "Name already taken."
       elsif client.save
-          body "Client created."
+        body "Client created."
       else
         status 400
         body "Missing parameters."

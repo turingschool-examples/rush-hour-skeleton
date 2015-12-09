@@ -1,9 +1,10 @@
 class PayloadHandler
-  attr_reader :payload, :hashed_payload, :parameters
+  attr_reader :status, :body, :payload, :hashed_payload, :parameters
 
   def initialize(parameters)
     @parameters = parameters
     parse_and_save_payload unless parameters["payload"].nil?
+    response_status_and_body
   end
 
   def parse_and_save_payload
@@ -21,26 +22,21 @@ class PayloadHandler
   end
 
   def unregistered_user?
-    Client.find_by(name: parameters["identifier"])
+    Client.find_by(name: parameters["identifier"]) ? false : true
   end
 
-  def status
+  def response_status_and_body
     if payload.nil?
-      400
-    elsif duplicate_payload? || unregistered_user?
-      403
-    else
-      200
-    end
-  end
-
-  def body
-    if payload.nil?
-      "Payload Missing."
-    elsif duplicate_payload?
-      "Duplicate Payload."
+      @status = 400
+      @body = "Payload Missing."
     elsif unregistered_user?
-      "Application Not Registered."
+      @status = 403
+      @body = "Application Not Registered."
+    elsif duplicate_payload?
+      @status = 403
+      @body = "Duplicate Payload."
+    else
+      @status = 200
     end
   end
 
