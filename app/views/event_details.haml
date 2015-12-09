@@ -18,4 +18,4 @@
       %td
         = "#{hour}:00 - #{hour + 1}:00"
       %td.request-count
-        = @event_payloads.pluck(:requested_at).map { |t| t.hour }.count(hour)
+        = @event_payloads.requests_by_hour(hour)

@@ -34,5 +34,9 @@ module TrafficSpy
     def self.get_top_3(field)
       group_count_and_order(field).take(3)
     end
+
+    def self.requests_by_hour(hour)
+      pluck(:requested_at).map { |t| t.hour }.count(hour)
+    end
   end
 end
