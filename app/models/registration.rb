@@ -1,12 +1,16 @@
 module TrafficSpy
   class RegistrationParser
+    attr_reader :params
 
-    def self.parsing_validating(params)
-      if params[:identifier] && params[:rootUrl]
-        user = User.new(identifier: params[:identifier], root_url: params[:rootUrl])
+    def initialize(params)
+      @params = params
+    end
+
+    def parsing_validating
+      if identity && root
+        user = User.new(identifier: identity, root_url: root)
         if user.save
-          id = params[:identifier]
-          {'identifier' => id}.to_json
+          {'identifier' => identity}.to_json
         else
           status, body = [403, "Identifier already exists."]
         end
@@ -14,6 +18,15 @@ module TrafficSpy
         status, body = [400, "Missing all required details."]
       end
     end
+
+    def identity
+      params["identifier"]
+    end
+
+    def root
+      params["rootUrl"]
+    end
+
 
   end
 end

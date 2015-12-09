@@ -9,7 +9,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      TrafficSpy::RegistrationParser.parsing_validating(params)
+      TrafficSpy::RegistrationParser.new(params).parsing_validating
     end
 
     post '/sources/:id/data'  do |id|
