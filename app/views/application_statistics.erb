@@ -1,6 +1,6 @@
 <div id="mvp_urls">
   <h2>URL Popularity Contest</h2>
-  <% TrafficSpy::User.find_by(identifier: @id).payloads.group(:url).count.each do |k, v| %>
+  <% @user.payloads.url_popularity.each do |k, v| %>
     <h4><%=k  %>:<%= v %></h4>
   <% end %>
 </div>

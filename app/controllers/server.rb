@@ -9,7 +9,7 @@ module TrafficSpy
     end
 
     get '/sources/:id' do |id|
-      @id = id
+      @user = TrafficSpy::User.find_by(identifier: id)
       erb :application_statistics
     end
 

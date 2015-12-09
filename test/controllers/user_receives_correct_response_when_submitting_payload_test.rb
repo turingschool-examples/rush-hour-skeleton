@@ -2,6 +2,7 @@ require_relative '../test_helper'
 # require 'json'
 
 class PayloadTest < TrafficTest
+  include PayloadPrep
 
   def register_user(identifier)
     post '/sources', {rootUrl: 'http://turing.io', identifier: identifier}
