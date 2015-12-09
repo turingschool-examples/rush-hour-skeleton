@@ -3,7 +3,7 @@ require './test/test_helper'
 class ProcessRequestParserTest < ModelTest
   def test_parse_request_returns_hash
     string = '{
-    "url":"http://turing.io/blog/steve",
+    "url":"http://turing.io/blog",
     "requestedAt":"2013-02-16 21:38:28 -0700",
     "respondedIn":37,
     "referredBy":"http://turing.io",
