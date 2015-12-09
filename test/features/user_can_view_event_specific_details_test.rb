@@ -100,17 +100,14 @@ class UserCanViewEventSpecificDetails < FeatureTest
     # And EVENTNAME has been defined,
     visit '/sources/turing/events/socialLoginA'
 
-    expected = ['Requests',
-                0, 0, 1, 0, 1, 0,
+    expected = [0, 0, 1, 0, 1, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0]
 
     # Then I see the hour by hour breakdown of when the event was received. How many were shown at noon? at 1pm? at 2pm? Do it for all 24 hours.,
-    page.all('tr').each_with_index do |tr, i|
-      next if i == 0
-
-      assert_equal tr.text.split[1].to_i, expected[i]
+    page.all('.request-count').each_with_index do |row, idx|
+      assert_equal row.text.to_i, expected[idx]
     end
 
     # And I see how many times it was recieved overall
@@ -127,17 +124,14 @@ class UserCanViewEventSpecificDetails < FeatureTest
     # And EVENTNAME has been defined,
     visit '/sources/turing/events/socialLoginB'
 
-    expected = ['Requests',
-                0, 0, 0, 1, 2, 0,
+    expected = [0, 0, 0, 1, 2, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0]
 
     # Then I see the hour by hour breakdown of when the event was received. How many were shown at noon? at 1pm? at 2pm? Do it for all 24 hours.,
-    page.all('tr').each_with_index do |tr, i|
-      next if i == 0
-
-      assert_equal tr.text.split[1].to_i, expected[i]
+    page.all('.request-count').each_with_index do |row, idx|
+      assert_equal row.text.to_i, expected[idx]
     end
 
     # And I see how many times it was recieved overall

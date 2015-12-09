@@ -23,6 +23,6 @@
     -(0..23).to_a.each do |hour|
       %tr
         %td
-          = hour
-        %td
+          = "#{hour}:00 - #{hour + 1}:00"
+        %td.request-count
           = @event_payloads.pluck(:requested_at).map { |t| t.hour }.count(hour)
