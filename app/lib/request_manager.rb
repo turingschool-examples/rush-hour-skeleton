@@ -2,11 +2,17 @@ class RequestManager
   attr_reader :status, :response
 
   def initialize(params)
+    parser = Parser.new(params)
+
+    # case
+    # when parser.payload.nil? then [status, response]
+
     if params[:payload].nil?
       @status = 400
       @response =  "Missing payload."
     else params[:payload]
-      request = Request.new(request_hash: Digest::SHA1.hexdigest(params[:payload]))
+      request = Request.new(request_hash: parser.request_hash)
+
       if Application.exists?(identifier: params[:id])
         if request.save
           @status = 200

@@ -13,11 +13,11 @@ attr_reader :payload,
             :resolution
 
   def initialize(params)
-    # binding.pry
+# binding.pry
     @payload      = JSON.parse(params.fetch('payload','{}'))
+
     @request_hash = params['payload'] && sha1(params['payload'])
     @id           = params['id']
-
     @url            = payload['url']
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
@@ -32,6 +32,7 @@ attr_reader :payload,
   end
 
   def sha1(string)
+
     Digest::SHA1.hexdigest(string)
   end
 
