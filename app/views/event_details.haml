@@ -4,9 +4,13 @@
   = @event
 %h3 Hour by Hour Breakdown
 
-= puts @event_payloads
-%ul
+%table
+  %tr
+    %th Hour
+    %th Requests
   -(0..23).to_a.each do |hour|
-    %li
-      = hour
-      :
+    %tr
+      %td
+        = hour
+      %td
+        = @event_payloads.pluck(:requested_at).map { |t| t.hour }.count(hour)

@@ -32,7 +32,7 @@ class UserCanViewEventSpecificDetails < FeatureTest
 
     payload_data_3 = {
       relative_path: "/blog",
-      requested_at: "2013-02-16 21:38:28 -0700",
+      requested_at: "2013-02-16 19:38:28 -0700",
       responded_in: 50,
       referred_by:"http://turing.io",
       request_type:"GET",
@@ -97,7 +97,7 @@ class UserCanViewEventSpecificDetails < FeatureTest
 
     visit '/sources/turing/events/socialLoginA'
 
-    
+
 
     # As a registered user,
     # When I visit '/sources/MY_ID/events/EVENTNAME',
