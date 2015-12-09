@@ -10,7 +10,7 @@ class ParserTest < Minitest::Test
 
     refute parser.request_hash
     refute parser.id
-
+    refute parser.application_id
     refute parser.url
     refute parser.timestamp
     refute parser.response_time
@@ -20,6 +20,7 @@ class ParserTest < Minitest::Test
     refute parser.browser
     refute parser.os
     refute parser.resolution
+
   end
 
   def test_it_creates_request_hash_for_valid_resquests
@@ -73,9 +74,11 @@ class ParserTest < Minitest::Test
   end
 
   def test_it_prepares_complete_data
+    Application.create(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com")
+
     parser = Parser.new(params)
     expected = {  :request_hash => '582782a967bdfb675f1c3445ded79782ae109f5a',
-                  :id => 'jumpstartlab',
+                  :application_id => 1,
                   :url => 'http://jumpstartlab.com/blog',
                   :timestamp => '2013-02-16 21:38:28 -0700',
                   :response_time => 37,
