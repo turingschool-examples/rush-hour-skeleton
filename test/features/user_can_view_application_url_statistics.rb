@@ -1,4 +1,6 @@
-class UserCanViewApplicationDetailsTest < FeatureTest
+require_relative "../test_helper"
+
+class UserCanViewApplicationURLStatisticsTest < FeatureTest
   def register_turing_and_send_multiple_payloads
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
@@ -33,7 +35,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 50,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type:"POST",
       event: "socialLogin",
       operating_system: "Windows",
       browser: "IE10",
@@ -86,28 +88,56 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
     payloads.each do |data|
-      # app.payloads.create(data)
+      app.payloads.create(data)
     end
   end
 
-  def test_user_can_view_details_for_a_registered_application
-    skip
+  def test_user_can_view_statistics_for_a_url_blog
     register_turing_and_send_multiple_payloads
 
-    visit '/sources/turing'
+    url = '/blog'
+    visit "/sources/turing/urls#{url}"
+    # save_and_open_page
 
-    # Then I see the most requested URLS to least requested URLS (url),]
-
-    # And I see web browser breakdown across all requests (userAgent),
-    # And I see OS breakdown across all requests (userAgent),
-    # And I see screen Resolution across all requests (resolutionWidth x resolutionHeight),
-    # And I see the longest, average response time per URL to shortest, average response time per URL
-    # And I see hyperlinks of each url to view url specific data,
-    # And I see hyperlink to view aggregate event data
-
+    assert page.has_content?("turing")
+    assert page.has_content?("blog")
+    assert page.has_content?("Longest Response Time: 80")
+    assert page.has_content?("Shortest Response Time: 37")
+    assert page.has_content?("Average Response Time: 55.67")
+    assert page.has_content?("HTTP Verbs:")
+    assert page.has_content?("GET (2)")
+    assert page.has_content?("POST (1)")
+    assert page.has_content?("Most Popular Referrers:")
+    assert page.has_content?("http://turing.io (3)")
+    assert page.has_content?("Most Popular Operating Systems:")
+    assert page.has_content?("Macintosh (2)")
+    assert page.has_content?("Windows (1)")
+    assert page.has_content?("Most Popular Browsers:")
+    assert page.has_content?("Chrome (1)")
+    assert page.has_content?("Safari (1)")
+    assert page.has_content?("IE10 (1)")
   end
 
-  def test_user_gets_error_if_they_try_to_view_an_unregistered_page
-    skip
+  def test_user_can_view_statistics_for_a_url_team
+    register_turing_and_send_multiple_payloads
+
+    url = '/team'
+    visit "/sources/turing/urls#{url}"
+    # save_and_open_page
+
+    assert page.has_content?("turing")
+    assert page.has_content?("team")
+    assert page.has_content?("Longest Response Time: 41")
+    assert page.has_content?("Shortest Response Time: 40")
+    assert page.has_content?("Average Response Time: 40.5")
+    assert page.has_content?("HTTP Verbs:")
+    assert page.has_content?("GET (2)")
+    assert page.has_content?("Most Popular Referrers:")
+    assert page.has_content?("http://turing.io (2)")
+    assert page.has_content?("Most Popular Operating Systems:")
+    assert page.has_content?("Windows (1)")
+    assert page.has_content?("Macintosh (1)")
+    assert page.has_content?("Most Popular Browsers:")
+    assert page.has_content?("Chrome (2)")
   end
 end
