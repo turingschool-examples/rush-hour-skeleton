@@ -71,7 +71,7 @@ class FeatureTest < Minitest::Test
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 50,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type:"POST",
       event: "socialLogin",
       operating_system: "Windows",
       browser: "IE10",
