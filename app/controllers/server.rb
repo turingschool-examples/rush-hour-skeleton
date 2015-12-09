@@ -40,9 +40,9 @@ module TrafficSpy
           status 403
           body "This specific payload already exists in the database..."
         else
-          ua = UserAgent.parse(p_pams[:UserAgent])
+          ua = UserAgent.parse(p_pams["userAgent"])
           resolution = Resolution.find_or_create_by(dimension: "#{p_pams["resolutionWidth"]} x #{p_pams["resolutionHeight"]}")
-          Payload.create(user_id: user.id, resolution_id: resolution.id, url: p_pams["url"], requested_at: p_pams["requestedAt"], responded_in: p_pams["respondedIn"], referred_by: p_pams["referredBy"], request_type: p_pams["requestType"], parameters: p_pams["parameters"], event_name: p_pams["eventName"], user_agent: ua, ip: p_pams["ip"],  payload_sha: p_sha)
+          Payload.create(user_id: user.id, resolution_id: resolution.id, url: p_pams["url"], requested_at: p_pams["requestedAt"], responded_in: p_pams["respondedIn"], referred_by: p_pams["referredBy"], request_type: p_pams["requestType"], parameters: p_pams["parameters"], event_name: p_pams["eventName"], user_agent: ua.browser, ip: p_pams["ip"],  payload_sha: p_sha, os: ua.platform)
         end
       end
 
