@@ -6,6 +6,7 @@ Bundler.require(:test)
 require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'tilt/haml'
 require 'capybara'
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
