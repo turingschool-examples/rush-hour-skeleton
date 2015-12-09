@@ -5,8 +5,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      register_app = TrafficSpy::RegisterApplication.new(params)
-      response_status, response_body = register_app.save
+      response_status, response_body =  TrafficSpy::RegisterApplication.new(params).save
 
       status response_status
       body response_body
