@@ -2,8 +2,6 @@ require_relative '../test_helper'
 
 class RegistrationParserTest < TrafficTest
 
-
-
   def parser_setup(params)
     @parser = TrafficSpy::RegistrationParser.new(params)
   end
