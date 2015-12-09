@@ -166,4 +166,384 @@ class ApplicationTest < ModelTest
     app_jumpstartlab.payloads.create(payload_data)
     assert_equal 2, TrafficSpy::Payload.count
   end
+
+  def test_creates_second_payload_with_only_unique_relative_path
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/team",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_requested_at_time
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2014-03-25 20:40:13 -0800",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_responded_in
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 80,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_referred_by
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://facebook.com",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_request_type
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"POST",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_event
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialShare",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_operating_system
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Windows",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_browser
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Safari",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_resolution
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "600", height: "800"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_ip_address
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data_1 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    payload_data_2 = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"99.06.12.836"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data_1)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data_2)
+    assert_equal 2, TrafficSpy::Payload.count
+  end
 end
