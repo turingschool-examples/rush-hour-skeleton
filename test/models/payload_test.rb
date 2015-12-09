@@ -77,7 +77,7 @@ class ApplicationTest < ModelTest
       browser: "Chrome",
       resolution: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
-      }
+    }
 
     payload_data_2 = {
       relative_path: "/about",
@@ -90,7 +90,7 @@ class ApplicationTest < ModelTest
       browser: "Chrome",
       resolution: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
-      }
+    }
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
@@ -113,5 +113,57 @@ class ApplicationTest < ModelTest
     assert_equal '/about', TrafficSpy::Payload.last.relative_path
     assert_equal DateTime.new(2013,02,17,21,38,28, '-0700'), TrafficSpy::Payload.last.requested_at
     assert_equal 40, TrafficSpy::Payload.last.responded_in
+  end
+
+  def test_cannot_create_two_payloads_with_exactly_idential_parameters
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+
+    app.payloads.create(payload_data)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app.payloads.create(payload_data)
+    assert_equal 1, TrafficSpy::Payload.count
+  end
+
+  def test_creates_second_payload_with_only_unique_application_id
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+    TrafficSpy::Application.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+
+    payload_data = {
+      relative_path: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+    }
+
+    app_turing = TrafficSpy::Application.find_by(identifier: "turing")
+    app_jumpstartlab = TrafficSpy::Application.find_by(identifier: "jumpstartlab")
+
+    app_turing.payloads.create(payload_data)
+    assert_equal 1, TrafficSpy::Payload.count
+
+    app_jumpstartlab.payloads.create(payload_data)
+    assert_equal 2, TrafficSpy::Payload.count
   end
 end
