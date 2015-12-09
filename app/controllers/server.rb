@@ -33,7 +33,14 @@ module TrafficSpy
 
     get '/sources/:id' do |id|
       @app = TrafficSpy::Application.find_by(identifier: id)
-      haml :application_details
+
+      if @app.nil?
+        haml :no_app_registered
+      elsif @app.payloads.to_a.empty?
+        haml :no_payloads
+      else
+        haml :application_details
+      end
     end
 
     get '/sources/:id/events' do |id|
