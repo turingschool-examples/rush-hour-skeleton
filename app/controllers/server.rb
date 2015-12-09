@@ -5,36 +5,47 @@ module TrafficSpy
     end
 
     post '/sources' do
-      register_app = TrafficSpy::RegisterApplication.new(params)
-      response_status, response_body = register_app.save
+      response_status, response_body =  TrafficSpy::RegisterApplication.new(params).save
 
       status response_status
       body response_body
     end
 
     post '/sources/:id/data' do |id|
-      if params[:payload].nil?
-        status 400
-        body "Payload can't be blank"
-      elsif TrafficSpy::Application.find_by(identifier: id).nil?
-        status 403
-        body "Identifier not registered"
+      response_status, response_body = TrafficSpy::ProcessPayload.new(params[:payload], id).process
+
+      status response_status
+      body response_body
+    end
+
+    get '/sources/:id/urls/:path' do |id, path|
+      @url = "/" + path
+      @id = id
+      @app = TrafficSpy::Application.find_by(identifier: id)
+      @urls = @app.payloads.where(relative_path: @url)
+
+      if @urls.empty?
+        haml :application_url_statistics_error
       else
-        parsed_string = TrafficSpy::ProcessRequestParser.new.parse_request(params[:payload])
-        app = TrafficSpy::Application.find_by(identifier: id)
-        payload = app.payloads.new(parsed_string)
-        if payload.save
-          status 200
-        else
-          status 403
-          body "Already received request"
-        end
+        haml :application_url_statistics
       end
     end
 
     get '/sources/:id' do |id|
       @app = TrafficSpy::Application.find_by(identifier: id)
       haml :application_details
+    end
+
+    get '/sources/:id/events' do |id|
+      @app = TrafficSpy::Application.find_by(identifier: id)
+      haml :events_index
+    end
+
+    get '/sources/:id/events/:event' do |id, event|
+      @app = TrafficSpy::Application.find_by(identifier: id)
+      @event_payloads = app.payloads.where(event: event)
+      @event = event
+      haml :event_details
     end
 
     not_found do

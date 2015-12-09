@@ -96,7 +96,6 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
-    # Then I see the most requested URLS to least requested URLS (url),]
     within 'ol#most_requested_urls li:nth-child(1)' do
       assert page.has_content?('/blog')
       assert page.has_css?("a[href~='/sources/turing/blog']")
