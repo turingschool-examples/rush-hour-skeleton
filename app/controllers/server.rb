@@ -1,7 +1,7 @@
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
-      erb :index
+      haml :index
     end
 
     post '/sources' do
