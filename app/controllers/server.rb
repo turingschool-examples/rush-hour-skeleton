@@ -34,9 +34,15 @@ module TrafficSpy
 
     get '/sources/:id/urls/:path' do |id, path|
       @url = "/" + path
+      @id = id
       @app = TrafficSpy::Application.find_by(identifier: id)
       @urls = @app.payloads.where(relative_path: @url)
-      haml :application_url_statistics
+      
+      if @urls.empty?
+        haml :application_url_statistics_error
+      else
+        haml :application_url_statistics
+      end
     end
 
     get '/sources/:id' do |id|

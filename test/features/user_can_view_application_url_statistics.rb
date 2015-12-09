@@ -140,4 +140,17 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     assert page.has_content?("Most Popular Browsers:")
     assert page.has_content?("Chrome (2)")
   end
+
+  def test_user_sees_error_message_when_identifier_not_registered
+    register_turing_and_send_multiple_payloads
+
+    url = '/beth'
+    visit "/sources/turing/urls#{url}"
+    # save_and_open_page
+
+    assert page.has_content?("turing")
+    assert page.has_content?("beth")
+    assert page.has_content?("URL has not been requested.")
+
+  end
 end
