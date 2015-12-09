@@ -30,5 +30,9 @@ module TrafficSpy
     def self.avg_response_time
       average(:responded_in).round(2)
     end
+
+    def self.get_top_3(field)
+      group_count_and_order(field).take(3)
+    end
   end
 end
