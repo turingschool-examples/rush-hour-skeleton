@@ -17,7 +17,7 @@
 %h5
   HTTP Verbs:
   %ol
-    -@urls.group(:request_type).count.each do |verb, count|
+    -@urls.group_count_and_order(:request_type).each do |verb, count|
       %li
         = verb
         (
@@ -27,7 +27,7 @@
 %h5
   Most Popular Referrers:
   %ol
-    -@urls.group(:referred_by).count.take(3).each do |referrer, count|
+    -@urls.group_count_and_order(:referred_by).take(3).each do |referrer, count|
       %li
         = referrer
         (
@@ -37,7 +37,7 @@
 %h5
   Most Popular Operating Systems:
   %ol
-    -@urls.group(:operating_system).count.take(3).each do |referrer, count|
+    -@urls.group_count_and_order(:operating_system).take(3).each do |referrer, count|
       %li
         = referrer
         (
