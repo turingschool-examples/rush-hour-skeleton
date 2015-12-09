@@ -102,11 +102,11 @@ class UserCanViewIndexOfAllEvents < FeatureTest
     end
 
     within 'ol li:nth-child(2)' do
-      assert page.has_content?('socialLoginC')
+      assert page.has_content?('socialLoginA')
     end
 
     within 'ol li:nth-child(3)' do
-      assert page.has_content?('socialLoginA')
+      assert page.has_content?('socialLoginC')
     end
   end
 end

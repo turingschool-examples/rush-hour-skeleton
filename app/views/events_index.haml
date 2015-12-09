@@ -3,7 +3,7 @@
   Events Index
 
 %ol
-  -@app.payloads.group(:event).count.each do |k, v|
+  -@app.payloads.group(:event).order(count: :desc).count.each do |k, v|
     %li
       %a{:href => "/sources/#{@app.identifier}/events/#{k}"}
         = k
