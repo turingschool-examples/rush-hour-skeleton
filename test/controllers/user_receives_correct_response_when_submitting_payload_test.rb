@@ -1,5 +1,5 @@
 require_relative '../test_helper'
-require 'json'
+# require 'json'
 
 class PayloadTest < TrafficTest
 
@@ -17,9 +17,9 @@ class PayloadTest < TrafficTest
 
   def test_payload_table_loads_valid_data
     register_user('jumpstartlab')
-    first_count = Payload.count
+    first_count = TrafficSpy::Payload.count
     post '/sources/jumpstartlab/data', payload_params
-    second_count = Payload.count
+    second_count = TrafficSpy::Payload.count
 
     assert_equal 200, last_response.status
     assert_equal 1, (second_count - first_count)
