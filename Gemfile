@@ -7,6 +7,7 @@ gem 'sinatra-activerecord'
 gem 'pry'
 gem 'json'
 gem 'digest'
+gem 'user_agent_parser'
 
 group :development, :test do
   gem 'shotgun'
