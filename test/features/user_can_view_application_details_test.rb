@@ -92,10 +92,11 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
   end
 
-  def test_user_can_view_details_for_a_registered_application
+  def test_user_can_view_most_request_urls
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
+
     within 'ol#most_requested_urls li:nth-child(1)' do
       assert page.has_content?('/blog')
       assert page.has_css?("a[href~='/sources/turing/urls/blog']")
@@ -113,6 +114,12 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       assert page.has_css?("a[href~='/sources/turing/urls/about']")
       assert page.has_content?(1)
     end
+  end
+
+  def test_user_can_view_browsers
+    register_turing_and_send_multiple_payloads
+
+    visit '/sources/turing'
 
     within 'ol#web_browser li:nth-child(1)' do
       assert page.has_content?('Chrome')
@@ -133,6 +140,12 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       assert page.has_content?('IE10')
       assert page.has_content?(1)
     end
+  end
+
+  def test_user_can_view_operating_systems
+    register_turing_and_send_multiple_payloads
+
+    visit '/sources/turing'
 
     within 'ol#operating_system li:nth-child(1)' do
       assert page.has_content?('Macintosh')
@@ -143,6 +156,12 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       assert page.has_content?('Windows')
       assert page.has_content?(2)
     end
+  end
+
+  def test_user_can_view_screen_resolutions
+    register_turing_and_send_multiple_payloads
+
+    visit '/sources/turing'
 
     within 'ol#screen_resolution li:nth-child(1)' do
       assert page.has_content?(':width=>"1920"')
@@ -167,6 +186,12 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       assert page.has_content?(':height=>"800"')
       assert page.has_content?(1)
     end
+  end
+
+  def test_user_can_view_average_response_times
+    register_turing_and_send_multiple_payloads
+
+    visit '/sources/turing'
 
     within 'ol#average_response_times li:nth-child(1)' do
       assert page.has_content?('/blog')
@@ -182,7 +207,6 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       assert page.has_content?('/about')
       assert page.has_content?(25)
     end
-
   end
 
   def test_user_gets_error_if_they_try_to_view_an_unregistered_page
