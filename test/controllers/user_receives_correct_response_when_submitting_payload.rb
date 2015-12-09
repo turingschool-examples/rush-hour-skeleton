@@ -30,7 +30,24 @@ class PayloadTest < TrafficTest
     post '/sources/jumpstartlab/data', payload_params
     post '/sources/jumpstartlab/data', payload_params
     response = "This specific payload already exists in the database..."
-    
+
+    assert_equal 403, last_response.status
+    assert_equal response, last_response.body
+  end
+
+  def test_missing_payload_is_rejected
+    register_user('jumpstartlab')
+    post '/sources/jumpstartlab/data'
+    response = "No payload received in the request"
+
+    assert_equal 400, last_response.status
+    assert_equal response, last_response.body
+  end
+
+  def test_unregisted_user_cannot_submit_payload
+    post '/sources/jumpstartlab/data', payload_params
+    response = "jumpstartlab is not registered"
+
     assert_equal 403, last_response.status
     assert_equal response, last_response.body
 
