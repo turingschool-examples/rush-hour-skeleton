@@ -160,6 +160,6 @@ class UserCanViewEventSpecificDetails < FeatureTest
     end
 
     # And I see a link to the Application Events Index
-
+    assert page.has_css?("a[href~='/sources/turing/events']")
   end
 end
