@@ -134,6 +134,11 @@ class UserCanViewApplicationDetailsTest < FeatureTest
       assert page.has_content?('IE10')
       assert page.has_content?(1)
     end
+
+    within 'ol#operating_system li:nth-child(1)' do
+      assert page.has_content?('Macintosh')
+      assert page.has_content?(4)
+    end
     # And I see web browser breakdown across all requests (userAgent),
     # And I see OS breakdown across all requests (userAgent),
     # And I see screen Resolution across all requests (resolutionWidth x resolutionHeight),

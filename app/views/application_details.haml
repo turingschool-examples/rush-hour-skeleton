@@ -17,7 +17,7 @@
         = k
         = v
   %h5 Operating System 
-  %ol
+  %ol#operating_system
     -@app.payloads.group(:operating_system).order(count: :desc).count.each do |k, v|
       %li
         = k
