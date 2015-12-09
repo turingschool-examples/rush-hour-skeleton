@@ -9,19 +9,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      if params[:identifier] && params[:rootUrl]
-        user = User.new(identifier: params[:identifier], root_url: params[:rootUrl])
-        if user.save
-          id = params[:identifier]
-          {'identifier' => id}.to_json
-        else
-          status(403)
-          "Identifier already exists."
-        end
-      else
-        status(400)
-        "Missing all required details."
-      end
+      TrafficSpy::RegistrationParser.new(params).parsing_validating
     end
 
     post '/sources/:id/data'  do |id|
