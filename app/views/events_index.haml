@@ -1,2 +1,10 @@
-%h1 Application Events Index 
-%h3 most received event to least received event
+%h1
+  = @app.identifier.capitalize
+  Events Index
+
+%ol
+  -@app.payloads.group(:event).count.each do |k, v|
+    %li
+      %a{:href => "/sources/#{@app.identifier}/events/#{k}"}
+        = k
+      = v
