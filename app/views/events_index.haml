@@ -4,7 +4,7 @@
 
 -if @app.payloads.to_a != []
   %ol
-    -@app.payloads.group(:event).order(count: :desc).count.each do |k, v|
+    -@app.payloads.group_count_and_order(:event).each do |k, v|
       %li
         %a{:href => "/sources/#{@app.identifier}/events/#{k}"}
           = k
