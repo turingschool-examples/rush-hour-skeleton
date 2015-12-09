@@ -1,4 +1,4 @@
-
+require_relative '../test_helper'
 
 class UserCanViewApplicationDetailsTest < FeatureTest
   def register_turing_and_send_multiple_payloads
@@ -88,18 +88,52 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
     payloads.each do |data|
-      # app.payloads.create(data)
+      app.payloads.create(data)
     end
   end
 
   def test_user_can_view_details_for_a_registered_application
-    skip
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
-
     # Then I see the most requested URLS to least requested URLS (url),]
+    within 'ol#most_requested_urls li:nth-child(1)' do
+      assert page.has_content?('/blog')
+      assert page.has_css?("a[href~='/sources/turing/blog']")
+      assert page.has_content?(3)
+    end
 
+    within 'ol#most_requested_urls li:nth-child(2)' do
+      assert page.has_content?('/team')
+      assert page.has_css?("a[href~='/sources/turing/team']")
+      assert page.has_content?(2)
+    end
+
+    within 'ol#most_requested_urls li:nth-child(3)' do
+      assert page.has_content?('/about')
+      assert page.has_css?("a[href~='/sources/turing/about']")
+      assert page.has_content?(1)
+    end
+
+    within 'ol#web_browser li:nth-child(1)' do
+      assert page.has_content?('Chrome')
+      assert page.has_content?(3)
+    end
+
+    within 'ol#web_browser li:nth-child(2)' do
+      assert page.has_content?('Mozilla')
+      assert page.has_content?(1)
+    end
+
+    within 'ol#web_browser li:nth-child(3)' do
+      assert page.has_content?('Safari')
+      assert page.has_content?(1)
+    end
+
+    within 'ol#web_browser li:nth-child(4)' do
+      assert page.has_content?('IE10')
+      assert page.has_content?(1)
+    end
     # And I see web browser breakdown across all requests (userAgent),
     # And I see OS breakdown across all requests (userAgent),
     # And I see screen Resolution across all requests (resolutionWidth x resolutionHeight),
