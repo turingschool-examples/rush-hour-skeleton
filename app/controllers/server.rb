@@ -10,6 +10,12 @@ module TrafficSpy
       body   registrator.response
     end
 
+    post '/sources/:id/data' do |id|
+      registrator = Registrator_Req.new(params)
+      status registrator.status
+      body   registrator.response
+    end
+
     not_found do
       erb :error
     end
