@@ -4,20 +4,20 @@
 
 %h5
   Longest Response Time:
-  = @urls.maximum(:responded_in)
+  = @urls.max_response_time
 
 %h5
   Shortest Response Time:
-  = @urls.minimum(:responded_in)
+  = @urls.min_response_time
 
 %h5
   Average Response Time:
-  = @urls.average(:responded_in).round(2)
+  = @urls.avg_response_time
 
 %h5
   HTTP Verbs:
   %ol
-    -@urls.group(:request_type).count.each do |verb, count|
+    -@urls.group_count_and_order(:request_type).each do |verb, count|
       %li
         = verb
         (
@@ -27,7 +27,7 @@
 %h5
   Most Popular Referrers:
   %ol
-    -@urls.group(:referred_by).count.take(3).each do |referrer, count|
+    -@urls.get_top_3(:referred_by).each do |referrer, count|
       %li
         = referrer
         (
@@ -37,7 +37,7 @@
 %h5
   Most Popular Operating Systems:
   %ol
-    -@urls.group(:operating_system).count.take(3).each do |referrer, count|
+    -@urls.get_top_3(:operating_system).each do |referrer, count|
       %li
         = referrer
         (
@@ -47,7 +47,7 @@
 %h5
   Most Popular Browsers:
   %ol
-    -@urls.group(:browser).count.take(3).each do |referrer, count|
+    -@urls.get_top_3(:browser).each do |referrer, count|
       %li
         = referrer
         (

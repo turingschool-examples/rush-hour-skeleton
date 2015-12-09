@@ -124,8 +124,8 @@ class UserCanViewIndexOfAllEvents < FeatureTest
 
     visit '/sources/turing/events'
 
-    within 'h2' do
-      assert page.has_content?('No events have been defined')
+    within 'h5' do
+      assert page.has_content?('No Payload data has been received for this source')
     end
   end
 end
