@@ -58,7 +58,7 @@ class UserCanViewEventSpecificDetails < FeatureTest
 
     payload_data_5 = {
       relative_path: "/team",
-      requested_at: "2013-02-16 21:38:28 -0700",
+      requested_at: "2013-02-16 20:38:28 -0700",
       responded_in: 41,
       referred_by:"http://turing.io",
       request_type:"GET",
@@ -114,5 +114,36 @@ class UserCanViewEventSpecificDetails < FeatureTest
     end
 
     # And I see how many times it was recieved overall
+    within '#total-request' do
+      assert page.has_content?('Total Requests: 2')
+    end
   end
+
+  def test_user_can_view_details_from_event_social_login_B
+    # As a registered user,
+    register_turing_and_send_multiple_payloads
+
+    # When I visit '/sources/MY_ID/events/EVENTNAME',
+    # And EVENTNAME has been defined,
+    visit '/sources/turing/events/socialLoginB'
+
+    expected = ['Requests',
+                0, 0, 0, 1, 2, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0]
+
+    # Then I see the hour by hour breakdown of when the event was received. How many were shown at noon? at 1pm? at 2pm? Do it for all 24 hours.,
+    page.all('tr').each_with_index do |tr, i|
+      next if i == 0
+
+      assert_equal tr.text.split[1].to_i, expected[i]
+    end
+
+    # And I see how many times it was recieved overall
+    within '#total-request' do
+      assert page.has_content?('Total Requests: 3')
+    end
+  end
+
 end

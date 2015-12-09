@@ -2,6 +2,11 @@
   = @app.identifier.capitalize
   Events Details:
   = @event
+
+%h3#total-request
+  Total Requests:
+  = @event_payloads.count
+
 %h3 Hour by Hour Breakdown
 
 %table
