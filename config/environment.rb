@@ -2,6 +2,8 @@
 require 'bundler'
 Bundler.require
 
+require 'digest/sha1'
+
 # set the pathname for the root of the app
 require 'pathname'
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))

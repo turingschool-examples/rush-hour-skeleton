@@ -5,6 +5,8 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'pry'
+gem 'json', require: 'json'
+# require 'digest/sha1'
 
 group :development, :test do
   gem 'shotgun'
