@@ -32,9 +32,22 @@ module TrafficSpy
       end
     end
 
+
     get '/sources/:id' do |id|
       @app = TrafficSpy::Application.find_by(identifier: id)
       haml :url_statistics
+    end
+
+    get '/sources/:id/events' do |id|
+      @app = TrafficSpy::Application.find_by(identifier: id)
+      haml :events_index
+    end
+
+    get '/sources/:id/events/:event' do |id, event|
+      @app = TrafficSpy::Application.find_by(identifier: id)
+      @event_payloads = app.payloads.where(event: event)
+      @event = event
+      haml :event_details
     end
 
     not_found do
