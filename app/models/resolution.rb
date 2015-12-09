@@ -1,3 +1,5 @@
-class Resolution < ActiveRecord::Base
-  has_many :payloads
+module TrafficSpy
+  class Resolution < ActiveRecord::Base
+    has_many :payloads
+  end
 end
