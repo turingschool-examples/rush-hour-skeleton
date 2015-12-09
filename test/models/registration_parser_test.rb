@@ -8,8 +8,8 @@ class RegistrationParserTest < TrafficTest
   end
 
   def test_identity_parses_correctly
-
     assert_equal "turing", @parser.identity
+    assert_equal "http://turing.io", @parser.root
   end
 
 end
