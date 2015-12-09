@@ -146,4 +146,20 @@ class UserCanViewEventSpecificDetails < FeatureTest
     end
   end
 
+  def test_user_cannot_view_details_of_an_undefined_event
+    # As a registered user,
+    register_turing_and_send_multiple_payloads
+
+    # When I visit '/sources/MY_ID/events/EVENTNAME',
+    # And EVENTNAME has not been defined,
+    visit '/sources/turing/events/socialZZYZX'
+
+    # Then I see a page saying EVENTNAME has not been defined,
+    within 'h1' do
+      assert page.has_content?('event: socialZZYZX has not been defined for this application')
+    end
+
+    # And I see a link to the Application Events Index
+
+  end
 end
