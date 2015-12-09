@@ -7,7 +7,7 @@ class CreatePayloads < ActiveRecord::Migration
       t.integer  :responded_in
       t.string   :referred_by
       t.string   :request_type
-      t.string   :paramaters
+      t.string   :parameters
       t.string   :event_name
       t.string   :user_agent
       t.integer  :resolution_id
