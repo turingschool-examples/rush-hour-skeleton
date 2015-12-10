@@ -17,7 +17,6 @@ class UserSeesCorrectErrorMessagesForSourcePage < FeatureTest
     Client.create(name: "Turing", root_url: "http://turing.io")
 
     visit '/sources/Turing'
-    save_and_open_page
     assert page.has_content?("No payload data has been received for this source.")
   end
 
