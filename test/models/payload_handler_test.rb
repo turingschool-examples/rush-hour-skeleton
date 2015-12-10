@@ -61,11 +61,10 @@ class PayloadHandlerTest < Minitest::Test
   def test_payload_handler_can_create_all_necessary_database_entries_with_valid_payload
     ph = PayloadHandler.new(payload)
 
-    assert_equal "http://jumpstartlab.com/blog", Url.where(id: 1).pluck("path").first
-    refute_equal "www.google.com", Url.where(id: 1).pluck("referred_by").first
-    assert_equal "socialLogin", Event.where(id: 1).pluck("event_name").first
-    refute_equal "63.29.38.211", Event.where(id: 2).pluck("url_id").first
-    assert_equal 1920, UserAgent.where(id: 1).pluck("resolution_width").first
-    refute_equal 2, UserAgent.where(id: 1).pluck("resolution_height").first
+    assert_equal "http://jumpstartlab.com/blog", Payload.where(id: 1).pluck("path").first
+    refute_equal "www.google.com", Payload.where(id: 1).pluck("referred_by").first
+    assert_equal "socialLogin", Payload.where(id: 1).pluck("event_name").first
+    assert_equal 1920, Payload.where(id: 1).pluck("resolution_width").first
+    refute_equal 2, Payload.where(id: 1).pluck("resolution_height").first
   end
 end
