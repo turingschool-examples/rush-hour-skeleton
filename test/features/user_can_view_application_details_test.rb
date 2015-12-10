@@ -36,17 +36,17 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
 
     within 'ol#web_browser li:nth-child(2)' do
-      assert page.has_content?('Mozilla')
+      assert page.has_content?('IE10')
       assert page.has_content?(1)
     end
 
     within 'ol#web_browser li:nth-child(3)' do
-      assert page.has_content?('Safari')
+      assert page.has_content?('Mozilla')
       assert page.has_content?(1)
     end
 
     within 'ol#web_browser li:nth-child(4)' do
-      assert page.has_content?('IE10')
+      assert page.has_content?('Safari')
       assert page.has_content?(1)
     end
   end
@@ -71,6 +71,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
+    # save_and_open_page
 
     within 'ol#screen_resolution li:nth-child(1)' do
       assert page.has_content?(':width=>"1920"')
@@ -79,14 +80,14 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
 
     within 'ol#screen_resolution li:nth-child(2)' do
-      assert page.has_content?(':width=>"1920"')
-      assert page.has_content?(':height=>"1080"')
+      assert page.has_content?(':width=>"1366"')
+      assert page.has_content?(':height=>"768"')
       assert page.has_content?(1)
     end
 
     within 'ol#screen_resolution li:nth-child(3)' do
-      assert page.has_content?(':width=>"1366"')
-      assert page.has_content?(':height=>"768"')
+      assert page.has_content?(':width=>"1920"')
+      assert page.has_content?(':height=>"1080"')
       assert page.has_content?(1)
     end
 

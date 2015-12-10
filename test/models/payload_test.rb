@@ -677,7 +677,7 @@ class PayloadTest < ModelTest
     register_turing_and_send_multiple_payloads
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
-    expected = [["Chrome", 3], ["Mozilla", 1], ["IE10", 1]]
+    expected = [["Chrome", 3], ["IE10", 1], ["Mozilla", 1]]
 
     assert_equal expected, app.payloads.get_top_3(:browser)
   end
