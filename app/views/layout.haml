@@ -8,28 +8,31 @@
     %link{:href => 'https://fonts.googleapis.com/css?family=Questrial', :rel => 'stylesheet', :type => 'text/css'}
     %title TrafficSpy Analytics
   %body
+
   / Navigation
   .navbar
-    %nav.blue-grey.darken-4
+    %nav
       .nav-wrapper
-        %a.brand-logo.teal-text.text-accent-2{:href => "/"} TrafficSpy
+        %a.brand-logo{:href => "/"} TrafficSpy
         %a.button-collapse{"data-activates" => "mobile-demo", :href => "#"}
           %i.material-icons menu
         %ul.right.hide-on-med-and-down
           %li
-            %a.teal-text.text-accent-2{:href => "/"} Dashboard
+            %a{:href => "/"} Dashboard
           %li
-            %a.teal-text.text-accent-2{:href => "/robots"} Registered App Index
+            %a{:href => "/sources"} Registered App Index
+        %ul#mobile-demo.side-nav
           %li
-            %a.teal-text.text-accent-2{:href => "/robots/new"} Register Robot
-        %ul#mobile-demo.side-nav.teal.accent-2
+            %a{:href => "/"} Dashboard
           %li
-            %a.black-text{:href => "/"} Dashboard
-          %li
-            %a.black-text{:href => "/robots"} Robot Index
-          %li
-            %a.black-text{:href => "/robots/new"} Register Robot
+            %a{:href => "/sources"} Registered App Index
+
     = yield
+
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"}
     %script{:type => "text/javascript", :src =>"https://code.jquery.com/jquery-2.1.1.min.js"}
     %script{:type => "text/javascript", :src => "/js/materialize.min.js"}
+    :javascript
+      $( document ).ready(function(){
+        $(".button-collapse").sideNav();
+      });
