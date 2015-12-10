@@ -20,6 +20,10 @@
   height: 80px;
 }
 
+.stats-card {
+  min-height: 300px;
+}
+
 .center-content {
   margin: 0 auto;
 }
