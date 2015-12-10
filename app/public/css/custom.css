@@ -11,6 +11,8 @@
 .title-text {
   color: #d7d7d7;
 }
+
+
 /*
 .card {
   min-height: 100px;
@@ -77,9 +79,14 @@
   margin-top: 5px;
 }
 
-.highlight {
-  color: #0097a7;
+#aggregate-link {
+  background-color: D7D7D7;
 }
+
+
+/*.highlight {
+  color: #0097a7;
+}*/
 /*.smaller-text{
   font-size: 35px;
 }*/
