@@ -8,10 +8,10 @@ module TrafficSpy
     end
 
     def process
-      if payload.nil?
-        [400, "Payload can't be blank"]
-      elsif app.nil?
+      if app.nil?
         [403, "Identifier not registered"]
+      elsif payload.nil?
+        [400, "Payload can't be blank"]
       else
         save_payload
       end
@@ -19,7 +19,9 @@ module TrafficSpy
 
     def save_payload
       parsed_string = TrafficSpy::ProcessRequestParser.new.parse_request(payload)
+
       new_payload = app.payloads.new(parsed_string)
+      
       if new_payload.save
         [200, ""]
       else
