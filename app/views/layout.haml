@@ -7,7 +7,7 @@
     %link{:rel => "stylesheet", :href => "/css/custom.css"}
     %link{:href => 'https://fonts.googleapis.com/css?family=Questrial', :rel => 'stylesheet', :type => 'text/css'}
     %title TrafficSpy Analytics
-  %body
+  %body.black
 
   / Navigation
   %ul#dropdown1.dropdown-content
@@ -41,8 +41,7 @@
               %a{:href => "/sources/#{app.identifier}"}
                 = app.identifier
 
-    .container
-      = yield
+    = yield
 
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"}
     %script{:type => "text/javascript", :src =>"https://code.jquery.com/jquery-2.1.1.min.js"}
