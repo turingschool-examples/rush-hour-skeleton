@@ -4,6 +4,7 @@ attr_reader :payload,
             :id,
             :application_id,
             :url,
+            # :url_id,
             :timestamp,
             :response_time,
             :referral,
@@ -20,9 +21,10 @@ attr_reader :payload,
 
     @request_hash   = params['payload'] && sha1(params['payload'])
     # binding.pry
-    @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
     @id             = params['id']
-    @url_id         = Url.find_by(path: payload['url']) && Url.find_by(path: payload['url']).id
+    @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
+    @url            = payload['url']
+    # @url_id         = Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
     @referral       = payload['referredBy']
@@ -33,6 +35,10 @@ attr_reader :payload,
     @os =           get_user_agent(payload)
     @resolution =   get_resolution(payload)
     #no using parameters nor ip
+  end
+
+  def url_id
+    Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
   end
 
   def sha1(string)
@@ -47,9 +53,10 @@ attr_reader :payload,
   end
 
   def request_data
-    { request_hash: request_hash,
+    {
+      request_hash: request_hash,
       application_id: application_id,
-      # url: url,
+      url_id: url_id,
       timestamp: timestamp,
       response_time: response_time,
       referral: referral,
@@ -58,6 +65,12 @@ attr_reader :payload,
       browser: browser,
       os: os,
       resolution: resolution
+    }
+  end
+
+  def url_data
+    {
+      path: url
     }
   end
 

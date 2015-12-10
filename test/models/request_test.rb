@@ -40,10 +40,10 @@ class RequestTest < Minitest::Test
     assert_equal 'jumpstartlab', req.application.identifier
   end
 
-  # def test_request_belong_to_url
-  #   Url.create(path: 'http://jumpstartlab.com')
-  #   req = Request.create(url_id: 1,request_hash: Digest::SHA1.hexdigest("1"))
-  #
-  #   assert_equal 'http://jumpstartlab.com', req.url.path
-  # end
+  def test_request_belong_to_url
+    Url.create(path: 'http://jumpstartlab.com')
+    req = Request.create(url_id: 1,request_hash: Digest::SHA1.hexdigest("1"))
+
+    assert_equal 'http://jumpstartlab.com', req.url.path
+  end
 end
