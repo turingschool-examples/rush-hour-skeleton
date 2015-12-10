@@ -21,14 +21,4 @@ class UserCanViewIndexOfAllEvents < FeatureTest
       assert page.has_css?("a[href~='/sources/turing/events/socialLoginC']")
     end
   end
-
-  def test_displays_error_message_when_no_events_defined
-    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
-
-    visit '/sources/turing/events'
-
-    within 'h5' do
-      assert page.has_content?('No Payload data has been received for this source')
-    end
-  end
 end

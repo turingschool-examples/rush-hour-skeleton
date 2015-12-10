@@ -118,14 +118,4 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
   end
 
-  def test_user_gets_error_if_they_try_to_view_an_unregistered_page
-    visit '/sources/galvanize'
-    assert page.has_content?("Identifier has not been registered")
-  end
-
-  def test_user_gets_error_without_payload
-    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
-    visit '/sources/turing'
-    assert page.has_content?("No Payload data has been received for this source")
-  end
 end
