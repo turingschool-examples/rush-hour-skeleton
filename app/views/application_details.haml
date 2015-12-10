@@ -30,6 +30,6 @@
   -@app.payloads.group_average_and_order_response_times.each do |k, v|
     %li
       = k
-      = v.to_i
+      = v.to_f.round(2)
       milliseconds
 %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data

@@ -105,17 +105,17 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
     within 'ol#average_response_times li:nth-child(1)' do
       assert page.has_content?('/blog')
-      assert page.has_content?(55)
+      assert page.has_content?(55.67)
     end
 
     within 'ol#average_response_times li:nth-child(2)' do
       assert page.has_content?('/team')
-      assert page.has_content?(40)
+      assert page.has_content?(40.5)
     end
 
     within 'ol#average_response_times li:nth-child(3)' do
       assert page.has_content?('/about')
-      assert page.has_content?(25)
+      assert page.has_content?(25.0)
     end
   end
 
