@@ -1,35 +1,108 @@
-%h3= @app.identifier
+.container.center-align
+  .row
+    .col.s12.m12.l12
+      %h3.title-text.center-align
+        Statistics for:
+        = @app.identifier
 
-%h5 Most requested URLS
-%ol#most_requested_urls
-  -@app.payloads.group_count_and_order(:relative_path).each do |k, v|
-    %li
-      %a{:href => "/sources/#{@app.identifier}/urls#{k}"}
-        =k
-      = v
-%h5 Web Browser
-%ol#web_browser
-  -@app.payloads.group_count_and_order(:browser).each do |k, v|
-    %li
-      = k
-      = v
-%h5 Operating System
-%ol#operating_system
-  -@app.payloads.group_count_and_order(:operating_system).each do |k, v|
-    %li
-      = k
-      = v
-%h5 Screen Resolution
-%ol#screen_resolution
-  -@app.payloads.group_count_and_order(:resolution).each do |k, v|
-    %li
-      = k
-      = v
-%h5 Average Response Times
-%ol#average_response_times
-  -@app.payloads.group_average_and_order_response_times.each do |k, v|
-    %li
-      = k
-      = v.to_f.round(2)
-      milliseconds
-%a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
+  .row
+    .col.s12.m12.l4
+      .card.cyan.darken-2.stats-card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-5 Most Requested URLs
+          %table#most-requested-urls
+            %tr
+              %th Rank
+              %th Path
+              %th Requests
+            -@app.payloads.group_count_and_order(:relative_path).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  %a.cyan-text.text-lighten-3.card-link{:href => "/sources/#{@app.identifier}/urls#{data[0]}"}
+                    = data[0]
+                %td.request-count
+                  = data[1]
+
+    .col.s12.m12.l4
+      .card.cyan.darken-2.stats-card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-5 Web Browser
+          %table#web-browser
+            %tr
+              %th Rank
+              %th Browser
+              %th Requests
+            -@app.payloads.group_count_and_order(:browser).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  = data[0]
+                %td.request-count
+                  = data[1]
+
+    .col.s12.m12.l4
+      .card.cyan.darken-2.stats-card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-5 Operating System
+          %table#operating-system
+            %tr
+              %th Rank
+              %th OS
+              %th Requests
+            -@app.payloads.group_count_and_order(:operating_system).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  = data[0]
+                %td.request-count
+                  = data[1]
+  .row
+    .col.s12.m12.l6
+      .card.cyan.darken-2.stats-card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-5 Screen Resolution
+          %table#screen-resolution
+            %tr
+              %th Rank
+              %th Width
+              %th Height
+              %th Requests
+            -@app.payloads.group_count_and_order(:resolution).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  = resolution_width(data[0])
+                %td
+                  = resolution_height(data[0])
+                %td.request-count
+                  = data[1]
+
+    .col.s12.m12.l6
+      .card.cyan.darken-2.stats-card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-5 Average Response Times
+          %table#average-response-times
+            %tr
+              %th Rank
+              %th Path
+              %th Time (ms)
+            -@app.payloads.group_average_and_order_response_times.each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  = data[0]
+                %td.request-count
+                  = data[1].to_f.round(2)
+
+  .row
+    .col.s12.m12.l12
+      .card.white.link-card.valign-wrapper
+        .card-content.valign.center-content
+          %h5.card-title.cyan-text.text-darken-2
+            %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data

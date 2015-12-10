@@ -4,11 +4,10 @@ module TrafficSpy
       haml :homepage
     end
 
-    get '/sources' do 
+    get '/sources' do
       @apps = TrafficSpy::Application.all
       haml :index
     end
-
 
     post '/sources' do
       response_status, response_body =  TrafficSpy::RegisterApplication.new(params).save
@@ -73,6 +72,16 @@ module TrafficSpy
 
     not_found do
       haml :error
+    end
+
+    helpers do
+      def resolution_width(res)
+        /\d+/.match(res.split(',')[0])
+      end
+
+      def resolution_height(res)
+        /\d+/.match(res.split(',')[1])
+      end
     end
   end
 end
