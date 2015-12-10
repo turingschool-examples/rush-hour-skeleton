@@ -5,8 +5,9 @@ module TrafficSpy
     end
 
     get '/sources' do 
-    @app = TrafficSpy::Application.all
+      @apps = TrafficSpy::Application.all
       haml :index
+    end
 
 
     post '/sources' do
