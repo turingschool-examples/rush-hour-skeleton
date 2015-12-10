@@ -36,7 +36,7 @@ class ModelTest < Minitest::Test
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 80,
       referred_by:"http://turing.io",
@@ -49,7 +49,7 @@ class ModelTest < Minitest::Test
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -62,7 +62,7 @@ class ModelTest < Minitest::Test
     }
 
     payload_data_3 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 19:38:28 -0700",
       responded_in: 50,
       referred_by:"http://turing.io",
@@ -75,7 +75,7 @@ class ModelTest < Minitest::Test
     }
 
     payload_data_4 = {
-      relative_path: "/team",
+      relative_path_string: "/team",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 40,
       referred_by:"http://turing.io",
@@ -88,7 +88,7 @@ class ModelTest < Minitest::Test
     }
 
     payload_data_5 = {
-      relative_path: "/team",
+      relative_path_string: "/team",
       requested_at: "2013-02-16 20:38:28 -0700",
       responded_in: 41,
       referred_by:"http://turing.io",
@@ -101,7 +101,7 @@ class ModelTest < Minitest::Test
     }
 
     payload_data_6 = {
-      relative_path: "/about",
+      relative_path_string: "/about",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 25,
       referred_by:"http://turing.io",
@@ -119,7 +119,10 @@ class ModelTest < Minitest::Test
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
     payloads.each do |data|
-      app.payloads.create(data)
+      rel_path = TrafficSpy::RelativePath.find_or_create_by(path: data[:relative_path_string])
+      data[:relative_path_id] = rel_path.id
+      data[:application_id] = app.id
+      TrafficSpy::Payload.create(data)
     end
   end
 end
@@ -127,11 +130,12 @@ end
 class FeatureTest < Minitest::Test
   include Capybara::DSL
 
+
   def register_turing_and_send_multiple_payloads
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 80,
       referred_by:"http://turing.io",
@@ -144,7 +148,7 @@ class FeatureTest < Minitest::Test
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -157,7 +161,7 @@ class FeatureTest < Minitest::Test
     }
 
     payload_data_3 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 19:38:28 -0700",
       responded_in: 50,
       referred_by:"http://turing.io",
@@ -170,7 +174,7 @@ class FeatureTest < Minitest::Test
     }
 
     payload_data_4 = {
-      relative_path: "/team",
+      relative_path_string: "/team",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 40,
       referred_by:"http://turing.io",
@@ -183,7 +187,7 @@ class FeatureTest < Minitest::Test
     }
 
     payload_data_5 = {
-      relative_path: "/team",
+      relative_path_string: "/team",
       requested_at: "2013-02-16 20:38:28 -0700",
       responded_in: 41,
       referred_by:"http://turing.io",
@@ -196,7 +200,7 @@ class FeatureTest < Minitest::Test
     }
 
     payload_data_6 = {
-      relative_path: "/about",
+      relative_path_string: "/about",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 25,
       referred_by:"http://turing.io",
@@ -214,7 +218,10 @@ class FeatureTest < Minitest::Test
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
     payloads.each do |data|
-      app.payloads.create(data)
+      rel_path = TrafficSpy::RelativePath.find_or_create_by(path: data[:relative_path_string])
+      data[:relative_path_id] = rel_path.id
+      data[:application_id] = app.id
+      TrafficSpy::Payload.create(data)
     end
   end
 end
