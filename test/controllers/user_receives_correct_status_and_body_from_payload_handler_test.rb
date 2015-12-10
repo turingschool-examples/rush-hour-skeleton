@@ -23,10 +23,7 @@ class UserReceivesCorrectStatusAndBodyFromPayloadHandlerTest < Minitest::Test
   end
 
   def nil_payload
-    {"payload"=> nil,
-     "splat"=>[],
-     "captures"=>["jumpstartlab"],
-     "identifier"=>"jumpstartlab"}
+    {"payload"=> nil}
   end
 
   def test_user_receives_200_http_status_with_valid_payload
@@ -35,7 +32,7 @@ class UserReceivesCorrectStatusAndBodyFromPayloadHandlerTest < Minitest::Test
     assert_equal 200, last_response.status
   end
 
-  def test_user_receives_400_http_status_and_payload_missing_body_with_missing_payload
+  def test_user_receives_400_http_status_with_missing_payload
     post '/sources/jumpstartlab/data', nil_payload
 
     assert_equal 400, last_response.status

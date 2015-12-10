@@ -10,6 +10,14 @@ class PayloadHandler
 
   def distribute_payload
     client = Client.find_by(name: parameters["identifier"])
+    #
+    # client.payloads.create(path: ,
+    #                       event: parameters["eventName"])
+                            # event: find_by .......
+    #
+    #
+    # )
+
     url = Url.create(path: payload["url"],
                referred_by: payload["referredBy"],
                request_type: payload["requestType"],
@@ -48,6 +56,9 @@ class PayloadHandler
   end
 
   def response_status_and_body
+    @status = generate_status
+    @body = gener
+
     if payload.nil?
       @status = 400
       @body = "Payload Missing."

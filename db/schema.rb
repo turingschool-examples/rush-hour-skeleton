@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20151209200854) do
     t.datetime "updated_at", null: false
   end
 
+###payloads
   create_table "events", force: :cascade do |t|
     t.integer  "responded_in"
     t.string   "requested_at"

@@ -8,7 +8,7 @@ module TrafficSpy
 
     post '/sources' do
       client = Client.new(name: params["identifier"], root_url: params["rootUrl"])
-
+        #save here
       #pass params to Validator
 
       if Client.find_by(name: params["identifier"])
@@ -19,6 +19,7 @@ module TrafficSpy
       else
         status 400
         body "Missing parameters."
+        # client.errors.full_messages
       end
     end
 
