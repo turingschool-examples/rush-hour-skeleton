@@ -11,7 +11,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
     payload_data_8 = {
@@ -23,7 +23,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
     payload_data_9 = {
@@ -35,7 +35,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       event: "socialLoginB",
       operating_system: "Windows",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
     payload_data_10 = {
@@ -47,7 +47,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       event: "socialLoginB",
       operating_system: "Windows",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
     payload_data_11 = {
@@ -59,7 +59,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       event: "socialLoginB",
       operating_system: "RedHat",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
     payload_data_12 = {
@@ -71,7 +71,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       event: "socialLoginB",
       operating_system: "Ubuntu",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
 
@@ -82,7 +82,12 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     payloads.each do |data|
       rel_path = TrafficSpy::RelativePath.find_or_create_by(path: data[:relative_path_string])
+      req_type = TrafficSpy::RequestType.find_or_create_by(verb: data[:request_type_string])
+      resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
+                                                            height: data[:resolution_string][:height])
+      data[:resolution_id] = resolution.id
       data[:relative_path_id] = rel_path.id
+      data[:request_type_id] = req_type.id
       data[:application_id] = app.id
       TrafficSpy::Payload.create(data)
     end

@@ -26,7 +26,7 @@ class ProcessRequestParserTest < ModelTest
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
       }
 
