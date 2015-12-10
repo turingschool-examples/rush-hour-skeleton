@@ -1,4 +1,6 @@
 module TrafficSpy
+
+
   class Server < Sinatra::Base
     get '/' do
       erb :index
@@ -20,10 +22,15 @@ module TrafficSpy
       end
     end
 
-    post '/sources/:identifier/data' do
+    post '/sources/:identifier/data' do |identifier|
       ph = PayloadHandler.new(params)
       status ph.status
       body ph.body
+    end
+
+    get '/sources/:identifier' do |identifier|
+      @client = Client.find_by(name: identifier)
+      erb :application_details
     end
 
     not_found do

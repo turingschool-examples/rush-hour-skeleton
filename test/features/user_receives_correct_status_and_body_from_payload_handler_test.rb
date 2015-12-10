@@ -58,5 +58,4 @@ class UserReceivesCorrectStatusAndBodyFromPayloadHandlerTest < Minitest::Test
     assert_equal "Duplicate Payload.", last_response.body
   end
 
-
 end

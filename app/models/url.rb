@@ -10,4 +10,8 @@ class Url < ActiveRecord::Base
   validates :parameters, presence: true
   validates :client_id, presence: true
 
+  def self.url_requests
+    group(:path).order('count_id desc').count('id')
+  end
+
 end

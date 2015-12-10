@@ -11,4 +11,9 @@ class UserAgent < ActiveRecord::Base
     validates :client_id, presence: true
     validates :url_id, presence: true
 
+    def self.web_browser_breakdown
+      
+    end
+
+
   end

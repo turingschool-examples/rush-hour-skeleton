@@ -8,13 +8,14 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara'
 require 'database_cleaner'
+require_relative '../test/simulation_environment/client_environment_simulator'
 
 DatabaseCleaner.strategy = :truncation, { except: %w[public.schema_migrations] }
 
-# Capybara.app = TrafficSpy::Server
+Capybara.app = TrafficSpy::Server
 
 class Minitest::Test
-  
+
   include Rack::Test::Methods
 
   def app
@@ -29,4 +30,8 @@ class Minitest::Test
     DatabaseCleaner.clean
   end
 
+end
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
 end

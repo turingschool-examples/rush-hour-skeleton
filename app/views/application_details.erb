@@ -1,0 +1,11 @@
+<div id="client_name">
+  <h1>Application Details for: <%= @client.name %></h1>
+</div>
+
+<% @client.urls.url_requests.each do |k, v| %>
+  <p><%= "#{k}: #{v} views."%></p>
+  <% end %>
+
+<% @client.user_agents.all.each do |agent| %>
+  <%= agent.web_browser %>
+  <% end %>
