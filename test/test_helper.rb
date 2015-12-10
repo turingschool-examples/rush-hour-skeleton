@@ -40,7 +40,7 @@ module PayloadPrep
     TrafficSpy::PayloadParser.new(payload_params2).payload_response
     TrafficSpy::PayloadParser.new(payload_params3).payload_response
   end
-  
+
   def register_user
     parser_setup({"rootUrl"=>"http://jumpstartlab.com", "identifier"=>"jumpstartlab"}).parsing_validating
   end
@@ -67,7 +67,7 @@ module PayloadPrep
 
   def payload_params3
     {"payload"=>
-      "{\"url\":\"http://jumpstartlab.com/weather\",\"requestedAt\":\"2013-02-16 20:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://google.com\",\"requestType\":\"POST\",\"parameters\":[1],\"eventName\":\"registrationInformation\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A\",\"resolutionWidth\":\"12\",\"resolutionHeight\":\"120\",\"ip\":\"63.29.38.210\"}",
+      "{\"url\":\"http://jumpstartlab.com/weather\",\"requestedAt\":\"2013-02-16 20:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://google.com\",\"requestType\":\"POST\",\"parameters\":[1],\"eventName\":\"registrationInformation\",\"userAgent\":\"Mozilla/5.0 (Windows-RSS-Platform/2.0 (IE 11.0; Windows NT 6.1)) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A\",\"resolutionWidth\":\"12\",\"resolutionHeight\":\"120\",\"ip\":\"63.29.38.210\"}",
      "splat"=>[],
      "captures"=>["jumpstartlab"],
      "id"=>"jumpstartlab"}

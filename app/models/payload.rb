@@ -6,15 +6,15 @@ module TrafficSpy
 
 
     def self.url_popularity
-      group(:url).count
+      group(:url).count.sort.to_h
     end
 
     def self.browser_popularity
-      group(:user_agent).count
+      group(:user_agent).count.sort.to_h
     end
 
     def self.os_popularity
-      group(:os).count
+      group(:os).count.sort.to_h
     end
 
     def self.resolution_popularity
