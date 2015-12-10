@@ -19,4 +19,11 @@
   <% end %>
 </div>
 
+<div id="mvp_resolution">
+  <h2>Screen Resolution Popularity Contest</h2>
+  <% @user.payloads.resolution_popularity.each do |k, v| %>
+    <h4><%= TrafficSpy::Resolution.dimension(k) %>:<%= v %></h4>
+  <% end %>
+</div>
+
 <!-- user_object = TrafficSpy::User.find_by(identifier: @id) -->

@@ -17,5 +17,11 @@ module TrafficSpy
       group(:os).count
     end
 
+    def self.resolution_popularity
+
+      group(:resolution_id).count.sort.to_h
+    end
+
+
   end
 end
