@@ -1,4 +1,13 @@
-h1 {
-  color: yellow;
-  
+body {
+  background-image: url("../images/TrafficSpy_Eye.jpg");
+}
+
+.brand-logo {
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    background-position: center center;
+  }
 }
