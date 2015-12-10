@@ -8,16 +8,23 @@
 
 <% @client.payloads.all.each do |agent| %>
   <%= agent.web_browser %>
-  <% end %>
-<br/>
-<br/>
-<br/>
-<% @client.payloads.all.each do |agent| %>
+  <br>
   <%= agent.operating_system %>
-  <% end %>
-</br>
-
-<% @client.payloads.all.each do |agent| %>
+  <br>
   <%= "#{agent.resolution_width} x #{agent.resolution_height}" %>
-<% end %>
-</br>
+  <% end %>
+
+<% @client.payloads.url_response_times.each do |k, v| %>
+  <p><%= "#{k}: #{v} milliseconds."%></p>
+  <% end %>
+
+<% @client.payloads.url_hyperlinks.each do |path| %>
+  <% temp = path.split(".com/")[1] %>
+  <a href="http://localhost:9393/sources/<%= @client.name %>/urls/<%= temp %>"><%= path %></a>
+  <% end %>
+
+<br/>
+
+<a href="http://localhost:9393/sources/<%= @client.name %>/events"><%= "#{@client.name} Events Index" %></a>
+
+<br/>
