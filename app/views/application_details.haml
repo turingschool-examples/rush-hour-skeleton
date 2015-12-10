@@ -6,37 +6,55 @@
         = @app.identifier
 
   .row
+    .col.s12.m12.l4
+      .card.cyan.darken-2
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-5 Most Requested URLs
+          %ol#most_requested_urls
+            -@app.payloads.group_count_and_order(:relative_path).each do |k, v|
+              %li.white-text
+                %a{:href => "/sources/#{@app.identifier}/urls#{k}"}
+                  =k
+                = v
 
-  %h5 Most requested URLS
-  %ol#most_requested_urls
-    -@app.payloads.group_count_and_order(:relative_path).each do |k, v|
-      %li
-        %a{:href => "/sources/#{@app.identifier}/urls#{k}"}
-          =k
-        = v
-  %h5 Web Browser
-  %ol#web_browser
-    -@app.payloads.group_count_and_order(:browser).each do |k, v|
-      %li
-        = k
-        = v
-  %h5 Operating System
-  %ol#operating_system
-    -@app.payloads.group_count_and_order(:operating_system).each do |k, v|
-      %li
-        = k
-        = v
-  %h5 Screen Resolution
-  %ol#screen_resolution
-    -@app.payloads.group_count_and_order(:resolution).each do |k, v|
-      %li
-        = k
-        = v
-  %h5 Average Response Times
-  %ol#average_response_times
-    -@app.payloads.group_average_and_order_response_times.each do |k, v|
-      %li
-        = k
-        = v.to_f.round(2)
-        milliseconds
+    .col.s12.m12.l4
+      .card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-3 Web Browser
+          %ol#web_browser
+            -@app.payloads.group_count_and_order(:browser).each do |k, v|
+              %li
+                = k
+                = v
+
+    .col.s12.m12.l4
+      .card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-3 Operating System
+          %ol#operating_system
+            -@app.payloads.group_count_and_order(:operating_system).each do |k, v|
+              %li
+                = k
+                = v
+  .row
+    .col.s12.m12.l6
+      .card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-3 Screen Resolution
+          %ol#screen_resolution
+            -@app.payloads.group_count_and_order(:resolution).each do |k, v|
+              %li
+                = k
+                = v
+
+    .col.s12.m12.l6
+      .card
+        .card-content
+          %h5.card-title.cyan-text.text-lighten-3 Average Response Times
+          %ol#average_response_times
+            -@app.payloads.group_average_and_order_response_times.each do |k, v|
+              %li
+                = k
+                = v.to_f.round(2)
+                milliseconds
   %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
