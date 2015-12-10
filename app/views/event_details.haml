@@ -1,21 +1,26 @@
-%h1
-  = @app.identifier.capitalize
-  Events Details:
-  = @event
+.container 
+  .row
+    %h1.title-text.weighted.underline.center
+      = @app.identifier.capitalize
+      Events Details:
+  .row.center-align
+    %h3.weighted.sub.cyan.darken-2
+      = @event
 
-%h3#total-request
-  Total Requests:
-  = @event_payloads.count
+  %h3#total-request.title-text.weighted.underline
+    Total Requests:
+    = @event_payloads.count
 
-%h3 Hour by Hour Breakdown
+  %h3.title-text.weighted.underline Hour by Hour Breakdown
 
-%table
-  %tr
-    %th Hour
-    %th Requests
-  -(0..23).to_a.each do |hour|
+  %table.title-text.bordered.highlight
+
     %tr
-      %td
-        = "#{hour}:00 - #{hour + 1}:00"
-      %td.request-count
-        = @event_payloads.requests_by_hour(hour)
+      %th Hour
+      %th Requests
+    -(0..23).to_a.each do |hour|
+      %tr
+        %td
+          = "#{hour}:00 - #{hour + 1}:00"
+        %td
+          = @event_payloads.requests_by_hour(hour)
