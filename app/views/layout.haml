@@ -1,5 +1,5 @@
 %html
-  %head 
+  %head
     %link{:href => "http://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}
     %link{:href => "/css/materialize.min.css", :type => "text/css", :rel => "stylesheet", :media => "screen,projection"}
     %link{:href => "https://fonts.googleapis.com/css?family=Indie+Flower", :rel => 'stylesheet', :type =>'text/css'}
@@ -8,8 +8,28 @@
     %link{:href => 'https://fonts.googleapis.com/css?family=Questrial', :rel => 'stylesheet', :type => 'text/css'}
     %title TrafficSpy Analytics
   %body
-    = yield 
+  / Navigation
+  .navbar
+    %nav.blue-grey.darken-4
+      .nav-wrapper
+        %a.brand-logo.teal-text.text-accent-2{:href => "/"} TrafficSpy
+        %a.button-collapse{"data-activates" => "mobile-demo", :href => "#"}
+          %i.material-icons menu
+        %ul.right.hide-on-med-and-down
+          %li
+            %a.teal-text.text-accent-2{:href => "/"} Dashboard
+          %li
+            %a.teal-text.text-accent-2{:href => "/robots"} Registered App Index
+          %li
+            %a.teal-text.text-accent-2{:href => "/robots/new"} Register Robot
+        %ul#mobile-demo.side-nav.teal.accent-2
+          %li
+            %a.black-text{:href => "/"} Dashboard
+          %li
+            %a.black-text{:href => "/robots"} Robot Index
+          %li
+            %a.black-text{:href => "/robots/new"} Register Robot
+    = yield
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"}
     %script{:type => "text/javascript", :src =>"https://code.jquery.com/jquery-2.1.1.min.js"}
     %script{:type => "text/javascript", :src => "/js/materialize.min.js"}
-  
