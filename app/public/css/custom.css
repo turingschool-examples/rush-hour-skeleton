@@ -24,15 +24,12 @@
   margin-left: 40px;
 ;}
 
-.homepage-sub {
-  font-size: 50px;
+.weighted{
   font-weight: 200;
 }
 
-.homepage-sub {
+.sub {
   font-size: 50px;
-  font-weight: 200;
-  margin-left: -10px;
 }
 
 .homepage-quote {
@@ -42,7 +39,25 @@
   margin-top: -50;
 }
 
-.homepage-icon {
+/*.homepage-icon {
   color: 0097a7;
   font-size: 50px;
+}*/
+
+.underline {
+  text-decoration: underline;
+  color: D7D7D7;
 }
+
+.shadow {
+  text-shadow: 2px 2px #0097a7;
+}
+/*.smaller-text{
+  font-size: 35px;
+}*/
+/*
+.textured-img {
+ background-image: url("http://eskipaper.com/images/awesome-textured-background-1.jpg");
+ height: 100vh;
+ max-width: 100%;
+}*/
