@@ -11,7 +11,7 @@ module TrafficSpy
     end
 
     post '/sources/:id/data' do |id|
-      registrator = Registrator_Req.new(params)
+      registrator = RequestManager.new(params)
       status registrator.status
       body   registrator.response
     end

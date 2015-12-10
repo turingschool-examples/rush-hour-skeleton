@@ -2,6 +2,7 @@ class Parser
 attr_reader :payload,
             :request_hash,
             :id,
+            :application_id,
             :url,
             :timestamp,
             :response_time,
@@ -10,14 +11,17 @@ attr_reader :payload,
             :event,
             :browser,
             :os,
-            :resolution
+            :resolution,
+            :complete_data
 
   def initialize(params)
-    # binding.pry
-    @payload      = JSON.parse(params.fetch('payload','{}'))
-    @request_hash = params['payload'] && sha1(params['payload'])
-    @id           = params['id']
+# binding.pry
+    @payload        = JSON.parse(params.fetch('payload','{}'))
 
+    @request_hash   = params['payload'] && sha1(params['payload'])
+    # binding.pry
+    @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
+    @id             = params['id']
     @url            = payload['url']
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
@@ -42,6 +46,21 @@ attr_reader :payload,
     width && height && "#{width}x#{height}"
   end
 
+  def complete_data
+    { request_hash: request_hash,
+      application_id: application_id,
+      url: url,
+      timestamp: timestamp,
+      response_time: response_time,
+      referral: referral,
+      verb: verb,
+      event: event,
+      browser: browser,
+      os: os,
+      resolution: resolution
+    }
+  end
+
   def get_user_agent(payload)
     # if agent = payload['userAgent']
     #   user_agent = UserAgentParser.parse(agent)
@@ -52,4 +71,5 @@ attr_reader :payload,
     agent = UserAgentParser.parse(agent)
     [ agent.to_s, agent.os.to_s ]
   end
+
 end
