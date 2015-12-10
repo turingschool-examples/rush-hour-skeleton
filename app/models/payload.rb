@@ -2,12 +2,13 @@ module TrafficSpy
   class Payload < ActiveRecord::Base
     belongs_to :application
     belongs_to :relative_path
+    belongs_to :request_type
     validates_uniqueness_of :application_id, scope: [:relative_path_string, :requested_at,
                                                      :responded_in, :referred_by,
-                                                     :request_type, :event,
+                                                     :request_type_string, :event,
                                                      :operating_system, :browser,
                                                      :resolution, :ip_address,
-                                                     :relative_path_id]
+                                                     :relative_path_id, :request_type_string]
 
     def self.group_count_and_order(field)
       group(field).count.sort.sort_by { |key, count| [ -count, key ] }.to_h

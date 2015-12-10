@@ -7,7 +7,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -22,7 +22,7 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 'socialLogin', TrafficSpy::Payload.first.event
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser
@@ -38,7 +38,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -55,7 +55,7 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 'socialLogin', TrafficSpy::Payload.first.event
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser
@@ -71,7 +71,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -96,7 +96,7 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 'socialLogin', TrafficSpy::Payload.first.event
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser
@@ -112,7 +112,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -125,7 +125,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-17 21:38:28 -0700",
       responded_in: 40,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -172,7 +172,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -200,7 +200,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -233,7 +233,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -246,7 +246,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -279,7 +279,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -292,7 +292,7 @@ class PayloadTest < ModelTest
       requested_at: "2014-03-25 20:40:13 -0800",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -325,7 +325,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -338,7 +338,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 80,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -371,7 +371,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -384,7 +384,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://facebook.com",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -409,7 +409,7 @@ class PayloadTest < ModelTest
     assert_equal 2, TrafficSpy::Payload.count
   end
 
-  def test_creates_second_payload_with_only_unique_request_type
+  def test_creates_second_payload_with_only_unique_request_type_string
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
@@ -417,7 +417,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -430,7 +430,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"POST",
+      request_type_string:"POST",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -463,7 +463,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -476,7 +476,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialShare",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -509,7 +509,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -522,7 +522,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Windows",
       browser: "Chrome",
@@ -555,7 +555,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -568,7 +568,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Safari",
@@ -601,7 +601,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -614,7 +614,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -647,7 +647,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
@@ -660,7 +660,7 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
