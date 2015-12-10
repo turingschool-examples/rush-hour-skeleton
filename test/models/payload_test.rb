@@ -560,7 +560,7 @@ class PayloadTest < ModelTest
     register_turing_and_send_multiple_payloads
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
-    expected = {"Chrome" => 3, "IE10" => 1, "Mozilla" => 1, "Safari" => 1}
+    expected = {"Chrome" => 3, "Mozilla" => 1, "IE10" => 1, "Safari" => 1}
 
     assert_equal expected, app.payloads.group_count_and_order(:browser)
   end
@@ -579,20 +579,11 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
     expected = {'{:width=>"1920", :height=>"1280"}' => 3,
-                '{:width=>"1920", :height=>"1080"}' => 1,
                 '{:width=>"1366", :height=>"768"}' => 1,
+                '{:width=>"1920", :height=>"1080"}' => 1,
                 '{:width=>"600", :height=>"800"}' => 1}
 
     assert_equal expected, app.payloads.group_count_and_order(:resolution)
-  end
-
-  def test_group_count_and_order_response_times
-    register_turing_and_send_multiple_payloads
-
-    app = TrafficSpy::Application.find_by(identifier: 'turing')
-    expected = {80 => 1, 50 => 1, 41 => 1, 40 => 1, 37 => 1, 25 => 1}
-
-    assert_equal expected, app.payloads.group_count_and_order(:responded_in)
   end
 
   def test_group_average_and_order_response_times
@@ -654,5 +645,68 @@ class PayloadTest < ModelTest
 
     app_blog_about = app.payloads.matching("/about")
     assert_equal 25, app_blog_about.min_response_time
+  end
+
+  def test_avg_response_time
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+
+    app_blog_payloads = app.payloads.matching("/blog")
+    assert_equal 55.67, app_blog_payloads.avg_response_time
+
+    app_blog_team = app.payloads.matching("/team")
+    assert_equal 40.5, app_blog_team.avg_response_time
+
+    app_blog_about = app.payloads.matching("/about")
+    assert_equal 25, app_blog_about.avg_response_time
+  end
+
+  #####################
+
+  def test_get_top_3_relative_path
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+    expected = [["/blog", 3], ["/team", 2], ["/about", 1]]
+
+    assert_equal expected, app.payloads.get_top_3(:relative_path)
+  end
+
+  def test_get_top_3_browser
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+    expected = [["Chrome", 3], ["Mozilla", 1], ["IE10", 1]]
+
+    assert_equal expected, app.payloads.get_top_3(:browser)
+  end
+
+  def test_get_top_3_operating_system
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+    expected = [["Macintosh", 4], ["Windows", 2]]
+
+    assert_equal expected, app.payloads.get_top_3(:operating_system)
+  end
+
+  def test_get_top_3_resolution
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+    expected = [['{:width=>"1920", :height=>"1280"}', 3],
+                ['{:width=>"1366", :height=>"768"}', 1],
+                ['{:width=>"1920", :height=>"1080"}', 1]]
+
+    assert_equal expected, app.payloads.get_top_3(:resolution)
+  end
+
+  def test_requests_by_hour
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+
+    assert_equal 0, app.payloads.requests_by_hour(0)
   end
 end
