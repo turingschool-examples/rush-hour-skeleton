@@ -34,5 +34,4 @@ ActiveRecord::Schema.define(version: 20151209012722) do
     t.string   "resolution"
     t.string   "ip_address"
   end
-
 end
