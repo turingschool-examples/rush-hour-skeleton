@@ -39,8 +39,7 @@
                 %td
                   = rank + 1
                 %td
-                  %a.cyan-text.text-lighten-3.card-link{:href => "/sources/#{@app.identifier}/urls#{data[0]}"}
-                    = data[0]
+                  = data[0]
                 %td.request-count
                   = data[1]
 
@@ -48,21 +47,40 @@
       .card.cyan.darken-2
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Operating System
-          %ol#operating_system
-            -@app.payloads.group_count_and_order(:operating_system).each do |k, v|
-              %li
-                = k
-                = v
+          %table
+            %tr
+              %th Rank
+              %th OS
+              %th Requests
+            -@app.payloads.group_count_and_order(:operating_system).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  = data[0]
+                %td.request-count
+                  = data[1]
   .row
     .col.s12.m12.l6
       .card.cyan.darken-2
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Screen Resolution
-          %ol#screen_resolution
-            -@app.payloads.group_count_and_order(:resolution).each do |k, v|
-              %li
-                = k
-                = v
+          %table
+            %tr
+              %th Rank
+              %th Width
+              %th Height
+              %th Requests
+            -@app.payloads.group_count_and_order(:resolution).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  = /\d+/.match(data[0].split(',')[0])
+                %td
+                  = /\d+/.match(data[0].split(',')[1])
+                %td.request-count
+                  = data[1]
 
     .col.s12.m12.l6
       .card.cyan.darken-2
