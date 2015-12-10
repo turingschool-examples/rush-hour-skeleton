@@ -79,11 +79,19 @@ class UserVisitsApplicationDetailsTest < FeatureTest
     refute page.has_content?('URL Popularity Contest')
   end
 
-  # def test_user_sees_identifier_does_not_exist_when_not_registered
-  #   visit '/sources/jumpstartlab'
-  #   within('#unregistered_identifier') do
-  #     assert page_has_content?('Jumpstartlab is not registered')
-  #   end
-  # end
+  def test_user_sees_identifier_does_not_exist_when_not_registered
+    visit '/sources/jumpstartlab'
+    within('#unregistered_identifier') do
+      assert page.has_content?('Jumpstartlab is not registered')
+    end
+  end
+
+  def test_user_sees_no_payload_message_if_no_payload
+    post '/sources', {rootUrl: 'http://jumpstartlab.com', identifier: 'jumpstartlab'}
+    visit '/sources/jumpstartlab'
+    within('#no_payload') do
+      assert page.has_content?('No data associated with Jumpstartlab')
+    end
+  end
 
 end

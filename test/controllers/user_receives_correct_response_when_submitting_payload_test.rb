@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 # require 'json'
 
-class PayloadTest < TrafficTest
+class ServerPayloadTest < TrafficTest
   include PayloadPrep
 
   def register_user(identifier)
