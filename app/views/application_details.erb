@@ -7,17 +7,14 @@
   <% end %>
 
 <% @client.payloads.all.each do |agent| %>
-  <%= agent.web_browser %>
-  <br>
-  <%= agent.operating_system %>
-  <br>
-  <%= "#{agent.resolution_width} x #{agent.resolution_height}" %>
+  <p><%= agent.web_browser %></p>
+  <p><%= agent.operating_system %></p>
+  <p><%= "#{agent.resolution_width} x #{agent.resolution_height}" %></p>
   <% end %>
-
 <% @client.payloads.url_response_times.each do |k, v| %>
   <p><%= "#{k}: #{v} milliseconds."%></p>
   <% end %>
-
+<br/>
 <% @client.payloads.url_hyperlinks.each do |path| %>
   <% temp = path.split(".com/")[1] %>
   <a href="http://localhost:9393/sources/<%= @client.name %>/urls/<%= temp %>"><%= path %></a>

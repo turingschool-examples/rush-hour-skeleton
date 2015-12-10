@@ -30,8 +30,12 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      @client = Client.find_by(name: identifier)
-      erb :application_details
+      if @client = Client.find_by(name: identifier)
+        erb :application_details
+      else
+        @error_message = "The identifier does not exist."
+        erb :error
+      end
     end
 
     not_found do

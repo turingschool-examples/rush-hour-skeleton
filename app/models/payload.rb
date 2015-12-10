@@ -12,6 +12,6 @@ class Payload < ActiveRecord::Base
   end
 
   def self.url_hyperlinks
-    pluck(:path)
+    pluck(:path).uniq
   end
 end
