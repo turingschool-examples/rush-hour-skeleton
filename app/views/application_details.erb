@@ -9,3 +9,15 @@
 <% @client.user_agents.all.each do |agent| %>
   <%= agent.web_browser %>
   <% end %>
+<br/>
+<br/>
+<br/>
+<% @client.user_agents.all.each do |agent| %>
+  <%= agent.operating_system %>
+  <% end %>
+</br>
+
+<% @client.user_agents.all.each do |agent| %>
+  <%= "#{agent.resolution_width} x #{agent.resolution_height}" %>
+<% end %>
+</br>
