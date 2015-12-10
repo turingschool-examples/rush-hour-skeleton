@@ -1,10 +1,7 @@
 require_relative '../test_helper'
 
 class PayloadParserTest < TrafficTest
-
-  def register_user
-    parser_setup({"rootUrl"=>"http://jumpstartlab.com", "identifier"=>"jumpstartlab"}).parsing_validating
-  end
+  include PayloadPrep
 
   def payload_params
     {"payload"=>
@@ -12,10 +9,6 @@ class PayloadParserTest < TrafficTest
      "splat"=>[],
      "captures"=>["jumpstartlab"],
      "id"=>"jumpstartlab"}
-  end
-
-  def parser_setup(params)
-    @parser = TrafficSpy::RegistrationParser.new(params)
   end
 
   def test_payload_parser_parses_properly
