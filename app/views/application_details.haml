@@ -86,10 +86,18 @@
       .card.cyan.darken-2
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Average Response Times
-          %ol#average_response_times
-            -@app.payloads.group_average_and_order_response_times.each do |k, v|
-              %li
-                = k
-                = v.to_f.round(2)
-                milliseconds
+          %table
+            %tr
+              %th Rank
+              %th Path
+              %th Time (ms)
+            -@app.payloads.group_average_and_order_response_times.each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  = data[0]
+                %td.request-count
+                  = data[1].to_f.round(2)
+
   %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
