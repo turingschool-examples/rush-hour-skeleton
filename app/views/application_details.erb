@@ -1,23 +1,23 @@
-<!-- <div id="client_name">
+<div id="client_name">
   <h1>Application Details for: <%= @client.name %></h1>
 </div>
 
-<% @client.urls.url_requests.each do |k, v| %>
+<% @client.payloads.url_requests.each do |k, v| %>
   <p><%= "#{k}: #{v} views."%></p>
   <% end %>
 
-<% @client.user_agents.all.each do |agent| %>
+<% @client.payloads.all.each do |agent| %>
   <%= agent.web_browser %>
   <% end %>
 <br/>
 <br/>
 <br/>
-<% @client.user_agents.all.each do |agent| %>
+<% @client.payloads.all.each do |agent| %>
   <%= agent.operating_system %>
   <% end %>
 </br>
 
-<% @client.user_agents.all.each do |agent| %>
+<% @client.payloads.all.each do |agent| %>
   <%= "#{agent.resolution_width} x #{agent.resolution_height}" %>
 <% end %>
-</br> -->
+</br>
