@@ -8,6 +8,10 @@
   margin-left: 20px;
 }
 
+.title-text {
+  color: #d7d7d7;
+}
+
 @media screen and (max-width: 900px) {
   .background-img {
     background-position: center center;
