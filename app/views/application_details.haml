@@ -76,9 +76,9 @@
                 %td
                   = rank + 1
                 %td
-                  = /\d+/.match(data[0].split(',')[0])
+                  = resolution_width(data[0])
                 %td
-                  = /\d+/.match(data[0].split(',')[1])
+                  = resolution_height(data[0])
                 %td.request-count
                   = data[1]
 
