@@ -6,6 +6,6 @@ class UserSeesAnalyticsTest < FeatureTest
     #when I visit the homepage
     visit '/'
     #Then I see the homepage displayed
-    assert page.has_content?("The web analytics tool")
+    assert page.has_content?("Traffic Spy")
   end
-end 
+end

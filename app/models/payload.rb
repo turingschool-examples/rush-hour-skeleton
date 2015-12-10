@@ -9,6 +9,8 @@ module TrafficSpy
 
     def self.group_count_and_order(field)
       group(field).order(count: :desc).count
+      # proposed bug fix:
+      group(field).count.sort.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
     def self.group_average_and_order_response_times

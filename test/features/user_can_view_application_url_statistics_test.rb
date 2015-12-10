@@ -93,6 +93,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     assert page.has_content?("turing")
     assert page.has_content?("blog")
+    # save_and_open_page
 
     within 'h5#longest_response_time' do
       assert page.has_content?("Longest Response Time: 80")
@@ -147,11 +148,11 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     end
 
     within 'ol#most_pop_browsers_list li:nth-child(2)' do
-      assert page.has_content?("Safari (1)")
+      assert page.has_content?("IE10 (1)")
     end
 
     within 'ol#most_pop_browsers_list li:nth-child(3)' do
-      assert page.has_content?("IE10 (1)")
+      assert page.has_content?("Safari (1)")
     end
   end
 
@@ -197,11 +198,11 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     end
 
     within 'ol#most_pop_os_list li:nth-child(1)' do
-      assert page.has_content?("Windows (1)")
+      assert page.has_content?("Macintosh (1)")
     end
 
     within 'ol#most_pop_os_list li:nth-child(2)' do
-      assert page.has_content?("Macintosh (1)")
+      assert page.has_content?("Windows (1)")
     end
 
     within 'h5#most_pop_browsers' do
@@ -220,8 +221,10 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     url = '/people'
     visit "/sources/turing/urls#{url}"
 
+
     assert page.has_content?("turing")
     assert page.has_content?("people")
+    # save_and_open_page
 
     within 'h5#longest_response_time' do
       assert page.has_content?("Longest Response Time: 45")
@@ -248,11 +251,11 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     end
 
     within 'ol#http_verbs_list li:nth-child(3)' do
-      assert page.has_content?("PUT (1)")
+      assert page.has_content?("DELETE (1)")
     end
 
-    within 'ol#http_verbs_list' do
-      assert page.has_content?("DELETE (1)")
+    within 'ol#http_verbs_list li:nth-child(4)' do
+      assert page.has_content?("PUT (1)")
     end
 
     within 'h5#most_pop_referrers' do
@@ -274,19 +277,19 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     end
 
     within 'ol#most_pop_os_list li:nth-child(1)' do
-      assert page.has_content?("Windows (2)")
-    end
-
-    within 'ol#most_pop_os_list li:nth-child(2)' do
       assert page.has_content?("Macintosh (2)")
     end
 
+    within 'ol#most_pop_os_list li:nth-child(2)' do
+      assert page.has_content?("Windows (2)")
+    end
+
     within 'ol#most_pop_os_list li:nth-child(3)' do
-      assert page.has_content?("Ubuntu (1)")
+      assert page.has_content?("RedHat (1)")
     end
 
     within 'ol#most_pop_os_list' do
-      refute page.has_content?("RedHat (1)")
+      refute page.has_content?("Ubuntu (1)")
     end
 
     within 'h5#most_pop_browsers' do
