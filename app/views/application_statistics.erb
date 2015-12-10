@@ -1,36 +1,39 @@
 <div id="mvp_urls">
   <h2>URL Popularity Contest</h2>
   <% @user.payloads.url_popularity.each do |k, v| %>
-    <h4><%=k  %>:<%= v %></h4>
+    <h4><a id='url_data' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h4>
   <% end %>
 </div>
 
 <div id="mvp_browsers">
   <h2>Browser Popularity Contest</h2>
   <% @user.payloads.browser_popularity.each do |k, v| %>
-    <h4><%=k  %>:<%= v %></h4>
+    <h4><%=k  %>: <%= v %></h4>
   <% end %>
 </div>
 
 <div id="mvp_os">
   <h2>OS Popularity Contest</h2>
   <% @user.payloads.os_popularity.each do |k, v| %>
-    <h4><%=k  %>:<%= v %></h4>
+    <h4><%=k  %>: <%= v %></h4>
   <% end %>
 </div>
 
 <div id="mvp_resolution">
   <h2>Screen Resolution Popularity Contest</h2>
   <% @user.payloads.resolution_popularity.each do |k, v| %>
-    <h4><%= TrafficSpy::Resolution.dimension(k) %>:<%= v %></h4>
+    <h4><%= TrafficSpy::Resolution.dimension(k) %>: <%= v %></h4>
   <% end %>
 </div>
 
 <div id="avg_response">
   <h2>Average Response Time</h2>
   <% @user.payloads.avg_response_time.each do |k, v| %>
-    <h4><%=k  %>:<%= v %></h4>
+    <h4><a id='url_data' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h4>
+
   <% end %>
 </div>
+
+
 
 <!-- user_object = TrafficSpy::User.find_by(identifier: @id) -->

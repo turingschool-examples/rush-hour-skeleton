@@ -58,4 +58,15 @@ class UserVisitsApplicationDetailsTest < FeatureTest
     end
   end
 
+  def test_user_can_view_links_to_URL_data
+    setup_testing_environment
+    within('#url_data') do
+      assert page.has_content?('URL Popularity Contest')
+    end
+
+    click_link('url_data')
+
+    refute page.has_content?('URL Popularity Contest')
+  end
+
 end
