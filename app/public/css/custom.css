@@ -1,3 +1,8 @@
+nav ul a {
+  font-size: 1.3rem;
+  font-weight: 250;
+}
+
 .background-img {
   background-image: url("../images/TrafficSpy_Eye.jpg");
   height: 100vh;
