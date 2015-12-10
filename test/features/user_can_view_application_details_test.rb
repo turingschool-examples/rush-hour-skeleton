@@ -6,8 +6,6 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
     visit '/sources/turing'
 
-    save_and_open_page
-
     within 'table#most-requested-urls tr:nth-child(2)' do
       assert page.has_content?('/blog')
       assert page.has_css?("a[href~='/sources/turing/urls/blog']")
