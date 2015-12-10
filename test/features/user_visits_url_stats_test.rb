@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class UserVisitsApplicationDetailsTest < FeatureTest
+class UserVistitsURLStatsTest < FeatureTest
   include PayloadPrep
 
   def setup_testing_environment
@@ -18,7 +18,7 @@ class UserVisitsApplicationDetailsTest < FeatureTest
 
     within('#longest_response_time') do
       assert page.has_content?('Longest Response Time')
-      assert page.has_content?(90)
+      assert page.has_content?(39)
     end
   end
 

@@ -25,5 +25,9 @@ module TrafficSpy
       group(:url).average(:responded_in)
     end
 
+    def self.max_response_time
+      maximum(:responded_in)
+    end
+
   end
 end

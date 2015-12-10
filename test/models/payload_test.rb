@@ -6,6 +6,7 @@ class PayloadTest < TrafficTest
   def setup
     setup_model_testing_environment
     @user = TrafficSpy::User.find(1)
+    @user_url_blog = @user.payloads.where(url: "http://jumpstartlab.com/blog")
   end
 
   def test_url_popularity
@@ -30,7 +31,12 @@ class PayloadTest < TrafficTest
 
   def test_avg_response_time
     actual_result = @user.payloads.avg_response_time.map { |k, v| v}
-    assert_equal [38, 39],  actual_result
+    assert_equal [38, 39], actual_result
+  end
+
+  def test_max_response_time
+    actual_result = @user_url_blog.max_response_time
+    assert_equal  39, actual_result
   end
 
 end
