@@ -23,7 +23,7 @@ attr_reader :payload,
     # binding.pry
     @id             = params['id']
     @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
-    @url            = payload['url']
+    @url            = get_url
     # @url_id         = Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
@@ -39,6 +39,10 @@ attr_reader :payload,
 
   def url_id
     Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
+  end
+
+  def get_url
+    payload['url'].split("/").slice(3..-1).join("/")
   end
 
   def sha1(string)
