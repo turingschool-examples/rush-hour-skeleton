@@ -9,7 +9,6 @@ module TrafficSpy
       haml :index
     end
 
-
     post '/sources' do
       response_status, response_body =  TrafficSpy::RegisterApplication.new(params).save
 
