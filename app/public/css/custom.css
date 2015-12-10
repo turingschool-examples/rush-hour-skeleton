@@ -11,9 +11,17 @@
 .title-text {
   color: #d7d7d7;
 }
-
+/*
 .card {
-  min-height: 200px;
+  min-height: 100px;
+}*/
+
+.link-card {
+  height: 80px;
+}
+
+.center-content {
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 900px) {

@@ -1,4 +1,4 @@
-.container
+.container.center-align
   .row
     .col.s12.m12.l12
       %h3.title-text.center-align
@@ -100,4 +100,9 @@
                 %td.request-count
                   = data[1].to_f.round(2)
 
-  %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
+  .row
+    .col.s12.m12.l12
+      .card.white.link-card.valign-wrapper
+        .card-content.valign.center-content
+          %h5.card-title.cyan-text.text-darken-2
+            %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
