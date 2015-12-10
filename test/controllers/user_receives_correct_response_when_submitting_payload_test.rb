@@ -45,13 +45,12 @@ class PayloadTest < TrafficTest
     assert_equal response, last_response.body
   end
 
-  def test_unregisted_user_cannot_submit_payload
-    post '/sources/jumpstartlab/data', payload_params
+  def test_unregistered_user_cannot_submit_payload
+    post '/sources/jumpstartlab/data', payload_params1
     response = "jumpstartlab is not registered"
 
     assert_equal 403, last_response.status
     assert_equal response, last_response.body
-
   end
 
 end
