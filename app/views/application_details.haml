@@ -1,21 +1,22 @@
 .container.center-align
   .row
     .col.s12.m12.l12
-      %h3.title-text.center-align
-        Statistics for:
+      %h2.title-text.center.weighted.underline
         = @app.identifier
+      %h3.title-text.center.weighted.sub
+        statistics
 
   .row
     .col.s12.m12.l4
       .card.cyan.darken-2.stats-card
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Most Requested URLs
-          %table#most-requested-urls
+          %table.title-text.bordered#most-requested-urls
             %tr
-              %th Rank
-              %th Path
-              %th Requests
-            -@app.payloads.group_count_and_order(:relative_path).each_with_index do |data, rank|
+              %th.weighted Rank
+              %th.weighted Path
+              %th.weighted Requests
+            -@app.payloads.group_count_and_order_relative_path.each_with_index do |data, rank|
               %tr
                 %td
                   = rank + 1
@@ -28,12 +29,12 @@
     .col.s12.m12.l4
       .card.cyan.darken-2.stats-card
         .card-content
-          %h5.card-title.cyan-text.text-lighten-5 Web Browser
-          %table#web-browser
+          %h5.card-title.cyan-text.text-lighten-5.weighted Web Browser
+          %table.title-text.bordered#web-browser
             %tr
-              %th Rank
-              %th Browser
-              %th Requests
+              %th.weighted Rank
+              %th.weighted Browser
+              %th.weighted Requests
             -@app.payloads.group_count_and_order(:browser).each_with_index do |data, rank|
               %tr
                 %td
@@ -46,12 +47,12 @@
     .col.s12.m12.l4
       .card.cyan.darken-2.stats-card
         .card-content
-          %h5.card-title.cyan-text.text-lighten-5 Operating System
-          %table#operating-system
+          %h5.card-title.cyan-text.text-lighten-5.weighted Operating System
+          %table.title-text.bordered#operating-system
             %tr
-              %th Rank
-              %th OS
-              %th Requests
+              %th.weighted Rank
+              %th.weighted OS
+              %th.weighted Requests
             -@app.payloads.group_count_and_order(:operating_system).each_with_index do |data, rank|
               %tr
                 %td
@@ -64,13 +65,13 @@
     .col.s12.m12.l6
       .card.cyan.darken-2.stats-card
         .card-content
-          %h5.card-title.cyan-text.text-lighten-5 Screen Resolution
-          %table#screen-resolution
+          %h5.card-title.cyan-text.text-lighten-5.weighted Screen Resolution
+          %table.title-text.bordered#screen-resolution
             %tr
-              %th Rank
-              %th Width
-              %th Height
-              %th Requests
+              %th.weighted Rank
+              %th.weighted Width
+              %th.weighted Height
+              %th.weighted Requests
             -@app.payloads.group_count_and_order(:resolution).each_with_index do |data, rank|
               %tr
                 %td
@@ -85,12 +86,12 @@
     .col.s12.m12.l6
       .card.cyan.darken-2.stats-card
         .card-content
-          %h5.card-title.cyan-text.text-lighten-5 Average Response Times
-          %table#average-response-times
+          %h5.card-title.cyan-text.text-lighten-5.weighted Average Response Times
+          %table.title-text.bordered#average-response-times
             %tr
-              %th Rank
-              %th Path
-              %th Time (ms)
+              %th.weighted Rank
+              %th.weighted Path
+              %th.weighted Time (ms)
             -@app.payloads.group_average_and_order_response_times.each_with_index do |data, rank|
               %tr
                 %td
@@ -102,7 +103,7 @@
 
   .row
     .col.s12.m12.l12
-      .card.white.link-card.valign-wrapper
+      .card.white.link-card.valign-wrapper.cyan.darken-2
         .card-content.valign.center-content
-          %h5.card-title.cyan-text.text-darken-2
-            %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
+          %h5.card-title
+            %a.cyan-text.text-lighten-5{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data

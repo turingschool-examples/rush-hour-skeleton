@@ -1,3 +1,8 @@
+nav ul a {
+  font-size: 1.3rem;
+  font-weight: 250;
+}
+
 .background-img {
   background-image: url("../images/TrafficSpy_Eye.jpg");
   height: 100vh;
@@ -11,6 +16,12 @@
 .title-text {
   color: #d7d7d7;
 }
+
+#analytics {
+  text-decoration: overline;
+  margin-left: -40px;
+}
+
 /*
 .card {
   min-height: 100px;
@@ -77,9 +88,14 @@
   margin-top: 5px;
 }
 
-.highlight {
-  color: #0097a7;
+#aggregate-link {
+  background-color: D7D7D7;
 }
+
+
+/*.highlight {
+  color: #0097a7;
+}*/
 /*.smaller-text{
   font-size: 35px;
 }*/
