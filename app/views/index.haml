@@ -1,5 +1,7 @@
-%h1 TrafficSpy
-%h3 "What gets measured, gets done"
-%h3 The web analytics tool that connects you to your customers
+%h1 Registered apps
 
-
+%ul
+  -@apps.each do |app|
+    %li
+      %a{:href => "/sources/#{app.identifier}"}
+        = app.identifier
