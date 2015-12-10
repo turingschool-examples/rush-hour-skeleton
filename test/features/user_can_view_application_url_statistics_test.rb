@@ -90,7 +90,6 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     url = '/blog'
     visit "/sources/turing/urls#{url}"
-    # save_and_open_page
 
     assert page.has_content?("turing")
     assert page.has_content?("blog")
@@ -161,7 +160,6 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     url = '/team'
     visit "/sources/turing/urls#{url}"
-    # save_and_open_page
 
     assert page.has_content?("turing")
     assert page.has_content?("team")
@@ -221,7 +219,6 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     url = '/people'
     visit "/sources/turing/urls#{url}"
-    save_and_open_page
 
     assert page.has_content?("turing")
     assert page.has_content?("people")
@@ -306,7 +303,6 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     url = '/beth'
     visit "/sources/turing/urls#{url}"
-    # save_and_open_page
 
     assert page.has_content?("turing")
     assert page.has_content?("beth")
