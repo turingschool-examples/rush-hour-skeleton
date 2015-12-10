@@ -1,13 +1,16 @@
-# require_relative '../test_helper'
-#
-# class PayloadTest < FeatureTest
-#   include PayloadPrep
-#
-#
-#   def test_url_popularity
-#
-#   end
-#
-# end
+require_relative '../test_helper'
 
-# NOT SURE IF WE SHOULD BE TESTING THIS BECAUSE IT'S ACTIVE RECORD
+class PayloadTest < TrafficTest
+  include PayloadPrep
+
+  def setup
+    setup_model_testing_environment
+    @user = TrafficSpy::User.find(1)
+  end
+
+  def test_url_popularity
+    expected_result = {"http://jumpstartlab.com/blog"=>2, "http://jumpstartlab.com/weather"=>1}
+    assert_equal expected_result, @user.payloads.url_popularity
+  end
+
+end

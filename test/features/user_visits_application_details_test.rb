@@ -70,7 +70,6 @@ class UserVisitsApplicationDetailsTest < FeatureTest
 
   def test_user_can_view_event_data
     setup_testing_environment
-    save_and_open_page
     within('#aggregate_event_data') do
       assert page.has_content?('View Event Data')
     end

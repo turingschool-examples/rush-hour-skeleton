@@ -32,6 +32,15 @@ class FeatureTest < TrafficTest
 end
 
 module PayloadPrep
+
+  def setup_model_testing_environment
+    TrafficSpy::RegistrationParser.new({"rootUrl"=>"http://jumpstartlab.com", "identifier"=>"jumpstartlab"}).parsing_validating
+
+    TrafficSpy::PayloadParser.new(payload_params1).payload_response
+    TrafficSpy::PayloadParser.new(payload_params2).payload_response
+    TrafficSpy::PayloadParser.new(payload_params3).payload_response
+  end
+  
   def register_user
     parser_setup({"rootUrl"=>"http://jumpstartlab.com", "identifier"=>"jumpstartlab"}).parsing_validating
   end
