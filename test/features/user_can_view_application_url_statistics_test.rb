@@ -96,21 +96,20 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     assert page.has_content?("turing")
     assert page.has_content?("blog")
-    # save_and_open_page
 
-    within 'h5#longest_response_time' do
+    within 'tr#longest_response_time' do
       assert page.has_content?("Longest Response Time: 80")
     end
 
-    within 'h5#shortest_response_time' do
+    within 'tr#shortest_response_time' do
       assert page.has_content?("Shortest Response Time: 37")
     end
 
-    within 'h5#average_response_time' do
+    within 'tr#average_response_time' do
       assert page.has_content?("Average Response Time: 55.67")
     end
 
-    within 'h5#http_verbs' do
+    within 'tr#http_verbs' do
       assert page.has_content?("HTTP Verbs:")
     end
 
@@ -122,7 +121,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("POST (1)")
     end
 
-    within 'h5#most_pop_referrers' do
+    within 'tr#most_pop_referrers' do
       assert page.has_content?("Most Popular Referrers:")
     end
 
@@ -130,7 +129,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("http://turing.io (3)")
     end
 
-    within 'h5#most_pop_os' do
+    within 'tr#most_pop_os' do
       assert page.has_content?("Most Popular Operating Systems:")
     end
 
@@ -142,7 +141,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("Windows (1)")
     end
 
-    within 'h5#most_pop_browsers' do
+    within 'tr#most_pop_browsers' do
       assert page.has_content?("Most Popular Browsers:")
     end
 
@@ -168,19 +167,19 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     assert page.has_content?("turing")
     assert page.has_content?("team")
 
-    within 'h5#longest_response_time' do
+    within 'tr#longest_response_time' do
       assert page.has_content?("Longest Response Time: 41")
     end
 
-    within 'h5#shortest_response_time' do
+    within 'tr#shortest_response_time' do
       assert page.has_content?("Shortest Response Time: 40")
     end
 
-    within 'h5#average_response_time' do
+    within 'tr#average_response_time' do
       assert page.has_content?("Average Response Time: 40.5")
     end
 
-    within 'h5#http_verbs' do
+    within 'tr#http_verbs' do
       assert page.has_content?("HTTP Verbs:")
     end
 
@@ -188,7 +187,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("GET (2)")
     end
 
-    within 'h5#most_pop_referrers' do
+    within 'tr#most_pop_referrers' do
       assert page.has_content?("Most Popular Referrers:")
     end
 
@@ -196,7 +195,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("http://turing.io (2)")
     end
 
-    within 'h5#most_pop_os' do
+    within 'tr#most_pop_os' do
       assert page.has_content?("Most Popular Operating Systems:")
     end
 
@@ -208,7 +207,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("Windows (1)")
     end
 
-    within 'h5#most_pop_browsers' do
+    within 'tr#most_pop_browsers' do
       assert page.has_content?("Most Popular Browsers:")
     end
 
@@ -228,19 +227,19 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     assert page.has_content?("turing")
     assert page.has_content?("people")
 
-    within 'h5#longest_response_time' do
+    within 'tr#longest_response_time' do
       assert page.has_content?("Longest Response Time: 45")
     end
 
-    within 'h5#shortest_response_time' do
+    within 'tr#shortest_response_time' do
       assert page.has_content?("Shortest Response Time: 25")
     end
 
-    within 'h5#average_response_time' do
+    within 'tr#average_response_time' do
       assert page.has_content?("Average Response Time: 31.33")
     end
 
-    within 'h5#http_verbs' do
+    within 'tr#http_verbs' do
       assert page.has_content?("HTTP Verbs:")
     end
 
@@ -260,7 +259,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("PUT (1)")
     end
 
-    within 'h5#most_pop_referrers' do
+    within 'tr#most_pop_referrers' do
       assert page.has_content?("Most Popular Referrers:")
     end
 
@@ -274,7 +273,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       assert page.has_content?("http://twitter.com (1)")
     end
 
-    within 'h5#most_pop_os' do
+    within 'tr#most_pop_os' do
       assert page.has_content?("Most Popular Operating Systems:")
     end
 
@@ -294,7 +293,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       refute page.has_content?("Ubuntu (1)")
     end
 
-    within 'h5#most_pop_browsers' do
+    within 'tr#most_pop_browsers' do
       assert page.has_content?("Most Popular Browsers:")
     end
 
