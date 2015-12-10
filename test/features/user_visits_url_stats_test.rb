@@ -41,7 +41,6 @@ class UserVistitsURLStatsTest < FeatureTest
   end
 
   def test_user_sees_http_verbs
-    setup_testing_environment
     within('#verbs') do
       assert page.has_content?('HTTP Verbs Received')
       assert page.has_content?('GET')
@@ -49,6 +48,9 @@ class UserVistitsURLStatsTest < FeatureTest
   end
 
   def test_user_sees_three_most_popular_refferers
-
+    within('#referred_by') do
+      assert page.has_content?('Most Popular Referrers')
+      assert page.has_content?('www.google.com')
+    end
   end
 end

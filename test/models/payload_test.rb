@@ -54,4 +54,9 @@ class PayloadTest < TrafficTest
     assert_equal ["GET", "POST"], actual_result
   end
 
+  def test_most_popular_referrers
+    actual_result = @user_url_blog.referrers
+    assert_equal ['google.com', 'jumpstartlab.com'], actual_result
+  end
+
 end
