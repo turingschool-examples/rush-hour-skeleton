@@ -1,4 +1,4 @@
-.container
+.container.center-align
   .row
     .col.s12.m12.l12
       %h3.title-text.center-align
@@ -7,10 +7,10 @@
 
   .row
     .col.s12.m12.l4
-      .card.cyan.darken-2
+      .card.cyan.darken-2.stats-card
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Most Requested URLs
-          %table
+          %table#most-requested-urls
             %tr
               %th Rank
               %th Path
@@ -26,10 +26,10 @@
                   = data[1]
 
     .col.s12.m12.l4
-      .card.cyan.darken-2
+      .card.cyan.darken-2.stats-card
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Web Browser
-          %table
+          %table#web-browser
             %tr
               %th Rank
               %th Browser
@@ -44,10 +44,10 @@
                   = data[1]
 
     .col.s12.m12.l4
-      .card.cyan.darken-2
+      .card.cyan.darken-2.stats-card
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Operating System
-          %table
+          %table#operating-system
             %tr
               %th Rank
               %th OS
@@ -62,10 +62,10 @@
                   = data[1]
   .row
     .col.s12.m12.l6
-      .card.cyan.darken-2
+      .card.cyan.darken-2.stats-card
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Screen Resolution
-          %table
+          %table#screen-resolution
             %tr
               %th Rank
               %th Width
@@ -83,10 +83,10 @@
                   = data[1]
 
     .col.s12.m12.l6
-      .card.cyan.darken-2
+      .card.cyan.darken-2.stats-card
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Average Response Times
-          %table
+          %table#average-response-times
             %tr
               %th Rank
               %th Path
@@ -100,4 +100,9 @@
                 %td.request-count
                   = data[1].to_f.round(2)
 
-  %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
+  .row
+    .col.s12.m12.l12
+      .card.white.link-card.valign-wrapper
+        .card-content.valign.center-content
+          %h5.card-title.cyan-text.text-darken-2
+            %a{:href => "/sources/#{@app.identifier}/events"}Aggregate Event Data
