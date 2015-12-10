@@ -12,6 +12,10 @@
   color: #d7d7d7;
 }
 
+#analytics {
+  text-decoration: overline;
+  margin-left: -40px;
+}
 
 /*
 .card {
