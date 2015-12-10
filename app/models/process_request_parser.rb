@@ -12,7 +12,7 @@ module TrafficSpy
       uri = URI(url)
 
       {
-        :relative_path => uri.path,
+        :relative_path_string => uri.path,
         :requested_at => parsed_request["requestedAt"],
         :responded_in => parsed_request["respondedIn"],
         :referred_by => parsed_request["referredBy"],

@@ -16,7 +16,7 @@
               %th.weighted Rank
               %th.weighted Path
               %th.weighted Requests
-            -@app.payloads.group_count_and_order(:relative_path).each_with_index do |data, rank|
+            -@app.payloads.group_count_and_order_relative_path.each_with_index do |data, rank|
               %tr
                 %td
                   = rank + 1
