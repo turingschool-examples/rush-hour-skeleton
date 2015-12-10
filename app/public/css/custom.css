@@ -60,6 +60,14 @@
 .shadow {
   text-shadow: 2px 2px #0097a7;
 }
+
+.grid-margin {
+  margin-top: 5px;
+}
+
+.highlight {
+  color: #0097a7;
+}
 /*.smaller-text{
   font-size: 35px;
 }*/
