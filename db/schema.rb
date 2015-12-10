@@ -23,20 +23,6 @@ ActiveRecord::Schema.define(version: 20151210175125) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "events", force: :cascade do |t|
-    t.integer  "responded_in"
-    t.string   "requested_at"
-    t.string   "event_name"
-    t.integer  "client_id"
-    t.integer  "url_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "hexed_payloads", force: :cascade do |t|
-    t.string "hexed_payload"
-  end
-
   create_table "payloads", force: :cascade do |t|
     t.string   "path"
     t.string   "referred_by"
@@ -54,26 +40,6 @@ ActiveRecord::Schema.define(version: 20151210175125) do
     t.integer  "client_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-  end
-
-  create_table "urls", force: :cascade do |t|
-    t.string   "path"
-    t.string   "referred_by"
-    t.string   "request_type"
-    t.string   "parameters"
-    t.integer  "client_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "user_agents", force: :cascade do |t|
-    t.string  "web_browser"
-    t.string  "operating_system"
-    t.integer "resolution_width"
-    t.integer "resolution_height"
-    t.string  "ip_address"
-    t.integer "client_id"
-    t.integer "url_id"
   end
 
 end
