@@ -36,7 +36,22 @@ class PayloadTest < TrafficTest
 
   def test_max_response_time
     actual_result = @user_url_blog.max_response_time
-    assert_equal  39, actual_result
+    assert_equal 39, actual_result
+  end
+
+  def test_min_response_time
+    actual_result = @user_url_blog.min_response_time
+    assert_equal 37, actual_result
+  end
+
+  def test_avg_response_time_per_url
+    actual_result = @user_url_blog.average_response_time_per_url
+    assert_equal 38, actual_result
+  end
+
+  def test_http_verbs
+    actual_result = @user_url_blog.http_verbs
+    assert_equal ["GET", "POST"], actual_result
   end
 
 end

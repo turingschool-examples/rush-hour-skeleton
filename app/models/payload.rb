@@ -29,5 +29,17 @@ module TrafficSpy
       maximum(:responded_in)
     end
 
+    def self.min_response_time
+      minimum(:responded_in)
+    end
+
+    def self.average_response_time_per_url
+      average(:responded_in)
+    end
+
+    def self.http_verbs
+      pluck(:request_type).uniq
+    end
+
   end
 end

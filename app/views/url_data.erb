@@ -5,3 +5,19 @@
 <div id = "longest_response_time">
   <h4>Longest Response Time: <%= @url_payloads.max_response_time %></h4>
 </div>
+
+<div id = "shortest_response_time">
+  <h4>Shortest Response Time: <%= @url_payloads.min_response_time %></h4>
+</div>
+
+<div id = "avg_response_time">
+  <h4>Average Response Time: <%= @url_payloads.average_response_time_per_url %></h4>
+</div>
+
+<div id = "verbs">
+  <h4>HTTP Verbs Received:
+    <% @url_payloads.http_verbs.each_with_index do |verb, index| %>
+      <%= verb %><%= ',' unless @url_payloads.http_verbs.count - 1 == index %>
+    <% end %>
+  </h4>
+</div>

@@ -22,4 +22,33 @@ class UserVistitsURLStatsTest < FeatureTest
     end
   end
 
+  def test_user_sees_shortest_response_time_for_url
+    setup_testing_environment
+
+    within('#shortest_response_time') do
+      assert page.has_content?('Shortest Response Time')
+      assert page.has_content?(37)
+    end
+  end
+
+  def test_user_sees_avg_response_time_for_url
+    setup_testing_environment
+
+    within('#avg_response_time') do
+      assert page.has_content?('Average Response Time')
+      assert page.has_content?(38)
+    end
+  end
+
+  def test_user_sees_http_verbs
+    setup_testing_environment
+    within('#verbs') do
+      assert page.has_content?('HTTP Verbs Received')
+      assert page.has_content?('GET')
+    end
+  end
+
+  def test_user_sees_three_most_popular_refferers
+
+  end
 end
