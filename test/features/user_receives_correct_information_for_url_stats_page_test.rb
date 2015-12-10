@@ -11,4 +11,15 @@ class UserReceivesCorrectInformationForURLStatsPageTest < FeatureTest
     assert page.has_content?("That URL has not been requested.")
   end
 
+  def test_user_sees_url_statistics_when_url_has_been_recorded
+
+    ces = ClientEnvironmentSimulator.new
+    ces.start_simulation
+
+    visit '/sources/google/urls/blog'
+    save_and_open_page
+    refute page.has_content?("That URL has not been requested.")
+
+  end
+
 end
