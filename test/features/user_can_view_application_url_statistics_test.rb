@@ -3,7 +3,7 @@ require_relative "../test_helper"
 class UserCanViewApplicationURLStatisticsTest < FeatureTest
   def add_more_payloads
     payload_data_7 = {
-      relative_path: "/people",
+      relative_path_string: "/people",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 25,
       referred_by:"http://turing.io",
@@ -15,7 +15,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       ip_address:"63.29.38.211"
     }
     payload_data_8 = {
-      relative_path: "/people",
+      relative_path_string: "/people",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 26,
       referred_by:"http://facebook.com",
@@ -27,7 +27,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       ip_address:"63.29.38.211"
     }
     payload_data_9 = {
-      relative_path: "/people",
+      relative_path_string: "/people",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 35,
       referred_by:"http://facebook.com",
@@ -39,7 +39,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       ip_address:"63.29.38.211"
     }
     payload_data_10 = {
-      relative_path: "/people",
+      relative_path_string: "/people",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 45,
       referred_by:"http://facebook.com",
@@ -51,7 +51,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       ip_address:"63.29.38.211"
     }
     payload_data_11 = {
-      relative_path: "/people",
+      relative_path_string: "/people",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 29,
       referred_by:"http://twitter.com",
@@ -63,7 +63,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       ip_address:"63.29.38.211"
     }
     payload_data_12 = {
-      relative_path: "/people",
+      relative_path_string: "/people",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 28,
       referred_by:"http://turing.io",
@@ -81,7 +81,10 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
     payloads.each do |data|
-      app.payloads.create(data)
+      rel_path = TrafficSpy::RelativePath.find_or_create_by(path: data[:relative_path_string])
+      data[:relative_path_id] = rel_path.id
+      data[:application_id] = app.id
+      TrafficSpy::Payload.create(data)
     end
   end
 
@@ -224,7 +227,6 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
     assert page.has_content?("turing")
     assert page.has_content?("people")
-    # save_and_open_page
 
     within 'h5#longest_response_time' do
       assert page.has_content?("Longest Response Time: 45")
@@ -310,6 +312,5 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     assert page.has_content?("turing")
     assert page.has_content?("beth")
     assert page.has_content?("URL has not been requested.")
-
   end
 end
