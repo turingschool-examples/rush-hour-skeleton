@@ -104,6 +104,54 @@ class PayloadTest < ModelTest
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
+  def test_can_create_payload_and_associate_app_path_reqtype_with_valid_parameters
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data = {
+      relative_path_string: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type_string:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+      }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    payload_data[:application_id] = app.id
+
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
+    payload_data[:relative_path_id] = rel_path.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data[:request_type_string])
+    payload_data[:request_type_id] = req_type.id
+
+    TrafficSpy::Payload.create(payload_data)
+
+    assert_equal 1, TrafficSpy::Payload.count
+    assert_equal 1, TrafficSpy::Payload.first.application_id
+
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    assert_equal 1, TrafficSpy::Payload.first.relative_path_id
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
+
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    assert_equal 1, TrafficSpy::Payload.first.request_type_id
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
+
+    assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
+    assert_equal 37, TrafficSpy::Payload.first.responded_in
+    assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
+    assert_equal 'socialLogin', TrafficSpy::Payload.first.event
+    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
+    assert_equal 'Chrome', TrafficSpy::Payload.first.browser
+    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution
+    assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
+  end
+
   def test_can_create_and_associate_two_payloads_with_valid_unique_parameters
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
@@ -137,17 +185,27 @@ class PayloadTest < ModelTest
 
     assert_equal 0, TrafficSpy::Payload.count
 
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    payload_data_1[:application_id] = app.id
+
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path.id
-    payload_data_1[:application_id] = app.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
 
     TrafficSpy::Payload.create(payload_data_1)
 
     assert_equal 1, TrafficSpy::Payload.count
 
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    payload_data_2[:application_id] = app.id
+
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path.id
-    payload_data_2[:application_id] = app.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
 
     TrafficSpy::Payload.create(payload_data_2)
 
@@ -214,6 +272,9 @@ class PayloadTest < ModelTest
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
     payload_data[:relative_path_id] = rel_path.id
 
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data[:request_type_string])
+    payload_data[:request_type_id] = req_type.id
+
     payload_data[:application_id] = app_turing.id
     TrafficSpy::Payload.create(payload_data)
 
@@ -258,6 +319,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -265,6 +330,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -304,6 +373,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -311,6 +384,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -350,6 +427,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -357,6 +438,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -396,6 +481,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -403,6 +492,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -442,6 +535,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -449,6 +546,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -488,6 +589,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -495,6 +600,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -534,6 +643,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -541,6 +654,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -580,6 +697,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -587,6 +708,10 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -626,6 +751,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -633,8 +762,11 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
-    payload_data_2[:application_id] = app.id
 
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    payload_data_2[:application_id] = app.id
     TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
@@ -672,6 +804,10 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -679,8 +815,11 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
-    payload_data_2[:application_id] = app.id
 
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    payload_data_2[:application_id] = app.id
     TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
@@ -722,6 +861,15 @@ class PayloadTest < ModelTest
                 '{:width=>"600", :height=>"800"}' => 1}
 
     assert_equal expected, app.payloads.group_count_and_order(:resolution)
+  end
+
+  def test_group_count_and_order_request_types
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+    expected = {"GET" => 5, "POST" => 1}
+
+    assert_equal expected, app.payloads.group_count_and_order_request_type
   end
 
   def test_group_average_and_order_response_times

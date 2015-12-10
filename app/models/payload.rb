@@ -8,25 +8,28 @@ module TrafficSpy
                                                      :request_type_string, :event,
                                                      :operating_system, :browser,
                                                      :resolution, :ip_address,
-                                                     :relative_path_id, :request_type_string]
+                                                     :relative_path_id, :request_type_id]
 
     def self.group_count_and_order(field)
       group(field).count.sort.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
-    ########### NEW!!! ######
     def self.group_count_and_order_relative_path
       paths = group(:relative_path).count.map { |rel_path, count| [rel_path.path, count]}
       paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
-    ########### CHANGEDS!!! ######
+    ########### NEW!!! ######
+    def self.group_count_and_order_request_type
+      paths = group(:request_type).count.map { |rel_path, count| [rel_path.verb, count]}
+      paths.sort_by { |key, count| [ -count, key ] }.to_h
+    end
+
     def self.group_average_and_order_response_times
       paths = group(:relative_path).average(:responded_in).map { |rel_path, count| [rel_path.path, count]}
       paths.sort_by{ |_, v| -v }
     end
 
-    ########### CHANGEDS!!! ######
     def self.matching(relative_path)
       rel_path_id = TrafficSpy::RelativePath.find_by(path: relative_path).id
       where(relative_path_id: rel_path_id)
@@ -48,7 +51,6 @@ module TrafficSpy
       group_count_and_order(field).take(3)
     end
 
-    ################ NEW!!! ############
     def self.get_top_3_relative_path
       group_count_and_order_relative_path.take(3)
     end
