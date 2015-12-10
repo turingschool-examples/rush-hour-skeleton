@@ -59,7 +59,7 @@ class ProcessRequestTest < ControllerTest
   end
 
   def test_responds_with_403_for_a_non_unique_payload
-    TrafficSpy::Application.create({ identifier: "turing", root_url: "http://turing.io"})
+    app = TrafficSpy::Application.create({ identifier: "turing", root_url: "http://turing.io"})
 
     payload = { payload: '{
                           "url":"http://turing.io/blog",
@@ -78,7 +78,12 @@ class ProcessRequestTest < ControllerTest
 
     parser = TrafficSpy::ProcessRequestParser.new
 
-    TrafficSpy::Application.find(1).payloads.create(parser.parse_request(payload[:payload]))
+    parsed_string = parser.parse_request(payload[:payload])
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: parsed_string[:relative_path_string])
+    parsed_string[:relative_path_id] = rel_path.id
+    parsed_string[:application_id] = app.id
+
+    TrafficSpy::Payload.create(parsed_string)
 
     post '/sources/turing/data', payload
 
@@ -87,9 +92,9 @@ class ProcessRequestTest < ControllerTest
   end
 
   def test_allows_two_unique_payloads_with_different_urls
-    TrafficSpy::Application.create({ identifier: "turing", root_url: "http://turing.io"})
+    app = TrafficSpy::Application.create({ identifier: "turing", root_url: "http://turing.io"})
 
-    payload1 = { payload: '{
+    payload_1 = { payload: '{
                           "url":"http://turing.io/blog",
                           "requestedAt":"2013-02-16 21:38:28 -0700",
                           "respondedIn":37,
@@ -104,7 +109,7 @@ class ProcessRequestTest < ControllerTest
                           }'
     }
 
-    payload2 = { payload: '{
+    payload_2 = { payload: '{
                           "url":"http://turing.io/team",
                           "requestedAt":"2013-02-16 21:38:28 -0700",
                           "respondedIn":37,
@@ -121,9 +126,14 @@ class ProcessRequestTest < ControllerTest
 
     parser = TrafficSpy::ProcessRequestParser.new
 
-    TrafficSpy::Application.find(1).payloads.create(parser.parse_request(payload1[:payload]))
+    parsed_string = parser.parse_request(payload_1[:payload])
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: parsed_string[:relative_path_string])
+    parsed_string[:relative_path_id] = rel_path.id
+    parsed_string[:application_id] = app.id
 
-    post '/sources/turing/data', payload2
+    TrafficSpy::Payload.create(parsed_string)
+
+    post '/sources/turing/data', payload_2
 
     assert_equal 200, last_response.status
   end
