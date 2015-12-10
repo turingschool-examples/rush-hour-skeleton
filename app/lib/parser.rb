@@ -22,7 +22,7 @@ attr_reader :payload,
     # binding.pry
     @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
     @id             = params['id']
-    @url            = payload['url']
+    @url_id         = Url.find_by(path: payload['url']) && Url.find_by(path: payload['url']).id
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
     @referral       = payload['referredBy']
@@ -46,10 +46,10 @@ attr_reader :payload,
     width && height && "#{width}x#{height}"
   end
 
-  def complete_data
+  def request_data
     { request_hash: request_hash,
       application_id: application_id,
-      url: url,
+      # url: url,
       timestamp: timestamp,
       response_time: response_time,
       referral: referral,

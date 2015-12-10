@@ -3,7 +3,7 @@ class RequestManager
 
   def initialize(params)
     parser = Parser.new(params)
-    request = Request.new(parser.complete_data)
+    request = Request.new(parser.request_data)
 
     # case
     # when parser.payload.nil? then [status, response]
