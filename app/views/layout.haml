@@ -11,13 +11,10 @@
 
   / Navigation
   %ul#dropdown1.dropdown-content
-    %li
-      %a{:href => "#!"} one
-    %li
-      %a{:href => "#!"} two
-    %li.divider
-    %li
-      %a{:href => "#!"} three
+    -TrafficSpy::Application.all.each do |app|
+      %li
+        %a{:href => "/sources/#{app.identifier}"}
+          = app.identifier
   .navbar
     %nav
       .nav-wrapper
@@ -32,7 +29,7 @@
           / Dropdown Trigger
           %li
             %a.dropdown-button{"data-activates" => "dropdown1", :href => "#!"}
-              Dropdown
+              Jump to App
               %i.material-icons.right arrow_drop_down
         %ul#mobile-demo.side-nav
           %li
