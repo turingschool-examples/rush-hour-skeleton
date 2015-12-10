@@ -26,7 +26,6 @@
             %a{:href => "/"} Dashboard
           %li
             %a{:href => "/sources"} Registered App Index
-          / Dropdown Trigger
           %li
             %a.dropdown-button{"data-activates" => "dropdown1", :href => "#!"}
               Jump to App
@@ -36,6 +35,11 @@
             %a{:href => "/"} Dashboard
           %li
             %a{:href => "/sources"} Registered App Index
+          %li.divider
+          -TrafficSpy::Application.all.each do |app|
+            %li
+              %a{:href => "/sources/#{app.identifier}"}
+                = app.identifier
 
     = yield
 
