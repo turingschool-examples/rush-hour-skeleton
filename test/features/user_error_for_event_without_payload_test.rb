@@ -5,7 +5,7 @@ class UserErrorForEventWithoutPayloadTest < FeatureTest
 
     visit '/sources/turing/events'
 
-    within 'h5' do
+    within 'h3' do
       assert page.has_content?('No Payload data has been received for this source')
     end
   end

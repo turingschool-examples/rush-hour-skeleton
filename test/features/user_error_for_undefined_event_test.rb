@@ -6,7 +6,7 @@ class UserErrorForUndefinedEventTest < FeatureTest
 
     visit '/sources/turing/events/socialZZYZX'
 
-    within 'h1' do
+    within 'h3' do
       assert page.has_content?('event: socialZZYZX has not been defined for this application')
     end
 

@@ -2,10 +2,11 @@ require_relative '../test_helper'
 
 class UserCanViewApplicationDetailsTest < FeatureTest
   def test_user_can_view_most_request_urls
-    skip
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
+
+    save_and_open_page
 
     within 'table#most-requested-urls tr:nth-child(2)' do
       assert page.has_content?('/blog')
