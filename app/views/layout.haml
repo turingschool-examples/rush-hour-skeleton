@@ -10,6 +10,14 @@
   %body
 
   / Navigation
+  %ul#dropdown1.dropdown-content
+    %li
+      %a{:href => "#!"} one
+    %li
+      %a{:href => "#!"} two
+    %li.divider
+    %li
+      %a{:href => "#!"} three
   .navbar
     %nav
       .nav-wrapper
@@ -21,6 +29,11 @@
             %a{:href => "/"} Dashboard
           %li
             %a{:href => "/sources"} Registered App Index
+          / Dropdown Trigger
+          %li
+            %a.dropdown-button{"data-activates" => "dropdown1", :href => "#!"}
+              Dropdown
+              %i.material-icons.right arrow_drop_down
         %ul#mobile-demo.side-nav
           %li
             %a{:href => "/"} Dashboard
