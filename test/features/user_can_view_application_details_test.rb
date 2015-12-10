@@ -6,19 +6,19 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
     visit '/sources/turing'
 
-    within 'ol#most_requested_urls li:nth-child(1)' do
+    within 'table#most-requested-urls tr:nth-child(2)' do
       assert page.has_content?('/blog')
       assert page.has_css?("a[href~='/sources/turing/urls/blog']")
       assert page.has_content?(3)
     end
 
-    within 'ol#most_requested_urls li:nth-child(2)' do
+    within 'table#most-requested-urls tr:nth-child(3)' do
       assert page.has_content?('/team')
       assert page.has_css?("a[href~='/sources/turing/urls/team']")
       assert page.has_content?(2)
     end
 
-    within 'ol#most_requested_urls li:nth-child(3)' do
+    within 'table#most-requested-urls tr:nth-child(4)' do
       assert page.has_content?('/about')
       assert page.has_css?("a[href~='/sources/turing/urls/about']")
       assert page.has_content?(1)
@@ -30,22 +30,22 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
     visit '/sources/turing'
 
-    within 'ol#web_browser li:nth-child(1)' do
+    within 'table#web-browser tr:nth-child(2)' do
       assert page.has_content?('Chrome')
       assert page.has_content?(3)
     end
 
-    within 'ol#web_browser li:nth-child(2)' do
+    within 'table#web-browser tr:nth-child(3)' do
       assert page.has_content?('IE10')
       assert page.has_content?(1)
     end
 
-    within 'ol#web_browser li:nth-child(3)' do
+    within 'table#web-browser tr:nth-child(4)' do
       assert page.has_content?('Mozilla')
       assert page.has_content?(1)
     end
 
-    within 'ol#web_browser li:nth-child(4)' do
+    within 'table#web-browser tr:nth-child(5)' do
       assert page.has_content?('Safari')
       assert page.has_content?(1)
     end
@@ -56,12 +56,12 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
     visit '/sources/turing'
 
-    within 'ol#operating_system li:nth-child(1)' do
+    within 'table#operating-system tr:nth-child(2)' do
       assert page.has_content?('Macintosh')
       assert page.has_content?(4)
     end
 
-    within 'ol#operating_system li:nth-child(2)' do
+    within 'table#operating-system tr:nth-child(3)' do
       assert page.has_content?('Windows')
       assert page.has_content?(2)
     end
@@ -71,29 +71,28 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
-    # save_and_open_page
 
-    within 'ol#screen_resolution li:nth-child(1)' do
-      assert page.has_content?(':width=>"1920"')
-      assert page.has_content?(':height=>"1280"')
+    within 'table#screen-resolution tr:nth-child(2)' do
+      assert page.has_content?(1920)
+      assert page.has_content?(1280)
       assert page.has_content?(3)
     end
 
-    within 'ol#screen_resolution li:nth-child(2)' do
-      assert page.has_content?(':width=>"1366"')
-      assert page.has_content?(':height=>"768"')
+    within 'table#screen-resolution tr:nth-child(3)' do
+      assert page.has_content?(1366)
+      assert page.has_content?(768)
       assert page.has_content?(1)
     end
 
-    within 'ol#screen_resolution li:nth-child(3)' do
-      assert page.has_content?(':width=>"1920"')
-      assert page.has_content?(':height=>"1080"')
+    within 'table#screen-resolution tr:nth-child(4)' do
+      assert page.has_content?(1920)
+      assert page.has_content?(1080)
       assert page.has_content?(1)
     end
 
-    within 'ol#screen_resolution li:nth-child(4)' do
-      assert page.has_content?(':width=>"600"')
-      assert page.has_content?(':height=>"800"')
+    within 'table#screen-resolution tr:nth-child(5)' do
+      assert page.has_content?(600)
+      assert page.has_content?(800)
       assert page.has_content?(1)
     end
   end
@@ -103,17 +102,17 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
     visit '/sources/turing'
 
-    within 'ol#average_response_times li:nth-child(1)' do
+    within 'table#average-response-times tr:nth-child(2)' do
       assert page.has_content?('/blog')
       assert page.has_content?(55.67)
     end
 
-    within 'ol#average_response_times li:nth-child(2)' do
+    within 'table#average-response-times tr:nth-child(3)' do
       assert page.has_content?('/team')
       assert page.has_content?(40.5)
     end
 
-    within 'ol#average_response_times li:nth-child(3)' do
+    within 'table#average-response-times tr:nth-child(4)' do
       assert page.has_content?('/about')
       assert page.has_content?(25.0)
     end
