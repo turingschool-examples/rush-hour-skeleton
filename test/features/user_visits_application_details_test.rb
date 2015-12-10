@@ -49,4 +49,13 @@ class UserVisitsApplicationDetailsTest < FeatureTest
     end
   end
 
+  def test_user_can_view_most_requested_screen_resolutions
+    setup_testing_environment
+    save_and_open_page
+    within('#avg_response') do
+      assert page.has_content?('Average Response Time')
+      assert page.has_content?('27')
+    end
+  end
+
 end

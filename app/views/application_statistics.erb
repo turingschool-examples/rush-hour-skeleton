@@ -26,4 +26,11 @@
   <% end %>
 </div>
 
+<div id="avg_response">
+  <h2>Average Response Time</h2>
+  <% @user.payloads.avg_response_time.each do |k, v| %>
+    <h4><%=k  %>:<%= v %></h4>
+  <% end %>
+</div>
+
 <!-- user_object = TrafficSpy::User.find_by(identifier: @id) -->

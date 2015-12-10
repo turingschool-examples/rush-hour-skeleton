@@ -18,10 +18,12 @@ module TrafficSpy
     end
 
     def self.resolution_popularity
-
       group(:resolution_id).count.sort.to_h
     end
 
+    def self.avg_response_time
+      group(:url).average(:responded_in)
+    end
 
   end
 end
