@@ -1,8 +1,14 @@
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
+      haml :homepage
+    end
+
+    get '/sources' do 
+      @apps = TrafficSpy::Application.all
       haml :index
     end
+
 
     post '/sources' do
       response_status, response_body =  TrafficSpy::RegisterApplication.new(params).save
