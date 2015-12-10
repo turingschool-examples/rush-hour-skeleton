@@ -13,14 +13,14 @@
           %ol#most_requested_urls
             -@app.payloads.group_count_and_order(:relative_path).each do |k, v|
               %li.white-text
-                %a{:href => "/sources/#{@app.identifier}/urls#{k}"}
+                %a.cyan-text.text-lighten-3{:href => "/sources/#{@app.identifier}/urls#{k}"}
                   =k
                 = v
 
     .col.s12.m12.l4
-      .card
+      .card.cyan.darken-2
         .card-content
-          %h5.card-title.cyan-text.text-lighten-3 Web Browser
+          %h5.card-title.cyan-text.text-lighten-5 Web Browser
           %ol#web_browser
             -@app.payloads.group_count_and_order(:browser).each do |k, v|
               %li
@@ -28,9 +28,9 @@
                 = v
 
     .col.s12.m12.l4
-      .card
+      .card.cyan.darken-2
         .card-content
-          %h5.card-title.cyan-text.text-lighten-3 Operating System
+          %h5.card-title.cyan-text.text-lighten-5 Operating System
           %ol#operating_system
             -@app.payloads.group_count_and_order(:operating_system).each do |k, v|
               %li
@@ -38,9 +38,9 @@
                 = v
   .row
     .col.s12.m12.l6
-      .card
+      .card.cyan.darken-2
         .card-content
-          %h5.card-title.cyan-text.text-lighten-3 Screen Resolution
+          %h5.card-title.cyan-text.text-lighten-5 Screen Resolution
           %ol#screen_resolution
             -@app.payloads.group_count_and_order(:resolution).each do |k, v|
               %li
@@ -48,9 +48,9 @@
                 = v
 
     .col.s12.m12.l6
-      .card
+      .card.cyan.darken-2
         .card-content
-          %h5.card-title.cyan-text.text-lighten-3 Average Response Times
+          %h5.card-title.cyan-text.text-lighten-5 Average Response Times
           %ol#average_response_times
             -@app.payloads.group_average_and_order_response_times.each do |k, v|
               %li
