@@ -1,24 +1,34 @@
 module TrafficSpy
   class Payload < ActiveRecord::Base
     belongs_to :application
-    validates_uniqueness_of :application_id, scope: [:relative_path, :requested_at,
+    belongs_to :relative_path
+    validates_uniqueness_of :application_id, scope: [:relative_path_string, :requested_at,
                                                      :responded_in, :referred_by,
                                                      :request_type, :event,
                                                      :operating_system, :browser,
-                                                     :resolution, :ip_address]
+                                                     :resolution, :ip_address,
+                                                     :relative_path_id]
 
     def self.group_count_and_order(field)
-      group(field).order(count: :desc).count
-      # proposed bug fix:
       group(field).count.sort.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
-    def self.group_average_and_order_response_times
-      group(:relative_path).average(:responded_in).sort_by{ |_, v| -v }
+    ########### NEW!!! ######
+    def self.group_count_and_order_relative_path
+      paths = group(:relative_path).count.map { |rel_path, count| [rel_path.path, count]}
+      paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
+    ########### CHANGEDS!!! ######
+    def self.group_average_and_order_response_times
+      paths = group(:relative_path).average(:responded_in).map { |rel_path, count| [rel_path.path, count]}
+      paths.sort_by{ |_, v| -v }
+    end
+
+    ########### CHANGEDS!!! ######
     def self.matching(relative_path)
-      where(relative_path: relative_path)
+      rel_path_id = TrafficSpy::RelativePath.find_by(path: relative_path).id
+      where(relative_path_id: rel_path_id)
     end
 
     def self.max_response_time
@@ -35,6 +45,11 @@ module TrafficSpy
 
     def self.get_top_3(field)
       group_count_and_order(field).take(3)
+    end
+
+    ################ NEW!!! ############
+    def self.get_top_3_relative_path
+      group_count_and_order_relative_path.take(3)
     end
 
     def self.requests_by_hour(hour)

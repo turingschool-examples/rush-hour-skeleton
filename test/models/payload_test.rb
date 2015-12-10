@@ -3,7 +3,7 @@ require './test/test_helper'
 class PayloadTest < ModelTest
   def test_can_create_payload_with_valid_parameters
     payload_data = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -18,7 +18,7 @@ class PayloadTest < ModelTest
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_nil TrafficSpy::Payload.first.application_id
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
@@ -34,7 +34,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -51,7 +51,48 @@ class PayloadTest < ModelTest
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
+    assert_equal 37, TrafficSpy::Payload.first.responded_in
+    assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type
+    assert_equal 'socialLogin', TrafficSpy::Payload.first.event
+    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
+    assert_equal 'Chrome', TrafficSpy::Payload.first.browser
+    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution
+    assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
+  end
+
+  def test_can_create_payload_and_associate_app_and_path_with_valid_parameters
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data = {
+      relative_path_string: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+      }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
+    payload_data[:relative_path_id] = rel_path.id
+    payload_data[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data)
+
+    assert_equal 1, TrafficSpy::Payload.count
+    assert_equal 1, TrafficSpy::Payload.first.application_id
+
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    assert_equal 1, TrafficSpy::Payload.first.relative_path_id
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
+
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
@@ -67,7 +108,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -80,7 +121,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/about",
+      relative_path_string: "/about",
       requested_at: "2013-02-17 21:38:28 -0700",
       responded_in: 40,
       referred_by:"http://turing.io",
@@ -96,21 +137,29 @@ class PayloadTest < ModelTest
 
     assert_equal 0, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_1)
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
 
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
 
     assert_equal 2, TrafficSpy::Payload.count
 
     assert_equal 1, TrafficSpy::Payload.first.application_id
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
 
     assert_equal 1, TrafficSpy::Payload.last.application_id
-    assert_equal '/about', TrafficSpy::Payload.last.relative_path
+    assert_equal '/about', TrafficSpy::Payload.last.relative_path_string
     assert_equal DateTime.new(2013,02,17,21,38,28, '-0700'), TrafficSpy::Payload.last.requested_at
     assert_equal 40, TrafficSpy::Payload.last.responded_in
   end
@@ -119,7 +168,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -130,13 +179,15 @@ class PayloadTest < ModelTest
       resolution: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
-
     app = TrafficSpy::Application.find_by(identifier: "turing")
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
+    payload_data[:relative_path_id] = rel_path.id
+    payload_data[:application_id] = app.id
 
-    app.payloads.create(payload_data)
+    TrafficSpy::Payload.create(payload_data)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data)
+    TrafficSpy::Payload.create(payload_data)
     assert_equal 1, TrafficSpy::Payload.count
   end
 
@@ -145,7 +196,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
 
     payload_data = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -160,10 +211,17 @@ class PayloadTest < ModelTest
     app_turing = TrafficSpy::Application.find_by(identifier: "turing")
     app_jumpstartlab = TrafficSpy::Application.find_by(identifier: "jumpstartlab")
 
-    app_turing.payloads.create(payload_data)
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
+    payload_data[:relative_path_id] = rel_path.id
+
+    payload_data[:application_id] = app_turing.id
+    TrafficSpy::Payload.create(payload_data)
+
     assert_equal 1, TrafficSpy::Payload.count
 
-    app_jumpstartlab.payloads.create(payload_data)
+    payload_data[:application_id] = app_jumpstartlab.id
+    TrafficSpy::Payload.create(payload_data)
+
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -171,7 +229,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -184,7 +242,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/team",
+      relative_path_string: "/team",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -198,10 +256,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -209,7 +275,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -222,7 +288,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2014-03-25 20:40:13 -0800",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -236,10 +302,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -247,7 +321,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -260,7 +334,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 80,
       referred_by:"http://turing.io",
@@ -274,10 +348,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -285,7 +367,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -298,7 +380,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://facebook.com",
@@ -312,10 +394,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -323,7 +413,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -336,7 +426,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -350,10 +440,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -361,7 +459,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -374,7 +472,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -388,10 +486,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -399,7 +505,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -412,7 +518,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -426,10 +532,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -437,7 +551,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -450,7 +564,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -464,10 +578,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -475,7 +597,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -488,7 +610,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -502,10 +624,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -513,7 +643,7 @@ class PayloadTest < ModelTest
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -526,7 +656,7 @@ class PayloadTest < ModelTest
     }
 
     payload_data_2 = {
-      relative_path: "/blog",
+      relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
@@ -540,10 +670,18 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: "turing")
 
-    app.payloads.create(payload_data_1)
+    rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
+    payload_data_1[:relative_path_id] = rel_path_1.id
+    payload_data_1[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_1)
     assert_equal 1, TrafficSpy::Payload.count
 
-    app.payloads.create(payload_data_2)
+    rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
+    payload_data_2[:relative_path_id] = rel_path_2.id
+    payload_data_2[:application_id] = app.id
+
+    TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
@@ -553,7 +691,7 @@ class PayloadTest < ModelTest
     app = TrafficSpy::Application.find_by(identifier: 'turing')
     expected = {"/blog" => 3, "/team" => 2, "/about" => 1}
 
-    assert_equal expected, app.payloads.group_count_and_order(:relative_path)
+    assert_equal expected, app.payloads.group_count_and_order_relative_path
   end
 
   def test_group_count_and_order_browser
@@ -662,15 +800,13 @@ class PayloadTest < ModelTest
     assert_equal 25, app_blog_about.avg_response_time
   end
 
-  #####################
-
   def test_get_top_3_relative_path
     register_turing_and_send_multiple_payloads
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
     expected = [["/blog", 3], ["/team", 2], ["/about", 1]]
 
-    assert_equal expected, app.payloads.get_top_3(:relative_path)
+    assert_equal expected, app.payloads.get_top_3_relative_path
   end
 
   def test_get_top_3_browser
