@@ -13,11 +13,11 @@
   %ul#dropdown1.dropdown-content
     -TrafficSpy::Application.all.each do |app|
       %li
-        %a{:href => "/sources/#{app.identifier}"}
+        %a.cyan-text.text-darken-2{:href => "/sources/#{app.identifier}"}
           = app.identifier
   .navbar
     %nav
-      .nav-wrapper
+      .nav-wrapper.cyan.darken-2
         %a.brand-logo{:href => "/"} TrafficSpy
         %a.button-collapse{"data-activates" => "mobile-demo", :href => "#"}
           %i.material-icons menu
@@ -41,8 +41,7 @@
               %a{:href => "/sources/#{app.identifier}"}
                 = app.identifier
 
-    .container
-      = yield
+    = yield
 
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"}
     %script{:type => "text/javascript", :src =>"https://code.jquery.com/jquery-2.1.1.min.js"}

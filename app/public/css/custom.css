@@ -1,0 +1,15 @@
+.background-img {
+  background-image: url("../images/TrafficSpy_Eye.jpg");
+  height: 100vh;
+  max-width: 100%;
+}
+
+.brand-logo {
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .background-img {
+    background-position: center center;
+  }
+}

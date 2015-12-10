@@ -1,9 +1,11 @@
 .row
   .col.s12.m12.l12
     %h3.cyan-text.text-darken-2.center-align
-      Statistics for: 
+      Statistics for:
       = @app.identifier
 
+.row
+  
 %h5 Most requested URLS
 %ol#most_requested_urls
   -@app.payloads.group_count_and_order(:relative_path).each do |k, v|
