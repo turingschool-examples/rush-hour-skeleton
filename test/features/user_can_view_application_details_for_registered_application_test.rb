@@ -9,7 +9,6 @@ class UserCanViewApplicationDetailsForRegisteredApplicationTest < FeatureTest
 
     visit '/sources/google'
 
-    save_and_open_page
     within '#client_name' do
       assert page.has_content?("google")
     end

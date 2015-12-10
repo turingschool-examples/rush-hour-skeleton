@@ -30,8 +30,12 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      if @client = Client.find_by(name: identifier)
+      @client = Client.find_by(name: identifier)
+      if @client && !@client.payloads.empty?
         erb :application_details
+      elsif @client && @client.payloads.empty?
+        @error_message = "No payload data has been received for this source."
+        erb :error
       else
         @error_message = "The identifier does not exist."
         erb :error
