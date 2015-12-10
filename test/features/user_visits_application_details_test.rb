@@ -51,20 +51,30 @@ class UserVisitsApplicationDetailsTest < FeatureTest
 
   def test_user_can_view_most_requested_screen_resolutions
     setup_testing_environment
-    save_and_open_page
     within('#avg_response') do
       assert page.has_content?('Average Response Time')
-      assert page.has_content?('27')
+      assert page.has_content?('38')
     end
   end
 
   def test_user_can_view_links_to_URL_data
     setup_testing_environment
-    within('#url_data') do
+    within('#mvp_urls') do
       assert page.has_content?('URL Popularity Contest')
     end
 
-    click_link('url_data')
+    click_link('url_data_response_http://jumpstartlab.com/blog')
+
+    refute page.has_content?('URL Popularity Contest')
+  end
+
+  def test_user_can_view_event_data
+    setup_testing_environment
+    within('#aggregate_event_data') do
+      assert page.has_content?('View Event Data')
+    end
+
+    click_link('event_data')
 
     refute page.has_content?('URL Popularity Contest')
   end

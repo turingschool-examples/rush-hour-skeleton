@@ -1,7 +1,7 @@
 <div id="mvp_urls">
   <h2>URL Popularity Contest</h2>
   <% @user.payloads.url_popularity.each do |k, v| %>
-    <h4><a id='url_data' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h4>
+    <h4><a id='url_data_urls_<%= k %>' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h4>
   <% end %>
 </div>
 
@@ -29,9 +29,15 @@
 <div id="avg_response">
   <h2>Average Response Time</h2>
   <% @user.payloads.avg_response_time.each do |k, v| %>
-    <h4><a id='url_data' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h4>
-
+    <h4><a id='url_data_response_<%= k %>' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h4>
   <% end %>
+</div>
+
+<div id="aggregate_event_data">
+  <h2><a id='event_data' href='/sources/<%= @user.identifier %>/events'>View Event Data</a></h2>
+  <!-- <% @user.payloads.avg_response_time.each do |k, v| %>
+    <h4><a></a>: <%= v %></h4>
+  <% end %> -->
 </div>
 
 
