@@ -18,10 +18,5 @@ class RelativePathTest < ModelTest
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path])
     assert_equal 1, TrafficSpy::RelativePath.count
     assert_equal "/blog", rel_path.path
-
-    # payload_data[:relative_path_id] = rel_path.id
-    #
-    # TrafficSpy::Payload.create(payload_data)
-
   end
 end
