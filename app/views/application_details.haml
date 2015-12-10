@@ -10,22 +10,39 @@
       .card.cyan.darken-2
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Most Requested URLs
-          %ol#most_requested_urls
-            -@app.payloads.group_count_and_order(:relative_path).each do |k, v|
-              %li.white-text
-                %a.cyan-text.text-lighten-3{:href => "/sources/#{@app.identifier}/urls#{k}"}
-                  =k
-                = v
+          %table
+            %tr
+              %th Rank
+              %th Path
+              %th Requests
+            -@app.payloads.group_count_and_order(:relative_path).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  %a.cyan-text.text-lighten-3.card-link{:href => "/sources/#{@app.identifier}/urls#{data[0]}"}
+                    = data[0]
+                %td.request-count
+                  = data[1]
 
     .col.s12.m12.l4
       .card.cyan.darken-2
         .card-content
           %h5.card-title.cyan-text.text-lighten-5 Web Browser
-          %ol#web_browser
-            -@app.payloads.group_count_and_order(:browser).each do |k, v|
-              %li
-                = k
-                = v
+          %table
+            %tr
+              %th Rank
+              %th Browser
+              %th Requests
+            -@app.payloads.group_count_and_order(:browser).each_with_index do |data, rank|
+              %tr
+                %td
+                  = rank + 1
+                %td
+                  %a.cyan-text.text-lighten-3.card-link{:href => "/sources/#{@app.identifier}/urls#{data[0]}"}
+                    = data[0]
+                %td.request-count
+                  = data[1]
 
     .col.s12.m12.l4
       .card.cyan.darken-2
