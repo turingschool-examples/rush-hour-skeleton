@@ -7,11 +7,9 @@ module TrafficSpy
     belongs_to :operating_system
     belongs_to :browser
     belongs_to :event
-    validates_uniqueness_of :application_id, scope: [:relative_path_string, :requested_at,
+    validates_uniqueness_of :application_id, scope: [:requested_at,
                                                      :responded_in, :referred_by,
-                                                     :request_type_string, :event_string,
-                                                     :operating_system_string, :browser_string,
-                                                     :resolution_string, :ip_address,
+                                                     :ip_address,
                                                      :relative_path_id, :request_type_id,
                                                      :resolution_id, :operating_system_id,
                                                      :browser_id, :event_id]
