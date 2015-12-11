@@ -9,6 +9,24 @@ This application was created by [Beth Secor](https://github.com/bethsecor), [Ste
 
 stuff here.
 
+### Project Cloning & Setup
+
+Clone the project by running the following command from the terminal:
+
+```
+git clone https://github.com/ToniRib/traffic-spy.git
+```
+
+Navigate into the project directory and run the command `bundle`.
+
+Run the following commands to set up the database and the test database:
+
+```
+rake db:create
+rake db:migrate
+rake db:test:prepare
+```
+
 ### Registering an Application
 
 Applications are registered through the terminal using the `curl` command in the following format:
@@ -54,3 +72,48 @@ Displays the following information for an individual application:
 - Longest, average response time per URL to shortest, average response time per URL
 - Hyperlinks of each url to view url specific data
 - Hyperlink to view aggregate event data
+
+Also includes a link to the event index page.
+
+#### Application URL Statistics
+
+__Located at:__ `http://localhost:9393/sources/APPIDENTIFIER/urls/RELATIVEPATH`
+
+info here
+
+#### Application Events Index
+
+__Located at:__ `http://localhost:9393/sources/APPIDENTIFIER/events`
+
+info here
+
+#### Application Events Details
+
+__Located at:__ `http://localhost:9393/sources/APPIDENTIFIER/events/EVENTNAME`
+
+info here
+
+### Testing
+
+The test suite can be run from the terminal by running the command `rake test` from the project's base directory.
+
+### Dependencies
+
+The following ruby gems are used in this project:
+
+- 'sinatra'
+- 'pg'
+- 'activerecord'
+- 'sinatra-activerecord'
+- 'rake'
+- 'haml'
+- 'shotgun'
+- 'minitest'
+- 'tux'
+- 'capybara'
+- 'launchy'
+- 'rack-test'
+- 'database_cleaner'
+- 'json'
+- 'useragent'
+- 'uri'
