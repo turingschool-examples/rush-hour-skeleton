@@ -4,13 +4,14 @@ module TrafficSpy
     belongs_to :relative_path
     belongs_to :request_type
     belongs_to :resolution
+    belongs_to :operating_system
     validates_uniqueness_of :application_id, scope: [:relative_path_string, :requested_at,
                                                      :responded_in, :referred_by,
                                                      :request_type_string, :event,
-                                                     :operating_system, :browser,
+                                                     :operating_system_string, :browser,
                                                      :resolution_string, :ip_address,
                                                      :relative_path_id, :request_type_id,
-                                                     :resolution_id]
+                                                     :resolution_id, :operating_system_id]
 
     def self.group_count_and_order(field)
       group(field).count.sort.sort_by { |key, count| [ -count, key ] }.to_h
@@ -21,16 +22,20 @@ module TrafficSpy
       paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
-    ########### NEW!!! ######
     def self.group_count_and_order_request_type
-      paths = group(:request_type).count.map { |rel_path, count| [rel_path.verb, count]}
+      paths = group(:request_type).count.map { |req_type, count| [req_type.verb, count]}
       paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
-    ########### NEW!!! ######
     def self.group_count_and_order_resolution
-      paths = group(:resolution).count.map { |rel_path, count| [[rel_path.width,rel_path.height].join(" x "), count]}
+      paths = group(:resolution).count.map { |res, count| [[res.width,res.height].join(" x "), count]}
       paths.sort_by { |key, count| [ -count, key ] }
+    end
+
+    ###### HEY GIRL HEY NEW METHOD!!! ###########
+    def self.group_count_and_order_operating_system
+      paths = group(:operating_system).count.map { |os, count| [os.op_system, count]}
+      paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
     def self.group_average_and_order_response_times
@@ -69,6 +74,10 @@ module TrafficSpy
 
     def self.get_top_3_resolution
       group_count_and_order_resolution.take(3)
+    end
+
+    def self.get_top_3_operating_system
+      group_count_and_order_operating_system.take(3)
     end
 
     def self.requests_by_hour(hour)

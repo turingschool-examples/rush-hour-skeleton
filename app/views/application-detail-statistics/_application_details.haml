@@ -45,7 +45,7 @@
             %th.weighted Rank
             %th.weighted OS
             %th.weighted Requests
-          -@app.payloads.group_count_and_order(:operating_system).each_with_index do |data, rank|
+          -@app.payloads.group_count_and_order_operating_system.each_with_index do |data, rank|
             %tr
               %td
                 = rank + 1
