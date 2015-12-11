@@ -8,8 +8,6 @@ module TrafficSpy
       erb :error
     end
 
-
-
     get '/sources/:id' do |id|
       if @user = TrafficSpy::User.find_by(identifier: id)
         if @user.payloads.count == 0
@@ -27,6 +25,10 @@ module TrafficSpy
       full_path = @user.root_url + '/' + relative_path
       @url_payloads = @user.payloads.where(url: full_path)
       erb :url_data, locals: { relative_path: relative_path }
+    end
+
+    get '/fake' do
+      erb :fake_app_stats
     end
 
     post '/sources' do

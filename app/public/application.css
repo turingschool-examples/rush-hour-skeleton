@@ -5,3 +5,30 @@ body, html {
   font-size: 80%;
   color: white;
 }
+nav .nav-wrapper {
+  background: black;
+}
+.card {
+  padding-bottom: 5px;
+  /*border-radius: 10%;*/
+  background: #EDB472;
+  width: 65%;
+  min-height: 100px;
+  margin-left: 4%;
+  opacity: .85;
+}
+h3 {
+  text-decoration: underline;
+  color: black;
+}
+.circle {
+  line-height:50;
+  text-align:center;
+  color:white;
+  float: right;
+  margin: auto;
+  width:350;
+  height:350px;
+  border-radius:100%;
+  background:#000};
+}
