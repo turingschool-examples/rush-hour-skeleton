@@ -28,7 +28,7 @@
           HTTP Verbs:
         %td
           %ol#http_verbs_list
-            -@urls.group_count_and_order(:request_type).each do |verb, count|
+            -@urls.group_count_and_order_request_type.each do |verb, count|
               %li
                 = verb
                 (

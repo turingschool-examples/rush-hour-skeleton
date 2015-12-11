@@ -1,4 +1,4 @@
-require_relative "../test_helper"
+require './test/test_helper'
 
 class UserCanViewApplicationURLStatisticsTest < FeatureTest
   def add_more_payloads
@@ -7,7 +7,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 25,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Mozilla",
@@ -19,7 +19,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 26,
       referred_by:"http://facebook.com",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Mozilla",
@@ -31,7 +31,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 35,
       referred_by:"http://facebook.com",
-      request_type:"POST",
+      request_type_string:"POST",
       event: "socialLoginB",
       operating_system: "Windows",
       browser: "Mozilla",
@@ -43,7 +43,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 45,
       referred_by:"http://facebook.com",
-      request_type:"POST",
+      request_type_string:"POST",
       event: "socialLoginB",
       operating_system: "Windows",
       browser: "Mozilla",
@@ -55,7 +55,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 29,
       referred_by:"http://twitter.com",
-      request_type:"PUT",
+      request_type_string:"PUT",
       event: "socialLoginB",
       operating_system: "RedHat",
       browser: "Mozilla",
@@ -67,7 +67,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 28,
       referred_by:"http://turing.io",
-      request_type:"DELETE",
+      request_type_string:"DELETE",
       event: "socialLoginB",
       operating_system: "Ubuntu",
       browser: "Mozilla",

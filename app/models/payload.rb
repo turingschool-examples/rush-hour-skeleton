@@ -45,8 +45,6 @@ module TrafficSpy
       else
         []
       end
-      # rel_path_id = TrafficSpy::RelativePath.find_by(path: relative_path).id
-      # where(relative_path_id: rel_path_id)
     end
 
     def self.max_response_time
