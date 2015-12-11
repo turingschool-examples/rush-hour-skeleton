@@ -22,7 +22,7 @@ class ProcessRequestParserTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",

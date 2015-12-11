@@ -27,6 +27,7 @@ module TrafficSpy
       @url = "/" + path
       @id = id
       @app = TrafficSpy::Application.find_by(identifier: id)
+      # binding.pry if path == 'beth'
       @urls = @app.payloads.matching(@url)
 
       if @urls.empty?

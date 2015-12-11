@@ -1,4 +1,5 @@
 require './test/test_helper'
+
 class UserErrorForEventWithoutPayloadTest < FeatureTest
   def test_displays_error_message_when_no_payload_submitted
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")

@@ -21,11 +21,12 @@ module TrafficSpy
       parsed_string = TrafficSpy::ProcessRequestParser.new.parse_request(payload)
 
       rel_path = TrafficSpy::RelativePath.find_or_create_by(path: parsed_string[:relative_path_string])
+      req_type = TrafficSpy::RequestType.find_or_create_by(verb: parsed_string[:request_type_string])
+      parsed_string[:request_type_id] = req_type.id
       parsed_string[:relative_path_id] = rel_path.id
       parsed_string[:application_id] = app.id
 
       new_payload = TrafficSpy::Payload.create(parsed_string)
-      # new_payload = app.payloads.new(parsed_string)
 
       if new_payload.save
         [200, ""]

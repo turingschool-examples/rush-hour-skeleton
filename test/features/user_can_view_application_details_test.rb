@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require './test/test_helper'
 
 class UserCanViewApplicationDetailsTest < FeatureTest
   def test_user_can_view_most_request_urls
