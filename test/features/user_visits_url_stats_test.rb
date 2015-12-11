@@ -66,18 +66,18 @@ class UserVistitsURLStatsTest < FeatureTest
     visit '/sources/jumpstartlab/urls/blog'
 
     within('#referred_by') do
-      save_and_open_page
       assert page.has_content?('Top 3 Bestest Referrers')
       refute page.has_content?('google.com')
       assert page.has_content?('jumpstartlab.com')
     end
   end
 
-  # def test_user_sees_three_most_popular_browsers
-  #   create_more_payloads
-  #   within('#browsers') do
-  #     assert page.has_content?('Top 3 Bestest BadAss Browsers')
-  #     assert page.has_content?('Chrome')
-  #   end
-  # end
+  def test_user_sees_three_most_popular_browsers
+    create_more_payloads
+    visit '/sources/jumpstartlab/urls/blog'
+    within('#browsers') do
+      assert page.has_content?('Top 3 Bestest BadAss Browsers')
+      assert page.has_content?('Chrome')
+    end
+  end
 end

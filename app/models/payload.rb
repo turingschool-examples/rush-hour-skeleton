@@ -45,5 +45,9 @@ module TrafficSpy
       group(:referred_by).count.sort_by{ |k, v| v}.reverse[0..2]
     end
 
+    def self.browsers
+      group(:user_agent).count.sort_by{ |k, v| v}.reverse[0..2]
+    end
+
   end
 end
