@@ -4,13 +4,14 @@ module TrafficSpy
     belongs_to :relative_path
     belongs_to :request_type
     belongs_to :resolution
+    belongs_to :operating_system
     validates_uniqueness_of :application_id, scope: [:relative_path_string, :requested_at,
                                                      :responded_in, :referred_by,
                                                      :request_type_string, :event,
-                                                     :operating_system, :browser,
+                                                     :operating_system_string, :browser,
                                                      :resolution_string, :ip_address,
                                                      :relative_path_id, :request_type_id,
-                                                     :resolution_id]
+                                                     :resolution_id, :operating_system_id]
 
     def self.group_count_and_order(field)
       group(field).count.sort.sort_by { |key, count| [ -count, key ] }.to_h
