@@ -27,10 +27,6 @@ module TrafficSpy
       erb :url_data, locals: { relative_path: relative_path }
     end
 
-    get '/fake' do
-      erb :fake_app_stats
-    end
-
     post '/sources' do
       TrafficSpy::RegistrationParser.new(params).parsing_validating
     end
@@ -38,5 +34,11 @@ module TrafficSpy
     post '/sources/:id/data'  do |id|
       TrafficSpy::PayloadParser.new(params).payload_response
     end
+
+    post '/enter_id' do
+      @current_user = params[:name]
+      redirect "/sources/#{@current_user}"
+    end
+
   end
 end

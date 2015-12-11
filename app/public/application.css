@@ -1,34 +1,82 @@
 body, html {
-  background-color: teal;
+  background-color: white;
   text-align: center;
   font-family: 'Exo', "Open Sans", "Helvetica Neue";
   font-size: 80%;
+}
+nav {
+  background: cadetblue;
+  z-index: 10;
+  position: relative;
+  height: 68px;
+}
+nav .brand-logo.right {
   color: white;
+  font-size: 400%;
+  font-weight: 600;
+  padding-right: 10%;
+}
+.container {
+  margin-left: 18%;
+}
+i {
+  display: inline-block;
 }
 nav .nav-wrapper {
-  background: black;
+  background: cadetblue;
+  z-index: 1;
+  min-width: 180px;
+  margin: auto;
+  height: 68px;
 }
+
+nav .nav-wrapper i {
+    font-size: 3rem;
+    display: inline-block;
+    vertical-align: sub;
+}
+
 .card {
   padding-bottom: 5px;
-  /*border-radius: 10%;*/
-  background: #EDB472;
-  width: 65%;
-  min-height: 100px;
+  background: beige;
+  width: 90%;
+  min-height: 200px;
   margin-left: 4%;
   opacity: .85;
 }
-h3 {
-  text-decoration: underline;
-  color: black;
+.datacard{
+  padding: 20px;
+  background: beige;
+  width: 90%;
+  margin-left: 4%;
+  opacity: .85;
+  color: darkslategrey;
+  text-align: left;
 }
-.circle {
-  line-height:50;
+a {
+  color: cadetblue;
+}
+
+h4 {
+  text-decoration: underline;
+  color: burlywood;
+}
+
+.pagesidebarleft {
+  position:fixed;
+  top:0px;
+  left:0%;
+  bottom:0px;
+  right:83%;
+  line-height:40px;
   text-align:center;
-  color:white;
-  float: right;
+  color:black;
+  float: left;
   margin: auto;
-  width:350;
-  height:350px;
-  border-radius:100%;
-  background:#000};
+  width:15%;
+  height: 100vh;
+  border-radius:5%;
+  background: seashell;
+  z-index: 1;
+  opacity: .6;
 }
