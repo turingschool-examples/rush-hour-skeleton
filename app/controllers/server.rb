@@ -27,7 +27,6 @@ module TrafficSpy
       @url = "/" + path
       @id = id
       @app = TrafficSpy::Application.find_by(identifier: id)
-      # binding.pry if path == 'beth'
       @urls = @app.payloads.matching(@url)
 
       if @urls.empty?
@@ -61,12 +60,12 @@ module TrafficSpy
 
     get '/sources/:id/events/:event' do |id, event|
       @app = TrafficSpy::Application.find_by(identifier: id)
-      @event_payloads = app.payloads.where(event: event)
-      @event = event
+      @event = TrafficSpy::Event.find_by(event_name: event)
 
-      if @event_payloads.empty?
-        haml :'error-messages/event_not_defined'
+      if @event.nil?
+        haml :'error-messages/event_not_defined', locals: {event: event}
       else
+        @event_payloads = app.payloads.where(event_id: @event.id)
         haml :'event-detail-statistics/event_details'
       end
     end
