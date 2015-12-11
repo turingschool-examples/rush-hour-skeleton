@@ -34,9 +34,14 @@ module TrafficSpy
       paths.sort_by { |key, count| [ -count, key ] }
     end
 
-    ###### HEY GIRL HEY NEW METHOD!!! ###########
     def self.group_count_and_order_operating_system
       paths = group(:operating_system).count.map { |os, count| [os.op_system, count]}
+      paths.sort_by { |key, count| [ -count, key ] }.to_h
+    end
+
+    ######### YO NEW METHOD! ###########
+    def self.group_count_and_order_browser
+      paths = group(:browser).count.map { |browser, count| [browser.browser_name, count]}
       paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
@@ -80,6 +85,11 @@ module TrafficSpy
 
     def self.get_top_3_operating_system
       group_count_and_order_operating_system.take(3)
+    end
+
+    ############# NEW METHODZZZZ #####
+    def self.get_top_3_browser
+      group_count_and_order_browser.take(3)
     end
 
     def self.requests_by_hour(hour)
