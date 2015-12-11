@@ -1,6 +1,6 @@
 require './test/test_helper'
-class UserErrorForUndefinedEventTest < FeatureTest
 
+class UserErrorForUndefinedEventTest < FeatureTest
   def test_user_cannot_view_details_of_an_undefined_event
     register_turing_and_send_multiple_payloads
 

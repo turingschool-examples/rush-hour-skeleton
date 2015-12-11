@@ -7,11 +7,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
       }
     TrafficSpy::Payload.create(payload_data)
@@ -22,11 +22,11 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 'socialLogin', TrafficSpy::Payload.first.event
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution
+    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -38,11 +38,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
       }
 
@@ -55,11 +55,11 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 'socialLogin', TrafficSpy::Payload.first.event
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution
+    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -71,11 +71,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
       }
 
@@ -96,11 +96,115 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 'socialLogin', TrafficSpy::Payload.first.event
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution
+    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
+  end
+
+  def test_can_create_payload_and_associate_app_path_reqtype_with_valid_parameters
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data = {
+      relative_path_string: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type_string:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution_string: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+      }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    payload_data[:application_id] = app.id
+
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
+    payload_data[:relative_path_id] = rel_path.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data[:request_type_string])
+    payload_data[:request_type_id] = req_type.id
+
+    TrafficSpy::Payload.create(payload_data)
+
+    assert_equal 1, TrafficSpy::Payload.count
+    assert_equal 1, TrafficSpy::Payload.first.application_id
+
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    assert_equal 1, TrafficSpy::Payload.first.relative_path_id
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
+
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    assert_equal 1, TrafficSpy::Payload.first.request_type_id
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
+
+    assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
+    assert_equal 37, TrafficSpy::Payload.first.responded_in
+    assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
+    assert_equal 'socialLogin', TrafficSpy::Payload.first.event
+    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
+    assert_equal 'Chrome', TrafficSpy::Payload.first.browser
+    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
+  end
+
+  def test_can_create_payload_and_associate_app_path_reqtype_res_with_valid_parameters
+    TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
+
+    payload_data = {
+      relative_path_string: "/blog",
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referred_by:"http://turing.io",
+      request_type_string:"GET",
+      event: "socialLogin",
+      operating_system: "Macintosh",
+      browser: "Chrome",
+      resolution_string: {width: "1920", height: "1280"},
+      ip_address:"63.29.38.211"
+      }
+
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    payload_data[:application_id] = app.id
+
+    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
+    payload_data[:relative_path_id] = rel_path.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data[:request_type_string])
+    payload_data[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data[:resolution_string][:width],
+                                                          height: payload_data[:resolution_string][:height])
+    payload_data[:resolution_id] = resolution.id
+
+    TrafficSpy::Payload.create(payload_data)
+
+    assert_equal 1, TrafficSpy::Payload.count
+    assert_equal 1, TrafficSpy::Payload.first.application_id
+
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    assert_equal 1, TrafficSpy::Payload.first.relative_path_id
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
+
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    assert_equal 1, TrafficSpy::Payload.first.request_type_id
+    assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
+
+    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    assert_equal 1, TrafficSpy::Payload.first.resolution_id
+    assert_equal 1920, TrafficSpy::Payload.first.resolution.width
+    assert_equal 1280, TrafficSpy::Payload.first.resolution.height
+
+    assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
+    assert_equal 37, TrafficSpy::Payload.first.responded_in
+    assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
+    assert_equal 'socialLogin', TrafficSpy::Payload.first.event
+    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system
+    assert_equal 'Chrome', TrafficSpy::Payload.first.browser
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -112,11 +216,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -125,11 +229,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-17 21:38:28 -0700",
       responded_in: 40,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -137,17 +241,35 @@ class PayloadTest < ModelTest
 
     assert_equal 0, TrafficSpy::Payload.count
 
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    payload_data_1[:application_id] = app.id
+
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path.id
-    payload_data_1[:application_id] = app.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
 
     TrafficSpy::Payload.create(payload_data_1)
 
     assert_equal 1, TrafficSpy::Payload.count
 
+    app = TrafficSpy::Application.find_by(identifier: "turing")
+    payload_data_2[:application_id] = app.id
+
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path.id
-    payload_data_2[:application_id] = app.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
 
     TrafficSpy::Payload.create(payload_data_2)
 
@@ -172,11 +294,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
     app = TrafficSpy::Application.find_by(identifier: "turing")
@@ -200,11 +322,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -213,6 +335,13 @@ class PayloadTest < ModelTest
 
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
     payload_data[:relative_path_id] = rel_path.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data[:request_type_string])
+    payload_data[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data[:resolution_string][:width],
+                                                          height: payload_data[:resolution_string][:height])
+    payload_data[:resolution_id] = resolution.id
 
     payload_data[:application_id] = app_turing.id
     TrafficSpy::Payload.create(payload_data)
@@ -233,11 +362,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -246,11 +375,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -258,6 +387,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -265,6 +402,14 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -279,11 +424,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -292,11 +437,11 @@ class PayloadTest < ModelTest
       requested_at: "2014-03-25 20:40:13 -0800",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -304,6 +449,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -311,6 +464,14 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -325,11 +486,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -338,11 +499,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 80,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -350,6 +511,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -357,6 +526,14 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -371,11 +548,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -384,11 +561,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://facebook.com",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -396,6 +573,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -403,13 +588,21 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
-  def test_creates_second_payload_with_only_unique_request_type
+  def test_creates_second_payload_with_only_unique_request_type_string
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
@@ -417,11 +610,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -430,11 +623,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"POST",
+      request_type_string:"POST",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -442,6 +635,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -449,6 +650,14 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -463,11 +672,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -476,11 +685,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialShare",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -488,6 +697,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -495,6 +712,14 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
@@ -509,11 +734,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -522,11 +747,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Windows",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -534,6 +759,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -541,8 +774,15 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
-    payload_data_2[:application_id] = app.id
 
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
+    payload_data_2[:application_id] = app.id
     TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
@@ -555,11 +795,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -568,11 +808,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Safari",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -580,6 +820,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -587,13 +835,21 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
-  def test_creates_second_payload_with_only_unique_resolution
+  def test_creates_second_payload_with_only_unique_resolution_string
     TrafficSpy::Application.create(identifier: "turing", root_url: "http://turing.io")
 
     payload_data_1 = {
@@ -601,11 +857,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -614,11 +870,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "600", height: "800"},
+      resolution_string: {width: "600", height: "800"},
       ip_address:"63.29.38.211"
     }
 
@@ -626,6 +882,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -633,8 +897,17 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
+    payload_data_2[:application_id] = app.id
     TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
@@ -647,11 +920,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -660,11 +933,11 @@ class PayloadTest < ModelTest
       requested_at: "2013-02-16 21:38:28 -0700",
       responded_in: 37,
       referred_by:"http://turing.io",
-      request_type:"GET",
+      request_type_string:"GET",
       event: "socialLogin",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"99.06.12.836"
     }
 
@@ -672,6 +945,14 @@ class PayloadTest < ModelTest
 
     rel_path_1 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_1[:relative_path_string])
     payload_data_1[:relative_path_id] = rel_path_1.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_1[:request_type_string])
+    payload_data_1[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_1[:resolution_string][:width],
+                                                          height: payload_data_1[:resolution_string][:height])
+    payload_data_1[:resolution_id] = resolution.id
+
     payload_data_1[:application_id] = app.id
 
     TrafficSpy::Payload.create(payload_data_1)
@@ -679,8 +960,17 @@ class PayloadTest < ModelTest
 
     rel_path_2 = TrafficSpy::RelativePath.find_or_create_by(path: payload_data_2[:relative_path_string])
     payload_data_2[:relative_path_id] = rel_path_2.id
+
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data_2[:request_type_string])
+    payload_data_2[:request_type_id] = req_type.id
+
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data_2[:resolution_string][:width],
+                                                          height: payload_data_2[:resolution_string][:height])
+    payload_data_2[:resolution_id] = resolution.id
+
     payload_data_2[:application_id] = app.id
 
+    payload_data_2[:application_id] = app.id
     TrafficSpy::Payload.create(payload_data_2)
     assert_equal 2, TrafficSpy::Payload.count
   end
@@ -716,12 +1006,26 @@ class PayloadTest < ModelTest
     register_turing_and_send_multiple_payloads
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
-    expected = {'{:width=>"1920", :height=>"1280"}' => 3,
-                '{:width=>"1366", :height=>"768"}' => 1,
-                '{:width=>"1920", :height=>"1080"}' => 1,
-                '{:width=>"600", :height=>"800"}' => 1}
 
-    assert_equal expected, app.payloads.group_count_and_order(:resolution)
+    result = app.payloads.group_count_and_order_resolution
+
+    assert_equal 3, result[0][1]
+    assert_equal "1920 x 1280", result[0][0]
+    assert_equal 1, result[1][1]
+    assert_equal "1366 x 768", result[1][0]
+    assert_equal 1, result[2][1]
+    assert_equal "1920 x 1080", result[2][0]
+    assert_equal 1, result[3][1]
+    assert_equal "600 x 800", result[3][0]
+  end
+
+  def test_group_count_and_order_request_types
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+    expected = {"GET" => 5, "POST" => 1}
+
+    assert_equal expected, app.payloads.group_count_and_order_request_type
   end
 
   def test_group_average_and_order_response_times
@@ -831,11 +1135,15 @@ class PayloadTest < ModelTest
     register_turing_and_send_multiple_payloads
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
-    expected = [['{:width=>"1920", :height=>"1280"}', 3],
-                ['{:width=>"1366", :height=>"768"}', 1],
-                ['{:width=>"1920", :height=>"1080"}', 1]]
 
-    assert_equal expected, app.payloads.get_top_3(:resolution)
+    result = app.payloads.get_top_3_resolution
+
+    assert_equal 3, result[0][1]
+    assert_equal "1920 x 1280", result[0][0]
+    assert_equal 1, result[1][1]
+    assert_equal "1366 x 768", result[1][0]
+    assert_equal 1, result[2][1]
+    assert_equal "1920 x 1080", result[2][0]
   end
 
   def test_requests_by_hour

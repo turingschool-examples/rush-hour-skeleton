@@ -16,12 +16,12 @@ module TrafficSpy
         :requested_at => parsed_request["requestedAt"],
         :responded_in => parsed_request["respondedIn"],
         :referred_by => parsed_request["referredBy"],
-        :request_type => parsed_request["requestType"],
+        :request_type_string => parsed_request["requestType"],
         :event => parsed_request["eventName"],
         :operating_system => user_agent.platform,
         :browser => user_agent.browser,
-        :resolution => {:width => parsed_request["resolutionWidth"],
-                        :height => parsed_request["resolutionHeight"]},
+        :resolution_string => {:width => parsed_request["resolutionWidth"],
+                               :height => parsed_request["resolutionHeight"]},
         :ip_address => parsed_request["ip"]
       }
     end

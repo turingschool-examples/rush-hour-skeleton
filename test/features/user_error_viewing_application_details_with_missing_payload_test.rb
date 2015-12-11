@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require './test/test_helper'
 
 class UserErrorViewingApplicationDetailsWithMissingPayloadTest < FeatureTest
   def test_user_gets_error_without_payload
@@ -6,4 +6,4 @@ class UserErrorViewingApplicationDetailsWithMissingPayloadTest < FeatureTest
     visit '/sources/turing'
     assert page.has_content?("No Payload data has been received for this source")
   end
-end 
+end

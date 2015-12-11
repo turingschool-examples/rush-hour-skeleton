@@ -80,6 +80,11 @@ class ProcessRequestTest < ControllerTest
 
     parsed_string = parser.parse_request(payload[:payload])
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: parsed_string[:relative_path_string])
+    req_type = TrafficSpy::RequestType.find_or_create_by(verb: parsed_string[:request_type_string])
+    resolution = TrafficSpy::Resolution.find_or_create_by(width: parsed_string[:resolution_string][:width],
+                                                          height: parsed_string[:resolution_string][:height])
+    parsed_string[:resolution_id] = resolution.id
+    parsed_string[:request_type_id] = req_type.id
     parsed_string[:relative_path_id] = rel_path.id
     parsed_string[:application_id] = app.id
 
