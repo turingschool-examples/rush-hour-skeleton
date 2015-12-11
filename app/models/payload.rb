@@ -46,6 +46,11 @@ module TrafficSpy
       paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
+    def self.group_count_and_order_event
+      paths = group(:event).count.map { |event, count| [event.event_name, count]}
+      paths.sort_by { |key, count| [ -count, key ] }.to_h
+    end
+
     def self.group_average_and_order_response_times
       paths = group(:relative_path).average(:responded_in).map { |rel_path, count| [rel_path.path, count]}
       paths.sort_by{ |_, v| -v }
