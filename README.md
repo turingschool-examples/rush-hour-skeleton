@@ -40,3 +40,17 @@ The following are possible pages you can visit:
 __Located at:__ `http://localhost:9393/sources`
 
 Has a list of all of the registered applications, each of which is a link to the corresponding applications details page.
+
+#### Application Details
+
+__Located at:__ `http://localhost:9393/sources/APPIDENTIFIER`
+
+Displays the following information for an individual application:
+
+- Most requested URLS to least requested URLS (url)
+- Web browser breakdown across all requests (userAgent)
+- OS breakdown across all requests (userAgent)
+- Screen Resolution across all requests (resolutionWidth x resolutionHeight)
+- Longest, average response time per URL to shortest, average response time per URL
+- Hyperlinks of each url to view url specific data
+- Hyperlink to view aggregate event data
