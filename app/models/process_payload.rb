@@ -26,7 +26,7 @@ module TrafficSpy
                                                             height: parsed_string[:resolution_string][:height])
       operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: parsed_string[:operating_system_string])
       browser = TrafficSpy::Browser.find_or_create_by(browser_name: parsed_string[:browser_string])
-      event = TrafficSpy::Event.find_or_create_by(event_name: payload_data[:event_string])
+      event = TrafficSpy::Event.find_or_create_by(event_name: parsed_string[:event_string])
       parsed_string[:event_id] = event.id
       parsed_string[:browser_id] = browser.id
       parsed_string[:operating_system_id] = operating_system.id
