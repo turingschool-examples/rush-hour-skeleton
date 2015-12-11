@@ -24,6 +24,9 @@ class PayloadTest < ModelTest
     event = TrafficSpy::Event.find_or_create_by(event_name: payload_data[:event_string])
     payload_data[:event_id] = event.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
   end
 
@@ -76,19 +79,22 @@ class PayloadTest < ModelTest
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
       }
+
+      [:relative_path_string, :request_type_string, :resolution_string,
+       :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_nil TrafficSpy::Payload.first.application_id
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -107,21 +113,22 @@ class PayloadTest < ModelTest
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
       }
-
+      [:relative_path_string, :request_type_string, :resolution_string,
+       :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
     app = TrafficSpy::Application.find_by(identifier: "turing")
     app.payloads.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -146,23 +153,26 @@ class PayloadTest < ModelTest
     payload_data[:relative_path_id] = rel_path.id
     payload_data[:application_id] = app.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
 
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal 1, TrafficSpy::Payload.first.relative_path_id
     assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
 
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -191,26 +201,29 @@ class PayloadTest < ModelTest
     req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data[:request_type_string])
     payload_data[:request_type_id] = req_type.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
 
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal 1, TrafficSpy::Payload.first.relative_path_id
     assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
 
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 1, TrafficSpy::Payload.first.request_type_id
     assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
 
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -243,20 +256,23 @@ class PayloadTest < ModelTest
                                                           height: payload_data[:resolution_string][:height])
     payload_data[:resolution_id] = resolution.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
 
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal 1, TrafficSpy::Payload.first.relative_path_id
     assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
 
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 1, TrafficSpy::Payload.first.request_type_id
     assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
 
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal 1, TrafficSpy::Payload.first.resolution_id
     assert_equal 1920, TrafficSpy::Payload.first.resolution.width
     assert_equal 1280, TrafficSpy::Payload.first.resolution.height
@@ -264,9 +280,9 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -302,33 +318,36 @@ class PayloadTest < ModelTest
     operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: payload_data[:operating_system_string])
     payload_data[:operating_system_id] = operating_system.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
 
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal 1, TrafficSpy::Payload.first.relative_path_id
     assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
 
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 1, TrafficSpy::Payload.first.request_type_id
     assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
 
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal 1, TrafficSpy::Payload.first.resolution_id
     assert_equal 1920, TrafficSpy::Payload.first.resolution.width
     assert_equal 1280, TrafficSpy::Payload.first.resolution.height
 
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
     assert_equal 1, TrafficSpy::Payload.first.operating_system_id
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system.op_system
 
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -367,29 +386,32 @@ class PayloadTest < ModelTest
     browser = TrafficSpy::Browser.find_or_create_by(browser_name: payload_data[:browser_string])
     payload_data[:browser_id] = browser.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
 
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal 1, TrafficSpy::Payload.first.relative_path_id
     assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
 
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 1, TrafficSpy::Payload.first.request_type_id
     assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
 
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal 1, TrafficSpy::Payload.first.resolution_id
     assert_equal 1920, TrafficSpy::Payload.first.resolution.width
     assert_equal 1280, TrafficSpy::Payload.first.resolution.height
 
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
     assert_equal 1, TrafficSpy::Payload.first.operating_system_id
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system.op_system
 
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
     assert_equal 1, TrafficSpy::Payload.first.browser_id
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser.browser_name
 
@@ -397,7 +419,7 @@ class PayloadTest < ModelTest
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
     assert_equal 'http://turing.io', TrafficSpy::Payload.first.referred_by
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
     assert_equal '63.29.38.211', TrafficSpy::Payload.first.ip_address
   end
 
@@ -439,33 +461,36 @@ class PayloadTest < ModelTest
     event = TrafficSpy::Event.find_or_create_by(event_name: payload_data[:event_string])
     payload_data[:event_id] = event.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count
     assert_equal 1, TrafficSpy::Payload.first.application_id
 
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal 1, TrafficSpy::Payload.first.relative_path_id
     assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
 
-    assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
+    # assert_equal 'GET', TrafficSpy::Payload.first.request_type_string
     assert_equal 1, TrafficSpy::Payload.first.request_type_id
     assert_equal 'GET', TrafficSpy::Payload.first.request_type.verb
 
-    assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
+    # assert_equal '{:width=>"1920", :height=>"1280"}', TrafficSpy::Payload.first.resolution_string
     assert_equal 1, TrafficSpy::Payload.first.resolution_id
     assert_equal 1920, TrafficSpy::Payload.first.resolution.width
     assert_equal 1280, TrafficSpy::Payload.first.resolution.height
 
-    assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
+    # assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system_string
     assert_equal 1, TrafficSpy::Payload.first.operating_system_id
     assert_equal 'Macintosh', TrafficSpy::Payload.first.operating_system.op_system
 
-    assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
+    # assert_equal 'Chrome', TrafficSpy::Payload.first.browser_string
     assert_equal 1, TrafficSpy::Payload.first.browser_id
     assert_equal 'Chrome', TrafficSpy::Payload.first.browser.browser_name
 
-    assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
+    # assert_equal 'socialLogin', TrafficSpy::Payload.first.event_string
     assert_equal 1, TrafficSpy::Payload.first.event_id
     assert_equal 'socialLogin', TrafficSpy::Payload.first.event.event_name
 
@@ -481,12 +506,12 @@ class PayloadTest < ModelTest
     assert_equal 2, TrafficSpy::Payload.count
 
     assert_equal 1, TrafficSpy::Payload.first.application_id
-    assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
 
     assert_equal 1, TrafficSpy::Payload.last.application_id
-    assert_equal '/about', TrafficSpy::Payload.last.relative_path_string
+    # assert_equal '/about', TrafficSpy::Payload.last.relative_path_string
     assert_equal DateTime.new(2013,02,17,21,38,28, '-0700'), TrafficSpy::Payload.last.requested_at
     assert_equal 40, TrafficSpy::Payload.last.responded_in
   end
@@ -510,6 +535,9 @@ class PayloadTest < ModelTest
     rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
     payload_data[:relative_path_id] = rel_path.id
     payload_data[:application_id] = app.id
+
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
 
     TrafficSpy::Payload.create(payload_data)
     assert_equal 1, TrafficSpy::Payload.count
@@ -552,6 +580,10 @@ class PayloadTest < ModelTest
     payload_data[:operating_system_id] = operating_system.id
 
     payload_data[:application_id] = app_turing.id
+
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+
     TrafficSpy::Payload.create(payload_data)
 
     assert_equal 1, TrafficSpy::Payload.count

@@ -94,6 +94,9 @@ class ProcessRequestTest < ControllerTest
     parsed_string[:relative_path_id] = rel_path.id
     parsed_string[:application_id] = app.id
 
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| parsed_string.delete(k) }
+
     TrafficSpy::Payload.create(parsed_string)
 
     post '/sources/turing/data', payload
@@ -152,6 +155,9 @@ class ProcessRequestTest < ControllerTest
     parsed_string[:request_type_id] = req_type.id
     parsed_string[:relative_path_id] = rel_path.id
     parsed_string[:application_id] = app.id
+
+    [:relative_path_string, :request_type_string, :resolution_string,
+     :operating_system_string, :browser_string, :event_string].each { |k| parsed_string.delete(k) }
 
     TrafficSpy::Payload.create(parsed_string)
 

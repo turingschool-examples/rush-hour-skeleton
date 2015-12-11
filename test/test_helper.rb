@@ -133,6 +133,10 @@ class ModelTest < Minitest::Test
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id
       data[:application_id] = app.id
+
+      [:relative_path_string, :request_type_string, :resolution_string,
+       :operating_system_string, :browser_string, :event_string].each { |k| data.delete(k) }
+       
       TrafficSpy::Payload.create(data)
     end
   end
@@ -242,6 +246,10 @@ class FeatureTest < Minitest::Test
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id
       data[:application_id] = app.id
+
+      [:relative_path_string, :request_type_string, :resolution_string,
+       :operating_system_string, :browser_string, :event_string].each { |k| data.delete(k) }
+
       TrafficSpy::Payload.create(data)
     end
   end
