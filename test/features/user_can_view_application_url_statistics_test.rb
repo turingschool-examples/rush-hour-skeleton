@@ -9,7 +9,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -21,7 +21,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       referred_by:"http://facebook.com",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -33,7 +33,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       referred_by:"http://facebook.com",
       request_type_string:"POST",
       event: "socialLoginB",
-      operating_system: "Windows",
+      operating_system_string: "Windows",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -45,7 +45,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       referred_by:"http://facebook.com",
       request_type_string:"POST",
       event: "socialLoginB",
-      operating_system: "Windows",
+      operating_system_string: "Windows",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -57,7 +57,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       referred_by:"http://twitter.com",
       request_type_string:"PUT",
       event: "socialLoginB",
-      operating_system: "RedHat",
+      operating_system_string: "RedHat",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -69,7 +69,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       referred_by:"http://turing.io",
       request_type_string:"DELETE",
       event: "socialLoginB",
-      operating_system: "Ubuntu",
+      operating_system_string: "Ubuntu",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -85,6 +85,8 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       req_type = TrafficSpy::RequestType.find_or_create_by(verb: data[:request_type_string])
       resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
                                                             height: data[:resolution_string][:height])
+      operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: data[:operating_system_string])
+      data[:operating_system_id] = operating_system.id
       data[:resolution_id] = resolution.id
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id

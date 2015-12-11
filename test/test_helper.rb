@@ -42,7 +42,7 @@ class ModelTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginC",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Chrome",
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
@@ -55,7 +55,7 @@ class ModelTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginA",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Safari",
       resolution_string: {width: "600", height: "800"},
       ip_address:"63.29.38.211"
@@ -68,7 +68,7 @@ class ModelTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"POST",
       event: "socialLoginA",
-      operating_system: "Windows",
+      operating_system_string: "Windows",
       browser: "IE10",
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
@@ -81,7 +81,7 @@ class ModelTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Windows",
+      operating_system_string: "Windows",
       browser: "Chrome",
       resolution_string: {width: "1920", height: "1080"},
       ip_address:"63.29.38.211"
@@ -94,7 +94,7 @@ class ModelTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Chrome",
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
@@ -107,7 +107,7 @@ class ModelTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -123,6 +123,8 @@ class ModelTest < Minitest::Test
       req_type = TrafficSpy::RequestType.find_or_create_by(verb: data[:request_type_string])
       resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
                                                             height: data[:resolution_string][:height])
+      operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: data[:operating_system_string])
+      data[:operating_system_id] = operating_system.id
       data[:resolution_id] = resolution.id
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id
@@ -145,7 +147,7 @@ class FeatureTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginC",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Chrome",
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
@@ -158,7 +160,7 @@ class FeatureTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginA",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Safari",
       resolution_string: {width: "600", height: "800"},
       ip_address:"63.29.38.211"
@@ -171,7 +173,7 @@ class FeatureTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"POST",
       event: "socialLoginA",
-      operating_system: "Windows",
+      operating_system_string: "Windows",
       browser: "IE10",
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
@@ -184,7 +186,7 @@ class FeatureTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Windows",
+      operating_system_string: "Windows",
       browser: "Chrome",
       resolution_string: {width: "1920", height: "1080"},
       ip_address:"63.29.38.211"
@@ -197,7 +199,7 @@ class FeatureTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Chrome",
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
@@ -210,7 +212,7 @@ class FeatureTest < Minitest::Test
       referred_by:"http://turing.io",
       request_type_string:"GET",
       event: "socialLoginB",
-      operating_system: "Macintosh",
+      operating_system_string: "Macintosh",
       browser: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
@@ -226,6 +228,8 @@ class FeatureTest < Minitest::Test
       req_type = TrafficSpy::RequestType.find_or_create_by(verb: data[:request_type_string])
       resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
                                                             height: data[:resolution_string][:height])
+      operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: data[:operating_system_string])
+      data[:operating_system_id] = operating_system.id
       data[:resolution_id] = resolution.id
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id
