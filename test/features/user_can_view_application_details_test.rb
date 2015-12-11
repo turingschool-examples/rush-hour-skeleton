@@ -2,6 +2,7 @@ require './test/test_helper'
 
 class UserCanViewApplicationDetailsTest < FeatureTest
   def test_user_can_view_most_request_urls
+    skip
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
@@ -26,6 +27,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
   end
 
   def test_user_can_view_browsers
+    skip
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
@@ -52,6 +54,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
   end
 
   def test_user_can_view_operating_systems
+    skip
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
@@ -68,6 +71,7 @@ class UserCanViewApplicationDetailsTest < FeatureTest
   end
 
   def test_user_can_view_screen_resolutions
+    skip
     register_turing_and_send_multiple_payloads
 
     visit '/sources/turing'
