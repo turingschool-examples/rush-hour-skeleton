@@ -1,7 +1,7 @@
 require './test/test_helper'
 
-class RelativePathTest < ModelTest
-  def test_create_relative_path_with_valid_parameters
+class OperatingSystemTest < ModelTest
+  def test_create_operating_system_with_valid_parameters
     payload_data = {
       relative_path_string: "/blog",
       requested_at: "2013-02-16 21:38:28 -0700",
@@ -15,8 +15,8 @@ class RelativePathTest < ModelTest
       ip_address:"63.29.38.211"
       }
 
-    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
-    assert_equal 1, TrafficSpy::RelativePath.count
-    assert_equal "/blog", rel_path.path
+    operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: payload_data[:operating_system_string])
+    assert_equal 1, TrafficSpy::OperatingSystem.count
+    assert_equal "Macintosh", operating_system.op_system
   end
 end

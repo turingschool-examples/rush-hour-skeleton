@@ -24,6 +24,8 @@ module TrafficSpy
       req_type = TrafficSpy::RequestType.find_or_create_by(verb: parsed_string[:request_type_string])
       resolution = TrafficSpy::Resolution.find_or_create_by(width: parsed_string[:resolution_string][:width],
                                                             height: parsed_string[:resolution_string][:height])
+      operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: parsed_string[:operating_system_string])
+      parsed_string[:operating_system_id] = operating_system.id
       parsed_string[:resolution_id] = resolution.id
       parsed_string[:request_type_id] = req_type.id
       parsed_string[:relative_path_id] = rel_path.id
