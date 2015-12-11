@@ -6,7 +6,7 @@ module TrafficSpy
 
     get '/sources' do
       @apps = TrafficSpy::Application.all
-      haml :index
+      haml :registered_application_index
     end
 
     post '/sources' do
@@ -31,7 +31,7 @@ module TrafficSpy
       @urls = @app.payloads.matching(@url)
 
       if @urls.empty?
-        haml :application_url_statistics_error
+        haml :'error-messages/application_url_statistics_error'
       else
         haml :'application-url-statistics/application_url_statistics'
       end
@@ -41,9 +41,9 @@ module TrafficSpy
       @app = TrafficSpy::Application.find_by(identifier: id)
 
       if @app.nil?
-        haml :no_app_registered
+        haml :'error-messages/no_application_registered'
       elsif @app.payloads.to_a.empty?
-        haml :no_payloads
+        haml :'error-messages/no_payloads'
       else
         haml :'application-detail-statistics/application_details'
       end
@@ -53,7 +53,7 @@ module TrafficSpy
       @app = TrafficSpy::Application.find_by(identifier: id)
 
       if @app.payloads.to_a.empty?
-        haml :no_payloads
+        haml :'error-messages/no_payloads'
       else
         haml :events_index
       end
@@ -65,14 +65,14 @@ module TrafficSpy
       @event = event
 
       if @event_payloads.empty?
-        haml :event_not_defined
+        haml :'error-messages/event_not_defined'
       else
-        haml :event_details
+        haml :'event-detail-statistics/event_details'
       end
     end
 
     not_found do
-      haml :error
+      haml :'error-messages/error'
     end
   end
 end
