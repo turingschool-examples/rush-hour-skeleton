@@ -45,7 +45,7 @@ module TrafficSpy
       elsif @app.payloads.to_a.empty?
         haml :no_payloads
       else
-        haml :application_details
+        haml :'application-detail-statistics/application_details'
       end
     end
 
