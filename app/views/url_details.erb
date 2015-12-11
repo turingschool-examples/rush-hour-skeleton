@@ -7,3 +7,27 @@
     <li><%= "#{k}: #{v} milliseconds"%></li>
     <% end %>
 </ul>
+
+<div>Request types received:
+  <ul>
+  <% @client.payloads.show_request_types.each do |verb| %>
+  <li>  <%= verb %></li>
+  <% end %>
+</ul>
+</div>
+
+<div>Top Referrers:
+  <ul>
+  <% @client.payloads.top_referrers.each do |referrer, number| %>
+  <li>  <%= "#{referrer}: #{number} requests" %></li>
+  <% end %>
+</ul>
+</div>
+
+<div>Top User Agents:
+  <ul>
+  <% @client.payloads.top_user_agents.each do |user_agent, number| %>
+  <li>  <%= "#{user_agent}: #{number} requests" %></li>
+  <% end %>
+</ul>
+</div>

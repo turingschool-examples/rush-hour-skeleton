@@ -21,4 +21,16 @@ class Payload < ActiveRecord::Base
     average = Payload.average(:responded_in)
     {longest: longest, shortest: shortest, average: average }
   end
+
+  def self.show_request_types
+    pluck(:request_type).uniq
+  end
+
+  def self.top_referrers
+    group(:referred_by).order('count_id desc').limit(3).count('id')
+  end
+
+  def self.top_user_agents
+    group(:web_browser).order('count_id desc').limit(3).count('id')
+  end
 end

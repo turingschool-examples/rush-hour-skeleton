@@ -46,7 +46,7 @@ module TrafficSpy
       @client = Client.find_by(name: identifier)
       paths = Payload.distinct.pluck(:path)
       @path_requested = @client.root_url + "/#{path}"
-      binding.pry
+
       if paths.include?(@path_requested)
         puts "THIS SHIT EXISTS"
         erb :url_details
