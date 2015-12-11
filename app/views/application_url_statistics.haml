@@ -1,0 +1,69 @@
+.container
+
+  %h1.title-text.weighted.underline.center= @app.identifier
+
+  %h3.weighted.sub.cyan.darken-2.center= @url
+
+  %table.title-text.bordered.highlight.cyan-text.lighten-2
+    %tr
+      %th.h1 Analytic
+      %th Data
+      %tr#longest_response_time
+        %td
+          Longest Response Time:
+        %td
+          = @urls.max_response_time
+      %tr#shortest_response_time
+        %td
+          Shortest Response Time:
+        %td
+          = @urls.min_response_time
+      %tr#average_response_time
+        %td
+          Average Response Time:
+        %td
+          = @urls.avg_response_time
+      %tr#http_verbs
+        %td
+          HTTP Verbs:
+        %td
+          %ol#http_verbs_list
+            -@urls.group_count_and_order_request_type.each do |verb, count|
+              %li
+                = verb
+                (
+                %span>= count
+                )
+      %tr#most_pop_referrers
+        %td
+          Most Popular Referrers:
+        %td
+          %ol#most_pop_referrers_list
+            -@urls.get_top_3(:referred_by).each do |referrer, count|
+              %li
+                = referrer
+                (
+                %span>= count
+                )
+      %tr#most_pop_os
+        %td
+          Most Popular Operating Systems:
+        %td
+          %ol#most_pop_os_list
+            -@urls.get_top_3(:operating_system).each do |referrer, count|
+              %li
+                = referrer
+                (
+                %span>= count
+                )
+      %tr#most_pop_browsers
+        %td
+          Most Popular Browsers:
+        %td
+          %ol#most_pop_browsers_list
+            -@urls.get_top_3(:browser).each do |referrer, count|
+              %li
+                = referrer
+                (
+                %span>= count
+                )
