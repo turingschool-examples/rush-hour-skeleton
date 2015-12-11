@@ -44,7 +44,7 @@ class ModelTest < Minitest::Test
       event: "socialLoginC",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -57,7 +57,7 @@ class ModelTest < Minitest::Test
       event: "socialLoginA",
       operating_system: "Macintosh",
       browser: "Safari",
-      resolution: {width: "600", height: "800"},
+      resolution_string: {width: "600", height: "800"},
       ip_address:"63.29.38.211"
     }
 
@@ -70,7 +70,7 @@ class ModelTest < Minitest::Test
       event: "socialLoginA",
       operating_system: "Windows",
       browser: "IE10",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -83,7 +83,7 @@ class ModelTest < Minitest::Test
       event: "socialLoginB",
       operating_system: "Windows",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1080"},
+      resolution_string: {width: "1920", height: "1080"},
       ip_address:"63.29.38.211"
     }
 
@@ -96,7 +96,7 @@ class ModelTest < Minitest::Test
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -109,7 +109,7 @@ class ModelTest < Minitest::Test
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
 
@@ -121,6 +121,9 @@ class ModelTest < Minitest::Test
     payloads.each do |data|
       rel_path = TrafficSpy::RelativePath.find_or_create_by(path: data[:relative_path_string])
       req_type = TrafficSpy::RequestType.find_or_create_by(verb: data[:request_type_string])
+      resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
+                                                            height: data[:resolution_string][:height])
+      data[:resolution_id] = resolution.id
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id
       data[:application_id] = app.id
@@ -144,7 +147,7 @@ class FeatureTest < Minitest::Test
       event: "socialLoginC",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -157,7 +160,7 @@ class FeatureTest < Minitest::Test
       event: "socialLoginA",
       operating_system: "Macintosh",
       browser: "Safari",
-      resolution: {width: "600", height: "800"},
+      resolution_string: {width: "600", height: "800"},
       ip_address:"63.29.38.211"
     }
 
@@ -170,7 +173,7 @@ class FeatureTest < Minitest::Test
       event: "socialLoginA",
       operating_system: "Windows",
       browser: "IE10",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -183,7 +186,7 @@ class FeatureTest < Minitest::Test
       event: "socialLoginB",
       operating_system: "Windows",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1080"},
+      resolution_string: {width: "1920", height: "1080"},
       ip_address:"63.29.38.211"
     }
 
@@ -196,7 +199,7 @@ class FeatureTest < Minitest::Test
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Chrome",
-      resolution: {width: "1920", height: "1280"},
+      resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
     }
 
@@ -209,7 +212,7 @@ class FeatureTest < Minitest::Test
       event: "socialLoginB",
       operating_system: "Macintosh",
       browser: "Mozilla",
-      resolution: {width: "1366", height: "768"},
+      resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
 
@@ -221,6 +224,9 @@ class FeatureTest < Minitest::Test
     payloads.each do |data|
       rel_path = TrafficSpy::RelativePath.find_or_create_by(path: data[:relative_path_string])
       req_type = TrafficSpy::RequestType.find_or_create_by(verb: data[:request_type_string])
+      resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
+                                                            height: data[:resolution_string][:height])
+      data[:resolution_id] = resolution.id
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id
       data[:application_id] = app.id

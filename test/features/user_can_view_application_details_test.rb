@@ -79,8 +79,8 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
 
     within 'table#screen-resolution tr:nth-child(3)' do
-      assert page.has_content?(1366)
-      assert page.has_content?(768)
+      assert page.has_content?(600)
+      assert page.has_content?(800)
       assert page.has_content?(1)
     end
 
@@ -91,8 +91,8 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
 
     within 'table#screen-resolution tr:nth-child(5)' do
-      assert page.has_content?(600)
-      assert page.has_content?(800)
+      assert page.has_content?(1366)
+      assert page.has_content?(768)
       assert page.has_content?(1)
     end
   end

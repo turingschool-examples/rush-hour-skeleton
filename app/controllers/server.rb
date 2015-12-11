@@ -74,15 +74,5 @@ module TrafficSpy
     not_found do
       haml :error
     end
-
-    helpers do
-      def resolution_width(res)
-        /\d+/.match(res.split(',')[0])
-      end
-
-      def resolution_height(res)
-        /\d+/.match(res.split(',')[1])
-      end
-    end
   end
 end

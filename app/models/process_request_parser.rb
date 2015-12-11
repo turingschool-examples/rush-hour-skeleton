@@ -20,8 +20,8 @@ module TrafficSpy
         :event => parsed_request["eventName"],
         :operating_system => user_agent.platform,
         :browser => user_agent.browser,
-        :resolution => {:width => parsed_request["resolutionWidth"],
-                        :height => parsed_request["resolutionHeight"]},
+        :resolution_string => {:width => parsed_request["resolutionWidth"],
+                               :height => parsed_request["resolutionHeight"]},
         :ip_address => parsed_request["ip"]
       }
     end
