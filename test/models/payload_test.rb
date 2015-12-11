@@ -56,7 +56,12 @@ class PayloadTest < TrafficTest
 
   def test_most_popular_referrers
     actual_result = @user_url_blog.referrers
-    assert_equal ["http://jumpstartlab.com", "http://jumpstartlab.com"], actual_result
+    assert_equal [["http://jumpstartlab.com", 2]], actual_result
   end
+
+  # def test_most_popular_browsers
+  #   actual_result = @user_url_blog.browsers
+  #   assert_equal ["Chrome", "Safari"], actual_result
+  # end
 
 end

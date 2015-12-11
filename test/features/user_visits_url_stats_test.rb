@@ -3,17 +3,15 @@ require_relative '../test_helper'
 class UserVistitsURLStatsTest < FeatureTest
   include PayloadPrep
 
-  def setup_testing_environment
+  def create_testing_environment
     post '/sources', {rootUrl: 'http://jumpstartlab.com', identifier: 'jumpstartlab'}
 
     post '/sources/jumpstartlab/data', payload_params1
     post '/sources/jumpstartlab/data', payload_params2
     post '/sources/jumpstartlab/data', payload_params3
-
-    visit '/sources/jumpstartlab/urls/blog'
   end
 
-  def setup_more_payloads
+  def create_more_payloads
     post '/sources', {rootUrl: 'http://jumpstartlab.com', identifier: 'jumpstartlab'}
 
     post '/sources/jumpstartlab/data', payload_params1
@@ -21,12 +19,11 @@ class UserVistitsURLStatsTest < FeatureTest
     post '/sources/jumpstartlab/data', payload_params3
     post '/sources/jumpstartlab/data', payload_params4
     post '/sources/jumpstartlab/data', payload_params5
-
-    visit '/sources/jumpstartlab/urls/blog'
   end
 
   def test_user_sees_longest_response_time_for_url
-    setup_testing_environment
+    create_testing_environment
+    visit '/sources/jumpstartlab/urls/blog'
 
     within('#longest_response_time') do
       assert page.has_content?('Longest Response Time')
@@ -35,7 +32,8 @@ class UserVistitsURLStatsTest < FeatureTest
   end
 
   def test_user_sees_shortest_response_time_for_url
-    setup_testing_environment
+    create_testing_environment
+    visit '/sources/jumpstartlab/urls/blog'
 
     within('#shortest_response_time') do
       assert page.has_content?('Shortest Response Time')
@@ -44,7 +42,8 @@ class UserVistitsURLStatsTest < FeatureTest
   end
 
   def test_user_sees_avg_response_time_for_url
-    setup_testing_environment
+    create_testing_environment
+    visit '/sources/jumpstartlab/urls/blog'
 
     within('#avg_response_time') do
       assert page.has_content?('Average Response Time')
@@ -53,17 +52,32 @@ class UserVistitsURLStatsTest < FeatureTest
   end
 
   def test_user_sees_http_verbs
+    create_testing_environment
+    visit '/sources/jumpstartlab/urls/blog'
+
     within('#verbs') do
       assert page.has_content?('HTTP Verbs Received')
       assert page.has_content?('GET')
     end
   end
 
-  def test_user_sees_three_most_popular_refferers
-    setup_more_payloads
+  def test_user_sees_three_most_popular_referers
+    create_more_payloads
+    visit '/sources/jumpstartlab/urls/blog'
+
     within('#referred_by') do
-      assert page.has_content?('Most Popular Referrers')
-      assert page.has_content?('www.google.com')
+      save_and_open_page
+      assert page.has_content?('Top 3 Bestest Referrers')
+      refute page.has_content?('google.com')
+      assert page.has_content?('jumpstartlab.com')
     end
   end
+
+  # def test_user_sees_three_most_popular_browsers
+  #   create_more_payloads
+  #   within('#browsers') do
+  #     assert page.has_content?('Top 3 Bestest BadAss Browsers')
+  #     assert page.has_content?('Chrome')
+  #   end
+  # end
 end
