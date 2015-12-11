@@ -44,10 +44,12 @@ module TrafficSpy
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @client = Client.find_by(name: identifier)
+      paths = Payload.distinct.pluck(:path)
+      @path_requested = @client.root_url + "/#{path}"
       binding.pry
-      if Payload.distinct.pluck(:path).include?(@client.root_url + "/#{path}")
+      if paths.include?(@path_requested)
         puts "THIS SHIT EXISTS"
-        # erb :url_details
+        erb :url_details
       else
         @error_message = "That URL has not been requested."
         erb :error

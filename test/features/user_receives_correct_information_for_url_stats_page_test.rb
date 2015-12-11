@@ -17,9 +17,9 @@ class UserReceivesCorrectInformationForURLStatsPageTest < FeatureTest
     ces.start_simulation
 
     visit '/sources/google/urls/blog'
+    assert "/sources/google/urls/blog", current_path
     save_and_open_page
-    refute page.has_content?("That URL has not been requested.")
-
+    assert page.has_content?("What?")
   end
 
 end

@@ -14,4 +14,11 @@ class Payload < ActiveRecord::Base
   def self.url_hyperlinks
     pluck(:path).uniq
   end
+
+  def self.show_response_times
+    longest = Payload.maximum(:responded_in)
+    shortest = Payload.minimum(:responded_in)
+    average = Payload.average(:responded_in)
+    {longest: longest, shortest: shortest, average: average }
+  end
 end
