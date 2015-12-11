@@ -38,5 +38,4 @@ class UserCanViewEventSpecificDetails < FeatureTest
       assert page.has_content?('Total Requests: 3')
     end
   end
-
 end
