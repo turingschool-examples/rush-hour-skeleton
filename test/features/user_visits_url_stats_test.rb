@@ -13,6 +13,18 @@ class UserVistitsURLStatsTest < FeatureTest
     visit '/sources/jumpstartlab/urls/blog'
   end
 
+  def setup_more_payloads
+    post '/sources', {rootUrl: 'http://jumpstartlab.com', identifier: 'jumpstartlab'}
+
+    post '/sources/jumpstartlab/data', payload_params1
+    post '/sources/jumpstartlab/data', payload_params2
+    post '/sources/jumpstartlab/data', payload_params3
+    post '/sources/jumpstartlab/data', payload_params4
+    post '/sources/jumpstartlab/data', payload_params5
+
+    visit '/sources/jumpstartlab/urls/blog'
+  end
+
   def test_user_sees_longest_response_time_for_url
     setup_testing_environment
 
@@ -48,6 +60,7 @@ class UserVistitsURLStatsTest < FeatureTest
   end
 
   def test_user_sees_three_most_popular_refferers
+    setup_more_payloads
     within('#referred_by') do
       assert page.has_content?('Most Popular Referrers')
       assert page.has_content?('www.google.com')

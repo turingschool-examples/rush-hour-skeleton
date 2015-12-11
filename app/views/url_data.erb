@@ -21,3 +21,11 @@
     <% end %>
   </h4>
 </div>
+
+<div id = "referred_by">
+  <h4>Most Popular Referrers:
+    <% @url_payloads.referrers.each_with_index do |ref, index| %>
+      <%= ref[0] %><%= ',' unless @url_payloads.http_verbs.count - 1 == index %>
+    <% end %>
+  </h4>
+</div>

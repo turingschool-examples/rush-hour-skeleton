@@ -41,5 +41,9 @@ module TrafficSpy
       pluck(:request_type).uniq
     end
 
+    def self.referrers
+      group(:referred_by).count.sort_by{ |k, v| v}.reverse[0..2]
+    end
+
   end
 end

@@ -72,4 +72,20 @@ module PayloadPrep
      "captures"=>["jumpstartlab"],
      "id"=>"jumpstartlab"}
   end
+
+  def payload_params4
+    {"payload"=>
+      "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 20:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://cnn.com\",\"requestType\":\"PUT\",\"parameters\":[1],\"eventName\":\"registrationInformation\",\"userAgent\":\"Mozilla/5.0 (Windows-RSS-Platform/2.0 (IE 11.0; Windows NT 6.1)) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A\",\"resolutionWidth\":\"12\",\"resolutionHeight\":\"120\",\"ip\":\"63.29.38.210\"}",
+     "splat"=>[],
+     "captures"=>["jumpstartlab"],
+     "id"=>"jumpstartlab"}
+  end
+
+  def payload_params5
+    {"payload"=>
+      "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 20:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://reddit.com\",\"requestType\":\"POST\",\"parameters\":[1],\"eventName\":\"registrationInformation\",\"userAgent\":\"Mozilla/5.0 (Windows-RSS-Platform/2.0 (IE 11.0; Windows NT 6.1)) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A\",\"resolutionWidth\":\"12\",\"resolutionHeight\":\"120\",\"ip\":\"63.29.38.210\"}",
+     "splat"=>[],
+     "captures"=>["jumpstartlab"],
+     "id"=>"jumpstartlab"}
+  end
 end
