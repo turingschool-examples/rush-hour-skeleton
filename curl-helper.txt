@@ -1,0 +1,43 @@
+curl -i -d 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'  http://localhost:9393/sources
+
+curl -i -d 'identifier=turing&rootUrl=http://turing.io'  http://localhost:9393/sources
+
+curl -i -d 'identifier=fifteentenrocks&rootUrl=http://fifteentenrocks.com'  http://localhost:9393/sources
+
+curl -i -d 'identifier=nopayloaddata&rootUrl=http://nopayloaddata.com'  http://localhost:9393/sources
+
+
+
+curl -i -d 'payload={"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName":"socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}' http://localhost:9393/sources/jumpstartlab/data
+
+curl -i -d 'payload={"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 04:38:28 -0700","respondedIn":80,"referredBy":"http://facebook.com","requestType":"POST","parameters":[],"eventName":"socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/537.17","resolutionWidth":"800","resolutionHeight":"1200","ip":"63.29.38.211"}' http://localhost:9393/sources/jumpstartlab/data
+
+curl -i -d 'payload={"url":"http://jumpstartlab.com/about","requestedAt":"2013-02-16 04:38:28 -0700","respondedIn":80,"referredBy":"http://facebook.com","requestType":"POST","parameters":[],"eventName":"socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"800","resolutionHeight":"1200","ip":"63.29.38.211"}' http://localhost:9393/sources/jumpstartlab/data
+
+curl -i -d 'payload={"url":"http://jumpstartlab.com/team","requestedAt":"2013-02-16 12:38:28 -0700","respondedIn":80,"referredBy":"http://facebook.com","requestType":"GET","parameters":[],"eventName":"socialLoginB","userAgent":"Mozilla/5.0 (Windows%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"600","resolutionHeight":"800","ip":"63.29.38.211"}' http://localhost:9393/sources/jumpstartlab/data
+
+
+
+
+curl -i -d 'payload={"url":"http://turing.io/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://turing.io","requestType":"GET","parameters":[],"eventName":"socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}' http://localhost:9393/sources/turing/data
+
+curl -i -d 'payload={"url":"http://turing.io/blog","requestedAt":"2013-02-16 08:38:28 -0700","respondedIn":25,"referredBy":"http://twitter.com","requestType":"PUT","parameters":[],"eventName":"socialLoginB","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"800","resolutionHeight":"1200","ip":"63.29.38.211"}' http://localhost:9393/sources/turing/data
+
+curl -i -d 'payload={"url":"http://turing.io/about","requestedAt":"2013-02-16 19:38:28 -0700","respondedIn":80,"referredBy":"http://wordpress.com","requestType":"POST","parameters":[],"eventName":"socialLoginA","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"800","resolutionHeight":"1200","ip":"63.29.38.211"}' http://localhost:9393/sources/turing/data
+
+curl -i -d 'payload={"url":"http://turing.io/team","requestedAt":"2013-02-16 19:40:28 -0700","respondedIn":80,"referredBy":"http://facebook.com","requestType":"GET","parameters":[],"eventName":"socialLoginC","userAgent":"Mozilla/5.0 (Windows%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/537.17","resolutionWidth":"600","resolutionHeight":"800","ip":"63.29.38.211"}' http://localhost:9393/sources/turing/data
+
+curl -i -d 'payload={"url":"http://turing.io/team","requestedAt":"2013-02-16 19:40:28 -0700","respondedIn":85,"referredBy":"http://facebook.com","requestType":"GET","parameters":[],"eventName":"socialLoginC","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"600","resolutionHeight":"800","ip":"63.29.38.211"}' http://localhost:9393/sources/turing/data
+
+
+
+
+curl -i -d 'payload={"url":"http://fifteentenrocks.com/blog","requestedAt":"2013-02-16 22:38:28 -0700","respondedIn":37,"referredBy":"http://fifteentenrocks.com","requestType":"GET","parameters":[],"eventName":"socialShare","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}' http://localhost:9393/sources/fifteentenrocks/data
+
+curl -i -d 'payload={"url":"http://fifteentenrocks.com/blog","requestedAt":"2013-02-16 08:38:28 -0700","respondedIn":25,"referredBy":"http://twitter.com","requestType":"PUT","parameters":[],"eventName":"socialLoginB","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"800","resolutionHeight":"1200","ip":"63.29.38.211"}' http://localhost:9393/sources/fifteentenrocks/data
+
+curl -i -d 'payload={"url":"http://fifteentenrocks.com/home","requestedAt":"2013-02-16 08:38:28 -0700","respondedIn":60,"referredBy":"http://wordpress.com","requestType":"POST","parameters":[],"eventName":"wordpressLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/537.17","resolutionWidth":"800","resolutionHeight":"1200","ip":"63.29.38.211"}' http://localhost:9393/sources/fifteentenrocks/data
+
+curl -i -d 'payload={"url":"http://fifteentenrocks.com/people","requestedAt":"2013-02-16 16:40:28 -0700","respondedIn":80,"referredBy":"http://facebook.io","requestType":"GET","parameters":[],"eventName":"socialLoginC","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"600","resolutionHeight":"800","ip":"63.29.38.211"}' http://localhost:9393/sources/fifteentenrocks/data
+
+curl -i -d 'payload={"url":"http://fifteentenrocks.com/people","requestedAt":"2013-02-16 19:40:28 -0700","respondedIn":85,"referredBy":"http://facebook.io","requestType":"GET","parameters":[],"eventName":"socialLoginC","userAgent":"Mozilla/5.0 (Windows%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"600","resolutionHeight":"800","ip":"63.29.38.211"}' http://localhost:9393/sources/fifteentenrocks/data
