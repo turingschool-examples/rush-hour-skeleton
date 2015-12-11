@@ -23,14 +23,16 @@ attr_reader :payload,
     # binding.pry
     @id             = params['id']
     @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
-    @url            = get_url
+    @url            = payload['url'] && get_url
     # @url_id         = Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
+
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
     @referral       = payload['referredBy']
     @verb           = payload['requestType']
-    @event          = payload['eventName']
 
+    @event          = payload['eventName']
+# binding.pry
     @browser,
     @os =           get_user_agent(payload)
     @resolution =   get_resolution(payload)
@@ -39,6 +41,10 @@ attr_reader :payload,
 
   def url_id
     Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
+  end
+
+  def event_id
+    Event.find_or_create_by(name: event) && Event.find_or_create_by(name: event).id
   end
 
   def get_url
@@ -57,6 +63,7 @@ attr_reader :payload,
   end
 
   def request_data
+    # binding.pry
     {
       request_hash: request_hash,
       application_id: application_id,
@@ -65,7 +72,7 @@ attr_reader :payload,
       response_time: response_time,
       referral: referral,
       verb: verb,
-      event: event,
+      event_id: event_id,
       browser: browser,
       os: os,
       resolution: resolution

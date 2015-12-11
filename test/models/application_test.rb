@@ -7,7 +7,6 @@ class ApplicationTest < Minitest::Test
       identifier: 'jumpstartlab',
       root_url:   'http://jumpstartlab.com'
     }
-    
   end
 
   def test_application_is_created_with_valid_attributes

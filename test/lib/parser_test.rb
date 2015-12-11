@@ -30,7 +30,13 @@ class ParserTest < Minitest::Test
 
   def test_it_parsers_valid_url
     parser = Parser.new(params)
-    assert_equal "http://jumpstartlab.com/blog", parser.url
+    assert_equal "blog", parser.url
+  end
+
+  def test_it_parsers_valid_url_id
+    Url.create(path: 'blog')
+    parser = Parser.new(params)
+    assert_equal 1, parser.url_id
   end
 
   def test_it_parsers_valid_timestamp
@@ -56,6 +62,12 @@ class ParserTest < Minitest::Test
   def test_it_parsers_valid_event
     parser = Parser.new(params)
     assert_equal 'socialLogin', parser.event
+  end
+
+  def test_it_parsers_valid_event_id
+    Event.new(name: 'login')
+    parser = Parser.new(params)
+    assert_equal 1, parser.event_id
   end
 
   def test_it_parsers_valid_browser

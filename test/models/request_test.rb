@@ -11,7 +11,7 @@ class RequestTest < Minitest::Test
       :response_time => 37,
       :referral => 'http://jumpstartlab.com',
       :verb => 'GET',
-      :event => 'socialLogin',
+      :event_id => 3,
       :browser => 'Chrome 24.0.1309',
       :os => 'Mac OS X 10.8.2',
       :resolution => '1920x1280'
@@ -26,7 +26,7 @@ class RequestTest < Minitest::Test
     assert_equal request_data[:response_time],  Request.last.response_time
     assert_equal request_data[:referral],       Request.last.referral
     assert_equal request_data[:verb],           Request.last.verb
-    assert_equal request_data[:event],          Request.last.event
+    assert_equal request_data[:event_id],       Request.last.event_id
     assert_equal request_data[:browser],        Request.last.browser
     assert_equal request_data[:os],             Request.last.os
     assert_equal request_data[:resolution],     Request.last.resolution

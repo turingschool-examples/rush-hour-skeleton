@@ -3,6 +3,10 @@ class RequestManager
 
   def initialize(params)
     parser = Parser.new(params)
+
+    # event = Event.create(parser.event_name)
+    # url = Url.create(parser.extension)
+
     request = Request.new(parser.request_data)
 
     # case
@@ -23,7 +27,7 @@ class RequestManager
         end
       else
         @status = 403
-        @response = "Application not registered."
+        @response = "Application not registered."   # parser
       end
     end
   end
