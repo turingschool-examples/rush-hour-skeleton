@@ -17,9 +17,9 @@ module TrafficSpy
         :responded_in => parsed_request["respondedIn"],
         :referred_by => parsed_request["referredBy"],
         :request_type_string => parsed_request["requestType"],
-        :event => parsed_request["eventName"],
+        :event_string => parsed_request["eventName"],
         :operating_system_string => user_agent.platform,
-        :browser => user_agent.browser,
+        :browser_string => user_agent.browser,
         :resolution_string => {:width => parsed_request["resolutionWidth"],
                                :height => parsed_request["resolutionHeight"]},
         :ip_address => parsed_request["ip"]

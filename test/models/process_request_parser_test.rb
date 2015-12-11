@@ -23,9 +23,9 @@ class ProcessRequestParserTest < ModelTest
       responded_in: 37,
       referred_by:"http://turing.io",
       request_type_string:"GET",
-      event: "socialLogin",
+      event_string: "socialLogin",
       operating_system_string: "Macintosh",
-      browser: "Chrome",
+      browser_string: "Chrome",
       resolution_string: {width: "1920", height: "1280"},
       ip_address:"63.29.38.211"
       }

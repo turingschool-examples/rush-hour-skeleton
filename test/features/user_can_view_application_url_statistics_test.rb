@@ -8,9 +8,9 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 25,
       referred_by:"http://turing.io",
       request_type_string:"GET",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Macintosh",
-      browser: "Mozilla",
+      browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
@@ -20,9 +20,9 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 26,
       referred_by:"http://facebook.com",
       request_type_string:"GET",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Macintosh",
-      browser: "Mozilla",
+      browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
@@ -32,9 +32,9 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 35,
       referred_by:"http://facebook.com",
       request_type_string:"POST",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Windows",
-      browser: "Mozilla",
+      browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
@@ -44,9 +44,9 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 45,
       referred_by:"http://facebook.com",
       request_type_string:"POST",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Windows",
-      browser: "Mozilla",
+      browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
@@ -56,9 +56,9 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 29,
       referred_by:"http://twitter.com",
       request_type_string:"PUT",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "RedHat",
-      browser: "Mozilla",
+      browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
@@ -68,9 +68,9 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 28,
       referred_by:"http://turing.io",
       request_type_string:"DELETE",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Ubuntu",
-      browser: "Mozilla",
+      browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
       ip_address:"63.29.38.211"
     }
@@ -86,11 +86,19 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
                                                             height: data[:resolution_string][:height])
       operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: data[:operating_system_string])
+      browser = TrafficSpy::Browser.find_or_create_by(browser_name: data[:browser_string])
+      event = TrafficSpy::Event.find_or_create_by(event_name: data[:event_string])
+      data[:event_id] = event.id
+      data[:browser_id] = browser.id
       data[:operating_system_id] = operating_system.id
       data[:resolution_id] = resolution.id
       data[:relative_path_id] = rel_path.id
       data[:request_type_id] = req_type.id
       data[:application_id] = app.id
+
+      [:relative_path_string, :request_type_string, :resolution_string,
+       :operating_system_string, :browser_string, :event_string].each { |k| data.delete(k) }
+       
       TrafficSpy::Payload.create(data)
     end
   end
