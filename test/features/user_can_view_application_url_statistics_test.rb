@@ -8,7 +8,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 25,
       referred_by:"http://turing.io",
       request_type_string:"GET",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Macintosh",
       browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
@@ -20,7 +20,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 26,
       referred_by:"http://facebook.com",
       request_type_string:"GET",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Macintosh",
       browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
@@ -32,7 +32,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 35,
       referred_by:"http://facebook.com",
       request_type_string:"POST",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Windows",
       browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
@@ -44,7 +44,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 45,
       referred_by:"http://facebook.com",
       request_type_string:"POST",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Windows",
       browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
@@ -56,7 +56,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 29,
       referred_by:"http://twitter.com",
       request_type_string:"PUT",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "RedHat",
       browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
@@ -68,7 +68,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       responded_in: 28,
       referred_by:"http://turing.io",
       request_type_string:"DELETE",
-      event: "socialLoginB",
+      event_string: "socialLoginB",
       operating_system_string: "Ubuntu",
       browser_string: "Mozilla",
       resolution_string: {width: "1366", height: "768"},
@@ -87,6 +87,8 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
                                                             height: data[:resolution_string][:height])
       operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: data[:operating_system_string])
       browser = TrafficSpy::Browser.find_or_create_by(browser_name: data[:browser_string])
+      event = TrafficSpy::Event.find_or_create_by(event_name: data[:event_string])
+      data[:event_id] = event.id
       data[:browser_id] = browser.id
       data[:operating_system_id] = operating_system.id
       data[:resolution_id] = resolution.id
