@@ -48,10 +48,21 @@ module TrafficSpy
       @path_requested = @client.root_url + "/#{path}"
 
       if paths.include?(@path_requested)
-        puts "THIS SHIT EXISTS"
         erb :url_details
       else
         @error_message = "That URL has not been requested."
+        erb :error
+      end
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      @client = Client.find_by(name: identifier)
+
+
+      if Payload.exists?(:event_name)
+        erb :events_index
+      else
+        @error_message = "No events have been defined."
         erb :error
       end
     end

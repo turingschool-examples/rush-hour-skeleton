@@ -33,4 +33,13 @@ class Payload < ActiveRecord::Base
   def self.top_user_agents
     group(:web_browser).order('count_id desc').limit(3).count('id')
   end
+
+  def self.event_requests
+    group(:event_name).order('count_id desc').count('id')
+  end
+
+  def self.event_hyperlinks
+    pluck(:event_name).uniq
+  end
+
 end

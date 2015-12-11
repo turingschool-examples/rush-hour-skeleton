@@ -1,0 +1,10 @@
+<h1>Events Index</h1>
+<ul>
+  <% @client.payloads.event_requests.each do |k, v| %>
+    <li><a href="http://localhost:9393/sources/<%= @client.name %>/events/<%= k %>"><%= k %></a> : <%= "#{v} requests"%></li>
+  <% end %>
+</ul>
+
+<!-- <% @client.payloads.event_hyperlinks.each do |event| %>
+  <a href="http://localhost:9393/sources/<%= @client.name %>/events/<%= event %>"><%= event %></a>
+<% end %> -->

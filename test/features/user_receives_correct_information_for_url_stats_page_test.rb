@@ -18,7 +18,6 @@ class UserReceivesCorrectInformationForURLStatsPageTest < FeatureTest
 
     visit '/sources/google/urls/blog'
     assert "/sources/google/urls/blog", current_path
-    save_and_open_page
     assert page.has_content?("What?")
   end
 
