@@ -3,7 +3,7 @@ require './test/test_helper'
 class UserCanViewIndexOfAllEvents < FeatureTest
   def test_user_can_view_list_of_all_events_grouped_by_count
     register_turing_and_send_multiple_payloads
-    
+
     visit '/sources/turing/events'
 
     within 'ol li:nth-child(1)' do

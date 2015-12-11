@@ -1,11 +1,11 @@
-.container 
+.container
   .row
     %h1.title-text.weighted.underline.center
       = @app.identifier.capitalize
       Events Details:
   .row.center-align
     %h3.weighted.sub.cyan.darken-2
-      = @event
+      = @event.event_name
 
   %h3#total-request.title-text.weighted.underline
     Total Requests:

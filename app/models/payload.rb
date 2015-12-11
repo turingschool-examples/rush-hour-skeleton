@@ -6,14 +6,15 @@ module TrafficSpy
     belongs_to :resolution
     belongs_to :operating_system
     belongs_to :browser
+    belongs_to :event
     validates_uniqueness_of :application_id, scope: [:relative_path_string, :requested_at,
                                                      :responded_in, :referred_by,
-                                                     :request_type_string, :event,
+                                                     :request_type_string, :event_string,
                                                      :operating_system_string, :browser_string,
                                                      :resolution_string, :ip_address,
                                                      :relative_path_id, :request_type_id,
                                                      :resolution_id, :operating_system_id,
-                                                     :browser_id]
+                                                     :browser_id, :event_id]
 
     def self.group_count_and_order(field)
       group(field).count.sort.sort_by { |key, count| [ -count, key ] }.to_h
@@ -42,6 +43,11 @@ module TrafficSpy
     ######### YO NEW METHOD! ###########
     def self.group_count_and_order_browser
       paths = group(:browser).count.map { |browser, count| [browser.browser_name, count]}
+      paths.sort_by { |key, count| [ -count, key ] }.to_h
+    end
+
+    def self.group_count_and_order_event
+      paths = group(:event).count.map { |event, count| [event.event_name, count]}
       paths.sort_by { |key, count| [ -count, key ] }.to_h
     end
 
