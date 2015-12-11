@@ -166,7 +166,6 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
   end
 
   def test_user_can_view_statistics_for_a_url_team
-    skip
     register_turing_and_send_multiple_payloads
 
     url = '/team'
@@ -225,7 +224,6 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
   end
 
   def test_user_can_view_statistics_for_a_url_people
-    skip
     register_turing_and_send_multiple_payloads
     add_more_payloads
 
