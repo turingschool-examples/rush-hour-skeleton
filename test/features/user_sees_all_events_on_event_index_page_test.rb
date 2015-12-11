@@ -10,7 +10,6 @@ class UserSeesAllEventsOnEventIndexPageTest < FeatureTest
 
     visit '/sources/google/events'
 
-    save_and_open_page
     assert page.has_content?("Events Index")
 
   end

@@ -42,4 +42,8 @@ class Payload < ActiveRecord::Base
     pluck(:event_name).uniq
   end
 
+  def self.hour_by_hour_breakdown
+    pluck(:requested_at).first.hour
+  end
+
 end

@@ -67,6 +67,12 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @client = Client.find_by(name: identifier)
+
+      erb :event_details
+    end
+
     not_found do
       erb :error
     end
