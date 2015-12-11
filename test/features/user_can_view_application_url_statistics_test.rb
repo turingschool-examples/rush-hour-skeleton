@@ -86,7 +86,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
       resolution = TrafficSpy::Resolution.find_or_create_by(width: data[:resolution_string][:width],
                                                             height: data[:resolution_string][:height])
       operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: data[:operating_system_string])
-      browser = TrafficSpy::Browser.find_or_create_by(browser_name: payload_data[:browser_string])
+      browser = TrafficSpy::Browser.find_or_create_by(browser_name: data[:browser_string])
       data[:browser_id] = browser.id
       data[:operating_system_id] = operating_system.id
       data[:resolution_id] = resolution.id
