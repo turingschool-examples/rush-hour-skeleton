@@ -3,7 +3,7 @@
 
 ### Authors
 
-This application was created by Beth Secor, Steve Pentler, and Toni Rib for the Turing School of Software & Design.
+This application was created by [Beth Secor](https://github.com/bethsecor), [Steve Pentler](https://github.com/stevepentler), and [Toni Rib](https://github.com/tonirib) for the [Turing School of Software & Design](http://turing.io).
 
 ### Overview
 
