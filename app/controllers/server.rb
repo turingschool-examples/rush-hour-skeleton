@@ -50,8 +50,13 @@ module TrafficSpy
 
     get '/sources/:id/events/:event_name' do |id, event_name|
       @user = TrafficSpy::User.find_by(identifier: id)
-      # @user.payloads.group(:event_name).group('EXTRACT(HOUR FROM requested_at)').count
-      erb :event_data, locals: { event_name: event_name}
+
+      unless @user.payloads.exists?(event_name: event_name)
+              # binding.pry
+        erb :no_event, locals: { event_name: event_name }
+      else
+        erb :event_data, locals: { event_name: event_name}
+      end
     end
 
     post '/sources' do

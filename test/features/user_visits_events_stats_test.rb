@@ -41,4 +41,17 @@ class UserVistitsEventsStatsTest < FeatureTest
     end
   end
 
+  def test_user_sees_undefined_event_message_page
+    create_more_payloads
+    visit '/sources/jumpstartlab/events/pizzamarshmallows'
+    assert page.has_content?('No data received for /pizzamarshmallows')
+  end
+
+  def test_user_sees_undefined_event_message_page
+    create_more_payloads
+    visit '/sources/jumpstartlab/events/pizzamarshmallows'
+    click_link("return_to_index")
+    assert page.has_content?('Events Index')
+  end
+
 end
