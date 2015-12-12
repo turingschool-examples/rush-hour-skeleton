@@ -36,6 +36,8 @@ class EventTest < ModelTest
   end
 
   def test_total_requests
+    register_turing_and_send_multiple_payloads
 
+    assert_equal 3, TrafficSpy::Event.count
   end
 end
