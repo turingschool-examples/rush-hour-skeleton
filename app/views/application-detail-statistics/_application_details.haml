@@ -45,7 +45,7 @@
             %th.weighted Rank
             %th.weighted OS
             %th.weighted Requests
-          -@app.payloads.group_count_and_order_operating_system.each_with_index do |data, rank|
+          -@app.operating_system_requests.each_with_index do |data, rank|
             %tr
               %td
                 = rank + 1
@@ -64,14 +64,14 @@
             %th.weighted Width
             %th.weighted Height
             %th.weighted Requests
-          -@app.payloads.group_count_and_order(:resolution).each_with_index do |data, rank|
+          -@app.resolution_requests.each_with_index do |data, rank|
             %tr
               %td
                 = rank + 1
               %td
-                = data[0][:width]
+                = data[0][0]
               %td
-                = data[0][:height]
+                = data[0][1]
               %td.request-count
                 = data[1]
 
@@ -84,7 +84,7 @@
             %th.weighted Rank
             %th.weighted Path
             %th.weighted Time (ms)
-          -@app.payloads.group_average_and_order_response_times.each_with_index do |data, rank|
+          -@app.average_response_times.each_with_index do |data, rank|
             %tr
               %td
                 = rank + 1
