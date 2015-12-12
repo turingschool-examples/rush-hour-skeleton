@@ -36,6 +36,10 @@ nav .nav-wrapper i {
     vertical-align: sub;
 }
 
+nav ul a {
+    padding: 0 35px;
+}
+
 .card {
   padding-bottom: 5px;
   background: beige;
@@ -59,7 +63,7 @@ a {
 
 h4 {
   text-decoration: underline;
-  color: burlywood;
+  color: darkslategrey;
 }
 
 .pagesidebarleft {
