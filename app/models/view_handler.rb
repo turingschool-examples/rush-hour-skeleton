@@ -16,7 +16,7 @@ module ViewHandler
   end
 
   def self.assign_url_details_error_message(path)
-    return "That URL has not been requested." if !Payload.unique_paths.include?(path)
+    "That URL has not been requested." if !Payload.unique_paths.include?(path)
   end
 
   def self.assign_events_index_erb_path
@@ -25,7 +25,16 @@ module ViewHandler
   end
 
   def self.assign_events_index_error_message
-    return "No events have been defined." if !Payload.exists?(:event_name)
+    "No events have been defined." if !Payload.exists?(:event_name)
+  end
+
+  def self.assign_event_details_erb_path(event_name)
+    return :event_details if Payload.find_by(event_name: event_name)
+    return :event_details_error
+  end
+
+  def self.assign_event_details_error_message(event_name)
+    "That event isn't defined." if !Payload.find_by(event_name: event_name)
   end
 
 end

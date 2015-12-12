@@ -28,27 +28,20 @@ module TrafficSpy
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @client = Client.find_by(name: identifier)
       path_requested = @client.root_url + "/#{path}"
-
       @error_message = ViewHandler.assign_url_details_error_message(path_requested)
       erb ViewHandler.assign_url_details_erb_path(path_requested)
     end
 
     get '/sources/:identifier/events' do |identifier|
       @client = Client.find_by(name: identifier)
-
       @error_message = ViewHandler.assign_events_index_error_message
       erb ViewHandler.assign_events_index_erb_path
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @client = Client.find_by(name: identifier)
-
-      if Payload.find_by(event_name: event_name)
-        erb :event_details
-      else
-        @error_message = "That event isnt defined."
-        erb :event_details_error, locals: {identifier: identifier}
-      end
+      @error_message = ViewHandler.assign_event_details_error_message(event_name)
+      erb ViewHandler.assign_event_details_erb_path(event_name), locals: {identifier: identifier}
     end
 
     not_found do
