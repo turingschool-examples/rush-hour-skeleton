@@ -1,12 +1,31 @@
-<h1>Event Details</h1>
+<h1>Event Details for <%= identifier %>'s <%= event_name %>s</h1>
 <% hours = {} %>
   <% @client.payloads.hour_by_hour_breakdown.each do |time| %>
     <% hours[time] += 1 if hours.has_key?(time) %>
     <% hours[time] = 1 unless hours.has_key?(time) %>
   <% end %>
 
-  <% hours.each do |k, v| %>
-    <p><%= "Number of views in hour #{k} : #{v}" %></p>
-  <% end %>
+  <br/>
+  <div class="container">
+    <table class="striped highlight responsive-table bordered centered">
+      <thead>
+        <tr>
+          <th data-field="hour">Hour</th>
+          <th data-field="views">Times Requested</th>
+        </tr>
+      </thead>
 
-  <%= "Total views:" %><%= hours.values.reduce(:+) %>
+      <tbody>
+        <% hours.each do |k, v| %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= v %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td>24-Hour Total</td>
+          <td><%= hours.values.reduce(:+) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -19,13 +19,13 @@ module ViewHandler
     "That URL has not been requested." if !Payload.unique_paths.include?(path)
   end
 
-  def self.assign_events_index_erb_path
-    return :events_index if Payload.exists?(:event_name)
+  def self.assign_events_index_erb_path(client)
+    return :events_index unless client.payloads.empty?
     return :error
   end
 
-  def self.assign_events_index_error_message
-    "No events have been defined." if !Payload.exists?(:event_name)
+  def self.assign_events_index_error_message(client)
+    "No events have been defined." if client.payloads.empty?
   end
 
   def self.assign_event_details_erb_path(event_name)

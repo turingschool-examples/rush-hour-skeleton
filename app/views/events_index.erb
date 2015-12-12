@@ -5,6 +5,23 @@
   <% end %>
 </ul>
 
-<!-- <% @client.payloads.event_hyperlinks.each do |event| %>
-  <a href="http://localhost:9393/sources/<%= @client.name %>/events/<%= event %>"><%= event %></a>
-<% end %> -->
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="events">Events Requested</th>
+        <th data-field="requests">Frequency</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.event_requests.each do |k, v| %>
+      <tr>
+        <td><a href="http://localhost:9393/sources/<%= @client.name %>/events/<%= k %>"><%= k %></a></td>
+        <td><%= v %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

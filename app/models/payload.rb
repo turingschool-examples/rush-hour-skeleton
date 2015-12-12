@@ -16,10 +16,9 @@ class Payload < ActiveRecord::Base
   end
 
   def self.show_response_times(path_requested)
-    longest = Payload.where(path: path_requested).maximum(:responded_in)
-    shortest = Payload.where(path: path_requested).minimum(:responded_in)
-    average = Payload.where(path: path_requested).average(:responded_in)
-    {longest: longest, shortest: shortest, average: average }
+    { longest: Payload.where(path: path_requested).maximum(:responded_in),
+      shortest: Payload.where(path: path_requested).minimum(:responded_in),
+      average: Payload.where(path: path_requested).average(:responded_in) }
   end
 
   def self.show_request_types

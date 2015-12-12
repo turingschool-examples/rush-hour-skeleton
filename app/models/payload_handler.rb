@@ -12,18 +12,18 @@ class PayloadHandler
     client = Client.find_by(name: parameters["identifier"])
     agent_orange = AgentOrange::UserAgent.new(payload["userAgent"])
     new_payload = Payload.create(path: payload["url"],
-                             referred_by: payload["referredBy"],
-                             request_type: payload["requestType"],
-                             parameters: payload["parameters"],
-                             responded_in: payload["respondedIn"],
-                             requested_at: payload["requestedAt"],
-                             event_name: payload["eventName"],
-                             web_browser: agent_orange.device.engine.browser,
-                             operating_system: agent_orange.device.operating_system,
-                             resolution_width: payload["resolutionWidth"],
-                             resolution_height: payload["resolutionHeight"],
-                             ip_address: payload["ip"],
-                             hexed_payload: hashed_payload)
+                                 referred_by: payload["referredBy"],
+                                 request_type: payload["requestType"],
+                                 parameters: payload["parameters"],
+                                 responded_in: payload["respondedIn"],
+                                 requested_at: payload["requestedAt"],
+                                 event_name: payload["eventName"],
+                                 web_browser: agent_orange.device.engine.browser,
+                                 operating_system: agent_orange.device.operating_system,
+                                 resolution_width: payload["resolutionWidth"],
+                                 resolution_height: payload["resolutionHeight"],
+                                 ip_address: payload["ip"],
+                                 hexed_payload: hashed_payload)
     client.payloads << new_payload
   end
 
