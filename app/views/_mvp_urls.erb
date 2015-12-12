@@ -1,0 +1,6 @@
+<div id="mvp_urls" class="card col s12 m6  z-depth-1">
+  <h4>URL Popularity Contest</h4>
+  <% @user.payloads.url_popularity.each do |k, v| %>
+    <h5><a id='url_data_urls_<%= k %>' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h5>
+  <% end %>
+</div>

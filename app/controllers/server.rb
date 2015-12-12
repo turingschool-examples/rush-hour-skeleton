@@ -1,5 +1,16 @@
 module TrafficSpy
   class Server < Sinatra::Base
+
+    helpers do
+      def payload_routing(user, id)
+        if user.payloads.count == 0
+          erb :no_payload_data, locals: {id: id}
+        else
+          erb :application_statistics
+        end
+      end
+    end
+
     get '/' do
       erb :index
     end

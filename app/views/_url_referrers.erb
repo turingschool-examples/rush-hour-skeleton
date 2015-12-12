@@ -1,0 +1,7 @@
+<div id = "referred_by">
+  <h5>Top 3 Bestest Referrers:
+    <% @url_payloads.referrers.each_with_index do |ref, index| %>
+      <%= ref[0] %><%= ',' unless @url_payloads.referrers.count - 1 == index %>
+    <% end %>
+  </h5>
+</div>

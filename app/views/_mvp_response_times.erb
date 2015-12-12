@@ -1,0 +1,6 @@
+<div id="avg_response" class="card col s12 m6 z-depth-1">
+  <h4>Average Response Time</h4>
+  <% @user.payloads.avg_response_time.each do |k, v| %>
+    <h5><a id='url_data_response_<%= k %>' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h5>
+  <% end %>
+</div>
