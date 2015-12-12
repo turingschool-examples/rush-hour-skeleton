@@ -40,5 +40,11 @@ class UserVistitsEventsIndex < FeatureTest
     refute page.has_content?('Event Popularity Contest')
   end
 
+  def test_user_sees_error_page_for_no_defined_events
+    post '/sources', {rootUrl: 'http://jumpstartlab.com', identifier: 'jumpstartlab'}
+    visit '/sources/jumpstartlab/events'
+    assert page.has_content?('No events received for Jumpstartlab')
+  end
+
 
 end

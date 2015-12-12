@@ -33,7 +33,11 @@ module TrafficSpy
 
     get '/sources/:id/events' do |id|
       @user = TrafficSpy::User.find_by(identifier: id)
-      erb :events_index
+      if @user.payloads.event_frequency.count == 0
+        erb :no_events, locals: { id: id }
+      else
+        erb :events_index
+      end
     end
 
     get '/sources/:id/events/:event_name' do |id, event_name|
