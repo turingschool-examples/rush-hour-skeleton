@@ -33,7 +33,7 @@ class ClientEnvironmentSimulator < Minitest::Test
     resolution = @resolution.sample
     client = @client.sample
     payload_data = {"url": "http://#{client}.com/#{@client_url.sample}",
-                    "requestedAt": "#{rand(2014..2015)}-#{rand(1..12)}-#{rand(1..30)} #{rand(0..24)}:#{rand(0..60)}:#{rand(0..60)} -700",
+                    "requestedAt": "#{rand(2014..2015)}-#{rand(1..12)}-#{rand(1..30)} #{rand(0..23)}:#{rand(0..60)}:#{rand(0..60)} -700",
                     "respondedIn": rand(0..30),
                     "referredBy": "#{@referred_by.sample}",
                     "requestType": "#{@request_type.sample}",
