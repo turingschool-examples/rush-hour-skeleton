@@ -15,7 +15,6 @@ class UserVisitsApplicationDetailsTest < FeatureTest
 
   def test_user_can_view_most_requested_urls
     setup_testing_environment
-
     within('#mvp_urls') do
       assert page.has_content?('URL Popularity Contest')
       assert page.has_content?('blog')

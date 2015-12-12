@@ -6,6 +6,7 @@ class PayloadTest < TrafficTest
   def setup
     setup_model_testing_environment
     @user = TrafficSpy::User.find(1)
+    @user_url_blog = @user.payloads.where(url: "http://jumpstartlab.com/blog")
   end
 
   def test_url_popularity
@@ -30,7 +31,37 @@ class PayloadTest < TrafficTest
 
   def test_avg_response_time
     actual_result = @user.payloads.avg_response_time.map { |k, v| v}
-    assert_equal [38, 39],  actual_result
+    assert_equal [38, 39], actual_result
+  end
+
+  def test_max_response_time
+    actual_result = @user_url_blog.max_response_time
+    assert_equal 39, actual_result
+  end
+
+  def test_min_response_time
+    actual_result = @user_url_blog.min_response_time
+    assert_equal 37, actual_result
+  end
+
+  def test_avg_response_time_per_url
+    actual_result = @user_url_blog.average_response_time_per_url
+    assert_equal 38, actual_result
+  end
+
+  def test_http_verbs
+    actual_result = @user_url_blog.http_verbs
+    assert_equal ["GET", "POST"], actual_result
+  end
+
+  def test_most_popular_referrers
+    actual_result = @user_url_blog.referrers
+    assert_equal [["http://jumpstartlab.com", 2]], actual_result
+  end
+
+  def test_most_popular_browsers
+    actual_result = @user_url_blog.browsers
+    assert_equal [["Chrome", 2]], actual_result
   end
 
 end

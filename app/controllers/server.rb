@@ -20,6 +20,12 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:id/urls/:relative_path' do |id, relative_path|
+      @user = TrafficSpy::User.find_by(identifier: id)
+      full_path = @user.root_url + '/' + relative_path
+      @url_payloads = @user.payloads.where(url: full_path)
+      erb :url_data, locals: { relative_path: relative_path }
+    end
 
     post '/sources' do
       TrafficSpy::RegistrationParser.new(params).parsing_validating
@@ -28,5 +34,11 @@ module TrafficSpy
     post '/sources/:id/data'  do |id|
       TrafficSpy::PayloadParser.new(params).payload_response
     end
+
+    post '/enter_id' do
+      @current_user = params[:name]
+      redirect "/sources/#{@current_user}"
+    end
+
   end
 end

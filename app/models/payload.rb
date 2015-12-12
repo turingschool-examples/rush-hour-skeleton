@@ -25,5 +25,29 @@ module TrafficSpy
       group(:url).average(:responded_in)
     end
 
+    def self.max_response_time
+      maximum(:responded_in)
+    end
+
+    def self.min_response_time
+      minimum(:responded_in)
+    end
+
+    def self.average_response_time_per_url
+      average(:responded_in)
+    end
+
+    def self.http_verbs
+      pluck(:request_type).uniq
+    end
+
+    def self.referrers
+      group(:referred_by).count.sort_by{ |k, v| v}.reverse[0..2]
+    end
+
+    def self.browsers
+      group(:user_agent).count.sort_by{ |k, v| v}.reverse[0..2]
+    end
+
   end
 end

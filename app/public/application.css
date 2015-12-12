@@ -1,7 +1,86 @@
 body, html {
-  background-color: teal;
+  background-color: white;
   text-align: center;
   font-family: 'Exo', "Open Sans", "Helvetica Neue";
   font-size: 80%;
+}
+nav {
+  background: cadetblue;
+  z-index: 10;
+  position: relative;
+  height: 68px;
+}
+nav .brand-logo.right {
   color: white;
+  font-size: 400%;
+  font-weight: 600;
+  padding-right: 10%;
+}
+.container {
+  margin-left: 18%;
+}
+i {
+  display: inline-block;
+}
+nav .nav-wrapper {
+  background: cadetblue;
+  z-index: 1;
+  min-width: 180px;
+  margin: auto;
+  height: 68px;
+}
+
+nav .nav-wrapper i {
+    font-size: 3rem;
+    display: inline-block;
+    vertical-align: sub;
+}
+
+nav ul a {
+    padding: 0 35px;
+}
+
+.card {
+  padding-bottom: 5px;
+  background: beige;
+  width: 90%;
+  min-height: 200px;
+  margin-left: 4%;
+  opacity: .85;
+}
+.datacard{
+  padding: 20px;
+  background: beige;
+  width: 90%;
+  margin-left: 4%;
+  opacity: .85;
+  color: darkslategrey;
+  text-align: left;
+}
+a {
+  color: cadetblue;
+}
+
+h4 {
+  text-decoration: underline;
+  color: darkslategrey;
+}
+
+.pagesidebarleft {
+  position:fixed;
+  top:0px;
+  left:0%;
+  bottom:0px;
+  right:83%;
+  line-height:40px;
+  text-align:center;
+  color:black;
+  float: left;
+  margin: auto;
+  width:15%;
+  height: 100vh;
+  border-radius:5%;
+  background: seashell;
+  z-index: 1;
+  opacity: .6;
 }
