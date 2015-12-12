@@ -25,10 +25,19 @@ class UserVistitsEventsIndex < FeatureTest
     create_more_payloads
     visit '/sources/jumpstartlab/events'
     within('#event_frequency') do
-      save_and_open_page
       assert page.has_content?('Event Popularity Contest')
       assert page.has_content?('registrationInformation')
     end
+  end
+
+  def test_user_can_click_link_for_specific_event
+    create_more_payloads
+    visit '/sources/jumpstartlab/events'
+    within('#event_frequency') do
+      assert page.has_content?('Event Popularity Contest')
+    end
+    click_link('event_data_socialLogin')
+    refute page.has_content?('Event Popularity Contest')
   end
 
 

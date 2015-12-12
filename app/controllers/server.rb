@@ -36,6 +36,11 @@ module TrafficSpy
       erb :events_index
     end
 
+    get '/sources/:id/events/:event_name' do |id, event_name|
+      @user = TrafficSpy::User.find_by(identifier: id)
+      erb :error
+    end
+
     post '/sources' do
       TrafficSpy::RegistrationParser.new(params).parsing_validating
     end
