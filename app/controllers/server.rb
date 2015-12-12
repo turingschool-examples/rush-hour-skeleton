@@ -23,8 +23,12 @@ module TrafficSpy
     get '/sources/:id/urls/:relative_path' do |id, relative_path|
       @user = TrafficSpy::User.find_by(identifier: id)
       full_path = @user.root_url + '/' + relative_path
-      @url_payloads = @user.payloads.where(url: full_path)
-      erb :url_data, locals: { relative_path: relative_path }
+      unless @user.payloads.known_url?(full_path)
+        erb :unknown_url
+      else
+        @url_payloads = @user.payloads.where(url: full_path)
+        erb :url_data, locals: { relative_path: relative_path }
+      end
     end
 
     post '/sources' do
