@@ -3,7 +3,7 @@
 <h1>Url Details for: <%= @path_requested %>
 
 <ul>
-  <% @client.payloads.show_response_times.each do |k, v| %>
+  <% @client.payloads.show_response_times(@path_requested).each do |k, v| %>
     <li><%= "#{k}: #{v} milliseconds"%></li>
     <% end %>
 </ul>

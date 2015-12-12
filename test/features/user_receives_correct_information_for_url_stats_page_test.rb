@@ -17,6 +17,7 @@ class UserReceivesCorrectInformationForURLStatsPageTest < FeatureTest
     ces.start_simulation
 
     visit '/sources/google/urls/blog'
+
     assert "/sources/google/urls/blog", current_path
     assert page.has_content?("What?")
   end

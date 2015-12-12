@@ -7,7 +7,7 @@ class UserCanViewEventDetailsTest < FeatureTest
     ces = ClientEnvironmentSimulator.new
     ces.start_simulation
 
-    visit '/sources/google/events/Dad?'
+    visit '/sources/google/events/Dad'
 
     assert page.has_content?("Event Details")
 

@@ -6,6 +6,7 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'pry'
 gem 'json', require: 'json'
+gem 'agent_orange'
 
 group :development, :test do
   gem 'shotgun'

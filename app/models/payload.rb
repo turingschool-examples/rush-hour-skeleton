@@ -15,10 +15,10 @@ class Payload < ActiveRecord::Base
     pluck(:path).uniq
   end
 
-  def self.show_response_times
-    longest = Payload.maximum(:responded_in)
-    shortest = Payload.minimum(:responded_in)
-    average = Payload.average(:responded_in)
+  def self.show_response_times(path_requested)
+    longest = Payload.where(path: path_requested).maximum(:responded_in)
+    shortest = Payload.where(path: path_requested).minimum(:responded_in)
+    average = Payload.where(path: path_requested).average(:responded_in)
     {longest: longest, shortest: shortest, average: average }
   end
 
