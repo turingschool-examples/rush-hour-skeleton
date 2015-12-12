@@ -98,7 +98,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
 
       [:relative_path_string, :request_type_string, :resolution_string,
        :operating_system_string, :browser_string, :event_string].each { |k| data.delete(k) }
-       
+
       TrafficSpy::Payload.create(data)
     end
   end
@@ -317,7 +317,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     end
   end
 
-  def test_user_sees_error_message_when_identifier_not_registered
+  def test_user_sees_error_message_when_path_doesnt_exist_for_identifier
     register_turing_and_send_multiple_payloads
 
     url = '/beth'

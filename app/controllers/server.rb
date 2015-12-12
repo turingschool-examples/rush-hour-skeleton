@@ -24,13 +24,17 @@ module TrafficSpy
     end
 
     get '/sources/:id/urls/:path' do |id, path|
-      @url = "/" + path
-      @id = id
       @app = TrafficSpy::Application.find_by(identifier: id)
-      @urls = @app.payloads.matching(@url)
+      @path_name = "/" + path
+      @path = @app.relative_paths.find_by(path: @path_name)
 
-      if @urls.empty?
-        haml :'error-messages/application_url_statistics_error'
+      # @url = "/" + path
+      # @urls = @app.relative_paths.find_by(path: path)
+
+      # binding.pry if path == 'beth'
+
+      if @path.nil?
+        haml :'error-messages/application_url_statistics_error', locals: {path: path}
       else
         haml :'application-url-statistics/application_url_statistics'
       end

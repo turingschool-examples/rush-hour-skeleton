@@ -10,7 +10,6 @@ module TrafficSpy
       relative_paths.group(:path).order({count: :desc, path: :asc}).count
     end
 
-
     def browser_requests
       browsers.group(:browser_name).order({count: :desc, browser_name: :asc}).count
     end
