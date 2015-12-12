@@ -83,4 +83,10 @@ class PayloadTest < TrafficTest
     assert_equal expected_result, actual_result
   end
 
+  def test_total_events
+    expected_result = 3
+    actual_result = @user.payloads.total_events('socialLogin')
+    assert_equal expected_result, actual_result
+  end
+
 end

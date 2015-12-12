@@ -31,4 +31,14 @@ class UserVistitsEventsStatsTest < FeatureTest
     end
   end
 
+  def test_user_sees_total_number_of_events
+    create_more_payloads
+    visit '/sources/jumpstartlab/events/socialLogin'
+
+    within('#event_data') do
+      assert page.has_content?('Total')
+      assert page.has_content?('3')
+    end
+  end
+
 end

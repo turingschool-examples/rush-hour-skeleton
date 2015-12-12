@@ -62,5 +62,9 @@ module TrafficSpy
       data.select {|k, v| k.first == event }
     end
 
+    def self.total_events(event)
+      events_by_hour(event).values.reduce(:+)
+    end
+
   end
 end
