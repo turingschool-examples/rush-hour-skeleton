@@ -5,6 +5,7 @@ module TrafficSpy
     has_many :browsers, through: :payloads
     has_many :operating_systems, through: :payloads
     has_many :resolutions, through: :payloads
+    has_many :events, through: :payloads
 
     validates_presence_of :identifier, :root_url
     validates_uniqueness_of :identifier

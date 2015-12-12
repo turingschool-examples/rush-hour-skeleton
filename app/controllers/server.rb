@@ -28,11 +28,6 @@ module TrafficSpy
       @path_name = "/" + path
       @path = @app.relative_paths.find_by(path: @path_name)
 
-      # @url = "/" + path
-      # @urls = @app.relative_paths.find_by(path: path)
-
-      # binding.pry if path == 'beth'
-
       if @path.nil?
         haml :'error-messages/application_url_statistics_error', locals: {path: path}
       else
