@@ -71,4 +71,10 @@ class PayloadTest < TrafficTest
     refute actual_result
   end
 
+  def test_event_frequency
+    expected_result = {"registrationInformation"=>1, "socialLogin"=>2}
+    actual_result = @user.payloads.event_frequency
+    assert_equal expected_result, actual_result
+  end
+
 end
