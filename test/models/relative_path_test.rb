@@ -19,4 +19,14 @@ class RelativePathTest < ModelTest
     assert_equal 1, TrafficSpy::RelativePath.count
     assert_equal "/blog", rel_path.path
   end
+
+  def test_request_type
+    skip
+    register_turing_and_send_multiple_payloads
+
+    app = TrafficSpy::Application.find_by(identifier: 'turing')
+    expected = {"GET" => 5, "POST" => 1}
+
+    assert_equal expected, app
+  end
 end
