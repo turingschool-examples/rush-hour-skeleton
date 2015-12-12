@@ -20,25 +20,10 @@ module TrafficSpy
     def save_payload
       parsed_string = TrafficSpy::ProcessRequestParser.new.parse_request(payload)
 
-      rel_path = TrafficSpy::RelativePath.find_or_create_by(path: parsed_string[:relative_path_string])
-      req_type = TrafficSpy::RequestType.find_or_create_by(verb: parsed_string[:request_type_string])
-      resolution = TrafficSpy::Resolution.find_or_create_by(width: parsed_string[:resolution_string][:width],
-                                                            height: parsed_string[:resolution_string][:height])
-      operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: parsed_string[:operating_system_string])
-      browser = TrafficSpy::Browser.find_or_create_by(browser_name: parsed_string[:browser_string])
-      event = TrafficSpy::Event.find_or_create_by(event_name: parsed_string[:event_string])
-      parsed_string[:event_id] = event.id
-      parsed_string[:browser_id] = browser.id
-      parsed_string[:operating_system_id] = operating_system.id
-      parsed_string[:resolution_id] = resolution.id
-      parsed_string[:request_type_id] = req_type.id
-      parsed_string[:relative_path_id] = rel_path.id
-      parsed_string[:application_id] = app.id
+      data = TrafficSpy::DataLoader.new(parsed_string).find_ids
+      data[:application_id] = app.id
 
-      [:relative_path_string, :request_type_string, :resolution_string,
-       :operating_system_string, :browser_string, :event_string].each { |k| parsed_string.delete(k) }
-
-      new_payload = TrafficSpy::Payload.new(parsed_string)
+      new_payload = TrafficSpy::Payload.new(data)
 
       if new_payload.save
         [200, ""]
