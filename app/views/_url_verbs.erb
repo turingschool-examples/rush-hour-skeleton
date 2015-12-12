@@ -1,0 +1,7 @@
+<div id = "verbs">
+  <h5>HTTP Verbs Received:
+    <% @url_payloads.http_verbs.each_with_index do |verb, index| %>
+      <%= verb %><%= ',' unless @url_payloads.http_verbs.count - 1 == index %>
+    <% end %>
+  </h5>
+</div>

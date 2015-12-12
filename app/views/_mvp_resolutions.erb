@@ -1,0 +1,6 @@
+<div id="mvp_resolution" class="card col s12 m6 z-depth-1">
+  <h4>Screen Resolution Popularity Contest</h4>
+  <% @user.payloads.resolution_popularity.each do |k, v| %>
+    <h5><%= TrafficSpy::Resolution.dimension(k) %>: <%= v %></h5>
+  <% end %>
+</div>

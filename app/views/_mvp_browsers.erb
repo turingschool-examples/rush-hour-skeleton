@@ -1,0 +1,6 @@
+<div id="mvp_browsers" class="card col s12 m6  z-depth-1">
+  <h4>Browser Popularity Contest</h4>
+  <% @user.payloads.browser_popularity.each do |k, v| %>
+    <h5><%=k  %>: <%= v %></h5>
+  <% end %>
+</div>
