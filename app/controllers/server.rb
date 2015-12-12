@@ -73,7 +73,8 @@ module TrafficSpy
       if Payload.find_by(event_name: event_name)
         erb :event_details
       else
-        erb :event_details_error
+        @error_message = "That event isnt defined."
+        erb :event_details_error, locals: {identifier: identifier}
       end
     end
 

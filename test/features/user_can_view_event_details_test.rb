@@ -11,6 +11,10 @@ class UserCanViewEventDetailsTest < FeatureTest
 
     assert page.has_content?("Event Details")
 
+    visit '/sources/google/events/mom'
+
+    save_and_open_page
+
   end
 
 
