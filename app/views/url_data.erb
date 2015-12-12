@@ -3,42 +3,13 @@
 
   <div class="row">
     <div class="s12 datacard z-depth-3">
-      <div id = "longest_response_time">
-        <h5>Longest Response Time: <%= @url_payloads.max_response_time %></h5>
-      </div>
+      <%= erb :_response_times_per_url_data %>
 
-      <div id = "shortest_response_time">
-        <h5>Shortest Response Time: <%= @url_payloads.min_response_time %></h5>
-      </div>
+      <%= erb :_url_verbs %>
 
+      <%= erb :_url_referrers %>
 
-      <div id = "avg_response_time">
-        <h5>Average Response Time: <%= @url_payloads.average_response_time_per_url %></h5>
-      </div>
-
-      <div id = "verbs">
-        <h5>HTTP Verbs Received:
-          <% @url_payloads.http_verbs.each_with_index do |verb, index| %>
-            <%= verb %><%= ',' unless @url_payloads.http_verbs.count - 1 == index %>
-          <% end %>
-        </h5>
-      </div>
-
-      <div id = "referred_by">
-        <h5>Top 3 Bestest Referrers:
-          <% @url_payloads.referrers.each_with_index do |ref, index| %>
-            <%= ref[0] %><%= ',' unless @url_payloads.referrers.count - 1 == index %>
-          <% end %>
-        </h5>
-      </div>
-
-      <div id = "browsers">
-        <h5>Top 3 Bestest BadAss Browsers:
-          <% @url_payloads.browsers.each_with_index do |browser, index| %>
-            <%= browser[0] %><%= ',' unless @url_payloads.browsers.count - 1 == index %>
-          <% end %>
-        </h5>
-      </div>
+      <%= erb :_url_browsers %>
     </div>
   </div>
 </div>

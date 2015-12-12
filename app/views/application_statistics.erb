@@ -2,50 +2,24 @@
 <div class="container">
 
   <div class="row">
-    <div id="mvp_urls" class="card col s12 m6  z-depth-1">
-      <h4>URL Popularity Contest</h4>
-      <% @user.payloads.url_popularity.each do |k, v| %>
-        <h5><a id='url_data_urls_<%= k %>' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h5>
-      <% end %>
-    </div>
+    <%= erb :_mvp_urls %>
 
-    <div id="mvp_browsers" class="card col s12 m6  z-depth-1">
-      <h4>Browser Popularity Contest</h4>
-      <% @user.payloads.browser_popularity.each do |k, v| %>
-        <h5><%=k  %>: <%= v %></h5>
-      <% end %>
-    </div>
+    <%= erb :_mvp_browsers %>
   </div>
 
   <div class="row">
-    <div id="mvp_os" class="card col s12 m6 z-depth-1">
-      <h4>OS Popularity Contest</h4>
-      <% @user.payloads.os_popularity.each do |k, v| %>
-        <h5><%=k  %>: <%= v %></h5>
-      <% end %>
-    </div>
+    <%= erb :_mvp_os %>
 
-    <div id="mvp_resolution" class="card col s12 m6 z-depth-1">
-      <h4>Screen Resolution Popularity Contest</h4>
-      <% @user.payloads.resolution_popularity.each do |k, v| %>
-        <h5><%= TrafficSpy::Resolution.dimension(k) %>: <%= v %></h5>
-      <% end %>
-    </div>
+    <%= erb :_mvp_resolutions %>
   </div>
 
+
+
   <div class="row">
-    <div id="avg_response" class="card col s12 m6 z-depth-1">
-      <h4>Average Response Time</h4>
-      <% @user.payloads.avg_response_time.each do |k, v| %>
-        <h5><a id='url_data_response_<%= k %>' href='/sources/<%= @user.identifier %>/urls/<%= k.split('/')[-1] %>'> <%=k  %></a>: <%= v %></h5>
-      <% end %>
-    </div>
+    <%= erb :_mvp_response_times %>
 
     <div id="aggregate_event_data" class="card col s12 m6 z-depth-1">
       <h5><a id='event_data' href='/sources/<%= @user.identifier %>/events'>View Event Data</a></h5>
-      <!-- <% @user.payloads.avg_response_time.each do |k, v| %>
-        <h4><a></a>: <%= v %></h4>
-      <% end %> -->
     </div>
   </div>
 </div>

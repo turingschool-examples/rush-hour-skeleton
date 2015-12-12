@@ -1,0 +1,6 @@
+<div id="mvp_os" class="card col s12 m6 z-depth-1">
+  <h4>OS Popularity Contest</h4>
+  <% @user.payloads.os_popularity.each do |k, v| %>
+    <h5><%=k  %>: <%= v %></h5>
+  <% end %>
+</div>

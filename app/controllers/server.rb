@@ -1,5 +1,12 @@
 module TrafficSpy
   class Server < Sinatra::Base
+
+    helpers do
+      def linked_path(full_path, extension)
+        "/sources/#{@user.identifier}/#{extension}/#{full_path.split('/')[-1]}"
+      end
+    end
+
     get '/' do
       erb :index
     end
