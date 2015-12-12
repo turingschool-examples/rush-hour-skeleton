@@ -1,0 +1,7 @@
+<div id = "browsers">
+  <h5>Top 3 Bestest BadAss Browsers:
+    <% @url_payloads.browsers.each_with_index do |browser, index| %>
+      <%= browser[0] %><%= ',' unless @url_payloads.browsers.count - 1 == index %>
+    <% end %>
+  </h5>
+</div>
