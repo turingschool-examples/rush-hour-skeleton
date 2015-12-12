@@ -16,14 +16,14 @@ class EventTest < Minitest::Test
   def test_is_not_created_without_name
     Event.create(name: nil)
 
-    assert_equal 0, Event.all.count
+    assert_equal 0, Event.count
   end
 
   def test_is_not_created_with_duplicated_name
     Event.create(event_data)
     Event.create(event_data)
 
-    assert_equal 1, Event.all.count
+    assert_equal 1, Event.count
   end
 
   def test_has_many_requests

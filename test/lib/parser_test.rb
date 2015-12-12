@@ -67,7 +67,7 @@ class ParserTest < Minitest::Test
   end
 
   def test_it_parsers_valid_event_id
-    Event.new(name: 'login')
+    Event.create(name: 'socialLogin')
     parser = Parser.new(params)
     assert_equal 1, parser.event_id
   end
@@ -88,6 +88,8 @@ class ParserTest < Minitest::Test
   end
 
   def test_it_prepares_request_data
+    Event.create(name: 'socialLogin')
+    Url.create(path: 'blog')
     Application.create(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com")
 
     parser = Parser.new(params)

@@ -37,6 +37,8 @@ class PostPayloadTest < Minitest::Test
 
     assert_equal 200, last_response.status
     assert_equal 1, Request.count
+    assert_equal 1, Url.count
+    assert_equal 1, Event.count
   end
 
   def test_request_is_not_created_if_missing_payload
@@ -44,19 +46,29 @@ class PostPayloadTest < Minitest::Test
     post '/sources/jumpstartlab/data', {}
 
     assert_equal 400, last_response.status
-    assert_equal 0, Request.count
     assert_equal "Missing payload.", last_response.body
+    assert_equal 0, Request.count
+    assert_equal 0, Url.count
+    assert_equal 0, Event.count
   end
 
   def test_request_is_not_created_if_duplicated
     Application.create(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com")
+    Url.create(path: 'blog')
+    Event.create(name: 'socialLogin')
     Request.create(request_hash: Digest::SHA1.hexdigest(payload["payload"]))
+
+    assert_equal 1, Request.count
+    assert_equal 1, Url.count
+    assert_equal 1, Event.count
 
     post '/sources/jumpstartlab/data', payload
 
-    assert_equal 1, Request.count
     assert_equal 400, last_response.status
     assert_equal "Duplicate entry.", last_response.body
+    assert_equal 1, Request.count
+    assert_equal 1, Url.count
+    assert_equal 1, Event.count
   end
 
   def test_request_is_not_created_if_application_not_registered
@@ -65,6 +77,9 @@ class PostPayloadTest < Minitest::Test
     assert_equal 0, Request.count
     assert_equal 403, last_response.status
     assert_equal "Application not registered.", last_response.body
+    assert_equal 0, Request.count
     assert_equal 0, Url.count
+    assert_equal 0, Event.count
   end
+
 end
