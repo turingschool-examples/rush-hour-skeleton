@@ -2,12 +2,8 @@ module TrafficSpy
   class Server < Sinatra::Base
 
     helpers do
-      def payload_routing(user, id)
-        if user.payloads.count == 0
-          erb :no_payload_data, locals: {id: id}
-        else
-          erb :application_statistics
-        end
+      def linked_path(full_path, extension)
+        "/sources/#{@user.identifier}/#{extension}/#{full_path.split('/')[-1]}"
       end
     end
 
