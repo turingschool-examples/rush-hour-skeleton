@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class ErrorHandlerTest < Minitest::Test
+class ViewHandlerTest < Minitest::Test
 
   def payload
     {"payload"=>
@@ -10,38 +10,31 @@ class ErrorHandlerTest < Minitest::Test
    "identifier"=>"jumpstartlabs"}
   end
 
-  def test_can_instantiate_error_handler
-    client = Client.create(name: "test", root_url: "test.com")
-    eh = ErrorHandler.new(client)
-
-    assert eh
-  end
-
-  def test_error_handler_assigns_erb_correctly_for_happy_path
+  def test_view_handler_assigns_erb_correctly_for_application_details
     client = Client.create(name: "jumpstartlabs", root_url: "test.com")
     ph = PayloadHandler.new(payload)
     found_client = Client.find_by(name: "jumpstartlabs")
-    eh = ErrorHandler.new(found_client)
+    # vh = ViewHandler.new(found_client)
 
-    assert_equal :application_details, eh.erb_path
+    assert_equal :application_details, ViewHandler.assign_application_details_erb_path(client)
   end
 
-  def test_error_handler_assigns_erb_correctly_for_sad_path
+  def test_view_handler_assigns_erb_correctly_for_sad_path
     client = Client.create(name: "jumpstartlabs", root_url: "test.com")
     found_client = Client.find_by(name: "jumpstartlabs")
-    eh = ErrorHandler.new(found_client)
+    # vh = ViewHandler.new(found_client)
 
-    assert_equal :error, eh.erb_path
-    assert_equal "No payload data has been received for this source.", eh.error_message
+    assert_equal :error, ViewHandler.assign_application_details_erb_path(found_client)
+    assert_equal "No payload data has been received for this source.", ViewHandler.assign_application_details_error_message(found_client)
   end
 
-  def test_error_handler_assigns_error_message_and_erb_path_correctly_for_missing_identifier
+  def test_view_handler_assigns_error_message_and_erb_path_correctly_for_missing_identifier
     client = Client.create(name: "jumpstartlabs", root_url: "test.com")
     found_client = Client.find_by(name: "pretzels")
-    eh = ErrorHandler.new(found_client)
+    # ViewHandler = ViewHandler.new(found_client)
 
-    assert_equal :error, eh.erb_path
-    assert_equal "The identifier does not exist.", eh.error_message
+    assert_equal :error, ViewHandler.assign_application_details_erb_path(found_client)
+    assert_equal "The identifier does not exist.", ViewHandler.assign_application_details_error_message(found_client)
   end
 
 end

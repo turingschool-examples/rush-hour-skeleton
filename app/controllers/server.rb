@@ -21,22 +21,16 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @client = Client.find_by(name: identifier)
-      eh = ErrorHandler.new(@client)
-      @error_message = eh.error_message
-      erb eh.erb_path
+      @error_message = ViewHandler.assign_application_details_error_message(@client)
+      erb ViewHandler.assign_application_details_erb_path(@client)
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @client = Client.find_by(name: identifier)
-      paths = Payload.distinct.pluck(:path)
       @path_requested = @client.root_url + "/#{path}"
 
-      if paths.include?(@path_requested)
-        erb :url_details
-      else
-        @error_message = "That URL has not been requested."
-        erb :error
-      end
+      @error_message = ViewHandler.assign_url_details_error_message(@path_requested)
+      erb ViewHandler.assign_url_details_erb_path(@path_requested)
     end
 
     get '/sources/:identifier/events' do |identifier|

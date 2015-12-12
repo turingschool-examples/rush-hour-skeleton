@@ -46,4 +46,8 @@ class Payload < ActiveRecord::Base
     pluck(:requested_at).map { |t| t.to_datetime.hour }.sort
   end
 
+  def self.unique_paths
+    distinct.pluck(:path)
+  end
+
 end
