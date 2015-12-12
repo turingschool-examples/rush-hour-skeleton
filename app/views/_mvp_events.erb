@@ -1,6 +1,6 @@
 <div id="event_frequency">
   <h4>Event Popularity Contest</h4>
   <% @user.payloads.event_frequency.each do |k, v| %>
-    <h5><a id='event_data_<%= k %>' href='/sources/<%= @user.identifier %>/events/<%= k.split('/')[-1] %>'> <%= k %></a>: <%= v %></h5>
+    <h5><a id='event_data_<%= k %>' href="<%= linked_path(k, "sources") %>"> <%= k %></a>: <%= v %></h5>
   <% end %>
 </div>
