@@ -34,7 +34,7 @@ module TrafficSpy
     end
 
     def self.average_response_time_per_url
-      average(:responded_in)
+      average(:responded_in).round(3)
     end
 
     def self.http_verbs
