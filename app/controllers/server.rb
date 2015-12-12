@@ -70,7 +70,11 @@ module TrafficSpy
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @client = Client.find_by(name: identifier)
 
-      erb :event_details
+      if Payload.find_by(event_name: event_name)
+        erb :event_details
+      else
+        erb :event_details_error
+      end
     end
 
     not_found do

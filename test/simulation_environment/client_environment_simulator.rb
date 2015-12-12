@@ -6,7 +6,7 @@ class ClientEnvironmentSimulator < Minitest::Test
     @client = ["jumpstartlab", "google", "metacritic", "binglol"]
     @client_url = ["images", "blog", "store", "fun_stuff"]
     @request_type = ["GET", "POST"]
-    @event_name = ["Social", "Dog", "Dad?", "ComputerStuff"]
+    @event_name = ["Social", "Dog", "Dad", "ComputerStuff"]
     @user_agent = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", "Chrome/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) YELLOW!/24.0.1309.0 Safari/537.17"]
     @resolution = [[10000, 12000], [500, 800], [15000, 20000]]
     @ip = ["63.29.38.211", "64.92.38.211", "14.92.38.300"]

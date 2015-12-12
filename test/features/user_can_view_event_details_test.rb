@@ -9,10 +9,7 @@ class UserCanViewEventDetailsTest < FeatureTest
 
     visit '/sources/google/events/Dad?'
 
-    save_and_open_page
-
     assert page.has_content?("Event Details")
-
 
   end
 

@@ -8,3 +8,5 @@
   <% hours.each do |k, v| %>
     <p><%= "Number of views in hour #{k} : #{v}" %></p>
   <% end %>
+
+  <%= "Total views:" %><%= hours.values.reduce(:+) %>
