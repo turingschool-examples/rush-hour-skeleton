@@ -53,5 +53,9 @@ module TrafficSpy
       exists?(url: path)
     end
 
+    def self.event_frequency
+      group(:event_name).count.sort.to_h
+    end
+
   end
 end
