@@ -1,5 +1,10 @@
 <h1>Event Details</h1>
+<% hours = {} %>
+  <% @client.payloads.hour_by_hour_breakdown.each do |time| %>
+    <% hours[time] += 1 if hours.has_key?(time) %>
+    <% hours[time] = 1 unless hours.has_key?(time) %>
+  <% end %>
 
-<p><% @client.payloads.hour_by_hour_breakdown.each do |time| %></p>
-  <%= time %>
+  <% hours.each do |k, v| %>
+    <p><%= "Number of views in hour #{k} : #{v}" %></p>
   <% end %>

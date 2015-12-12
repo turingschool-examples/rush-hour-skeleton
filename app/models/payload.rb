@@ -43,7 +43,8 @@ class Payload < ActiveRecord::Base
   end
 
   def self.hour_by_hour_breakdown
-    pluck(:requested_at).map { |t| t.to_datetime.hour }
+    pluck(:requested_at).map { |t| t.to_datetime.hour }.sort
   end
+
 
 end
