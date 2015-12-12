@@ -19,7 +19,7 @@ class ViewHandlerTest < Minitest::Test
     assert_equal :application_details, ViewHandler.assign_application_details_erb_path(client)
   end
 
-  def test_view_handler_assigns_erb_correctly_for_sad_path
+  def test_view_handler_assigns_erb_correctly_for_application_details_sad_path
     client = Client.create(name: "jumpstartlabs", root_url: "test.com")
     found_client = Client.find_by(name: "jumpstartlabs")
     # vh = ViewHandler.new(found_client)
@@ -28,13 +28,29 @@ class ViewHandlerTest < Minitest::Test
     assert_equal "No payload data has been received for this source.", ViewHandler.assign_application_details_error_message(found_client)
   end
 
-  def test_view_handler_assigns_error_message_and_erb_path_correctly_for_missing_identifier
+  def test_view_handler_assigns_application_details_error_message_and_erb_path_correctly_for_missing_identifier
     client = Client.create(name: "jumpstartlabs", root_url: "test.com")
     found_client = Client.find_by(name: "pretzels")
     # ViewHandler = ViewHandler.new(found_client)
 
     assert_equal :error, ViewHandler.assign_application_details_erb_path(found_client)
     assert_equal "The identifier does not exist.", ViewHandler.assign_application_details_error_message(found_client)
+  end
+
+  def test_view_handler_assigns_url_details_erb_path_for_valid_path
+    client = Client.create(name: "jumpstartlabs", root_url: "test.com")
+    ph = PayloadHandler.new(payload)
+    path = client.payloads.pluck(:path).first
+
+    assert_equal :url_details, ViewHandler.assign_url_details_erb_path(path)
+  end
+
+  def test_view_handler_assigns_url_details_erb_path_for_sad_path
+    client = Client.create(name: "jumpstartlabs", root_url: "test.com")
+    ph = PayloadHandler.new(payload)
+
+    assert_equal :error, ViewHandler.assign_url_details_erb_path("pretzels")
+    assert_equal "That URL has not been requested.", ViewHandler.assign_url_details_error_message("pretzels")
   end
 
 end
