@@ -123,12 +123,12 @@ class PayloadTest < ModelTest
     assert_equal 2, TrafficSpy::Payload.count
 
     assert_equal 1, TrafficSpy::Payload.first.application_id
-    # assert_equal '/blog', TrafficSpy::Payload.first.relative_path_string
+    assert_equal '/blog', TrafficSpy::Payload.first.relative_path.path
     assert_equal DateTime.new(2013,02,16,21,38,28, '-0700'), TrafficSpy::Payload.first.requested_at
     assert_equal 37, TrafficSpy::Payload.first.responded_in
 
     assert_equal 1, TrafficSpy::Payload.last.application_id
-    # assert_equal '/about', TrafficSpy::Payload.last.relative_path_string
+    assert_equal '/about', TrafficSpy::Payload.last.relative_path.path
     assert_equal DateTime.new(2013,02,17,21,38,28, '-0700'), TrafficSpy::Payload.last.requested_at
     assert_equal 40, TrafficSpy::Payload.last.responded_in
   end
@@ -149,17 +149,14 @@ class PayloadTest < ModelTest
       ip_address:"63.29.38.211"
     }
     app = TrafficSpy::Application.find_by(identifier: "turing")
-    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
-    payload_data[:relative_path_id] = rel_path.id
-    payload_data[:application_id] = app.id
 
-    [:relative_path_string, :request_type_string, :resolution_string,
-     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
+    data = TrafficSpy::DataLoader.new(payload_data).find_ids
+    data[:application_id] = app.id
 
-    TrafficSpy::Payload.create(payload_data)
+    TrafficSpy::Payload.create(data)
     assert_equal 1, TrafficSpy::Payload.count
 
-    TrafficSpy::Payload.create(payload_data)
+    TrafficSpy::Payload.create(data)
     assert_equal 1, TrafficSpy::Payload.count
   end
 
@@ -183,31 +180,16 @@ class PayloadTest < ModelTest
     app_turing = TrafficSpy::Application.find_by(identifier: "turing")
     app_jumpstartlab = TrafficSpy::Application.find_by(identifier: "jumpstartlab")
 
-    rel_path = TrafficSpy::RelativePath.find_or_create_by(path: payload_data[:relative_path_string])
-    payload_data[:relative_path_id] = rel_path.id
+    data_turing = TrafficSpy::DataLoader.new(payload_data).find_ids
+    data_turing[:application_id] = app_turing.id
 
-    req_type = TrafficSpy::RequestType.find_or_create_by(verb: payload_data[:request_type_string])
-    payload_data[:request_type_id] = req_type.id
+    data_jumpstartlab = TrafficSpy::DataLoader.new(payload_data).find_ids
+    data_jumpstartlab[:application_id] = app_jumpstartlab.id
 
-    resolution = TrafficSpy::Resolution.find_or_create_by(width: payload_data[:resolution_string][:width],
-                                                          height: payload_data[:resolution_string][:height])
-    payload_data[:resolution_id] = resolution.id
-
-    operating_system = TrafficSpy::OperatingSystem.find_or_create_by(op_system: payload_data[:operating_system_string])
-    payload_data[:operating_system_id] = operating_system.id
-
-    payload_data[:application_id] = app_turing.id
-
-    [:relative_path_string, :request_type_string, :resolution_string,
-     :operating_system_string, :browser_string, :event_string].each { |k| payload_data.delete(k) }
-
-    TrafficSpy::Payload.create(payload_data)
-
+    TrafficSpy::Payload.create(data_turing)
     assert_equal 1, TrafficSpy::Payload.count
 
-    payload_data[:application_id] = app_jumpstartlab.id
-    TrafficSpy::Payload.create(payload_data)
-
+    TrafficSpy::Payload.create(data_jumpstartlab)
     assert_equal 2, TrafficSpy::Payload.count
   end
 
