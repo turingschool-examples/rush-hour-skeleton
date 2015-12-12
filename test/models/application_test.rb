@@ -69,8 +69,6 @@ class ApplicationTest < ModelTest
     assert_equal 1, result[[600, 800]]
   end
 
-
-
   def test_average_response_times
     register_turing_and_send_multiple_payloads
 

@@ -141,7 +141,11 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     end
 
     within 'ol#most_pop_referrers_list li:nth-child(1)' do
-      assert page.has_content?("http://turing.io (3)")
+      assert page.has_content?("http://turing.io (2)")
+    end
+
+    within 'ol#most_pop_referrers_list li:nth-child(2)' do
+      assert page.has_content?("http://facebook.com (1)")
     end
 
     within 'tr#most_pop_os' do

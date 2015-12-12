@@ -55,7 +55,7 @@ class Minitest::Test
       relative_path_string: "/blog",
       requested_at: "2013-02-16 19:38:28 -0700",
       responded_in: 50,
-      referred_by:"http://turing.io",
+      referred_by:"http://facebook.com",
       request_type_string:"POST",
       event_string: "socialLoginA",
       operating_system_string: "Windows",
