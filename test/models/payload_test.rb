@@ -64,4 +64,11 @@ class PayloadTest < TrafficTest
     assert_equal [["Chrome", 2]], actual_result
   end
 
+  def test_known_url?
+    actual_result = @user.payloads.known_url?("http://jumpstartlab.com/blog")
+    assert actual_result
+    actual_result = @user.payloads.known_url?("http://jumpstartlab.com/pizza")
+    refute actual_result
+  end
+
 end

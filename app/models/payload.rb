@@ -49,5 +49,9 @@ module TrafficSpy
       group(:user_agent).count.sort_by{ |k, v| v}.reverse[0..2]
     end
 
+    def self.known_url?(path)
+      exists?(url: path)
+    end
+
   end
 end

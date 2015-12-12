@@ -80,4 +80,12 @@ class UserVistitsURLStatsTest < FeatureTest
       assert page.has_content?('Chrome')
     end
   end
+
+  # def test_user_sees_no_url_message_if_no_url
+  #   create_more_payloads
+  #   visit '/sources/jumpstartlab/urls/pizza'
+  #   within('#no_url') do
+  #     assert page.has_content?('No visits to this URL')
+  #   end
+  # end
 end
