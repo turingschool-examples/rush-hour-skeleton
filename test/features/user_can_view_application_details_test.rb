@@ -72,6 +72,8 @@ class UserCanViewApplicationDetailsTest < FeatureTest
 
     visit '/sources/turing'
 
+    # save_and_open_page
+
     within 'table#screen-resolution tr:nth-child(2)' do
       assert page.has_content?(1920)
       assert page.has_content?(1280)
@@ -85,14 +87,14 @@ class UserCanViewApplicationDetailsTest < FeatureTest
     end
 
     within 'table#screen-resolution tr:nth-child(4)' do
-      assert page.has_content?(1920)
-      assert page.has_content?(1080)
+      assert page.has_content?(1366)
+      assert page.has_content?(768)
       assert page.has_content?(1)
     end
 
     within 'table#screen-resolution tr:nth-child(5)' do
-      assert page.has_content?(1366)
-      assert page.has_content?(768)
+      assert page.has_content?(1920)
+      assert page.has_content?(1080)
       assert page.has_content?(1)
     end
   end

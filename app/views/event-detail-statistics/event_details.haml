@@ -9,6 +9,6 @@
 
   %h3#total-request.title-text.weighted.underline
     Total Requests:
-    = @event_payloads.count
+    = @event.total_requests
 
   = haml :'event-detail-statistics/_hourly_table'

@@ -3,7 +3,7 @@
     Most Popular Referrers:
   %td
     %ol#most_pop_referrers_list
-      -@urls.get_top_3(:referred_by).each do |referrer, count|
+      -@path.top_3_referrers.each do |referrer, count|
         %li
           = referrer
           (

@@ -4,7 +4,7 @@
     Events Index
 
 %ol.center
-  -@app.payloads.group_count_and_order_event.each do |k, v|
+  -@app.events.list_of_events.each do |k, v|
     %li
       %a{:href => "/sources/#{@app.identifier}/events/#{k}"}
         %h3.title-text.btn-large.cyan.darken-2.waves-effect.waves-light.shadow.center

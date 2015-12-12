@@ -24,13 +24,12 @@ module TrafficSpy
     end
 
     get '/sources/:id/urls/:path' do |id, path|
-      @url = "/" + path
-      @id = id
       @app = TrafficSpy::Application.find_by(identifier: id)
-      @urls = @app.payloads.matching(@url)
+      @path_name = "/" + path
+      @path = @app.relative_paths.find_by(path: @path_name)
 
-      if @urls.empty?
-        haml :'error-messages/application_url_statistics_error'
+      if @path.nil?
+        haml :'error-messages/application_url_statistics_error', locals: {path: path}
       else
         haml :'application-url-statistics/application_url_statistics'
       end
@@ -60,12 +59,11 @@ module TrafficSpy
 
     get '/sources/:id/events/:event' do |id, event|
       @app = TrafficSpy::Application.find_by(identifier: id)
-      @event = TrafficSpy::Event.find_by(event_name: event)
+      @event = @app.events.find_by(event_name: event)
 
       if @event.nil?
         haml :'error-messages/event_not_defined', locals: {event: event}
       else
-        @event_payloads = app.payloads.where(event_id: @event.id)
         haml :'event-detail-statistics/event_details'
       end
     end
