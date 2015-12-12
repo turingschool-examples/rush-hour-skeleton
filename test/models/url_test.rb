@@ -14,9 +14,9 @@ class UrlTest < Minitest::Test
   end
 
   def test_is_not_created_without_path
-    url = Url.new(path: nil)
+    Url.create(path: nil)
 
-    refute url.save
+    assert_equal 0, Url.all.count
   end
 
   def test_is_not_created_with_duplicated_path

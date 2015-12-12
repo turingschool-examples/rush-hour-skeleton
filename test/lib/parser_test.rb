@@ -12,11 +12,13 @@ class ParserTest < Minitest::Test
     refute parser.id
     refute parser.application_id
     refute parser.url
+    refute parser.url_id
     refute parser.timestamp
     refute parser.response_time
     refute parser.referral
     refute parser.verb
     refute parser.event
+    refute parser.event_id
     refute parser.browser
     refute parser.os
     refute parser.resolution
@@ -96,7 +98,7 @@ class ParserTest < Minitest::Test
                   :response_time => 37,
                   :referral => 'http://jumpstartlab.com',
                   :verb => 'GET',
-                  :event => 'socialLogin',
+                  :event_id => 1,
                   :browser => 'Chrome 24.0.1309',
                   :os => 'Mac OS X 10.8.2',
                   :resolution => '1920x1280'

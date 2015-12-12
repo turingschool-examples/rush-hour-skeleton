@@ -46,4 +46,12 @@ class RequestTest < Minitest::Test
 
     assert_equal 'http://jumpstartlab.com', req.url.path
   end
+
+  def test_request_belong_to_url
+    Event.create(name: 'socialLogin')
+    req = Request.create(event_id: 1,request_hash: Digest::SHA1.hexdigest("1"))
+
+    assert_equal 'socialLogin', req.event.name
+  end
+
 end
