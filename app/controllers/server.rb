@@ -33,6 +33,7 @@ module TrafficSpy
 
     get '/sources/:id/events' do |id|
       @user = TrafficSpy::User.find_by(identifier: id)
+      data = @user.payloads.group(:event_name).group(:requested_at).count
       if @user.payloads.event_frequency.count == 0
         erb :no_events, locals: { id: id }
       else
@@ -42,7 +43,8 @@ module TrafficSpy
 
     get '/sources/:id/events/:event_name' do |id, event_name|
       @user = TrafficSpy::User.find_by(identifier: id)
-      erb :error
+      # @user.payloads.group(:event_name).group('EXTRACT(HOUR FROM requested_at)').count
+      erb :event_data
     end
 
     post '/sources' do

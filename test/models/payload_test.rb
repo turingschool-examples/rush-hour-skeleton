@@ -77,4 +77,10 @@ class PayloadTest < TrafficTest
     assert_equal expected_result, actual_result
   end
 
+  def test_events_by_hour
+    expected_result = {"registrationInformation"=>1, "socialLogin"=>2}
+    actual_result = @user.payloads.events_by_hour
+    assert_equal expected_result, actual_result
+  end
+
 end

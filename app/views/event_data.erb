@@ -1,0 +1,14 @@
+<div class="container">
+  <h3>Event Data</h3>
+
+  <div class="row">
+    <div class="s12 datacard z-depth-3">
+      <div id = "event_data">
+        <% @user.payloads.events_by_hour.each do |k, v| %>
+        <%= binding.pry %>
+          <h5>Event type: <%= k.first %>   Time: <%= (k.last).to_i %>:00,   Visits: <%= v %></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

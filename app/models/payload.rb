@@ -57,5 +57,9 @@ module TrafficSpy
       group(:event_name).count.sort.to_h
     end
 
+    def self.events_by_hour
+      group(:event_name).group('EXTRACT(HOUR FROM requested_at)').count
+    end
+
   end
 end
