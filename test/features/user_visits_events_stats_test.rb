@@ -26,8 +26,8 @@ class UserVistitsEventsStatsTest < FeatureTest
     visit '/sources/jumpstartlab/events/socialLogin'
 
     within('#event_data') do
-      assert page.has_content?('Times Requested:')
-      assert page.has_content?(21)
+      assert page.has_content?('Event type:')
+      assert page.has_content?('19:00')
     end
   end
 
