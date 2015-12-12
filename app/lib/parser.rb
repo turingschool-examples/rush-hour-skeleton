@@ -24,7 +24,7 @@ attr_reader :payload,
     @id             = params['id']
     @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
     @url            = payload['url'] && get_url
-    # @url_id         = Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
+    # @url_id         = Url.find_by(path: url) && Url.find_by(path: url).id
 
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
@@ -40,11 +40,11 @@ attr_reader :payload,
   end
 
   def url_id
-    Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
+    Url.find_by(path: url) && Url.find_by(path: url).id
   end
 
   def event_id
-    Event.find_or_create_by(name: event) && Event.find_or_create_by(name: event).id
+    Event.find_by(name: event) && Event.find_by(name: event).id
   end
 
   def get_url

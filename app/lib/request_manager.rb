@@ -6,8 +6,8 @@ class RequestManager
 
     # event = Event.create(parser.event_name)
     # url = Url.create(parser.extension)
-
-    request = Request.new(parser.request_data)
+# binding.pry
+    request = Request.new(request_hash: parser.request_hash)
 
     # case
     # when parser.payload.nil? then [status, response]
@@ -18,7 +18,10 @@ class RequestManager
     else params[:payload]
 
       if Application.exists?(identifier: params[:id])
-        if request.save
+        if request.valid?
+          Url.create(path: parser.url)
+          Event.create(name: parser.event)
+          Request.create(parser.request_data)
           @status = 200
           @response = "Success."
         else

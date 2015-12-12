@@ -12,11 +12,13 @@ class ParserTest < Minitest::Test
     refute parser.id
     refute parser.application_id
     refute parser.url
+    refute parser.url_id
     refute parser.timestamp
     refute parser.response_time
     refute parser.referral
     refute parser.verb
     refute parser.event
+    refute parser.event_id
     refute parser.browser
     refute parser.os
     refute parser.resolution
@@ -65,7 +67,7 @@ class ParserTest < Minitest::Test
   end
 
   def test_it_parsers_valid_event_id
-    Event.new(name: 'login')
+    Event.create(name: 'socialLogin')
     parser = Parser.new(params)
     assert_equal 1, parser.event_id
   end
@@ -86,6 +88,8 @@ class ParserTest < Minitest::Test
   end
 
   def test_it_prepares_request_data
+    Event.create(name: 'socialLogin')
+    Url.create(path: 'blog')
     Application.create(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com")
 
     parser = Parser.new(params)
@@ -96,7 +100,7 @@ class ParserTest < Minitest::Test
                   :response_time => 37,
                   :referral => 'http://jumpstartlab.com',
                   :verb => 'GET',
-                  :event => 'socialLogin',
+                  :event_id => 1,
                   :browser => 'Chrome 24.0.1309',
                   :os => 'Mac OS X 10.8.2',
                   :resolution => '1920x1280'
