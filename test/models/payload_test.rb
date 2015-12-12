@@ -532,14 +532,14 @@ class PayloadTest < ModelTest
     assert_equal 2, TrafficSpy::Payload.count
   end
 
-  def test_group_count_and_order_relative_path
-    register_turing_and_send_multiple_payloads
-
-    app = TrafficSpy::Application.find_by(identifier: 'turing')
-    expected = {"/blog" => 3, "/team" => 2, "/about" => 1}
-
-    assert_equal expected, app.payloads.group_count_and_order_relative_path
-  end
+  # def test_group_count_and_order_relative_path
+  #   register_turing_and_send_multiple_payloads
+  #
+  #   app = TrafficSpy::Application.find_by(identifier: 'turing')
+  #   expected = {"/blog" => 3, "/team" => 2, "/about" => 1}
+  #
+  #   assert_equal expected, app.payloads.group_count_and_order_relative_path
+  # end
 
   def test_group_count_and_order_browser
     register_turing_and_send_multiple_payloads
