@@ -38,7 +38,7 @@ module TrafficSpy
       [:relative_path_string, :request_type_string, :resolution_string,
        :operating_system_string, :browser_string, :event_string].each { |k| parsed_string.delete(k) }
 
-      new_payload = TrafficSpy::Payload.create(parsed_string)
+      new_payload = TrafficSpy::Payload.new(parsed_string)
 
       if new_payload.save
         [200, ""]
