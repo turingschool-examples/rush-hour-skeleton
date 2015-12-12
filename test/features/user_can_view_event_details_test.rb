@@ -13,8 +13,6 @@ class UserCanViewEventDetailsTest < FeatureTest
 
     visit '/sources/google/events/mom'
 
-    save_and_open_page
-
   end
 
 

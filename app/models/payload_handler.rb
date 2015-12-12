@@ -10,15 +10,7 @@ class PayloadHandler
 
   def distribute_payload
     client = Client.find_by(name: parameters["identifier"])
-    #
-    # client.payloads.create(path: ,
-    #                       event: parameters["eventName"])
-                            # event: find_by .......
-    #
-    #
-    # )
     agent_orange = AgentOrange::UserAgent.new(payload["userAgent"])
-
     new_payload = Payload.create(path: payload["url"],
                              referred_by: payload["referredBy"],
                              request_type: payload["requestType"],
@@ -32,7 +24,6 @@ class PayloadHandler
                              resolution_height: payload["resolutionHeight"],
                              ip_address: payload["ip"],
                              hexed_payload: hashed_payload)
-
     client.payloads << new_payload
   end
 
@@ -50,21 +41,20 @@ class PayloadHandler
   end
 
   def response_status_and_body
-    # @status = generate_status
-    # @body = gener
-    if payload.nil?
-      @status = 400
-      @body = "Payload Missing."
-    elsif unregistered_user?
-      @status = 403
-      @body = "Application Not Registered."
-    elsif duplicate_payload?(hashed_payload)
-      @status = 403
-      @body = "Duplicate Payload."
-    else
-      @status = 200
-    end
+    @status = generate_status
+    @body = generate_body
+  end
 
+  def generate_body
+    return "Payload Missing." if payload_invalid?
+    return "Application Not Registered." if unregistered_user?
+    return "Duplicate Payload." if duplicate_payload?(hashed_payload)
+  end
+
+  def generate_status
+    return 400 if payload_invalid?
+    return 403 if unregistered_user? || duplicate_payload?(hashed_payload)
+    return 200
   end
 
   def payload_invalid?
