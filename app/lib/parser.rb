@@ -4,6 +4,7 @@ attr_reader :payload,
             :id,
             :application_id,
             :url,
+            # :url_id,
             :timestamp,
             :response_time,
             :referral,
@@ -20,19 +21,34 @@ attr_reader :payload,
 
     @request_hash   = params['payload'] && sha1(params['payload'])
     # binding.pry
-    @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
     @id             = params['id']
-    @url            = payload['url']
+    @application_id = Application.find_by(identifier: params['id']) && Application.find_by(identifier: params['id']).id
+    @url            = payload['url'] && get_url
+    # @url_id         = Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
+
     @timestamp      = payload['requestedAt']
     @response_time  = payload['respondedIn']
     @referral       = payload['referredBy']
     @verb           = payload['requestType']
-    @event          = payload['eventName']
 
+    @event          = payload['eventName']
+# binding.pry
     @browser,
     @os =           get_user_agent(payload)
     @resolution =   get_resolution(payload)
     #no using parameters nor ip
+  end
+
+  def url_id
+    Url.find_or_create_by(path: url) && Url.find_or_create_by(path: url).id
+  end
+
+  def event_id
+    Event.find_or_create_by(name: event) && Event.find_or_create_by(name: event).id
+  end
+
+  def get_url
+    payload['url'].split("/").slice(3..-1).join("/")
   end
 
   def sha1(string)
@@ -46,18 +62,26 @@ attr_reader :payload,
     width && height && "#{width}x#{height}"
   end
 
-  def complete_data
-    { request_hash: request_hash,
+  def request_data
+    # binding.pry
+    {
+      request_hash: request_hash,
       application_id: application_id,
-      url: url,
+      url_id: url_id,
       timestamp: timestamp,
       response_time: response_time,
       referral: referral,
       verb: verb,
-      event: event,
+      event_id: event_id,
       browser: browser,
       os: os,
       resolution: resolution
+    }
+  end
+
+  def url_data
+    {
+      path: url
     }
   end
 

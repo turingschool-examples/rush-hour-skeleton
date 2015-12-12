@@ -65,5 +65,6 @@ class PostPayloadTest < Minitest::Test
     assert_equal 0, Request.count
     assert_equal 403, last_response.status
     assert_equal "Application not registered.", last_response.body
+    assert_equal 0, Url.count
   end
 end
