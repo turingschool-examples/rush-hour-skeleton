@@ -46,5 +46,4 @@ class Payload < ActiveRecord::Base
     pluck(:requested_at).map { |t| t.to_datetime.hour }.sort
   end
 
-
 end

@@ -12,16 +12,6 @@ class UserCanViewApplicationDetailsForRegisteredApplicationTest < FeatureTest
     within '#client_name' do
       assert page.has_content?("google")
     end
-
   end
-
-
-
-
-
-
-
-
-
 
 end
