@@ -8,19 +8,9 @@ module TrafficSpy
 
     post '/sources' do
       client = Client.new(name: params["identifier"], root_url: params["rootUrl"])
-        #save here
-      #pass params to Validator
-
-      if Client.find_by(name: params["identifier"])
-        status 403
-        body "Name already taken."
-      elsif client.save
-        body "Client created."
-      else
-        status 400
-        body "Missing parameters."
-        # client.errors.full_messages
-      end
+      ch = ClientHandler.new(client)
+      status ch.status
+      body ch.body
     end
 
     post '/sources/:identifier/data' do |identifier|
