@@ -1,0 +1,35 @@
+<h1> Test </h1>
+
+<h2><%= @app.events_page_link %></h2>
+
+<h2>Url Stats</h2>
+  <table id="urls-table">
+    <% @app.comprehensive_url_data.each do |url| %>
+      <tr>
+        <td> <%= url[:name] %> </td>
+        <td> <%= url[:frequency] %> times </td>
+        <td> <%= url[:response_time] %> seconds</td>
+      </tr>
+    <% end %>
+  </table>
+
+<h2>Browser Popularity</h2>
+  <ul id="unique_urls">
+    <% @app.unique_browsers.each do |uniq, qty| %>
+      <li class="index_list"> <%= uniq %>: <%= qty %> times </li>
+    <% end %>
+  </ul>
+
+<h2>Operating System Popularity</h2>
+  <ul id="unique_urls">
+    <% @app.unique_os.each do |uniq, qty| %>
+      <li class="index_list"> <%= uniq %>: <%= qty %> times </li>
+    <% end %>
+  </ul>
+
+<h2>Resolution Popularity</h2>
+  <ul id="unique_urls">
+    <% @app.unique_resolutions.each do |uniq, qty| %>
+      <li class="index_list"> <%= uniq %>: <%= qty %> times </li>
+    <% end %>
+  </ul>

@@ -17,14 +17,14 @@ module TrafficSpy
     end
 
     get '/sources/:id' do |id|
-      @application = Application.find_by(identifier: id)
-      erb :index
+      @app = Application.find_by(identifier: id)
+      erb :urls
     end
 
     get '/sources/:id/urls/:extension' do | id, extension |
       application = Application.find_by(identifier: id)
-      @url = application.urls.find_by(path: extension)
-      erb :index
+      @url = app.urls.find_by(path: extension)
+      erb :url
     end
 
     get '/sources/:id/events' do |id|
@@ -32,13 +32,14 @@ module TrafficSpy
       # @events = application.received_events
       #
       # events.find_by(path: extension)
-      erb :index
+      erb :events
 
     end
 
-    # get '/sources/:id/events/:event_name' do |id, event_name|
-    #
-    # end
+    get '/sources/:id/events/:event_name' do |id, event_name|
+
+      erb :event
+    end
 
     not_found do
       erb :error
