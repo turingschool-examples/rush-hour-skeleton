@@ -1,9 +1,25 @@
+/*GENERAL*/
 body, html {
   background-color: white;
-  text-align: center;
+  text-align: left;
   font-family: 'Exo', "Open Sans", "Helvetica Neue";
   font-size: 80%;
 }
+.container {
+  margin-left: 18%;
+}
+a {
+  color: cadetblue;
+}
+h4 {
+  text-decoration: underline;
+  color: darkslategrey;
+}
+.text_box {
+  text-align: center;
+}
+
+/*NAV BAR*/
 nav {
   background: cadetblue;
   z-index: 10;
@@ -16,30 +32,25 @@ nav .brand-logo.right {
   font-weight: 600;
   padding-right: 10%;
 }
-.container {
-  margin-left: 18%;
-}
 i {
   display: inline-block;
 }
 nav .nav-wrapper {
   background: cadetblue;
-  z-index: 1;
   min-width: 180px;
-  margin: auto;
   height: 68px;
 }
-
 nav .nav-wrapper i {
     font-size: 3rem;
     display: inline-block;
     vertical-align: sub;
 }
-
-nav ul a {
-    padding: 0 35px;
+.house {
+  float: left;
+  padding-left: 30px;
 }
 
+/*MAIN CONTENT*/
 .card {
   padding-bottom: 5px;
   background: beige;
@@ -57,30 +68,17 @@ nav ul a {
   color: darkslategrey;
   text-align: left;
 }
-a {
-  color: cadetblue;
-}
-
-h4 {
-  text-decoration: underline;
-  color: darkslategrey;
-}
-
 .pagesidebarleft {
   position:fixed;
   top:0px;
   left:0%;
-  bottom:0px;
-  right:83%;
   line-height:40px;
   text-align:center;
   color:black;
   float: left;
-  margin: auto;
   width:15%;
+  min-width: 100px;
   height: 100vh;
-  border-radius:5%;
   background: seashell;
-  z-index: 1;
-  opacity: .6;
+  opacity: .7;
 }
