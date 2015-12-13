@@ -89,7 +89,6 @@ module TrafficSpy
       group_count_and_order_operating_system.take(3)
     end
 
-    ############# NEW METHODZZZZ #####
     def self.get_top_3_browser
       group_count_and_order_browser.take(3)
     end

@@ -345,6 +345,7 @@ class UserCanViewApplicationURLStatisticsTest < FeatureTest
     TrafficSpy::Payload.create(data)
 
     visit '/sources/jumpstartlab/urls/blog'
+    save_and_open_page
 
     within 'ol#http_verbs_list li:nth-child(1)' do
       assert page.has_content?("GET (1)")
