@@ -599,20 +599,20 @@ class PayloadTest < ModelTest
     assert_equal 25.0, result[2][1].to_f.round(2)
   end
 
-  def test_matching_by_relative_path
+  def test_path_matching_by_relative_path
     register_turing_and_send_multiple_payloads
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
 
     assert_equal 6, app.payloads.count
 
-    app_blog_payloads = app.payloads.matching("/blog")
+    app_blog_payloads = app.payloads.path_matching("/blog")
     assert_equal 3, app_blog_payloads.count
 
-    app_blog_team = app.payloads.matching("/team")
+    app_blog_team = app.payloads.path_matching("/team")
     assert_equal 2, app_blog_team.count
 
-    app_blog_about = app.payloads.matching("/about")
+    app_blog_about = app.payloads.path_matching("/about")
     assert_equal 1, app_blog_about.count
   end
 
@@ -621,13 +621,13 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
 
-    app_blog_payloads = app.payloads.matching("/blog")
+    app_blog_payloads = app.payloads.path_matching("/blog")
     assert_equal 80, app_blog_payloads.max_response_time
 
-    app_blog_team = app.payloads.matching("/team")
+    app_blog_team = app.payloads.path_matching("/team")
     assert_equal 41, app_blog_team.max_response_time
 
-    app_blog_about = app.payloads.matching("/about")
+    app_blog_about = app.payloads.path_matching("/about")
     assert_equal 25, app_blog_about.max_response_time
   end
 
@@ -636,13 +636,13 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
 
-    app_blog_payloads = app.payloads.matching("/blog")
+    app_blog_payloads = app.payloads.path_matching("/blog")
     assert_equal 37, app_blog_payloads.min_response_time
 
-    app_blog_team = app.payloads.matching("/team")
+    app_blog_team = app.payloads.path_matching("/team")
     assert_equal 40, app_blog_team.min_response_time
 
-    app_blog_about = app.payloads.matching("/about")
+    app_blog_about = app.payloads.path_matching("/about")
     assert_equal 25, app_blog_about.min_response_time
   end
 
@@ -651,13 +651,13 @@ class PayloadTest < ModelTest
 
     app = TrafficSpy::Application.find_by(identifier: 'turing')
 
-    app_blog_payloads = app.payloads.matching("/blog")
+    app_blog_payloads = app.payloads.path_matching("/blog")
     assert_equal 55.67, app_blog_payloads.avg_response_time
 
-    app_blog_team = app.payloads.matching("/team")
+    app_blog_team = app.payloads.path_matching("/team")
     assert_equal 40.5, app_blog_team.avg_response_time
 
-    app_blog_about = app.payloads.matching("/about")
+    app_blog_about = app.payloads.path_matching("/about")
     assert_equal 25, app_blog_about.avg_response_time
   end
 

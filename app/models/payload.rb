@@ -52,10 +52,19 @@ module TrafficSpy
       paths.sort_by{ |_, v| -v }
     end
 
-    def self.matching(relative_path)
+    def self.path_matching(relative_path)
       rel_path = TrafficSpy::RelativePath.find_by(path: relative_path)
       if rel_path
         where(relative_path_id: rel_path.id)
+      else
+        []
+      end
+    end
+
+    def self.event_matching(event)
+      event_ob = TrafficSpy::Event.find_by(event_name: event)
+      if event_ob
+        where(event_id: event_ob.id)
       else
         []
       end
