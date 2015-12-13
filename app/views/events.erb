@@ -1,0 +1,5 @@
+<ul>
+<% @application.ordered_events.each do |event, count| %>
+<li class="event" id="<%= event.name %>"><a href="/sources/<%= @application.identifier %>/events/<%= event.name %>"><%= event.name %></a><span><%= count %></span></li>
+<% end %>
+</ul>

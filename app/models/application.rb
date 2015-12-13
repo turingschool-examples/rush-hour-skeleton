@@ -3,6 +3,7 @@ class Application < ActiveRecord::Base
   validates :root_url, presence: true
   has_many :requests
   has_many :urls, through: :requests
+  has_many :events, through: :requests
 
   def unique_urls
     urls.group(:path).count
@@ -25,4 +26,18 @@ class Application < ActiveRecord::Base
       url.requests.average(:response_time).to_i
     end
   end
+
+  def unique_events
+    events.group(:name).count.sort.reverse
+  end
+
+  def ordered_events
+    events.uniq.map do |event|
+      [event,event.requests.count]
+    end.sort_by{|event|event[1]}.reverse
+  end
+
+  # def ordered_events
+  #   events.uniq.order
+  # end
 end

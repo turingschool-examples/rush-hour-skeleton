@@ -32,11 +32,11 @@ module TrafficSpy
 
     get '/sources/:id/events' do |id|
       @application = Application.find_by(identifier: id)
-      # @events = application.received_events
-      #
-      # events.find_by(path: extension)
-      erb :index
-
+      if @application.events.count == 0
+        erb :no_events
+      else
+        erb :events
+      end
     end
 
     # get '/sources/:id/events/:event_name' do |id, event_name|
