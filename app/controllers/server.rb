@@ -42,14 +42,16 @@ module TrafficSpy
     get '/sources/:id/events' do |id|
       @application = Application.find_by(identifier: id)
 
-      erb :events
+      if @application.events.count == 0
+        erb :no_events
+      else
+        erb :events
+      end
     end
 
     get '/sources/:id/events/:event_name' do |id, event_name|
       @app = Application.find_by(identifier: id)
       @event = Event.find_by(name: event_name)
-
-      # binding.pry
       @hour_breakdown = @event.sorted_list_by_hour(@app.id)
 
       erb :event
