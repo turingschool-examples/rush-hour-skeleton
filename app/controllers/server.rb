@@ -79,6 +79,10 @@ module TrafficSpy
       def link_to_application(app_name)
         "<a href='/sources/#{app_name}'><h3 class='title-text btn-large cyan darken-2 waves-effect waves-light shadow center'>#{app_name}</h3></a>"
       end
+
+      def link_to_event(app_name, event, count)
+        "<a href='/sources/#{app_name}/events/#{event}'><h3 class='title-text btn-large cyan darken-2 waves-effect waves-light shadow center'>#{event} - #{count}</h3></a>"
+      end
     end
   end
 end
