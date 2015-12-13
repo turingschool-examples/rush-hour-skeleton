@@ -11,7 +11,8 @@
 
   = haml :'nav-bar/_nav_bar'
 
-  = yield
+  %div#yielder
+    = yield
 
   %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"}
   %script{:type => "text/javascript", :src =>"https://code.jquery.com/jquery-2.1.1.min.js"}
@@ -20,3 +21,13 @@
     $( document ).ready(function(){
       $(".button-collapse").sideNav();
     });
+  :javascript
+    $(getUpdate);
+    function getUpdate(){
+      console.log(top.location.pathname);
+
+      if (top.location.pathname === '/sources') {
+        $("#yielder").load("/sources");
+        setTimeout(getUpdate,1000);
+      }
+    }
