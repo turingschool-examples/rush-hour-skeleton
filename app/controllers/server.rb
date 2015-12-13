@@ -25,8 +25,7 @@ module TrafficSpy
 
     get '/sources/:id/urls/:path' do |id, path|
       @app = TrafficSpy::Application.find_by(identifier: id)
-      @path_name = "/" + path
-      @path = @app.relative_paths.find_by(path: @path_name)
+      @path = @app.relative_paths.find_by(path: "/" + path)
 
       if @path.nil?
         haml :'error-messages/application_url_statistics_error', locals: {path: path}
@@ -70,6 +69,12 @@ module TrafficSpy
 
     not_found do
       haml :'error-messages/error'
+    end
+
+    helpers do
+      def link_to_url(app_identifier, path)
+        "<a href='/sources/#{app_identifier}/urls#{path}' class='cyan-text text-lighten-3 card-link'> #{path}"
+      end
     end
   end
 end
