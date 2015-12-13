@@ -1,1 +1,6 @@
-<% @hour_breakdown.each { |hour| hour } %>
+<h1>Requests by Hour for <%= @event.name %></h1>
+  <ul id="requests_by_hour">
+    <% @hour_breakdown.each do |hour, qty| %>
+      <li class="index_list"> <%= hour.keys.first %>: <%= hour.values.first %> times </li>
+    <% end %>
+  </ul>

@@ -46,8 +46,12 @@ module TrafficSpy
     end
 
     get '/sources/:id/events/:event_name' do |id, event_name|
+      @app = Application.find_by(identifier: id)
       @event = Event.find_by(name: event_name)
-      @hour_breakdown = @event.events_by_hour(id, event_name)
+
+      # binding.pry
+      @hour_breakdown = @event.sorted_list_by_hour(@app.id)
+
       erb :event
     end
 
