@@ -9,7 +9,7 @@ class ClientHandlerTest < Minitest::Test
     assert c
   end
 
-  def test_client_handler_can_be_passed_a_new_client_and_generate_body
+  def test_client_handler_returns_200_status_with_valid_client
     client = Client.new(name: "test", root_url: "test.com")
 
     ch = ClientHandler.new(client)
@@ -19,29 +19,25 @@ class ClientHandlerTest < Minitest::Test
     assert_equal 200, ch.status
   end
 
-  def test_client_handler_can_find_duplicate_client_and_return_403_http_status_and_correct_body
-    client_1 = Client.new(name: "test", root_url: "test.com")
-    ch = ClientHandler.new(client_1)
+  def test_client_handler_returns_403_status_and_name_take_body_with_duplicate_client
+    client = Client.new(name: "test", root_url: "test.com")
+    ch = ClientHandler.new(client)
 
     assert_equal "Client created.", ch.body
     assert_equal 200, ch.status
 
-    ch_2 = ClientHandler.new(client_1)
+    ch_2 = ClientHandler.new(client)
 
     assert_equal "Name already taken.", ch_2.body
     assert_equal 403, ch_2.status
   end
 
-  def test_client_handler_can_return_400_http_status_for_missing_parameters
+  def test_client_handler_returns_400_status_and_missing_params_body_with_missing_parameters
     client = Client.new({})
     ch = ClientHandler.new(client)
 
     assert_equal "Missing parameters.", ch.body
     assert_equal 400, ch.status
   end
-
-
-
-
 
 end

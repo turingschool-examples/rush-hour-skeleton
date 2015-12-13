@@ -3,7 +3,6 @@ require_relative "../test_helper"
 class UserSeesCorrectErrorMessagesForSourcePage < FeatureTest
 
   def test_user_receives_identifier_does_not_exist_for_unregistered_sources
-
     ces = ClientEnvironmentSimulator.new
     ces.start_simulation
 

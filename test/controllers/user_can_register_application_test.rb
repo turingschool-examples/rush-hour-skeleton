@@ -1,5 +1,9 @@
 require_relative '../test_helper'
 
+# split invalid attribute into missing identifier or missing rootUrl
+# add assertion in identical identifier test that it reponds 200 to the first post
+
+
 class UserCanRegisterApplicationTest < Minitest::Test
 
   def test_user_can_register_an_application_with_valid_attributes
