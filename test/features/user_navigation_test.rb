@@ -7,6 +7,11 @@ class UserNavigationLinks < FeatureTest
     visit '/'
 
     within 'nav#navbar-link' do
+      click_link "TrafficSpy"
+      assert "/", current_path
+    end
+
+    within 'nav#navbar-link' do
       click_link "HomePage"
       assert "/", current_path
     end
