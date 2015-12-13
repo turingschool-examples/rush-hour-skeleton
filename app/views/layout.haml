@@ -11,7 +11,7 @@
     %link{:href => 'https://fonts.googleapis.com/css?family=Questrial', :rel => 'stylesheet', :type => 'text/css'}
     %title TrafficSpy Analytics
   %body.black
-  %body{:onload => "JavaScript:AutoRefresh(10000);"}
+  %body
 
   = haml :'nav-bar/_nav_bar'
 
@@ -29,7 +29,6 @@
     $(getUpdate);
     function getUpdate(){
       console.log(top.location.pathname);
-
       if (top.location.pathname === '/sources') {
         $("#yielder").load("/sources");
         setTimeout(getUpdate,1000);
