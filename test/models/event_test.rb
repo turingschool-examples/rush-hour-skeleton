@@ -19,4 +19,25 @@ class EventTest < ModelTest
     assert_equal 1, TrafficSpy::Event.count
     assert_equal "socialLogin", event.event_name
   end
+
+  def test_requests_by_hour
+    register_turing_and_send_multiple_payloads
+
+    event = TrafficSpy::Event.find_by(event_name: 'socialLoginB')
+
+    expected = [0, 0, 0, 1, 2, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0]
+
+    (0..23).to_a.each do |hour|
+      assert_equal expected[hour], event.requests_by_hour(hour)
+    end
+  end
+
+  def test_total_requests
+    register_turing_and_send_multiple_payloads
+
+    assert_equal 3, TrafficSpy::Event.count
+  end
 end
