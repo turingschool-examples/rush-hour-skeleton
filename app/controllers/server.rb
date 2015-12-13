@@ -25,8 +25,10 @@ module TrafficSpy
 
     get '/sources/:id/urls/:path' do |id, path|
       @app = TrafficSpy::Application.find_by(identifier: id)
-      @path = @app.relative_paths.find_by(path: "/" + path)
-      # binding.pry if @app.identifier == 'jumpstartlab' && path == 'blog'
+      # @path = @app.relative_paths.find_by(path: "/" + path)
+      url_id = @app.relative_paths.find_by(path: "/" + path).id
+      @path = @app.payloads.where(relative_path_id: url_id)
+      binding.pry if @app.identifier == 'jumpstartlab' && path == 'blog'
 
       if @path.nil?
         haml :'error-messages/application_url_statistics_error', locals: {path: path}, :layout => (request.xhr? ? false : :layout)
