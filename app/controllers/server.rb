@@ -18,7 +18,16 @@ module TrafficSpy
 
     get '/sources/:id' do |id|
       @app = Application.find_by(identifier: id)
-      erb :urls
+
+      if @app.nil?
+        @message = "This application has not been registered"
+        erb :application_error
+      elsif @app.requests.empty?
+        @message = "This application has no documented requests"
+        erb :application_error
+      else
+        erb :urls
+      end
     end
 
     get '/sources/:id/urls/*' do | id, splat |
@@ -32,15 +41,13 @@ module TrafficSpy
 
     get '/sources/:id/events' do |id|
       @application = Application.find_by(identifier: id)
-      # @events = application.received_events
-      #
-      # events.find_by(path: extension)
-      erb :events
 
+      erb :events
     end
 
     get '/sources/:id/events/:event_name' do |id, event_name|
-
+      @event = Event.find_by(name: event_name)
+      @hour_breakdown = @event.events_by_hour(id, event_name)
       erb :event
     end
 

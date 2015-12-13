@@ -111,7 +111,6 @@ class ApplicationTest < Minitest::Test
     app = create_application("jumpstartlab")
     create_requests(1, 2, 1, 3)
     create_requests(1, 1, 1, 5)
-
     expected = ["<a href='/sources/jumpstartlab/urls/blog_1'>/blog_1</a>",
                 "<a href='/sources/jumpstartlab/urls/blog_2'>/blog_2</a>"]
     assert_equal expected, app.url_hyperlinks
