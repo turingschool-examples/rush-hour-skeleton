@@ -2,12 +2,20 @@ module TrafficSpy
   class Server < Sinatra::Base
 
     helpers do
-      def linked_path(payload_full_path, extension)
-        "/sources/#{@user.identifier}/#{extension}/#{relative_path(payload_full_path)}"
+      def url_path(payload_full_path)
+        "/sources/#{@user.identifier}/urls/#{relative_path(payload_full_path)}"
+      end
+
+      def event_path(event)
+        "/sources/#{@user.identifier}/events/#{event}"
       end
 
       def relative_path(payload_full_path)
-        payload_full_path.split('/')[1..-1].join
+        if payload_full_path.include?('http://')
+          payload_full_path.split('/')[3..-1].join
+        else
+          payload_full_path.split('/')[1..-1].join
+        end
       end
 
       def user(id)
@@ -18,7 +26,7 @@ module TrafficSpy
         if @user.payloads.count == 0
           erb :no_payload_data, locals: {id: id}
         else
-          erb :application_statistics
+          erb :'application_stats_index/application_statistics'
         end
       end
 
@@ -47,7 +55,7 @@ module TrafficSpy
       user(id)
       if @user.payloads.known_url?(full_path(relative_path))
         @url_payloads = @user.payloads.where(url: full_path(relative_path))
-        erb :url_data, locals: { relative_path: relative_path }
+        erb :'url_data/url_data', locals: { relative_path: relative_path }
       else
         erb :unknown_url
       end
@@ -58,14 +66,14 @@ module TrafficSpy
       if @user.payloads.event_frequency.count == 0
         erb :no_events, locals: { id: id }
       else
-        erb :events_index
+        erb :'event_stats/events_index'
       end
     end
 
     get '/sources/:id/events/:event_name' do |id, event_name|
       user(id)
       if @user.payloads.exists?(event_name: event_name)
-        erb :event_data, locals: { event_name: event_name}
+        erb :'event_stats/event_data', locals: { event_name: event_name}
       else
         erb :no_event, locals: { event_name: event_name }
       end

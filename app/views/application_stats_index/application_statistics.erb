@@ -2,21 +2,21 @@
 <div class="container">
 
   <div class="row">
-    <%= erb :_mvp_urls %>
+    <%= erb :'application_stats_index/_mvp_urls' %>
 
-    <%= erb :_mvp_browsers %>
+    <%= erb :'application_stats_index/_mvp_browsers' %>
   </div>
 
   <div class="row">
-    <%= erb :_mvp_os %>
+    <%= erb :'application_stats_index/_mvp_os' %>
 
-    <%= erb :_mvp_resolutions %>
+    <%= erb :'application_stats_index/_mvp_resolutions' %>
   </div>
 
 
 
   <div class="row">
-    <%= erb :_mvp_response_times %>
+    <%= erb :'application_stats_index/_mvp_response_times' %>
 
     <div id="aggregate_event_data" class="card col s12 m6 z-depth-1">
       <h5><a id='event_data' href='/sources/<%= @user.identifier %>/events'>View Event Data</a></h5>
