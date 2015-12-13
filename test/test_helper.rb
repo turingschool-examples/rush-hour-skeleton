@@ -41,6 +41,10 @@ module PayloadPrep
     TrafficSpy::PayloadParser.new(payload_params3).payload_response
   end
 
+  def register_user_thru_controller
+    post '/sources', {rootUrl: 'http://jumpstartlab.com', identifier: "jumpstartlab"}
+  end
+
   def register_user
     parser_setup({"rootUrl"=>"http://jumpstartlab.com", "identifier"=>"jumpstartlab"}).parsing_validating
   end

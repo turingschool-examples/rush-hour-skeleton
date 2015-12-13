@@ -2,8 +2,12 @@ module TrafficSpy
   class Server < Sinatra::Base
 
     helpers do
-      def linked_path(full_path, extension)
-        "/sources/#{@user.identifier}/#{extension}/#{full_path.split('/')[-1]}"
+      def linked_path(payload_full_path, extension)
+        "/sources/#{@user.identifier}/#{extension}/#{relative_path(payload_full_path)}"
+      end
+
+      def relative_path(payload_full_path)
+        payload_full_path.split('/')[1..-1].join
       end
 
       def user(id)
@@ -16,6 +20,10 @@ module TrafficSpy
         else
           erb :application_statistics
         end
+      end
+
+      def full_path(relative_path)
+        @user.root_url + '/' + relative_path
       end
     end
 
@@ -37,9 +45,8 @@ module TrafficSpy
 
     get '/sources/:id/urls/:relative_path' do |id, relative_path|
       user(id)
-      full_path = @user.root_url + '/' + relative_path
-      if @user.payloads.known_url?(full_path)
-        @url_payloads = @user.payloads.where(url: full_path)
+      if @user.payloads.known_url?(full_path(relative_path))
+        @url_payloads = @user.payloads.where(url: full_path(relative_path))
         erb :url_data, locals: { relative_path: relative_path }
       else
         erb :unknown_url
