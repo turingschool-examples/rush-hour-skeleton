@@ -42,7 +42,7 @@ module TrafficSpy
       elsif @app.payloads.to_a.empty?
         haml :'error-messages/no_payloads'
       else
-        haml :'application-detail-statistics/application_details'
+        haml :'application-detail-statistics/application_details', :layout => (request.xhr? ? false : :layout)
       end
     end
 
