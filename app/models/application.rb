@@ -3,6 +3,7 @@ class Application < ActiveRecord::Base
   validates :root_url, presence: true
   has_many :requests
   has_many :urls, through: :requests
+  has_many :events, through: :requests
 
   def unique_urls
     urls.group(:path).count.to_a.sort { |x,y| x[1] <=> y[1] }.reverse
@@ -26,6 +27,16 @@ class Application < ActiveRecord::Base
     end
   end
 
+  def unique_events
+    events.group(:name).count.sort.reverse
+  end
+
+  def ordered_events
+    events.uniq.map do |event|
+      [event,event.requests.count]
+    end.sort_by{|event|event[1]}.reverse
+  end
+
   def url_hyperlinks
     urls.uniq.map do |url|
       "<a href='/sources/#{identifier}/urls/#{url.path}'>/#{url.path}</a>"
@@ -46,6 +57,4 @@ class Application < ActiveRecord::Base
       }
     end
   end
-
-
 end
