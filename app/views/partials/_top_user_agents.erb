@@ -1,0 +1,21 @@
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <caption>Top User Agents</caption>
+    <thead>
+      <tr>
+        <th data-field="user-agent">User Agent</th>
+        <th data-field="frequency">Frequency</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.top_user_agents.each do |user_agent, number| %>
+      <tr>
+        <td><%= user_agent %></td>
+        <td><%= number %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

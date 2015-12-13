@@ -1,0 +1,8 @@
+<h1>Event Details for <%= identifier %>'s <%= event_name %>s</h1>
+<% hours = {} %>
+  <% @client.payloads.hour_by_hour_breakdown.each do |time| %>
+    <% hours[time] += 1 if hours.has_key?(time) %>
+    <% hours[time] = 1 unless hours.has_key?(time) %>
+  <% end %>
+
+  <%= erb :'partials/_event_details_table', locals: {hours: hours} %>
