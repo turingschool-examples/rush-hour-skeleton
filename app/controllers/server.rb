@@ -83,6 +83,10 @@ module TrafficSpy
       def link_to_event(app_name, event, count)
         "<a href='/sources/#{app_name}/events/#{event}'><h3 class='title-text btn-large cyan darken-2 waves-effect waves-light shadow center'>#{event} - #{count}</h3></a>"
       end
+
+      def list_item_with_count(item, count)
+        "<li>#{item} (#{count})</li>"
+      end
     end
   end
 end
