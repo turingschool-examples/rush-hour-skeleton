@@ -1,7 +1,7 @@
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
-      haml :homepage
+      haml :homepage, :layout => (request.xhr? ? false : :layout)
     end
 
     get '/sources' do
@@ -28,9 +28,9 @@ module TrafficSpy
       @path = @app.relative_paths.find_by(path: "/" + path)
 
       if @path.nil?
-        haml :'error-messages/application_url_statistics_error', locals: {path: path}
+        haml :'error-messages/application_url_statistics_error', locals: {path: path}, :layout => (request.xhr? ? false : :layout)
       else
-        haml :'application-url-statistics/application_url_statistics'
+        haml :'application-url-statistics/application_url_statistics', :layout => (request.xhr? ? false : :layout)
       end
     end
 
@@ -38,9 +38,9 @@ module TrafficSpy
       @app = TrafficSpy::Application.find_by(identifier: id)
 
       if @app.nil?
-        haml :'error-messages/no_application_registered'
+        haml :'error-messages/no_application_registered', :layout => (request.xhr? ? false : :layout)
       elsif @app.payloads.to_a.empty?
-        haml :'error-messages/no_payloads'
+        haml :'error-messages/no_payloads', :layout => (request.xhr? ? false : :layout)
       else
         haml :'application-detail-statistics/application_details', :layout => (request.xhr? ? false : :layout)
       end
@@ -50,9 +50,9 @@ module TrafficSpy
       @app = TrafficSpy::Application.find_by(identifier: id)
 
       if @app.payloads.to_a.empty?
-        haml :'error-messages/no_payloads'
+        haml :'error-messages/no_payloads', :layout => (request.xhr? ? false : :layout)
       else
-        haml :events_index
+        haml :events_index, :layout => (request.xhr? ? false : :layout)
       end
     end
 
@@ -61,14 +61,14 @@ module TrafficSpy
       @event = @app.events.find_by(event_name: event)
 
       if @event.nil?
-        haml :'error-messages/event_not_defined', locals: {event: event}
+        haml :'error-messages/event_not_defined', locals: {event: event}, :layout => (request.xhr? ? false : :layout)
       else
-        haml :'event-detail-statistics/event_details'
+        haml :'event-detail-statistics/event_details', :layout => (request.xhr? ? false : :layout)
       end
     end
 
     not_found do
-      haml :'error-messages/error'
+      haml :'error-messages/error', :layout => (request.xhr? ? false : :layout)
     end
 
     helpers do

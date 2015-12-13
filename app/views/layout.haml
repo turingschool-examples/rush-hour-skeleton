@@ -24,12 +24,6 @@
   :javascript
     $(getUpdate);
     function getUpdate(){
-      console.log(top.location.pathname);
-      if (top.location.pathname === '/sources') {
-        $("#yielder").load("/sources");
-        setTimeout(getUpdate,1000);
-      } else if (top.location.pathname.length > 8) {
-        $("#yielder").load(top.location.pathname);
-        setTimeout(getUpdate,1000);
-      }
+      $("#yielder").load(top.location.pathname);
+      setTimeout(getUpdate,1000);
     }
