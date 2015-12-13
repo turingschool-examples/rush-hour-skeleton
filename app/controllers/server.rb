@@ -60,8 +60,6 @@ module TrafficSpy
     get '/sources/:id/events/:event' do |id, event|
       @app = TrafficSpy::Application.find_by(identifier: id)
       @event = event
-      # @event = @app.events.find_by(event_name: event)
-
       @event_payloads = @app.payloads.event_matching(event)
 
       if @event_payloads.empty?
