@@ -12,7 +12,6 @@ class RegisterNewUserTest < TrafficTest
 
     assert_equal response, last_response.body
     assert_equal 1, (second_count - first_count)
-    # binding.pry
     assert_equal 'http://turing.io', TrafficSpy::User.find(1).root_url #move to model test
   end
 

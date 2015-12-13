@@ -72,8 +72,20 @@ class PayloadTest < TrafficTest
   end
 
   def test_event_frequency
-    expected_result = {"registrationInformation"=>1, "socialLogin"=>2}
+    expected_result = {"socialLogin"=>3}
     actual_result = @user.payloads.event_frequency
+    assert_equal expected_result, actual_result
+  end
+
+  def test_events_by_hour
+    expected_result = {["socialLogin", 21.0]=>2, ["socialLogin", 19.0]=>1}
+    actual_result = @user.payloads.events_by_hour('socialLogin')
+    assert_equal expected_result, actual_result
+  end
+
+  def test_total_events
+    expected_result = 3
+    actual_result = @user.payloads.total_events('socialLogin')
     assert_equal expected_result, actual_result
   end
 

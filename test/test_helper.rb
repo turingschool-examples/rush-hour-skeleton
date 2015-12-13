@@ -67,7 +67,7 @@ module PayloadPrep
 
   def payload_params3
     {"payload"=>
-      "{\"url\":\"http://jumpstartlab.com/weather\",\"requestedAt\":\"2013-02-16 20:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://google.com\",\"requestType\":\"POST\",\"parameters\":[1],\"eventName\":\"registrationInformation\",\"userAgent\":\"Mozilla/5.0 (Windows-RSS-Platform/2.0 (IE 11.0; Windows NT 6.1)) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A\",\"resolutionWidth\":\"12\",\"resolutionHeight\":\"120\",\"ip\":\"63.29.38.210\"}",
+      "{\"url\":\"http://jumpstartlab.com/weather\",\"requestedAt\":\"2013-02-16 19:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://google.com\",\"requestType\":\"POST\",\"parameters\":[1],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Windows-RSS-Platform/2.0 (IE 11.0; Windows NT 6.1)) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A\",\"resolutionWidth\":\"12\",\"resolutionHeight\":\"120\",\"ip\":\"63.29.38.210\"}",
      "splat"=>[],
      "captures"=>["jumpstartlab"],
      "id"=>"jumpstartlab"}

@@ -34,7 +34,7 @@ module TrafficSpy
     end
 
     def self.average_response_time_per_url
-      average(:responded_in)
+      average(:responded_in).round(3)
     end
 
     def self.http_verbs
@@ -55,6 +55,15 @@ module TrafficSpy
 
     def self.event_frequency
       group(:event_name).count.sort.to_h
+    end
+
+    def self.events_by_hour(event)
+      data = group(:event_name).group('EXTRACT(HOUR FROM requested_at)').count
+      data.select {|k, v| k.first == event }
+    end
+
+    def self.total_events(event)
+      events_by_hour(event).values.reduce(:+)
     end
 
   end
