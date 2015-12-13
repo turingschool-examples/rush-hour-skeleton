@@ -21,10 +21,13 @@ module TrafficSpy
       erb :index
     end
 
-    get '/sources/:id/urls/:extension' do | id, extension |
+    get '/sources/:id/urls/*' do | id, splat |
       application = Application.find_by(identifier: id)
-      @url = application.urls.find_by(path: extension)
-      erb :index
+      if @url_ = application.urls.find_by(path: splat)
+        erb :url
+      else
+        erb :url_not_requested
+      end
     end
 
     get '/sources/:id/events' do |id|
