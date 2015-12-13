@@ -4,26 +4,8 @@
 
 <a href="/sources/<%= @client.name %>/events"><%= "#{@client.name} Events Index" %></a>
 
-<br/>
-<div class="container">
-  <table class="striped highlight responsive-table bordered centered">
-    <thead>
-      <tr>
-        <th data-field="URL">URL</th>
-        <th data-field="views">Views</th>
-      </tr>
-    </thead>
+  <%= erb :'partials/_url_requests_table' %>
 
-    <tbody>
-      <% @client.payloads.url_requests.each do |k, v| %>
-      <tr>
-        <td><%= k %></td>
-        <td><%= v %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
 
 <br/>
 <div class="container">
