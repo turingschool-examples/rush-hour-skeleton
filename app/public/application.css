@@ -35,9 +35,9 @@ nav .nav-wrapper i {
     display: inline-block;
     vertical-align: sub;
 }
-
-nav ul a {
-    padding: 0 35px;
+.house {
+  float: left;
+  padding-left: 30px;
 }
 
 .card {
