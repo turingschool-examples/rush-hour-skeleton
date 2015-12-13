@@ -1,0 +1,20 @@
+<h1>Statistics for /<%= @url_.path %></h1>
+<h3>Longest response time: <%= @url_.longest_response_time.to_s %>ms</h3>
+<h3>Shortest response time: <%= @url_.shortest_response_time.to_s %>ms</h3>
+<h3>Average response time: <%= @url_.average_response_time.to_s %>ms</h3>
+
+<h3>Received verbs: <%= @url_.verbs %></h3>
+
+<h3>Most popular referrers:</h3>
+<ul>
+<% @url_.popular_referrers.each do |referrer| %>
+<li><%= referrer[0] %>: <%= referrer[1] %> times</li>
+<% end %>
+</ul>
+
+<h3>Most popular user agents:</h3>
+<ul>
+<% @url_.popular_user_agents.each do |ua| %>
+<li><%= ua[0][1] %> & <%= ua[0][0] %>: <%= ua[1] %> times</li>
+<% end %>
+</ul>

@@ -58,7 +58,7 @@ class UrlTest < Minitest::Test
     assert_equal 30, url.longest_response_time
     assert_equal 10, url.shortest_response_time
     assert_equal 20, url.average_response_time
-    assert_equal %w(GET POST), url.verbs
+    assert_equal "GET, POST", url.verbs
     popular_referrers = [["google", 2], ["yahoo", 2], ["turing", 1]]
     assert_equal popular_referrers, url.popular_referrers
     popular_user_agents = [[["chrome", "windows"], 2], [["chrome", "ios"], 2], [["opera", "ios"], 1]]

@@ -15,7 +15,7 @@ class Url < ActiveRecord::Base
   end
 
   def verbs
-    requests.pluck(:verb).uniq
+    requests.pluck(:verb).uniq.join(", ")
   end
 
   def popular_referrers

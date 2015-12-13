@@ -23,8 +23,8 @@ module TrafficSpy
 
     get '/sources/:id/urls/:extension' do | id, extension |
       application = Application.find_by(identifier: id)
-      @url = application.urls.find_by(path: extension)
-      erb :index
+      @url_ = application.urls.find_by(path: extension)
+      erb :url
     end
 
     get '/sources/:id/events' do |id|
