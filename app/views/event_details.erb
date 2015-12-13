@@ -5,4 +5,4 @@
     <% hours[time] = 1 unless hours.has_key?(time) %>
   <% end %>
 
-  <%= erb :'partials/_event_details_table' %>
+  <%= erb :'partials/_event_details_table', locals: {hours: hours} %>
