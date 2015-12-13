@@ -22,4 +22,19 @@ class ApplicationTest < Minitest::Test
 
     assert_equal 2, app.requests.count
   end
+
+  def test_model_calculations
+    Application.create(application_data)
+    Event.create(name: 'socialLogin')
+    Event.create(name: 'delete')
+    Event.create(name: 'win')
+    Request.create( application_id: 1, request_hash: '1', event_id: 1)
+    Request.create( application_id: 1, request_hash: '2', event_id: 2)
+    Request.create( application_id: 1, request_hash: '3', event_id: 3)
+    Request.create( application_id: 1, request_hash: '4', event_id: 1)
+    Request.create( application_id: 1, request_hash: '5', event_id: 3)
+    Request.create( application_id: 1, request_hash: '6', event_id: 3)
+
+    
+  end
 end
