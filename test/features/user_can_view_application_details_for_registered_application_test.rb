@@ -7,7 +7,7 @@ class UserCanViewApplicationDetailsForRegisteredApplicationTest < FeatureTest
     ces = ClientEnvironmentSimulator.new
     ces.start_simulation
 
-    visit '/sources/google'
+    visit '/sources/google/'
 
     within '#client_name' do
       assert page.has_content?("google")

@@ -19,7 +19,7 @@ module TrafficSpy
       body ph.body
     end
 
-    get '/sources/:identifier' do |identifier|
+    get '/sources/:identifier/' do |identifier|
       @client = Client.find_by(name: identifier)
       @error_message = ViewHandler.assign_application_details_error_message(@client)
       erb ViewHandler.assign_application_details_erb_path(@client)
@@ -27,9 +27,9 @@ module TrafficSpy
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @client = Client.find_by(name: identifier)
-      path_requested = @client.root_url + "/#{path}"
-      @error_message = ViewHandler.assign_url_details_error_message(path_requested)
-      erb ViewHandler.assign_url_details_erb_path(path_requested)
+      @path_requested = @client.root_url + "/#{path}"
+      @error_message = ViewHandler.assign_url_details_error_message(@path_requested)
+      erb ViewHandler.assign_url_details_erb_path(@path_requested)
     end
 
     get '/sources/:identifier/events' do |identifier|

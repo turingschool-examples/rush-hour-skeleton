@@ -19,7 +19,7 @@ class UserReceivesCorrectInformationForURLStatsPageTest < FeatureTest
     visit '/sources/google/urls/blog'
 
     assert "/sources/google/urls/blog", current_path
-    assert page.has_content?("What?")
+    assert page.has_content?("URL Details")
   end
 
 end

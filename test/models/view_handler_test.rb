@@ -66,7 +66,10 @@ class ViewHandlerTest < Minitest::Test
   end
 
   def test_view_handler_assigns_event_index_erb_for_happy_path
+    client = Client.create(name: "jumpstartlabs", root_url: "test.com")
+    ph = PayloadHandler.new(payload)
 
+    assert_equal :events_index, ViewHandler.assign_events_index_erb_path(client)
   end
 
 end

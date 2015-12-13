@@ -1,33 +1,86 @@
-<h1>What?</h1>
+<h1>URL Details for: <%= @path_requested %></h1>
 
-<h1>Url Details for: <%= @path_requested %>
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="path">URL</th>
+        <th data-field="response-time">Response Time (milliseconds)</th>
+      </tr>
+    </thead>
 
-<ul>
-  <% @client.payloads.show_response_times(@path_requested).each do |k, v| %>
-    <li><%= "#{k}: #{v} milliseconds"%></li>
-    <% end %>
-</ul>
-
-<div>Request types received:
-  <ul>
-  <% @client.payloads.show_request_types.each do |verb| %>
-  <li>  <%= verb %></li>
-  <% end %>
-</ul>
+    <tbody>
+      <% @client.payloads.show_response_times(@path_requested).each do |k, v| %>
+      <tr>
+        <td><%= k %></td>
+        <td><%= v %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
-<div>Top Referrers:
-  <ul>
-  <% @client.payloads.top_referrers.each do |referrer, number| %>
-  <li>  <%= "#{referrer}: #{number} requests" %></li>
-  <% end %>
-</ul>
+
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="verb">Verb</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.show_request_types.each do |verb| %>
+      <tr>
+        <td><%= verb %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
-<div>Top User Agents:
-  <ul>
-  <% @client.payloads.top_user_agents.each do |user_agent, number| %>
-  <li>  <%= "#{user_agent}: #{number} requests" %></li>
-  <% end %>
-</ul>
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="referrer">Referrer</th>
+        <th data-field="response-time">Referral Count</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.top_referrers.each do |referrer, number| %>
+      <tr>
+        <td><%= referrer %></td>
+        <td><%= number %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <caption>Top User Agents</caption>
+    <thead>
+      <tr>
+        <th data-field="user-agent">User Agent</th>
+        <th data-field="frequency">Frequency</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.top_user_agents.each do |user_agent, number| %>
+      <tr>
+        <td><%= user_agent %></td>
+        <td><%= number %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
