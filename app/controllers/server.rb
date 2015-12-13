@@ -72,8 +72,12 @@ module TrafficSpy
     end
 
     helpers do
-      def link_to_url(app_identifier, path)
-        "<a href='/sources/#{app_identifier}/urls#{path}' class='cyan-text text-lighten-3 card-link'> #{path}"
+      def link_to_url(app_name, path)
+        "<a href='/sources/#{app_name}/urls#{path}' class='cyan-text text-lighten-3 card-link'> #{path}"
+      end
+
+      def link_to_application(app_name)
+        "<a href='/sources/#{app_name}'><h3 class='title-text btn-large cyan darken-2 waves-effect waves-light shadow center'>#{app_name}</h3></a>"
       end
     end
   end
