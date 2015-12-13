@@ -101,12 +101,32 @@ nav ul a {
 
 @media screen and (max-width: 700px) {
   .homepage-header {
-    font-size: 100px;
+    font-size: 70px;
+  }
+
+  .homepage-quote {
+    font-size: 40px;
+    margin-left: 50px;
+    margin-top: -30px;
   }
 
   #analytics {
-    font-size: 30px;
+    font-size: 20px;
     margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #analytics {
+    display: none;
+  }
+
+  .non-dashboard-text {
+    font-size: 25px;
+  }
+
+  tr {
+    font-size: 16px;
   }
 }
 
