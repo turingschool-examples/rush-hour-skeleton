@@ -1,0 +1,20 @@
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="path">URL</th>
+        <th data-field="response-time">Response Time (milliseconds)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.show_response_times(@path_requested).each do |k, v| %>
+      <tr>
+        <td><%= k %></td>
+        <td><%= v %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="web_browser">Web Browser</th>
+        <th data-field="operating_system">Operating System</th>
+        <th data-field="resolution">Resolution</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.all.each do |agent| %>
+      <tr>
+        <td><%= agent.web_browser %></td>
+        <td><%= agent.operating_system %></td>
+        <td><%= "#{agent.resolution_width} x #{agent.resolution_height}" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

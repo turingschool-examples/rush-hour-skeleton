@@ -1,0 +1,19 @@
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="URL">URL</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.url_hyperlinks.each do |path| %>
+      <% temp = path.split(".com/")[1] %>
+      <tr>
+        <td><a href="/sources/<%= @client.name %>/urls/<%= temp %>"><%= path %></a></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
