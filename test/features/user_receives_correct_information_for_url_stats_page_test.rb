@@ -13,12 +13,12 @@ class UserReceivesCorrectInformationForURLStatsPageTest < FeatureTest
 
   def test_user_sees_url_statistics_when_url_has_been_recorded
 
-    ces = ClientEnvironmentSimulator.new
-    ces.start_simulation
+    Client.create(name: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    ph = PayloadHandler.new(payload)
 
-    visit '/sources/google/urls/blog'
+    visit '/sources/jumpstartlab/urls/blog'
 
-    assert "/sources/google/urls/blog", current_path
+    assert "/sources/jumpstartlab/urls/blog", current_path
     assert page.has_content?("URL Details")
   end
 
