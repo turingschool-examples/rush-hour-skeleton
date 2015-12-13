@@ -71,7 +71,7 @@ module TrafficSpy
       haml :'error-messages/error'
     end
 
-    use Rack::Auth::Basic, "Secret Area" do |username, password|
+    use Rack::Auth::Basic, "Enter username & password to view TrafficSpy Dashboard" do |username, password|
       username == 'turing' && password == 'secret'
     end
 
