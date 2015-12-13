@@ -1,0 +1,20 @@
+<br/>
+<div class="container">
+  <table class="striped highlight responsive-table bordered centered">
+    <thead>
+      <tr>
+        <th data-field="referrer">Referrer</th>
+        <th data-field="response-time">Referral Count</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @client.payloads.top_referrers.each do |referrer, number| %>
+      <tr>
+        <td><%= referrer %></td>
+        <td><%= number %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
