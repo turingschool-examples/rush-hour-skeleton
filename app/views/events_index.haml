@@ -1,0 +1,9 @@
+.container
+  %h1.title-text.weighted.underline.center.non-dashboard-text
+    = @app.identifier.capitalize
+    Events Index
+
+%ol.center
+  -@app.events.list_of_events.each do |event, count|
+    %li#event-index-links
+      = link_to_event(@app.identifier, event, count)

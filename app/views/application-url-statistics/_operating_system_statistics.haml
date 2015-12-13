@@ -1,0 +1,7 @@
+%tr#most_pop_os
+  %td
+    Most Popular Operating Systems:
+  %td
+    %ol#most_pop_os_list
+      -@url_payloads.get_top_3_operating_system.each do |referrer, count|
+        = list_item_with_count(referrer, count)

@@ -1,0 +1,137 @@
+/*
+* Navbar
+*/
+
+nav ul a {
+  font-size: 1.3rem;
+  font-weight: 250;
+}
+
+.brand-logo {
+ margin-left: 20px;
+}
+
+/*
+* Dashboard
+*/
+
+.background-img {
+  background-image: url("../images/TrafficSpy_Eye.jpg");
+  height: 100vh;
+  max-width: 100%;
+}
+
+.homepage-quote {
+  letter-spacing: 4px;
+  font-weight: 100;
+  margin-left: 180px;
+  margin-top: -50;
+}
+
+.underline {
+  text-decoration: underline;
+  color: D7D7D7;
+}
+
+.shadow {
+  text-shadow: 2px 2px #0097a7;
+}
+
+.title-text {
+  color: #d7d7d7;
+}
+
+.homepage-header {
+  font-size: 150px;
+  font-weight: 300;
+  margin-left: 40px;
+}
+
+/*
+* Other Styles
+*/
+
+#analytics {
+  text-decoration: overline;
+  margin-left: -40px;
+}
+
+.link-card {
+  height: 80px;
+}
+
+.stats-card {
+  min-height: 300px;
+}
+
+.center-content {
+  margin: 0 auto;
+}
+
+.weighted{
+  font-weight: 200;
+}
+
+.sub {
+  font-size: 50px;
+}
+
+.grid-margin {
+  margin-top: 5px;
+}
+
+#aggregate-link {
+  background-color: D7D7D7;
+}
+
+/*
+* Media Queries
+*/
+
+@media screen and (max-width: 972px) {
+  .homepage-header {
+    font-size: 100px;
+  }
+
+  #analytics {
+    font-size: 30px;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .homepage-header {
+    font-size: 70px;
+  }
+
+  .homepage-quote {
+    font-size: 40px;
+    margin-left: 50px;
+    margin-top: -30px;
+  }
+
+  #analytics {
+    font-size: 20px;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #analytics {
+    display: none;
+  }
+
+  .non-dashboard-text {
+    font-size: 25px;
+  }
+
+  tr {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .background-img {
+    background-position: center center;
+  }
+}

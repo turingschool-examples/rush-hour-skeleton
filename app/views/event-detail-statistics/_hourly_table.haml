@@ -1,0 +1,13 @@
+%h3.title-text.weighted.underline.non-dashboard-text Hour by Hour Breakdown
+
+%table.title-text.bordered.highlight.cyan-text.lighten-2
+
+  %tr
+    %th Hour
+    %th Requests
+  -(0..23).to_a.each do |hour|
+    %tr
+      %td
+        = "#{hour}:00 - #{hour + 1}:00"
+      %td
+        = @event_payloads.requests_by_hour(hour)
