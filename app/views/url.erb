@@ -1,0 +1,29 @@
+<div class="container">
+
+  <div class="card">
+    <h1 class="title">Statistics for /<%= @url_.path %></h1>
+    <div class="divider">
+
+    </div>
+    <h3 id="longest">Longest response time: <%= @url_.longest_response_time.to_s %>ms</h3>
+    <h3 id="shortest">Shortest response time: <%= @url_.shortest_response_time.to_s %>ms</h3>
+    <h3 id="average">Average response time: <%= @url_.average_response_time.to_s %>ms</h3>
+
+    <h3 id="verbs">Received verbs: <%= @url_.verbs %></h3>
+
+    <h3>Most popular referrers:</h3>
+    <ul id="popular_referrers">
+      <% @url_.popular_referrers.each do |referrer| %>
+      <li class="referrer"><%= referrer[0] %>: <%= referrer[1] %> times</li>
+      <% end %>
+    </ul>
+
+    <h3>Most popular user agents:</h3>
+    <ul id="popular_ua">
+      <% @url_.popular_user_agents.each do |ua| %>
+      <li class="ua"><%= ua[0][1] %> & <%= ua[0][0] %>: <%= ua[1] %> times</li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>

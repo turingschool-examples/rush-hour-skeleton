@@ -1,0 +1,8 @@
+<div class="container">
+  <ul class="collection with-header">
+    <li class="collection-header center white-text teal lighten-3"><h4>Registered Events</h4></li>
+    <% @application.ordered_events.each do |event, count| %>
+    <li class="event colletion-item" id="<%= event.name %>"><a class="collection-item" href="/sources/<%= @application.identifier %>/events/<%= event.name %>"><%= event.name %><i class="secondary-content"><%= count %> <%= pluralize_times(count) %></i></a></li>
+    <% end %>
+  </ul>
+</div>
