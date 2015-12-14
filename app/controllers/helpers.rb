@@ -1,4 +1,5 @@
 module Helpers
+
   def url_path(payload_full_path)
     "/sources/#{@user.identifier}/urls/#{relative_path(payload_full_path)}"
   end
