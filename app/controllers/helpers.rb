@@ -8,11 +8,7 @@ module Helpers
   end
 
   def relative_path(payload_full_path)
-    if payload_full_path.include?('http://')
       payload_full_path.split('/')[3..-1].join
-    else
-      payload_full_path.split('/')[1..-1].join
-    end
   end
 
   def user(id)

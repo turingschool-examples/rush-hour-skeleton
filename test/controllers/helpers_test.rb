@@ -29,17 +29,26 @@ class HelpersTest < TrafficTest
 
   end
   def setup
-    @fake = FakeHelpers.new
+    @helper = FakeHelpers.new
   end
 
   def test_returns_full_linked_path
     expected = '/sources/jumpstartlab/urls/news'
-    assert_equal expected, @fake.url_path("http://jumpstartlab/news")
+    assert_equal expected, @helper.url_path("http://jumpstartlab/news")
   end
 
   def test_returns_event_path
     expected = '/sources/jumpstartlab/events/socialLogin'
-    assert_equal expected, @fake.event_path("socialLogin")
+    assert_equal expected, @helper.event_path("socialLogin")
+  end
+
+  def test_returns_relative_path
+    expected = "news"
+    assert_equal expected, @helper.relative_path('http://jumpstartlab.com/news')
+  end
+
+  def test_returns_full_path
+    assert_equal "http://jumpstartlab.com/news", @helper.full_path('news')
   end
 
 end
