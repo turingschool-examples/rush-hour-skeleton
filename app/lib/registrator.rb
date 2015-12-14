@@ -2,8 +2,8 @@ class Registrator
   attr_reader :status, :response, :application
 
   def initialize(params)
-    @application = Application.new(identifier: params[:identifier],
-                                  root_url: params[:rootUrl])
+    @application = Application.new( identifier: params[:identifier],
+                                    root_url: params[:rootUrl])
     @status = code[scenario(params)]
     @response = response_maker(params)[scenario(params)]
   end
