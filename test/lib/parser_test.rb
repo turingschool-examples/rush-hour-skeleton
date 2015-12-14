@@ -25,9 +25,9 @@ class ParserTest < Minitest::Test
 
   end
 
-  def test_it_creates_request_hash_for_valid_resquests
+  def test_it_creates_request_hash_for_valid_requests
     parser = Parser.new(params)
-    assert_equal "582782a967bdfb675f1c3445ded79782ae109f5a", parser.request_hash
+    assert_equal "26f6d3fe8e6ccc567781ee17f875de857a650cc7", parser.request_hash
   end
 
   def test_it_parsers_valid_url
@@ -93,7 +93,7 @@ class ParserTest < Minitest::Test
     Application.create(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com")
 
     parser = Parser.new(params)
-    expected = {  :request_hash => '582782a967bdfb675f1c3445ded79782ae109f5a',
+    expected = {  :request_hash => '26f6d3fe8e6ccc567781ee17f875de857a650cc7',
                   :application_id => 1,
                   :url_id => 1,
                   :timestamp => '2013-02-16 21:38:28 -0700',
