@@ -9,10 +9,12 @@ class UserViewsAggregateEventsData < FeatureTest
     Request.create( application_id: 1, request_hash: '3', event_id: 2)
 
     visit '/sources/jumpstartlab/events'
+
     within ('#socialLogin') do
       assert page.has_content?('socialLogin')
       assert page.has_content?('1')
     end
+
     within ('#delete') do
       assert page.has_content?('delete')
       assert page.has_content?('2')
@@ -23,6 +25,7 @@ class UserViewsAggregateEventsData < FeatureTest
     Application.create(identifier: 'jumpstartlab', root_url: "home")
 
     visit '/sources/jumpstartlab/events'
-    assert find('#no_events')
+
+    assert page.has_content?('No events have been defined')
   end
 end

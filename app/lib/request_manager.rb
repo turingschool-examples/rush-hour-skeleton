@@ -3,20 +3,12 @@ class RequestManager
 
   def initialize(params)
     parser = Parser.new(params)
-
-    # event = Event.create(parser.event_name)
-    # url = Url.create(parser.extension)
-# binding.pry
     request = Request.new(request_hash: parser.request_hash)
-
-    # case
-    # when parser.payload.nil? then [status, response]
 
     if params[:payload].nil?
       @status = 400
       @response =  "Missing payload."
     else params[:payload]
-
       if Application.exists?(identifier: params[:id])
         if request.valid?
           Url.create(path: parser.url)

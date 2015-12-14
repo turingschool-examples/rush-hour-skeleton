@@ -124,7 +124,7 @@ class UserViewsApplicationStatsTest < FeatureTest
   def test_user_sees_error_message_if_accessing_unregistered_url
     visit '/sources/jumpstartlab'
 
-    assert page.has_content? "This application has not been registered"
+    assert page.has_content? "Application not registered"
   end
 
   def test_user_sees_error_message_if_no_requests_have_been_documented
@@ -132,6 +132,6 @@ class UserViewsApplicationStatsTest < FeatureTest
 
     visit '/sources/jumpstartlab'
 
-    assert page.has_content? "This application has no documented requests"
+    assert page.has_content? "No documented requests"
   end
 end

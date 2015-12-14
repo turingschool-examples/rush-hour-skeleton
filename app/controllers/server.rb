@@ -20,11 +20,9 @@ module TrafficSpy
       @app = Application.find_by(identifier: id)
 
       if @app.nil?
-        @message = "This application has not been registered"
-        erb :application_error
+        erb :error, locals: {message: "Application not registered"}
       elsif @app.requests.empty?
-        @message = "This application has no documented requests"
-        erb :application_error
+        erb :error, locals: {message: "No documented requests"}
       else
         erb :urls
       end
@@ -35,7 +33,7 @@ module TrafficSpy
       if @url_ = application.urls.find_by(path: splat)
         erb :url
       else
-        erb :url_not_requested
+        erb :error, locals: {message: "No documented requests"}
       end
     end
 
@@ -43,7 +41,7 @@ module TrafficSpy
       @application = Application.find_by(identifier: id)
 
       if @application.events.count == 0
-        erb :no_events
+        erb :error, locals: {message: "No events have been defined"}
       else
         erb :events
       end
@@ -58,7 +56,7 @@ module TrafficSpy
     end
 
     not_found do
-      erb :error
+      erb :error, locals: {message: "Oops! We don't know what you mean"}
     end
   end
 end
