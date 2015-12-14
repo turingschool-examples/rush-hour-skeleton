@@ -1,5 +1,15 @@
 module TrafficSpy
   class Server < Sinatra::Base
+    helpers do
+      def pluralize_times(n)
+        if n == 1
+          "time"
+        else
+          "times"
+        end
+      end
+    end
+
     get '/' do
       erb :index
     end
