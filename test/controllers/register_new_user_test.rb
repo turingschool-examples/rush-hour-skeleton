@@ -16,6 +16,9 @@ class RegisterNewUserTest < TrafficTest
   end
 
   def test_user_receives_400_bad_request_and_error_message_when_missing_root_url
+    post '/sources', {rootUrl: 'http://turing.io', identifier: 'turing'}
+    assert_equal 200, last_response.status
+
     post '/sources', {identifier: 'turing'}
 
     assert_equal 400, last_response.status
@@ -27,12 +30,16 @@ class RegisterNewUserTest < TrafficTest
 
     assert_equal 400, last_response.status
     assert_equal "Missing all required details.", last_response.body
+
+    post '/sources', {rootUrl: 'http://turing.io', identifier: 'turing'}
+    assert_equal 200, last_response.status
   end
 
   def test_user_receives_403_and_error_message_when_registering_duplicate_identifier
     post '/sources', {rootUrl: 'http://turing.io', identifier: 'turing'}
-    post '/sources', {rootUrl: 'http://turing.io', identifier: 'turing'}
+    assert_equal 200, last_response.status
 
+    post '/sources', {rootUrl: 'http://turing.io', identifier: 'turing'}
     assert_equal 403, last_response.status
     assert_equal "Identifier already exists.", last_response.body
   end
