@@ -46,5 +46,4 @@ class UserVistitsEventsIndex < FeatureTest
     assert page.has_content?('No events received for Jumpstartlab')
   end
 
-
 end

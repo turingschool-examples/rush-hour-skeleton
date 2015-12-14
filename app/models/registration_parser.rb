@@ -9,13 +9,17 @@ module TrafficSpy
     def parsing_validating
       if identity && root
         user = User.new(identifier: identity, root_url: root)
-        if user.save
-          {'identifier' => identity}.to_json
-        else
-          status, body = [403, "Identifier already exists."]
-        end
+        validate_and_save(user)
       else
         status, body = [400, "Missing all required details."]
+      end
+    end
+
+    def validate_and_save(user)
+      if user.save
+        {'identifier' => identity}.to_json
+      else
+        status, body = [403, "Identifier already exists."]
       end
     end
 
@@ -26,7 +30,5 @@ module TrafficSpy
     def root
       params["rootUrl"]
     end
-
-
   end
 end

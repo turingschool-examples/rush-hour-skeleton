@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-# require 'json'
 
 class ServerPayloadTest < TrafficTest
   include PayloadPrep
