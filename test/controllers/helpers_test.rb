@@ -1,21 +1,45 @@
-# require_relative '../test_helper'
-#
-# class HelpersTest < TrafficTest
-#   include PayloadPrep
-#
-#   def setup
-#     post '/sources', {rootUrl: 'http://jumpstartlab.com', identifier: 'jumpstartlab'}
-#     @user = TrafficSpy::User.find(1)
-#   end
-#
-#   def test_returns_full_linked_path
-#     payload_full_path = "http://jumpstartlab.com/blog"
-#     extension = "urls"
-#     expected = "/sources/jumpstartlab/urls/blog"
-#     server = TrafficSpy::.new
-#
-#     actual_path = server.linked_path(payload_full_path, extension)
-#     assert_equal expected, actual_path
-#   end
-#
-# end
+require_relative '../test_helper'
+
+class HelpersTest < TrafficTest
+  include PayloadPrep
+  class FakeHelpers
+    include Helpers
+    include PayloadPrep
+    attr_reader :user
+    def initialize
+      register_user
+      # binding.pry
+      first_count = TrafficSpy::Payload.count
+      payload_parser = TrafficSpy::PayloadParser.new({"payload"=>
+        "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
+       "splat"=>[],
+       "captures"=>["jumpstartlab"],
+       "id"=>"jumpstartlab"})
+      payload_parser.payload_response
+      @user = TrafficSpy::User.find(1)
+    end
+
+    def payload_params
+      {"payload"=>
+        "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
+       "splat"=>[],
+       "captures"=>["jumpstartlab"],
+       "id"=>"jumpstartlab"}
+    end
+
+  end
+  def setup
+    @fake = FakeHelpers.new
+  end
+
+  def test_returns_full_linked_path
+    expected = '/sources/jumpstartlab/urls/news'
+    assert_equal expected, @fake.url_path("http://jumpstartlab/news")
+  end
+
+  def test_returns_event_path
+    expected = '/sources/jumpstartlab/events/socialLogin'
+    assert_equal expected, @fake.event_path("socialLogin")
+  end
+
+end
