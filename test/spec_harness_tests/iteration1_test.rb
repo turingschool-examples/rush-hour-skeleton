@@ -37,7 +37,7 @@ class Iteration1Test < Minitest::Test
     request_type = RequestType.first
 
     assert request_type.respond_to?(:http_verb)
-    assert request_type.http_verb.is_a?(String)
+    assert request_type.http_verb.is_a(String)
     assert request_type.respond_to?(:payload_requests)
   end
 
@@ -70,6 +70,7 @@ class Iteration1Test < Minitest::Test
   end
 
   def test_payload_request_relationships_setup
+    create_payload_request
 
     payload = PayloadRequest.new
 
