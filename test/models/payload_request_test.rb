@@ -11,7 +11,7 @@ class PayloadRequestTest < Minitest::Test
     assert_respond_to payload_request, :resolution_id
     assert_respond_to payload_request, :referrer_id
     assert_respond_to payload_request, :url_request_id
-    assert_respond_to payload_request, :user_data_id
+    assert_respond_to payload_request, :user_agent_id
     assert_respond_to payload_request, :eventName
   end
 
