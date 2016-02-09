@@ -11,7 +11,8 @@ class PayloadRequestTest < Minitest::Test
     assert_respond_to payload_request, :resolution_id
     assert_respond_to payload_request, :referrer_id
     assert_respond_to payload_request, :url_request_id
-    assert_respond_to payload_request, :user_data_id
+    assert_respond_to payload_request, :user_agent_id
+    assert_respond_to payload_request, :eventName
   end
 
   def test_attributes_must_be_present_when_saving
@@ -23,11 +24,13 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_payload_request_has_attribute_values
-    p = PayloadRequest.new(respondedIn: payload[:respondedIn],
-                           requestedAt: payload[:requestedAt])
+    payload_request = PayloadRequest.new(respondedIn: payload[:respondedIn],
+                           requestedAt: payload[:requestedAt],
+                           eventName:   payload[:eventName])
 
-    assert_equal "2013-02-16 21:38:28 -0700", p.requestedAt
-    assert_equal 37, p.respondedIn
+    assert_equal "2013-02-16 21:38:28 -0700", payload_request.requestedAt
+    assert_equal 37, payload_request.respondedIn
+    assert_equal "socialLogin", payload_request.eventName
   end
 
   def test_creates_relationships
@@ -42,6 +45,4 @@ class PayloadRequestTest < Minitest::Test
     assert_equal referrer.id, test_payload.referrer_id
     assert_equal url_request.id, test_payload.url_request_id
   end
-
-
 end
