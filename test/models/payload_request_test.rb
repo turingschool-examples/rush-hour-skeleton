@@ -8,7 +8,7 @@ class PayloadRequestTest < Minitest::Test
 
     assert_respond_to payload_request, :url
     assert_respond_to payload_request, :requested_at
-    assert_respond_to payload_request, :requested_in
+    assert_respond_to payload_request, :responded_in
     assert_respond_to payload_request, :referred_by
     assert_respond_to payload_request, :request_type
     assert_respond_to payload_request, :parameters
@@ -17,6 +17,8 @@ class PayloadRequestTest < Minitest::Test
     assert_respond_to payload_request, :resolution_width
     assert_respond_to payload_request, :resolution_height
     assert_respond_to payload_request, :ip
+    # assert_respond_to payload_request, :i
+
   end
 
   def test_attributes_must_be_present_when_saving
