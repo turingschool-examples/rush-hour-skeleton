@@ -7,6 +7,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
+require 'database_cleaner'
 
 Capybara.app = RushHour::Server
 Capybara.save_and_open_page_path = "tmp/capybara"
