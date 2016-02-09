@@ -12,10 +12,9 @@ class UrlRequestTest < Minitest::Test
   end
 
   def test_attributes_must_be_present_when_saving
-    ur = UrlRequest.new
+    url_request = UrlRequest.new
 
-    ur.save
-
-    assert_equal 0, UrlRequest.all.count
+    refute url_request.save
+    refute_equal 1, UrlRequest.all.count
   end
 end
