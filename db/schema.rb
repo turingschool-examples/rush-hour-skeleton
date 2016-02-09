@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209190204) do
+ActiveRecord::Schema.define(version: 20160209205621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,16 @@ ActiveRecord::Schema.define(version: 20160209190204) do
     t.integer  "url_id"
     t.integer  "referred_by_id"
     t.integer  "event_name_id"
+    t.integer  "resolution_id"
   end
+
+  add_index "payloads", ["event_name_id"], name: "index_payloads_on_event_name_id", using: :btree
+  add_index "payloads", ["ip_id"], name: "index_payloads_on_ip_id", using: :btree
+  add_index "payloads", ["referred_by_id"], name: "index_payloads_on_referred_by_id", using: :btree
+  add_index "payloads", ["request_type_id"], name: "index_payloads_on_request_type_id", using: :btree
+  add_index "payloads", ["resolution_id"], name: "index_payloads_on_resolution_id", using: :btree
+  add_index "payloads", ["url_id"], name: "index_payloads_on_url_id", using: :btree
+  add_index "payloads", ["user_environment_id"], name: "index_payloads_on_user_environment_id", using: :btree
 
   create_table "referred_bys", force: :cascade do |t|
     t.string   "referredBy"
@@ -69,9 +78,14 @@ ActiveRecord::Schema.define(version: 20160209190204) do
 
   create_table "user_environments", force: :cascade do |t|
     t.string   "userAgent"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "resolution_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "payloads", "event_names"
+  add_foreign_key "payloads", "ips"
+  add_foreign_key "payloads", "request_types"
+  add_foreign_key "payloads", "resolutions"
+  add_foreign_key "payloads", "urls"
+  add_foreign_key "payloads", "user_environments"
 end
