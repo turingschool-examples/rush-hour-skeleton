@@ -18,15 +18,15 @@ ActiveRecord::Schema.define(version: 20160209012925) do
 
   create_table "payload_requests", force: :cascade do |t|
     t.string  "url"
-    t.date    "requested_at"
-    t.integer "responded_in"
-    t.string  "referred_by"
-    t.string  "request_type"
-    t.string  "parameters",        default: [], array: true
-    t.string  "event_name"
-    t.string  "user_agent"
-    t.string  "resolution_width"
-    t.string  "resolution_height"
+    t.string  "requestedAt"
+    t.integer "respondedIn"
+    t.string  "referredBy"
+    t.string  "requestType"
+    t.string  "parameters",       default: [], array: true
+    t.string  "eventName"
+    t.string  "userAgent"
+    t.string  "resolutionWidth"
+    t.string  "resolutionHeight"
     t.string  "ip"
   end
 
