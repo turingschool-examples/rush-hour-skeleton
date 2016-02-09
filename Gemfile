@@ -9,6 +9,7 @@ group :development, :test do
   gem 'shotgun'
   gem 'minitest'
   gem 'tux'
+  gem 'pry'
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
