@@ -12,8 +12,7 @@ class ReferrerTest < Minitest::Test
   def test_attribute_must_be_present_when_saving
     referrer = Referrer.new
 
-    referrer.save
-
-    assert_equal 0, Referrer.all.size
+    refute referrer.save
+    refute_equal 1, Referrer.all.size
   end
 end
