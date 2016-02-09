@@ -18,4 +18,12 @@ class PayloadRequestTest < Minitest::Test
     assert_respond_to payload_request, :resolution_height
     assert_respond_to payload_request, :ip
   end
+
+  def test_attributes_must_be_present_when_saving
+    payload_request = PayloadRequest.new
+
+    payload_request.save
+
+    assert_equal 0, PayloadRequest.all.count
+  end
 end
