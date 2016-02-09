@@ -1,5 +1,6 @@
 class PayloadRequest < ActiveRecord::Base
   belongs_to :referrer
+  belongs_to :url_request
 
   validates :requestedAt, presence: true
   validates :respondedIn, presence: true

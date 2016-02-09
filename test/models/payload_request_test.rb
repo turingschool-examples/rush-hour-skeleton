@@ -42,7 +42,7 @@ class PayloadRequestTest < Minitest::Test
     test_payload.update(referrer_id: referrer.id)
     test_payload.update(url_request_id: url_request.id)
 
-    assert_equal referrer.id, test_payload.referrer_id
-    assert_equal url_request.id, test_payload.url_request_id
+    assert_equal referrer.id, test_payload.referrer.id
+    assert_equal url_request.id, test_payload.url_request.id
   end
 end
