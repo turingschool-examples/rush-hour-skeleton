@@ -1,4 +1,4 @@
-class UpdatePayload < ActiveRecord::Migration
+ class UpdatePayload < ActiveRecord::Migration
   def change
     change_table :payloads do |t|
       t.remove  :requestType
