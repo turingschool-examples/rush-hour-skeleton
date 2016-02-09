@@ -21,4 +21,24 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal 0, PayloadRequest.all.count
   end
+
+  def test_payload_request_has_attribute_values
+    p = PayloadRequest.new(respondedIn: payload[:respondedIn],
+                           requestedAt: payload[:requestedAt])
+
+    assert_equal "2013-02-16 21:38:28 -0700", p.requestedAt
+    assert_equal 37, p.respondedIn
+  end
+
+  def test_creates_a_relationship_with_referrer
+    r = Referrer.create(referredBy: payload[:referredBy])
+
+    p = PayloadRequest.create(requestedAt: payload[:requestedAt],
+                           respondedIn: payload[:respondedIn])
+
+    r.payload_requests << p
+
+    assert_equal r.id, p.referrer_id
+  end
+
 end
