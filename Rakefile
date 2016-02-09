@@ -1,5 +1,5 @@
-require "bundler"
 Bundler.require
+require "bundler"
 
 require "sinatra/activerecord/rake"
 
