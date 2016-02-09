@@ -31,14 +31,13 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_creates_a_relationship_with_referrer
-    r = Referrer.create(referredBy: payload[:referredBy])
+    referrer = Referrer.create(referredBy: payload[:referredBy])
+    test_payload = PayloadRequest.create(requestedAt: payload[:requestedAt],
+                                    respondedIn: payload[:respondedIn])
 
-    p = PayloadRequest.create(requestedAt: payload[:requestedAt],
-                           respondedIn: payload[:respondedIn])
+    test_payload.update(referrer_id: referrer.id)
 
-    r.payload_requests << p
-
-    assert_equal r.id, p.referrer_id
+    assert_equal referrer.id, test_payload.referrer_id
   end
 
 end

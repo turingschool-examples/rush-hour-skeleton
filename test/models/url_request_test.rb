@@ -10,4 +10,12 @@ class UrlRequestTest < Minitest::Test
     assert_respond_to ur, :requestType
     assert_respond_to ur, :parameters
   end
+
+  def test_attributes_must_be_present_when_saving
+    ur = UrlRequest.new
+
+    ur.save
+
+    assert_equal 0, UrlRequest.all.count
+  end
 end

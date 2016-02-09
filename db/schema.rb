@@ -34,5 +34,4 @@ ActiveRecord::Schema.define(version: 20160209210519) do
     t.string "requestType"
     t.string "parameters"
   end
-
 end
