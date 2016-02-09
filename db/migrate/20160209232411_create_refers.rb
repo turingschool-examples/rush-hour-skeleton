@@ -1,6 +1,6 @@
-class CreateReferredBys < ActiveRecord::Migration
+class CreateRefers < ActiveRecord::Migration
   def change
-    create_table :referred_bys do |t|
+    create_table :refers do |t|
       t.string :referredBy
 
       t.timestamps null: false
