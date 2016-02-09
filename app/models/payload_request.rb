@@ -12,4 +12,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :resolutionHeight, presence: true
   validates :ip, presence: true
 
+  def self.average_response_time
+    average(:respondedIn).to_i
+  end
+
 end
