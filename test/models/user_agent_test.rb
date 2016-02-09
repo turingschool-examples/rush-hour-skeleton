@@ -10,4 +10,10 @@ class UserAgentTest < Minitest::Test
       assert_respond_to user_agent, :os
   end
 
-  
+  def test_attributes_must_be_present_when_saving
+    user_agent = UserAgent.new
+
+    refute user_agent.save
+    refute_equal 1, UserAgent.all.size
+  end
+end

@@ -36,13 +36,16 @@ class PayloadRequestTest < Minitest::Test
   def test_creates_relationships
     referrer = Referrer.create(referredBy: payload[:referredBy])
     url_request = UrlRequest.create(url: "something", requestType: "stuff", parameters: "array")
+    user_agent = UserAgent.create(browser: "dkfjsdfj", os: "kdjfj")
     test_payload = PayloadRequest.create(requestedAt: payload[:requestedAt],
                                     respondedIn: payload[:respondedIn])
 
     test_payload.update(referrer_id: referrer.id)
     test_payload.update(url_request_id: url_request.id)
+    test_payload.update(user_agent_id: user_agent.id)
 
     assert_equal referrer.id, test_payload.referrer.id
     assert_equal url_request.id, test_payload.url_request.id
+    assert_equal user_agent.id, test_payload.user_agent.id
   end
 end
