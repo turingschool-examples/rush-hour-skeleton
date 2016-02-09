@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209180352) do
+ActiveRecord::Schema.define(version: 20160209210519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 20160209180352) do
 
   create_table "referrers", force: :cascade do |t|
     t.string "referredBy"
+  end
+
+  create_table "url_requests", force: :cascade do |t|
+    t.string "url"
+    t.string "requestType"
+    t.string "parameters"
   end
 
 end
