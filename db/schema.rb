@@ -21,13 +21,13 @@ ActiveRecord::Schema.define(version: 20160209021815) do
     t.string  "requestedAt"
     t.string  "respondedIn"
     t.string  "referredBy"
-    t.string  "requestType"
     t.string  "parameters"
     t.string  "eventName"
-    t.string  "userAgent"
-    t.integer "resolutionWidth"
-    t.integer "resolutionHeight"
     t.string  "ip"
+    t.integer "id_requestType"
+    t.integer "id_browser"
+    t.integer "id_OS"
+    t.integer "id_screenResolution"
   end
 
 end

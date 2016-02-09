@@ -1,16 +1,14 @@
 class UpdatePayload < ActiveRecord::Migration
   def change
     change_table :payloads do |t|
-      t.string  :url
-      t.string  :requestedAt
-      t.string  :respondedIn
-      t.string  :referredBy
+      t.remove  :requestType
       t.integer :id_requestType
-      t.string  :eventName
+      t.remove  :userAgent
+      t.remove :resolutionWidth
+      t.remove :resolutionHeight
       t.integer :id_browser
       t.integer :id_OS
       t.integer :id_screenResolution
-      t.string  :ip
     end
   end
 end
