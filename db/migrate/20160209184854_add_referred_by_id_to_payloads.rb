@@ -1,5 +1,5 @@
 class AddReferredByIdToPayloads < ActiveRecord::Migration
   def change
-    add_column :payloads, :referred_by_id, :integer
+    add_reference :payloads, :referred_by, index: true
   end
 end

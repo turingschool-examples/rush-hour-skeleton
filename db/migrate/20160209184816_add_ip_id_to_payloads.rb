@@ -1,5 +1,5 @@
 class AddIpIdToPayloads < ActiveRecord::Migration
   def change
-    add_column :payloads, :ip_id, :integer
+    add_reference :payloads, :ip, index: true, foreign_key: true
   end
 end

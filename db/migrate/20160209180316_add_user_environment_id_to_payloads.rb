@@ -1,5 +1,5 @@
 class AddUserEnvironmentIdToPayloads < ActiveRecord::Migration
   def change
-    add_column :payloads, :user_environment_id, :integer
+    add_reference :payloads, :user_environment, index: true, foreign_key: true
   end
 end
