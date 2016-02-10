@@ -37,7 +37,7 @@ class PayloadRequestTest < Minitest::Test
     referrer = Referrer.create(referred_by: payload[:referredBy])
     url_request = UrlRequest.create(url: "something", requestType: "stuff", parameters: "array")
     user_agent = UserAgent.create(browser: "dkfjsdfj", os: "kdjfj")
-    resolution = Resolution.create(resolutionWidth: "sjdf", resolutionHeight: "djsff")
+    resolution = Resolution.create(resolution_width: "sjdf", resolution_height: "djsff")
     ip_address = IpAddress.create(ip: "ddkfjd")
     test_payload = PayloadRequest.create(requested_at: payload[:requestedAt],
                                     responded_in: payload[:respondedIn])

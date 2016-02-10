@@ -6,8 +6,8 @@ class ResolutionTest < Minitest::Test
   def test_has_attributes
     resolution = Resolution.new
 
-    assert_respond_to resolution, :resolutionWidth
-    assert_respond_to resolution, :resolutionHeight
+    assert_respond_to resolution, :resolution_width
+    assert_respond_to resolution, :resolution_height
   end
 
   def test_does_not_save_with_empty_attributes
