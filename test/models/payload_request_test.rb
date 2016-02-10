@@ -14,6 +14,13 @@ class PayloadRequestTest < Minitest::Test
     assert_respond_to pr, :user_agent
     assert_respond_to pr, :resolution
     assert_respond_to pr, :ip
+    assert_respond_to pr, :url_id
+    assert_respond_to pr, :referrer_id
+    assert_respond_to pr, :request_id
+    assert_respond_to pr, :event_id
+    assert_respond_to pr, :user_agent_id
+    assert_respond_to pr, :resolution_id
+    assert_respond_to pr, :ip_id
   end
 
   def test_can_add_a_payload_request_to_database
@@ -33,6 +40,13 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "1920", pr.resolution.width
     assert_equal "1280", pr.resolution.height
     assert_equal "63.29.38.211", pr.ip.address
+    assert_equal 1, pr.url_id
+    assert_equal 1, pr.referrer_id
+    assert_equal 1, pr.request_id
+    assert_equal 1, pr.event_id
+    assert_equal 1, pr.user_agent_id
+    assert_equal 1, pr.resolution_id
+    assert_equal 1, pr.ip_id
   end
 
   def test_will_not_create_payload_request_without_all_params
