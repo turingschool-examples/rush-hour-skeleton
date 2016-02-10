@@ -34,7 +34,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_creates_relationships
-    referrer = Referrer.create(referredBy: payload[:referredBy])
+    referrer = Referrer.create(referred_by: payload[:referredBy])
     url_request = UrlRequest.create(url: "something", requestType: "stuff", parameters: "array")
     user_agent = UserAgent.create(browser: "dkfjsdfj", os: "kdjfj")
     resolution = Resolution.create(resolutionWidth: "sjdf", resolutionHeight: "djsff")
