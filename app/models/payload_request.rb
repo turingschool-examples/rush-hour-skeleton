@@ -1,4 +1,5 @@
 class PayloadRequest < ActiveRecord::Base
+  # belongs_to :url
 
   validates :url, presence: true
   validates :requestedAt, presence: true
