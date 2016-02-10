@@ -6,7 +6,7 @@ class ReferrerTest < Minitest::Test
   def test_it_has_referred_by_attribute
     referrer = Referrer.new
 
-    assert_respond_to referrer, :referredBy
+    assert_respond_to referrer, :referred_by
   end
 
   def test_attribute_must_be_present_when_saving

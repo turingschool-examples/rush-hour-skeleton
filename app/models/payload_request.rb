@@ -5,9 +5,9 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :resolution
   belongs_to :ip_address
 
-  validates :requestedAt, presence: true
-  validates :respondedIn, presence: true
-  validates :eventName, presence: true
+  validates :requested_at, presence: true
+  validates :responded_in, presence: true
+  validates :event_name, presence: true
   # validates :resolution_id, presence: true
   # validates :referrer_id, presence: true
   # validates :url_request_id, presence: true

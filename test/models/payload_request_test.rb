@@ -6,13 +6,13 @@ class PayloadRequestTest < Minitest::Test
   def test_payload_has_the_attributes
     payload_request = PayloadRequest.new
 
-    assert_respond_to payload_request, :requestedAt
-    assert_respond_to payload_request, :respondedIn
+    assert_respond_to payload_request, :requested_at
+    assert_respond_to payload_request, :responded_in
     assert_respond_to payload_request, :resolution_id
     assert_respond_to payload_request, :referrer_id
     assert_respond_to payload_request, :url_request_id
     assert_respond_to payload_request, :user_agent_id
-    assert_respond_to payload_request, :eventName
+    assert_respond_to payload_request, :event_name
   end
 
   def test_attributes_must_be_present_when_saving
@@ -24,23 +24,23 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_payload_request_has_attribute_values
-    payload_request = PayloadRequest.new(respondedIn: payload[:respondedIn],
-                           requestedAt: payload[:requestedAt],
-                           eventName:   payload[:eventName])
+    payload_request = PayloadRequest.new(responded_in: payload[:respondedIn],
+                           requested_at: payload[:requestedAt],
+                           event_name:   payload[:eventName])
 
-    assert_equal "2013-02-16 21:38:28 -0700", payload_request.requestedAt
-    assert_equal 37, payload_request.respondedIn
-    assert_equal "socialLogin", payload_request.eventName
+    assert_equal "2013-02-16 21:38:28 -0700", payload_request.requested_at
+    assert_equal 37, payload_request.responded_in
+    assert_equal "socialLogin", payload_request.event_name
   end
 
   def test_creates_relationships
-    referrer = Referrer.create(referredBy: payload[:referredBy])
-    url_request = UrlRequest.create(url: "something", requestType: "stuff", parameters: "array")
+    referrer = Referrer.create(referred_by: payload[:referredBy])
+    url_request = UrlRequest.create(url: "something", request_type: "stuff", parameters: "array")
     user_agent = UserAgent.create(browser: "dkfjsdfj", os: "kdjfj")
-    resolution = Resolution.create(resolutionWidth: "sjdf", resolutionHeight: "djsff")
+    resolution = Resolution.create(resolution_width: "sjdf", resolution_height: "djsff")
     ip_address = IpAddress.create(ip: "ddkfjd")
-    test_payload = PayloadRequest.create(requestedAt: payload[:requestedAt],
-                                    respondedIn: payload[:respondedIn])
+    test_payload = PayloadRequest.create(requested_at: payload[:requestedAt],
+                                    responded_in: payload[:respondedIn])
 
     test_payload.update(referrer_id: referrer.id)
     test_payload.update(url_request_id: url_request.id)
