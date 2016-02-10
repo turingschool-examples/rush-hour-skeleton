@@ -24,9 +24,9 @@ class RequestTypeTest < Minitest::Test
   end
 
   def test_return_most_frequent_request_type
-    skip
     setup_1
     assert_equal "GET", RequestType.most_frequent_request_type
+
   end
 
   def test_returns_list_of_all_verbs_used_ever
