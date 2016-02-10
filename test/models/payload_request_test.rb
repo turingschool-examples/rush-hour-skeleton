@@ -54,4 +54,11 @@ class PayloadRequestTest < Minitest::Test
     assert_equal resolution.id, test_payload.resolution.id
     assert_equal ip_address.id, test_payload.ip_address.id
   end
+
+  def test_calculates_avg_response_time
+    create_payload_request(30)
+    create_payload_request(50)
+    
+    assert_equal 40, PayloadRequest.average_response_time
+  end
 end

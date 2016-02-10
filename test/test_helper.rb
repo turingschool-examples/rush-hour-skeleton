@@ -39,4 +39,10 @@ module TestHelpers
     DatabaseCleaner.clean
     super
   end
+
+  def create_payload_request(responded_in)
+   PayloadRequest.create(requested_at: payload[:requestedAt],
+                                   responded_in: responded_in,
+                                   event_name: payload[:eventName])
+   end
 end
