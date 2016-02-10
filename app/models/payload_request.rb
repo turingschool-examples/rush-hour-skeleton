@@ -16,5 +16,9 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :user_agent
   belongs_to :resolution
   belongs_to :url
-  belongs_to :ip 
+  belongs_to :ip
+
+  def self.average_response_time
+    PayloadRequest.average(:responded_in).round(2)
+  end
 end

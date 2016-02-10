@@ -86,13 +86,39 @@ class PayloadRequestTest < Minitest::Test
 end
 
 
-# class CalculationsOnPayloadRequestTest< Minitest::Test
-#   include TestHelpers
-#
-#   def test_average_response_time_all_requests
-#     #setup
-#     pr1 =
-#     #actions
-#     #assertions
-#   end
-# end
+class CalculationsOnPayloadRequestTest< Minitest::Test
+  include TestHelpers
+
+  def test_average_response_time_all_requests
+    #setup
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:respondedIn] = 40
+    rp3 = raw_payload
+    rp3[:respondedIn] = 20
+    #require 'pry';binding.pry
+    #actions
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+
+    #assertions
+    assert_equal 32.33, PayloadRequest.average_response_time
+  end
+
+  def raw_payload
+    ({
+      "url":"http://jumpstartlab.com/blog",
+      "requestedAt":"2013-02-16 21:38:28 -0700",
+      "respondedIn":37,
+      "referredBy":"http://jumpstartlab.com",
+      "requestType":"GET",
+      "parameters":[],
+      "eventName": "socialLogin",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"63.29.38.211"
+    })
+  end
+end
