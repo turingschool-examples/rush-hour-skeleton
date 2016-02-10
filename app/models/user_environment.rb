@@ -1,4 +1,5 @@
 class UserEnvironment < ActiveRecord::Base
   has_many :payloads
-  validates :userAgent, presence: true
+  validates :browser, presence: true
+  validates :os, presence: true
 end
