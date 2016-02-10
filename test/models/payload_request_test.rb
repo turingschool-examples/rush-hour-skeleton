@@ -38,6 +38,7 @@ class PayloadRequestTest < Minitest::Test
     url_request = UrlRequest.create(url: "something", requestType: "stuff", parameters: "array")
     user_agent = UserAgent.create(browser: "dkfjsdfj", os: "kdjfj")
     resolution = Resolution.create(resolutionWidth: "sjdf", resolutionHeight: "djsff")
+    ip_address = IpAddress.create(ip: "ddkfjd")
     test_payload = PayloadRequest.create(requestedAt: payload[:requestedAt],
                                     respondedIn: payload[:respondedIn])
 
@@ -45,10 +46,12 @@ class PayloadRequestTest < Minitest::Test
     test_payload.update(url_request_id: url_request.id)
     test_payload.update(user_agent_id: user_agent.id)
     test_payload.update(resolution_id: resolution.id)
+    test_payload.update(ip_address_id: ip_address.id)
 
     assert_equal referrer.id, test_payload.referrer.id
     assert_equal url_request.id, test_payload.url_request.id
     assert_equal user_agent.id, test_payload.user_agent.id
     assert_equal resolution.id, test_payload.resolution.id
+    assert_equal ip_address.id, test_payload.ip_address.id
   end
 end
