@@ -15,4 +15,5 @@ group :development, :test do
   gem 'rake'
   gem 'pry'
   gem 'pry-nav'
+  gem 'database_cleaner'
 end
