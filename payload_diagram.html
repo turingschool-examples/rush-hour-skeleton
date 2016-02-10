@@ -37,52 +37,52 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="160" y="201" name="Payload">
+</datatypes><table x="50" y="174" name="Payload">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="url" null="1" autoincrement="0">
-<datatype>VARCHAR(32)</datatype>
-<default>NULL</default></row>
-<row name="requestedAt" null="1" autoincrement="0">
+<row name="url_id" null="1" autoincrement="0">
+<datatype>INTEGER(32)</datatype>
+<default>NULL</default><relation table="urls" row="id" />
+</row>
+<row name="requested_at" null="1" autoincrement="0">
 <datatype>DATETIME(32)</datatype>
 <default>NULL</default></row>
-<row name="respondedIn" null="1" autoincrement="0">
+<row name="responded_in" null="1" autoincrement="0">
 <datatype>VARCHAR(32)</datatype>
 <default>NULL</default></row>
-<row name="referredBy" null="1" autoincrement="0">
-<datatype>VARCHAR(32)</datatype>
-<default>NULL</default></row>
+<row name="referred_id" null="1" autoincrement="0">
+<datatype>INTEGER(32)</datatype>
+<default>NULL</default><relation table="referreds" row="id" />
+</row>
 <row name="parameters" null="1" autoincrement="0">
 <datatype>VARCHAR(32)</datatype>
 <default>NULL</default></row>
-<row name="eventName" null="1" autoincrement="0">
-<datatype>VARCHAR(32)</datatype>
-<default>NULL</default></row>
-<row name="ip" null="1" autoincrement="0">
-<datatype>VARCHAR(32)</datatype>
-<default>NULL</default></row>
-<row name="id_requestType" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="requestType" row="id" />
+<row name="event_name_id" null="1" autoincrement="0">
+<datatype>INTEGER(32)</datatype>
+<default>NULL</default><relation table="event names" row="id" />
 </row>
-<row name="id_browser" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="browser" row="id" />
+<row name="ip_id" null="1" autoincrement="0">
+<datatype>INTEGER(32)</datatype>
+<default>NULL</default><relation table="ips" row="id" />
 </row>
-<row name="id_OS" null="1" autoincrement="0">
+<row name="request_type_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="OS" row="id" />
+<default>NULL</default><relation table="request types" row="id" />
 </row>
-<row name="id_screenResolution" null="1" autoincrement="0">
+<row name="screen_resolution_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="screenResolution" row="id" />
+<default>NULL</default><relation table="screen resolutions" row="id" />
+</row>
+<row name="user_agent_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="urser agents" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="588" y="82.57142857142856" name="requestType">
+<table x="867" y="299" name="request types">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -93,34 +93,70 @@
 <part>id</part>
 </key>
 </table>
-<table x="646" y="247.57142857142858" name="browser">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="type" null="1" autoincrement="0">
-<datatype>VARCHAR(32)</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="656" y="382.57142857142856" name="OS">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="type" null="1" autoincrement="0">
-<datatype>VARCHAR(32)</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="665" y="565.5714285714286" name="screenResolution">
+<table x="854" y="392" name="screen resolutions">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="size" null="1" autoincrement="0">
 <datatype>VARCHAR(32)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="851" y="493" name="urser agents">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="browser" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="os" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="888" y="214" name="ips">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="address" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="878" y="129" name="event names">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="319" y="56" name="urls">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="route" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="576" y="69" name="referreds">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
