@@ -13,4 +13,6 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :referrer
   belongs_to :request
   belongs_to :event
+  belongs_to :user_agent
+  belongs_to :resolution 
 end

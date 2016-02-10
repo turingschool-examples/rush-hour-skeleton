@@ -17,7 +17,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_can_add_a_payload_request_to_database
-    skip
+
     pr0 = PayloadRequest.new(example_payload)
     assert pr0.save
 
