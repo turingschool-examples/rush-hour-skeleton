@@ -1,7 +1,8 @@
 class CreateUserEnvironments < ActiveRecord::Migration
   def change
     create_table :user_environments do |t|
-      t.string :userAgent
+      t.string   :browser
+      t.string   :os
 
       t.timestamps null: false
     end

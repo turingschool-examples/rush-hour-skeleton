@@ -16,21 +16,21 @@ ActiveRecord::Schema.define(version: 20160209232531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "event_names", force: :cascade do |t|
-    t.string   "eventName"
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "ips", force: :cascade do |t|
-    t.string   "ip"
+    t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "payloads", force: :cascade do |t|
-    t.string   "requestedAt"
-    t.integer  "respondedIn"
+    t.string   "requested_at"
+    t.integer  "response_time"
     t.text     "parameters",          default: [],              array: true
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -38,12 +38,12 @@ ActiveRecord::Schema.define(version: 20160209232531) do
     t.integer  "request_type_id"
     t.integer  "ip_id"
     t.integer  "url_id"
-    t.integer  "event_name_id"
+    t.integer  "event_id"
     t.integer  "resolution_id"
     t.integer  "refer_id"
   end
 
-  add_index "payloads", ["event_name_id"], name: "index_payloads_on_event_name_id", using: :btree
+  add_index "payloads", ["event_id"], name: "index_payloads_on_event_id", using: :btree
   add_index "payloads", ["ip_id"], name: "index_payloads_on_ip_id", using: :btree
   add_index "payloads", ["refer_id"], name: "index_payloads_on_refer_id", using: :btree
   add_index "payloads", ["request_type_id"], name: "index_payloads_on_request_type_id", using: :btree
@@ -52,37 +52,38 @@ ActiveRecord::Schema.define(version: 20160209232531) do
   add_index "payloads", ["user_environment_id"], name: "index_payloads_on_user_environment_id", using: :btree
 
   create_table "refers", force: :cascade do |t|
-    t.string   "referredBy"
+    t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "request_types", force: :cascade do |t|
-    t.string   "requestType"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "verb"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "resolutions", force: :cascade do |t|
-    t.string   "resolutionWidth"
-    t.string   "resolutionHeight"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "width"
+    t.string   "height"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "urls", force: :cascade do |t|
-    t.string   "url"
+    t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "user_environments", force: :cascade do |t|
-    t.string   "userAgent"
+    t.string   "browser"
+    t.string   "os"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "payloads", "event_names"
+  add_foreign_key "payloads", "events"
   add_foreign_key "payloads", "ips"
   add_foreign_key "payloads", "refers"
   add_foreign_key "payloads", "request_types"

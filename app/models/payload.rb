@@ -1,13 +1,13 @@
 class Payload < ActiveRecord::Base
-  validates :requestedAt, presence: true
-  validates :respondedIn, presence: true
-  validates :referredBy, presence: true
-  validates :parameters, presence: true
+  validates  :requested_at, presence: true
+  validates  :response_time, presence: true
+  validates  :parameters, presence: true
   # has many parameters
-  belongs_to :event_names
-  belongs_to :ips
-  belongs_to :refers
-  belongs_to :resolutions
-  belongs_to :urls
-  belongs_to :user_environments
+  belongs_to :event
+  belongs_to :ip
+  belongs_to :refer
+  belongs_to :resolution
+  belongs_to :url
+  belongs_to :user_environment
+  belongs_to :request_type
 end
