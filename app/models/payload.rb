@@ -53,5 +53,5 @@ class Payload < ActiveRecord::Base
   def self.screen_resolution_breakdown
     ScreenResolution.pluck(:size)
   end
-  
+
 end
