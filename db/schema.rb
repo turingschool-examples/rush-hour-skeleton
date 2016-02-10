@@ -11,33 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210002823) do
+ActiveRecord::Schema.define(version: 20160210021229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "event_name", force: :cascade do |t|
+  create_table "event_names", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "ip", force: :cascade do |t|
+  create_table "ips", force: :cascade do |t|
     t.string "address"
   end
 
   create_table "payloads", force: :cascade do |t|
-    t.string  "url"
-    t.string  "requestedAt"
-    t.string  "respondedIn"
-    t.string  "referredBy"
+    t.string  "url_id"
+    t.string  "requested_at"
+    t.string  "responded_in"
+    t.string  "referred_id"
     t.string  "parameters"
-    t.string  "eventName"
-    t.string  "ip"
+    t.string  "event_name_id"
+    t.string  "ip_id"
     t.integer "request_type_id"
     t.integer "screen_resolution_id"
     t.integer "user_agent_id"
   end
 
-  create_table "referrred", force: :cascade do |t|
+  create_table "referreds", force: :cascade do |t|
     t.string "name"
   end
 
@@ -45,15 +45,15 @@ ActiveRecord::Schema.define(version: 20160210002823) do
     t.string "verb"
   end
 
-  create_table "screen_resolution", force: :cascade do |t|
+  create_table "screen_resolutions", force: :cascade do |t|
     t.string "size"
   end
 
-  create_table "url", force: :cascade do |t|
+  create_table "urls", force: :cascade do |t|
     t.string "route"
   end
 
-  create_table "user_agent", force: :cascade do |t|
+  create_table "user_agents", force: :cascade do |t|
     t.string "browser"
     t.string "os"
   end

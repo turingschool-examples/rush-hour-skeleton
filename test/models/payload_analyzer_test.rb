@@ -6,7 +6,7 @@ class PayloadAnalyzerTest < Minitest::Test
   def test_payload_parser
     parser = PayloadAnalyzer.new
     parsed_payload = parser.parse(random_payload)
-    assert_equal "http://jumpstartlab.com/about", parsed_payload[:url]
+    assert_equal "http://jumpstartlab.com/about", Payload.all.first.url.kind
   end
 
 
