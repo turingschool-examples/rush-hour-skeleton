@@ -4,7 +4,7 @@ class PayloadAnalyzer
 
   def parse(raw_payload)
     user_agent = UserAgentParser.parse(raw_payload.delete(:userAgent))
-    os = user_agent.os
+    os = user_agent.os.to_s
     browser = user_agent.to_s
     resolution = resolution_parse(raw_payload.delete(:resolutionWidth), raw_payload.delete(:resolutionHeight))
     verb = raw_payload.delete(:requestType)
@@ -31,4 +31,12 @@ class PayloadAnalyzer
     width + "x" + height
   end
 
+  def average_response_time
+    Payload.sum(:responded_in) / Payload.count
+  end
+
+  def max_response_time
+    Payload.maximum(:responded_in).to_f
+  end
+  
 end
