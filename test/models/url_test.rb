@@ -20,4 +20,5 @@ class UrlTest < Minitest::Test
     d = Url.new address: nil
     assert_nil d.address
   end
+
 end
