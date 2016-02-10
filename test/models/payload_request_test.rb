@@ -75,4 +75,10 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal 30, PayloadRequest.min_response_time
   end
+
+  def test_most_frequent_request_type
+    create_payload_with_associations
+
+    assert_equal "GET", PayloadRequest.most_frequent_request_type
+  end
 end

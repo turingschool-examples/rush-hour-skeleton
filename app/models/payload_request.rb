@@ -20,4 +20,13 @@ class PayloadRequest < ActiveRecord::Base
   def self.min_response_time
     minimum("responded_in")
   end
+
+  def self.most_frequent_request_type
+    most_freq_url_id = group("url_request_id")
+                      .order('count(*) DESC')
+                      .limit(1)
+                      .pluck(:url_request_id)
+                      .first
+    UrlRequest.find(most_freq_url_id).request_type
+  end
 end
