@@ -12,4 +12,5 @@ class PayloadRequest < ActiveRecord::Base
 
   belongs_to :referrer
   belongs_to :request
+  belongs_to :event
 end
