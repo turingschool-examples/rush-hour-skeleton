@@ -2,62 +2,52 @@ require_relative "../test_helper"
 
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
+
   def test_all_attributes_exist
     pr = PayloadRequest.new
     assert_respond_to pr, :url
-    assert_respond_to pr, :requestedAt
-    assert_respond_to pr, :respondedIn
-    assert_respond_to pr, :referredBy
-    assert_respond_to pr, :requestType
-    assert_respond_to pr, :parameters
-    assert_respond_to pr, :eventName
-    assert_respond_to pr, :userAgent
-    assert_respond_to pr, :resolutionWidth
-    assert_respond_to pr, :resolutionHeight
+    assert_respond_to pr, :requested_at
+    assert_respond_to pr, :responded_in
+    assert_respond_to pr, :referrer
+    assert_respond_to pr, :request
+    assert_respond_to pr, :event
+    assert_respond_to pr, :user_agent
+    assert_respond_to pr, :resolution
     assert_respond_to pr, :ip
   end
 
   def test_can_add_a_payload_request_to_database
-    PayloadRequest.create ({"url":"http://jumpstartlab.com/blog",
-    "requestedAt":"2013-02-16 21:38:28 -0700",
-    "respondedIn":37,
-    "referredBy":"http://jumpstartlab.com",
-    "requestType":"GET",
-    "parameters": [],
-    "eventName": "socialLogin",
-    "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    "resolutionWidth":"1920",
-    "resolutionHeight":"1280",
-    "ip":"63.29.38.211"})
+
+    pr0 = PayloadRequest.new(example_payload)
+    assert pr0.save
 
     pr = PayloadRequest.all.first
     assert_equal 1, PayloadRequest.all.count
-    assert_equal "GET", pr.requestType
-  end
-
-  def test_parameters_has_empty_array_loaded_by_default
-    pr = PayloadRequest.new()
-    assert_equal [], pr.parameters
-
-    payload = example_payload
-    payload.delete(:parameters)
-    assert_nil payload[:parameters]
-    pr = PayloadRequest.new(payload)
-    assert_equal [], pr.parameters
+    assert_equal 'http://jumpstartlab.com/blog', pr.url.address
+    assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at
+    assert_equal 37, pr.responded_in
+    assert_equal 'http://jumpstartlab.com', pr.referrer.address
+    assert_equal "GET", pr.request.verb
+    assert_equal "socialLogin", pr.event.name
+    assert_equal "Chrome", pr.user_agent.browser
+    assert_equal "Macintosh", pr.user_agent.platform
+    assert_equal "1920", pr.resolution.width
+    assert_equal "1280", pr.resolution.height
+    assert_equal "63.29.38.211", pr.ip.address
   end
 
   def test_will_not_create_payload_request_without_all_params
+    skip
     example_payload.keys.each do |key|
-      unless key == :parameters
-        payload = example_payload
-        payload.delete(key)
-        PayloadRequest.create(payload)
-        assert_equal 0, PayloadRequest.all.count
-      end
+      payload = example_payload
+      payload.delete(key)
+      PayloadRequest.create(payload)
+      assert_equal 0, PayloadRequest.all.count
     end
   end
 
   def test_will_not_create_payload_request_when_request_details_are_empty
+    skip
     example_payload.each do |key,value|
       if value.class == String
         payload = example_payload
@@ -69,19 +59,17 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def example_payload
-    payload = {
-      "url":"http://jumpstartlab.com/blog",
-      "requestedAt":"2013-02-16 21:38:28 -0700",
-      "respondedIn":37,
-      "referredBy":"http://jumpstartlab.com",
-      "requestType":"GET",
-      "parameters":[],
-      "eventName": "socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
-      "ip":"63.29.38.211"
-    }
+    ({
+      url: Url.find_or_create_by(address: 'http://jumpstartlab.com/blog'),
+      requested_at: "2013-02-16 21:38:28 -0700",
+      responded_in: 37,
+      referrer: Referrer.find_or_create_by(address: 'http://jumpstartlab.com'),
+      request: Request.find_or_create_by(verb: "GET"),
+      event: Event.find_or_create_by(name: 'socialLogin'),
+      user_agent: UserAgent.find_or_create_by(browser: "Chrome", platform: "Macintosh"),
+      resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
+      ip: Ip.find_or_create_by(address: "63.29.38.211")
+    })
   end
 
 end

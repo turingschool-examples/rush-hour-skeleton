@@ -11,23 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209012925) do
+ActiveRecord::Schema.define(version: 20160210034216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "payload_requests", force: :cascade do |t|
     t.string  "url"
-    t.string  "requestedAt"
-    t.integer "respondedIn"
-    t.string  "referredBy"
-    t.string  "requestType"
-    t.string  "parameters",       default: [], array: true
-    t.string  "eventName"
-    t.string  "userAgent"
-    t.string  "resolutionWidth"
-    t.string  "resolutionHeight"
+    t.string  "requested_at"
+    t.integer "responded_in"
+    t.string  "referrer_id"
+    t.string  "request_id"
+    t.string  "parameters",    default: [], array: true
+    t.string  "event_id"
+    t.string  "user_agent_id"
+    t.string  "resolution_id"
     t.string  "ip"
+  end
+
+  create_table "referrers", force: :cascade do |t|
+    t.string "address"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string "verb"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.string "address"
   end
 
 end
