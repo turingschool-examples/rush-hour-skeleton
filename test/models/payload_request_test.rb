@@ -84,3 +84,15 @@ class PayloadRequestTest < Minitest::Test
   end
 
 end
+
+
+# class CalculationsOnPayloadRequestTest< Minitest::Test
+#   include TestHelpers
+#
+#   def test_average_response_time_all_requests
+#     #setup
+#     pr1 =
+#     #actions
+#     #assertions
+#   end
+# end
