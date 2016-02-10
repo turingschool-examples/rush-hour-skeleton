@@ -23,7 +23,6 @@ class PayloadRequestTest < Minitest::Test
                           width: "1920",
                           height: "1280").id,
       ip_id:            Ip.create(ip_address: "63.29.38.211").id
-
     }
 
     payload2 = {
@@ -56,7 +55,6 @@ class PayloadRequestTest < Minitest::Test
                           width: "1920",
                           height: "1280").id,
       ip_id:            Ip.create(ip_address: "63.29.38.211").id
-
     }
 
     pr1 = PayloadRequest.create(payload1)
@@ -65,25 +63,19 @@ class PayloadRequestTest < Minitest::Test
     [pr1, pr2, pr3]
   end
 
-  def test_payload_request_assigned_correctly
-    payload = {
-      url_id:           Url.create(address: "http://jumpstartlab.com/tutorials").id,
-      requested_at:     "2013-02-16 21:38:28 -0700",
-      responded_in:     37,
-      referrer_url_id:  ReferrerUrl.create(url_address: "http://jumpstartlab.com").id,
-      request_type_id:  RequestType.create(verb: "GET").id,
-      parameters:       [],
-      event_name_id:    EventName.create(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
-       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
-      resolution_id:    Resolution.create(
-                          width: "1920",
-                          height: "1280").id,
-      ip_id:            Ip.create(ip_address: "63.29.38.211").id
-    }
-    pr = PayloadRequest.create(payload)
+  def test_payload_request_assigns_all_values_correctly
+    pr = create_three_payloads[0]
 
+    assert_equal 1, pr.url_id
     assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at
+    assert_equal 30, pr.responded_in
+    assert_equal 1, pr.referrer_url_id
+    assert_equal 1, pr.request_type_id
+    assert_equal "[]", pr.parameters
+    assert_equal 1, pr.event_name_id
+    assert_equal 1, pr.user_agent_id
+    assert_equal 1, pr.resolution_id
+    assert_equal 1, pr.ip_id
   end
 
   def test_payload_cannot_be_created_without_ip_address
