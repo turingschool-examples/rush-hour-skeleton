@@ -30,7 +30,7 @@ module TestHelpers
       ip_id: Ip.create(address: "63.29.38.211").id,
       refer_id: Refer.create(address: "http://google.com").id,
       resolution_id: Resolution.create(width: "1000", height: "1000").id,
-      url_id: Url.create(address: "http://jumpstartlab.com/blog").id,
+      url_id: Url.create(address: "http://jumpstartlab.com").id,
       user_environment_id: UserEnvironment.create(browser: "Mozilla", os: "windows").id,
       request_type_id: RequestType.create(verb: "POST").id
     }

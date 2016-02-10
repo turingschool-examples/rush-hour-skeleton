@@ -1,6 +1,8 @@
 require_relative '../test_helper'
 
 class UrlTest < Minitest::Test
+  include TestHelpers
+
   def test_responds_to_payloads
     e = Url.create(address: "http://www.google.com")
 
@@ -20,5 +22,11 @@ class UrlTest < Minitest::Test
     d = Url.new address: nil
     assert_nil d.address
   end
+
+  def test_list_frequency_of_URLS_from_most_to_least
+    setup_1
+    assert_equal "", Url.list_frequency_urls
+  end
+
 
 end
