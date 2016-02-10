@@ -3,7 +3,6 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
 
   def self.list_frequency_urls
-    binding.pry
-    self.order(:address).count
+    self.group(:address).order("count_address desc").count("address")
   end
 end

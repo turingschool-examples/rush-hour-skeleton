@@ -8,8 +8,9 @@ class RequestType < ActiveRecord::Base
   end
 
   def self.most_frequent_request_type
-    verbs = self.group(:verb).count
-    verbs.max_by {|k, v| v}.first
+    # verbs = self.group(:verb).count
+    # verbs.max_by {|k, v| v}.first
+    self.group(:verb).order("count_verb desc").count("verb").first[0]
   end
 
   def self.returns_list_verbs
