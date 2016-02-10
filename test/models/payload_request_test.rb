@@ -68,4 +68,11 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal 50, PayloadRequest.max_response_time
   end
+
+  def test_calculates_min_response_time
+    create_payload_request(30)
+    create_payload_request(50)
+
+    assert_equal 30, PayloadRequest.min_response_time
+  end
 end
