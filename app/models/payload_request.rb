@@ -14,5 +14,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :request
   belongs_to :event
   belongs_to :user_agent
-  belongs_to :resolution 
+  belongs_to :resolution
+  belongs_to :url
+  belongs_to :ip 
 end
