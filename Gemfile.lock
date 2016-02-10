@@ -43,6 +43,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rake (10.5.0)
     ripl (0.7.1)
       bond (~> 0.5.1)
     ripl-multi_line (0.3.1)
@@ -84,6 +85,7 @@ DEPENDENCIES
   minitest
   pg
   rack-test
+  rake
   shotgun
   sinatra
   sinatra-activerecord

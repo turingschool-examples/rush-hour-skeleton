@@ -30,13 +30,5 @@ class PayloadAnalyzer
   def resolution_parse(width, height)
     width + "x" + height
   end
-
-  def average_response_time
-    Payload.sum(:responded_in) / Payload.count
-  end
-
-  def max_response_time
-    Payload.maximum(:responded_in).to_f
-  end
   
 end

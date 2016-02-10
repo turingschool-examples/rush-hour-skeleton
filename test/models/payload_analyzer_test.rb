@@ -10,20 +10,11 @@ class PayloadAnalyzerTest < Minitest::Test
   end
 
   def test_payload_parser
-    analyzer.parse(random_payloads.first)
-    assert_equal "http://jumpstartlab.com/about", Payload.all.first.url.route
+    create_payloads(1)
+    assert_equal "http://jumpstartlab.com/blog", Payload.all.first.url.route
     assert_equal 67, Payload.all.first.responded_in
     assert_equal "socialLogin", Payload.all.first.event_name.name
-  end
-
-  def test_it_finds_the_average_response_time_across_requests
-    random_payloads.each { |payload| analyzer.parse(payload) }
-    assert_equal 52.0, analyzer.average_response_time
-  end
-
-  def test_it_finds_max_response_time
-    random_payloads.each { |payload| analyzer.parse(payload) }
-    assert_equal 67.0, analyzer.max_response_time
+    assert_equal "1920x1280", Payload.all.first.screen_resolution.size
   end
 
 end

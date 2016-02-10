@@ -1,4 +1,5 @@
 # specify which database and adapter to use for which environment
+#view using psql <table name below> and \dt to view the table
 
 development:
   adapter: postgresql
