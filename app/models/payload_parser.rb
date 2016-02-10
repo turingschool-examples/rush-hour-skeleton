@@ -1,11 +1,5 @@
 require 'user_agent_parser'
 class PayloadParser
-  # attr_reader :data
-  #
-  # def initialize(data)
-  #   @data = data
-  # end
-
   def self.parse(data)
     ua = UserAgentParser.parse(data[:userAgent])
     ({
