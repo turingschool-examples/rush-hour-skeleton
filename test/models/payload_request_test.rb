@@ -17,7 +17,6 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_can_add_a_payload_request_to_database
-
     pr0 = PayloadRequest.new(example_payload)
     assert pr0.save
 
@@ -37,7 +36,6 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_will_not_create_payload_request_without_all_params
-    skip
     example_payload.keys.each do |key|
       payload = example_payload
       payload.delete(key)
@@ -47,7 +45,6 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_will_not_create_payload_request_when_request_details_are_empty
-    skip
     example_payload.each do |key,value|
       if value.class == String
         payload = example_payload
