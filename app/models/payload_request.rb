@@ -22,11 +22,16 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.most_frequent_request_type
+    #needs refactoring
     most_freq_url_id = group("url_request_id")
                       .order('count(*) DESC')
                       .limit(1)
                       .pluck(:url_request_id)
                       .first
     UrlRequest.find(most_freq_url_id).request_type
+  end
+
+  def self.list_verbs
+    UrlRequest.pluck(:request_type)
   end
 end
