@@ -27,5 +27,6 @@ class EventNameTest < Minitest::Test
     pr = PayloadRequest.create(payload1)
 
     assert_equal "socialLogin", EventName.find(1).event_name
+    assert_equal 1, pr.event_name_id
   end
 end
