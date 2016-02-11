@@ -45,4 +45,9 @@ class PayloadRequest < ActiveRecord::Base
     user_agent_ids = pluck(:user_agent_id)
     user_agent_ids.map { |id| UserAgent.find(id).browser }
   end
+
+  def self.os_breakdown
+    user_agent_ids = pluck(:user_agent_id)
+    user_agent_ids.map { |id| UserAgent.find(id).os }
+  end
 end
