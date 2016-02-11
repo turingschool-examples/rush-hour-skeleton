@@ -103,7 +103,15 @@ class PayloadTest < Minitest::Test
     client_url = "http://jumpstartlab.com"
     setup_1
     verbs = Payload.verbs_given_url(client_url)
-    assert_equal ["POST", "GET"], verbs 
+    assert_equal ["POST", "GET"], verbs
+  end
+
+  def test_three_most_popular_refers
+    skip
+    client_url = "http://jumpstartlab.com"
+    setup_1
+    referrers = Payload.three_most_popular_referrers(client_url)
+    assert_equal ["http://google.com", "http://turing.io"], referrers
   end
 
 end

@@ -44,4 +44,12 @@ class Payload < ActiveRecord::Base
     self.joins(:url).where("address = ?", single_url).average(:response_time).to_f
   end
 
+  def self.verbs_given_url(single_url)
+    self.joins(:url).where("address = ?", single_url).joins(:request_type).pluck(:verb)
+  end
+
+  # def self.three_most_popular_referrers(single_url)
+  #     self.joins(:url).where("address = ?", single_url AS url_address).joins(:refer).order("count_refer.address desc").count("refer.address")
+  # end
+
 end
