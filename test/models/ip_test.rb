@@ -1,6 +1,8 @@
 require_relative '../test_helper'
 
 class IpTest < Minitest::Test
+  include TestHelpers
+  
   def test_responds_to_payloads
     e = Ip.create(address: "10.10.0.01")
 

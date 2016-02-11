@@ -2,6 +2,7 @@ require_relative '../test_helper'
 
 class UserEnvironmentTest < Minitest::Test
   include TestHelpers
+
   def test_responds_to_payloads
     e = UserEnvironment.create(browser: "Chrome", os: "OS")
 
