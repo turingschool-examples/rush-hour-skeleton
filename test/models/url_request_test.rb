@@ -36,4 +36,15 @@ class UrlRequestTest < Minitest::Test
 
     assert_equal 10, url_request.min_response_time
   end
+
+  def test_ordered_response_times_for_specific_url
+    create_payload_requests_with_associations(responded_in: 50)
+    create_payload_requests_with_associations(responded_in: 30)
+    create_payload_requests_with_associations(responded_in: 10)
+    create_payload_requests_with_associations(responded_in: 50, url: "http://google.com")
+
+    url_request = UrlRequest.find_by(url: "http://jumpstartlab.com/blog")
+
+    assert_equal [50, 30, 10], url_request.ordered_response_times
+  end
 end
