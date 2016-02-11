@@ -16,4 +16,10 @@ class ResolutionTest < Minitest::Test
     refute resolution.save
     refute_equal 1, Resolution.all.count
   end
+
+  def test_resolution_for_all_requests
+    create_payload_with_associations
+
+    assert_equal [["1920", "1080"], ["1024", "768"], ["1024", "768"]], Resolution.resolution_breakdown
+  end
 end
