@@ -38,7 +38,6 @@ class ClientTest < Minitest::Test
   def test_has_ips
     client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
 
-
     client.payload_requests.create(requested_at: "first_req",
                                    responded_in: 30,
                                    event_name:   "first_event",
@@ -57,7 +56,6 @@ class ClientTest < Minitest::Test
   def test_has_referrrers
     client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
 
-
     client.payload_requests.create(requested_at: "first_req",
                                    responded_in: 30,
                                    event_name:   "first_event",
@@ -71,6 +69,40 @@ class ClientTest < Minitest::Test
     assert_equal 2, client.referrers.size
     assert          client.referrers.pluck(:referred_by).include?("google.com/1")
     assert          client.referrers.pluck(:referred_by).include?("google.com/9")
+  end
+
+  def test_has_resolutions
+    client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
+
+    client.payload_requests.create(requested_at: "first_req",
+                                   responded_in: 30,
+                                   event_name:   "first_event",
+                                   resolution_id: Resolution.create(resolution_width: "1920", resolution_height: "1080").id)
+
+    client.payload_requests.create(requested_at: "second_req",
+                                   responded_in: 35,
+                                   event_name:   "second_event",
+                                   resolution_id: Resolution.create(resolution_width:  "1280", resolution_height: "720").id)
+
+    assert_equal 2, client.resolutions.size
+    assert          client.resolutions.pluck(:resolution_width).include?("1920")
+    assert          client.resolutions.pluck(:resolution_height).include?("1080")
+    assert client.resolutions.pluck(:resolution_width).include?("1280")
+    assert          client.resolutions.pluck(:resolution_height).include?("720")
+  end
+
+  def test_has_url_requests
+    client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
+
+    client.payload_requests.create(requested_at: "tody", responded_in: 35, event_name: 'socialLogin', url_request_id: UrlRequest.create(url: "turing.io", parameters: "string").id)
+
+    client.payload_requests.create(requested_at: "tomorrow", responded_in: 35, event_name: 'socialLogin', url_request_id: UrlRequest.create(url: "google.com", parameters: "something").id)
+
+    assert_equal 2, client.url_requests.size
+    assert client.url_requests.pluck(:url).include?("turing.io")
+    assert client.url_requests.pluck(:parameters).include?("string")
+    assert client.url_requests.pluck(:url).include?("google.com")
+    assert client.url_requests.pluck(:parameters).include?("something")
   end
 
 end
