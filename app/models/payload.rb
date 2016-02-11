@@ -26,4 +26,6 @@ class Payload < ActiveRecord::Base
   def self.most_frequent_request_type
     self.maximum(:request_type_id)
   end
+
+  
 end

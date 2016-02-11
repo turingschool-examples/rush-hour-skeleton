@@ -5,4 +5,6 @@ class Url < ActiveRecord::Base
   def self.list_frequency_urls
     self.group(:address).order("count_address desc").count("address")
   end
+
+  
 end
