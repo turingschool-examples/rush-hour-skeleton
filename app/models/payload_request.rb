@@ -50,4 +50,8 @@ class PayloadRequest < ActiveRecord::Base
     user_agent_ids = pluck(:user_agent_id)
     user_agent_ids.map { |id| UserAgent.find(id).os }
   end
+
+  def self.event_name_breakdown
+    group(:event_name).order('count(*) DESC').pluck(:event_name)
+  end
 end
