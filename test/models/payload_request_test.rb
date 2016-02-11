@@ -102,4 +102,10 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal ["Windows", "Android", "Windows"], PayloadRequest.os_breakdown
   end
+
+  def test_resolution_for_all_requests
+    create_payload_with_associations
+
+    assert_equal [["1920", "1080"], ["1024", "768"], ["1024", "768"]], Resolution.resolution_breakdown
+  end
  end
