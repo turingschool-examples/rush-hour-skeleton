@@ -29,17 +29,15 @@ class PayloadRequest < ActiveRecord::Base
                       .limit(1)
                       .pluck(:url_request_id)
                       .first
+                      
     Verb.find(most_freq_url_id).request_type
-  end
-
-  def self.list_verbs
-    Verb.pluck(:request_type)
   end
 
   def self.most_frequent_urls
     most_freq_url_ids = group("url_request_id")
                       .order('count(*) DESC')
                       .pluck(:url_request_id)
-    most_freq_url_ids.map {|id| UrlRequest.find(id).url}
+
+    most_freq_url_ids.map { |id| UrlRequest.find(id).url }
   end
 end

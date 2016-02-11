@@ -85,15 +85,6 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "GET", PayloadRequest.most_frequent_request_type
   end
 
-  def test_list_all_used_http_verbs
-    create_payload_with_associations
-    verbs = PayloadRequest.list_verbs
-
-    assert_equal 2, verbs.count
-    assert verbs.include?("GET")
-    assert verbs.include?("POST")
-  end
-
   def test_list_of_urls_by_frequency_desc
     create_payload_with_associations
 
