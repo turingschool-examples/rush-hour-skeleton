@@ -15,4 +15,8 @@ class UrlRequest < ActiveRecord::Base
   def ordered_response_times
     payload_requests.order("responded_in DESC").pluck(:responded_in)
   end
+
+  def avg_response_time
+    payload_requests.average(:responded_in)
+  end
 end
