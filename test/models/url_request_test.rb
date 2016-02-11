@@ -16,4 +16,14 @@ class UrlRequestTest < Minitest::Test
     refute url_request.save
     refute_equal 1, UrlRequest.all.count
   end
+
+  def test_finds_max_response_time_for_specific_url
+    create_payload_requests_with_associations(responded_in: 37)
+    create_payload_requests_with_associations(responded_in: 50)
+    create_payload_requests_with_associations(responded_in: 10)
+
+    url_request = UrlRequest.all.first
+
+    assert_equal 50, url_request.max_response_time
+  end
 end

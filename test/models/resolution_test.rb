@@ -18,8 +18,10 @@ class ResolutionTest < Minitest::Test
   end
 
   def test_resolution_for_all_requests
-    create_payload_with_associations
+    create_payload_requests_with_associations(resolution_width: "1920", resolution_height: "1080")
+    create_payload_requests_with_associations(resolution_width: "1024", resolution_height: "768")
+    create_payload_requests_with_associations(resolution_width: "1024", resolution_height: "768")
 
-    assert_equal [["1920", "1080"], ["1024", "768"], ["1024", "768"]], Resolution.resolution_breakdown
+    assert_equal [["1920", "1080"], ["1024", "768"]], Resolution.resolution_breakdown
   end
 end

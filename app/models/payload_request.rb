@@ -8,7 +8,7 @@ class PayloadRequest < ActiveRecord::Base
 
   validates :requested_at, presence: true
   validates :responded_in, presence: true
-  validates :event_name, presence: true
+  validates :event_name,   presence: true
 
   def self.average_response_time
     average("responded_in")
@@ -23,14 +23,11 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.most_frequent_request_type
-    #needs refactoring
-    most_freq_url_id = group("url_request_id")
-                      .order('count(*) DESC')
-                      .limit(1)
-                      .pluck(:url_request_id)
-                      .first
+    verb_id = group(:verb_id).order('count(*) DESC')
+                                      .pluck(:verb_id)
+                                      .first
 
-    Verb.find(most_freq_url_id).request_type
+    Verb.find(verb_id).request_type
   end
 
   def self.most_frequent_urls

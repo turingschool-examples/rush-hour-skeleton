@@ -19,66 +19,73 @@ module TestHelpers
     super
   end
 
-  def payload
-    {
-      "url":"http://jumpstartlab.com/blog",
-      "requestedAt":"2013-02-16 21:38:28 -0700",
-      "respondedIn":37,
-      "referredBy":"http://jumpstartlab.com",
-      "requestType":"GET",
-      "parameters":[],
-      "eventName": "socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
-      "ip":"63.29.38.211"
-    }
-  end
-
   def teardown
     DatabaseCleaner.clean
     super
   end
 
-  def create_payload_request(responded_in = payload[:respondedIn])
-    PayloadRequest.create(requested_at: payload[:requestedAt],
-                                   responded_in: responded_in,
-                                   event_name: payload[:eventName])
+  def payload(data = {})
+    {
+      "url": data[:url] || "http://jumpstartlab.com/blog",
+      "requestedAt": data[:requested_at] || "2013-02-16 21:38:28 -0700",
+      "respondedIn": data[:responded_in] || 37,
+      "referredBy": data[:referred_by] || "http://jumpstartlab.com",
+      "requestType": data[:request_type] || "GET",
+      "parameters": data[:parameters] ||"[]",
+      "eventName": data[:event_name] || "socialLogin",
+      "userAgent": data[:user_agent] || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth": data[:resolution_width] || "1920",
+      "resolutionHeight": data[:resolution_height] || "1280",
+      "ip": data[:ip] || "63.29.38.211"
+    }
   end
 
-  def create_verb(method)
-    Verb.create(request_type: method)
+  def create_ip_address(data)
+    IpAddress.find_or_create_by(ip: data[:ip])
   end
 
-  def create_payload_with_associations
-    url_1 = create_url_request("http://jumpstartlab.com/blog")
-    url_2 = create_url_request("http://google.com")
-    verb_1 = create_verb("GET")
-    verb_2 = create_verb("POST")
-    user_agent_1 = create_user_agent("Mozilla", "Windows")
-    user_agent_2 = create_user_agent("Chrome", "Android")
-    resolution_1 = create_resolution("1920", "1080")
-    resolution_2 = create_resolution("1024", "768")
-    resolution_3 = create_resolution("1024", "768")
-
-    payload_1 = create_payload_request
-    payload_2 = create_payload_request
-    payload_3 = create_payload_request
-
-    payload_1.update(event_name: 'Facebook', url_request_id: url_1.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_1.id)
-    payload_2.update(event_name: 'Google', url_request_id: url_1.id, verb_id: verb_2.id, user_agent_id: user_agent_2.id, resolution_id: resolution_2.id)
-    payload_3.update(event_name: 'Facebook', url_request_id: url_2.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_1.id)
+  def create_referrer(data)
+    Referrer.find_or_create_by(referred_by: data[:referredBy])
   end
 
-  def create_url_request(url)
-    UrlRequest.create(url: url, parameters: payload[:parameters])
+  def create_resolution(data)
+    Resolution.find_or_create_by(resolution_width: data[:resolutionWidth],
+                                 resolution_height: data[:resolutionHeight])
   end
 
-  def create_user_agent(browser, os)
-    UserAgent.create(browser: browser, os: os)
+  def create_url_request(data)
+    UrlRequest.find_or_create_by(url: data[:url],
+                                 parameters: data[:parameters])
   end
 
-  def create_resolution(width, height)
-    Resolution.create(resolution_width: width, resolution_height: height)
+  def create_user_agent(parsed_user_agent)
+    UserAgent.find_or_create_by(browser: parsed_user_agent.family.to_s,
+                                os: parsed_user_agent.os.to_s)
+  end
+
+  def create_verb(data)
+    Verb.find_or_create_by(request_type: data[:requestType])
+  end
+
+  def create_payload_request(data)
+    PayloadRequest.create(requested_at: data[:requestedAt],
+                          responded_in: data[:respondedIn],
+                          event_name: data[:eventName])
+  end
+
+  def create_payload_requests_with_associations(data = {})
+    new_payload = payload(data)
+    ip          = create_ip_address(new_payload)
+    referrer    = create_referrer(new_payload)
+    resolution  = create_resolution(new_payload)
+    url_request = create_url_request(new_payload)
+    parsed_user_agent = UserAgentParser.parse(new_payload[:userAgent])
+    user_agent  = create_user_agent(parsed_user_agent)
+    verb        = create_verb(new_payload)
+    payload_request = create_payload_request(new_payload)
+
+    payload_request.update(ip_address_id: ip.id, referrer_id: referrer.id,
+                           resolution_id: resolution.id, url_request_id: url_request.id,
+                           user_agent_id: user_agent.id, verb_id: verb.id)
   end
 end

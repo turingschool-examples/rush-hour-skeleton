@@ -3,4 +3,8 @@ class UrlRequest < ActiveRecord::Base
 
   validates :url, presence: true
   validates :parameters, presence: true
+
+  def max_response_time
+    payload_requests.maximum("responded_in")
+  end
 end
