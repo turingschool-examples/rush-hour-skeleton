@@ -94,4 +94,12 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal ["http://jumpstartlab.com/blog", "http://google.com"], PayloadRequest.most_frequent_urls
   end
+
+  def test_events_listed_in_descending_order
+    create_payload_requests_with_associations(event_name: 'Facebook')
+    create_payload_requests_with_associations(event_name: 'Facebook')
+    create_payload_requests_with_associations(event_name: 'Google')
+
+    assert_equal ['Facebook', 'Google'], PayloadRequest.event_name_breakdown
+  end
  end

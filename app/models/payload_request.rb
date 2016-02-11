@@ -37,4 +37,8 @@ class PayloadRequest < ActiveRecord::Base
 
     most_freq_url_ids.map { |id| UrlRequest.find(id).url }
   end
+
+  def self.event_name_breakdown
+    group(:event_name).order('count(*) DESC').pluck(:event_name)
+  end
 end
