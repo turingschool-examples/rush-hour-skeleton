@@ -5,6 +5,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :resolution
   belongs_to :ip_address
   belongs_to :verb
+  belongs_to :client
 
   validates :requested_at, presence: true
   validates :responded_in, presence: true
