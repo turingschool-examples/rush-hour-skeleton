@@ -7,4 +7,8 @@ class UrlRequest < ActiveRecord::Base
   def max_response_time
     payload_requests.maximum("responded_in")
   end
+
+  def min_response_time
+    payload_requests.minimum("responded_in")
+  end
 end
