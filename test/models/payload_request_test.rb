@@ -158,6 +158,7 @@ class PayloadRequestTest < Minitest::Test
 
   # Web browser breakdown across all requests(userAgent)
   def test_list_browser_breakdown_for_all_requests
+    skip
     pr1, pr2, pr3 = create_three_payloads
 
     assert_equal ["GET","POST"], PayloadRequest.browser_breakdown
