@@ -97,12 +97,6 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["Mozilla", "Chrome", "Mozilla"], PayloadRequest.browser_breakdown
   end
 
-  def test_os_breakdown
-    create_payload_with_associations
-
-    assert_equal ["Windows", "Android", "Windows"], PayloadRequest.os_breakdown
-  end
-
   def test_resolution_for_all_requests
     create_payload_with_associations
 
