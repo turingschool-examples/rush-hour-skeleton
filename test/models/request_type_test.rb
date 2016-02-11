@@ -30,6 +30,6 @@ class RequestTypeTest < Minitest::Test
 
   def test_returns_list_of_all_verbs_used_ever
     setup_1
-    assert_equal "POST, GET", RequestType.returns_list_verbs
+    assert_equal ["POST", "GET"], RequestType.list_distinct_verbs
   end
 end
