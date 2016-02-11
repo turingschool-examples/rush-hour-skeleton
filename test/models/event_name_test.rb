@@ -7,7 +7,7 @@ class EventNameTest < Minitest::Test
     assert EventName
   end
 
-  def test_can_create_event_id
+  def test_can_create_event_id_through_payload_request
     payload1 = {
       url_id:             Url.create(address: "http://jumpstartlab.com/tutorials").id,
       requested_at:       "2013-02-17 20: 44: 28 -0700",
@@ -28,5 +28,13 @@ class EventNameTest < Minitest::Test
 
     assert_equal "socialLogin", EventName.find(1).event_name
     assert_equal 1, pr.event_name_id
+  end
+
+  def test_can_create_event_names
+    name = {event_name: "socialLogin"}
+    en = EventName.create(name)
+
+    assert_equal "socialLogin", en.event_name
+    assert_equal 1, en.id
   end
 end
