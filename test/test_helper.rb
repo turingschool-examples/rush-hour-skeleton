@@ -57,14 +57,17 @@ module TestHelpers
     verb_2 = create_verb("POST")
     user_agent_1 = create_user_agent("Mozilla", "Windows")
     user_agent_2 = create_user_agent("Chrome", "Android")
+    resolution_1 = create_resolution("1920", "1080")
+    resolution_2 = create_resolution("1024", "768")
+    resolution_3 = create_resolution("1024", "768")
 
     payload_1 = create_payload_request
     payload_2 = create_payload_request
     payload_3 = create_payload_request
 
-    payload_1.update(url_request_id: url_1.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id)
-    payload_2.update(url_request_id: url_1.id, verb_id: verb_2.id, user_agent_id: user_agent_2.id)
-    payload_3.update(url_request_id: url_2.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id)
+    payload_1.update(event_name: 'Facebook', url_request_id: url_1.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_1.id)
+    payload_2.update(event_name: 'Google', url_request_id: url_1.id, verb_id: verb_2.id, user_agent_id: user_agent_2.id, resolution_id: resolution_2.id)
+    payload_3.update(event_name: 'Facebook', url_request_id: url_2.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_1.id)
   end
 
   def create_url_request(url)
@@ -73,5 +76,9 @@ module TestHelpers
 
   def create_user_agent(browser, os)
     UserAgent.create(browser: browser, os: os)
+  end
+
+  def create_resolution(width, height)
+    Resolution.create(resolution_width: width, resolution_height: height)
   end
 end
