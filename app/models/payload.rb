@@ -27,5 +27,9 @@ class Payload < ActiveRecord::Base
     self.maximum(:request_type_id)
   end
 
-  
+  def self.max_response_time_given_url(client_url)
+    self.joins(:url).where("address = ?", client_url).maximum(:response_time)
+  end
+
+
 end

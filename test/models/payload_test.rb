@@ -69,4 +69,12 @@ class PayloadTest < Minitest::Test
     setup_1
     assert_equal "GET", "POST" , Payload.method
   end
+
+  def test_returns_max_response_time_for_given_url
+    client_url = "http://jumpstartlab.com"
+    setup_1
+    time = Payload.max_response_time_given_url(client_url)
+    assert_equal 30, time
+  end
+
 end
