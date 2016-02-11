@@ -26,32 +26,4 @@ class Payload < ActiveRecord::Base
     self.minimum(:responded_in)
   end
 
-  def self.most_frequent_request
-    RequestType.all.max_by do |verb|
-      verb.payloads.count
-    end.verb
-  end
-
-  def self.verbs_used
-    RequestType.pluck(:verb)
-  end
-
-  def self.most_frequent_urls
-    Url.all.sort_by do |url|
-      -url.payloads.count
-    end.map(&:route)
-  end
-
-  def self.browser_breakdown
-    UserAgent.pluck(:browser)
-  end
-
-  def self.os_breakdown
-    UserAgent.pluck(:os)
-  end
-
-  def self.screen_resolution_breakdown
-    ScreenResolution.pluck(:size)
-  end
-
 end
