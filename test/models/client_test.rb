@@ -118,4 +118,16 @@ class ClientTest < Minitest::Test
     assert client.user_agents.pluck(:browser).include?("Chrome")
     assert client.user_agents.pluck(:os).include?("Android")
   end
+
+  def test_has_verbs
+    client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
+
+    client.payload_requests.create(requested_at: "tody", responded_in: 35, event_name: 'socialLogin', verb_id: Verb.create(request_type: "GET").id)
+
+    client.payload_requests.create(requested_at: "tomorrow", responded_in: 35, event_name: 'socialLogin', verb_id: Verb.create(request_type: "POST").id)
+
+    assert_equal 2, client.verbs.size
+    assert client.verbs.pluck(:request_type).include?("GET")
+    assert client.verbs.pluck(:request_type).include?("POST")
+  end
 end
