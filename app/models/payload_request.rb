@@ -14,63 +14,56 @@ class PayloadRequest < ActiveRecord::Base
     belongs_to :user_system
     belongs_to :url
 
-
-  #Average Response time for our clients app across all requests
   def self.average_response_time
     average(:responded_in).to_i
   end
 
-  # Max Response time across all requests
   def self.max_response_time
     maximum(:responded_in).to_i
   end
 
-  # Min Response time across all requests
   def self.min_response_time
     minimum(:responded_in).to_i
   end
 
-  # Most frequent request type
   def self.most_frequent_request_type
     ids_and_count = group(:request_type_id).count
     id = ids_and_count.max_by {|k, v| v}.first
     where(request_type_id: id).first.request_type.verb
   end
 
-  # List of all HTTP verbs used
   def self.all_http_verbs_used
     RequestType.pluck(:verb)
   end
 
-  # List of URLs listed form most requested to least requested
   def self.sort_urls_by_request_freqency
     pr = PayloadRequest.group(:url_id).count
-    mx = pr.sort_by { |k,v| v }.reverse
-    mx.map { |elem| Url.where(id: elem[0]).first.address }
+    sorted_arr = pr.sort_by { |k,v| v }.reverse
+    sorted_arr.map { |elem| Url.where(id: elem[0]).first.address }
   end
 
-  # Web browser breakdown across all requests(userAgent)
   def self.browser_breakdown
     UserSystem.all.map do |sys|
       UserAgent.parse(sys.browser).browser
     end
   end
 
-  # OS breakdown across all requests(userAgent)
   def self.os_breakdown
     UserSystem.all.map do |sys|
       UserAgent.parse(sys.browser).platform
     end
   end
 
-  # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
-  def self.list_screen_resolutions_across_all_request
-
+  def self.screen_resolutions
+    Resolution.pluck(:width, :height)
   end
 
   # Events listed from most received to least.(When no events have been defined display a message that states no events have been defined)
-  def self.sort_events_most_recieved_to_least
-
+  def self.sort_events_most_received_to_least
+    en = PayloadRequest.group(:event_name_id).count
+    return "No events have been defined" if en == {}
+    sorted_arr = en.sort_by { |k,v| v }.reverse
+    sorted_arr.map { |elem| EventName.where(id: elem[0]).first.event_name}
   end
 
 end
