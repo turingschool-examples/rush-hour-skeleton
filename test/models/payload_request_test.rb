@@ -127,10 +127,9 @@ class PayloadRequestTest < Minitest::Test
 
   # List of all HTTP verbs used
   def test_finds_all_http_verbs_used
-    skip
     pr1, pr2, pr3 = create_three_payloads
 
-    assert_equal "GET","POST", PayloadRequest.all_http_verbs_used
+    assert_equal ["GET","POST"], PayloadRequest.all_http_verbs_used
   end
 
   # List of URLs listed form most requested to least requested
