@@ -14,5 +14,4 @@ class PayloadRequest < ActiveRecord::Base
   def self.average_response_time
     average(:responded_in).to_i
   end
-
 end
