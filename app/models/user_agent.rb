@@ -7,4 +7,8 @@ class UserAgent < ActiveRecord::Base
   def self.os_breakdown
     group(:os).pluck(:os)
   end
+
+  def self.browser_breakdown
+    group(:browser).pluck(:browser)
+  end
 end
