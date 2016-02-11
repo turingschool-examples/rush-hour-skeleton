@@ -97,9 +97,9 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["Mozilla", "Chrome", "Mozilla"], PayloadRequest.browser_breakdown
   end
 
-  def test_os_breakdown
+  def test_events_listed_in_descending_order
     create_payload_with_associations
 
-    assert_equal ["Windows", "Android", "Windows"], PayloadRequest.os_breakdown
+    assert_equal ['Facebook', 'Google'], PayloadRequest.event_name_breakdown
   end
  end
