@@ -53,7 +53,7 @@ class UrlTest < Minitest::Test
       requested_at:     "2015-02-16 21:38:28 -0700",
       responded_in:     50,
       referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
-      request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
       user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
@@ -90,15 +90,18 @@ class UrlTest < Minitest::Test
   end
 
   def test_can_return_average_response_for_specific_url
-    skip
+    pr1, pr2, pr3 = create_three_payloads
+    url = Url.find(1)
 
-    assert_equal expected, url.url_average_response_times(url)
+    assert_equal 35, url.average_response_time
   end
 
   def test_returns_http_verbs_for_specific_url
     skip
+    pr1, pr2, pr3 = create_three_payloads
+    url = Url.find(1)
 
-    assert_equal expected, url.url_http_verbs(url)
+    assert_equal ["GET", "POST"], url.all_http_verbs
   end
 
   def test_returns_three_most_popular_referrers_for_specific_url

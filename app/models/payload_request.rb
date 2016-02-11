@@ -27,6 +27,13 @@ class PayloadRequest < ActiveRecord::Base
     minimum(:responded_in).to_i
   end
 
+  # Most frequent request type
+  def self.most_frequent_request_type
+    ids_and_count = group(:request_type_id).count
+    id = ids_and_count.max_by {|k, v| v}.first
+    where(request_type_id: id).first.request_type.verb
+
+  end
   # def self.most_frequent_request_type
   #   #needs refactoring
   #   most_freq_url_id = group("url_request_id")
@@ -37,13 +44,6 @@ class PayloadRequest < ActiveRecord::Base
   #
   #   Verb.find(most_freq_url_id).request_type
   # end
-  # Most frequent request type
-  def self.most_frequent_request_type
-    ids_and_count = group(:request_type_id).count
-    id = ids_and_count.max_by {|k, v| v}.first
-    where(request_type_id: id).first.request_type.verb
-
-  end
 
 
   # List of all HTTP verbs used
