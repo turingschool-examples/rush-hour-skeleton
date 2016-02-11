@@ -26,38 +26,38 @@ module TestHelpers
       requested_at: "2013-02-16 22:38:28 -0700",
       response_time: 20,
       parameters: ["query"],
-      event_id: Event.create(name: "socialLogin").id,
-      ip_id: Ip.create(address: "63.29.38.211").id,
-      refer_id: Refer.create(address: "http://google.com").id,
-      resolution_id: Resolution.create(width: "1000", height: "1000").id,
-      url_id: Url.create(address: "http://jumpstartlab.com").id,
-      user_environment_id: UserEnvironment.create(browser: "Mozilla", os: "windows").id,
-      request_type_id: RequestType.create(verb: "POST").id
+      event_id: Event.where(name: "socialLogin").first_or_create.id,
+      ip_id: Ip.where(address: "63.29.38.211").first_or_create.id,
+      refer_id: Refer.where(address: "http://google.com").first_or_create.id,
+      resolution_id: Resolution.where(width: "1000", height: "1000").first_or_create.id,
+      url_id: Url.where(address: "http://jumpstartlab.com").first_or_create.id,
+      user_environment_id: UserEnvironment.where(browser: "Mozilla", os: "windows").first_or_create.id,
+      request_type_id: RequestType.where(verb: "POST").first_or_create.id
     }
 
     @data2 = {
       requested_at: "2013-02-16 21:38:28 -0700",
       response_time: 30,
       parameters: ["query"],
-      event_id: Event.create(name: "differentEvent").id,
-      ip_id: Ip.create(address: "63.29.38.211").id,
-      refer_id: Refer.create(address: "http://turing.io").id,
-      resolution_id: Resolution.create(width: "2000", height: "2000").id,
-      url_id: Url.create(address: "http://jumpstartlab.com").id,
-      user_environment_id: UserEnvironment.create(browser: "Safari", os: "doors").id,
-      request_type_id: RequestType.create(verb: "GET").id
+      event_id: Event.where(name: "differentEvent").first_or_create.id,
+      ip_id: Ip.where(address: "63.29.38.211").first_or_create.id,
+      refer_id: Refer.where(address: "http://turing.io").first_or_create.id,
+      resolution_id: Resolution.where(width: "2000", height: "2000").first_or_create.id,
+      url_id: Url.where(address: "http://jumpstartlab.com").first_or_create.id,
+      user_environment_id: UserEnvironment.where(browser: "Safari", os: "doors").first_or_create.id,
+      request_type_id: RequestType.where(verb: "GET").first_or_create.id
     }
     @data3 = {
       requested_at: "2013-02-16 22:38:28 -0700",
       response_time: 40,
       parameters: ["query"],
-      event_id: Event.create(name: "socialLogin").id,
-      ip_id: Ip.create(address: "62.29.38.211").id,
-      refer_id: Refer.create(address: "http://jumpstartlab.com").id,
-      resolution_id: Resolution.create(width: "500", height: "500").id,
-      url_id: Url.create(address: "http://jumpstartlab.com/jumps").id,
-      user_environment_id: UserEnvironment.create(browser: "Chrome", os: "SOS").id,
-      request_type_id: RequestType.create(verb: "GET").id
+      event_id: Event.where(name: "socialLogin").first_or_create.id,
+      ip_id: Ip.where(address: "62.29.38.211").first_or_create.id,
+      refer_id: Refer.where(address: "http://jumpstartlab.com").first_or_create.id,
+      resolution_id: Resolution.where(width: "500", height: "500").first_or_create.id,
+      url_id: Url.where(address: "http://jumpstartlab.com/jumps").first_or_create.id,
+      user_environment_id: UserEnvironment.where(browser: "Chrome", os: "SOS").first_or_create.id,
+      request_type_id: RequestType.where(verb: "GET").first_or_create.id
     }
     @payload_1 = Payload.create(@data1)
     @payload_2 = Payload.create(@data2)

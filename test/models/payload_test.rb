@@ -59,7 +59,6 @@ class PayloadTest < Minitest::Test
   end
 
   def test_return_most_frequent_request_type
-    skip
     setup_1
     assert_equal "GET", Payload.most_frequent_request_type
   end
@@ -100,6 +99,7 @@ class PayloadTest < Minitest::Test
   end
 
   def test_HTTP_verbs_used_to_acquire_this_url_returns_array
+    skip
     client_url = "http://jumpstartlab.com"
     setup_1
     verbs = Payload.verbs_given_url(client_url)
@@ -107,6 +107,7 @@ class PayloadTest < Minitest::Test
   end
 
   def test_three_most_popular_refers
+    skip
     client_url = "http://jumpstartlab.com"
     setup_1
     referrers = Payload.three_most_popular_referrers(client_url)
