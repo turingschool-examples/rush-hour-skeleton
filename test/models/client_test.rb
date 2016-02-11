@@ -34,4 +34,23 @@ class ClientTest < Minitest::Test
     assert_equal 35,      client.payload_requests.last.responded_in
     assert_equal "event", client.payload_requests.last.event_name
   end
+
+  def test_has_ips
+    client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
+
+
+    client.payload_requests.create(requested_at: "first_req",
+                                   responded_in: 30,
+                                   event_name:   "first_event",
+                                   ip_address_id: IpAddress.create(ip: "127.0.0.1").id)
+
+    client.payload_requests.create(requested_at: "second_req",
+                                   responded_in: 35,
+                                   event_name:   "second_event",
+                                   ip_address_id: IpAddress.create(ip: "127.0.0.9").id)
+
+    assert_equal 2, client.ip_addresses.size
+    assert client.ip_addresses.pluck(:ip).include?("127.0.0.1")
+    assert client.ip_addresses.pluck(:ip).include?("127.0.0.9")
+  end
 end

@@ -1,7 +1,7 @@
 class Client < ActiveRecord::Base
 
   has_many :payload_requests
-  has_many :ips,              through: :payload_requests
+  has_many :ip_addresses,              through: :payload_requests
 
 
   validates :identifier, presence: true
