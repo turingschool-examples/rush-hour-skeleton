@@ -54,4 +54,5 @@ ActiveRecord::Schema.define(version: 20160211003835) do
   create_table "verbs", force: :cascade do |t|
     t.string "request_type"
   end
+
 end
