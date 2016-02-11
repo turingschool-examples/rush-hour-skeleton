@@ -99,9 +99,67 @@ class PayloadRequestTest < Minitest::Test
     refute pr.valid?
   end
 
-  def test_calculated_average_response_time
+  def test_calculates_average_response_time
     pr1, pr2, pr3 = create_three_payloads
 
     assert_equal 40, PayloadRequest.average_response_time
   end
+
+  # Max Response time across all requests
+  def test_calculates_max_response_time
+    pr1, pr2, pr3 = create_three_payloads
+
+    assert_equal 50, PayloadRequest.max_response_time
+  end
+
+  # Min Response time across all requests
+  def test_calculates_min_response_time
+    pr1, pr2, pr3 = create_three_payloads
+
+    assert_equal 30, PayloadRequest.min_response_time
+  end
+
+  # Most frequent request type
+  def test_finds_most_frequent_request_type
+    skip
+    pr1, pr2, pr3 = create_three_payloads
+
+    assert_equal "GET", PayloadRequest.most_frequent_request_type
+  end
+
+  # List of all HTTP verbs used
+  def test_finds_all_http_verbs_used
+    skip
+    pr1, pr2, pr3 = create_three_payloads
+
+    assert_equal "GET","POST", PayloadRequest.all_http_verbs_used
+  end
+
+  # List of URLs listed form most requested to least requested
+  def test_sort_urls_by_request_freqency_most_to_least
+
+  end
+
+  # Web browser breakdown across all requests(userAgent)
+  def test_list_browser_breakdown_for_all_requests
+
+  end
+
+  # OS breakdown across all requests(userAgent)
+  def test_os_browser_breakdown_across_all_requests
+
+  end
+
+  # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
+  def test_list_screen_resolutions_across_all_request
+
+  end
+
+  # Events listed from most received to least.(When no events have been defined display a message that states no events have been defined)
+  def test_sort_events_most_recieved_to_least
+
+  end
+
+
+
 end
