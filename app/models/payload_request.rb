@@ -11,6 +11,9 @@ class PayloadRequest < ActiveRecord::Base
                         :ip_id
 
     belongs_to :request_type
+    belongs_to :user_agent
+    belongs_to :url
+
 
   #Average Response time for our clients app across all requests
   def self.average_response_time
@@ -45,6 +48,12 @@ class PayloadRequest < ActiveRecord::Base
   #   Verb.find(most_freq_url_id).request_type
   # end
 
+  # Most frequent request type
+  def self.most_frequent_request_type
+    ids_and_count = group(:request_type_id).count
+    id = ids_and_count.max_by {|k, v| v}.first
+    where(request_type_id: id).first.request_type.verb
+  end
 
   # List of all HTTP verbs used
   def self.all_http_verbs_used
@@ -53,16 +62,20 @@ class PayloadRequest < ActiveRecord::Base
 
   # List of URLs listed form most requested to least requested
   def self.sort_urls_by_request_freqency
-
+    pr = PayloadRequest.group(:url_id).count
+    mx = pr.sort_by { |k,v| v }.reverse
+    mx.map { |elem| Url.where(id: elem[0]).first.address }
   end
 
   # Web browser breakdown across all requests(userAgent)
-  def self.list_browsers_for_all_requests
+  def self.browser_breakdown
+    require "pry"
+    binding.pry
 
   end
 
   # OS breakdown across all requests(userAgent)
-  def self.os_browsers_across_all_requests
+  def self.os_breakdown
 
   end
 
