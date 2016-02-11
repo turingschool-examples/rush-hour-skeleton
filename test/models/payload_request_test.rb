@@ -91,12 +91,6 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["http://jumpstartlab.com/blog", "http://google.com"], PayloadRequest.most_frequent_urls
   end
 
-  def test_browser_breakdown
-    create_payload_with_associations
-
-    assert_equal ["Mozilla", "Chrome", "Mozilla"], PayloadRequest.browser_breakdown
-  end
-
   def test_events_listed_in_descending_order
     create_payload_with_associations
 

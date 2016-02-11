@@ -41,11 +41,6 @@ class PayloadRequest < ActiveRecord::Base
     most_freq_url_ids.map { |id| UrlRequest.find(id).url }
   end
 
-  def self.browser_breakdown
-    user_agent_ids = pluck(:user_agent_id)
-    user_agent_ids.map { |id| UserAgent.find(id).browser }
-  end
-
   def self.event_name_breakdown
     group(:event_name).order('count(*) DESC').pluck(:event_name)
   end
