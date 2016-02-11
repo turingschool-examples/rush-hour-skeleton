@@ -1,10 +1,10 @@
 require_relative '../test_helper'
 
-class UserAgentTest < Minitest::Test
+class UserSystemTest < Minitest::Test
   include TestHelpers
 
   def test_class_exists
-    assert UserAgent
+    assert UserSystem
   end
 
 end
