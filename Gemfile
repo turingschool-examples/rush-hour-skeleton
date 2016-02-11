@@ -9,6 +9,7 @@ gem 'user_agent_parser'
 group :development, :test do
   gem 'rake'
   gem 'shotgun'
+  gem 'pry'
   gem 'minitest'
   gem 'tux'
   gem 'capybara'
