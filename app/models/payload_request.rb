@@ -1,30 +1,16 @@
 class PayloadRequest < ActiveRecord::Base
-  # belongs_to :url
-  validates_presence_of :url,
-                        :requestedAt,
-                        :respondedIn,
-                        :referredBy,
-                        :requestType,
+  validates_presence_of :url_id,
+                        :requested_at,
+                        :responded_in,
+                        :referrer_url_id,
+                        :request_type_id,
                         :parameters,
-                        :eventName,
-                        :userAgent,
-                        :resolutionWidth,
-                        :resolutionHeight,
-                        :ip
-  # validates :url, presence: true
-  # validates :requestedAt, presence: true
-  # validates :respondedIn, presence: true
-  # validates :referredBy, presence: true
-  # validates :requestType, presence: true
-  # validates :parameters, presence: true
-  # validates :eventName, presence: true
-  # validates :userAgent, presence: true
-  # validates :resolutionWidth, presence: true
-  # validates :resolutionHeight, presence: true
-  # validates :ip, presence: true
+                        :event_name_id,
+                        :user_agent_id,
+                        :resolution_id,
+                        :ip_id
 
   def self.average_response_time
-    average(:respondedIn).to_i
+    average(:responded_in).to_i
   end
-
 end

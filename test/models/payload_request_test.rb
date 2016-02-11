@@ -3,88 +3,103 @@ require_relative '../test_helper'
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
 
-  def test_payload_request_assigned_correctly
-    payload = {
-      # url_id: Url.create(address: "http://jumpstartlab.com/blog").id,
-      "url": "http://jumpstartlab.com/blog",
-      "requestedAt": "2013-02-16 21:38:28 -0700",
-      "respondedIn": 37,
-      "referredBy": "http://jumpstartlab.com",
-      "requestType": "GET",
-      "parameters": [],
-      "eventName": "socialLogin",
-      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth": "1920",
-      "resolutionHeight": "1280",
-      "ip": "63.29.38.211"
-    }
-    pr = PayloadRequest.create(payload)
-
-    assert_equal "2013-02-16 21:38:28 -0700", pr.requestedAt
-  end
-
-  def test_payload_cannot_be_created_without_ip_address
-    payload = {
-      "url": "http://jumpstartlab.com/blog",
-      "requestedAt": "2013-02-16 21:38:28 -0700",
-      "respondedIn": 37,
-      "referredBy": "http://jumpstartlab.com",
-      "requestType": "GET",
-      "parameters": [],
-      "eventName": "socialLogin",
-      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth": "1920",
-      "resolutionHeight": "1280",
-    }
-    pr = PayloadRequest.new(payload)
-
-    refute pr.valid?
+  def test_class_exists
+    assert PayloadRequest
+    assert EventName
   end
 
   def create_three_payloads
-    payload1 = {"url": "http: //jumpstartlab.com/blog",
-      "requestedAt": "2013-02-16 21: 38: 28 -0700",
-      "respondedIn": 30,
-      "referredBy": "http: //jumpstartlab.com",
-      "requestType": "GET",
-      "parameters": [],
-      "eventName":  "socialLogin",
-      "userAgent": "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
-       like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth": "1920",
-      "resolutionHeight": "1280",
-      "ip": "63.29.38.211"}
+    payload1 = {
+      url_id:           Url.create(address: "http://jumpstartlab.com/blog").id,
+      requested_at:     "2013-02-16 21:38:28 -0700",
+      responded_in:     30,
+      referrer_url_id:  ReferrerUrl.create(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.create(verb: "GET").id,
+      parameters:       [],
+      event_name_id:    EventName.create(event_name: "socialLogin").id,
+      user_agent_id:    UserAgent.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      resolution_id:    Resolution.create(
+                          width: "1920",
+                          height: "1280").id,
+      ip_id:            Ip.create(ip_address: "63.29.38.211").id
+    }
 
-    payload2 = {"url": "http: //jumpstartlab.com/tutorials",
-      "requestedAt": "2013-02-17 20: 44: 28 -0700",
-      "respondedIn": 40,
-      "referredBy": "http: //jumpstartlab.com",
-      "requestType": "GET",
-      "parameters": [],
-      "eventName":  "socialLogin",
-      "userAgent": "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
-       like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth": "1920",
-      "resolutionHeight": "1280",
-      "ip": "63.29.38.211"}
+    payload2 = {
+      url_id:           Url.create(address: "http://jumpstartlab.com/tutorials").id,
+      requested_at:     "2014-02-16 21:38:28 -0700",
+      responded_in:     40,
+      referrer_url_id:  ReferrerUrl.create(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.create(verb: "POST").id,
+      parameters:       [],
+      event_name_id:    EventName.create(event_name: "socialLogin").id,
+      user_agent_id:    UserAgent.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      resolution_id:    Resolution.create(
+                          width: "1920",
+                          height: "1280").id,
+      ip_id:            Ip.create(ip_address: "63.29.38.211").id
+    }
 
-    payload3 = {"url": "http: //jumpstartlab.com/about",
-      "requestedAt": "2013-02-17 10: 34: 18 -0700",
-      "respondedIn": 50,
-      "referredBy": "http: //google.com",
-      "requestType": "GET",
-      "parameters": [],
-      "eventName":  "socialLogin",
-      "userAgent": "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
-       like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth": "1920",
-      "resolutionHeight": "1280",
-      "ip": "63.29.38.211"}
+    payload3 = {
+      url_id:           Url.create(address: "http://jumpstartlab.com").id,
+      requested_at:     "2015-02-16 21:38:28 -0700",
+      responded_in:     50,
+      referrer_url_id:  ReferrerUrl.create(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.create(verb: "GET").id,
+      parameters:       [],
+      event_name_id:    EventName.create(event_name: "socialLogin").id,
+      user_agent_id:    UserAgent.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      resolution_id:    Resolution.create(
+                          width: "1920",
+                          height: "1280").id,
+      ip_id:            Ip.create(ip_address: "63.29.38.211").id
+    }
 
     pr1 = PayloadRequest.create(payload1)
     pr2 = PayloadRequest.create(payload2)
     pr3 = PayloadRequest.create(payload3)
     [pr1, pr2, pr3]
+  end
+
+
+
+
+  def test_payload_request_assigns_all_values_correctly
+    pr = create_three_payloads[0]
+
+    assert_equal 1, pr.url_id
+    assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at
+    assert_equal 30, pr.responded_in
+    assert_equal 1, pr.referrer_url_id
+    assert_equal 1, pr.request_type_id
+    assert_equal "[]", pr.parameters
+    assert_equal 1, pr.event_name_id
+    assert_equal 1, pr.user_agent_id
+    assert_equal 1, pr.resolution_id
+    assert_equal 1, pr.ip_id
+  end
+
+  def test_payload_cannot_be_created_without_ip_address
+    payload = {
+      url_id:           Url.create(address: "http://jumpstartlab.com/tutorials").id,
+      requested_at:     "2013-02-16 21:38:28 -0700",
+      responded_in:     37,
+      referrer_url_id:  ReferrerUrl.create(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.create(verb: "GET").id,
+      parameters:       [],
+      event_name_id:    EventName.create(event_name: "socialLogin").id,
+      user_agent_id:    UserAgent.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      resolution_id:    Resolution.create(
+                          width: "1920",
+                          height: "1280").id
+    }
+
+    pr = PayloadRequest.new(payload)
+
+    refute pr.valid?
   end
 
   def test_calculates_average_response_time
