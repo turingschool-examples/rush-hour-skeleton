@@ -1,5 +1,6 @@
 class UserEnvironment < ActiveRecord::Base
   has_many :payloads
+
   validates :browser, presence: true
   validates :os, presence: true
 
@@ -10,5 +11,5 @@ class UserEnvironment < ActiveRecord::Base
  def self.os_breakdown
    self.group(:os).order("count_os desc").count("os")
  end
- 
+
 end
