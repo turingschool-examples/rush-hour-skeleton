@@ -97,17 +97,18 @@ class UrlTest < Minitest::Test
   end
 
   def test_returns_http_verbs_for_specific_url
-    skip
     pr1, pr2, pr3 = create_three_payloads
     url = Url.find(1)
 
-    assert_equal ["GET", "POST"], url.all_http_verbs
+    assert_equal ["POST", "GET"], url.all_http_verbs
   end
 
   def test_returns_three_most_popular_referrers_for_specific_url
-    skip
+skip
+    pr1, pr2, pr3 = create_three_payloads
 
-    assert_equal expected, url.url_top_three_referrers(url)
+
+    assert_equal expected, url.top_three_referrers
   end
 
   def test_returns_three_most_popular_user_systems_for_specific_url

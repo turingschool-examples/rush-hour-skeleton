@@ -19,8 +19,12 @@ class Url < ActiveRecord::Base
   end
 
   def all_http_verbs
-    # find all verb for a specific url id
-    # This returns all verbs for all urls:
-    RequestType.pluck(:verb)
+    request_type_ids = payload_requests.group(:request_type_id).count.keys
+
+    request_type_ids.map { |id| RequestType.where(id: id).first.verb }
+  end
+
+  def top_three_referrers
+
   end
 end
