@@ -35,10 +35,11 @@ class PayloadRequestTest < Minitest::Test
 
   def test_creates_relationships
     referrer = Referrer.create(referred_by: payload[:referredBy])
-    url_request = UrlRequest.create(url: "something", request_type: "stuff", parameters: "array")
+    url_request = UrlRequest.create(url: "something", parameters: "array")
     user_agent = UserAgent.create(browser: "dkfjsdfj", os: "kdjfj")
     resolution = Resolution.create(resolution_width: "sjdf", resolution_height: "djsff")
     ip_address = IpAddress.create(ip: "ddkfjd")
+    verb = Verb.create(request_type: "GET")
     test_payload = PayloadRequest.create(requested_at: payload[:requestedAt],
                                     responded_in: payload[:respondedIn])
 
@@ -47,12 +48,14 @@ class PayloadRequestTest < Minitest::Test
     test_payload.update(user_agent_id: user_agent.id)
     test_payload.update(resolution_id: resolution.id)
     test_payload.update(ip_address_id: ip_address.id)
+    test_payload.update(verb_id: verb.id)
 
     assert_equal referrer.id, test_payload.referrer.id
     assert_equal url_request.id, test_payload.url_request.id
     assert_equal user_agent.id, test_payload.user_agent.id
     assert_equal resolution.id, test_payload.resolution.id
     assert_equal ip_address.id, test_payload.ip_address.id
+    assert_equal verb.id, test_payload.verb.id
   end
 
   def test_calculates_avg_response_time
