@@ -1,5 +1,4 @@
 class PayloadRequest < ActiveRecord::Base
-
   validates_presence_of :url_id,
                         :requested_at,
                         :responded_in,
@@ -10,6 +9,8 @@ class PayloadRequest < ActiveRecord::Base
                         :user_agent_id,
                         :resolution_id,
                         :ip_id
+
+    belongs_to :request_type
 
   #Average Response time for our clients app across all requests
   def self.average_response_time
@@ -28,8 +29,10 @@ class PayloadRequest < ActiveRecord::Base
 
   # Most frequent request type
   def self.most_frequent_request_type
+    ids_and_count = group(:request_type_id).count
+    id = ids_and_count.max_by {|k, v| v}.first
+    where(request_type_id: id).first.request_type.verb
 
-    # request_type_id.group("verb")
   end
   # def self.most_frequent_request_type
   #   #needs refactoring
@@ -45,8 +48,8 @@ class PayloadRequest < ActiveRecord::Base
 
   # List of all HTTP verbs used
   def self.all_http_verbs_used
-    # require "pry"
-    # binding.pry
+    require "pry"
+    binding.pry
     pluck(:verb)
   end
 
