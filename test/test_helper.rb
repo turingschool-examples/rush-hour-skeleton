@@ -55,17 +55,23 @@ module TestHelpers
     url_2 = create_url_request("http://google.com")
     verb_1 = create_verb("GET")
     verb_2 = create_verb("POST")
+    user_agent_1 = create_user_agent("Mozilla")
+    user_agent_2 = create_user_agent("Chrome")
 
     payload_1 = create_payload_request
     payload_2 = create_payload_request
     payload_3 = create_payload_request
 
-    payload_1.update(url_request_id: url_1.id, verb_id: verb_1.id)
-    payload_2.update(url_request_id: url_1.id, verb_id: verb_2.id)
-    payload_3.update(url_request_id: url_2.id, verb_id: verb_1.id)
+    payload_1.update(url_request_id: url_1.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id)
+    payload_2.update(url_request_id: url_1.id, verb_id: verb_2.id, user_agent_id: user_agent_2.id)
+    payload_3.update(url_request_id: url_2.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id)
   end
 
   def create_url_request(url)
     UrlRequest.create(url: url, parameters: payload[:parameters])
+  end
+
+  def create_user_agent(browser)
+    UserAgent.create(browser: browser, os: "os")
   end
 end
