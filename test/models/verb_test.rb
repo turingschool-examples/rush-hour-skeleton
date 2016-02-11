@@ -13,5 +13,6 @@ class VerbTest < Minitest::Test
     verb = Verb.new
 
     refute verb.save
-    refute_equal 1, Verb.all.size end
+    refute_equal 1, Verb.all.size
+  end
 end
