@@ -18,21 +18,12 @@ class UrlRequestTest < Minitest::Test
   end
 
   def test_finds_max_response_time_for_specific_url
-    payload_request_1 = PayloadRequest.create(requested_at: payload[:requestedAt],
-                                              responded_in: 37,
-                                              event_name: "socialLogin")
-    payload_request_2 = PayloadRequest.create(requested_at: payload[:requestedAt],
-                                              responded_in: 50,
-                                              event_name: "socialLogin")
-    payload_request_3 = PayloadRequest.create(requested_at: payload[:requestedAt],
-                                              responded_in: 10,
-                                              event_name: "socialLogin")
-    url_request = UrlRequest.create(url: payload[:url],
-                            parameters: "[]")
-    payload_request_1.update(url_request_id: url_request.id)
-    payload_request_2.update(url_request_id: url_request.id)
-    payload_request_3.update(url_request_id: url_request.id)
-    
+    create_payload_requests_with_associations(responded_in: 37)
+    create_payload_requests_with_associations(responded_in: 50)
+    create_payload_requests_with_associations(responded_in: 10)
+
+    url_request = UrlRequest.all.first
+
     assert_equal 50, url_request.max_response_time
   end
 end
