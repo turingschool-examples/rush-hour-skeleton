@@ -105,4 +105,17 @@ class ClientTest < Minitest::Test
     assert client.url_requests.pluck(:parameters).include?("something")
   end
 
+  def test_has_user_agents
+    client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
+
+    client.payload_requests.create(requested_at: "tody", responded_in: 35, event_name: 'socialLogin', user_agent_id: UserAgent.create(browser: "safari", os: "OSX").id)
+
+    client.payload_requests.create(requested_at: "tomorrow", responded_in: 35, event_name: 'socialLogin', user_agent_id: UserAgent.create(browser: "Chrome", os: "Android").id)
+
+    assert_equal 2, client.user_agents.size
+    assert client.user_agents.pluck(:browser).include?("safari")
+    assert client.user_agents.pluck(:os).include?("OSX")
+    assert client.user_agents.pluck(:browser).include?("Chrome")
+    assert client.user_agents.pluck(:os).include?("Android")
+  end
 end
