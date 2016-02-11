@@ -11,4 +11,8 @@ class UrlRequest < ActiveRecord::Base
   def min_response_time
     payload_requests.minimum("responded_in")
   end
+
+  def ordered_response_times
+    payload_requests.order("responded_in DESC").pluck(:responded_in)
+  end
 end
