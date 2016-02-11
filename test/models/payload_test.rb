@@ -45,7 +45,7 @@ class PayloadTest < Minitest::Test
 
   def test_average_response_time_returns_correct_value
     setup_1
-    assert_equal 30, Payload.average_response_time
+    assert_equal 30.0, Payload.average_response_time
   end
 
   def test_min_response_returns_single_correct_value
@@ -69,4 +69,41 @@ class PayloadTest < Minitest::Test
     setup_1
     assert_equal "GET", "POST" , Payload.method
   end
+
+  def test_returns_max_response_time_for_given_url
+    client_url = "http://jumpstartlab.com"
+    setup_1
+    time = Payload.max_response_time_given_url(client_url)
+    assert_equal 30, time
+  end
+
+  def test_returns_min_response_time_for_given_url
+    client_url = "http://jumpstartlab.com/jumps"
+    setup_1
+    time = Payload.min_response_time_given_url(client_url)
+    assert_equal 40, time
+  end
+
+  def test_returns_all_response_times_for_given_url_sorted_by_length
+    client_url = "http://jumpstartlab.com"
+    setup_1
+    times = Payload.all_response_times_given_url(client_url)
+    assert_equal [30, 20], times
+    assert times.first > times.last
+  end
+
+  def test_return_average_response_time_for_given_url
+    client_url = "http://jumpstartlab.com"
+    setup_1
+    time = Payload.average_response_time_given_url(client_url)
+    assert_equal 25.0, time
+  end
+
+  def test_HTTP_verbs_used_to_acquire_this_url_returns_array
+    client_url = "http://jumpstartlab.com"
+    setup_1
+    verbs = Payload.verbs_given_url(client_url)
+    assert_equal ["POST", "GET"], verbs 
+  end
+
 end

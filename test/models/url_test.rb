@@ -24,7 +24,6 @@ class UrlTest < Minitest::Test
   end
 
   def test_list_frequency_of_URLS_from_most_to_least
-    # skip
     setup_1
     expected = {"http://jumpstartlab.com"=>2, "http://jumpstartlab.com/jumps"=>1}
     assert_equal expected, Url.list_frequency_urls
