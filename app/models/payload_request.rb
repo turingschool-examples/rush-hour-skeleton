@@ -29,11 +29,11 @@ class PayloadRequest < ActiveRecord::Base
                       .limit(1)
                       .pluck(:url_request_id)
                       .first
-    UrlRequest.find(most_freq_url_id).request_type
+    Verb.find(most_freq_url_id).request_type
   end
 
   def self.list_verbs
-    UrlRequest.pluck(:request_type)
+    Verb.pluck(:request_type)
   end
 
   def self.most_frequent_urls

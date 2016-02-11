@@ -7,7 +7,6 @@ class UrlRequestTest < Minitest::Test
     ur = UrlRequest.new
 
     assert_respond_to ur, :url
-    assert_respond_to ur, :request_type
     assert_respond_to ur, :parameters
   end
 

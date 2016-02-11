@@ -46,21 +46,26 @@ module TestHelpers
                                    event_name: payload[:eventName])
   end
 
+  def create_verb(method)
+    Verb.create(request_type: method)
+  end
+
   def create_payload_with_associations
-    url_1 = create_url_request("GET", "http://jumpstartlab.com/blog")
-    url_2 = create_url_request("POST", "http://google.com")
+    url_1 = create_url_request("http://jumpstartlab.com/blog")
+    url_2 = create_url_request("http://google.com")
+    verb_1 = create_verb("GET")
+    verb_2 = create_verb("POST")
 
     payload_1 = create_payload_request
     payload_2 = create_payload_request
     payload_3 = create_payload_request
 
-    payload_1.update(url_request_id: url_1.id)
-    payload_2.update(url_request_id: url_1.id)
-    payload_3.update(url_request_id: url_2.id)
+    payload_1.update(url_request_id: url_1.id, verb_id: verb_1.id)
+    payload_2.update(url_request_id: url_1.id, verb_id: verb_2.id)
+    payload_3.update(url_request_id: url_2.id, verb_id: verb_1.id)
   end
 
-  def create_url_request(type, url)
-    UrlRequest.create(url: url, request_type: type,
-                      parameters: payload[:parameters])
+  def create_url_request(url)
+    UrlRequest.create(url: url, parameters: payload[:parameters])
   end
 end
