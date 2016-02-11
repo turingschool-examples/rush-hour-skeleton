@@ -59,34 +59,38 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_calculates_avg_response_time
-    create_payload_request(30)
-    create_payload_request(50)
+    create_payload_requests_with_associations(responded_in: 50)
+    create_payload_requests_with_associations(responded_in: 30)
 
     assert_equal 40, PayloadRequest.average_response_time
   end
 
   def test_calculates_max_response_time
-    create_payload_request(30)
-    create_payload_request(50)
+    create_payload_requests_with_associations(responded_in: 50)
+    create_payload_requests_with_associations(responded_in: 30)
 
     assert_equal 50, PayloadRequest.max_response_time
   end
 
   def test_calculates_min_response_time
-    create_payload_request(30)
-    create_payload_request(50)
+    create_payload_requests_with_associations(responded_in: 50)
+    create_payload_requests_with_associations(responded_in: 30)
 
     assert_equal 30, PayloadRequest.min_response_time
   end
 
   def test_most_frequent_request_type
-    create_payload_with_associations
+    create_payload_requests_with_associations(request_type: "POST")
+    create_payload_requests_with_associations
+    create_payload_requests_with_associations
 
     assert_equal "GET", PayloadRequest.most_frequent_request_type
   end
 
   def test_list_of_urls_by_frequency_desc
-    create_payload_with_associations
+    create_payload_requests_with_associations(url: "http://google.com")
+    create_payload_requests_with_associations
+    create_payload_requests_with_associations
 
     assert_equal ["http://jumpstartlab.com/blog", "http://google.com"], PayloadRequest.most_frequent_urls
   end

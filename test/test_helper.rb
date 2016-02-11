@@ -19,13 +19,18 @@ module TestHelpers
     super
   end
 
+  def teardown
+    DatabaseCleaner.clean
+    super
+  end
+
   def payload(data = {})
     {
-      "url":"http://jumpstartlab.com/blog",
+      "url": data[:url] || "http://jumpstartlab.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn": data[:responded_in] || 37,
       "referredBy":"http://jumpstartlab.com",
-      "requestType":"GET",
+      "requestType": data[:request_type] || "GET",
       "parameters":"[]",
       "eventName": "socialLogin",
       "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
@@ -35,58 +40,52 @@ module TestHelpers
     }
   end
 
-  def teardown
-    DatabaseCleaner.clean
-    super
+  def create_ip_address(data)
+    IpAddress.find_or_create_by(ip: data[:ip])
   end
 
-  def create_payload_request(responded_in = payload[:respondedIn])
-    PayloadRequest.create(requested_at: payload[:requestedAt],
-                                   responded_in: responded_in,
-                                   event_name: payload[:eventName])
+  def create_referrer(data)
+    Referrer.find_or_create_by(referred_by: data[:referredBy])
   end
 
-  def create_payload_requests_with_associations(data)
+  def create_resolution(data)
+    Resolution.find_or_create_by(resolution_width: data[:resolutionWidth],
+                                 resolution_height: data[:resolutionHeight])
+  end
+
+  def create_url_request(data)
+    UrlRequest.find_or_create_by(url: data[:url],
+                                 parameters: data[:parameters])
+  end
+
+  def create_user_agent(parsed_user_agent)
+    UserAgent.find_or_create_by(browser: parsed_user_agent.family.to_s,
+                                os: parsed_user_agent.os.to_s)
+  end
+
+  def create_verb(data)
+    Verb.find_or_create_by(request_type: data[:requestType])
+  end
+
+  def create_payload_request(data)
+    PayloadRequest.create(requested_at: data[:requestedAt],
+                          responded_in: data[:respondedIn],
+                          event_name: data[:eventName])
+  end
+
+  def create_payload_requests_with_associations(data = {})
     new_payload = payload(data)
-    ip = IpAddress.find_or_create_by(ip: new_payload[:ip])
-    referrer = Referrer.find_or_create_by(referred_by: new_payload[:referredBy])
-    resolution = Resolution.find_or_create_by(resolution_width: new_payload[:resolutionWidth],
-                                   resolution_height: new_payload[:resolutionHeight])
-    url_request = UrlRequest.find_or_create_by(url: new_payload[:url],
-                                    parameters: new_payload[:parameters])
+    ip          = create_ip_address(new_payload)
+    referrer    = create_referrer(new_payload)
+    resolution  = create_resolution(new_payload)
+    url_request = create_url_request(new_payload)
     parsed_user_agent = UserAgentParser.parse(new_payload[:userAgent])
-    user_agent = UserAgent.find_or_create_by(browser: parsed_user_agent.family.to_s,
-                                  os: parsed_user_agent.os.to_s)
-    verb = Verb.find_or_create_by(request_type: new_payload[:requestType])
-    payload_request = PayloadRequest.find_or_create_by(requested_at: new_payload[:requestedAt],
-                                            responded_in: new_payload[:respondedIn],
-                                            event_name: new_payload[:eventName])
+    user_agent  = create_user_agent(parsed_user_agent)
+    verb        = create_verb(new_payload)
+    payload_request = create_payload_request(new_payload)
 
     payload_request.update(ip_address_id: ip.id, referrer_id: referrer.id,
                            resolution_id: resolution.id, url_request_id: url_request.id,
                            user_agent_id: user_agent.id, verb_id: verb.id)
-  end
-
-  def create_verb(method)
-    Verb.create(request_type: method)
-  end
-
-  def create_payload_with_associations
-    url_1 = create_url_request("http://jumpstartlab.com/blog")
-    url_2 = create_url_request("http://google.com")
-    verb_1 = create_verb("GET")
-    verb_2 = create_verb("POST")
-
-    payload_1 = create_payload_request
-    payload_2 = create_payload_request
-    payload_3 = create_payload_request
-
-    payload_1.update(url_request_id: url_1.id, verb_id: verb_1.id)
-    payload_2.update(url_request_id: url_1.id, verb_id: verb_2.id)
-    payload_3.update(url_request_id: url_2.id, verb_id: verb_1.id)
-  end
-
-  def create_url_request(url)
-    UrlRequest.create(url: url, parameters: payload[:parameters])
   end
 end
