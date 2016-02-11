@@ -45,7 +45,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.sort_urls_by_request_freqency
-    pr = PayloadRequest.group(:url_id).count
+    pr = group(:url_id).count
     sorted_arr = pr.sort_by { |k,v| v }.reverse
     sorted_arr.map { |elem| Url.where(id: elem[0]).first.address }
   end
@@ -68,7 +68,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.sort_events_most_received_to_least
-    en = PayloadRequest.group(:event_name_id).count
+    en = group(:event_name_id).count
     return "No events have been defined" if en == {}
     sorted_arr = en.sort_by { |k,v| v }.reverse
     sorted_arr.map { |elem| EventName.where(id: elem[0]).first.event_name}
