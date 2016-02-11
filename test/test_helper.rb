@@ -65,9 +65,9 @@ module TestHelpers
     payload_2 = create_payload_request
     payload_3 = create_payload_request
 
-    payload_1.update(url_request_id: url_1.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_1.id)
-    payload_2.update(url_request_id: url_1.id, verb_id: verb_2.id, user_agent_id: user_agent_2.id, resolution_id: resolution_2.id)
-    payload_3.update(url_request_id: url_2.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_3.id)
+    payload_1.update(event_name: 'Facebook', url_request_id: url_1.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_1.id)
+    payload_2.update(event_name: 'Google', url_request_id: url_1.id, verb_id: verb_2.id, user_agent_id: user_agent_2.id, resolution_id: resolution_2.id)
+    payload_3.update(event_name: 'Facebook', url_request_id: url_2.id, verb_id: verb_1.id, user_agent_id: user_agent_1.id, resolution_id: resolution_1.id)
   end
 
   def create_url_request(url)
