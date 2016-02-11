@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209232531) do
+ActiveRecord::Schema.define(version: 20160211024116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "identifier"
+    t.string   "root_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
@@ -41,8 +48,10 @@ ActiveRecord::Schema.define(version: 20160209232531) do
     t.integer  "event_id"
     t.integer  "resolution_id"
     t.integer  "refer_id"
+    t.integer  "client_id"
   end
 
+  add_index "payloads", ["client_id"], name: "index_payloads_on_client_id", using: :btree
   add_index "payloads", ["event_id"], name: "index_payloads_on_event_id", using: :btree
   add_index "payloads", ["ip_id"], name: "index_payloads_on_ip_id", using: :btree
   add_index "payloads", ["refer_id"], name: "index_payloads_on_refer_id", using: :btree
@@ -83,6 +92,7 @@ ActiveRecord::Schema.define(version: 20160209232531) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "payloads", "clients"
   add_foreign_key "payloads", "events"
   add_foreign_key "payloads", "ips"
   add_foreign_key "payloads", "refers"

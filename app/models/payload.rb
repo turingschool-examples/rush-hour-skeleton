@@ -10,6 +10,7 @@ class Payload < ActiveRecord::Base
   belongs_to :url
   belongs_to :user_environment
   belongs_to :request_type
+  belongs_to :client
 
   def self.average_response_time
     self.average(:response_time).to_i

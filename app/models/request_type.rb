@@ -1,6 +1,7 @@
 require 'pry'
 class RequestType < ActiveRecord::Base
   has_many :payloads
+
   validates :verb, presence: true
 
   def self.find_distinct_verbs
