@@ -134,12 +134,33 @@ class PayloadRequestTest < Minitest::Test
 
   # List of URLs listed form most requested to least requested
   def test_sort_urls_by_request_freqency_most_to_least
+    payload4 = {
+      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/tutorials").id,
+      requested_at:     "2015-02-16 21:38:28 -0700",
+      responded_in:     50,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
+      parameters:       [],
+      event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
+      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      resolution_id:    Resolution.find_or_create_by(
+                          width: "1920",
+                          height: "1280").id,
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+    }
 
+    pl4 = PayloadRequest.create(payload4)
+    pr1, pr2, pr3 = create_three_payloads
+
+    assert_equal ["http://jumpstartlab.com/tutorials", "http://jumpstartlab.com", "http://jumpstartlab.com/blog"], PayloadRequest.sort_urls_by_request_freqency
   end
 
   # Web browser breakdown across all requests(userAgent)
   def test_list_browser_breakdown_for_all_requests
+    pr1, pr2, pr3 = create_three_payloads
 
+    assert_equal ["GET","POST"], PayloadRequest.browser_breakdown
   end
 
   # OS breakdown across all requests(userAgent)
