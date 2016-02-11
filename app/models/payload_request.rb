@@ -29,7 +29,7 @@ class PayloadRequest < ActiveRecord::Base
                       .limit(1)
                       .pluck(:url_request_id)
                       .first
-                      
+
     Verb.find(most_freq_url_id).request_type
   end
 
@@ -39,5 +39,10 @@ class PayloadRequest < ActiveRecord::Base
                       .pluck(:url_request_id)
 
     most_freq_url_ids.map { |id| UrlRequest.find(id).url }
+  end
+
+  def self.browser_breakdown
+    user_agent_ids = pluck(:user_agent_id)
+    user_agent_ids.map { |id| UserAgent.find(id).browser }
   end
 end
