@@ -58,7 +58,9 @@ class PayloadRequest < ActiveRecord::Base
 
   # OS breakdown across all requests(userAgent)
   def self.os_breakdown
-
+    UserSystem.all.map do |sys|
+      UserAgent.parse(sys.browser).platform
+    end
   end
 
   # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)

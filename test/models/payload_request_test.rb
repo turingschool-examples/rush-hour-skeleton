@@ -164,6 +164,9 @@ class PayloadRequestTest < Minitest::Test
 
   # OS breakdown across all requests(userSystem)
   def test_os_browser_breakdown_across_all_requests
+    pr1, pr2, pr3 = create_three_payloads
+    expected = ["Macintosh%3B Intel Mac OS X 10_8_2", "iPhone"]
+    assert_equal expected, PayloadRequest.os_breakdown
 
   end
 
