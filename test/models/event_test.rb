@@ -1,6 +1,8 @@
 require_relative '../test_helper'
 
 class EventTest < Minitest::Test
+  include TestHelpers
+
   def test_responds_to_payloads
     e = Event.create(name: "social")
 
@@ -19,5 +21,12 @@ class EventTest < Minitest::Test
 
     d = Event.new name: nil
     assert_nil d.name
+  end
+
+  def test_return_most_frequent_event_name
+    setup_1
+    expected = {"socialLogin"=>2, "differentEvent"=>1}
+
+    assert_equal expected, Event.most_frequent_event_name
   end
 end
