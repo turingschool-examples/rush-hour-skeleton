@@ -47,8 +47,9 @@ module TestHelpers
   end
 
   def create_payload_with_associations
-    url_1 = create_url_request("GET")
-    url_2 = create_url_request("POST")
+    url_1 = create_url_request("GET", "http://jumpstartlab.com/blog")
+    url_2 = create_url_request("POST", "http://google.com")
+
     payload_1 = create_payload_request
     payload_2 = create_payload_request
     payload_3 = create_payload_request
@@ -58,8 +59,8 @@ module TestHelpers
     payload_3.update(url_request_id: url_2.id)
   end
 
-  def create_url_request(type)
-    UrlRequest.create(url: payload[:url], request_type: type,
+  def create_url_request(type, url)
+    UrlRequest.create(url: url, request_type: type,
                       parameters: payload[:parameters])
   end
 end
