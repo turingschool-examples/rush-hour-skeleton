@@ -8,6 +8,26 @@ class PayloadRequestTest < Minitest::Test
     assert EventName
   end
 
+
+  # class PayloadParser
+  #
+  #   def initialize(payload_hash)
+  #     @payload_hash = payload_hash
+  #   end
+  #
+  #   def create_everything
+  #   url = Url.create(address: @payload_hash["url"])
+  #   url = Url.where(address: @payload_hash["url"]).first_or_create
+  #   Ip.create(address: @payload_hash["ip"])
+  #
+  #   PayloadRequest.create(responded_in: payload_hash["respondedIn"],
+  #                         requested_at: payload_hash["..."],
+  #                         url_id: url.id )
+  #
+  #   end
+  # end
+
+
   def create_three_payloads
     payload1 = {
       url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/blog").id,

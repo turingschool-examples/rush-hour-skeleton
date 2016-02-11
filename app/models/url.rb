@@ -1,6 +1,6 @@
 class Url < ActiveRecord::Base
   has_many :payload_requests
-  validates :address, presence: true
+  validates :address, presence: true, uniqueness: true
 
   def max_response_time
     payload_requests.maximum(:responded_in)
@@ -25,6 +25,27 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_referrers
+    referrer_url_id_hash = payload_requests.group(:referrer_url_id).count
+
+    sorted_arr = referrer_url_id_hash.sort_by { |k,v| v }.reverse
+
+    addresses = sorted_arr.map do |elem|
+      ReferrerUrl.where(id: elem[0]).first.url_address
+    end
+
+    addresses[0..2]
+  end
+
+  def top_three_user_systems
+    user_system_id_hash = payload_requests.group(:user_system_id).count
+
+    sorted_arr = user_system_id_hash.sort_by { |k, v| v }.reverse
+
+    systems = sorted_arr.map do |elem|
+      UserSystem.where(id: elem[0]).first.browser
+    end
+    require "pry"
+    binding.pry
 
   end
 end

@@ -50,6 +50,7 @@ class PayloadRequest < ActiveRecord::Base
     sorted_arr.map { |elem| Url.where(id: elem[0]).first.address }
   end
 
+# within user system class can call .browser
   def self.browser_breakdown
     UserSystem.all.map do |sys|
       UserAgent.parse(sys.browser).browser
