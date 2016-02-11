@@ -1,6 +1,6 @@
 class Url < ActiveRecord::Base
   has_many :payloads
-  validates :route, presence: true
+  validates :route, presence: true, uniqueness: true
 
   def self.most_frequent_urls
     self.all.sort_by do |url|

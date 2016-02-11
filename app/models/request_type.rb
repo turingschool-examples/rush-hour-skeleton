@@ -1,6 +1,6 @@
 class RequestType < ActiveRecord::Base
   has_many :payloads
-  validates :verb, presence: true
+  validates :verb, presence: true, uniqueness: true
 
   def self.most_frequent_request
     RequestType.all.max_by do |verb|
