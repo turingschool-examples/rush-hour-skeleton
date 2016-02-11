@@ -17,6 +17,16 @@ class UserAgentTest < Minitest::Test
     refute_equal 1, UserAgent.all.size
   end
 
+  def test_os_breakdown
+    create_payload_with_associations
+
+    os = UserAgent.os_breakdown
+
+    assert 2, os.count
+    assert os.include?("Windows")
+    assert os.include?("Android")
+  end
+
   def test_browser_breakdown
     create_payload_with_associations
 
