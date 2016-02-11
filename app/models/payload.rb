@@ -22,11 +22,13 @@ class Payload < ActiveRecord::Base
 
   def self.max_response_time
     self.maximum(:response_time)
-
   end
 
   def self.most_frequent_request_type
-  self.maximum(:request_type_id)
+    require "pry"
+    binding.pry
+    id = self.group("request_type_id").order("count_request_type_id desc").count("request_type_id").first[0]
+
   end
 
   def self.max_response_time_given_url(single_url)
