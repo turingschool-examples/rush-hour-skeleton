@@ -21,4 +21,17 @@ class ClientTest < Minitest::Test
     refute client.save
     refute_equal 1, Client.all.size
   end
+
+  def test_has_payload_requests
+    client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
+
+    client.payload_requests.create(requested_at: "today",
+                                   responded_in: 35,
+                                   event_name:   "event")
+
+    assert_equal 1, client.payload_requests.count
+    assert_equal "today", client.payload_requests.last.requested_at
+    assert_equal 35,      client.payload_requests.last.responded_in
+    assert_equal "event", client.payload_requests.last.event_name
+  end
 end
