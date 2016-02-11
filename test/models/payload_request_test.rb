@@ -1,4 +1,5 @@
 require_relative "../test_helper"
+require 'pry'
 
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
@@ -104,6 +105,210 @@ class CalculationsOnPayloadRequestTest< Minitest::Test
 
     #assertions
     assert_equal 32.33, PayloadRequest.average_response_time
+  end
+
+  def test_max_response_time_across_all_requests
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:respondedIn] = 40
+    rp3 = raw_payload
+    rp3[:respondedIn] = 20
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+
+    assert_equal 40, PayloadRequest.find_max_response_time
+  end
+
+  def test_min_response_time_across_all_requests
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:respondedIn] = 40
+    rp3 = raw_payload
+    rp3[:respondedIn] = 20
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+
+    assert_equal 20, PayloadRequest.find_min_response_time
+  end
+
+  def test_find_the_most_frequent_request_type
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:requestType] = "hey now"
+    rp3 = raw_payload
+    rp3[:requestType] = "hey now"
+    rp4 = raw_payload
+    rp4[:requestType] = "hey now"
+    rp5 = raw_payload
+    rp5[:requestType] = "hey now"
+
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+    PayloadRequest.create(PayloadParser.parse(rp4))
+    PayloadRequest.create(PayloadParser.parse(rp5))
+
+    assert_equal "hey now", PayloadRequest.find_most_frequent_request_type
+  end
+
+  def test_returns_list_of_all_HTTP_verbs
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:requestType] = "hey now"
+    rp3 = raw_payload
+    rp3[:requestType] = "hey now"
+    rp4 = raw_payload
+    rp4[:requestType] = "hey now"
+    rp5 = raw_payload
+    rp5[:requestType] = "hey now"
+
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+    PayloadRequest.create(PayloadParser.parse(rp4))
+    PayloadRequest.create(PayloadParser.parse(rp5))
+
+    assert_equal ["GET", "hey now"], PayloadRequest.find_all_http_verbs
+  end
+
+  def test_returns_list_of_URLs_from_most_frequent_to_least_frequent
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:url] = "www.google.com"
+    rp3 = raw_payload
+    rp3[:url] = "www.google.com"
+    rp4 = raw_payload
+    rp4[:url] = "www.turing.io"
+    rp5 = raw_payload
+    rp6 = raw_payload
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+    PayloadRequest.create(PayloadParser.parse(rp4))
+    PayloadRequest.create(PayloadParser.parse(rp5))
+    PayloadRequest.create(PayloadParser.parse(rp6))
+
+    assert_equal ["http://jumpstartlab.com/blog", "www.google.com", "www.turing.io"], PayloadRequest.return_ordered_list_of_urls
+  end
+
+  def test_find_max_response_time_for_specific_URL
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:respondedIn] = 40
+    rp2[:url] = "www.google.com"
+    rp3 = raw_payload
+    rp3[:respondedIn] = 50
+    rp3[:url] = "www.google.com"
+    rp4 = raw_payload
+    rp4[:respondedIn] = 60
+    rp5 = raw_payload
+    rp5[:respondedIn] = 70
+    rp6 = raw_payload
+    rp6[:respondedIn] = 80
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+    PayloadRequest.create(PayloadParser.parse(rp4))
+    PayloadRequest.create(PayloadParser.parse(rp5))
+    PayloadRequest.create(PayloadParser.parse(rp6))
+    url = Url.all.first
+    url2 = Url.all.last
+
+    assert_equal 80, url.find_max_response_time
+    assert_equal 50, url2.find_max_response_time
+  end
+
+  def test_find_min_response_time_for_specific_URL
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:respondedIn] = 40
+    rp2[:url] = "www.google.com"
+    rp3 = raw_payload
+    rp3[:respondedIn] = 50
+    rp3[:url] = "www.google.com"
+    rp4 = raw_payload
+    rp4[:respondedIn] = 60
+    rp5 = raw_payload
+    rp5[:respondedIn] = 70
+    rp6 = raw_payload
+    rp6[:respondedIn] = 80
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+    PayloadRequest.create(PayloadParser.parse(rp4))
+    PayloadRequest.create(PayloadParser.parse(rp5))
+    PayloadRequest.create(PayloadParser.parse(rp6))
+    url = Url.all.first
+    url2 = Url.all.last
+
+    assert_equal 37, url.find_min_response_time
+    assert_equal 40, url2.find_min_response_time
+  end
+
+  def test_returns_list_of_response_times_for_specific_url
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:respondedIn] = 40
+    rp2[:url] = "www.google.com"
+    rp3 = raw_payload
+    rp3[:respondedIn] = 50
+    rp3[:url] = "www.google.com"
+    rp4 = raw_payload
+    rp4[:respondedIn] = 60
+    rp5 = raw_payload
+    rp5[:respondedIn] = 70
+    rp6 = raw_payload
+    rp6[:respondedIn] = 80
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+    PayloadRequest.create(PayloadParser.parse(rp4))
+    PayloadRequest.create(PayloadParser.parse(rp5))
+    PayloadRequest.create(PayloadParser.parse(rp6))
+    url = Url.all.first
+    url2 = Url.all.last
+
+    assert_equal [80, 70, 60, 37], url.list_response_times
+    assert_equal [50, 40], url2.list_response_times
+  end
+
+  def test_average_response_time_for_specific_url
+    rp1 = raw_payload
+    rp2 = raw_payload
+    rp2[:respondedIn] = 40
+    rp2[:url] = "www.google.com"
+    rp3 = raw_payload
+    rp3[:respondedIn] = 50
+    rp3[:url] = "www.google.com"
+    rp4 = raw_payload
+    rp4[:respondedIn] = 60
+    rp5 = raw_payload
+    rp5[:respondedIn] = 70
+    rp6 = raw_payload
+    rp6[:respondedIn] = 80
+
+    PayloadRequest.create(PayloadParser.parse(rp1))
+    PayloadRequest.create(PayloadParser.parse(rp2))
+    PayloadRequest.create(PayloadParser.parse(rp3))
+    PayloadRequest.create(PayloadParser.parse(rp4))
+    PayloadRequest.create(PayloadParser.parse(rp5))
+    PayloadRequest.create(PayloadParser.parse(rp6))
+    url = Url.all.first
+    url2 = Url.all.last
+
+
+    assert_equal 61.75, url.find_average_response_time
+    assert_equal 45, url2.find_average_response_time
   end
 
   def raw_payload
