@@ -17,7 +17,7 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
@@ -33,7 +33,7 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
@@ -49,7 +49,7 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
@@ -73,7 +73,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, pr.request_type_id
     assert_equal "[]", pr.parameters
     assert_equal 1, pr.event_name_id
-    assert_equal 1, pr.user_agent_id
+    assert_equal 1, pr.user_system_id
     assert_equal 1, pr.resolution_id
     assert_equal 1, pr.ip_id
   end
@@ -87,7 +87,7 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.create(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.create(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.create(
                           width: "1920",
@@ -142,7 +142,7 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
@@ -156,7 +156,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["http://jumpstartlab.com/tutorials", "http://jumpstartlab.com", "http://jumpstartlab.com/blog"], PayloadRequest.sort_urls_by_request_freqency
   end
 
-  # Web browser breakdown across all requests(userAgent)
+  # Web browser breakdown across all requests(userSystem)
   def test_list_browser_breakdown_for_all_requests
     skip
     pr1, pr2, pr3 = create_three_payloads
@@ -164,7 +164,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["GET","POST"], PayloadRequest.browser_breakdown
   end
 
-  # OS breakdown across all requests(userAgent)
+  # OS breakdown across all requests(userSystem)
   def test_os_browser_breakdown_across_all_requests
 
   end

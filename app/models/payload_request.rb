@@ -6,12 +6,12 @@ class PayloadRequest < ActiveRecord::Base
                         :request_type_id,
                         :parameters,
                         :event_name_id,
-                        :user_agent_id,
+                        :user_system_id,
                         :resolution_id,
                         :ip_id
 
     belongs_to :request_type
-    belongs_to :user_agent
+    belongs_to :user_system
     belongs_to :url
 
 

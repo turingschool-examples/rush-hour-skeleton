@@ -24,7 +24,7 @@ class UrlTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
@@ -40,7 +40,7 @@ class UrlTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
@@ -56,7 +56,7 @@ class UrlTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_agent_id:    UserAgent.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
@@ -110,9 +110,9 @@ class UrlTest < Minitest::Test
     assert_equal expected, url.url_top_three_referrers(url)
   end
 
-  def test_returns_three_most_popular_user_agents_for_specific_url
+  def test_returns_three_most_popular_user_systems_for_specific_url
     skip
 
-    assert_equal expected, url.url_top_three_user_agents(url)
+    assert_equal expected, url.url_top_three_user_systems(url)
   end
 end

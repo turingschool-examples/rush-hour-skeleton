@@ -16,7 +16,7 @@ class EventNameTest < Minitest::Test
       request_type_id:    RequestType.create(verb: "GET").id,
       parameters:         [],
       event_name_id:      EventName.create(event_name: "socialLogin").id,
-      user_agent_id:      UserAgent.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
+      user_system_id:     UserSystem.create(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
        like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
       resolution_id:      Resolution.create(
                             width: "1920",
