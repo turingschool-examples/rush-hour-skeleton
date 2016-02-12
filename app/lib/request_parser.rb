@@ -2,7 +2,6 @@ require 'useragent'
 require 'pry'
 
 class RequestParser
-  attr_accessor :request
 
   def self.parse_request(request)
     request = JSON.parse(request)

@@ -46,6 +46,7 @@ class PayloadRequest < ActiveRecord::Base
     sorted_arr.map { |elem| Url.where(id: elem[0]).first.address }
   end
 
+#consider refactoring this method and it's test to get just the event_name object
   def self.sort_events_most_received_to_least
     en = group(:event_name_id).count
     return "No events have been defined" if en == {}
