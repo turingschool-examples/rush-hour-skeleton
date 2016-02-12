@@ -70,4 +70,22 @@ class UrlRequestTest < Minitest::Test
     assert url_request.associated_verbs.include?("POST")
     assert url_request.associated_verbs.include?("GET")
   end
+
+  def test_top_three_referrers_for_specific_url
+    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
+    create_payload_requests_with_associations(referred_by: "http://coursereport.com")
+    create_payload_requests_with_associations(referred_by: "http://google.com")
+    create_payload_requests_with_associations(referred_by: "http://google.com")
+    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
+    create_payload_requests_with_associations(referred_by: "http://google.com")
+    create_payload_requests_with_associations(referred_by: "http://turing.io")
+    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
+    create_payload_requests_with_associations(referred_by: "http://turing.io")
+    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
+
+    url_request = UrlRequest.find_by(url: "http://jumpstartlab.com/blog")
+    referrers = url_request.top_three_referrers
+
+    assert_equal ["http://pragmaticstudio.com", "http://google.com", "http://turing.io"], referrers
+  end
 end

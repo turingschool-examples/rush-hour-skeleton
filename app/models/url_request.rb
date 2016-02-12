@@ -24,4 +24,9 @@ class UrlRequest < ActiveRecord::Base
     verb_ids = payload_requests.pluck(:verb_id)
     verb_ids.map { |id| Verb.find(id).request_type }.uniq
   end
+
+  def top_three_referrers
+    referrer_ids = payload_requests.group(:referrer_id).order("count(*) DESC").pluck(:referrer_id)[0..2]
+    referrer_ids.map { |id| Referrer.find(id).referred_by }
+  end
 end
