@@ -96,19 +96,19 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["http://jumpstartlab.com/tutorials", "http://jumpstartlab.com", "http://jumpstartlab.com/blog"], PayloadRequest.sort_urls_by_request_freqency
   end
 
-  # Web browser breakdown across all requests(userSystem)
-  def test_list_browser_breakdown_for_all_requests
-    pr1, pr2, pr3 = create_three_payloads
-
-    assert_equal ["Firefox", "Safari"], PayloadRequest.browser_breakdown.sort
-  end
-
-  # OS breakdown across all requests(userSystem)
-  def test_os_browser_breakdown_across_all_requests
-    pr1, pr2, pr3 = create_three_payloads
-    expected = ["Mac OSX", "Windows"]
-    assert_equal expected, PayloadRequest.os_breakdown.sort
-  end
+  # # Web browser breakdown across all requests(userSystem)
+  # def test_list_browser_breakdown_for_all_requests
+  #   pr1, pr2, pr3 = create_three_payloads
+  #
+  #   assert_equal ["Firefox", "Safari"], PayloadRequest.browser_breakdown.sort
+  # end
+  #
+  # # OS breakdown across all requests(userSystem)
+  # def test_os_browser_breakdown_across_all_requests
+  #   pr1, pr2, pr3 = create_three_payloads
+  #   expected = ["Mac OSX", "Windows"]
+  #   assert_equal expected, PayloadRequest.os_breakdown.sort
+  # end
   #
   # # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
   # def test_list_screen_resolutions_across_all_request

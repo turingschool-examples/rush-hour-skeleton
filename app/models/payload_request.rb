@@ -47,14 +47,14 @@ class PayloadRequest < ActiveRecord::Base
     sorted_arr.map { |elem| Url.where(id: elem[0]).first.address }
   end
 
-# within user system class can call .browser
-  def self.browser_breakdown
-    UserSystem.pluck(:browser_type).uniq
-  end
-
-  def self.os_breakdown
-    UserSystem.pluck(:operating_system).uniq
-  end
+# # within user system class can call .browser
+#   def self.browser_breakdown
+#     UserSystem.pluck(:browser_type).uniq
+#   end
+#
+#   def self.os_breakdown
+#     UserSystem.pluck(:operating_system).uniq
+#   end
 
   # def self.screen_resolutions
   #   Resolution.pluck(:width, :height).uniq

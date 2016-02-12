@@ -13,5 +13,4 @@ class ResolutionTest < Minitest::Test
     expected = [["960", "1400"], ["1920", "1280"]]
     assert_equal expected, Resolution.screen_resolutions
   end
-
 end
