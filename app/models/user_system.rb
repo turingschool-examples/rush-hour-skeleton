@@ -1,4 +1,5 @@
 class UserSystem < ActiveRecord::Base
-  validates :browser, presence: true
+  validates :browser_type, presence: true
+  
   has_many :payload_requests
 end

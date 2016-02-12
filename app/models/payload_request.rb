@@ -13,6 +13,7 @@ class PayloadRequest < ActiveRecord::Base
     belongs_to :request_type
     belongs_to :user_system
     belongs_to :url
+    belongs_to :event_name
 
   def self.average_response_time
     average(:responded_in).to_i
@@ -49,13 +50,13 @@ class PayloadRequest < ActiveRecord::Base
 # within user system class can call .browser
   def self.browser_breakdown
     UserSystem.all.map do |sys|
-      UserAgent.parse(sys.browser).browser
+      UserAgent.parse(sys.browser_type).browser
     end
   end
 
   def self.os_breakdown
     UserSystem.all.map do |sys|
-      UserAgent.parse(sys.browser).platform
+      UserAgent.parse(sys.browser_type).platform
     end
   end
 
@@ -63,4 +64,10 @@ class PayloadRequest < ActiveRecord::Base
     Resolution.pluck(:width, :height)
   end
 
+  def self.sort_events_most_received_to_least
+    en = group(:event_name_id).count
+    return "No events have been defined" if en == {}
+    sorted_arr = en.sort_by { |k,v| v }.reverse
+    sorted_arr.map { |elem| EventName.where(id: elem[0]).first.event_name}
+  end
 end

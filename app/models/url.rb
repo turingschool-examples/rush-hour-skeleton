@@ -1,6 +1,6 @@
 class Url < ActiveRecord::Base
-  has_many :payload_requests
   validates :address, presence: true, uniqueness: true
+  has_many :payload_requests
 
   def max_response_time
     payload_requests.maximum(:responded_in)
