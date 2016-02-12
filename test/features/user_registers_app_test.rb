@@ -6,6 +6,7 @@ class UserRegistersApp < FeatureTest
     # As a new or non-logged-in user
       # Question - How do you identify whether a user is new or already logged in?
     # When I visit the home page
+    skip
     visit '/'
     # And I click on the register button
     click_button('Register')
