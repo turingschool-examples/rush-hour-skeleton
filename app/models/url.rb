@@ -10,8 +10,8 @@ class Url < ActiveRecord::Base
     payload_requests.minimum(:responded_in)
   end
 
-  def all_response_times
-    payload_requests.group(:responded_in).count.keys.sort.reverse
+  def all_response_times_sorted_high_to_low
+    payload_requests.pluck(:responded_in).sort.reverse
   end
 
   def average_response_time
@@ -19,7 +19,7 @@ class Url < ActiveRecord::Base
   end
 
   def all_http_verbs
-    request_type_ids = payload_requests.group(:request_type_id).count.keys
+    request_type_ids = payload_requests.pluck(:request_type_id)
 
     request_type_ids.map { |id| RequestType.where(id: id).first.verb }
   end

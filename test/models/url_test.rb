@@ -37,10 +37,11 @@ class UrlTest < Minitest::Test
     create_payload_4
     create_payload_5
     create_payload_6
+    create_payload_7
 
     url = Url.find(1)
-    expected = [40, 30]
-    assert_equal expected, url.all_response_times
+    expected = [50, 40, 30]
+    assert_equal expected, url.all_response_times_sorted_high_to_low
   end
 
   def test_can_return_average_response_for_specific_url
