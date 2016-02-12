@@ -27,6 +27,7 @@ GEM
       xpath (~> 2.0)
     coderay (1.1.0)
     database_cleaner (1.5.1)
+    diff-lcs (1.2.5)
     i18n (0.7.0)
     json (1.8.3)
     launchy (2.4.3)
@@ -60,6 +61,19 @@ GEM
       rack (>= 1.0)
       rack-test (~> 0.6.2)
       ripl (>= 0.7.0)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.2)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     shotgun (0.9.1)
       rack (>= 1.0)
     sinatra (1.4.7)
@@ -96,6 +110,7 @@ DEPENDENCIES
   pry-nav
   rack-test
   rake
+  rspec
   shotgun
   sinatra
   sinatra-activerecord
