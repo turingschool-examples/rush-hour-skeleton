@@ -5,9 +5,10 @@ class DataParser
   def parse_client(params)
     if params.has_key?("identifier") && params.has_key?("rootUrl")
       new_identifier  = params["identifier"]
-      rootUrl    = params["rootUrl"]
+      root_url         = params["rootUrl"]
       binding.pry
       client = Client.select(:clients).where(:identifier => new_identifier).first_or_create do |variable|
+        
       end
       # client = create_client(new_identifier, root_url)
       if client.save

@@ -8,6 +8,6 @@ class Client < ActiveRecord::Base
   has_many :urls, through: :payloads
   has_many :user_environments, through: :payloads
 
-  validates :identifier, presence: true
+  validates :identifier, presence: true, uniqueness: true
   validates :root_url, presence: true
 end

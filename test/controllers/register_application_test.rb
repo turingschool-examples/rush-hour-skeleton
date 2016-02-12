@@ -19,6 +19,7 @@ class RegisterApplication <Minitest::Test
   end
 
   def test_post_request_with_valid_attributes_returns_200_status
+    skip
     post '/sources', {
         identifier: "jumpstartlab",
         root_url: "http://jumpstartlab.com"
