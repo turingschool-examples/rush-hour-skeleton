@@ -19,4 +19,9 @@ class UrlRequest < ActiveRecord::Base
   def avg_response_time
     payload_requests.average(:responded_in)
   end
+
+  def associated_verbs
+    verb_ids = payload_requests.pluck(:verb_id)
+    verb_ids.map { |id| Verb.find(id).request_type }.uniq
+  end
 end
