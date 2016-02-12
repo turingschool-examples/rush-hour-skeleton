@@ -27,11 +27,10 @@ module TestHelpers
     analyzer = PayloadAnalyzer.new
     num.times { |index| analyzer.parse(random_payloads[index]) }
   end
-  # 
-  # def create_clients(num)
-  #   analyzer = ClientAnalyzer.new
-  #   num.times { |index| analyzer.parse({identifier: "thing#{index}", root_url: "www.another_thing.com#{index}"})}
-  # end
+
+  def create_clients(num)
+    num.times { |index| ClientAnalyzer.parse({identifier: "thing#{index}", rootUrl: "www.another_thing.com#{index}"}) }
+  end
 
   def random_payloads
     [
