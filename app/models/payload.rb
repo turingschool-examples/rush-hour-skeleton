@@ -17,11 +17,11 @@ class Payload < ActiveRecord::Base
   end
 
   def self.min_response_time
-    self.minimum(:response_time)
+    minimum(:response_time)
   end
 
   def self.max_response_time
-    self.maximum(:response_time)
+    maximum(:response_time)
   end
 
   def self.most_frequent_request_type

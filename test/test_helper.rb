@@ -53,7 +53,7 @@ module TestHelpers
       parameters: ["query"],
       event_id: Event.where(name: "socialLogin").first_or_create.id,
       ip_id: Ip.where(address: "62.29.38.211").first_or_create.id,
-      refer_id: Refer.where(address: "http://jumpstartlab.com").first_or_create.id,
+      refer_id: Refer.where(address: "http://www.google.com").first_or_create.id,
       resolution_id: Resolution.where(width: "500", height: "500").first_or_create.id,
       url_id: Url.where(address: "http://jumpstartlab.com/jumps").first_or_create.id,
       user_environment_id: UserEnvironment.where(browser: "Chrome", os: "SOS").first_or_create.id,
