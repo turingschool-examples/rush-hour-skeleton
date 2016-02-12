@@ -1,6 +1,10 @@
 require "bundler"
 Bundler.require
 
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new
+task :default => :spec
+
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|
@@ -31,7 +35,5 @@ namespace :sanitation do
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
 
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new
-  task :default => :spec
+
 end
