@@ -30,51 +30,39 @@ class UrlTest < Minitest::Test
   end
 
   def test_returns_max_response_time_for_given_url
-    client_url = "http://jumpstartlab.com"
     setup_1
-    time = Url.max_response_time_given_url(client_url)
-    assert_equal 30, time
+    url = Url.find(1)
+    assert_equal 30, url.max_url_response_time
   end
 
   def test_returns_min_response_time_for_given_url
-    skip
-    client_url = "http://jumpstartlab.com/jumps"
     setup_1
-    time = Url.min_response_time_given_url(client_url)
-    assert_equal 40, time
+    url = Url.find(1)
+    assert_equal 20, url.min_url_response_time
   end
 
   def test_returns_all_response_times_for_given_url_sorted_by_length
-    skip
-    client_url = "http://jumpstartlab.com"
     setup_1
-    times = Url.all_response_times_given_url(client_url)
-    assert_equal [30, 20], times
-    assert times.first > times.last
+    url = Url.find(1)
+    assert_equal [30, 20], url.list_url_response_times
   end
 
   def test_return_average_response_time_for_given_url
-    skip
-    client_url = "http://jumpstartlab.com"
     setup_1
-    time = Url.average_response_time_given_url(client_url)
-    assert_equal 25.0, time
+    url = Url.find(1)
+    assert_equal 25.0, url.average_url_response_time
   end
 
   def test_HTTP_verbs_used_to_acquire_this_url_returns_array
-    skip
-    client_url = "http://jumpstartlab.com"
     setup_1
-    verbs = Url.verbs_given_url(client_url)
-    assert_equal ["POST", "GET"], verbs
+    url = Url.find(1)
+    assert_equal ["POST", "GET"], url.show_all_url_verbs
   end
 
   def test_three_most_popular_refers
-    skip
-    client_url = "http://jumpstartlab.com"
     setup_1
-    referrers = Url.three_most_popular_referrers(client_url)
-    assert_equal ["http://google.com", "http://turing.io"], referrers
+    url = Url.find(1)
+    assert_equal ["http://turing.io", "http://google.com"], url.three_most_popular_url_refers
   end
 
 end
