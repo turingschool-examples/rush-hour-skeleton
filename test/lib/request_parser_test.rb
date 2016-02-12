@@ -26,13 +26,13 @@ class RequestParserTest < Minitest::Test
     assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at
     assert_equal 37, pr.responded_in
     assert_equal 1, pr.referrer_url_id
-    assert_equal 1, pr.request_type
+    # assert_equal 1, pr.request_type
     assert_equal "[]", pr.parameters
     assert_equal 1, pr.event_name_id
     assert_equal 1, pr.user_system_id
     assert_equal 1, pr.resolution_id
     assert_equal 1, pr.ip_id
-    refute_equal "http://google.com", pr.referred_by
+    refute_equal 2, pr.referrer_url_id
   end
 end
 # parsed_request = PayloadRequest.create(payload)

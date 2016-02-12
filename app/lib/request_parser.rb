@@ -19,7 +19,7 @@ class RequestParser
                           requested_at: request["requestedAt"],
                           responded_in: request["respondedIn"],
                           referrer_url_id: ref.id,
-                          request_type: req.id,
+                          # request_type: req.id,
                           parameters: request["parameters"],
                           event_name_id: event.id,
                           user_system_id: sys.id,
