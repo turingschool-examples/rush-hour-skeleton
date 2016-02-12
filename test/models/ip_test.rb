@@ -6,6 +6,4 @@ class IpTest < Minitest::Test
   def test_class_exists
     assert Ip
   end
-
-
 end

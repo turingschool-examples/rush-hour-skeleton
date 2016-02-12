@@ -6,6 +6,4 @@ class ReferrerUrlTest < Minitest::Test
   def test_class_exists
     assert ReferrerUrl
   end
-
-
 end
