@@ -57,4 +57,17 @@ class UrlRequestTest < Minitest::Test
 
     assert_equal 30, url_request.avg_response_time
   end
+
+
+  def test_all_verbs_associated_with_specific_url
+    create_payload_requests_with_associations
+    create_payload_requests_with_associations
+    create_payload_requests_with_associations(request_type: 'POST')
+
+    url_request = UrlRequest.find_by(url: 'http://jumpstartlab.com/blog')
+
+    assert_equal 2, url_request.associated_verbs.count
+    assert url_request.associated_verbs.include?("POST")
+    assert url_request.associated_verbs.include?("GET")
+  end
 end
