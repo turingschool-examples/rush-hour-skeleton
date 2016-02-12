@@ -32,7 +32,6 @@ class PayloadRequest < ActiveRecord::Base
     ids_and_count = group(:request_type_id).count
     id = ids_and_count.max_by {|k, v| v}.first
     where(request_type_id: id).first.request_type.verb
-
   end
 
   def self.most_frequent_request_type
@@ -46,19 +45,6 @@ class PayloadRequest < ActiveRecord::Base
     sorted_arr = pr.sort_by { |k,v| v }.reverse
     sorted_arr.map { |elem| Url.where(id: elem[0]).first.address }
   end
-
-# # within user system class can call .browser
-#   def self.browser_breakdown
-#     UserSystem.pluck(:browser_type).uniq
-#   end
-#
-#   def self.os_breakdown
-#     UserSystem.pluck(:operating_system).uniq
-#   end
-
-  # def self.screen_resolutions
-  #   Resolution.pluck(:width, :height).uniq
-  # end
 
   def self.sort_events_most_received_to_least
     en = group(:event_name_id).count
