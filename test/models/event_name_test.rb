@@ -16,7 +16,9 @@ class EventNameTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_system_id:   UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Firefox",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "960",
                           height: "1400").id,
@@ -31,7 +33,9 @@ class EventNameTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "signOut").id,
-      user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Firefox",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
@@ -46,8 +50,9 @@ class EventNameTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3").id,
-
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Firefox",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
@@ -69,8 +74,9 @@ class EventNameTest < Minitest::Test
       request_type_id:    RequestType.create(verb: "GET").id,
       parameters:         [],
       event_name_id:      EventName.create(event_name: "socialLogin").id,
-      user_system_id:     UserSystem.create(browser_type: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
-       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      user_system_id:     UserSystem.find_or_create_by(
+                            browser_type: "Firefox",
+                            operating_system: "Mac OSX").id,
       resolution_id:      Resolution.create(
                             width: "1920",
                             height: "1280").id,

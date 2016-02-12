@@ -37,13 +37,14 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_user_systems
-    # this method is not finished
     user_system_id_hash = payload_requests.group(:user_system_id).count
 
     sorted_arr = user_system_id_hash.sort_by { |k, v| v }.reverse
 
     systems = sorted_arr.map do |elem|
-      UserSystem.where(id: elem[0]).first.browser
+      [UserSystem.where(id: elem[0]).first.browser_type, UserSystem.where(id: elem[0]).first.operating_system]
     end
+
+    systems[0..2]
   end
 end

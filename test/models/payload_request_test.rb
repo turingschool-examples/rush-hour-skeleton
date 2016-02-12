@@ -8,26 +8,6 @@ class PayloadRequestTest < Minitest::Test
     assert EventName
   end
 
-
-  # class PayloadParser
-  #
-  #   def initialize(payload_hash)
-  #     @payload_hash = payload_hash
-  #   end
-  #
-  #   def create_everything
-  #   url = Url.create(address: @payload_hash["url"])
-  #   url = Url.where(address: @payload_hash["url"]).first_or_create
-  #   Ip.create(address: @payload_hash["ip"])
-  #
-  #   PayloadRequest.create(responded_in: payload_hash["respondedIn"],
-  #                         requested_at: payload_hash["..."],
-  #                         url_id: url.id )
-  #
-  #   end
-  # end
-
-
   def create_three_payloads
     payload1 = {
       url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/blog").id,
@@ -37,7 +17,9 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Firefox",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "960",
                           height: "1400").id,
@@ -52,7 +34,9 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "signOut").id,
-      user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Safari",
+                          operating_system: "Windows").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
@@ -67,8 +51,9 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3").id,
-
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Firefox",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
@@ -105,8 +90,9 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.create(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.create(event_name: "socialLogin").id,
-      user_system_id:    UserSystem.create(browser_type: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
-       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Chrome",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.create(
                           width: "1920",
                           height: "1280").id
@@ -142,13 +128,6 @@ class PayloadRequestTest < Minitest::Test
     pr1, pr2, pr3 = create_three_payloads
     assert_equal "GET", PayloadRequest.most_frequent_request_type
   end
-  #
-  # # List of all HTTP verbs used
-  # def test_finds_all_http_verbs_used
-  #   pr1, pr2, pr3 = create_three_payloads
-  #
-  #   assert_equal ["GET","POST"], PayloadRequest.all_http_verbs_used
-  # end
 
   # List of URLs listed form most requested to least requested
   def test_sort_urls_by_request_freqency_most_to_least
@@ -160,8 +139,9 @@ class PayloadRequestTest < Minitest::Test
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
-      user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML,
-       like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Chrome",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
@@ -176,17 +156,16 @@ class PayloadRequestTest < Minitest::Test
 
   # Web browser breakdown across all requests(userSystem)
   def test_list_browser_breakdown_for_all_requests
-    # skip
     pr1, pr2, pr3 = create_three_payloads
 
-    assert_equal ["Chrome","Safari"], PayloadRequest.browser_breakdown
+    assert_equal ["Firefox", "Safari"], PayloadRequest.browser_breakdown.sort
   end
 
   # OS breakdown across all requests(userSystem)
   def test_os_browser_breakdown_across_all_requests
     pr1, pr2, pr3 = create_three_payloads
-    expected = ["Macintosh%3B Intel Mac OS X 10_8_2", "iPhone"]
-    assert_equal expected, PayloadRequest.os_breakdown
+    expected = ["Mac OSX", "Windows"]
+    assert_equal expected, PayloadRequest.os_breakdown.sort
   end
 
   # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
@@ -216,8 +195,9 @@ class PayloadRequestTest < Minitest::Test
       referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
-      user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3").id,
-
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Firefox",
+                          operating_system: "Mac OSX").id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
@@ -228,38 +208,4 @@ class PayloadRequestTest < Minitest::Test
     expected = "No events have been defined"
     assert_equal expected, PayloadRequest.sort_events_most_received_to_least
   end
-
-  # # Events listed from most received to least.(When no events have been defined display a message that states no events have been defined)
-  # def test_sort_events_most_received_to_least
-  #   pr1, pr2, pr3 = create_three_payloads
-  #   expected = ["socialLogin", "signOut"]
-  #   assert_equal expected, PayloadRequest.sort_events_most_received_to_least
-  # end
-  #
-  # def test_returns_message_if_no_event_have_been_defined
-  #   expected = "No events have been defined"
-  #   assert_equal expected, PayloadRequest.sort_events_most_received_to_least
-  # end
-  #
-  # def test_returns_message_if_event_name_is_missing
-  #   payload = {
-  #     url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
-  #     requested_at:     "2015-02-16 21:38:28 -0700",
-  #     responded_in:     50,
-  #     referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
-  #     request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
-  #     parameters:       [],
-  #     user_system_id:    UserSystem.find_or_create_by(browser_type: "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3").id,
-  #
-  #     resolution_id:    Resolution.find_or_create_by(
-  #                         width: "1920",
-  #                         height: "1280").id,
-  #     ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
-  #   }
-  #   PayloadRequest.create(payload)
-  #
-  #   expected = "No events have been defined"
-  #   assert_equal expected, PayloadRequest.sort_events_most_received_to_least
-  # end
-
 end

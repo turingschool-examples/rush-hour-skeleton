@@ -49,15 +49,11 @@ class PayloadRequest < ActiveRecord::Base
 
 # within user system class can call .browser
   def self.browser_breakdown
-    UserSystem.all.map do |sys|
-      UserAgent.parse(sys.browser_type).browser
-    end
+    UserSystem.pluck(:browser_type).uniq
   end
 
   def self.os_breakdown
-    UserSystem.all.map do |sys|
-      UserAgent.parse(sys.browser_type).platform
-    end
+    UserSystem.pluck(:operating_system).uniq
   end
 
   def self.screen_resolutions
