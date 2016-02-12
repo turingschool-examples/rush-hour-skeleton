@@ -30,4 +30,8 @@ namespace :sanitation do
 
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
+
+  require 'rspec/core/rake_task'
+  task :default => :spec
+  RSpec::Core::RakeTask.new
 end
