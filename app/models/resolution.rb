@@ -3,4 +3,8 @@ class Resolution < ActiveRecord::Base
   validates :height, presence: true
 
   has_many :payload_requests
+
+  def self.screen_resolutions
+    pluck(:width, :height)
+  end
 end

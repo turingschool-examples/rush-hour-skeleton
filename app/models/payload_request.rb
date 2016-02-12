@@ -56,9 +56,9 @@ class PayloadRequest < ActiveRecord::Base
     UserSystem.pluck(:operating_system).uniq
   end
 
-  def self.screen_resolutions
-    Resolution.pluck(:width, :height)
-  end
+  # def self.screen_resolutions
+  #   Resolution.pluck(:width, :height).uniq
+  # end
 
   def self.sort_events_most_received_to_least
     en = group(:event_name_id).count
