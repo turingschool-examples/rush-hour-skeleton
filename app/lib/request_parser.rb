@@ -12,7 +12,14 @@ class RequestParser
     # uaparsed = UserAgent.parse(uafull)
     # :user_agent => UserAgent.parse(request["userAgent"]).platform
 # binding.pry
+
+#Json.parse
     parsed_request = {
+      #### url = Url.find_or_create_by(address: request["url"])
+      #### url = Url.where(address: request["url"]).first_or_create
+      #### PayloadRequest.create(responded_in: request["respondedIn"],
+                                #requested_at: request["requestedAt"],
+                                #url_id: url.id)
       :url => request["url"],
       :requested_at => request["requestedAt"],
       :responded_in => request["respondedIn"],
