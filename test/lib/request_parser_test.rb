@@ -21,8 +21,7 @@ class RequestParserTest < Minitest::Test
     }'
 
     pr = RequestParser.parse_request(payload)
-    # parsed_request = PayloadRequest.create(payload)
-# binding.pry
+
     assert_equal 1, pr.url_id
     assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at
     assert_equal 37, pr.responded_in
@@ -36,7 +35,7 @@ class RequestParserTest < Minitest::Test
     refute_equal "http://google.com", pr.referred_by
   end
 end
-
+# parsed_request = PayloadRequest.create(payload)
 # payload = {
 #   "url": "http://jumpstartlab.com/blog",
 #   "requestedAt": "2013-02-16 21:38:28 -0700",

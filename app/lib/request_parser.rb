@@ -14,7 +14,7 @@ class RequestParser
     sys = UserSystem.where(browser_type: UserAgent.parse(request["userAgent"]).browser, operating_system: UserAgent.parse(request["userAgent"]).platform ).first_or_create
     res = Resolution.where(width: request["resolutionWidth"], height: request["resolutionHeight"]).first_or_create
     ip_addy = Ip.find_or_create_by(ip_address: request["ip"])
-binding.pry
+# binding.pry
     PayloadRequest.create(url_id: url_addy.id,
                           requested_at: request["requestedAt"],
                           responded_in: request["respondedIn"],
