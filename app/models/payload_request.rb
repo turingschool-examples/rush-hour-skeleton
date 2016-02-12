@@ -40,10 +40,6 @@ class PayloadRequest < ActiveRecord::Base
     where(request_type_id: id).first.request_type.verb
   end
 
-  def self.all_http_verbs_used
-    RequestType.pluck(:verb)
-  end
-
   def self.sort_urls_by_request_freqency
     pr = group(:url_id).count
     sorted_arr = pr.sort_by { |k,v| v }.reverse
@@ -67,10 +63,4 @@ class PayloadRequest < ActiveRecord::Base
     Resolution.pluck(:width, :height)
   end
 
-  def self.sort_events_most_received_to_least
-    en = group(:event_name_id).count
-    return "No events have been defined" if en == {}
-    sorted_arr = en.sort_by { |k,v| v }.reverse
-    sorted_arr.map { |elem| EventName.where(id: elem[0]).first.event_name}
-  end
 end

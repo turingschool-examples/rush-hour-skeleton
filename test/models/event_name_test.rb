@@ -7,6 +7,59 @@ class EventNameTest < Minitest::Test
     assert EventName
   end
 
+  def create_three_payloads
+    payload1 = {
+      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/blog").id,
+      requested_at:     "2013-02-16 21:38:28 -0700",
+      responded_in:     30,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
+      parameters:       [],
+      event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      resolution_id:    Resolution.find_or_create_by(
+                          width: "960",
+                          height: "1400").id,
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+    }
+
+    payload2 = {
+      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/tutorials").id,
+      requested_at:     "2014-02-16 21:38:28 -0700",
+      responded_in:     40,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
+      parameters:       [],
+      event_name_id:    EventName.find_or_create_by(event_name: "signOut").id,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").id,
+      resolution_id:    Resolution.find_or_create_by(
+                          width: "1920",
+                          height: "1280").id,
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+    }
+
+    payload3 = {
+      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+      requested_at:     "2015-02-16 21:38:28 -0700",
+      responded_in:     50,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
+      parameters:       [],
+      event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
+      user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3").id,
+
+      resolution_id:    Resolution.find_or_create_by(
+                          width: "1920",
+                          height: "1280").id,
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+    }
+
+    pr1 = PayloadRequest.create(payload1)
+    pr2 = PayloadRequest.create(payload2)
+    pr3 = PayloadRequest.create(payload3)
+    [pr1, pr2, pr3]
+  end
+
   def test_can_create_event_id_through_payload_request
     payload1 = {
       url_id:             Url.create(address: "http://jumpstartlab.com/tutorials").id,
@@ -37,4 +90,37 @@ class EventNameTest < Minitest::Test
     assert_equal "socialLogin", en.event_name
     assert_equal 1, en.id
   end
+end
+
+# Events listed from most received to least.(When no events have been defined display a message that states no events have been defined)
+def test_sort_events_most_received_to_least
+  pr1, pr2, pr3 = create_three_payloads
+  expected = ["socialLogin", "signOut"]
+  assert_equal expected, EventName.sort_events_most_received_to_least
+end
+
+def test_returns_message_if_no_event_have_been_defined
+  expected = "No events have been defined"
+  assert_equal expected, EventName.sort_events_most_received_to_least
+end
+
+def test_returns_message_if_event_name_is_missing
+  payload = {
+    url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+    requested_at:     "2015-02-16 21:38:28 -0700",
+    responded_in:     50,
+    referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+    request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
+    parameters:       [],
+    user_system_id:    UserSystem.find_or_create_by(browser: "Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3").id,
+
+    resolution_id:    Resolution.find_or_create_by(
+                        width: "1920",
+                        height: "1280").id,
+    ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+  }
+  PayloadRequest.create(payload)
+
+  expected = "No events have been defined"
+  assert_equal expected, EventName.sort_events_most_received_to_least
 end
