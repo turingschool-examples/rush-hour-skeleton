@@ -64,6 +64,36 @@ module TestHelpers
     @payload_3 = Payload.create(@data3)
   end
 
+  def setup_referrers
+    refer1 = {
+      requested_at: "2013-02-18 22:38:28 -0700",
+      response_time: 50,
+      parameters: ["query"],
+      event_id: Event.where(name: "socialLogin").first_or_create.id,
+      ip_id: Ip.where(address: "67.29.38.211").first_or_create.id,
+      refer_id: Refer.where(address: "http://turing.io").first_or_create.id,
+      resolution_id: Resolution.where(width: "500", height: "500").first_or_create.id,
+      url_id: Url.where(address: "http://jumpstartlab.com").first_or_create.id,
+      user_environment_id: UserEnvironment.where(browser: "Chrome", os: "SOS").first_or_create.id,
+      request_type_id: RequestType.where(verb: "GET").first_or_create.id
+    }
+
+    refer2 = {
+      requested_at: "2012-02-16 22:38:28 -0700",
+      response_time: 20,
+      parameters: ["query"],
+      event_id: Event.where(name: "socialLogin").first_or_create.id,
+      ip_id: Ip.where(address: "65.29.38.211").first_or_create.id,
+      refer_id: Refer.where(address: "http://turing.io").first_or_create.id,
+      resolution_id: Resolution.where(width: "500", height: "500").first_or_create.id,
+      url_id: Url.where(address: "http://jumpstartlab.com").first_or_create.id,
+      user_environment_id: UserEnvironment.where(browser: "Chrome", os: "SOS").first_or_create.id,
+      request_type_id: RequestType.where(verb: "GET").first_or_create.id
+    }
+    Payload.create(refer1)
+    Payload.create(refer2)
+  end
+
   def client_setup
     post '/sources', {"identifier"=>"jumpstartlab",
           "rootUrl"=>"http://jumpstartlab.com"}
