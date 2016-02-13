@@ -8,7 +8,7 @@ class Client < ActiveRecord::Base
   has_many :user_agents,     through: :payload_requests
   has_many :verbs,           through: :payload_requests
 
-  validates :identifier, presence: true
+  validates :identifier, presence: true, uniqueness: true
   validates :root_url,   presence: true
 
 end
