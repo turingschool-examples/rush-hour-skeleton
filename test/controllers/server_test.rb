@@ -2,6 +2,7 @@ require_relative '../test_helper'
 
 class ServerTest < Minitest::Test
   include Rack::Test::Methods
+  include TestHelpers
 
   def app
     RushHour::Server
@@ -38,5 +39,16 @@ class ServerTest < Minitest::Test
     refute_equal 2, Client.count
     assert_equal 403, last_response.status
     assert_equal "403 Forbidden - Identifier already exists", last_response.body
+  end
+
+  def test_handles_success
+    post "/sources", { identifier: "jumpstartlab",
+                       rootUrl:    "https://jumpstartlab.com" }
+
+    expected = { identifier: "jumpstartlab" }.to_json
+
+    assert_equal 1, Client.count
+    assert_equal 200, last_response.status
+    assert_equal expected, last_response.body
   end
 end

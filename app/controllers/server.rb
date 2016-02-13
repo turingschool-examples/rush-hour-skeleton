@@ -4,18 +4,21 @@ module RushHour
       erb :error
     end
 
-    post '/sources' do
+    def parse_client_params(params)
       client = Client.new(identifier: params[:identifier],
                           root_url:   params[:rootUrl])
+
       if client.save
-        "It WORKS!!!"
+        [200, { identifier: client.identifier }.to_json]
       elsif client.errors.full_messages.first == "Identifier has already been taken"
-        status 403
-        "403 Forbidden - Identifier already exists"
+        [403, "403 Forbidden - Identifier already exists"]
       else
-        status 400
-        "400 Bad Request - #{client.errors.full_messages.join(", ")}"
+        [400, "400 Bad Request - #{client.errors.full_messages.join(", ")}"]
       end
+    end
+
+    post '/sources' do
+      parse_client_params(params)
     end
   end
 end
