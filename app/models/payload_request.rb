@@ -13,10 +13,10 @@ class PayloadRequest < ActiveRecord::Base
 
   validates :unique_sha, presence: true, uniqueness: true
 
-    belongs_to :request_type
-    belongs_to :user_system
-    belongs_to :url
-    belongs_to :event_name
+  belongs_to :request_type
+  belongs_to :user_system
+  belongs_to :url
+  belongs_to :event_name
 
   def self.average_response_time
     average(:responded_in).to_i

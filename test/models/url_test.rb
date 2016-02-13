@@ -38,6 +38,7 @@ class UrlTest < Minitest::Test
     create_payload_5
     create_payload_6
     create_payload_7
+    create_payload_8
 
     url = Url.find(1)
     expected = [50, 40, 30]
@@ -57,9 +58,10 @@ class UrlTest < Minitest::Test
     create_payload_4
     create_payload_5
     create_payload_6
+    create_payload_7
 
     url = Url.find(1)
-    assert_equal ["GET", "POST"], url.all_http_verbs.sort
+    assert_equal ["POST", "PUT"], url.all_http_verbs.sort
   end
 
   def test_returns_three_most_popular_referrers_for_specific_url

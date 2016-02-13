@@ -83,8 +83,9 @@ class PayloadRequestTest < Minitest::Test
     create_payload_1
     create_payload_2
     create_payload_3
+    create_payload_4
 
-    assert_equal "GET", PayloadRequest.most_frequent_request_type
+    assert_equal "POST", PayloadRequest.most_frequent_request_type
   end
 
   # List of URLs listed form most requested to least requested
