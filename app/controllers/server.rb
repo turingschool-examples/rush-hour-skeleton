@@ -5,23 +5,6 @@ module RushHour
       erb :error
     end
 
-    def parse_client_params(params)
-      client = Client.new(identifier: params[:identifier],
-                          root_url:   params[:rootUrl])
-
-      if client.save
-        ApplicationHelper.status_message(200, { identifier: client.identifier }.to_json)
-      elsif client.errors.full_messages.first == "Identifier has already been taken"
-        ApplicationHelper.status_message(403, "403 Forbidden - Identifier already exists")
-      else
-        ApplicationHelper.status_message(400, "400 Bad Request - #{client.errors.full_messages.join(", ")}")
-      end
-    end
-
-    def find_client(identifier)
-      Client.find_by(identifier: identifier)
-    end
-
     def find_or_create_ip(ip)
       IpAddress.find_or_create_by(ip: ip)
     end
@@ -74,11 +57,11 @@ module RushHour
     end
 
     post '/sources' do
-      parse_client_params(params)
+      ClientHelper.parse_client_params(params)
     end
 
     post '/sources/:identifier/data' do |identifier|
-      client = find_client(identifier)
+      client = ClientHelper.find_client(identifier)
       return ApplicationHelper.status_message(403, "403 Forbidden - Application not registered") unless client
 
       payload_request = create_payload_request(client)
