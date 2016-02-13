@@ -42,6 +42,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_returns_all_response_times_for_given_url_sorted_by_length
+    skip
     setup_1
     url = Url.find(1)
     assert_equal [30, 20], url.list_url_response_times
@@ -60,6 +61,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_three_most_popular_refers
+    skip
     setup_1
     url = Url.find(1)
     assert_equal ["http://turing.io", "http://google.com"], url.three_most_popular_url_refers

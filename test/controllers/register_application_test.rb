@@ -26,7 +26,7 @@ class RegisterApplicationTest <Minitest::Test
     assert_equal 200, last_response.status
     assert_equal '{"identifier":"jumpstartlab"}', last_response.body
   end
-meta tag:true
+# meta tag:true
   def test_post_request_with_existing_identifier_returns_403_error
     client_setup
     assert_equal 200, last_response.status

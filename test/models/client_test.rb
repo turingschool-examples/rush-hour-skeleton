@@ -22,4 +22,26 @@ class ClientTest < Minitest::Test
     e = Client.new root_url: nil
     assert_nil e.root_url
   end
+
+  def test_repeated_client_data_wont_create_nonunique_entries
+    client1 = Client.create(identifier: "this", root_url: "turing.io")
+    assert_equal 1, Client.count
+    assert_equal 1, client1.id
+
+    client2 = Client.create(identifier: "this", root_url: "turing.io")
+    assert_equal 1, Client.count
+    assert_nil client2.id
+  end
+
+  def test_find_or_initialize_by_wont_create_nonunique_entries
+    client1 = Client.new(identifier: "this", root_url: "turing.io")
+    assert_equal true, client1.save
+    assert_equal 1, Client.count
+    assert_equal 1, client1.id
+
+    client2 = Client.new(identifier: "this", root_url: "turing.io")
+    assert_equal false, client2.save
+    assert_equal 1, Client.count
+    assert_nil client2.id
+  end
 end
