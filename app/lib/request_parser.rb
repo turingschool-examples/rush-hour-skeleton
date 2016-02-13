@@ -28,5 +28,6 @@ class RequestParser
                           client_id: client.id,
                           unique_sha: Digest::SHA1.hexdigest("#{request}")
                           )
+    [200, "Payload Received"]
   end
 end

@@ -6,7 +6,7 @@ module RushHour
     end
 
     post '/sources' do
-      @client =  Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
+      @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
       #built in active record errors
       if @client.save
         status 200
@@ -20,9 +20,14 @@ module RushHour
       end#conditional for errors
     end
 
-    post '/sources/:identifier/data' do
+    post '/sources/:identifier/data' do |identifier|
+      code, message = RequestParser.parse_request(params["payload"], identifier)
+      # require "pry"
+      # binding.pry
+      status(code)
+      body(message)
       # @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
-      @client_payload = RequestParser.new
+      # @client_payload = RequestParser.new
     end
   end
 
