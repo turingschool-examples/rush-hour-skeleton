@@ -5,10 +5,11 @@ module RushHour
     end
 
     post '/sources' do
-      data = JSON.parse(params[:client])
-      client = Client.new(data)
-      if client.save
+      client = Client.new(identifier: params[:identifier],
+                          root_url:   params[:rootUrl])
 
+      if client.save
+        "It WORKS!!!"
       else
         status 400
         "400 Bad Request - #{client.errors.full_messages.join(", ")}"
