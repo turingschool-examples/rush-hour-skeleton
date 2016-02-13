@@ -34,7 +34,7 @@ class ServerTest < Minitest::Test
 
   def test_handles_existing_identifier
     Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    post "/sources", {identifier: "jumpstartlab", rootUrl: "https://jumpstartlab.com"}
+    post "/sources", {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"}
 
     refute_equal 2, Client.count
     assert_equal 403, last_response.status
@@ -50,5 +50,13 @@ class ServerTest < Minitest::Test
     assert_equal 1, Client.count
     assert_equal 200, last_response.status
     assert_equal expected, last_response.body
+  end
+
+  def test_missing_payload
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    post '/sources/jumpstartlab/data', { payload: "" }
+
+    assert_equal 400, last_response.status
+    assert_equal "400 Bad Request - Missing payload request", last_response.body
   end
 end

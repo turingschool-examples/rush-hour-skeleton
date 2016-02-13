@@ -20,5 +20,13 @@ module RushHour
     post '/sources' do
       parse_client_params(params)
     end
+
+    post '/sources/:identifier/data' do |identifier|
+      client = Client.find_by(identifier: identifier)
+
+      if params[:payload].empty?
+        [400, "400 Bad Request - Missing payload request"]
+      end
+    end
   end
 end
