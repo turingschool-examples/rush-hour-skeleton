@@ -8,7 +8,10 @@ class PayloadRequest < ActiveRecord::Base
                         :event_name_id,
                         :user_system_id,
                         :resolution_id,
-                        :ip_id
+                        :ip_id,
+                        :client_id
+
+  validates :unique_sha, presence: true, uniqueness: true
 
     belongs_to :request_type
     belongs_to :user_system

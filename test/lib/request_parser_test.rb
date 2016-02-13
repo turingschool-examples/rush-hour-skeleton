@@ -20,7 +20,7 @@ class RequestParserTest < Minitest::Test
     "ip":"63.29.38.211"
     }'
 
-    pr = RequestParser.parse_request(payload)
+    pr = RequestParser.parse_request(payload, "http://turing.io")
 
     assert_equal 1, pr.url_id
     assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at

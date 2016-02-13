@@ -45,6 +45,13 @@ class PayloadRequestTest < Minitest::Test
     refute pr.valid?
   end
 
+  def test_payload_is_not_created_if_not_unique
+    pr1 = create_payload_1
+    pr2 = create_payload_1
+
+    refute pr2.valid?
+  end
+
   def test_calculates_average_response_time
     create_payload_1
     create_payload_2
@@ -85,11 +92,11 @@ class PayloadRequestTest < Minitest::Test
     create_payload_1
     create_payload_2
     create_payload_2
-    create_payload_2
+    create_payload_3
     create_payload_3
     create_payload_3
 
-    assert_equal ["http://jumpstartlab.com/tutorials", "http://jumpstartlab.com", "http://jumpstartlab.com/blog"], PayloadRequest.sort_urls_by_request_freqency
+    assert_equal ["http://jumpstartlab.com", "http://jumpstartlab.com/tutorials", "http://jumpstartlab.com/blog"], PayloadRequest.sort_urls_by_request_freqency
   end
 
   # Events listed from most received to least.(When no events have been defined display a message that states no events have been defined)

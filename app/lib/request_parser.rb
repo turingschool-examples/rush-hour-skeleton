@@ -3,7 +3,7 @@ require 'pry'
 
 class RequestParser
 
-  def self.parse_request(request)
+  def self.parse_request(request, identifier)
     request = JSON.parse(request)
 
     url_addy = Url.find_or_create_by(address: request["url"])
@@ -13,6 +13,7 @@ class RequestParser
     sys = UserSystem.where(browser_type: UserAgent.parse(request["userAgent"]).browser, operating_system: UserAgent.parse(request["userAgent"]).platform ).first_or_create
     res = Resolution.where(width: request["resolutionWidth"], height: request["resolutionHeight"]).first_or_create
     ip_addy = Ip.find_or_create_by(ip_address: request["ip"])
+    client = Client.find_or_create_by(identifier: identifier)
 
     PayloadRequest.create(url_id: url_addy.id,
                           requested_at: request["requestedAt"],
@@ -23,7 +24,9 @@ class RequestParser
                           event_name_id: event.id,
                           user_system_id: sys.id,
                           resolution_id: res.id,
-                          ip_id: ip_addy.id
+                          ip_id: ip_addy.id,
+                          client_id: client.id,
+                          unique_sha: Digest::SHA1.hexdigest("#{request}")
                           )
   end
 end
