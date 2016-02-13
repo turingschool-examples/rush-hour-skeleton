@@ -13,15 +13,14 @@ class PayloadRequest < ActiveRecord::Base
 
   validates :unique_sha, presence: true, uniqueness: true
 
-    belongs_to :request_type
-    belongs_to :user_system
-    belongs_to :url
-    belongs_to :event_name
-    belongs_to :referrer_url
-    belongs_to :resolution
-    belongs_to :ip
-    belongs_to :client
-
+  belongs_to :request_type
+  belongs_to :user_system
+  belongs_to :url
+  belongs_to :event_name
+  belongs_to :referrer_url
+  belongs_to :resolution
+  belongs_to :ip
+  belongs_to :client
 
   def self.average_response_time
     average(:responded_in).to_i
@@ -35,7 +34,6 @@ class PayloadRequest < ActiveRecord::Base
     minimum(:responded_in).to_i
   end
 
-  # Most frequent request type
   def self.most_frequent_request_type
     ids_and_count = group(:request_type_id).count
     id = ids_and_count.max_by {|k, v| v}.first

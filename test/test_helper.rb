@@ -32,6 +32,9 @@ module TestHelpers
     RushHour::Server
   end
 
+#change find_or_create_by to this format:
+#GroupMember.where(:member_id => 4, :group_id => 7).first_or_create
+
   def create_payload_1
     payload1 = {
       url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/blog").id,
@@ -86,7 +89,7 @@ module TestHelpers
       requested_at:     "2015-02-16 21:38:28 -0700",
       responded_in:     50,
       referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
-      request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
       user_system_id:   UserSystem.find_or_create_by(
@@ -110,7 +113,7 @@ module TestHelpers
       requested_at:     "2013-02-16 21:38:28 -0700",
       responded_in:     30,
       referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
-      request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
       user_system_id:   UserSystem.find_or_create_by(
