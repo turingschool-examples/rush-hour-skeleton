@@ -17,6 +17,11 @@ class PayloadRequest < ActiveRecord::Base
     belongs_to :user_system
     belongs_to :url
     belongs_to :event_name
+    belongs_to :referrer_url
+    belongs_to :resolution
+    belongs_to :ip
+    belongs_to :client
+
 
   def self.average_response_time
     average(:responded_in).to_i
