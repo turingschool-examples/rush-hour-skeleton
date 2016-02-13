@@ -18,7 +18,7 @@ class Url < ActiveRecord::Base
   end
 
   def list_url_response_times
-    payloads.group("response_time").order(count: :desc).count.keys
+    payloads.order(response_time: :desc).pluck(:response_time)
   end
 
   def average_url_response_time
@@ -31,5 +31,6 @@ class Url < ActiveRecord::Base
 
   def three_most_popular_url_refers
     refers.group("address").order(count: :desc).count.keys
+    # what happens if theres a tie?
   end
 end
