@@ -17,12 +17,16 @@ module RushHour
       end
     end
 
+    def find_client(identifier)
+      Client.find_by(identifier: identifier)
+    end
+
     post '/sources' do
       parse_client_params(params)
     end
 
     post '/sources/:identifier/data' do |identifier|
-      client = Client.find_by(identifier: identifier)
+      client = find_client(identifier)
       return [403, "403 Forbidden - Application not registered"] unless client
 
       payload = JSON.parse(params[:payload], symbolize_names: true)
