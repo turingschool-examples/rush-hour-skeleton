@@ -40,6 +40,7 @@ module RushHour
       elsif !payload_request.errors.empty?
         [403, "403 Forbidden - Identifier already exists"]
       end
+      require 'pry'; binding.pry
     end
   end
 end

@@ -76,4 +76,11 @@ class ServerTest < Minitest::Test
     assert_equal 403, last_response.status
     assert_equal "403 Forbidden - Application not registered", last_response.body
   end
+
+  def test_successful_request
+    Client.create(identifier: "humpstartlab", root_url: "http://humpstartlab.com")
+    post '/sources/humpstartlab/data', {payload: payload.to_json}
+
+    assert_equal 200, last_response.status
+  end
 end
