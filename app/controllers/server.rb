@@ -23,6 +23,8 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       client = Client.find_by(identifier: identifier)
+      return [403, "403 Forbidden - Application not registered"] unless client
+
       payload = JSON.parse(params[:payload], symbolize_names: true)
       ip_address = IpAddress.find_or_create_by(ip: payload[:ip])
       referrer = Referrer.find_or_create_by(referred_by: payload[:referredBy])
@@ -36,7 +38,7 @@ module RushHour
       if params[:payload] == "{}"
         [400, "400 Bad Request - Missing payload request"]
       elsif !payload_request.errors.empty?
-        [403, "403 Forbidden - identifier already exists"]
+        [403, "403 Forbidden - Identifier already exists"]
       end
     end
   end
