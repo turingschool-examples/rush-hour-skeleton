@@ -1,5 +1,5 @@
 class Payload < ActiveRecord::Base
-  validates  :requested_at, presence: true
+  validates  :requested_at, presence: true, uniqueness: true
   validates  :response_time, presence: true
   belongs_to :event
   belongs_to :ip

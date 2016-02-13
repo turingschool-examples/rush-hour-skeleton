@@ -26,7 +26,6 @@ class PayloadTest < Minitest::Test
       assert e.respond_to? attribute
     end
     assert e.id
-    assert e.parameters
   end
 
   def test_brings_in_correct_data
