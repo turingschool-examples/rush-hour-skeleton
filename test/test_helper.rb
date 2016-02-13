@@ -21,6 +21,10 @@ module TestHelpers
     super
   end
 
+  def app
+    RushHour::Server
+  end
+
   def setup_1
     @data1 = {
       requested_at: "2013-02-16 22:38:28 -0700",
@@ -59,6 +63,7 @@ module TestHelpers
       user_environment_id: UserEnvironment.where(browser: "Chrome", os: "SOS").first_or_create.id,
       request_type_id: RequestType.where(verb: "GET").first_or_create.id
     }
+
     @payload_1 = Payload.create(@data1)
     @payload_2 = Payload.create(@data2)
     @payload_3 = Payload.create(@data3)
@@ -69,10 +74,55 @@ module TestHelpers
           "rootUrl"=>"http://jumpstartlab.com"}
   end
 
-  def client_setup_client_comparison
-    client_call1 =  `curl -i -d 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'  http://localhost:9393/sources`
-    client_call2 =  `curl -i -d 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'  http://localhost:9393/sources`
+  def payload_setup1
+    raw1 = {
+      "url":"http://jumpstartlab.com/blog",
+      "requestedAt":"2013-02-16 21:38:28 -0700",
+      "respondedIn":37,
+      "referredBy":"http://jumpstartlab.com",
+      "requestType":"GET",
+      "parameters":["this"],
+      "eventName":"socialLogin",
+      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"63.29.38.211"}
 
+    post '/sources/jumpstartlab/', raw1
+  end
+
+  def payload_setup2
+    raw2 = {
+      "url":"http://jumpstartlab.com/test",
+      "requestedAt":"2014-02-16 22:38:28 -0800",
+      "respondedIn":25,
+      "referredBy":"http://turing.io",
+      "requestType":"POST",
+      "parameters":["that"],
+      "eventName":"socialLogin",
+      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1480",
+      "resolutionHeight":"1200",
+      "ip":"73.29.38.211"}
+
+    post '/sources/jumpstartlab/', raw2
+  end
+
+  def payload_setup_not_registered
+    raw = {
+      "url":"http://example.com/test",
+      "requestedAt":"2014-02-16 22:38:28 -0800",
+      "respondedIn":25,
+      "referredBy":"http://turing.io",
+      "requestType":"POST",
+      "parameters":["that"],
+      "eventName":"socialLogin",
+      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1480",
+      "resolutionHeight":"1200",
+      "ip":"73.29.38.211"}
+
+    post '/sources/jumpstartlab/', raw
   end
 end
 

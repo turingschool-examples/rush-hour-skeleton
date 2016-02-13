@@ -5,6 +5,7 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'rspec'
+gem 'json'
 
 group :development, :test do
   gem 'shotgun'

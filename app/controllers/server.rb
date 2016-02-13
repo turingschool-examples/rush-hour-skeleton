@@ -1,9 +1,11 @@
-require 'json'
-
 module RushHour
   class Server < Sinatra::Base
     post '/sources' do
-      status, body = DataParser.new.parse_client(params)
+      status, body = ClientParser.new.parse_client(params)
+    end
+
+    post '/sources/:IDENTIFIER/data' do
+      status, body = PayloadParser.new.parse_payload(params)
     end
 
     not_found do
