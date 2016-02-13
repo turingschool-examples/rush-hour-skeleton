@@ -25,6 +25,10 @@ module RushHour
       [status, message]
     end
 
+    def parse_json(json)
+      JSON.parse(json, symbolize_names: true)
+    end
+
     post '/sources' do
       parse_client_params(params)
     end
@@ -33,7 +37,7 @@ module RushHour
       client = find_client(identifier)
       return status_message(403, "403 Forbidden - Application not registered") unless client
 
-      payload = JSON.parse(params[:payload], symbolize_names: true)
+      payload = parse_json(params[:payload])
       ip_address = IpAddress.find_or_create_by(ip: payload[:ip])
       referrer = Referrer.find_or_create_by(referred_by: payload[:referredBy])
       resolution = Resolution.find_or_create_by(resolution_width: payload[:resolutionWidth], resolution_height: payload[:resolutionHeight])
