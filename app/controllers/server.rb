@@ -6,10 +6,18 @@ module RushHour
     end
 
     post '/sources' do
-      client =  Client.create(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
-      status 200
-      body "{\"identifier\":\"#{client.identifier}\"}"
-      #conditional for errors
+      @client =  Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
+      #built in active record errors
+      if @client.save
+        status 200
+        body "{\"identifier\":\"#{@client.identifier}\"}"
+      elsif params["rootUrl"].nil? || params["identifier"].nil?
+        status 400
+        body "Missing Parameters"
+      else
+        status 403
+        body @client.errors.full_messages.join(", ")
+      end#conditional for errors
    end
   end
 
