@@ -53,6 +53,12 @@ module RushHour
       UserAgent.find_or_create_by(browser: browser, os: os)
     end
 
+    def find_or_create_verb(request_type)
+      Verb.find_or_create_by(request_type: request_type)
+    end
+
+    
+
     post '/sources' do
       parse_client_params(params)
     end
@@ -68,7 +74,7 @@ module RushHour
       url_request = find_or_create_url(payload[:url], payload[:parameters].to_s)
       parsed_user_agent = parse_user_agent(payload[:userAgent])
       user_agent = find_or_create_user_agent(parsed_user_agent.family.to_s, parsed_user_agent.os.to_s)
-      verb = Verb.find_or_create_by(request_type: payload[:requestType])
+      verb = find_or_create_verb(payload[:requestType])
       payload_request = PayloadRequest.create(requested_at: payload[:requestedAt], responded_in: payload[:respondedIn], event_name: payload[:eventName], ip_address_id: ip_address.id, referrer_id: referrer.id, resolution_id: resolution.id, url_request_id: url_request.id, user_agent_id: user_agent.id, verb_id: verb.id, client_id: client.id)
 
       if params[:payload] == "{}"
