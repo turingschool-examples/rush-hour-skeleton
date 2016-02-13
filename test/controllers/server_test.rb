@@ -8,7 +8,7 @@ class ServerTest < Minitest::Test
   end
 
   def test_handles_missing_root_url
-    post "/sources", { client: {identifier: "jumpstartlab", root_url: ""}.to_json}
+    post "/sources", { identifier: "jumpstartlab", rootUrl: "" }
 
     refute_equal 1, Client.count
     assert_equal 400, last_response.status
@@ -16,23 +16,15 @@ class ServerTest < Minitest::Test
   end
 
   def test_handles_missing_identifier
-    post "/sources", { client: {identifier: "", root_url: "google.com"}.to_json}
+    post "/sources", { identifier: "", rootUrl: "google.com" }
 
     refute_equal 1, Client.count
     assert_equal 400, last_response.status
     assert_equal "400 Bad Request - Identifier can't be blank", last_response.body
   end
 
-  def test_handles_missing_identifier
-    post "/sources", { client: {identifier: "", root_url: "google.com"}.to_json}
-
-    refute_equal 1, Client.count
-    assert_equal 400, last_response.status
-    assert_equal "400 Bad Request - Identifier can't be blank", last_response.body
-  end
-
-  def test_handles_missing_identifier
-    post "/sources", { client: {identifier: "", root_url: ""}.to_json}
+  def test_handles_missing_parameters
+    post "/sources", { identifier: "", rootUrl: "" }
 
     refute_equal 1, Client.count
     assert_equal 400, last_response.status
