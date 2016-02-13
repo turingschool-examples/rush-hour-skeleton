@@ -45,6 +45,10 @@ module RushHour
       UrlRequest.find_or_create_by(url: url, parameters: parameters)
     end
 
+    def parse_user_agent(user_agent)
+      UserAgentParser.parse(user_agent)
+    end
+
     post '/sources' do
       parse_client_params(params)
     end
@@ -58,7 +62,7 @@ module RushHour
       ip_address = find_or_create_ip(payload[:ip])
       resolution = find_or_create_resolution(payload[:resolutionWidth], payload[:resolutionHeight])
       url_request = find_or_create_url(payload[:url], payload[:parameters].to_s)
-      parsed_user_agent = UserAgentParser.parse(payload[:userAgent])
+      parsed_user_agent = parse_user_agent(payload[:userAgent])
       user_agent = UserAgent.find_or_create_by(browser: parsed_user_agent.family.to_s, os: parsed_user_agent.os.to_s)
       verb = Verb.find_or_create_by(request_type: payload[:requestType])
       payload_request = PayloadRequest.create(requested_at: payload[:requestedAt], responded_in: payload[:respondedIn], event_name: payload[:eventName], ip_address_id: ip_address.id, referrer_id: referrer.id, resolution_id: resolution.id, url_request_id: url_request.id, user_agent_id: user_agent.id, verb_id: verb.id, client_id: client.id)
