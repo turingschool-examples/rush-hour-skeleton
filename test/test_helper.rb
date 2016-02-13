@@ -64,6 +64,10 @@ module TestHelpers
     @payload_3 = Payload.create(@data3)
   end
 
+  def client_setup
+    post '/sources', {"identifier"=>"jumpstartlab",
+          "rootUrl"=>"http://jumpstartlab.com"}
+  end
 end
 
 
