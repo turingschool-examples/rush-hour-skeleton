@@ -9,16 +9,20 @@ module RushHour
                           root_url:   params[:rootUrl])
 
       if client.save
-        [200, { identifier: client.identifier }.to_json]
+        status_message(200, { identifier: client.identifier }.to_json)
       elsif client.errors.full_messages.first == "Identifier has already been taken"
-        [403, "403 Forbidden - Identifier already exists"]
+        status_message(403, "403 Forbidden - Identifier already exists")
       else
-        [400, "400 Bad Request - #{client.errors.full_messages.join(", ")}"]
+        status_message(400, "400 Bad Request - #{client.errors.full_messages.join(", ")}")
       end
     end
 
     def find_client(identifier)
       Client.find_by(identifier: identifier)
+    end
+
+    def status_message(status, message)
+      [status, message]
     end
 
     post '/sources' do
@@ -27,7 +31,7 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       client = find_client(identifier)
-      return [403, "403 Forbidden - Application not registered"] unless client
+      return status_message(403, "403 Forbidden - Application not registered") unless client
 
       payload = JSON.parse(params[:payload], symbolize_names: true)
       ip_address = IpAddress.find_or_create_by(ip: payload[:ip])
@@ -40,9 +44,9 @@ module RushHour
       payload_request = PayloadRequest.create(requested_at: payload[:requestedAt], responded_in: payload[:respondedIn], event_name: payload[:eventName], ip_address_id: ip_address.id, referrer_id: referrer.id, resolution_id: resolution.id, url_request_id: url_request.id, user_agent_id: user_agent.id, verb_id: verb.id, client_id: client.id)
 
       if params[:payload] == "{}"
-        [400, "400 Bad Request - Missing payload request"]
+        status_message(400, "400 Bad Request - Missing payload request")
       elsif !payload_request.errors.empty?
-        [403, "403 Forbidden - Identifier already exists"]
+        status_message(403, "403 Forbidden - Identifier already exists")
       end
     end
   end
