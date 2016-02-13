@@ -37,6 +37,10 @@ module RushHour
       Referrer.find_or_create_by(referred_by: referrer)
     end
 
+    def find_or_create_resolution(width, height)
+      Resolution.find_or_create_by(resolution_width: width, resolution_height: height)
+    end
+
     post '/sources' do
       parse_client_params(params)
     end
@@ -48,7 +52,7 @@ module RushHour
       payload = parse_json(params[:payload])
       referrer = find_or_create_referrer(payload[:referredBy])
       ip_address = find_or_create_ip(payload[:ip])
-      resolution = Resolution.find_or_create_by(resolution_width: payload[:resolutionWidth], resolution_height: payload[:resolutionHeight])
+      resolution = find_or_create_resolution(payload[:resolutionWidth], payload[:resolutionHeight])
       url_request = UrlRequest.find_or_create_by(url: payload[:url], parameters: payload[:parameters].to_s)
       parsed_user_agent = UserAgentParser.parse(payload[:userAgent])
       user_agent = UserAgent.find_or_create_by(browser: parsed_user_agent.family.to_s, os: parsed_user_agent.os.to_s)
