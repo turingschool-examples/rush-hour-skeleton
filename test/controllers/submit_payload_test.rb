@@ -22,43 +22,33 @@ class SubmitPayloadTest <Minitest::Test
     assert_equal "1280", payload.resolution.height
     assert_equal "63.29.38.211", payload.ip.address
     assert_equal "http://jumpstartlab.com/blog", payload.url.address
-
-
-    # payload_setup2
-    # assert_equal 2, Payload.count
-    # assert_equal "turing", Payload.last.client.identifier
   end
 
-  def test_valid_payload_post_returns_200_and_message
-    skip
+  def test_duplicate_payload_post_returns_403_and_message
+    client_setup
+    payload_setup1
+    assert_equal 200, last_response.status
+    assert_equal 1, Payload.count
+
     payload_setup1
     assert_equal 1, Payload.count
-    assert_equal 200, last_response.status
+    assert_equal 403, last_response.status
+    assert_equal "You have already submitted this payload.", last_response.body
   end
 
   def test_missing_payload_post_returns_400_and_message
-    skip
-    post '/sources/jumpstartlab/'
+    client_setup
+    post '/sources/jumpstartlab/data'
     assert_equal 0, Payload.count
     assert_equal 400, last_response.status
     assert_equal "Please submit a payload.", last_response.body
   end
 
-  def test_duplicate_payload_post_returns_403_and_message
-    skip
-    payload_setup1
-    assert_equal 1, Payload.count
-    assert_equal 200, last_response.status
-
-    payload_setup1
-    assert_equal 1, Payload.count
-    assert_equal "You have already submitted this payload.", last_response.body
-    assert_equal 403, last_response.status
-  end
-
   def test_URL_that_doesnt_exist_in_database_returns_403_and_message
-    skip
-    payload_setup3
+    assert_equal 0, Client.count
+    payload_setup_not_registered
+    assert_equal 0, Client.count
+
     assert_equal 0, Payload.count
     assert_equal 403, last_response.status
     assert_equal "You can only track URLs that belong to you.", last_response.body

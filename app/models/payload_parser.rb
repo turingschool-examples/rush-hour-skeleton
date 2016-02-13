@@ -1,10 +1,20 @@
 class PayloadParser
   def parse_payload(params)
+    return [400, "Please submit a payload."] if params["payload"].nil? 
     payload = JSON.parse(params["payload"])
-
     client = Client.find_by(identifier: params["identifier"])
+    return [403, "You can only track URLs that belong to you."] if client.nil?
+    new_payload = create_payload(client, payload)
+    if new_payload.save
+      [200, ""]
+    elsif new_payload.errors.full_messages.include? ("Requested at has already been taken")
+      [403, "You have already submitted this payload."]
+    end
 
-    Payload.create(
+  end
+
+  def create_payload(client, payload)
+    Payload.new(
         requested_at:     payload["requestedAt"],
         response_time:    payload["respondedIn"],
         client_id:        client.id,
@@ -25,21 +35,4 @@ class PayloadParser
   def get_os(user_agent_string)
     UserAgent.parse(user_agent_string).os
   end
-
- #
- #  "url"=>"http://jumpstartlab.com/blog",
- # "requestedAt"=>"2013-02-16 21:38:28 -0700",
- # "respondedIn"=>37,
- # "referredBy"=>"http://jumpstartlab.com",
- # "requestType"=>"GET",
- # "parameters"=>["this"],
- # "eventName"=>"socialLogin",
- # "userAgent"=>"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
- # "resolutionWidth"=>"1920",
- # "resolutionHeight"=>"1280",
- # "ip"=>"63.29.38.211"}
 end
-
-# 400 "Please submit a payload."
-# 403 "You have already submitted this payload."
-# 403 "You can only track URLs that belong to you."

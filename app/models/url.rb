@@ -7,6 +7,7 @@ class Url < ActiveRecord::Base
 
   def self.list_frequency_urls
     self.joins(:payloads).group("urls.address").order(count: :desc).count
+    # take out joins if you see squared numbers
   end
 
   def max_url_response_time

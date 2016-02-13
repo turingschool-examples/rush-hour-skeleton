@@ -26,10 +26,9 @@ module TestHelpers
   end
 
   def setup_1
-    @data1 = {
+    data1 = {
       requested_at: "2013-02-16 22:38:28 -0700",
       response_time: 20,
-      parameters: ["query"],
       event_id: Event.where(name: "socialLogin").first_or_create.id,
       ip_id: Ip.where(address: "63.29.38.211").first_or_create.id,
       refer_id: Refer.where(address: "http://google.com").first_or_create.id,
@@ -39,10 +38,9 @@ module TestHelpers
       request_type_id: RequestType.where(verb: "POST").first_or_create.id
     }
 
-    @data2 = {
+    data2 = {
       requested_at: "2013-02-16 21:38:28 -0700",
       response_time: 30,
-      parameters: ["query"],
       event_id: Event.where(name: "differentEvent").first_or_create.id,
       ip_id: Ip.where(address: "63.29.38.211").first_or_create.id,
       refer_id: Refer.where(address: "http://turing.io").first_or_create.id,
@@ -51,10 +49,9 @@ module TestHelpers
       user_environment_id: UserEnvironment.where(browser: "Safari", os: "doors").first_or_create.id,
       request_type_id: RequestType.where(verb: "GET").first_or_create.id
     }
-    @data3 = {
-      requested_at: "2013-02-16 22:38:28 -0700",
+    data3 = {
+      requested_at: "2013-02-16 22:38:29 -0700",
       response_time: 40,
-      parameters: ["query"],
       event_id: Event.where(name: "socialLogin").first_or_create.id,
       ip_id: Ip.where(address: "62.29.38.211").first_or_create.id,
       refer_id: Refer.where(address: "http://www.google.com").first_or_create.id,
@@ -64,16 +61,15 @@ module TestHelpers
       request_type_id: RequestType.where(verb: "GET").first_or_create.id
     }
 
-    @payload_1 = Payload.create(@data1)
-    @payload_2 = Payload.create(@data2)
-    @payload_3 = Payload.create(@data3)
+    payload_1 = Payload.create(data1)
+    payload_2 = Payload.create(data2)
+    payload_3 = Payload.create(data3)
   end
 
   def setup_referrers
     refer1 = {
       requested_at: "2013-02-18 22:38:28 -0700",
       response_time: 50,
-      parameters: ["query"],
       event_id: Event.where(name: "socialLogin").first_or_create.id,
       ip_id: Ip.where(address: "67.29.38.211").first_or_create.id,
       refer_id: Refer.where(address: "http://turing.io").first_or_create.id,
@@ -86,7 +82,6 @@ module TestHelpers
     refer2 = {
       requested_at: "2012-02-16 22:38:28 -0700",
       response_time: 20,
-      parameters: ["query"],
       event_id: Event.where(name: "socialLogin").first_or_create.id,
       ip_id: Ip.where(address: "65.29.38.211").first_or_create.id,
       refer_id: Refer.where(address: "http://turing.io").first_or_create.id,
