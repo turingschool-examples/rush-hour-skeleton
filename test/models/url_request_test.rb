@@ -72,16 +72,16 @@ class UrlRequestTest < Minitest::Test
   end
 
   def test_top_three_referrers_for_specific_url
-    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
-    create_payload_requests_with_associations(referred_by: "http://coursereport.com")
-    create_payload_requests_with_associations(referred_by: "http://google.com")
-    create_payload_requests_with_associations(referred_by: "http://google.com")
-    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
-    create_payload_requests_with_associations(referred_by: "http://google.com")
-    create_payload_requests_with_associations(referred_by: "http://turing.io")
-    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
-    create_payload_requests_with_associations(referred_by: "http://turing.io")
-    create_payload_requests_with_associations(referred_by: "http://pragmaticstudio.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://pragmaticstudio.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://coursereport.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://google.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://google.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://pragmaticstudio.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://google.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://turing.io")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://pragmaticstudio.com")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://turing.io")
+    create_payload_requests_with_associations(requested_at: rand_time, referred_by: "http://pragmaticstudio.com")
 
     url_request = UrlRequest.find_by(url: "http://jumpstartlab.com/blog")
     referrers = url_request.top_three_referrers
@@ -94,16 +94,16 @@ class UrlRequestTest < Minitest::Test
     user_agent_2 = "Mozilla/5.0 (Windows NT 10.0; <64-bit tags>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev> Edge/<EdgeHTML Rev>.<Windows Build>"
     user_agent_3 = "Mozilla/5.0 (compatible; MSIE 9.0; AOL 9.7; AOLBuild 4343.19; Windows NT 6.1; WOW64; Trident/5.0; FunWebProducts)"
     user_agent_4 = "Mozilla/5.0 (Windows; U; Windows NT 5.1; ja-JP; rv:0.9.4.1) Gecko/20020508 Netscape6/6.2.3"
-    create_payload_requests_with_associations(user_agent: user_agent_1)
-    create_payload_requests_with_associations(user_agent: user_agent_3)
-    create_payload_requests_with_associations(user_agent: user_agent_4)
-    create_payload_requests_with_associations(user_agent: user_agent_3)
-    create_payload_requests_with_associations(user_agent: user_agent_4)
-    create_payload_requests_with_associations(user_agent: user_agent_3)
-    create_payload_requests_with_associations(user_agent: user_agent_4)
-    create_payload_requests_with_associations(user_agent: user_agent_1)
-    create_payload_requests_with_associations(user_agent: user_agent_2)
-    create_payload_requests_with_associations(user_agent: user_agent_4)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_1)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_3)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_4)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_3)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_4)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_3)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_4)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_1)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_2)
+    create_payload_requests_with_associations(requested_at: rand_time, user_agent: user_agent_4)
 
     url_request = UrlRequest.find_by(url: 'http://jumpstartlab.com/blog')
     user_agents = url_request.three_most_popular_user_agents

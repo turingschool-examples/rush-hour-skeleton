@@ -11,6 +11,12 @@ class PayloadRequest < ActiveRecord::Base
   validates :responded_in, presence: true
   validates :event_name,   presence: true
 
+  validates_uniqueness_of :requested_at, scope: [ :responded_in, :event_name,
+                                                  :referrer_id, :url_request_id,
+                                                  :user_agent_id, :resolution_id,
+                                                  :ip_address_id, :verb_id,
+                                                  :client_id ]
+
   def self.average_response_time
     average("responded_in")
   end

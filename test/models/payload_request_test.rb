@@ -84,23 +84,23 @@ class PayloadRequestTest < Minitest::Test
 
   def test_most_frequent_request_type
     create_payload_requests_with_associations(request_type: "POST")
-    create_payload_requests_with_associations
-    create_payload_requests_with_associations
+    create_payload_requests_with_associations(requested_at: rand_time)
+    create_payload_requests_with_associations(requested_at: rand_time)
 
     assert_equal "GET", PayloadRequest.most_frequent_request_type
   end
 
   def test_list_of_urls_by_frequency_desc
     create_payload_requests_with_associations(url: "http://google.com")
-    create_payload_requests_with_associations
-    create_payload_requests_with_associations
+    create_payload_requests_with_associations(requested_at: rand_time)
+    create_payload_requests_with_associations(requested_at: rand_time)
 
     assert_equal ["http://jumpstartlab.com/blog", "http://google.com"], PayloadRequest.most_frequent_urls
   end
 
   def test_events_listed_in_descending_order
     create_payload_requests_with_associations(event_name: 'Facebook')
-    create_payload_requests_with_associations(event_name: 'Facebook')
+    create_payload_requests_with_associations(requested_at: rand_time, event_name: 'Facebook')
     create_payload_requests_with_associations(event_name: 'Google')
 
     assert_equal ['Facebook', 'Google'], PayloadRequest.event_name_breakdown

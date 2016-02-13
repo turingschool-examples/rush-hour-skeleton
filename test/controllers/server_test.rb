@@ -54,9 +54,18 @@ class ServerTest < Minitest::Test
 
   def test_missing_payload
     Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    post '/sources/jumpstartlab/data', { payload: "" }
+    post '/sources/jumpstartlab/data', { payload: "{}" }
 
     assert_equal 400, last_response.status
     assert_equal "400 Bad Request - Missing payload request", last_response.body
+  end
+
+  def test_already_received_request
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    post '/sources/jumpstartlab/data', { payload: payload.to_json }
+    post '/sources/jumpstartlab/data', { payload: payload.to_json }
+
+    assert_equal 403, last_response.status
+    assert_equal "403 Forbidden - identifier already exists", last_response.body
   end
 end
