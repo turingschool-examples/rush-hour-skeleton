@@ -45,19 +45,40 @@ module RushHour
       UrlRequest.find_or_create_by(url: url, parameters: parameters)
     end
 
-    def parse_user_agent(user_agent)
-      UserAgentParser.parse(user_agent)
-    end
-
-    def find_or_create_user_agent(browser, os)
-      UserAgent.find_or_create_by(browser: browser, os: os)
+    def find_or_create_user_agent(user_agent)
+      parsed_user_agent = UserAgentParser.parse(user_agent)
+      UserAgent.find_or_create_by(browser: parsed_user_agent.family.to_s,
+                                  os: parsed_user_agent.os.to_s)
     end
 
     def find_or_create_verb(request_type)
       Verb.find_or_create_by(request_type: request_type)
     end
 
-    
+    def format_payload(payload)
+      {
+        referrer:    find_or_create_referrer(payload[:referredBy]).id,
+        ip_address:  find_or_create_ip(payload[:ip]).id,
+        resolution:  find_or_create_resolution(payload[:resolutionWidth], payload[:resolutionHeight]).id,
+        url_request: find_or_create_url(payload[:url], payload[:parameters].to_s).id,
+        user_agent:  find_or_create_user_agent(payload[:userAgent]).id,
+        verb:        find_or_create_verb(payload[:requestType]).id
+      }
+    end
+
+    def create_payload_request(client)
+      payload = parse_json(params[:payload])
+      foreign_keys = format_payload(payload)
+      PayloadRequest.create(requested_at: payload[:requestedAt], responded_in: payload[:respondedIn], event_name: payload[:eventName],  referrer_id: foreign_keys[:referrer], ip_address_id: foreign_keys[:ip_address], resolution_id: foreign_keys[:resolution], url_request_id: foreign_keys[:url_request], verb_id: foreign_keys[:verb], client_id: client.id )
+    end
+
+    def payload_status_message(params, payload_request)
+      if params[:payload] == "{}"
+        status_message(400, "400 Bad Request - Missing payload request")
+      elsif !payload_request.errors.empty?
+        status_message(403, "403 Forbidden - Identifier already exists")
+      end
+    end
 
     post '/sources' do
       parse_client_params(params)
@@ -67,21 +88,9 @@ module RushHour
       client = find_client(identifier)
       return status_message(403, "403 Forbidden - Application not registered") unless client
 
-      payload = parse_json(params[:payload])
-      referrer = find_or_create_referrer(payload[:referredBy])
-      ip_address = find_or_create_ip(payload[:ip])
-      resolution = find_or_create_resolution(payload[:resolutionWidth], payload[:resolutionHeight])
-      url_request = find_or_create_url(payload[:url], payload[:parameters].to_s)
-      parsed_user_agent = parse_user_agent(payload[:userAgent])
-      user_agent = find_or_create_user_agent(parsed_user_agent.family.to_s, parsed_user_agent.os.to_s)
-      verb = find_or_create_verb(payload[:requestType])
-      payload_request = PayloadRequest.create(requested_at: payload[:requestedAt], responded_in: payload[:respondedIn], event_name: payload[:eventName], ip_address_id: ip_address.id, referrer_id: referrer.id, resolution_id: resolution.id, url_request_id: url_request.id, user_agent_id: user_agent.id, verb_id: verb.id, client_id: client.id)
+      payload_request = create_payload_request(client)
 
-      if params[:payload] == "{}"
-        status_message(400, "400 Bad Request - Missing payload request")
-      elsif !payload_request.errors.empty?
-        status_message(403, "403 Forbidden - Identifier already exists")
-      end
+      payload_status_message(params, payload_request)
     end
   end
 end
