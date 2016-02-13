@@ -19,19 +19,21 @@ class RequestParserTest < Minitest::Test
     "resolutionHeight":"1280",
     "ip":"63.29.38.211"
     }'
+    Client.create(identifier: "google", root_url: "http://google.com")
 
-    pr = RequestParser.parse_request(payload, "http://turing.io")
+    RequestParser.parse_request(payload, "google")
+    pr = PayloadRequest
 
-    # assert_equal 1, pr.url_id
-    # assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at
-    # assert_equal 37, pr.responded_in
-    # assert_equal 1, pr.referrer_url_id
-    # assert_equal 1, pr.request_type_id
-    # assert_equal "[]", pr.parameters
-    # assert_equal 1, pr.event_name_id
-    # assert_equal 1, pr.user_system_id
-    # assert_equal 1, pr.resolution_id
-    # assert_equal 1, pr.ip_id
-    # refute_equal 2, pr.referrer_url_id
+    assert_equal 1, pr.pluck(:url_id)[0]
+    assert_equal "2013-02-16 21:38:28 -0700", pr.pluck(:requested_at)[0]
+    assert_equal 37, pr.pluck(:responded_in)[0]
+    assert_equal 1, pr.pluck(:referrer_url_id)[0]
+    assert_equal 1, pr.pluck(:request_type_id)[0]
+    assert_equal "[]", pr.pluck(:parameters)[0]
+    assert_equal 1, pr.pluck(:event_name_id)[0]
+    assert_equal 1, pr.pluck(:user_system_id)[0]
+    assert_equal 1, pr.pluck(:resolution_id)[0]
+    assert_equal 1, pr.pluck(:ip_id)[0]
+    refute_equal 2, pr.pluck(:referrer_url_id)[0]
   end
 end
