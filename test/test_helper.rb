@@ -68,6 +68,12 @@ module TestHelpers
     post '/sources', {"identifier"=>"jumpstartlab",
           "rootUrl"=>"http://jumpstartlab.com"}
   end
+
+  def client_setup_client_comparison
+    client_call1 =  `curl -i -d 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'  http://localhost:9393/sources`
+    client_call2 =  `curl -i -d 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'  http://localhost:9393/sources`
+
+  end
 end
 
 
