@@ -3,6 +3,7 @@ class UrlRequest < ActiveRecord::Base
 
   validates :url, presence: true
   validates :parameters, presence: true
+  validates_uniqueness_of :url, scope: [:parameters]
 
   def max_response_time
     payload_requests.maximum("responded_in")
@@ -35,6 +36,6 @@ class UrlRequest < ActiveRecord::Base
     user_agent_ids.map do |id|
       user_agent = UserAgent.find(id)
       "#{user_agent.browser}, #{user_agent.os}"
-    end 
+    end
   end
 end

@@ -40,6 +40,11 @@ module TestHelpers
     }
   end
 
+  def rand_time
+    # this is a joke... kind of.
+    Time.now + rand(1000000000000000000000900000000000000000000000000000000000000000000000)
+  end
+
   def create_ip_address(data)
     IpAddress.find_or_create_by(ip: data[:ip])
   end

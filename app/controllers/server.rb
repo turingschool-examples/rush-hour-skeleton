@@ -23,9 +23,20 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       client = Client.find_by(identifier: identifier)
+      payload = JSON.parse(params[:payload], symbolize_names: true)
+      ip_address = IpAddress.find_or_create_by(ip: payload[:ip])
+      referrer = Referrer.find_or_create_by(referred_by: payload[:referredBy])
+      resolution = Resolution.find_or_create_by(resolution_width: payload[:resolutionWidth], resolution_height: payload[:resolutionHeight])
+      url_request = UrlRequest.find_or_create_by(url: payload[:url], parameters: payload[:parameters].to_s)
+      parsed_user_agent = UserAgentParser.parse(payload[:userAgent])
+      user_agent = UserAgent.find_or_create_by(browser: parsed_user_agent.family.to_s, os: parsed_user_agent.os.to_s)
+      verb = Verb.find_or_create_by(request_type: payload[:requestType])
+      payload_request = PayloadRequest.create(requested_at: payload[:requestedAt], responded_in: payload[:respondedIn], event_name: payload[:eventName], ip_address_id: ip_address.id, referrer_id: referrer.id, resolution_id: resolution.id, url_request_id: url_request.id, user_agent_id: user_agent.id, verb_id: verb.id, client_id: client.id)
 
-      if params[:payload].empty?
+      if params[:payload] == "{}"
         [400, "400 Bad Request - Missing payload request"]
+      elsif !payload_request.errors.empty?
+        [403, "403 Forbidden - identifier already exists"]
       end
     end
   end
