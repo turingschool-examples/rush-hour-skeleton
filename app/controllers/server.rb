@@ -4,7 +4,7 @@ module RushHour
       status, body = ClientParser.new.parse_client(params)
     end
 
-    post '/sources/:IDENTIFIER/data' do
+    post '/sources/:identifier/data' do
       status, body = PayloadParser.new.parse_payload(params)
     end
 

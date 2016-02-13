@@ -1,8 +1,6 @@
 class Payload < ActiveRecord::Base
   validates  :requested_at, presence: true
   validates  :response_time, presence: true
-  validates  :parameters, presence: true
-  # has many parameters
   belongs_to :event
   belongs_to :ip
   belongs_to :refer

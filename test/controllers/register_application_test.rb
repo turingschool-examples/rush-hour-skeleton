@@ -28,7 +28,7 @@ class RegisterApplicationTest <Minitest::Test
 
     assert_equal 0, Client.count
     assert_equal 400, last_response.status
-    assert_equal "Please provide both an identifer and root url parameter.", last_response.body
+    assert_equal "Please provide both an identifier and root url parameter.", last_response.body
   end
 
   def test_post_with_nil_parameter_returns_400_bad_request
@@ -37,6 +37,6 @@ class RegisterApplicationTest <Minitest::Test
 
     assert_equal 0, Client.count
     assert_equal 400, last_response.status
-    assert_equal "Please provide both an identifer and root url parameter.", last_response.body
+    assert_equal "Please provide both an identifier and root url parameter.", last_response.body
   end
 end

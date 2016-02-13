@@ -105,7 +105,7 @@ module TestHelpers
   end
 
   def payload_setup1
-    raw1 = {
+    raw1 = {"payload" => {
       "url":"http://jumpstartlab.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":37,
@@ -113,46 +113,48 @@ module TestHelpers
       "requestType":"GET",
       "parameters":["this"],
       "eventName":"socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
-      "ip":"63.29.38.211"}
+      "ip":"63.29.38.211"}.to_json}
 
-    post '/sources/jumpstartlab/', raw1
+    post '/sources/jumpstartlab/data', raw1
   end
 
   def payload_setup2
-    raw2 = {
-      "url":"http://jumpstartlab.com/test",
+    raw2 = { "payload" =>
+      {"url":"http://turing.io/test",
       "requestedAt":"2014-02-16 22:38:28 -0800",
       "respondedIn":25,
       "referredBy":"http://turing.io",
       "requestType":"POST",
       "parameters":["that"],
       "eventName":"socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1480",
       "resolutionHeight":"1200",
-      "ip":"73.29.38.211"}
+      "ip":"73.29.38.211"}.to_json
+      }
 
-    post '/sources/jumpstartlab/', raw2
+    post '/sources/turing/data', raw2
   end
 
   def payload_setup_not_registered
-    raw = {
-      "url":"http://example.com/test",
+    raw3 = { "payload" =>
+      {"url":"http://example.com/test",
       "requestedAt":"2014-02-16 22:38:28 -0800",
       "respondedIn":25,
       "referredBy":"http://turing.io",
       "requestType":"POST",
       "parameters":["that"],
       "eventName":"socialLogin",
-      "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1480",
       "resolutionHeight":"1200",
-      "ip":"73.29.38.211"}
+      "ip":"73.29.38.211"}.to_json
+      }
 
-    post '/sources/jumpstartlab/', raw
+    post '/sources/jumpstartlab/data', raw3
   end
 end
 
