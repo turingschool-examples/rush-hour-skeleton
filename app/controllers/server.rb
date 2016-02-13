@@ -18,7 +18,12 @@ module RushHour
         status 403
         body @client.errors.full_messages.join(", ")
       end#conditional for errors
-   end
+    end
+
+    post '/sources/:identifier/data' do
+      # @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
+      @client_payload = RequestParser.new
+    end
   end
 
 end

@@ -16,6 +16,8 @@ Capybara.save_and_open_page_path = "tmp/capybara"
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 module TestHelpers
+    include Rack::Test::Methods
+
   def setup
     DatabaseCleaner.start
     super
@@ -24,6 +26,10 @@ module TestHelpers
   def teardown
     DatabaseCleaner.clean
     super
+  end
+
+  def app     # def app is something that Rack::Test is looking for
+    RushHour::Server
   end
 
   def create_payload_1
@@ -41,7 +47,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "960",
                           height: "1400").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("1")
     }
     PayloadRequest.create(payload1)
   end
@@ -61,7 +71,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload2)
   end
@@ -81,7 +95,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload3)
   end
@@ -101,7 +119,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload4)
   end
@@ -121,7 +143,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload5)
   end
@@ -141,7 +167,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
 
     PayloadRequest.create(payload6)
@@ -162,7 +192,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload7)
   end
@@ -182,7 +216,11 @@ module TestHelpers
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
                           height: "1280").id,
-      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload8)
   end
