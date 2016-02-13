@@ -66,6 +66,14 @@ class ServerTest < Minitest::Test
     post '/sources/jumpstartlab/data', { payload: payload.to_json }
 
     assert_equal 403, last_response.status
-    assert_equal "403 Forbidden - identifier already exists", last_response.body
+    assert_equal "403 Forbidden - Identifier already exists", last_response.body
+  end
+
+  def test_application_not_registered
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    post '/sources/hopstartlab/data', { payload: payload.to_json }
+
+    assert_equal 403, last_response.status
+    assert_equal "403 Forbidden - Application not registered", last_response.body
   end
 end
