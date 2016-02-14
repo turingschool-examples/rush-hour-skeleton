@@ -21,6 +21,8 @@ class ClientCanViewStatisticsTest < Minitest::Test
       assert page.has_content? 'Humpstartlab Stats'
     end
 
+    save_and_open_page
+
     assert page.has_content? 'Average Response Time Across All Requests'
     assert page.has_content? '41.67'
     assert page.has_content? 'Max Response Time Across All Requests'
@@ -33,5 +35,7 @@ class ClientCanViewStatisticsTest < Minitest::Test
     assert page.has_content? '["GET", "POST"]'
     assert page.has_content? "Most Requested to Least Requested URL's"
     assert page.has_content? '["http://jumpstartlab.com/blog", "http://jumpstartlab.com/about"]'
+    assert page.has_content? "Web Browser Breakdown Across All Requests"
+    assert page.has_content? '["Chrome", "Netscape"]'
   end
 end

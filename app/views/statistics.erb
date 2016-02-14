@@ -19,3 +19,6 @@
 
 <h2>Most Requested to Least Requested URL's</h2>
 <h3><%= @client.payload_requests.most_frequent_urls %></h3>
+
+<h2>Web Browser Breakdown Across All Requests</h2>
+<h3><%= @client.user_agents.browser_breakdown %></h3>
