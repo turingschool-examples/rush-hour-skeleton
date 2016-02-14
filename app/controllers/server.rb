@@ -46,7 +46,6 @@ module RushHour
     get '/missing-url' do
       erb :unrequested_url
     end
-  end
 
     get '/sources/:identifier' do |identifier|
       @client = Client.where(identifier: identifier).first

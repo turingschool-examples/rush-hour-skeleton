@@ -22,9 +22,9 @@ class ClientStatsTest < FeatureTest
     # binding.pry
     create_payload_1
 #   when a registered user visits it's homepage
-    visit '/sources/google'
+    visit '/sources/jumpstartlab'
 #   then I should see stats for my web pages
-    assert_equal '/sources/google', current_path
+    assert_equal '/sources/jumpstartlab', current_path
     within('.client-stats') do
       assert page.has_content? 'Average Response Time'
       assert page.has_content? 'Max Response Time'
