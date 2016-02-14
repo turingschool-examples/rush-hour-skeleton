@@ -9,6 +9,7 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 require 'pry'
+require 'tilt/erb'
 
 module TestHelpers
   def setup
@@ -155,4 +156,11 @@ end
 
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
+
 Capybara.app = RushHour::Server
+Capybara.save_and_open_page_path = 'tmp/capybara'
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include Rack::Test::Methods
+end

@@ -1,0 +1,16 @@
+<div class="analytics-dashboard">
+
+<h2 id=source> <%= @source.client_identifier.capitalize %></h2>
+
+<ul>
+<li id="data">Average Response time across all requests: <%= Payload.average_response_time %></li>
+<li>Max Response time across all requests: <%= Payload.max_response_time %></li>
+<li>Min Response time across all requests: <%= Payload.min_response_time %></li>
+<li>Most frequent request type <%= Payload.most_frequent_request_type%></li>
+<li>List of all HTTP verbs used <%= RequestType.list_distinct_verbs %></li>
+<li>List of URLs listed from most requested to least requested <%= Url.list_frequency_urls %></li>
+<li>Web browser breakdown across all requests: <%= UserEnvironment.browser_breakdown %></li>
+<li>OS breakdown across all requests <%= UserEnvironment.os_breakdown %></li>
+<li>Screen Resolutions across all requests: <%= Resolution.width_breakdown #needs to add the height breakdown></li>
+
+</div>

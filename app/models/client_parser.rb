@@ -1,4 +1,5 @@
 class ClientParser
+  
   def parse_client(params)
     client =
     Client.new(:identifier => params["identifier"], root_url: params["rootUrl"])

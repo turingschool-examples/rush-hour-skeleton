@@ -1,6 +1,6 @@
 class PayloadParser
   def parse_payload(params)
-    return [400, "Please submit a payload."] if params["payload"].nil? 
+    return [400, "Please submit a payload."] if params["payload"].nil?
     payload = JSON.parse(params["payload"])
     client = Client.find_by(identifier: params["identifier"])
     return [403, "You can only track URLs that belong to you."] if client.nil?
@@ -24,7 +24,7 @@ class PayloadParser
         user_environment: UserEnvironment.where(browser: get_browser(payload["userAgent"]), os: get_os(payload["userAgent"])).first_or_create,
         ip:               Ip.where(address: payload["ip"]).first_or_create,
         resolution:       Resolution.where(width: payload["resolutionWidth"], height: payload["resolutionHeight"]).first_or_create,
-        url:               Url.where(address: payload["url"]).first_or_create
+        url:              Url.where(address: payload["url"]).first_or_create
     )
   end
 
