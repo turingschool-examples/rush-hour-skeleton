@@ -25,10 +25,10 @@ class PayloadRequestTest < Minitest::Test
 
   def test_payload_cannot_be_created_without_ip_address
     payload = {
-      url_id:           Url.create(address: "http://jumpstartlab.com/tutorials").id,
+      url_id:           Url.create(address: "http://www.jumpstartlab.com/tutorials").id,
       requested_at:     "2013-02-16 21:38:28 -0700",
       responded_in:     37,
-      referrer_url_id:  ReferrerUrl.create(url_address: "http://jumpstartlab.com").id,
+      referrer_url_id:  ReferrerUrl.create(url_address: "http://www.jumpstartlab.com").id,
       request_type_id:  RequestType.create(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.create(event_name: "socialLogin").id,
@@ -97,7 +97,7 @@ class PayloadRequestTest < Minitest::Test
     create_payload_3
     create_payload_3
 
-    assert_equal ["http://jumpstartlab.com", "http://jumpstartlab.com/tutorials", "http://jumpstartlab.com/blog"], PayloadRequest.sort_urls_by_request_freqency
+    assert_equal ["http://www.jumpstartlab.com", "http://www.jumpstartlab.com/tutorials", "http://www.jumpstartlab.com/blog"], PayloadRequest.sort_urls_by_request_freqency
   end
 
   # Events listed from most received to least.(When no events have been defined display a message that states no events have been defined)
@@ -117,10 +117,10 @@ class PayloadRequestTest < Minitest::Test
 
   def test_returns_message_if_event_name_is_missing
     payload = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com").id,
       requested_at:     "2015-02-16 21:38:28 -0700",
       responded_in:     50,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.jumpstartlab.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       user_system_id:   UserSystem.find_or_create_by(
