@@ -1,1 +1,11 @@
-<h1 class="well col-md-6">Welcome to Rush Hour</h1>
+<h1 id="welcome" class="well col-md-6 col-md-offset-3 text-center">Welcome to Rush Hour</h1>
+
+
+<div class="well col-md-6 col-md-offset-3">
+  <h3>
+    If you're a registered user you can click your name below to see your detailed stats.
+  </h3>
+  <% Client.all.each do |client| %>
+  <a href="/sources/<%= client.identifier %>"> <%= client.identifier.capitalize %> </a><br>
+  <% end %>
+</div>

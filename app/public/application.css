@@ -27,3 +27,19 @@ body {
 .client-urls {
   background-color: rgb(215, 228, 194);
 }
+
+.url-response-time {
+  background-color: rgb(157,224,173);
+}
+
+.url-verbs {
+  background-color: rgb(69,173,168);
+}
+
+.url-top-threes {
+  background-color: rgb(84,121,128);
+}
+
+#welcome {
+  background-color: rgb(215, 228, 194);
+}
