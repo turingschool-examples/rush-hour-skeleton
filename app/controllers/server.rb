@@ -24,9 +24,12 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-      @client = ClientHelper.find_client(identifier)
-      @url = UrlRequest.find_by(url: @client.root_url + "/#{path}")
-      erb :url_stats
+      @url = UrlRequestHelper.find_url(identifier, path)
+      if @url.class == UrlRequest
+        erb :url_stats
+      else
+        erb :url_does_not_exist
+      end
     end
   end
 end

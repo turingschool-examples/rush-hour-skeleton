@@ -16,7 +16,7 @@ class ClientCanSeeAvgResponseTimeTest < FeatureTest
                                    user_agent_id: UserAgent.create(browser: "Chrome", os: "OSX").id,
                                    resolution_id: Resolution.create(resolution_width: '1920', resolution_height: '1080').id)
 
-    url = visit "/sources/#{client.identifier}/urls"
+    visit "/sources/#{client.identifier}/urls"
 
     click_link "http://www.jumpstartlabs.com/blog"
 
@@ -40,5 +40,22 @@ class ClientCanSeeAvgResponseTimeTest < FeatureTest
       assert page.has_content? "Three Most Popular User Agents"
       assert page.has_content? ["Chrome, OSX"]
     end
+  end
+
+  def test_displays_url_request_does_not_exitst
+    client = Client.create(identifier: "jumpstartlabs",
+                           root_url: "http://www.jumpstartlabs.com")
+    client.payload_requests.create(requested_at: '2013-02-16 21:38:28 -0700',
+                                   responded_in: 45,
+                                   event_name: "google",
+                                   url_request_id: UrlRequest.create(url: "http://www.jumpstartlabs.com/blog", parameters: '[]').id,
+                                   verb_id: Verb.create(request_type: "GET").id,
+                                   referrer_id: Referrer.create(referred_by: "jumpstartlabs").id,
+                                   user_agent_id: UserAgent.create(browser: "Chrome", os: "OSX").id,
+                                   resolution_id: Resolution.create(resolution_width: '1920', resolution_height: '1080').id)
+
+    visit "/sources/#{client.identifier}/urls/about"
+
+    assert page.has_content? 'The url requested does not exist'
   end
 end
