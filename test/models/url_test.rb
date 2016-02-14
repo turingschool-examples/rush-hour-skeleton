@@ -8,10 +8,10 @@ class UrlTest < Minitest::Test
   end
 
   def test_can_create_url_addresses
-    url_address = {address: "http://jumpstartlab.com"}
+    url_address = {address: "http://www.jumpstartlab.com"}
     url = Url.create(url_address)
 
-    assert_equal "http://jumpstartlab.com", url.address
+    assert_equal "http://www.jumpstartlab.com", url.address
     assert_equal 1, url.id
   end
 
@@ -75,7 +75,7 @@ class UrlTest < Minitest::Test
     create_payload_8
     create_payload_8
 
-    expected = ["http://google.com", "http://jumpstartlab.com", "http://yahoo.com"]
+    expected = ["http://www.google.com", "http://www.jumpstartlab.com", "http://www.yahoo.com"]
     url = Url.find(1)
     assert_equal expected, url.top_three_referrers.sort
   end

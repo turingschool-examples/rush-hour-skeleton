@@ -12,7 +12,7 @@ class ClientTest < Minitest::Test
   def test_can_create_client_through_payload_request
     pr = create_payload_1
 
-    assert_equal "google", Client.find(1).identifier
+    assert_equal "jumpstartlab", Client.find(1).identifier
     assert_equal 1, pr.client.id
   end
 

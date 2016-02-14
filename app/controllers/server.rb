@@ -27,6 +27,21 @@ module RushHour
       # @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
       # @client_payload = RequestParser.new
     end
+
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @client = Client.where(identifier: identifier).first
+      url = @client.root_url + '/' + relative_path
+      unless Url.pluck(:address).include?(url)
+        redirect '/missing-url'
+      else
+        @url_obj = Url.where(address: url).first
+        erb :url_stats
+      end
+    end
+
+    get '/missing-url' do
+      erb :unrequested_url
+    end
   end
 
 end
