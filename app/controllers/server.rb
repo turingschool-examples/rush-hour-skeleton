@@ -32,14 +32,14 @@ module RushHour
       # @client_payload = RequestParser.new
     end
 
-<<<<<<< HEAD
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.where(identifier: identifier).first
       url = @client.root_url + '/' + relative_path
       @url_obj = Url.where(address: url).first
 
       erb :url_stats
-=======
+    end
+
     get '/sources/:identifier' do |identifier|
       @client = Client.where(identifier: identifier).first
       @payloads = PayloadRequest.where(client_id: @client.id)
@@ -47,7 +47,6 @@ module RushHour
       @resolution = Resolution
       # @systems = UserSystem.where(id: @payloads.first.user_system_id)
       erb :client_stats
->>>>>>> iter6-user-views#24
     end
   end
 
