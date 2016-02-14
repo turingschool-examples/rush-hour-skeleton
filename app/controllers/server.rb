@@ -48,7 +48,7 @@ module RushHour
       # @systems = UserSystem.where(id: @payloads.first.user_system_id)
       erb :client_stats
     end
-  end
+
 
     get 'sources/:identifier/events/:event_name' do |identifier, event_name|
       @client = Client.where(identifier: identifier).first
@@ -57,6 +57,7 @@ module RushHour
 
       erb :event_breakdown
     end
+  end
 end
 
 

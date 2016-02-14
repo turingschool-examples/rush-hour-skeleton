@@ -23,16 +23,15 @@ class HourlyBreakdown < FeatureTest
     visit '/sources/jumpstartlab'
     #user clicks "view events"
     click_button "View Events"
-    visit '/sources/jumpstartlab/events'
+    assert_equal '/sources/jumpstartlab/events', current_path
     #displays all events as links
     #user clicks one event_name
-    visit '/sources/jumpstartlab/events/signout'
-    #user clicks on event breakdown link
     click_button "View Hourly Breakdown"
+
     assert_equal '/sources/jumpstartlab/events/signout', current_path
 
 
-    within('.hourly_breakdown') do
+    within('.hourly-breakdown') do
 
       assert page.has_content? "12am - 1am"
       assert page.has_content? "1am - 2am"
@@ -60,7 +59,7 @@ class HourlyBreakdown < FeatureTest
       assert page.has_content? "11pm - 12am"
     end
     #anduser can see total occurences for given event on given day
-    within('h3') { expect(page).to have_content('Total Occurences') }
+    within('#total-occurences') { expect(page).to have_content('Total Occurences') }
   end
 
 
