@@ -31,9 +31,16 @@ module RushHour
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.where(identifier: identifier).first
       url = @client.root_url + '/' + relative_path
-      @url_obj = Url.where(address: url).first
+      unless Url.pluck(:address).include?(url)
+        redirect '/missing-url'
+      else
+        @url_obj = Url.where(address: url).first
+        erb :url_stats
+      end
+    end
 
-      erb :url_stats
+    get '/missing-url' do
+      erb :unrequested_url
     end
   end
 
