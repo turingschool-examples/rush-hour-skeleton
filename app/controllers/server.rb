@@ -27,6 +27,12 @@ module RushHour
       # @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
       # @client_payload = RequestParser.new
     end
+
+    get '/sources/:identifier' do |identifier|
+      @client = Client.where(identifier: identifier)
+
+      erb :client_stats
+    end
   end
 
 end
