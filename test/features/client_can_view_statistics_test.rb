@@ -21,8 +21,9 @@ class ClientCanViewStatisticsTest < Minitest::Test
 
     assert page.has_content? 'Average Response Time Across All Requests'
     assert page.has_content? '44.0'
-
     assert page.has_content? 'Max Response Time Across All Requests'
     assert page.has_content? '51.0'
+    assert page.has_content? 'Min Response Time Across All Requests'
+    assert page.has_content? '37.0'
   end
 end
