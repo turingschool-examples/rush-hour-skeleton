@@ -10,6 +10,7 @@ require 'capybara/dsl'
 require 'database_cleaner'
 
 Capybara.app = RushHour::Server
+Capybara.save_and_open_page_path = 'tmp/capybara'
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
@@ -23,6 +24,7 @@ module TestHelpers
     DatabaseCleaner.clean
     super
   end
+
 
   def payload(data = {})
     {
@@ -93,4 +95,9 @@ module TestHelpers
                            resolution_id: resolution.id, url_request_id: url_request.id,
                            user_agent_id: user_agent.id, verb_id: verb.id)
   end
+end
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include TestHelpers
 end

@@ -17,5 +17,16 @@ module RushHour
 
       PayloadRequestHelper.payload_status_message(params, payload_request)
     end
+
+    get '/sources/:identifier/urls' do |identifier|
+      @client = ClientHelper.find_client(identifier)
+      erb :urls
+    end
+
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      @client = ClientHelper.find_client(identifier)
+      @url = UrlRequest.find_by(url: @client.root_url + "/#{path}")
+      erb :url_stats
+    end
   end
 end

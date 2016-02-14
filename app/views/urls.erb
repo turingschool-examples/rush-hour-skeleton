@@ -1,0 +1,6 @@
+<h1>Urls</h1>
+
+<ul>
+<% @client.url_requests.each do |url_request| %>
+<li><a href="/sources/<%= @client.identifier %>/urls/<%= url_request.url.split("/").last %>"><%= url_request.url %></a></li>
+<% end %>
