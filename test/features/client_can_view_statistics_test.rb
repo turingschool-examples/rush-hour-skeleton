@@ -31,5 +31,7 @@ class ClientCanViewStatisticsTest < Minitest::Test
     assert page.has_content? 'GET'
     assert page.has_content? 'HTTP Verbs Used'
     assert page.has_content? '["GET", "POST"]'
+    assert page.has_content? "Most Requested to Least Requested URL's"
+    assert page.has_content? '["http://jumpstartlab.com/blog", "http://jumpstartlab.com/about"]'
   end
 end

@@ -47,7 +47,7 @@ module TestHelpers
 
   def alternate_payload
     {
-      "url": "http://jumpstartlab.com/blog",
+      "url": "http://jumpstartlab.com/about",
       "requestedAt": Time.now,
       "respondedIn": 51,
       "referredBy": "http://jumpstartlab.com",
