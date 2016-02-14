@@ -5,9 +5,13 @@ module RushHour
       erb :error
     end
 
+    get '/' do
+      erb :home
+    end
+
     post '/sources' do
       @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
-      #built in active record errors
+      # PathParser.sources_parser(@client, params)
       if @client.save
         status 200
         body "{\"identifier\":\"#{@client.identifier}\"}"
@@ -17,7 +21,7 @@ module RushHour
       else
         status 403
         body @client.errors.full_messages.join(", ")
-      end#conditional for errors
+      end
     end
 
     post '/sources/:identifier/data' do |identifier|
@@ -44,9 +48,17 @@ module RushHour
     end
   end
 
+    get '/sources/:identifier' do |identifier|
+      @client = Client.where(identifier: identifier).first
+      @payloads = PayloadRequest.where(client_id: @client.id) if !@client.nil?
+      @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id)) if !@client.nil?
+      @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id)) if !@client.nil?
+      # @url = Url.where(id: @payloads.pluck(:url_id))
+
+      erb PathParser.sources_identifier_parse(@payloads, @client)
+    end
+  end
 end
-
-
 
 # create a parser to do something like this to parse params when registering?
 
