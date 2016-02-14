@@ -1,7 +1,12 @@
 <h1>Url Stats for <%= @client.identifier.capitalize %></h1>
 
 <div class="url-specific-stats">
-  <p>
-    Max Response Time
-  </p>
+  <p>Max Response Time: <%= @max %></p>
+
+  <p>Min Response Time: <%= @min %></p>
+  <p>Average Response Time</p>
+  <p>Response Times Across All Requests</p>
+  <p>HTTP Verbs Used</p>
+  <p>Top Three Referrers</p>
+  <p>Top Three User Agents</p>
 </div>

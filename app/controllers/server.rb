@@ -30,6 +30,13 @@ module RushHour
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.where(identifier: identifier).first
+      url = @client.root_url + '/' + relative_path
+      url_obj = Url.where(address: url).first
+      @max = url_obj.payload_requests.max_response_time
+      @min = url_obj.payload_requests.min_response_time
+      # require "pry"
+      # binding.pry
+      #
       # @payload = PayloadRequest.where(url_id: ???)
       erb :url_stats
     end

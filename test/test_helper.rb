@@ -38,10 +38,10 @@ module TestHelpers
 
   def create_payload_1
     payload1 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/blog").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com/blog").id,
       requested_at:     "2013-02-16 21:38:28 -0700",
       responded_in:     30,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.jumpstartlab.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "GET").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
@@ -64,10 +64,10 @@ module TestHelpers
 
   def create_payload_2
     payload2 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/tutorials").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com/tutorials").id,
       requested_at:     "2014-02-16 21:38:28 -0700",
       responded_in:     40,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.jumpstartlab.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "signOut").id,
@@ -90,10 +90,10 @@ module TestHelpers
 
   def create_payload_3
     payload3 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com").id,
       requested_at:     "2015-02-16 21:38:28 -0700",
       responded_in:     50,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.jumpstartlab.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
@@ -116,10 +116,10 @@ module TestHelpers
 
   def create_payload_4
     payload4 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com").id,
       requested_at:     "2013-02-16 21:38:28 -0700",
       responded_in:     30,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://jumpstartlab.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.jumpstartlab.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
@@ -140,10 +140,10 @@ module TestHelpers
 
   def create_payload_5
     payload5 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com").id,
       requested_at:     "2014-02-16 21:38:28 -0700",
       responded_in:     40,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://google.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.google.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "POST").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
@@ -164,10 +164,10 @@ module TestHelpers
 
   def create_payload_6
     payload6 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com/blog").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com/blog").id,
       requested_at:     "2015-02-16 21:38:28 -0700",
       responded_in:     50,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://yahoo.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.yahoo.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
@@ -189,10 +189,10 @@ module TestHelpers
 
   def create_payload_7
     payload7 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com").id,
       requested_at:     "2015-02-16 21:38:28 -0700",
       responded_in:     50,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://askjeeves.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.askjeeves.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
@@ -213,10 +213,10 @@ module TestHelpers
 
   def create_payload_8
     payload8 = {
-      url_id:           Url.find_or_create_by(address: "http://jumpstartlab.com").id,
+      url_id:           Url.find_or_create_by(address: "http://www.jumpstartlab.com").id,
       requested_at:     "2015-02-16 21:38:28 -0700",
       responded_in:     50,
-      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://yahoo.com").id,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.yahoo.com").id,
       request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
       parameters:       [],
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
@@ -233,6 +233,42 @@ module TestHelpers
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload8)
+  end
+
+  def create_payload_9
+    payload9 = {
+      url_id:           Url.find_or_create_by(address: "http://www.google.com").id,
+      requested_at:     "2015-02-16 21:38:28 -0700",
+      responded_in:     50,
+      referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.yahoo.com").id,
+      request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
+      parameters:       [],
+      event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
+      user_system_id:   UserSystem.find_or_create_by(
+                          browser_type: "Safari",
+                          operating_system: "Windows").id,
+      resolution_id:    Resolution.find_or_create_by(
+                          width: "1920",
+                          height: "1280").id,
+      ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+      client_id:        Client.find_or_create_by(
+                          identifier: "google",
+                          root_url:   "http://www.google.com").id,
+      unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
+    }
+    PayloadRequest.create(payload9)
+  end
+
+  def creates_9_payloads
+    create_payload_1
+    create_payload_2
+    create_payload_3
+    create_payload_4
+    create_payload_5
+    create_payload_6
+    create_payload_7
+    create_payload_8
+    create_payload_9
   end
 end
 
