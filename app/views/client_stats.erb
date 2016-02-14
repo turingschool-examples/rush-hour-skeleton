@@ -3,6 +3,7 @@
 <h2>Here are the statistics for your account:</h2><br>
 
 <div class="client-stats">
+  <div class="client-response-times col-md-4 well">
   <h4>
     Average Response Time:<br>
   </h4>
@@ -21,6 +22,8 @@
     <p>
       <%= @payloads.min_response_time %>
     </p>
+  </div>
+  <div class="client-frequent-requests col-md-4 well">
   <h4>
     Most Frequent Request Type: <br>
   </h4>
@@ -33,14 +36,8 @@
     <p>
       <%= @payloads.most_frequent_request_type %>
     </p>
-  <h4>
-    URLs visited from most to least: <br>
-  </h4>
-    <% @payloads.each do |payload| %>
-    <p>
-      <a href="/sources/<%= @client.identifier %>/url/<%= Url.where(id: payload.url_id).first.address.split("/")[3..-1].join %>"><%= Url.where(id: payload.url_id).first.address %></a>
-    </p>
-    <% end %>
+  </div>
+  <div class="client-breakdowns col-md-4 well">
   <h4>
     Web Browser Breakdown: <br>
   </h4>
@@ -57,6 +54,19 @@
     Screen Resolution Breakdown: <br>
   </h4>
     <p>
-      <%= @resolutions.screen_resolutions.join(", ") %>
+      <% @resolutions.screen_resolutions.each do |res| %>
+      <%= res.join(" X ") %><br>
+      <% end %>
     </p>
+  </div>
+  <div class="client-urls col-md-12 well">
+    <h4>
+      URLs visited from most to least: <br>
+    </h4>
+    <% @payloads.each do |payload| %>
+    <p>
+      <a href="/sources/<%= @client.identifier %>/urls/<%= Url.where(id: payload.url_id).first.address.split("/")[3..-1].join %>"><%= Url.where(id: payload.url_id).first.address %></a>
+    </p>
+    <% end %>
+  </div>
 </div>

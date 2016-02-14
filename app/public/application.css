@@ -1,7 +1,26 @@
+body {
+  background-color: rgb(229, 252, 194);
+}
 .url-specific-stats {
 
 }
 
 .client-stats {
-  
+
+}
+
+.client-response-times {
+  background-color: rgb(157,224,173);
+}
+
+.client-frequent-requests {
+  background-color: rgb(69,173,168);
+}
+
+.client-breakdowns {
+  background-color: rgb(84,121,128);
+}
+
+.client-urls {
+  background-color: rgb(215, 228, 194);
 }

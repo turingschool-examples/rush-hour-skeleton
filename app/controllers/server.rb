@@ -51,6 +51,7 @@ module RushHour
       @client = Client.where(identifier: identifier).first
       @payloads = PayloadRequest.where(client_id: @client.id) if !@client.nil?
       @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id)) if !@client.nil?
+      # binding.pry
       @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id)) if !@client.nil?
       # @url = Url.where(id: @payloads.pluck(:url_id))
 
