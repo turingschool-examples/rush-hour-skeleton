@@ -22,12 +22,16 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       code, message = RequestParser.parse_request(params["payload"], identifier)
-      # require "pry"
-      # binding.pry
       status(code)
       body(message)
       # @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
       # @client_payload = RequestParser.new
+    end
+
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @client = Client.where(identifier: identifier).first
+      @payload = PayloadRequest.where(url_id: ???)
+      erb :url_stats
     end
   end
 

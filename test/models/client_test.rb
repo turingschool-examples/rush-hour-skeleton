@@ -67,7 +67,8 @@ class ClientTest < Minitest::Test
   end
 
   def test_payload_request_assigns_all_values_correctly
-    pr = create_three_payloads[0]
+    # pr = create_three_payloads[0]
+    pr = create_payload_1
 
     assert_equal 1, pr.url_id
     assert_equal "2013-02-16 21:38:28 -0700", pr.requested_at

@@ -9,6 +9,7 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 require 'useragent'
+require 'tilt/erb'
 
 Capybara.app = RushHour::Server
 Capybara.save_and_open_page_path = "tmp/capybara"
@@ -52,8 +53,8 @@ module TestHelpers
                           height: "1400").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("1")
     }
     PayloadRequest.create(payload1)
@@ -76,8 +77,8 @@ module TestHelpers
                           height: "1280").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload2)
@@ -100,8 +101,8 @@ module TestHelpers
                           height: "1280").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload3)
@@ -124,8 +125,8 @@ module TestHelpers
                           height: "1280").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload4)
@@ -148,8 +149,8 @@ module TestHelpers
                           height: "1280").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload5)
@@ -172,8 +173,8 @@ module TestHelpers
                           height: "1280").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
 
@@ -197,8 +198,8 @@ module TestHelpers
                           height: "1280").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload7)
@@ -221,8 +222,8 @@ module TestHelpers
                           height: "1280").id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
-                          identifier: "google",
-                          root_url:   "http://www.google.com").id,
+                          identifier: "jumpstartlab",
+                          root_url:   "http://www.jumpstartlab.com").id,
       unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
     }
     PayloadRequest.create(payload8)
