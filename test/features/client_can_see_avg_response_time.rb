@@ -19,16 +19,26 @@ class ClientCanSeeAvgResponseTimeTest < FeatureTest
     url = visit "/sources/#{client.identifier}/urls"
 
     click_link("http://www.jumpstartlabs.com/blog")
-
+    
     assert_equal '/sources/jumpstartlabs/urls/blog', current_path
     within 'h1' do
       assert page.has_content? "Url Statistics"
     end
-    within '#max' do
+    within '.url-stats' do
       assert page.has_content? "Maximum Response Time"
-    end
-    within '#max-time' do
       assert page.has_content? "45"
+      assert page.has_content? "Minimum Response Time"
+      assert page.has_content? "45"
+      assert page.has_content? "Response Times in Descending order"
+      assert page.has_content? "45"
+      assert page.has_content? "Average Response Time"
+      assert page.has_content? "45.0"
+      assert page.has_content? "All Associated Verbs"
+      assert page.has_content? "GET"
+      assert page.has_content? "Top Three Referrers"
+      assert page.has_content? "jumpstartlabs"
+      assert page.has_content? "Three Most Popular User Agents"
+      assert page.has_content? ["Chrome, OSX"]
     end
   end
 end
