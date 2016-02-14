@@ -47,10 +47,12 @@ module TestHelpers
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
       user_system_id:   UserSystem.find_or_create_by(
                           browser_type: "Firefox",
-                          operating_system: "Mac OSX").id,
+                          operating_system: "Mac OSX",
+                          unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "960",
-                          height: "1400").id,
+                          height: "1400",
+                          unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
                           identifier: "jumpstartlab",
@@ -71,10 +73,12 @@ module TestHelpers
       event_name_id:    EventName.find_or_create_by(event_name: "signOut").id,
       user_system_id:   UserSystem.find_or_create_by(
                           browser_type: "Safari",
-                          operating_system: "Windows").id,
+                          operating_system: "Windows", unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
-                          height: "1280").id,
+                          height: "1280",
+                          unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
+
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
                           identifier: "jumpstartlab",
@@ -95,10 +99,12 @@ module TestHelpers
       event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
       user_system_id:   UserSystem.find_or_create_by(
                           browser_type: "Firefox",
-                          operating_system: "Mac OSX").id,
+                          operating_system: "Mac OSX",
+                          unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
       resolution_id:    Resolution.find_or_create_by(
                           width: "1920",
-                          height: "1280").id,
+                          height: "1280",
+                          unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
       ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
       client_id:        Client.find_or_create_by(
                           identifier: "jumpstartlab",
