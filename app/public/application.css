@@ -10,14 +10,17 @@ body {
 }
 
 .client-response-times {
+  height: 300px;
   background-color: rgb(157,224,173);
 }
 
 .client-frequent-requests {
+  height: 150px;
   background-color: rgb(69,173,168);
 }
 
 .client-breakdowns {
+  height: 300px;
   background-color: rgb(84,121,128);
 }
 
