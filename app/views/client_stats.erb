@@ -3,40 +3,60 @@
 <h2>Here are the statistics for your account:</h2><br>
 
 <div class="client-stats">
-  <p>
+  <h4>
     Average Response Time:<br>
-     <%= @payloads.average_response_time %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.average_response_time %>
+    </p>
+  <h4>
     Max Response Time: <br>
-    <%= @payloads.max_response_time %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.max_response_time %>
+    </p>
+  <h4>
     Min Response Time: <br>
-    <%= @payloads.min_response_time %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.min_response_time %>
+    </p>
+  <h4>
     Most Frequent Request Type: <br>
-    <%= @payloads.most_frequent_request_type %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.most_frequent_request_type %>
+    </p>
+  <h4>
     HTTP verbs used on your sites: <br>
-    <%= @payloads.most_frequent_request_type %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.most_frequent_request_type %>
+    </p>
+  <h4>
     URLs visited from most to least: <br>
-    <%= @payloads.sort_urls_by_request_freqency.join(", ") %>
-  </p>
-  <p>
+  </h4>
+    <% @payloads.each do |payload| %>
+    <p>
+      <a href="/sources/<%= @client.identifier %>/url/<%= Url.where(id: payload.url_id).first.address.split("/")[3..-1].join %>"><%= Url.where(id: payload.url_id).first.address %></a>
+    </p>
+    <% end %>
+  <h4>
     Web Browser Breakdown: <br>
-    <%= @user_systems.browser_breakdown.join(", ") %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @user_systems.browser_breakdown.join(", ") %>
+    </p>
+  <h4>
     Operating System Breakdown: <br>
-    <%= @user_systems.os_breakdown.join(", ") %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @user_systems.os_breakdown.join(", ") %>
+    </p>
+  <h4>
     Screen Resolution Breakdown: <br>
-    <%= @resolutions.screen_resolutions.join(", ") %>
-  </p>
+  </h4>
+    <p>
+      <%= @resolutions.screen_resolutions.join(", ") %>
+    </p>
 </div>

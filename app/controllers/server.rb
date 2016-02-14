@@ -11,7 +11,6 @@ module RushHour
 
     post '/sources' do
       @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
-
       # PathParser.sources_parser(@client, params)
       if @client.save
         status 200
@@ -35,11 +34,12 @@ module RushHour
 
     get '/sources/:identifier' do |identifier|
       @client = Client.where(identifier: identifier).first
-      @payloads = PayloadRequest.where(client_id: @client.id)
-      @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id))
-      @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id))
+      @payloads = PayloadRequest.where(client_id: @client.id) if !@client.nil?
+      @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id)) if !@client.nil?
+      @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id)) if !@client.nil?
+      # @url = Url.where(id: @payloads.pluck(:url_id))
 
-      erb PathParser.sources_identifier_parse(@payloads)
+      erb PathParser.sources_identifier_parse(@payloads, @client)
     end
   end
 end
