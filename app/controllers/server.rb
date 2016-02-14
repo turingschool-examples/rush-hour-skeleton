@@ -5,6 +5,10 @@ module RushHour
       erb :error
     end
 
+    get '/' do
+      erb :home
+    end
+
     post '/sources' do
       @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
       #built in active record errors
@@ -28,12 +32,22 @@ module RushHour
       # @client_payload = RequestParser.new
     end
 
+<<<<<<< HEAD
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.where(identifier: identifier).first
       url = @client.root_url + '/' + relative_path
       @url_obj = Url.where(address: url).first
 
       erb :url_stats
+=======
+    get '/sources/:identifier' do |identifier|
+      @client = Client.where(identifier: identifier).first
+      @payloads = PayloadRequest.where(client_id: @client.id)
+      @systems = UserSystem
+      @resolution = Resolution
+      # @systems = UserSystem.where(id: @payloads.first.user_system_id)
+      erb :client_stats
+>>>>>>> iter6-user-views#24
     end
   end
 
