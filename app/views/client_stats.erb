@@ -25,30 +25,18 @@
   </p>
   <p>
     URLs visited from most to least: <br>
-    <%= @payloads.sort_urls_by_request_freqency %>
+    <%= @payloads.sort_urls_by_request_freqency.join(", ") %>
   </p>
   <p>
     Web Browser Breakdown: <br>
-    <%= @payloads.first.user_system_id %>
+    <%= @user_systems.browser_breakdown.join(", ") %>
   </p>
   <p>
     Operating System Breakdown: <br>
-    <%= @payloads.first.user_system_id %>
+    <%= @user_systems.os_breakdown.join(", ") %>
   </p>
   <p>
     Screen Resolution Breakdown: <br>
-    <%= @payloads.first.resolution_id %>
+    <%= @resolutions.screen_resolutions.join(", ") %>
   </p>
-
-  <!-- assert_equal '/sources/google', current_path
-  within('.client_stats') do
-    assert page.has_content? 'Average Response Time'
-    assert page.has_content? 'Max Response Time'
-    assert page.has_content? 'Min Response Time'
-    assert page.has_content? 'Most Frequent Request Type'
-    assert page.has_content? 'List of all HTTP verbs used'
-    assert page.has_content? 'List of URLs from most to least requested'
-    assert page.has_content? 'Web Browser Breakdown'
-    assert page.has_content? 'OS Breakdown'
-    assert page.has_content? 'Screen Resolutions Used' -->
 </div>
