@@ -50,6 +50,13 @@ module RushHour
     end
   end
 
+    get 'sources/:identifier/events/:event_name' do |identifier, event_name|
+      @client = Client.where(identifier: identifier).first
+      @payloads = PayloadRequest.where(client_id: @client.id)
+      @events = EventName
+
+      erb :event_breakdown
+    end
 end
 
 

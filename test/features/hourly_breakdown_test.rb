@@ -14,25 +14,53 @@ class HourlyBreakdown < FeatureTest
 #
 # When the event has not been defined: Display a message that no event with the given name has been defined and then a hyperlink to the Application Events Index.
   def user_can_view_hourly_breakdown_of_all_events
-    # create_payload_1
-    # create_payload_2
-    # create_payload_3
-
-    #user signs in with registered identifier
-
+    create_event_specific_payloads
+    #user fills out username
+    fill_in "name", with: "jumpstartlab"
+    #and user clicks submit
+    click_button "Submit"
+    #user is directed to user landing pages
+    visit '/sources/jumpstartlab'
+    #user clicks "view events"
+    click_button "View Events"
+    visit '/sources/jumpstartlab/events'
+    #displays all events as links
+    #user clicks one event_name
+    visit '/sources/jumpstartlab/events/signout'
     #user clicks on event breakdown link
+    click_button "View Hourly Breakdown"
+    assert_equal '/sources/jumpstartlab/events/signout', current_path
 
 
-    #user clicks on specific event to view hourly_breakdown
+    within('.hourly_breakdown') do
 
-    #user can see all events for the given event name by hour of occurrence
-    #anduser can see total occurences for given event on given day.
-
-
-
-
-    #user
-
+      assert page.has_content? "12am - 1am"
+      assert page.has_content? "1am - 2am"
+      assert page.has_content? "2am - 3am"
+      assert page.has_content? "3am - 4am"
+      assert page.has_content? "4am - 5am"
+      assert page.has_content? "5am - 6am"
+      assert page.has_content? "6am - 7am"
+      assert page.has_content? "7am - 8am"
+      assert page.has_content? "8am - 9am"
+      assert page.has_content? "9am - 10am"
+      assert page.has_content? "10am - 11am"
+      assert page.has_content? "11am - 12pm"
+      assert page.has_content? "12pm - 1pm"
+      assert page.has_content? "1pm - 2pm"
+      assert page.has_content? "2pm - 3pm"
+      assert page.has_content? "3pm - 4pm"
+      assert page.has_content? "4pm - 5pm"
+      assert page.has_content? "5pm - 6pm"
+      assert page.has_content? "6pm - 7pm"
+      assert page.has_content? "7pm - 8pm"
+      assert page.has_content? "8pm - 9pm"
+      assert page.has_content? "9pm - 10pm"
+      assert page.has_content? "10pm - 11pm"
+      assert page.has_content? "11pm - 12am"
+    end
+    #anduser can see total occurences for given event on given day
+    within('h3') { expect(page).to have_content('Total Occurences') }
   end
 
 
