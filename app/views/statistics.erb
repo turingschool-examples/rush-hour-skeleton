@@ -1,10 +1,15 @@
 <h1><%= @client.identifier.capitalize %> Stats</h1>
 
 <h2>Average Response Time Across All Requests</h2>
-<h3><%= @client.payload_requests.average_response_time.to_f %></h3>
+<h3>
+  <%= @client.payload_requests.average_response_time.to_f.round(2) %>
+</h3>
 
 <h2>Max Response Time Across All Requests</h2>
 <h3><%= @client.payload_requests.max_response_time.to_f %></h3>
 
 <h2>Min Response Time Across All Requests</h2>
 <h3><%= @client.payload_requests.min_response_time.to_f %></h3>
+
+<h2>Most Frequent Request Type</h2>
+<h3><%= @client.payload_requests.most_frequent_request_type %></h3>

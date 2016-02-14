@@ -9,6 +9,8 @@ class ClientCanViewStatisticsTest < Minitest::Test
     post "/sources", { identifier: "humpstartlab",
                        rootUrl:    "https://humpstartlab.com" }
     post '/sources/humpstartlab/data', { payload: payload.to_json }
+    payload_2 = payload(request_type: 'POST')
+    post '/sources/humpstartlab/data', { payload: payload_2.to_json }
     post '/sources/humpstartlab/data', { payload: alternate_payload.to_json }
 
     visit '/sources/humpstartlab'
@@ -19,11 +21,15 @@ class ClientCanViewStatisticsTest < Minitest::Test
       assert page.has_content? 'Humpstartlab Stats'
     end
 
+    save_and_open_page
+
     assert page.has_content? 'Average Response Time Across All Requests'
-    assert page.has_content? '44.0'
+    assert page.has_content? '41.67'
     assert page.has_content? 'Max Response Time Across All Requests'
     assert page.has_content? '51.0'
     assert page.has_content? 'Min Response Time Across All Requests'
     assert page.has_content? '37.0'
+    assert page.has_content? 'Most Frequent Request Type'
+    assert page.has_content? 'GET'
   end
 end
