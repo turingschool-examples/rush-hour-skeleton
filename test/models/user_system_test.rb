@@ -25,45 +25,37 @@ class UserSystemTest < Minitest::Test
     assert_equal expected, UserSystem.os_breakdown.sort
   end
 
-  # def test_can_create_resolution_through_payload_request
-  #   pr = create_payload_1
-  #
-  #   assert_equal "960", UserSystem.find(1).
-  #   assert_equal "1400", UserSystem.find(1).height
-  #   assert_equal 1, pr.resolution_id
-  # end
-  #
-  # def test_can_create_resolutions
-  #   res = {width: "960", height: "1400"}
-  #   r   = UserSystem.create(res)
-  #
-  #   assert r.valid?
-  #   assert_equal "960", r.width
-  #   assert_equal "1400", r.height
-  #   assert_equal 1, r.id
-  # end
-  #
-  # def test_the_same_resolution_combo_will_not_be_added_to_database
-  #   res = {width: "960", height: "1400"}
-  #   r   = UserSystem.create(res)
-  #
-  #   assert_equal 1, UserSystem.all.count
-  #
-  #   res2 = {width: "960", height: "1400"}
-  #   r2   = UserSystem.create(res2)
-  #
-  #   assert r2.valid?
-  #   refute r2.id.nil?
-  #   assert_equal 2, UserSystem.all.count
-  # end
-  #
-  # # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
-  # def test_list_screen_resolutions_across_all_request
-  #   create_payload_1
-  #   create_payload_2
-  #   create_payload_3
-  #
-  #   expected = [["960", "1400"], ["1920", "1280"]]
-  #   assert_equal expected, UserSystem.screen_resolutions
-  # end
+  def test_can_create_user_systems_through_payload_request
+    pr = create_payload_1
+
+    assert_equal "Firefox", UserSystem.find(1).browser_type
+    assert_equal "Mac OSX", UserSystem.find(1).operating_system
+    assert_equal 1, pr.resolution_id
+  end
+
+  def test_can_user_system
+    sys = {browser_type: "Firefox", operating_system: "Macintosh", unique_sha: Digest::SHA1.hexdigest("1")}
+    us   = UserSystem.create(sys)
+
+    assert us.valid?
+    assert_equal "Firefox", us.browser_type
+    assert_equal "Macintosh", us.operating_system
+    assert_equal "356a192b7913b04c54574d18c28d46e6395428ab", us.unique_sha
+    assert_equal 1, us.id
+  end
+
+  def test_the_same_user_system_combo_will_not_be_added_to_database
+    sys = {browser_type: "Firefox", operating_system: "Macintosh", unique_sha: Digest::SHA1.hexdigest("1")}
+    us   = UserSystem.create(sys)
+
+    assert_equal 1, UserSystem.all.count
+
+    sys2 = {browser_type: "Firefox", operating_system: "Macintosh", unique_sha: Digest::SHA1.hexdigest("1")}
+    us2   = UserSystem.create(sys2)
+
+    assert us2.valid?
+    refute us2.id.nil?
+    assert_equal 2, UserSystem.all.count
+  end  
+
 end
