@@ -2,16 +2,16 @@
 
 <div class="url-specific-stats">
   <div class="url-response-time col-md-4 well">
-    <p>Max Response Time: <br> <%= @url_obj.max_response_time %></p>
-    <p>Min Response Time: <br> <%= @url_obj.min_response_time %></p>
-    <p>Average Response Time: <br> <%= @url_obj.average_response_time.to_i %></p>
-    <p>Response Times Across All Requests: <br> <%= @url_obj.all_response_times_sorted_high_to_low.join(", ") %></p>
+    <p><h4>Max Response Time:</h4> <%= @url_obj.max_response_time %></p>
+    <p><h4>Min Response Time:</h4> <%= @url_obj.min_response_time %></p>
+    <p><h4>Average Response Time:</h4> <%= @url_obj.average_response_time.to_i %></p>
+    <p><h4>Response Times Across All Requests:</h4> <%= @url_obj.all_response_times_sorted_high_to_low.join(", ") %></p>
   </div>
   <div class="url-verbs col-md-4 well">
-    <p>HTTP Verbs Used: <br> <%= @url_obj.all_http_verbs.join(", ") %></p>
+    <p><h4>HTTP Verbs Used:</h4> <%= @url_obj.all_http_verbs.join(", ") %></p>
   </div>
   <div class="url-top-threes col-md-4 well">
-    <p>Top Three Referrers: <br> <%= @url_obj.top_three_referrers.join(", ") %></p>
-    <p>Top Three User Agents: <br> <%= @url_obj.top_three_user_systems.join(", ") %></p>
+    <p><h4>Top Three Referrers:</h4> <%= @url_obj.top_three_referrers.join(", ") %></p>
+    <p><h4>Top Three User Agents:</h4> <%= @url_obj.top_three_user_systems.join(", ") %></p>
   </div>
 </div>
