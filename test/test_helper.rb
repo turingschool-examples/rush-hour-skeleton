@@ -8,6 +8,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
+require 'tilt/erb'
 
 Capybara.app = RushHour::Server
 
@@ -24,6 +25,10 @@ module TestHelpers
     super
   end
 
+  def app
+    RushHour::Server
+  end
+
   def payload(data = {})
     {
       "url": data[:url] || "http://jumpstartlab.com/blog",
@@ -37,6 +42,22 @@ module TestHelpers
       "resolutionWidth": data[:resolution_width] || "1920",
       "resolutionHeight": data[:resolution_height] || "1280",
       "ip": data[:ip] || "63.29.38.211"
+    }
+  end
+
+  def alternate_payload
+    {
+      "url": "http://jumpstartlab.com/blog",
+      "requestedAt": Time.now,
+      "respondedIn": 51,
+      "referredBy": "http://jumpstartlab.com",
+      "requestType": "GET",
+      "parameters": "[]",
+      "eventName": "socialLogin",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth": "1920",
+      "resolutionHeight": "1280",
+      "ip": "63.29.38.211"
     }
   end
 
