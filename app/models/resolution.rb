@@ -5,6 +5,6 @@ class Resolution < ActiveRecord::Base
   has_many :payload_requests
 
   def self.screen_resolutions
-    pluck(:width, :height)
+    pluck(:width, :height).uniq
   end
 end
