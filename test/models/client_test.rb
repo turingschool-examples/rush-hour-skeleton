@@ -127,4 +127,47 @@ class ClientTest < Minitest::Test
     assert client.verbs.pluck(:request_type).include?("GET")
     assert client.verbs.pluck(:request_type).include?("POST")
   end
+
+  def test_event_breakdown
+    client = Client.create(identifier: "jumpstartlab", root_url: "http://www.jumpstartlab.com")
+
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                                   responded_in: 35,
+                                   event_name: "socialLogin")
+
+    expected = [["21:00", 1]]
+
+    assert_equal expected, client.event_breakdown('socialLogin')
+
+    client.payload_requests.create(requested_at: "2013-02-16 20:38:28 -0700",
+                                   responded_in: 35,
+                                   event_name: "socialLogin")
+
+    expected = [["20:00", 1], ["21:00", 1]]
+
+    assert_equal expected, client.event_breakdown('socialLogin')
+
+    client.payload_requests.create(requested_at: "2013-01-16 20:38:28 -0700",
+                                   responded_in: 35,
+                                   event_name: "socialLogin")
+
+    expected = [["20:00", 2], ["21:00", 1]]
+
+    assert_equal expected, client.event_breakdown('socialLogin')
+  end
+
+  def test_event_total
+    client = Client.create(identifier: "jumpstartlab", root_url: "http://www.jumpstartlab.com")
+
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                                   responded_in: 35,
+                                   event_name: "socialLogin")
+
+    assert_equal 1, client.event_total('socialLogin')
+
+    client.payload_requests.create(requested_at: "2011-02-16 21:38:28 -0700", responded_in: 35,
+                                    event_name: "socialLogin")
+
+    assert_equal 2, client.event_total('socialLogin')
+  end
 end

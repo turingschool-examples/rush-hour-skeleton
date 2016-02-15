@@ -15,6 +15,7 @@ class ClientCanSeeAvgResponseTimeTest < FeatureTest
     visit "/sources/jumpstartlabs/urls"
 
     click_link "http://jumpstartlab.com/blog"
+
     assert_equal '/sources/jumpstartlabs/urls/blog', current_path
     within 'h1' do
       assert page.has_content? "Url Statistics"

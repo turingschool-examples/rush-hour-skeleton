@@ -1,0 +1,5 @@
+<h1>Event: <%= @event %></h1>
+<% @client.event_breakdown(@event).each do |data| %>
+<p> <%= data[0] %>: <%= data[1] %>
+    <% end %>
+<p>Total: <%= @client.event_total(@event) %></p>
