@@ -25,3 +25,10 @@
 
 <h2>OS Breakdown Across All Requests</h2>
 <h3><%= @client.user_agents.os_breakdown %></h3>
+
+<h2>Screen Resolution Across All Requests</h2>
+<ul class="resolutions">
+  <% @client.resolutions.resolution_breakdown.each do |resolution| %>
+    <li><h3><%= resolution.join('x') %></h3></li>
+  <% end %>
+</ul>

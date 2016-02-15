@@ -20,7 +20,7 @@ class ClientCanViewStatisticsTest < Minitest::Test
     within 'h1' do
       assert page.has_content? 'Humpstartlab Stats'
     end
-
+    
     assert page.has_content? 'Average Response Time Across All Requests'
     assert page.has_content? '41.67'
     assert page.has_content? 'Max Response Time Across All Requests'
@@ -36,6 +36,11 @@ class ClientCanViewStatisticsTest < Minitest::Test
     assert page.has_content? "Web Browser Breakdown Across All Requests"
     assert page.has_content? '["Chrome", "Netscape"]'
     assert page.has_content? "OS Breakdown Across All Requests"
-    assert page.has_content? '["Windows ME", "Mac OS X 10.8.2"]'
+    assert page.has_content? '["Mac OS X 10.8.2", "Windows ME"]'
+
+    within('.resolutions') do
+      assert page.has_content? "1920x1280"
+      assert page.has_content? "1440x900"
+    end
   end
 end
