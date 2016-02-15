@@ -1,9 +1,7 @@
 require_relative '../test_helper'
 
-class ClientRecievesErrorMessageIfNoPayloadsTest < Minitest::Test
+class ClientRecievesErrorMessageIfNoPayloadsTest < FeatureTest
   include TestHelpers
-  include Rack::Test::Methods
-  include Capybara::DSL
 
   def test_displays_message_that_the_client_has_no_payloads
     post "/sources", { identifier: "jumpstartlab",

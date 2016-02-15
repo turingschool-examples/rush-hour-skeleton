@@ -1,8 +1,7 @@
 require_relative '../test_helper'
 
-class ClientReceivesErrorPageIfIdentifierDoesNotExistTest < Minitest::Test
+class ClientReceivesErrorPageIfIdentifierDoesNotExistTest < FeatureTest
   include TestHelpers
-  include Capybara::DSL
 
   def test_displays_message_that_the_identifier_does_not_exist
     visit '/sources/hopstartlabs'
