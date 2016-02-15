@@ -63,9 +63,9 @@
     <h4>
       URLs visited from most to least: <br>
     </h4>
-    <% @payloads.each do |payload| %>
+    <% @payloads.sort_urls_by_request_freqency.each do |url| %>
     <p>
-      <a href="/sources/<%= @client.identifier %>/urls/<%= Url.where(id: payload.url_id).first.address.split("/")[3..-1].join %>"><%= Url.where(id: payload.url_id).first.address %></a>
+      <a href="/sources/<%= @client.identifier %>/urls/<%= url.split("/")[3..-1].join %>"><%= url %></a><br>
     </p>
     <% end %>
   </div>
