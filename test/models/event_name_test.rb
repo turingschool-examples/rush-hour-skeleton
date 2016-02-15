@@ -40,7 +40,7 @@ class EventNameTest < Minitest::Test
   def test_can_create_list_of_events
     create_event_specific_payloads
 
-    assert_equal ["signOut","socialLogin"],  EventName.event_list
+    assert_equal ["signOut","socialLogin"],  EventName.event_list.sort
   end
 
   def test_can_create_hourly_list
