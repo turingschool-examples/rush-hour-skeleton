@@ -12,16 +12,9 @@ module RushHour
 
     post '/sources' do
       @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
-      if @client.save
-        status 200
-        body "{\"identifier\":\"#{@client.identifier}\"}"
-      elsif params["rootUrl"].nil? || params["identifier"].nil?
-        status 400
-        body "Missing Parameters"
-      else
-        status 403
-        body @client.errors.full_messages.join(", ")
-      end
+
+      status PathParser.sources_parser(@client, params)["status"]
+      body PathParser.sources_parser(@client, params)["body"]
     end
 
     post '/sources/:identifier/data' do |identifier|
@@ -32,6 +25,7 @@ module RushHour
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.where(identifier: identifier).first
+      # PathParser.relative_path_parser(@client, identifier, relative_path)
       url = @client.root_url + '/' + relative_path
       unless Url.pluck(:address).include?(url)
         redirect '/missing-url'
@@ -47,9 +41,12 @@ module RushHour
 
     get '/sources/:identifier' do |identifier|
       @client = Client.where(identifier: identifier).first
-      @payloads = PayloadRequest.where(client_id: @client.id) if !@client.nil?
-      @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id)) if !@client.nil?
-      @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id)) if !@client.nil?
+
+      if !@client.nil?
+        @payloads = PayloadRequest.where(client_id: @client.id)
+        @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id))
+        @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id))
+      end
 
       erb PathParser.sources_identifier_parse(@payloads, @client)
     end
