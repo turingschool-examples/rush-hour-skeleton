@@ -10,8 +10,7 @@ module RushHour
     end
 
     post '/sources' do
-      @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"]) # data from curl request
-      #built in active record errors
+      @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
       if @client.save
         status 200
         body "{\"identifier\":\"#{@client.identifier}\"}"
@@ -21,34 +20,38 @@ module RushHour
       else
         status 403
         body @client.errors.full_messages.join(", ")
-      end#conditional for errors
+      end
     end
 
     post '/sources/:identifier/data' do |identifier|
       code, message = RequestParser.parse_request(params["payload"], identifier)
       status(code)
       body(message)
-      # @client = Client.new(:root_url => params["rootUrl"], :identifier => params["identifier"])
-      # @client_payload = RequestParser.new
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.where(identifier: identifier).first
       url = @client.root_url + '/' + relative_path
-      @url_obj = Url.where(address: url).first
+      unless Url.pluck(:address).include?(url)
+        redirect '/missing-url'
+      else
+        @url_obj = Url.where(address: url).first
+        erb :url_stats
+      end
+    end
 
-      erb :url_stats
+    get '/missing-url' do
+      erb :unrequested_url
     end
 
     get '/sources/:identifier' do |identifier|
       @client = Client.where(identifier: identifier).first
-      @payloads = PayloadRequest.where(client_id: @client.id)
-      @systems = UserSystem
-      @resolution = Resolution
-      # @systems = UserSystem.where(id: @payloads.first.user_system_id)
-      erb :client_stats
+      @payloads = PayloadRequest.where(client_id: @client.id) if !@client.nil?
+      @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id)) if !@client.nil?
+      @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id)) if !@client.nil?
+      
+      erb PathParser.sources_identifier_parse(@payloads, @client)
     end
-
 
     get 'sources/:identifier/events/:event_name' do |identifier, event_name|
       @client = Client.where(identifier: identifier).first
@@ -59,15 +62,3 @@ module RushHour
     end
   end
 end
-
-
-
-# create a parser to do something like this to parse params when registering?
-
-# identifier, rootUrl = Parser.new(params[:register])
-
-# do something like this to parse parameters (taken from class example)
-
-# data = JSON.parse(params[:genre]) # this has to be parsed because it's a string
-
-# genre = Genre.new(data)

@@ -3,52 +3,70 @@
 <h2>Here are the statistics for your account:</h2><br>
 
 <div class="client-stats">
-  <p>
+  <div class="client-response-times col-md-4 well">
+  <h4>
     Average Response Time:<br>
-     <%= @payloads.average_response_time %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.average_response_time %>
+    </p>
+  <h4>
     Max Response Time: <br>
-    <%= @payloads.max_response_time %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.max_response_time %>
+    </p>
+  <h4>
     Min Response Time: <br>
-    <%= @payloads.min_response_time %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.min_response_time %>
+    </p>
+  </div>
+  <div class="client-frequent-requests col-md-4 well">
+  <h4>
     Most Frequent Request Type: <br>
-    <%= @payloads.most_frequent_request_type %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.most_frequent_request_type %>
+    </p>
+  <h4>
     HTTP verbs used on your sites: <br>
-    <%= @payloads.most_frequent_request_type %>
-  </p>
-  <p>
-    URLs visited from most to least: <br>
-    <%= @payloads.sort_urls_by_request_freqency %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @payloads.most_frequent_request_type %>
+    </p>
+  </div>
+  <div class="client-breakdowns col-md-4 well">
+  <h4>
     Web Browser Breakdown: <br>
-    <%= @payloads.first.user_system_id %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @user_systems.browser_breakdown.join(", ") %>
+    </p>
+  <h4>
     Operating System Breakdown: <br>
-    <%= @payloads.first.user_system_id %>
-  </p>
-  <p>
+  </h4>
+    <p>
+      <%= @user_systems.os_breakdown.join(", ") %>
+    </p>
+  <h4>
     Screen Resolution Breakdown: <br>
-    <%= @payloads.first.resolution_id %>
-  </p>
-
-  <!-- assert_equal '/sources/google', current_path
-  within('.client_stats') do
-    assert page.has_content? 'Average Response Time'
-    assert page.has_content? 'Max Response Time'
-    assert page.has_content? 'Min Response Time'
-    assert page.has_content? 'Most Frequent Request Type'
-    assert page.has_content? 'List of all HTTP verbs used'
-    assert page.has_content? 'List of URLs from most to least requested'
-    assert page.has_content? 'Web Browser Breakdown'
-    assert page.has_content? 'OS Breakdown'
-    assert page.has_content? 'Screen Resolutions Used' -->
+  </h4>
+    <p>
+      <% @resolutions.screen_resolutions.each do |res| %>
+      <%= res.join(" X ") %><br>
+      <% end %>
+    </p>
+  </div>
+  <div class="client-urls col-md-12 well">
+    <h4>
+      URLs visited from most to least: <br>
+    </h4>
+    <% @payloads.each do |payload| %>
+    <p>
+      <a href="/sources/<%= @client.identifier %>/urls/<%= Url.where(id: payload.url_id).first.address.split("/")[3..-1].join %>"><%= Url.where(id: payload.url_id).first.address %></a>
+    </p>
+    <% end %>
+  </div>
 </div>
