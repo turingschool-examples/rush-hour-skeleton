@@ -13,20 +13,17 @@ class HourlyBreakdown < FeatureTest
 # Implement a hour by hour breakdown of when the event was received. How many were shown at noon? at 1pm? at 2pm? Do it for all 24 hours. Also, display on this page the overall number of times the specific event was received.
 #
 # When the event has not been defined: Display a message that no event with the given name has been defined and then a hyperlink to the Application Events Index.
-  def user_can_view_hourly_breakdown_of_all_events
+  def test_user_can_view_hourly_breakdown_of_all_events
     create_event_specific_payloads
-    #user fills out username
-    fill_in "name", with: "jumpstartlab"
-    #and user clicks submit
-    click_button "Submit"
+
     #user is directed to user landing pages
     visit '/sources/jumpstartlab'
-    #user clicks "view events"
-    click_button "View Events"
+    click_link 'All Events'
+    
     assert_equal '/sources/jumpstartlab/events', current_path
     #displays all events as links
     #user clicks one event_name
-    click_button "View Hourly Breakdown"
+    click_link 'signout'
 
     assert_equal '/sources/jumpstartlab/events/signout', current_path
 
@@ -59,7 +56,7 @@ class HourlyBreakdown < FeatureTest
       assert page.has_content? "11pm - 12am"
     end
     #anduser can see total occurences for given event on given day
-    within('#total-occurences') { expect(page).to have_content('Total Occurences') }
+    within('#total-occurrences') { expect(page).to have_content('Total Occurrences') }
   end
 
 

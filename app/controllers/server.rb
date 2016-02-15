@@ -49,8 +49,18 @@ module RushHour
       @payloads = PayloadRequest.where(client_id: @client.id) if !@client.nil?
       @user_systems = UserSystem.where(id: @payloads.pluck(:user_system_id)) if !@client.nil?
       @resolutions = Resolution.where(id: @payloads.pluck(:resolution_id)) if !@client.nil?
-      
+
       erb PathParser.sources_identifier_parse(@payloads, @client)
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      @client = Client.where(identifier: identifier).first
+      @payloads = PayloadRequest.where(:client_id => @client.id)
+
+      @events = EventName.where(:event_name @payloads.pluck)
+      require "pry"
+      binding.pry
+      erb :events_list
     end
 
     get 'sources/:identifier/events/:event_name' do |identifier, event_name|
