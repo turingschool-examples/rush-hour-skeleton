@@ -439,6 +439,30 @@ def create_event_specific_payloads
   }
   PayloadRequest.create(payload5)
 
+  payload6 = {
+    url_id:           Url.find_or_create_by(address: "http://www.google.com").id,
+    requested_at:     "2015-02-16 18:38:28 -0700",
+    responded_in:     50,
+    referrer_url_id:  ReferrerUrl.find_or_create_by(url_address: "http://www.google.com").id,
+    request_type_id:  RequestType.find_or_create_by(verb: "PUT").id,
+    parameters:       [],
+    event_name_id:    EventName.find_or_create_by(event_name: "socialLogin").id,
+    user_system_id:   UserSystem.find_or_create_by(
+                        browser_type: "Firefox",
+                        operating_system: "Mac OSX",
+                        unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
+    resolution_id:    Resolution.find_or_create_by(
+                        width: "1920",
+                        height: "1280",
+                        unique_sha: Digest::SHA1.hexdigest("#{rand(9999999)}")).id,
+    ip_id:            Ip.find_or_create_by(ip_address: "63.29.38.211").id,
+    client_id:        Client.find_or_create_by(
+                        identifier: "google",
+                        root_url:   "http://www.google.com").id,
+    unique_sha:       Digest::SHA1.hexdigest("#{rand(9999999)}")
+  }
+  PayloadRequest.create(payload6)
+
 end
 
 class FeatureTest < Minitest::Test

@@ -57,17 +57,13 @@ module RushHour
     get '/sources/:identifier/events' do |identifier|
       @client = Client.where(identifier: identifier).first
       @all_events = @client.event_names.uniq if !@client.nil?
-      # @uniq_events = @all_events.ma
-
-      # @events = EventName.where(:event_name @payloads.pluck)
+      @identifier = identifier
       erb :events_list
     end
 
-    get 'sources/:identifier/events/:event_name' do |identifier, event_name|
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @client = Client.where(identifier: identifier).first
-      @payloads = PayloadRequest.where(client_id: @client.id)
-      @events = EventName
-
+      @event = EventName.where(event_name: event_name).first
       erb :event_breakdown
     end
   end

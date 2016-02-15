@@ -44,14 +44,16 @@ class EventNameTest < Minitest::Test
   end
 
   def test_can_create_hourly_list
-    skip
     create_event_specific_payloads
-    assert_equal [1,2,3], EventName.hourly_list
+    client = Client.find(1)
+    event = EventName.find(1)
+    assert_equal [6, 10], EventName.hourly_list(client, event)
   end
 
-  def test_count_total_events
+  def test_count_total_occurrences_for_specific_event_type
     create_event_specific_payloads
-    assert_equal 5, EventName.event_total
-
+    client = Client.find(1)
+    event = EventName.find(1)
+    assert_equal 2, EventName.event_total(client, event)
   end
 end

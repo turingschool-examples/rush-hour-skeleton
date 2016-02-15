@@ -24,10 +24,11 @@ class HourlyBreakdown < FeatureTest
     assert_equal '/sources/jumpstartlab/events', current_path
     #displays all events as links
     #user clicks one event_name
-    click_link 'signout'
+    click_link 'signOut'
 
-    assert_equal '/sources/jumpstartlab/events/signout', current_path
+    assert_equal '/sources/jumpstartlab/events/signOut', current_path
 
+    within('#total-occurrences') { expect(page).to have_content('Total Occurrences') }
 
     within('.hourly-breakdown') do
 
@@ -56,8 +57,6 @@ class HourlyBreakdown < FeatureTest
       assert page.has_content? "10pm - 11pm"
       assert page.has_content? "11pm - 12am"
     end
-    #anduser can see total occurences for given event on given day
-    within('#total-occurrences') { expect(page).to have_content('Total Occurrences') }
   end
 
 
