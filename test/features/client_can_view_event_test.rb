@@ -68,7 +68,6 @@ class ClientCanViewEventTest < FeatureTest
 
     visit '/sources/jumpstartlab/events/startedRegistration'
 
-    save_and_open_page
     assert '/sources/jumpstartlab/events/error', current_path
     assert page.has_content? "No event with 'startedRegistration' has been defined."
     assert page.has_link? 'Events Index'
