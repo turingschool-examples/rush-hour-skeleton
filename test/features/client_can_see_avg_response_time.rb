@@ -2,9 +2,8 @@ require_relative '../test_helper'
 
 class ClientCanSeeAvgResponseTimeTest < FeatureTest
   include TestHelpers
-  include Rack::Test::Methods
 
-  def test_client_can_see_avg_resonse_time
+  def test_client_can_see_url_stats
     client = Client.create(identifier: "jumpstartlabs",
                            root_url: "http://www.jumpstartlabs.com")
     client.payload_requests.create(requested_at: '2013-02-16 21:38:28 -0700',

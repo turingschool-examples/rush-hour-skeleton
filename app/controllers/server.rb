@@ -25,7 +25,7 @@ module RushHour
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @url = UrlRequestHelper.find_url(identifier, path)
-      if @url.class == UrlRequest
+      if @url
         erb :url_stats
       else
         erb :url_does_not_exist
