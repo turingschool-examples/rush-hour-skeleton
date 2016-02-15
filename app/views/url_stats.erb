@@ -1,0 +1,16 @@
+<h1>Url Statistics</h1>
+<section class="url-stats">
+  <h2>Maximum Response Time</h2>
+    <p><%= @url.max_response_time %></p>
+  <h2>Minimum Response Time</h2>
+    <p><%= @url.min_response_time %></p>
+  <h2>Response Times in Descending order</h2>
+    <p><%= @url.ordered_response_times.join(", ") %></p>
+  <h2>Average Response Time</h2>
+    <p><%= @url.avg_response_time %></p>
+  <h2>All Associated Verbs</h2>
+    <p><%= @url.associated_verbs.join(", ") %></p>
+  <h2>Top Three Referrers</h2>
+    <p><%= @url.top_three_referrers.join(", ") %></p>
+  <h2>Three Most Popular User Agents</h2><h3><%= @url.three_most_popular_user_agents %></h3>
+</section>
