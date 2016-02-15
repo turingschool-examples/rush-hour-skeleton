@@ -3,6 +3,7 @@ Bundler.require
 
 require 'rake/testtask'
 require "sinatra/activerecord/rake"
+require 'rspec/core/rake_task'
 
 
 Rake::TestTask.new do |t|
@@ -31,3 +32,6 @@ namespace :sanitation do
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
 end
+
+task :default => :spec
+RSpec::Core::RakeTask.new
