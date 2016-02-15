@@ -11,7 +11,12 @@ module RushHour
 
     get '/sources/:identifier' do |identifier|
       @client = ClientHelper.find_client(identifier)
-      erb :statistics
+
+      unless @client.nil?
+        erb :statistics
+      else
+        erb :app_error, locals: { msg: "Identifier does not exist" }
+      end
     end
 
     post '/sources/:identifier/data' do |identifier|
