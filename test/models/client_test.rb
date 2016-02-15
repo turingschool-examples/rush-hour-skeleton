@@ -94,15 +94,12 @@ class ClientTest < Minitest::Test
   def test_has_url_requests
     client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
 
-    client.payload_requests.create(requested_at: "tody", responded_in: 35, event_name: 'socialLogin', url_request_id: UrlRequest.create(url: "turing.io", parameters: "string").id)
-
-    client.payload_requests.create(requested_at: "tomorrow", responded_in: 35, event_name: 'socialLogin', url_request_id: UrlRequest.create(url: "google.com", parameters: "something").id)
+    client.payload_requests.create(requested_at: "tody", responded_in: 35, event_name: 'socialLogin', url_request_id: UrlRequest.create(url: "turing.io").id)
+    client.payload_requests.create(requested_at: "tomorrow", responded_in: 35, event_name: 'socialLogin', url_request_id: UrlRequest.create(url: "google.com").id)
 
     assert_equal 2, client.url_requests.size
     assert client.url_requests.pluck(:url).include?("turing.io")
-    assert client.url_requests.pluck(:parameters).include?("string")
     assert client.url_requests.pluck(:url).include?("google.com")
-    assert client.url_requests.pluck(:parameters).include?("something")
   end
 
   def test_has_user_agents

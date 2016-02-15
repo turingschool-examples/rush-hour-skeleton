@@ -7,7 +7,6 @@ class UrlRequestTest < Minitest::Test
     ur = UrlRequest.new
 
     assert_respond_to ur, :url
-    assert_respond_to ur, :parameters
   end
 
   def test_attributes_must_be_present_when_saving

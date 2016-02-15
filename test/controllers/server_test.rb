@@ -4,10 +4,6 @@ class ServerTest < Minitest::Test
   include Rack::Test::Methods
   include TestHelpers
 
-  def app
-    RushHour::Server
-  end
-
   def test_handles_missing_root_url
     post "/sources", { identifier: "jumpstartlab", rootUrl: "" }
 
