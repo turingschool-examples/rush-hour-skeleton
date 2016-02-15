@@ -1,32 +1,11 @@
 <h1>Event Breakdown for  <%= @client.identifier.capitalize %></h1>
 <h3>Event Type: <%= @event.event_name %></h3>
-<h4>Total Occurrences <%= @event.event_total %></h4>
+<h4>Total Occurrences <%= EventName.event_total(@client, @event) %></h4>
 <div class="hourly-breakdown">
-
-  <p>12am - 1am <%= @event.event_name %></p>
-  <p>1am - 2am <%= @event.event_name %></p>
-  <p>2am - 3am <%= @event.event_name %></p>
-  <p>3am - 4am <%= @event.event_name %></p>
-  <p>4am - 5am <%= @event.event_name %></p>
-  <p>5am - 6am <%= @event.event_name %></p>
-  <p>6am - 7am <%= @event.event_name %></p>
-  <p>7am - 8am <%= @event.event_name %></p>
-  <p>8am - 9am <%= @event.event_name %></p>
-  <p>9am - 10am <%= @event.event_name %></p>
-  <p>10am - 11am <%= @event.event_name %></p>
-  <p>11am - 12pm <%= @event.event_name %></p>
-  <p>12pm - 1pm <%= @event.event_name %></p>
-  <p>1pm - 2pm <%= @event.event_name %></p>
-  <p>2pm - 3pm <%= @event.event_name %></p>
-  <p>3pm - 4pm <%= @event.event_name %></p>
-  <p>4pm - 5pm <%= @event.event_name %></p>
-  <p>5pm - 6pm <%= @event.event_name %></p>
-  <p>6pm - 7pm <%= @event.event_name %></p>
-  <p>7pm - 8pm <%= @event.event_name %></p>
-  <p>8pm - 9pm <%= @event.event_name %></p>
-  <p>9pm - 10pm <%= @event.event_name %></p>
-  <p>10pm - 11pm <%= @event.event_name %></p>
-  <p>11pm - 12am <%= @event.event_name %></p>
-
-
+  <ul>
+    <% hours = EventName.hourly_list(@client, @event)%>
+    <% (0..23).to_a.each do |hour| %>
+      <li>  Hour <%= hour %>:00 => <%= hours.count(hour) %> </li>
+    <% end %>
+  </ul>
 </div>

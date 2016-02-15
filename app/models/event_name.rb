@@ -6,12 +6,11 @@ class EventName < ActiveRecord::Base
     joins(:payload_requests).group(:event_name).count.keys
   end
 
-  def self.hourly_list(client, event_name)
+  def self.hourly_list(client, event)
     all_hours = (0..23).to_a
-    require "pry"
-    # binding.pry
+
     pr = PayloadRequest.where(client_id: client.id)
-    event_pr = pr.where(event_name_id: event_name.id)
+    event_pr = pr.where(event_name_id: event.id)
     request_hour = event_pr.pluck(:requested_at).map do |hour|
       Time.parse(hour).hour
     end
