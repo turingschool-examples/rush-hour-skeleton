@@ -1,0 +1,18 @@
+<div class="well well-sm">
+<h1>Event: <%= @event %></h1>
+<p>Total: <%= @client.event_total(@event) %></p>
+</div>
+<table class="table">
+  <thread>
+  <tr>
+    <th><strong>Hours</strong></th>
+    <th><strong>occurances</strong></th>
+  </tr>
+</thread>
+  <tr>
+<% @client.event_breakdown(@event).each do |data| %>
+    <td><%= data[0] %></td>
+    <td><%= data[1] %></td>
+    <% end %>
+  </tr>
+</table>

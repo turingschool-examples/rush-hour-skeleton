@@ -1,7 +1,15 @@
 require "bundler"
 Bundler.require
 
+require 'rake/testtask'
 require "sinatra/activerecord/rake"
+
+task :default => :test
+
+
+Rake::TestTask.new do |t|
+  t.test_files = FileList['test/**/*_test.rb']
+end
 
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"

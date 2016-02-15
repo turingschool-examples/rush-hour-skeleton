@@ -1,0 +1,35 @@
+<!-- <%= erb :_navbar %> -->
+<h1><%= @client.identifier.capitalize %> Stats</h1>
+
+<h2>Average Response Time Across All Requests</h2>
+<h3>
+  <%= @client.payload_requests.average_response_time.to_f.round(2) %>
+</h3>
+
+<h2>Max Response Time Across All Requests</h2>
+<h3><%= @client.payload_requests.max_response_time.to_f %></h3>
+
+<h2>Min Response Time Across All Requests</h2>
+<h3><%= @client.payload_requests.min_response_time.to_f %></h3>
+
+<h2>Most Frequent Request Type</h2>
+<h3><%= @client.payload_requests.most_frequent_request_type %></h3>
+
+<h2>HTTP Verbs Used</h2>
+<h3><%= @client.verbs.list_verbs %></h3>
+
+<h2>Most Requested to Least Requested URL's</h2>
+<h3><%= @client.payload_requests.most_frequent_urls %></h3>
+
+<h2>Web Browser Breakdown Across All Requests</h2>
+<h3><%= @client.user_agents.browser_breakdown %></h3>
+
+<h2>OS Breakdown Across All Requests</h2>
+<h3><%= @client.user_agents.os_breakdown %></h3>
+
+<h2>Screen Resolution Across All Requests</h2>
+<ul class="resolutions">
+  <% @client.resolutions.resolution_breakdown.each do |resolution| %>
+    <li><h3><%= resolution.join('x') %></h3></li>
+  <% end %>
+</ul>
