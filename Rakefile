@@ -33,5 +33,5 @@ namespace :sanitation do
   task :all => [:lines, :methods]
 end
 
-task :default => :spec
-RSpec::Core::RakeTask.new
+# task :default => :spec
+# RSpec::Core::RakeTask.new
