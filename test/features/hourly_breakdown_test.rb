@@ -14,12 +14,13 @@ class HourlyBreakdown < FeatureTest
 #
 # When the event has not been defined: Display a message that no event with the given name has been defined and then a hyperlink to the Application Events Index.
   def test_user_can_view_hourly_breakdown_of_all_events
+    skip
     create_event_specific_payloads
 
     #user is directed to user landing pages
     visit '/sources/jumpstartlab'
     click_link 'All Events'
-    
+
     assert_equal '/sources/jumpstartlab/events', current_path
     #displays all events as links
     #user clicks one event_name

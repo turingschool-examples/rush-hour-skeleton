@@ -36,4 +36,22 @@ class EventNameTest < Minitest::Test
     assert en2.id.nil?
     assert_equal 1, EventName.all.count
   end
+
+  def test_can_create_list_of_events
+    create_event_specific_payloads
+
+    assert_equal ["signOut","socialLogin"],  EventName.event_list
+  end
+
+  def test_can_create_hourly_list
+    skip
+    create_event_specific_payloads
+    assert_equal [1,2,3], EventName.hourly_list
+  end
+
+  def test_count_total_events
+    create_event_specific_payloads
+    assert_equal 5, EventName.event_total
+
+  end
 end

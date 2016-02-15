@@ -55,11 +55,10 @@ module RushHour
 
     get '/sources/:identifier/events' do |identifier|
       @client = Client.where(identifier: identifier).first
-      @payloads = PayloadRequest.where(:client_id => @client.id)
+      @all_events = @client.event_names.uniq if !@client.nil?
+      # @uniq_events = @all_events.ma
 
-      @events = EventName.where(:event_name @payloads.pluck)
-      require "pry"
-      binding.pry
+      # @events = EventName.where(:event_name @payloads.pluck)
       erb :events_list
     end
 

@@ -1,3 +1,10 @@
 <h1>Events</h1>
 
-<a href=""></a>
+<h4>Choose Event to View Hourly Breakdown</h4>
+
+<ol>
+<% @all_events.map do |event| %>
+  <h4><a href="/sources/"><%= event.event_name %></a></h4>
+  <!-- <a class="btn btn-primary" href="/sources/<%= event.event_name %>/event">Edit</a> -->
+<% end %>
+</ol>
