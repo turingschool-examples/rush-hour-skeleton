@@ -20,13 +20,3 @@ class EventName < ActiveRecord::Base
     joins(:payload_requests).where(payload_requests: {client_id: client.id}).where(event_name: event.event_name).count
   end
 end
-
-
-#all payload requests for  specific client
-# pr = PayloadRequest.where(client_id: client.id)
-# then find only the requested event name on those prs
-# event_pr = pr.where(event_name_id: event_name.id)
-# compare the times on those pr's to an array
-# request_hour = event_pr.pluck(:requested_at).map do |hour|
-#  Time.parse(hour).hour
-# end

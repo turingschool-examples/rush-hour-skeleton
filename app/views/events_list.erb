@@ -5,6 +5,5 @@
 <ol>
 <% @all_events.each do |event| %>
   <li><a href="/sources/<%= @identifier %>/events/<%= event.event_name %>"><%= event.event_name %></a></li>
-  <!-- <a class="btn btn-primary" href="/sources/<%= event.event_name %>/event">Edit</a> -->
 <% end %>
 </ol>
