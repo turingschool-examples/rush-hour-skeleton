@@ -24,16 +24,10 @@ class ResolutionTest < Minitest::Test
     assert_nil d.height
   end
 
-  def test_it_can_show_all_width_across_requests
+  def test_it_can_show_resolution_breakdown
     setup_1
-    expected = {"500"=>1, "2000"=>1, "1000"=>1}
-    assert_equal expected, Resolution.width_breakdown
-  end
-
-  def test_it_can_show_all_height_across_requests
-    setup_1
-    expected = {"500"=>1, "2000"=>1, "1000"=>1}
-    assert_equal expected, Resolution.height_breakdown
+    expected = ["2000 x 2000", "1000 x 1000", "500 x 500"]
+    assert_equal expected, Resolution.resolution_breakdown
   end
 
 end

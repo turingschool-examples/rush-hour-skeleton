@@ -56,7 +56,7 @@ class UrlTest < Minitest::Test
   def test_HTTP_verbs_used_to_acquire_this_url_returns_array
     setup_1
     url = Url.find(1)
-    assert_equal ["POST", "GET"], url.show_all_url_verbs
+    assert_equal ["GET", "POST"], url.show_all_url_verbs
   end
 
   def test_three_most_popular_refers

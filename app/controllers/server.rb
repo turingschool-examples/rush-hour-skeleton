@@ -14,6 +14,7 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
+  
       @source = Client.find_by(identifier: params[:identifier])
       if @source.nil?
         erb :no_identifier_found
@@ -23,7 +24,6 @@ module RushHour
         erb :analytics_dashboard
       end
     end
-
 
     not_found do
       erb :error

@@ -61,7 +61,6 @@ module TestHelpers
       user_environment_id: UserEnvironment.where(browser: "Chrome", os: "SOS").first_or_create.id,
       request_type_id: RequestType.where(verb: "GET").first_or_create.id
     }
-
     payload_1 = Payload.create(data1)
     payload_2 = Payload.create(data2)
     payload_3 = Payload.create(data3)
