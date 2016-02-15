@@ -1,4 +1,9 @@
 ENV["RACK_ENV"] ||= "test"
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
+require 'simplecov'
+SimpleCov.start
 
 require 'bundler'
 Bundler.require
@@ -81,8 +86,7 @@ module TestHelpers
   end
 
   def create_url_request(data)
-    UrlRequest.find_or_create_by(url: data[:url],
-                                 parameters: data[:parameters])
+    UrlRequest.find_or_create_by(url: data[:url])
   end
 
   def create_user_agent(parsed_user_agent)

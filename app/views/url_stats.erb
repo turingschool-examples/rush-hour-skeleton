@@ -7,7 +7,7 @@
   <h2>Response Times in Descending order</h2>
     <p><%= @url.ordered_response_times.join(", ") %></p>
   <h2>Average Response Time</h2>
-    <p><%= @url.avg_response_time %></p>
+    <p><%= @url.avg_response_time.round(2) %></p>
   <h2>All Associated Verbs</h2>
     <p><%= @url.associated_verbs.join(", ") %></p>
   <h2>Top Three Referrers</h2>

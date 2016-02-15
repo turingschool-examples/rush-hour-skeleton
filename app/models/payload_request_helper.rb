@@ -11,8 +11,8 @@ module PayloadRequestHelper
     Resolution.find_or_create_by(resolution_width: width, resolution_height: height)
   end
 
-  def self.find_or_create_url(url, parameters)
-    UrlRequest.find_or_create_by(url: url, parameters: parameters)
+  def self.find_or_create_url(url)
+    UrlRequest.find_or_create_by(url: url)
   end
 
   def self.find_or_create_user_agent(user_agent)
@@ -31,7 +31,7 @@ module PayloadRequestHelper
       referrer:    self.find_or_create_referrer(payload[:referredBy]).id,
       ip_address:  self.find_or_create_ip(payload[:ip]).id,
       resolution:  self.find_or_create_resolution(payload[:resolutionWidth], payload[:resolutionHeight]).id,
-      url_request: self.find_or_create_url(payload[:url], payload[:parameters].to_s).id,
+      url_request: self.find_or_create_url(payload[:url]).id,
       user_agent:  self.find_or_create_user_agent(payload[:userAgent]).id,
       verb:        self.find_or_create_verb(payload[:requestType]).id
     }

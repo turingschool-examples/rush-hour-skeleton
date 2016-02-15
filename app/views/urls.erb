@@ -1,6 +1,9 @@
 <h1>Urls</h1>
 
 <ul>
-<% @client.url_requests.uniq.each do |url_request| %>
-<li><a href="/sources/<%= @client.identifier %>/urls/<%= url_request.url.split("/")[3..-1].join %>"><%= url_request.url %></a></li>
-<% end %>
+  <% urls.each do |url| %>
+  <li>
+    <a href="/sources/<%= @client.identifier %>/urls/<%= url.split("/")[3..-1].join %>"><%= url %></a>
+  </li>
+  <% end %>
+</ul>

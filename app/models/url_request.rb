@@ -1,9 +1,7 @@
 class UrlRequest < ActiveRecord::Base
   has_many :payload_requests
 
-  validates :url, presence: true
-  validates :parameters, presence: true
-  validates_uniqueness_of :url, scope: [:parameters]
+  validates :url, presence: true, uniqueness: true
 
   def max_response_time
     payload_requests.maximum("responded_in")
