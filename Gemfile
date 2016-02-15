@@ -19,6 +19,7 @@ group :development, :test do
   gem 'pry-nav'
   gem 'rack-test'
   gem 'simplecov'
+  gem 'rspec'
 end
 
 gem "codeclimate-test-reporter", group: :test, require: nil
