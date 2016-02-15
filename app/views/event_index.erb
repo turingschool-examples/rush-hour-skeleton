@@ -1,3 +1,4 @@
-<% @client.payload_requests.where(client_id: @client.id).pluck(:event_name).map do |event| %>
+<h1>Event Index</h1>
+<% @client.payload_requests.where(client_id: @client.id).pluck(:event_name).each do |event| %>
 <a href="/sources/<%= @client.identifier %>/events/<%= event %>"><%= event %></a>
 <% end %>
