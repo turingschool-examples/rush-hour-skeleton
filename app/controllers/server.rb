@@ -5,21 +5,25 @@ module RushHour
       erb :error
     end
 
+    def render_payload_requests(client)
+      if client.payload_requests.empty?
+        erb :app_error, locals: { msg: "No payload data has been received for this source." }
+      else
+        erb :statistics
+      end
+    end
+
     post '/sources' do
       ClientHelper.parse_client_params(params)
     end
 
     get '/sources/:identifier' do |identifier|
       @client = ClientHelper.find_client(identifier)
-       
-      unless @client.nil?
-        if @client.payload_requests.empty?
-          erb :app_error, locals: { msg: "No payload data has been received for this source." }
-        else
-          erb :statistics
-        end
-      else
+
+      if @client.nil?
         erb :app_error, locals: { msg: "Identifier does not exist" }
+      else
+        render_payload_requests(@client)
       end
     end
 

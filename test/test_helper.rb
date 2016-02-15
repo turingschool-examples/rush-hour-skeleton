@@ -115,3 +115,8 @@ module TestHelpers
                            user_agent_id: user_agent.id, verb_id: verb.id)
   end
 end
+
+class FeatureTest < Minitest::Test
+  include Rack::Test::Methods
+  include Capybara::DSL
+end

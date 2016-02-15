@@ -1,9 +1,7 @@
 require_relative '../test_helper'
 
-class ClientCanViewStatisticsTest < Minitest::Test
+class ClientCanViewStatisticsTest < FeatureTest
   include TestHelpers
-  include Rack::Test::Methods
-  include Capybara::DSL
 
   def test_when_the_client_has_payloads_to_view
     post "/sources", { identifier: "humpstartlab",
@@ -20,7 +18,7 @@ class ClientCanViewStatisticsTest < Minitest::Test
     within 'h1' do
       assert page.has_content? 'Humpstartlab Stats'
     end
-    
+
     assert page.has_content? 'Average Response Time Across All Requests'
     assert page.has_content? '41.67'
     assert page.has_content? 'Max Response Time Across All Requests'
@@ -29,14 +27,24 @@ class ClientCanViewStatisticsTest < Minitest::Test
     assert page.has_content? '37.0'
     assert page.has_content? 'Most Frequent Request Type'
     assert page.has_content? 'GET'
+
     assert page.has_content? 'HTTP Verbs Used'
-    assert page.has_content? '["GET", "POST"]'
+    ['GET', 'POST'].each do |verb|
+      assert page.has_content? verb
+    end
+
     assert page.has_content? "Most Requested to Least Requested URL's"
     assert page.has_content? '["http://jumpstartlab.com/blog", "http://jumpstartlab.com/about"]'
+
     assert page.has_content? "Web Browser Breakdown Across All Requests"
-    assert page.has_content? '["Chrome", "Netscape"]'
+    ["Chrome", "Netscape"].each do |browser|
+      assert page.has_content? browser
+    end
+
     assert page.has_content? "OS Breakdown Across All Requests"
-    assert page.has_content? '["Mac OS X 10.8.2", "Windows ME"]'
+    ["Mac OS X 10.8.2", "Windows ME"].each do |os|
+      assert page.has_content? os
+    end
 
     within('.resolutions') do
       assert page.has_content? "1920x1280"
