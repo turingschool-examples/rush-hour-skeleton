@@ -40,10 +40,10 @@ class PayloadRequest < ActiveRecord::Base
     where(request_type_id: id).first.request_type.verb
   end
 
-  def self.most_frequent_request_type
-    ids_and_count = group(:request_type_id).count
-    id = ids_and_count.max_by {|k, v| v}.first
-    where(request_type_id: id).first.request_type.verb
+  def self.all_request_types
+    RequestType.where(id: pluck(:request_type_id)).map do |req|
+      req.verb
+    end
   end
 
   def self.sort_urls_by_request_freqency

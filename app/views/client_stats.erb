@@ -34,7 +34,7 @@
     HTTP verbs used on your sites: <br>
   </h4>
     <p>
-      <%= @payloads.most_frequent_request_type %>
+      <%= @payloads.all_request_types.join(", ") %>
     </p>
   </div>
   <div class="client-breakdowns col-md-4 well">
