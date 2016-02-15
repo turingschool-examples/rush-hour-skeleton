@@ -6,6 +6,7 @@ module RushHour
     end
 
     get '/' do
+
       erb :home
     end
 

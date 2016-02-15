@@ -1,7 +1,25 @@
 
 body {
-  background-color: rgb(229, 252, 194);
+  padding-top: 70px;
+  background-color: rgb(250, 255, 242);
 }
+
+nav {
+  padding-left: 20px;
+  padding-top: 10px;
+  background-color: rgb(234, 242, 222);
+  font-size: 20px;
+}
+
+h4 {
+  font-family: serif;
+  font-weight: bold;
+}
+
+.info-text {
+  font-family: monospace;
+}
+
 .url-specific-stats {
 
 }
@@ -11,14 +29,17 @@ body {
 }
 
 .client-response-times {
+  height: 300px;
   background-color: rgb(157,224,173);
 }
 
 .client-frequent-requests {
+  height: 300px;
   background-color: rgb(69,173,168);
 }
 
 .client-breakdowns {
+  height: 300px;
   background-color: rgb(84,121,128);
 }
 
@@ -27,5 +48,23 @@ body {
 }
 
 .hourly-breakdown {
-  
+}
+
+.url-response-time {
+  height: 300px;
+  background-color: rgb(157,224,173);
+}
+
+.url-verbs {
+  height: 300px;
+  background-color: rgb(69,173,168);
+}
+
+.url-top-threes {
+  height: 300px;
+  background-color: rgb(84,121,128);
+}
+
+#welcome {
+  background-color: rgb(215, 228, 194);
 }
