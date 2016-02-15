@@ -26,7 +26,11 @@ module RushHour
     get '/sources/:identifier/events/:event' do |identifier, event|
       @client = ClientHelper.find_client(identifier)
       @event  = event
-      erb :event_show
+      if @client.payload_requests.find_by(event_name: event)
+        erb :event_show
+      else
+        erb :event_error
+      end
     end
   end
 end

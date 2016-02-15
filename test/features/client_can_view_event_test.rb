@@ -41,8 +41,6 @@ class ClientCanViewEventTest < FeatureTest
 
     visit '/sources/jumpstartlab/events/socialLogin'
 
-    save_and_open_page
-
     assert page.has_content? '1'
     assert page.has_content? '20:00'
   end
@@ -61,5 +59,18 @@ class ClientCanViewEventTest < FeatureTest
     visit '/sources/jumpstartlab/events/socialLogin'
 
     assert page.has_content? "Total: 2"
+  end
+
+  def test_error_message_with_link_for_undefined_client_event
+    client = Client.create(identifier: "jumpstartlab", root_url: "http://www.jumpstartlab.com")
+
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700", responded_in: 35, event_name: "socialLogin")
+
+    visit '/sources/jumpstartlab/events/startedRegistration'
+
+    save_and_open_page
+    assert '/sources/jumpstartlab/events/error', current_path
+    assert page.has_content? "No event with 'startedRegistration' has been defined."
+    assert page.has_link? 'Events Index'
   end
 end

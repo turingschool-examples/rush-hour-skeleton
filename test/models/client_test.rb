@@ -25,7 +25,7 @@ class ClientTest < Minitest::Test
   def test_has_payload_requests
     client = Client.create(identifier: "jumpstartlabs", root_url: "http://www.jumpstartlabs.com")
 
-    poop = client.payload_requests.create(requested_at: "today",
+    client.payload_requests.create(requested_at: "today",
                                    responded_in: 35,
                                    event_name:   "event")
 
@@ -138,7 +138,7 @@ class ClientTest < Minitest::Test
                                    responded_in: 35,
                                    event_name: "socialLogin")
 
-    expected = {"21:00" => 1}
+    expected = [["21:00", 1]]
 
     assert_equal expected, client.event_breakdown('socialLogin')
 
@@ -146,7 +146,7 @@ class ClientTest < Minitest::Test
                                    responded_in: 35,
                                    event_name: "socialLogin")
 
-    expected = {"20:00" => 1, "21:00" => 1}
+    expected = [["20:00", 1], ["21:00", 1]]
 
     assert_equal expected, client.event_breakdown('socialLogin')
 
@@ -154,7 +154,7 @@ class ClientTest < Minitest::Test
                                    responded_in: 35,
                                    event_name: "socialLogin")
 
-    expected = {"20:00" => 2, "21:00" => 1}
+    expected = [["20:00", 2], ["21:00", 1]]
 
     assert_equal expected, client.event_breakdown('socialLogin')
   end
