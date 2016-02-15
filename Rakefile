@@ -3,7 +3,7 @@ Bundler.require
 
 require 'rake/testtask'
 require "sinatra/activerecord/rake"
-# require 'rspec/core/rake_task'
+
 task :default => :test
 
 
