@@ -42,18 +42,11 @@ class ClientCanSeeAvgResponseTimeTest < FeatureTest
   end
 
   def test_displays_url_request_does_not_exitst
-    client = Client.create(identifier: "jumpstartlabs",
-                           root_url: "http://www.jumpstartlabs.com")
-    client.payload_requests.create(requested_at: '2013-02-16 21:38:28 -0700',
-                                   responded_in: 45,
-                                   event_name: "google",
-                                   url_request_id: UrlRequest.create(url: "http://www.jumpstartlabs.com/blog", parameters: '[]').id,
-                                   verb_id: Verb.create(request_type: "GET").id,
-                                   referrer_id: Referrer.create(referred_by: "jumpstartlabs").id,
-                                   user_agent_id: UserAgent.create(browser: "Chrome", os: "OSX").id,
-                                   resolution_id: Resolution.create(resolution_width: '1920', resolution_height: '1080').id)
+    post "/sources", { identifier: "jumpstartlabs",
+                       rootUrl:   "http://jumpstartlab.com" }
+    post "/sources/jumpstartlabs/data", { payload: payload.to_json }
 
-    visit "/sources/#{client.identifier}/urls/about"
+    visit "/sources/jumpstartlabs/urls/about"
 
     assert page.has_content? 'The url requested does not exist'
   end
