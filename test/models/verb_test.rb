@@ -19,7 +19,8 @@ class VerbTest < Minitest::Test
   def test_list_all_used_http_verbs
     create_payload_requests_with_associations
     create_payload_requests_with_associations(request_type: "POST")
-    
+    create_payload_requests_with_associations
+
     verbs = Verb.list_verbs
 
     assert_equal 2, verbs.count
