@@ -7,6 +7,6 @@ class Resolution < ActiveRecord::Base
 
   # composite key
   def self.resolution_breakdown
-    pluck(:resolution_width, :resolution_height)
+    pluck(:resolution_width, :resolution_height).uniq
   end
 end
