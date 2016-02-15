@@ -9,8 +9,6 @@ class ClientReceivesErrorPageIfIdentifierDoesNotExistTest < Minitest::Test
 
     assert_equal '/sources/hopstartlabs', current_path
 
-    save_and_open_page
-
     within('h1') do
       assert page.has_content? "Oh no! There seems to be an error!"
     end

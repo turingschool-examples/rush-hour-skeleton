@@ -11,9 +11,13 @@ module RushHour
 
     get '/sources/:identifier' do |identifier|
       @client = ClientHelper.find_client(identifier)
-
+       
       unless @client.nil?
-        erb :statistics
+        if @client.payload_requests.empty?
+          erb :app_error, locals: { msg: "No payload data has been received for this source." }
+        else
+          erb :statistics
+        end
       else
         erb :app_error, locals: { msg: "Identifier does not exist" }
       end
