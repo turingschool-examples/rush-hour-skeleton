@@ -17,5 +17,16 @@ module RushHour
 
       PayloadRequestHelper.payload_status_message(params, payload_request)
     end
+
+    get '/sources/:identifier/events' do |identifier|
+      @client = ClientHelper.find_client(identifier)
+      erb :event_index
+    end
+
+    get '/sources/:identifier/events/:event' do |identifier, event|
+      @client = ClientHelper.find_client(identifier)
+      @event  = event
+      erb :event_show
+    end
   end
 end
