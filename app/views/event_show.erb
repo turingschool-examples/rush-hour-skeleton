@@ -1,4 +1,7 @@
+<div class="well well-sm">
 <h1>Event: <%= @event %></h1>
+<p>Total: <%= @client.event_total(@event) %></p>
+</div>
 <table class="table">
   <thread>
   <tr>
@@ -13,4 +16,3 @@
     <% end %>
   </tr>
 </table>
-<p>Total: <%= @client.event_total(@event) %></p>
