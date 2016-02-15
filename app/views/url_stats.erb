@@ -1,17 +1,24 @@
-<h1>Url Stats for <%= @client.identifier.capitalize %></h1>
+<nav class="navbar navbar-fixed-top">
+  <a href="/">Home</a>
+  <ul class="nav navbar-nav navbar-right">
+    <li style="padding-right: 20px;"><a href="/sources/<%= @client.identifier %>">Back to your client page</a></li>
+  </ul>
+</nav>
+
+<h1>Url Stats for <%= @client.identifier.capitalize %></h1><br>
 
 <div class="url-specific-stats">
-  <div class="url-response-time col-md-4 well">
-    <p><h4>Max Response Time:</h4> <%= @url_obj.max_response_time %></p>
-    <p><h4>Min Response Time:</h4> <%= @url_obj.min_response_time %></p>
-    <p><h4>Average Response Time:</h4> <%= @url_obj.average_response_time.to_i %></p>
-    <p><h4>Response Times Across All Requests:</h4> <%= @url_obj.all_response_times_sorted_high_to_low.join(", ") %></p>
+  <div class="url-response-time col-md-3 well">
+    <h4>Max Response Time:</h4><p class="info-text"> <%= @url_obj.max_response_time %></p>
+    <h4>Min Response Time:</h4><p class="info-text"> <%= @url_obj.min_response_time %></p>
+    <h4>Average Response Time:</h4><p class="info-text"> <%= @url_obj.average_response_time.to_i %></p>
+    <h4>Response Times Across All Requests:</h4><p class="info-text"> <%= @url_obj.all_response_times_sorted_high_to_low.join(", ") %></p>
   </div>
-  <div class="url-verbs col-md-4 well">
-    <p><h4>HTTP Verbs Used:</h4> <%= @url_obj.all_http_verbs.join(", ") %></p>
+  <div class="url-verbs col-md-3 col-md-offset-1 well">
+    <h4>HTTP Verbs Used:</h4><p class="info-text"> <%= @url_obj.all_http_verbs.join(", ") %></p>
   </div>
-  <div class="url-top-threes col-md-4 well">
-    <p><h4>Top Three Referrers:</h4> <%= @url_obj.top_three_referrers.join(", ") %></p>
-    <p><h4>Top Three User Agents:</h4> <%= @url_obj.top_three_user_systems.join(", ") %></p>
+  <div class="url-top-threes col-md-3 col-md-offset-1 well">
+    <h4>Top Three Referrers:</h4><p class="info-text"> <%= @url_obj.top_three_referrers.join(", ") %></p>
+    <h4>Top Three User Agents:</h4><p class="info-text"> <%= @url_obj.top_three_user_systems.join(", ") %></p>
   </div>
 </div>

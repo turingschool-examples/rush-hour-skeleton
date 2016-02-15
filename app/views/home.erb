@@ -5,8 +5,11 @@
   <h3>
     If you're a registered user you can click your name below to see your detailed stats.
   </h3>
-  <% Client.all.each do |client| %>
-  <a href="/sources/<%= client.identifier %>"> <%= client.identifier.capitalize %> </a><br>
-  <% end %>
-  <a href="/sources/hotmail"> Hotmail </a><br>
+  <ul class="list-style">
+    <% Client.all.each do |client| %>
+    <li><a href="/sources/<%= client.identifier %>"> <%= client.identifier.capitalize %> </a><br></li>
+    <% end %>
+  <li><a href="/sources/hotmail"> Hotmail </a><br></li>
+
+  </ul>
 </div>
