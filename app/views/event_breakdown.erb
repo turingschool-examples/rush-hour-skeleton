@@ -1,11 +1,27 @@
 <h1>Event Breakdown for  <%= @client.identifier.capitalize %></h1>
 <h3>Event Type: <%= @event.event_name %></h3>
-<h4>Total Occurrences <%= EventName.event_total(@client, @event) %></h4>
+
+<div class="total-occurrences">
+  <h4>Total Occurrences <%= EventName.event_total(@client, @event) %></h4>
+</div>
+
 <div class="hourly-breakdown">
-  <ul>
+  <table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>Timeframe</th>
+      <th>Occurrences</th>
+    </tr>
+  </thead>
+  <tbody>
     <% hours = EventName.hourly_list(@client, @event)%>
     <% (0..23).to_a.each do |hour| %>
-      <li>  Hour <%= hour %>:00 => <%= hours.count(hour) %> </li>
+    <tr>
+      <td>Hour <%= hour %>:00</td>
+      <td><%= hours.count(hour) %></td>
+    </tr>
     <% end %>
-  </ul>
+
+  </tbody>
+</table>
 </div>

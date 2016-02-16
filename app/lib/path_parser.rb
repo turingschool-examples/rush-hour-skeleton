@@ -21,13 +21,4 @@ class PathParser
       :client_stats
     end
   end
-
-  # def self.relative_path_parser(client, identifier, relative_path)
-  #   url = client.root_url + '/' + relative_path
-  #   unless Url.pluck(:address).include?(url)
-  #     redirect '/missing-url'
-  #   else
-  #     @url_obj = Url.where(address: url).first
-  #     erb :url_stats
-  #   end
 end
