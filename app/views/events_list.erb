@@ -1,0 +1,9 @@
+<h1>Events</h1>
+
+<h4>Choose Event to View Hourly Breakdown</h4>
+
+<ol>
+<% @all_events.each do |event| %>
+  <li><a href="/sources/<%= @identifier %>/events/<%= event.event_name %>"><%= event.event_name %></a></li>
+<% end %>
+</ol>

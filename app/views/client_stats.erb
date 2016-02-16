@@ -1,0 +1,81 @@
+<!-- <nav class="navbar navbar-fixed-top">
+  <a href="/">Home</a>
+  <ul class="nav navbar-nav navbar-right">
+    <li></li>
+    <li></li>
+  </ul>
+</nav> -->
+
+<h1>This is your user stats page, <%= @client.identifier.capitalize %></h1>
+<h2>Here are the statistics for your account:</h2><br>
+
+<a class="btn btn-info" href="/sources/<%= @client.identifier %>/events">All Events</a>
+
+<div class="client-stats">
+  <div class="client-response-times col-md-3 well">
+  <h4>
+    Average Response Time:<br>
+  </h4>
+    <p class="info-text">
+      <%= @payloads.average_response_time %>
+    </p>
+  <h4>
+    Max Response Time: <br>
+  </h4>
+    <p class="info-text">
+      <%= @payloads.max_response_time %>
+    </p>
+  <h4>
+    Min Response Time: <br>
+  </h4>
+    <p class="info-text">
+      <%= @payloads.min_response_time %>
+    </p>
+  </div>
+  <div class="client-frequent-requests col-md-3 col-md-offset-1 well">
+  <h4>
+    Most Frequent Request Type: <br>
+  </h4>
+    <p class="info-text">
+      <%= @payloads.most_frequent_request_type %>
+    </p>
+  <h4>
+    HTTP verbs used on your sites: <br>
+  </h4>
+    <p class="info-text">
+      <%= @payloads.all_request_types.join(", ") %>
+    </p>
+  </div>
+  <div class="client-breakdowns col-md-3 col-md-offset-1 well">
+  <h4>
+    Web Browser Breakdown: <br>
+  </h4>
+    <p class="info-text">
+      <%= @user_systems.browser_breakdown.join(", ") %>
+    </p>
+  <h4>
+    Operating System Breakdown: <br>
+  </h4>
+    <p class="info-text">
+      <%= @user_systems.os_breakdown.join(", ") %>
+    </p>
+  <h4>
+    Screen Resolution Breakdown: <br>
+  </h4>
+    <p class="info-text">
+      <% @resolutions.screen_resolutions.each do |res| %>
+      <%= res.join(" X ") %><br>
+      <% end %>
+    </p>
+  </div>
+  <div class="client-urls col-md-11 well">
+    <h4>
+      URLs visited from most to least: <br>
+    </h4>
+    <ol>
+    <% @payloads.sort_urls_by_request_freqency.each do |url| %>
+      <li><a href="/sources/<%= @client.identifier %>/urls/<%= url.split("/")[3..-1].join %>"><%= url %></a></li><br>
+    <% end %>
+    </ol>
+  </div>
+</div>

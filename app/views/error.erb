@@ -1,1 +1,22 @@
-<h1>Error Page</h1>
+<h1>An Error Occured</h1>
+
+<h3 class="col-md-3 col-md-offset-5 text-centered">Params</h3>
+<table class="table table-striped table-hover table-bordered">
+  <tr>
+    <th>Request Verb</th>
+    <td><%= request.request_method %></td>
+  </tr>
+  <tr>
+    <th>Request Path</th>
+    <td><%= request.path %></td>
+  </tr>
+  <tr>
+    <th colspan=2>Parameters</th>
+  </tr>
+  <% request.params.each do |key, value| %>
+    <tr>
+      <td><%= key %></td>
+      <td><%= value %></td>
+    </tr>
+  <% end %>
+</table>
