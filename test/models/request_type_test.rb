@@ -16,4 +16,20 @@ class RequestTypeTest < Minitest::Test
 
     assert_equal [], RequestType.all.to_a
   end
+
+  def test_it_returns_the_most_frequent_request_type
+    RequestType.create(verb: "GET")
+    RequestType.create(verb: "POST")
+    RequestType.create(verb: "GET")
+
+    assert_equal "GET", RequestType.most_frequent
+  end
+
+  def test_it_returns_all_verbs_requested
+    RequestType.create(verb: "GET")
+    RequestType.create(verb: "POST")
+    RequestType.create(verb: "GET")
+
+    assert_equal ["POST", "GET"], RequestType.all_verbs_used
+  end
 end
