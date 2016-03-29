@@ -39,7 +39,7 @@ module TestHelpers
                                requested_at: "2013-02-16 21:40:00 -0700",
                                responded_in: 20
                               ),
-    PayloadRequest.create(url: Url.create(address: "http://jumpstartlab.com"),
+    PayloadRequest.create(url: Url.create(address: "http://auring.io"),
                                referrer: Referrer.create(address: "http://amazon.com"),
                                request_type: RequestType.create(verb: "GET"),
                                event: Event.create(name: "facebook"),
@@ -49,8 +49,8 @@ module TestHelpers
                                requested_at: "2013-02-16 21:37:00 -0700",
                                responded_in: 30
                               ),
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"),
-                               referrer: Referrer.create(address: "http://amazon.com"),
+    PayloadRequest.create(url: Url.create(address: "http://jumpstartlab.com"),
+                               referrer: Referrer.create(address: "http://newegg.com"),
                                request_type: RequestType.create(verb: "POST"),
                                event: Event.create(name: "twitter"),
                                user_agent: UserAgent.create(browser: "Safari", platform: "Macintosh"),
@@ -58,17 +58,18 @@ module TestHelpers
                                ip: Ip.create(address: "63.29.38.200"),
                                requested_at: "2013-02-16 21:38:00 -0700",
                                responded_in: 40
-                              ),
-    PayloadRequest.create(url: Url.create(address: "http://today.turing.io"),
-                               referrer: Referrer.create(address: "http://amazon.com"),
-                               request_type: RequestType.create(verb: "GET"),
-                               event: Event.create(name: "socialLogin"),
-                               user_agent: UserAgent.create(browser: "Chrome", platform: "Macintosh"),
-                               resolution: Resolution.create(width: "1920", height: "1280"),
-                               ip: Ip.create(address: "63.29.38.224"),
-                               requested_at: "2013-02-15 21:38:28 -0700",
-                               responded_in: 10
-                              )]
+                              )
+    # PayloadRequest.create(url: Url.create(address: "http://today.turing.io"),
+    #                            referrer: Referrer.create(address: "http://jumpstartlab.com"),
+    #                            request_type: RequestType.create(verb: "GET"),
+    #                            event: Event.create(name: "socialLogin"),
+    #                            user_agent: UserAgent.create(browser: "Chrome", platform: "Macintosh"),
+    #                            resolution: Resolution.create(width: "1920", height: "1280"),
+    #                            ip: Ip.create(address: "63.29.38.224"),
+    #                            requested_at: "2013-02-15 21:38:28 -0700",
+    #                            responded_in: 10
+    #                           )
+                                ]
   end
 end
 

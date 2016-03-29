@@ -22,10 +22,8 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_returns_the_most_requested_urls
-    # url1 = Url.create(address: "www.today.turing.io")
-    # url2 = Url.create(address: "www.turing.io")
-    # url3 = Url.create(address: "www.hamsterdance.com")
+    setup_data
 
-    require 'pry'; binding.pry
+    assert_equal ["http://jumpstartlab.com", "http://turing.io"], Url.most_to_least_requested
   end
 end
