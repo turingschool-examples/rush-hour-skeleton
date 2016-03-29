@@ -14,9 +14,16 @@ class UserAgentTest < Minitest::Test
 
     assert_nil user_agent.browser
   end
+
   def test_it_responds_with_an_error_message
     user_agent = UserAgent.create(browser: nil)
 
     assert_equal "can't be blank", user_agent.errors.messages[:browser][0]
+  end
+
+  def test_browser_breakdown_across_all_requests
+    setup_data
+
+    
   end
 end

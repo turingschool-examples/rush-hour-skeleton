@@ -54,4 +54,22 @@ class PayloadRequestTest < Minitest::Test
     assert_nil pr.requested_at
     assert_nil pr.responded_in
   end
+
+  def test_it_returns_average_response_time
+    setup_data
+
+    assert_equal 30, PayloadRequest.average_response_time
+  end
+
+  def test_it_returns_max_response_time
+    setup_data
+
+    assert_equal 40, PayloadRequest.max_response_time
+  end
+
+  def test_it_returns_min_response_time
+    setup_data
+
+    assert_equal 20, PayloadRequest.min_response_time
+  end
 end

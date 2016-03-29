@@ -39,7 +39,7 @@ module TestHelpers
                                requested_at: "2013-02-16 21:40:00 -0700",
                                responded_in: 20
                               ),
-    PayloadRequest.create(url: Url.create(address: "http://auring.io"),
+    PayloadRequest.create(url: Url.create(address: "http://turing.io"),
                                referrer: Referrer.create(address: "http://amazon.com"),
                                request_type: RequestType.create(verb: "GET"),
                                event: Event.create(name: "facebook"),

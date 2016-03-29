@@ -4,7 +4,6 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
 
   def self.most_to_least_requested
-    # require 'pry'; binding.pry
-    order(address: :desc).pluck(:address).uniq
+    group(:address).count.keys.reverse
   end
 end

@@ -20,4 +20,10 @@ class EventTest < Minitest::Test
 
     assert_equal "can't be blank", event.errors.messages[:name][0]
   end
+
+  def test_return_events_listed_from_most_received_to_least
+    setup_data
+
+    assert_equal ["facebook", "twitter"], Event.most_received_to_least
+  end
 end
