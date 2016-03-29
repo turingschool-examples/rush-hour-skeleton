@@ -9,3 +9,9 @@ require 'minitest/pride'
 require 'capybara/dsl'
 
 Capybara.app = RushHour::Server
+
+module TestHelper
+  def tear_down
+  end
+
+end
