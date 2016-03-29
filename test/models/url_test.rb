@@ -20,4 +20,12 @@ class UrlTest < Minitest::Test
 
     assert_equal "can't be blank", url.errors.messages[:address][0]
   end
+
+  def test_it_returns_the_most_requested_urls
+    # url1 = Url.create(address: "www.today.turing.io")
+    # url2 = Url.create(address: "www.turing.io")
+    # url3 = Url.create(address: "www.hamsterdance.com")
+
+    require 'pry'; binding.pry
+  end
 end
