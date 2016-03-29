@@ -4,11 +4,9 @@ class Url < ActiveRecord::Base
   validates :path,     presence: true
 
   def self.most_to_least_requested
+    # look for alternative?
     self.all.sort_by { |url| url.payload_requests.count}.reverse.map {|url| url.full_path }
   end
-
-
-
 
   def full_path
     [self.root_url, self.path].join('')

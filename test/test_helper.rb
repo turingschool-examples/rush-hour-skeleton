@@ -10,7 +10,6 @@ require 'capybara/dsl'
 require 'database_cleaner'
 
 
-
 Capybara.app = RushHour::Server
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
