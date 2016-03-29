@@ -1,13 +1,17 @@
-# class PayloadRequest < ActiveRecord::Base
-#   # validates :url, presence: true
-#   # validates :requested, presence: true
-#   # validates :responded_in, presence: true
-#   # validates :referrer, presence: true
-#   # validates :request_verb, presence: true
-#   # validates :parameter, presence: true
-#   # validates :event, presence: true
-#   # validates :user_agent, presence: true
-#   # validates :resolution_height, presence: true
-#   # validates :resolution_width, presence: true
-#   # validates :ip, presence: true
-# end
+class PayloadRequest < ActiveRecord::Base
+
+  belongs_to :url
+  belongs_to :requested
+  belongs_to :responded_in
+  belongs_to :referrer
+  belongs_to :request_verb
+  belongs_to :parameter
+  belongs_to :event
+  belongs_to :user_agent
+  belongs_to :resolution_height
+  belongs_to :resolution_width
+  belongs_to :ip
+
+  validates :requested_at, presence: true
+  validates :responded_in, presence: true
+end
