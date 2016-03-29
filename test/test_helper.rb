@@ -54,7 +54,7 @@ module TestHelpers
                                request_type: RequestType.create(verb: "POST"),
                                event: Event.create(name: "twitter"),
                                user_agent: UserAgent.create(browser: "Safari", platform: "Macintosh"),
-                               resolution: Resolution.create(width: "480", height: "640"),
+                               resolution: Resolution.create(width: "1920", height: "1280"),
                                ip: Ip.create(address: "63.29.38.200"),
                                requested_at: "2013-02-16 21:38:00 -0700",
                                responded_in: 40
