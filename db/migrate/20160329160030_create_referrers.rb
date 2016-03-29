@@ -1,6 +1,6 @@
-class CreateUrls < ActiveRecord::Migration
+class CreateReferrers < ActiveRecord::Migration
   def change
-    create_table :urls do |t|
+    create_table :referrers do |t|
       t.string :address
 
       t.timestamps null: false
