@@ -19,4 +19,9 @@ class ResolutionTest < Minitest::Test
     assert_equal [], Resolution.all.to_a
   end
 
+  def test_it_doesnt_save_resolution_with_invalid_height
+    Resolution.create(width: "1920")
+
+    assert_equal [], Resolution.all.to_a
+  end
 end
