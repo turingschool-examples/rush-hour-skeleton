@@ -26,4 +26,11 @@ class UserAgentTest < Minitest::Test
 
     assert_equal ["Mozilla", "Chrome", "Safari"], UserAgent.browser_breakdown_across_all_requests
   end
+
+
+  def test_platform_breakdown_across_all_requests
+    setup_data
+
+    assert_equal ["Windows", "Webkit", "Macintosh"], UserAgent.platform_breakdown_across_all_requests
+  end
 end

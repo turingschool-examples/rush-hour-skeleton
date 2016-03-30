@@ -23,4 +23,11 @@ class PayloadRequest < ActiveRecord::Base
   def self.min_response_time
     minimum(:responded_in)
   end
+
+  def self.max_response_time_by_url(url_address)
+    ids = Url.where(address: url_address).pluck(:id)
+    ids.map do |id|
+      where(url_id: id)
+    end
+  end
 end

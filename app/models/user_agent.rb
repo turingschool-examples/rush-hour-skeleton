@@ -7,4 +7,8 @@ class UserAgent < ActiveRecord::Base
   def self.browser_breakdown_across_all_requests
     pluck(:browser).uniq
   end
+
+  def self.platform_breakdown_across_all_requests
+    pluck(:platform).uniq
+  end
 end

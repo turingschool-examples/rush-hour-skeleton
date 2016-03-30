@@ -23,7 +23,8 @@ class UrlTest < Minitest::Test
 
   def test_it_returns_from_most_to_least_requested_urls
     setup_data
-    # TOO MUCH RUBY
+
     assert_equal ["http://jumpstartlab.com", "http://turing.io"], Url.most_to_least_requested
   end
+
 end
