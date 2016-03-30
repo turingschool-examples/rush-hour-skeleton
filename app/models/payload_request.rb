@@ -35,4 +35,26 @@ class PayloadRequest < ActiveRecord::Base
     times = ids.map {|id| where(id: id).pluck(:responded_in)}
     times.flatten.min
   end
-end
+
+  def self.all_response_time_by_url(url_address)
+    ids = Url.where(address: url_address).pluck(:id)
+    times = ids.map {|id| where(id: id).pluck(:responded_in)}
+    times.flatten.reverse
+  end
+
+  def self.average_response_time_by_url(url_address)
+    ids = Url.where(address: url_address).pluck(:id)
+    times = ids.map {|id| where(id: id).pluck(:responded_in)}
+    times.flatten.inject(:+)/times.count
+  end
+
+  def self.list_http_verbs_by_url(url_address)
+    ids = Url.where(address: url_address).pluck(:id)
+    ids.map {|id| RequestType.where(id: id).pluck(:verb)}.flatten
+  end
+
+  def self.top_three_referrers_by_url(url_address)
+    ids = Url.where(address: url_address).pluck(:id)
+    ids.map {|id| Referrer.where(id: id).pluck(:address)}.flatten
+  end
+  end

@@ -87,4 +87,40 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 20, PayloadRequest.min_response_time_by_url(url_address)
   end
 
+  def test_list_response_time_given_specific_url_from_longest
+    setup_data
+    url_address = "http://jumpstartlab.com"
+
+    assert_equal [40, 20], PayloadRequest.all_response_time_by_url(url_address)
+  end
+
+  def test_average_response_time_given_specific_url
+    setup_data
+    url_address = "http://jumpstartlab.com"
+
+    assert_equal 30, PayloadRequest.average_response_time_by_url(url_address)
+  end
+
+  def test_list_http_verbs_given_specific_url
+    setup_data
+    url_address = "http://jumpstartlab.com"
+
+    assert_equal ["GET", "POST"], PayloadRequest.list_http_verbs_by_url(url_address)
+  end
+
+  def test_list_http_verbs_given_specific_url
+
+    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    require "pry"; binding.pry
+
+    url_address = "http://jumpstartlab.com"
+
+    assert_equal nil, PayloadRequest.top_three_referrers_by_url(url_address)
+  end
 end
+
