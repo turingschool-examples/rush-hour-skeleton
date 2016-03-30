@@ -9,7 +9,6 @@ class CreateClientTest < Minitest::Test
   end
 
   def test_create_client_with_valid_params
-    # skip
     assert_equal 0, Client.count
 
     post '/sources', {
