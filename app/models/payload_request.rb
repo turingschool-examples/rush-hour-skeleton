@@ -26,8 +26,13 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.max_response_time_by_url(url_address)
     ids = Url.where(address: url_address).pluck(:id)
-    ids.map do |id|
-      where(url_id: id)
-    end
+    times = ids.map {|id| where(id: id).pluck(:responded_in)}
+    times.flatten.max
+  end
+
+  def self.min_response_time_by_url(url_address)
+    ids = Url.where(address: url_address).pluck(:id)
+    times = ids.map {|id| where(id: id).pluck(:responded_in)}
+    times.flatten.min
   end
 end
