@@ -367,9 +367,9 @@ class UrlTest < Minitest::Test
                            ip_id: 1,
                        client_id: 1)
 
-   expected = ["IE 9.0 Mac OS X 10.8.2", "Firefox 30.0.1 Mac OS X 10.8.2", "Chrome 24.0.1309 Mac OS X 10.8.2"]
-
-   assert_equal expected, Url.top_user_agents("www.jumpstartlabs.com")
+   assert Url.top_user_agents("www.jumpstartlabs.com").include?("IE 9.0 Mac OS X 10.8.2")
+   assert Url.top_user_agents("www.jumpstartlabs.com").include?("Firefox 30.0.1 Mac OS X 10.8.2")
+   assert Url.top_user_agents("www.jumpstartlabs.com").include?("Chrome 24.0.1309 Mac OS X 10.8.2")
   end
 
 

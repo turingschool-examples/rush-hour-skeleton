@@ -31,8 +31,6 @@ class Url < ActiveRecord::Base
   end
 
   def self.find_verbs_for_a_url(url)
-    require "pry"
-    binding.pry
     find_by(root_url: url).payload_requests.map do |request|
       request.request_type.verb
     end.uniq

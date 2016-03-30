@@ -1,22 +1,15 @@
 require './test/test_helper'
 
 class CreateClientTest < Minitest::Test
+  include TestHelper
   include Rack::Test::Methods
 
   def app
-    Server
-  end
-
-  def setup
-    DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
+    RushHour::Server
   end
 
   def test_create_client_with_valid_params
-    skip
+    # skip
     assert_equal 0, Client.count
 
     post '/sources', {
@@ -26,7 +19,7 @@ class CreateClientTest < Minitest::Test
 
     assert_equal 1, Client.count
     assert_equal 200, last_response.status
-    assert_equal "{\"name\":\"www.example.com\"}", last_response.body
+    assert_equal "{\"identifier\":\"name\"}\n", last_response.body
   end
 
 end
