@@ -1,5 +1,6 @@
 class ResponseTime < ActiveRecord::Base
   has_many :payload_requests
+
   validates :time, presence: true
 
   def self.avg

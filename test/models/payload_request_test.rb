@@ -146,7 +146,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_returns_url_with_max_response_time
-    skip
+
     url1 = Url.create(root_url: "www.jumpstartlabs.com",
                           path: "/blog")
     url2 = Url.create(root_url: "www.jumpstartlabs.com",
