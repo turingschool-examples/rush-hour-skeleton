@@ -9,7 +9,7 @@ class PayloadRequestTest < Minitest::Test
                 response_time_id: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
@@ -21,7 +21,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, request.response_time_id
     assert_equal 1, request.referral_id
     assert_equal 1, request.request_type_id
-    assert_equal 1, request.event_id
+    assert_equal 1, request.     event_id
     assert_equal 1, request.user_agent_id
     assert_equal 1, request.resolution_id
     assert_equal 1, request.ip_id
@@ -33,7 +33,7 @@ class PayloadRequestTest < Minitest::Test
                 response_time_id: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
@@ -46,7 +46,7 @@ class PayloadRequestTest < Minitest::Test
                 response_time_id: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
@@ -59,7 +59,7 @@ class PayloadRequestTest < Minitest::Test
                     requested_at: "2013-02-16 21:38:28 -0700",
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
@@ -72,7 +72,7 @@ class PayloadRequestTest < Minitest::Test
                     requested_at: "2013-02-16 21:38:28 -0700",
                 response_time_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
@@ -85,7 +85,7 @@ class PayloadRequestTest < Minitest::Test
                     requested_at: "2013-02-16 21:38:28 -0700",
                 response_time_id: 1,
                      referral_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
@@ -112,7 +112,7 @@ class PayloadRequestTest < Minitest::Test
                 response_time_id: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
 
@@ -125,7 +125,7 @@ class PayloadRequestTest < Minitest::Test
                 response_time_id: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                            ip_id: 1)
 
@@ -138,7 +138,7 @@ class PayloadRequestTest < Minitest::Test
                 response_time_id: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1)
 
