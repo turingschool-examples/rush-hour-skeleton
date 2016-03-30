@@ -1,5 +1,6 @@
 class Url < ActiveRecord::Base
   has_many(:payload_requests)
+  has_many :referrals, through: :payload_requests
 
   validates :root_url, presence: true
   validates :path,     presence: true
@@ -25,7 +26,18 @@ class Url < ActiveRecord::Base
     find_or_initialize_by(root_url: url).payload_requests.average("response_time").to_i
   end
 
+  def self.all_response_times(url)
+    find_or_initialize_by(root_url: url).payload_requests.order(response_time: :desc).pluck(:response_time)
+  end
+
   def self.find_verbs_for_a_url(url)
-    find_or_initialize_by(root_url: url).payload_requests.pluck
+    find_or_initialize_by(root_url: url).payload_requests.map do |request|
+      request.request_type.verb
+    end.uniq
+  end
+
+  def self.top_referrers(url)
+    require "pry"; binding.pry
+    find_or_initialize_by(root_url: url).payload_requests
   end
 end
