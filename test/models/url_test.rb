@@ -166,7 +166,6 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_returns_top_three_referrers
-    # skip
     url1 = Url.create(root_url: "www.jumpstartlabs.com",
                           path: "/blog")
 
@@ -246,6 +245,92 @@ class UrlTest < Minitest::Test
                               ip_id: 1)
 
    assert_equal ["www.zomble.com/today", "www.turing.io/today", "www.google.com/today"], Url.top_referrers("www.jumpstartlabs.com")
+  end
+
+  def test_it_returns_top_three_user_agents
+    url1 = Url.create(root_url: "www.jumpstartlabs.com",
+                          path: "/blog")
+
+    chrome_apple  = UserAgent.create(browser: "Chrome 24.0.1309",
+                                          os: "Mac OS X 10.8.2")
+    ie_apple      = UserAgent.create(browser: "IE 9.0",
+                                          os: "Mac OS X 10.8.2")
+    firefox_apple = UserAgent.create(browser: "Firefox 30.0.1",
+                                          os: "Mac OS X 10.8.2")
+    opera_apple   = UserAgent.create(browser: "Opera 2.7",
+                                          os: "Mac OS X 10.8.2")
+
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 100,
+                     referral_id: 1,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: chrome_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: chrome_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: ie_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: ie_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: firefox_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1 ,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: firefox_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: opera_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+   expected = ["IE 9.0 Mac OS X 10.8.2", "Firefox 30.0.1 Mac OS X 10.8.2", "Chrome 24.0.1309 Mac OS X 10.8.2"]
+
+   assert_equal expected, Url.top_user_agents("www.jumpstartlabs.com")
   end
 
 

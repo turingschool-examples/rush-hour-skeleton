@@ -40,4 +40,9 @@ class Url < ActiveRecord::Base
     referrer_and_count = find_or_initialize_by(root_url: url).payload_requests.group(:referral).count
     referrer_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| key.full_path}
   end
+
+  def self.top_user_agents(url)
+    usr_agent_and_count = find_or_initialize_by(root_url: url).payload_requests.group(:user_agent).count
+    usr_agent_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| "#{key.browser} #{key.os}"}
+  end
 end
