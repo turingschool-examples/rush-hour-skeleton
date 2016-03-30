@@ -54,7 +54,9 @@ class EventTest < Minitest::Test
                            ip_id: 1,
                        client_id: 1)
 
-    assert_equal ["socialLogin", "NOTsocialLogin"], Event.most_to_least_requested
+    assert Event.most_to_least_requested.include?("socialLogin")
+    assert Event.most_to_least_requested.include?("NOTsocialLogin")
+
   end
 
 end
