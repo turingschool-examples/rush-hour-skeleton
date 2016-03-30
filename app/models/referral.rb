@@ -3,4 +3,8 @@ class Referral < ActiveRecord::Base
   validates :path,     presence: true
 
   has_many :payload_requests
+
+  def full_path
+    [self.root_url, self.path].join('')
+  end
 end
