@@ -38,7 +38,7 @@ class UrlTest < Minitest::Test
 
  def test_it_lists_top_three_referrers
    skip
-   url= Url.create(address: "http://jumpstartlab.com")
+   Url.create(address: "http://jumpstartlab.com")
 
    referrer_data
   # setup_data

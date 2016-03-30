@@ -100,7 +100,7 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal 30, PayloadRequest.average_response_time_by_url(url_address)
   end
-  
+
   def test_list_http_referrers_given_specific_url
 
     PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
@@ -134,5 +134,23 @@ class PayloadRequestTest < Minitest::Test
     url_address = "http://turing.io"
 
     assert_equal [["Windows", "Chrome"], ["Linux", "Mozilla"], ["Os", "Yoohoo"]], PayloadRequest.top_three_browsers_and_platforms_by_url(url_address)
+  end
+
+  def test_it_references_a_client
+    pr = PayloadRequest.create(url: Url.create(address: "http://jonliss.com"),
+                               referrer: Referrer.create(address: "http://amazon.com"),
+                               request_type: RequestType.create(verb: "GET"),
+                               event: Event.create(name: "socialLogin"),
+                               user_agent: UserAgent.create(browser: "Chrome", platform: "Macintosh"),
+                               resolution: Resolution.create(width: "1920", height: "1280"),
+                               ip: Ip.create(address: "63.29.38.211"),
+                               requested_at: "2013-02-16 21:38:28 -0700",
+                               responded_in: 37,
+                               client: Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" )
+                              )
+
+    assert_equal "jumpstartlab", pr.client.identifier
+    assert_equal "http://jumpstartlab.com", pr.client.root_url
+
   end
 end

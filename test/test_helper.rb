@@ -72,6 +72,10 @@ module TestHelpers
                                 ]
   end
 
+  def setup_client
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+  end
+
   def referrer_data #REDO
     [PayloadRequest.create(url: Url.create(address: "http://jumpstartlab.com"),
                                referrer: Referrer.create(address: "http://amazon.com"),
