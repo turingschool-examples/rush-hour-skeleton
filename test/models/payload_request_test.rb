@@ -145,4 +145,36 @@ class PayloadRequestTest < Minitest::Test
     assert_equal [], PayloadRequest.all.to_a
   end
 
+  def test_it_returns_url_with_max_response_time
+    skip
+    url1 = Url.create(root_url: "www.jumpstartlabs.com",
+                          path: "/blog")
+    url2 = Url.create(root_url: "www.jumpstartlabs.com",
+                          path: "/example")
+
+    response_time1 = ResponseTime.create(time: 100)
+    response_time2 = ResponseTime.create(time: 300)
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                response_time_id: response_time1.id,
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: url2.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                response_time_id: response_time2.id,
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+    assert_equal "www.jumpstartlabs.com/example", PayloadRequest.url_with_max_response_time
+  end
+
 end

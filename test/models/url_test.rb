@@ -68,4 +68,5 @@ class UrlTest < Minitest::Test
 
     assert_equal ["www.jumpstartlabs.com/blog", "www.jumpstartlabs.com/example"], Url.most_to_least_requested
   end
+
 end
