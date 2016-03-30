@@ -54,7 +54,38 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.top_three_referrers_by_url(url_address)
+    # binding.pry
     ids = Url.where(address: url_address).pluck(:id)
-    ids.map {|id| Referrer.where(id: id).pluck(:address)}.flatten
+    addresses = ids.map {|id| Referrer.where(id: id).pluck(:address)}.flatten
+    addresses.inject(Hash.new(0)) {|hash, item| hash[item] += 1; hash}.keys.take(3)
+    # # group(:address).count.keys.reverse
+    # addresses.map do |address|
+    #   Referrer.group(address: address)
+    # end
+
+    # ids = Url.where(address: url_address).pluck(:id)
+    # referrer_ids = ids.map { |id| PayloadRequest.where(url_id: id).pluck(:referrer_id) }
+    # Referrer.find(referrer_ids)
+
   end
+
+  def self.top_three_browsers_by_url(url_address)
+    # binding.pry
+    ids = Url.where(address: url_address).pluck(:id)
+    browsers = ids.map {|id| UserAgent.where(id: id).pluck(:browser)}.flatten
+    browsers.inject(Hash.new(0)) {|hash, item| hash[item] += 1; hash}.sort_by(&:last).reverse.take(3).to_h.keys
+
   end
+
+  def self.top_three_platforms_by_url(url_address)
+    ids = Url.where(address: url_address).pluck(:id)
+    platforms = ids.map {|id| UserAgent.where(id: id).pluck(:platform)}.flatten
+    platforms.inject(Hash.new(0)) {|hash, item| hash[item] += 1; hash}.sort_by(&:last).reverse.take(3).to_h.keys
+    # binding.pry
+  end
+
+  def self.top_three_browsers_and_platforms_by_url(url_address)
+    top_three_platforms_by_url(url_address).zip(top_three_browsers_by_url(url_address))
+
+  end
+end
