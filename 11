@@ -10,8 +10,17 @@ class Url < ActiveRecord::Base
     group(:address).count.keys.reverse
   end
 
-  def list_verbs_given_urls
+  def list_all_verbs_given_url
     request_types.pluck(:verb)
   end
+
+  def list_top_three_referrers
+    referrers.group(:address).order(count: :desc).count.keys
+  end
+
+  #def list_top_three_user_agent
+  #  user_agents.group(:browser, :platform).order#I'm not done here
+  #  #SCIENCE IT!!!!
+  #end
 
 end
