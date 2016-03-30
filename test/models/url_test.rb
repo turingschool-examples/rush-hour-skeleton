@@ -28,18 +28,22 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_lists_all_verbs_given_url
+    url= Url.create(address: "http://jumpstartlab.com")
+    #
     setup_data
-
-    assert_equal ["POST"], Url.find(3).list_all_verbs_given_url
-    assert_equal ["GET"], Url.find(1).list_all_verbs_given_url
+    # binding.pry
+    assert_equal ["GET", "POST"], Url.where(id: url.id).map(&:list_all_verbs_given_url).flatten
+    # assert_equal ["GET"], Url.where(address: "http://jumpstartlab.com").list_all_verbs_given_url
   end
 
-#  def test_it_lists_top_three_referrers
-#    url_id = Url.create(address: "turing.io")
-#
-#    referrer_data
-#
-#    assert_equal [expect newegg], Url.find(1).list_top_three_referrers
-#  end
+ def test_it_lists_top_three_referrers
+   skip
+   url= Url.create(address: "http://jumpstartlab.com")
+
+   referrer_data
+  # setup_data
+
+   assert_equal ["http://newegg.com"], Url.find(url_id.id).list_top_three_referrers
+ end
 
 end

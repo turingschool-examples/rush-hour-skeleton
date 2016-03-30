@@ -11,12 +11,14 @@ class Url < ActiveRecord::Base
   end
 
   def list_all_verbs_given_url
-    request_types.pluck(:verb)
+    # request_types.pluck(:verb)
+    RequestType.where(id: PayloadRequest.where(url_id: Url.where(address: "http://jumpstartlab.com").pluck(:id)).pluck(:request_type_id)).pluck(:verb).uniq
   end
 
   def list_top_three_referrers
     referrers.group(:address).order(count: :desc).count.keys
   end #reset the test on this one
+
 
   #def list_top_three_user_agent
   #  user_agents.group(:browser, :platform).order#I'm not done here

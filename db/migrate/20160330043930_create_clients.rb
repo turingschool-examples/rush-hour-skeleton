@@ -5,5 +5,6 @@ class CreateClients < ActiveRecord::Migration
       t.string    :root_url
 
       t.timestamps null: false
+    end
   end
 end
