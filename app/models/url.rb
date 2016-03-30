@@ -15,34 +15,36 @@ class Url < ActiveRecord::Base
   end
 
   def self.max_response_time(url)
-    find_or_initialize_by(root_url: url).payload_requests.maximum("response_time")
+    find_by(root_url: url).payload_requests.maximum("response_time")
   end
 
   def self.min_response_time(url)
-    find_or_initialize_by(root_url: url).payload_requests.minimum("response_time")
+    find_by(root_url: url).payload_requests.minimum("response_time")
   end
 
   def self.average_response_time(url)
-    find_or_initialize_by(root_url: url).payload_requests.average("response_time").to_i
+    find_by(root_url: url).payload_requests.average("response_time").to_i
   end
 
   def self.all_response_times(url)
-    find_or_initialize_by(root_url: url).payload_requests.order(response_time: :desc).pluck(:response_time)
+    find_by(root_url: url).payload_requests.order(response_time: :desc).pluck(:response_time)
   end
 
   def self.find_verbs_for_a_url(url)
-    find_or_initialize_by(root_url: url).payload_requests.map do |request|
+    require "pry"
+    binding.pry
+    find_by(root_url: url).payload_requests.map do |request|
       request.request_type.verb
     end.uniq
   end
 
   def self.top_referrers(url)
-    referrer_and_count = find_or_initialize_by(root_url: url).payload_requests.group(:referral).count
+    referrer_and_count = find_by(root_url: url).payload_requests.group(:referral).count
     referrer_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| key.full_path}
   end
 
   def self.top_user_agents(url)
-    usr_agent_and_count = find_or_initialize_by(root_url: url).payload_requests.group(:user_agent).count
+    usr_agent_and_count = find_by(root_url: url).payload_requests.group(:user_agent).count
     usr_agent_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| "#{key.browser} #{key.os}"}
   end
 end
