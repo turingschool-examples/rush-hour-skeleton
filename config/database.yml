@@ -11,3 +11,5 @@ test:
 production:
   adapter: postgresql
   database: rush-hour-production
+      
+
