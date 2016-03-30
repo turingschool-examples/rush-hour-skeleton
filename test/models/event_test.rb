@@ -17,4 +17,39 @@ class EventTest < Minitest::Test
     assert_equal [], Event.all.to_a
   end
 
+  def test_it_returns_events_most_recieved_to_least
+    event1 = Event.create(name: "socialLogin")
+    event2 = Event.create(name: "NOTsocialLogin")
+
+    PayloadRequest.create(url_id: 1,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                response_time_id: 1,
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: event1.id,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: 2,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                response_time_id: 1,
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: event2.id,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: 1,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                response_time_id: 1,
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: event1.id,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+    assert_equal ["socialLogin", "NOTsocialLogin"], Event.most_to_least_requested
+  end
+
 end

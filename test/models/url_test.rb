@@ -34,38 +34,37 @@ class UrlTest < Minitest::Test
 
   def test_it_returns_most_to_least_requested_urls
     url1 = Url.create(root_url: "www.jumpstartlabs.com",
-                   path: "/blog")
+                          path: "/blog")
     url2 = Url.create(root_url: "www.jumpstartlabs.com",
-                   path: "/example")
+                          path: "/example")
 
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                 response_time_id: 1,
-                    referral_id: 1,
-                request_type_id: 1,
-                  event_name_id: 1,
-                  user_agent_id: 1,
-                  resolution_id: 1,
-                          ip_id: 1)
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
     PayloadRequest.create(url_id: url2.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                 response_time_id: 1,
-                    referral_id: 1,
-                request_type_id: 1,
-                  event_name_id: 1,
-                  user_agent_id: 1,
-                  resolution_id: 1,
-                          ip_id: 1)
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                 response_time_id: 1,
-                    referral_id: 1,
-                request_type_id: 1,
-                  event_name_id: 1,
-                  user_agent_id: 1,
-                  resolution_id: 1,
-                          ip_id: 1)
-
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
 
     assert_equal ["www.jumpstartlabs.com/blog", "www.jumpstartlabs.com/example"], Url.most_to_least_requested
   end
