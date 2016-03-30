@@ -108,7 +108,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["GET", "POST"], PayloadRequest.list_http_verbs_by_url(url_address)
   end
 
-  def test_list_http_verbs_given_specific_url
+  def test_list_http_referrers_given_specific_url
 
     PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
     PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))

@@ -16,7 +16,7 @@ class Url < ActiveRecord::Base
 
   def list_top_three_referrers
     referrers.group(:address).order(count: :desc).count.keys
-  end #reset the test on this one
+  end
 
   #def list_top_three_user_agent
   #  user_agents.group(:browser, :platform).order#I'm not done here

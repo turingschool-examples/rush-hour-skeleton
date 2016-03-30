@@ -71,6 +71,15 @@ module TestHelpers
     #                           )
                                 ]
   end
+
+  def referrer_data #REDO
+    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+  end
 end
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
