@@ -108,36 +108,18 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["GET", "POST"], PayloadRequest.list_http_verbs_by_url(url_address)
   end
 
-  def test_list_top_three_referrers_for_given_url
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://newegg.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://amazon.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://amazon.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://amazon.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://nba.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://nba.com"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), referrer: Referrer.create(address:"http://nfl.com"))
+  def test_list_http_verbs_given_specific_url
 
-    url_address = "http://turing.io"
+    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://newegg.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
+    PayloadRequest.create(referrer: Referrer.create(address:"http://amazon.com"))
 
-    assert_equal ["http://newegg.com", "http://amazon.com", "http://nba.com"], PayloadRequest.top_three_referrers_by_url(url_address)
-  end
+    url_address = "http://jumpstartlab.com"
 
-  def test_list_top_three_top_browser_and_platform_for_given_url
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Chrome", platform: "Os"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Chrome", platform: "Os"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Chrome", platform: "Windows"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Chrome", platform: "Windows"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Mozilla", platform: "Ubuntu"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Mozilla", platform: "Windows"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Mozilla", platform: "Windows"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Yoohoo", platform: "Linux"))
-    PayloadRequest.create(url: Url.create(address: "http://turing.io"), user_agent: UserAgent.create(browser:"Yoohoo", platform: "Linux"))
-
-    url_address = "http://turing.io"
-
-    assert_equal [["Windows", "Chrome"], ["Linux", "Mozilla"], ["Os", "Yoohoo"]], PayloadRequest.top_three_browsers_and_platforms_by_url(url_address)
+    assert_equal nil, PayloadRequest.top_three_referrers_by_url(url_address)
   end
 end
+
