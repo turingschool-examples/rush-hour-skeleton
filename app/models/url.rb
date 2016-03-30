@@ -25,7 +25,6 @@ class Url < ActiveRecord::Base
     find_or_initialize_by(root_url: url).payload_requests.average("response_time").to_i
   end
 
-
   def self.find_verbs_for_a_url(url)
     find_or_initialize_by(root_url: url).payload_requests.pluck
   end
