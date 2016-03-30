@@ -41,19 +41,21 @@ class UrlTest < Minitest::Test
                    response_time: 100,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     assert_equal 200, Url.max_response_time("www.jumpstartlabs.com")
   end
@@ -67,19 +69,22 @@ class UrlTest < Minitest::Test
                    response_time: 100,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     assert_equal 100, Url.min_response_time("www.jumpstartlabs.com")
   end
@@ -93,19 +98,22 @@ class UrlTest < Minitest::Test
                    response_time: 100,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     assert_equal 150, Url.average_response_time("www.jumpstartlabs.com")
   end
@@ -119,19 +127,22 @@ class UrlTest < Minitest::Test
                    response_time: 100,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
                      referral_id: 1,
                  request_type_id: 1,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     assert_equal [200, 100], Url.all_response_times("www.jumpstartlabs.com")
   end
@@ -148,19 +159,22 @@ class UrlTest < Minitest::Test
                    response_time: 100,
                      referral_id: 1,
                  request_type_id: verb1.id,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
                      referral_id: 1,
                  request_type_id: verb2.id,
-                   event_id: 1,
+                        event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     assert_equal ["GET", "POST"], Url.find_verbs_for_a_url("www.jumpstartlabs.com")
   end
@@ -186,7 +200,9 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
@@ -195,7 +211,9 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
      PayloadRequest.create(url_id: url1.id,
                      requested_at: "2013-02-16 21:38:28 -0700",
                     response_time: 200,
@@ -204,7 +222,9 @@ class UrlTest < Minitest::Test
                          event_id: 1,
                     user_agent_id: 1,
                     resolution_id: 1,
-                            ip_id: 1)
+                            ip_id: 1,
+                        client_id: 1)
+
       PayloadRequest.create(url_id: url1.id,
                       requested_at: "2013-02-16 21:38:28 -0700",
                      response_time: 200,
@@ -213,7 +233,9 @@ class UrlTest < Minitest::Test
                           event_id: 1,
                      user_agent_id: 1,
                      resolution_id: 1,
-                             ip_id: 1)
+                             ip_id: 1,
+                         client_id: 1)
+
      PayloadRequest.create(url_id: url1.id,
                      requested_at: "2013-02-16 21:38:28 -0700",
                     response_time: 200,
@@ -222,7 +244,8 @@ class UrlTest < Minitest::Test
                          event_id: 1,
                     user_agent_id: 1,
                     resolution_id: 1,
-                            ip_id: 1)
+                            ip_id: 1,
+                        client_id: 1)
 
       PayloadRequest.create(url_id: url1.id,
                       requested_at: "2013-02-16 21:38:28 -0700",
@@ -232,7 +255,9 @@ class UrlTest < Minitest::Test
                           event_id: 1,
                      user_agent_id: 1,
                      resolution_id: 1,
-                             ip_id: 1)
+                             ip_id: 1,
+                         client_id: 1)
+
 
        PayloadRequest.create(url_id: url1.id,
                        requested_at: "2013-02-16 21:38:28 -0700",
@@ -242,7 +267,8 @@ class UrlTest < Minitest::Test
                            event_id: 1,
                       user_agent_id: 1,
                       resolution_id: 1,
-                              ip_id: 1)
+                              ip_id: 1,
+                          client_id: 1)
 
    assert_equal ["www.zomble.com/today", "www.turing.io/today", "www.google.com/today"], Url.top_referrers("www.jumpstartlabs.com")
   end
@@ -269,7 +295,9 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: chrome_apple.id,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
@@ -278,16 +306,8 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: chrome_apple.id,
                    resolution_id: 1,
-                           ip_id: 1)
-    PayloadRequest.create(url_id: url1.id,
-                    requested_at: "2013-02-16 21:38:28 -0700",
-                   response_time: 200,
-                     referral_id: 1,
-                 request_type_id: 1,
-                        event_id: 1,
-                   user_agent_id: ie_apple.id,
-                   resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
@@ -297,7 +317,20 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: ie_apple.id,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: 1,
+                        event_id: 1,
+                   user_agent_id: ie_apple.id,
+                   resolution_id: 1,
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 200,
@@ -306,7 +339,8 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: firefox_apple.id,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
@@ -316,7 +350,8 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: firefox_apple.id,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
 
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
@@ -326,8 +361,9 @@ class UrlTest < Minitest::Test
                         event_id: 1,
                    user_agent_id: opera_apple.id,
                    resolution_id: 1,
-                           ip_id: 1)
-
+                           ip_id: 1,
+                       client_id: 1)
+                       
    expected = ["IE 9.0 Mac OS X 10.8.2", "Firefox 30.0.1 Mac OS X 10.8.2", "Chrome 24.0.1309 Mac OS X 10.8.2"]
 
    assert_equal expected, Url.top_user_agents("www.jumpstartlabs.com")

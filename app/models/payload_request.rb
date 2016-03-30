@@ -3,6 +3,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :request_type
   belongs_to :referral
   belongs_to :user_agent
+  belongs_to :client
 
   validates :url_id,           presence: true
   validates :requested_at,     presence: true
@@ -13,7 +14,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_id,    presence: true
   validates :resolution_id,    presence: true
   validates :ip_id,            presence: true
-
+  validates :client_id,        presence: true
+  
   # def self.url_with_max_response_time
   #   # all.sort_by  { |payload| payload.response_time }.last.url.full_path
   #   order(response_time: :desc).first.url.full_path

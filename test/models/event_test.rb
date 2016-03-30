@@ -29,7 +29,9 @@ class EventTest < Minitest::Test
                    event_id: event1.id,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: 2,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 1,
@@ -38,7 +40,9 @@ class EventTest < Minitest::Test
                    event_id: event2.id,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
+                           ip_id: 1,
+                       client_id: 1)
+
     PayloadRequest.create(url_id: 1,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 1,
@@ -47,8 +51,9 @@ class EventTest < Minitest::Test
                    event_id: event1.id,
                    user_agent_id: 1,
                    resolution_id: 1,
-                           ip_id: 1)
-
+                           ip_id: 1,
+                       client_id: 1)
+               
     assert_equal ["socialLogin", "NOTsocialLogin"], Event.most_to_least_requested
   end
 

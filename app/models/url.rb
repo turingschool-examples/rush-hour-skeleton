@@ -1,5 +1,5 @@
 class Url < ActiveRecord::Base
-  has_many(:payload_requests)
+  has_many :payload_requests
   has_many :referrals, through: :payload_requests
 
   validates :root_url, presence: true
