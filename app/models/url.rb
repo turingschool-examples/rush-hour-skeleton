@@ -12,4 +12,16 @@ class Url < ActiveRecord::Base
   def full_path
     [self.root_url, self.path].join('')
   end
+
+  def self.max_response_time(url)
+    find_or_initialize_by(root_url: url).payload_requests.maximum("response_time")
+  end
+
+  def self.min_response_time(url)
+    find_or_initialize_by(root_url: url).payload_requests.minimum("response_time")
+  end
+
+  def self.find_verbs_for_a_url(url)
+    find_or_initialize_by(root_url: url).payload_requests.pluck
+  end
 end

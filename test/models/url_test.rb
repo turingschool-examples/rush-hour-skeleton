@@ -32,24 +32,13 @@ class UrlTest < Minitest::Test
     assert_equal "www.jumpstartlabs.com/example", url.full_path
   end
 
-  def test_it_returns_most_to_least_requested_urls
+  def test_it_returns_the_maximum_response_time_for_a_specific_url
     url1 = Url.create(root_url: "www.jumpstartlabs.com",
                           path: "/blog")
-    url2 = Url.create(root_url: "www.jumpstartlabs.com",
-                          path: "/example")
 
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
-                response_time_id: 1,
-                     referral_id: 1,
-                 request_type_id: 1,
-                   event_id: 1,
-                   user_agent_id: 1,
-                   resolution_id: 1,
-                           ip_id: 1)
-    PayloadRequest.create(url_id: url2.id,
-                    requested_at: "2013-02-16 21:38:28 -0700",
-                response_time_id: 1,
+                   response_time: 100,
                      referral_id: 1,
                  request_type_id: 1,
                    event_id: 1,
@@ -58,7 +47,7 @@ class UrlTest < Minitest::Test
                            ip_id: 1)
     PayloadRequest.create(url_id: url1.id,
                     requested_at: "2013-02-16 21:38:28 -0700",
-                response_time_id: 1,
+                   response_time: 200,
                      referral_id: 1,
                  request_type_id: 1,
                    event_id: 1,
@@ -66,7 +55,63 @@ class UrlTest < Minitest::Test
                    resolution_id: 1,
                            ip_id: 1)
 
-    assert_equal ["www.jumpstartlabs.com/blog", "www.jumpstartlabs.com/example"], Url.most_to_least_requested
+    assert_equal 200, Url.max_response_time("www.jumpstartlabs.com")
   end
+
+  def test_it_returns_the_minimum_response_time_for_a_specific_url
+    url1 = Url.create(root_url: "www.jumpstartlabs.com",
+                          path: "/blog")
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 100,
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: 1,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+    assert_equal 100, Url.min_response_time("www.jumpstartlabs.com")
+  end
+
+  def test_it_returns_the_minimum_response_time_for_a_specific_url
+    verb1 = RequestType.create(verb: "GET")
+    verb2 = RequestType.create(verb: "POST")
+
+    url1 = Url.create(root_url: "www.jumpstartlabs.com",
+                          path: "/blog")
+
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 100,
+                     referral_id: 1,
+                 request_type_id: verb1.id,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+    PayloadRequest.create(url_id: url1.id,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: verb2.id,
+                   event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1)
+
+    assert_equal 100, Url.find_verbs_for_a_url("www.jumpstartlabs.com")
+  end
+
 
 end

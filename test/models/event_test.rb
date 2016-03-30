@@ -23,7 +23,7 @@ class EventTest < Minitest::Test
 
     PayloadRequest.create(url_id: 1,
                     requested_at: "2013-02-16 21:38:28 -0700",
-                response_time_id: 1,
+                   response_time: 1,
                      referral_id: 1,
                  request_type_id: 1,
                    event_id: event1.id,
@@ -32,7 +32,7 @@ class EventTest < Minitest::Test
                            ip_id: 1)
     PayloadRequest.create(url_id: 2,
                     requested_at: "2013-02-16 21:38:28 -0700",
-                response_time_id: 1,
+                   response_time: 1,
                      referral_id: 1,
                  request_type_id: 1,
                    event_id: event2.id,
@@ -41,7 +41,7 @@ class EventTest < Minitest::Test
                            ip_id: 1)
     PayloadRequest.create(url_id: 1,
                     requested_at: "2013-02-16 21:38:28 -0700",
-                response_time_id: 1,
+                   response_time: 1,
                      referral_id: 1,
                  request_type_id: 1,
                    event_id: event1.id,
