@@ -56,7 +56,6 @@ class EventTest < Minitest::Test
 
     assert Event.most_to_least_requested.include?("socialLogin")
     assert Event.most_to_least_requested.include?("NOTsocialLogin")
-
   end
 
 end
