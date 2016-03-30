@@ -37,7 +37,6 @@ class Url < ActiveRecord::Base
   end
 
   def self.top_referrers(url)
-    require "pry"; binding.pry
     find_or_initialize_by(root_url: url).payload_requests
   end
 end
