@@ -37,8 +37,7 @@ class Url < ActiveRecord::Base
   end
 
   def self.top_referrers(url)
-    require "pry"
-    binding.pry
-    find_or_initialize_by(root_url: url).payload_requests.group(:referral).count #.sort_by { |key, value| value }.reverse
+    referrer_and_count = find_or_initialize_by(root_url: url).payload_requests.group(:referral).count
+    referrer_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| key.full_path}
   end
 end

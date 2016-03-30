@@ -174,7 +174,7 @@ class UrlTest < Minitest::Test
                                  path: "/today")
     google = Referral.create(root_url: "www.google.com",
                                  path: "/today")
-    zomble = Referral.create(root_url: "www.zombo.com",
+    zomble = Referral.create(root_url: "www.zomble.com",
                                  path: "/today")
     poop   = Referral.create(root_url: "www.poop.org",
                                  path: "/today")
@@ -245,7 +245,7 @@ class UrlTest < Minitest::Test
                       resolution_id: 1,
                               ip_id: 1)
 
-   assert_equal ["www.turing.io", "wwww.google.com", "wwww.zomble.com"], Url.top_referrers("www.jumpstartlabs.com")
+   assert_equal ["www.zomble.com/today", "www.turing.io/today", "www.google.com/today"], Url.top_referrers("www.jumpstartlabs.com")
   end
 
 
