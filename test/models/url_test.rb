@@ -72,10 +72,9 @@ class UrlTest < Minitest::Test
   end
 
  def test_it_lists_top_three_referrers_given_url #TODO FINISH THIS!!!! GOTO SLEEP
-   skip
    referrer_data
    url = Url.find(1)
-   assert_equal ["http://newegg.com"], url.list_top_three_referrers_given_url
+   assert_equal ["http://jumpstartlab.com", "http://amazon.com", "http://newegg.com"], url.list_top_three_referrers_given_url
  end
 
 end

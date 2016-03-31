@@ -7,11 +7,11 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
 
   def max_response_time_given_url
-    payload_requests.maximum(:responded_in).to_f
+    payload_requests.maximum(:responded_in)
   end
 
   def min_response_time_given_url
-    payload_requests.minimum(:responded_in).to_f
+    payload_requests.minimum(:responded_in)
   end
 
   def all_response_time_from_most_to_least_given_url
@@ -27,6 +27,6 @@ class Url < ActiveRecord::Base
   end
 
   def list_top_three_referrers_given_url
-    referrers.group(:address).order(count: :desc).limit(3)
+    referrers.group(:address).count.keys.reverse.take(3)
   end
 end

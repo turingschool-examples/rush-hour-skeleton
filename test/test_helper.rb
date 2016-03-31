@@ -72,7 +72,7 @@ module TestHelpers
   end
 
   def referrer_data #REDO
-    [PayloadRequest.create(url: Url.find_or_create_by(address: "http://jumpstartlab.com"),
+    [PayloadRequest.create(url: Url.find_or_create_by(address: "http://turing.io"),
                                referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.find_or_create_by(name: "facebook"),
@@ -92,7 +92,7 @@ module TestHelpers
                                requested_at: "2013-02-16 21:37:00 -0700",
                                responded_in: 30
                               ),
-    PayloadRequest.create(url: Url.find_or_create_by(address: "http://jumpstartlab.com"),
+    PayloadRequest.create(url: Url.find_or_create_by(address:  "http://turing.io"),
                                referrer: Referrer.find_or_create_by(address: "http://newegg.com"),
                                request_type: RequestType.find_or_create_by(verb: "POST"),
                                event: Event.find_or_create_by(name: "twitter"),
