@@ -9,17 +9,15 @@ class PayloadParser
 
   def parse(params)
     identifier = params["id"]
-    if validate_params(params, identifier)
-    # if valid_params?(params, identifier)
-      raw_payload = payload_to_hash(params)
-      # raw_payload = parse_json(params)
+    if valid_params?(params, identifier)
+      raw_payload = parse_json(params)
       create_status_and_body(raw_payload, identifier)
     end
     rescue
       return attributes_missing
   end
 
-  def validate_params(params, identifier)
+  def valid_params?(params, identifier)
     if params["payload"].nil?
       missing_payload
       false
@@ -32,7 +30,7 @@ class PayloadParser
   end
 
 
-  def payload_to_hash(params)
+  def parse_json(params)
     JSON.parse(params["payload"])
   end
 
@@ -55,6 +53,8 @@ class PayloadParser
         attributes_missing
       end
     end
+
+    # Try hash refactoring
 
   def attributes_missing
     @status = 400

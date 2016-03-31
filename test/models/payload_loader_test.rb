@@ -23,77 +23,77 @@ class PayloadLoaderTest < Minitest::Test
     fake_client = Client.create(identifier: "fake_client",
                                 rootUrl:    "www.fake_client.com")
 
-    id = payload_loader.get_client_id("fake_client")
+    id = payload_loader.get_client_id("fake_client").id
 
     assert_equal fake_client.id, id
   end
 
-  def test_it_can_load_ip_and_return_ip_id
+  def test_it_can_load_ip
     payload_loader = PayloadLoader.new
 
-    expected_id = payload_loader.load_ip("1.111.1.1")
+    expected_id = payload_loader.load_ip("1.111.1.1").id
 
     actual_id = Ip.all.first.id
 
     assert_equal actual_id, expected_id
   end
 
-  def test_it_can_load_resolution_and_return_resolution_id
+  def test_it_can_load_resolution
     payload_loader = PayloadLoader.new
 
-    expected_id = payload_loader.load_resolution("fake width", "fake height")
+    expected_id = payload_loader.load_resolution("fake width", "fake height").id
 
     actual_id = Resolution.all.first.id
 
     assert_equal actual_id, expected_id
   end
 
-  def test_it_can_load_user_agent_and_return_user_agent_id
+  def test_it_can_load_user_agent
     payload_loader = PayloadLoader.new
 
     user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"
 
-    expected_id = payload_loader.load_user_agent(user_agent)
+    expected_id = payload_loader.load_user_agent(user_agent).id
 
     actual_id = UserAgent.all.first.id
 
     assert_equal actual_id, expected_id
   end
 
-  def test_it_can_load_user_event_name_and_return_event_id
+  def test_it_can_load_user_event_name
     payload_loader = PayloadLoader.new
 
-    expected_id = payload_loader.load_event_name("fake event")
+    expected_id = payload_loader.load_event_name("fake event").id
 
     actual_id = Event.all.first.id
 
     assert_equal actual_id, expected_id
   end
 
-  def test_it_can_load_request_type_and_return_request_id
+  def test_it_can_load_request_type
     payload_loader = PayloadLoader.new
 
-    expected_id = payload_loader.load_request_type("fake request type")
+    expected_id = payload_loader.load_request_type("fake request type").id
 
     actual_id = RequestType.all.first.id
 
     assert_equal actual_id, expected_id
   end
 
-  def test_it_can_load_referral_and_return_referral_id
+  def test_it_can_load_referral
     payload_loader = PayloadLoader.new
 
-    expected_id = payload_loader.load_referral("http://www.fake.com/fake")
+    expected_id = payload_loader.load_referral("http://www.fake.com/fake").id
 
     actual_id = Referral.all.first.id
 
     assert_equal actual_id, expected_id
   end
 
-  def test_it_can_load_url_and_return_url_id
+  def test_it_can_load_url
     payload_loader = PayloadLoader.new
 
-    expected_id = payload_loader.load_url("http://wwww.fake.com/notfake")
+    expected_id = payload_loader.load_url("http://wwww.fake.com/notfake").id
 
     actual_id = Url.all.first.id
 

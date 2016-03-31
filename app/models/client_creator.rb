@@ -25,6 +25,8 @@ class ClientCreator
     end
   end
 
+  # try hash refactoring
+
   def client_already_exists(client)
     @status = 403
     @body   = "Client with identifier: \"#{client.identifier}\" already exists!\n"
