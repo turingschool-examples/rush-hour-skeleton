@@ -4,7 +4,8 @@ class PayloadParser
   attr_reader :status, :body
 
   def initialize(params)
-    create_payload_request(params)
+    create_status_and_body(params)
+    # create_payload_request(params)
   end
 
   def payload_to_hash(params)
@@ -14,8 +15,7 @@ class PayloadParser
   def create_payload_request(params)
     elements = payload_to_hash(params)
 
-
-    PayloadRequest.create({
+    PayloadRequest.new({
       url_id:          load_url(elements["url"]),
       requested_at:    elements["requestedAt"],
       response_time:   elements["respondedIn"],
@@ -31,8 +31,7 @@ class PayloadParser
 
   end
 
-  def load_url(raw_url)
-
+  def url_parser(raw_url)
     if raw_url[-1] == '/'
       path = '/'
       root_url = raw_url.chop
@@ -41,25 +40,19 @@ class PayloadParser
       path     = "/#{raw_url.pop}"
       root_url = raw_url.join('/')
     end
+    [path, root_url]
+  end
 
+  def load_url(raw_url)
+    path, root_url = url_parser(raw_url)
     url = Url.find_or_create_by(path: path, root_url: root_url)
     url.id
   end
 
   def load_referral(raw_referral)
-
-    if raw_referral[-1] == '/'
-      path = '/'
-      root_url = raw_referral.chop
-    else
-      raw_referral  = raw_referral.split('/')
-      path     = "/#{raw_referral.pop}"
-      root_url = raw_referral.join('/')
-    end
-
+    path, root_url = url_parser(raw_referral)
     ref = Referral.find_or_create_by(path: path, root_url: root_url)
     ref.id
-
   end
 
   def load_request_type(verb)
@@ -91,10 +84,43 @@ class PayloadParser
   end
 
   def get_client_id(id)
-    # if find doesnt find id need to return error that user unregistered
     client =  Client.find_by(identifier: id)
     return nil if client.nil?
     client.id
   end
+
+  def create_status_and_body(params)
+    payload_request = create_payload_request(params)
+    if PayloadRequest.exists?(ip: payload_request.ip)
+      already_received_request(payload_request)
+    elsif payload_request.save
+      payload_successful(payload_request)
+    elsif !payload_request.save
+      missing_payload(payload_request)
+    elsif Client.exists?(identifier: params["id"])
+      application_not_registered(payload_request)
+    end
+  end
+
+  def already_received_request(payload_request)
+    @status = 403
+    @body = "Payload has already been received."
+  end
+
+  def payload_successful(payload_request)
+    @status = 200
+    @body = "Payload successfully created."
+  end
+
+  def missing_payload
+    @status = 400
+    @body = "#{payload_request.errors.full_messages.join(", ")}\n"
+  end
+
+  def application_not_registered(payload_request)
+    @status = 403
+    @body = ""
+  end
+
 
 end
