@@ -11,7 +11,9 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-
+      result = validate_request(identifier, params)
+    	status result[0]
+    	body result[1]
     end
 
     not_found do
