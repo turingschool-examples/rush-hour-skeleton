@@ -1,8 +1,11 @@
 class ClientCreator
   attr_reader :status, :body
+  # attr_reader :client
 
   def initialize(params)
     create_status_and_body(params)
+    # @client = Client.new(identifier: params[:identifier],
+                  # rootUrl: params[:rootUrl])
   end
 
   def create_client(params)

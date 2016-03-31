@@ -15,7 +15,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :resolution_id,    presence: true
   validates :ip_id,            presence: true
   validates :client_id,        presence: true
-  
+
   # def self.url_with_max_response_time
   #   # all.sort_by  { |payload| payload.response_time }.last.url.full_path
   #   order(response_time: :desc).first.url.full_path
@@ -28,6 +28,7 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.average_response_time
     average("response_time")
+    # average(:response_time)
   end
 
   def self.max_response_time

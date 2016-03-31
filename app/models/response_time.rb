@@ -4,6 +4,7 @@ class ResponseTime < ActiveRecord::Base
   validates :time, presence: true
 
   def self.avg
+    # join payloads?
     self.average("time")
   end
 

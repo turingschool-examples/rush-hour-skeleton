@@ -6,7 +6,7 @@ class Url < ActiveRecord::Base
   validates :path,     presence: true
 
   def self.most_to_least_requested
-    # look for alternative?
+    # look for alternative? take a look at how we solved events?
     self.all.sort_by { |url| url.payload_requests.count}.reverse.map {|url| url.full_path }
   end
 
@@ -17,6 +17,11 @@ class Url < ActiveRecord::Base
   def self.max_response_time(url)
     find_by(root_url: url).payload_requests.maximum("response_time")
   end
+
+  # look at any method where you're passing in a url and change to instance method, like so:
+  # def max_response_time
+  #   payload_requests.maximum("response_time")
+  # end
 
   def self.min_response_time(url)
     find_by(root_url: url).payload_requests.minimum("response_time")
@@ -37,12 +42,12 @@ class Url < ActiveRecord::Base
   end
 
   def self.top_referrers(url)
-    referrer_and_count = find_by(root_url: url).payload_requests.group(:referral).count
+    referrer_and_count = find_by(root_url: url).payload_requests.group(:referral).count # check out order like we did in Event
     referrer_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| key.full_path}
   end
 
   def self.top_user_agents(url)
-    usr_agent_and_count = find_by(root_url: url).payload_requests.group(:user_agent).count
+    usr_agent_and_count = find_by(root_url: url).payload_requests.group(:user_agent).count #same
     usr_agent_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| "#{key.browser} #{key.os}"}
   end
 end

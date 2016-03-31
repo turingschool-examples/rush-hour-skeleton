@@ -18,6 +18,7 @@ class RequestTypeTest < Minitest::Test
   end
 
   def test_it_returns_the_most_frequent_request_type
+    # create two payloads with GET and one with POST
     RequestType.create(verb: "GET")
     RequestType.create(verb: "POST")
     RequestType.create(verb: "GET")

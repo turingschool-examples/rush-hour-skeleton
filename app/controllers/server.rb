@@ -11,7 +11,8 @@ module RushHour
     end
 
     post '/sources/:id/data' do |id|
-      parser = PayloadParser.new(params)
+      parser = PayloadParser.new
+      parser.parse(params)
       status parser.status
       body parser.body
     end
