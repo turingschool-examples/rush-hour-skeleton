@@ -3,7 +3,9 @@ class Event < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def self.most_received_to_least
-    group(:name).count.keys.reverse
-  end
+#  def self.most_received_to_least
+#    group(:name).count.keys.reverse
+#  end
+
 end
+

@@ -153,4 +153,24 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "http://jumpstartlab.com", pr.client.root_url
 
   end
+
+  def test_most_frequent_request_type
+    setup_data
+
+    assert_equal "GET", PayloadRequest.most_frequent_request_type
+  end
+
+  def test_event_list_from_most_to_least
+    setup_data
+    expected = {"facebook"=>2, "twitter"=>1} #keep this as a hash with frequency?
+
+    assert_equal expected, PayloadRequest.event_list_from_most_to_least
+  end
+
+  def test_urls_list_from_most_to_least_requested
+    setup_data
+    expected =  {"http://jumpstartlab.com"=>2, "http://turing.io"=>1}
+
+    assert_equal expected, PayloadRequest.urls_list_from_most_to_least_requested
+  end
 end

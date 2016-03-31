@@ -5,10 +5,10 @@ class UserAgent < ActiveRecord::Base
   validates :platform, presence: true
 
   def self.browser_breakdown_across_all_requests
-    pluck(:browser).uniq
+    pluck(:browser)
   end
 
   def self.platform_breakdown_across_all_requests
-    pluck(:platform).uniq
+    pluck(:platform)
   end
 end

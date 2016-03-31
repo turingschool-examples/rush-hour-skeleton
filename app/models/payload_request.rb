@@ -25,6 +25,18 @@ class PayloadRequest < ActiveRecord::Base
     minimum(:responded_in)
   end
 
+  def self.most_frequent_request_type
+    joins(:request_type).group(:verb).order(count: :desc).count.first.first
+  end
+
+  def self.event_list_from_most_to_least
+    joins(:event).group(:name).order(count: :desc).count
+  end
+
+  def self.urls_list_from_most_to_least_requested
+    joins(:url).group(:address).order(count: :desc).count
+  end
+
   def self.max_response_time_by_url(url_address)
     ids = Url.where(address: url_address).pluck(:id)
     times = ids.map {|id| where(id: id).pluck(:responded_in)}

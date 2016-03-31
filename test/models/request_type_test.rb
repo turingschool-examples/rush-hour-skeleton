@@ -24,15 +24,9 @@ class RequestTypeTest < Minitest::Test
     assert_equal "can't be blank", request_type.errors.messages[:verb][0]
   end
 
-  def test_it_returns_most_frequest_request_type
-    setup_data
-
-    assert_equal "GET", RequestType.most_frequest_request_type
-  end
-
   def test_get_all_http_verbs
     setup_data
 
-    assert_equal ["POST", "GET"], RequestType.all_verbs
+    assert_equal ["GET", "POST"], RequestType.all_verbs
   end
 end
