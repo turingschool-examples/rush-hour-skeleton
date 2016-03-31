@@ -10,7 +10,8 @@ class Url < ActiveRecord::Base
     group(:address).count.keys.reverse
   end
 
-  def list_all_verbs_given_url
+  def self.list_all_verbs_given_url
+    # joins{request_types: :user_agents}.where(request_types.user_agents: {id: 1})
     # request_types.pluck(:verb)
     RequestType.where(id: PayloadRequest.where(url_id: Url.where(address: "http://jumpstartlab.com").pluck(:id)).pluck(:request_type_id)).pluck(:verb).uniq
   end

@@ -26,8 +26,18 @@ module CheckClientParams
   ## it's good
   # check if it's taken
 
+  def change_case(params)
+    # take the keys and values out of the hash
+    # put into new hash with corrected keys
+    new_hash = {}
+    new_hash[:identifier] = params['identifier']
+    new_hash[:root_url] = params['rootUrl']
+    new_hash
+  end
+
 
   def check(params)
+    # binding.pry
     if params == nil
       status 401
       body "invalid params"
@@ -40,9 +50,11 @@ module CheckClientParams
       status 401
       body "invalid root_url"
       false
-
+    elsif Client.exists?(identifier: params[:identifier])
+      status 403
+      body "this identifier already exists"
+      false
     else
-      # Client.create(params)
       status 200
       body "good request"
       true
