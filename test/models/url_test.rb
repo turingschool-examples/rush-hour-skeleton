@@ -2,10 +2,6 @@ require_relative '../test_helper'
 
 class UrlTest < Minitest::Test
   include TestHelpers
-  def setup_url
-    url = Url.create(address: "http://jumpstartlab.com")
-    Url.where(id: url.id)
-  end
 
   def test_it_can_accept_url
     url = Url.create(address: "www.turing.io")
@@ -26,27 +22,24 @@ class UrlTest < Minitest::Test
   end
 
   def test_max_response_time_given_url
-    setup_url
     setup_data
+    url = Url.find(1)
 
-    assert_equal 40, Url.max_response_time_given_url
+    assert_equal 40, Url.find(1).max_response_time_given_url
   end
 
   def test_max_response_time_given_a_different_url
-    url = Url.create(address: "http://turing.io")
-    Url.where(address: url.address)
-
     setup_data
-    require "pry"; binding.pry
+    url = Url.find_by(address: "http://turing.io")
 
-    assert_equal 30, Url.max_response_time_given_url
+    assert_equal 30, url.max_response_time_given_url
   end
 
   def test_min_response_time_given_url
-    setup_url
     setup_data
+    url = Url.find(1)
 
-    assert_equal 20, Url.min_response_time_given_url
+    assert_equal 20, Url.find(1).min_response_time_given_url
   end
 
   def test_it_lists_all_verbs_given_url
