@@ -137,9 +137,10 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_references_a_client
-    pr = PayloadRequest.create(url: Url.create(address: "http://jonliss.com"),
+    binding.pry
+    pr = PayloadRequest.create(url: Url.find_or_create_by(address: "http://jonliss.com"),
                                referrer: Referrer.create(address: "http://amazon.com"),
-                               request_type: RequestType.create(verb: "GET"),
+                               request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.create(name: "socialLogin"),
                                user_agent: UserAgent.create(browser: "Chrome", platform: "Macintosh"),
                                resolution: Resolution.create(width: "1920", height: "1280"),
