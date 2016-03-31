@@ -66,9 +66,9 @@ module TestHelpers
   end
 
   def register_client
-    post '/sources', {client: {identifier: "jumpstartlab",
-                                root_url: "http://jumpstartlab.com"
-                   }}
+    post '/sources', {identifier: "jumpstartlab",
+                                rootUrl: "http://jumpstartlab.com"
+                   }
   end
 
   def referrer_data #REDO
@@ -121,7 +121,6 @@ module TestHelpers
                                ip: Ip.find_or_create_by(address: "63.29.38.224"), requested_at: "2013-02-15 21:38:28 -0700",
                                responded_in: 10
                               )]
-
   end
 end
 

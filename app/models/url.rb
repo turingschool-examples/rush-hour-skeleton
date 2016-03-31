@@ -29,4 +29,6 @@ class Url < ActiveRecord::Base
   def list_top_three_referrers_given_url
     referrers.group(:address).count.keys.reverse.take(3)
   end
+
+  #def jon's homework goes here - last iter 2 question. 
 end

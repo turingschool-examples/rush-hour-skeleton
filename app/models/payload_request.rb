@@ -35,5 +35,5 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.urls_list_from_most_to_least_requested
     joins(:url).group(:address).order(count: :desc).count
- end
+  end
 end
