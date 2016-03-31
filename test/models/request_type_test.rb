@@ -30,6 +30,7 @@ class RequestTypeTest < Minitest::Test
     RequestType.create(verb: "POST")
     RequestType.create(verb: "GET")
 
-    assert_equal ["POST", "GET"], RequestType.all_verbs_used
+    assert RequestType.all_verbs_used.include?("POST")
+    assert RequestType.all_verbs_used.include?("GET")
   end
 end
