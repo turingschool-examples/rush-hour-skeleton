@@ -137,7 +137,6 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_references_a_client
-    binding.pry
     pr = PayloadRequest.create(url: Url.find_or_create_by(address: "http://jonliss.com"),
                                referrer: Referrer.create(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
