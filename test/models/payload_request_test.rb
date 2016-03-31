@@ -73,20 +73,6 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 20, PayloadRequest.min_response_time
   end
 
-  def test_it_returns_max_response_time_given_specific_url
-    setup_data
-    url_address = "http://jumpstartlab.com"
-
-    assert_equal 40, PayloadRequest.max_response_time_by_url(url_address)
-  end
-
-  def test_it_returns_min_response_time_given_specific_url
-    setup_data
-    url_address = "http://jumpstartlab.com"
-
-    assert_equal 20, PayloadRequest.min_response_time_by_url(url_address)
-  end
-
   def test_list_response_time_given_specific_url_from_longest
     setup_data
     url_address = "http://jumpstartlab.com"

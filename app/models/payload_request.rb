@@ -37,17 +37,7 @@ class PayloadRequest < ActiveRecord::Base
     joins(:url).group(:address).order(count: :desc).count
   end
 
-  def self.max_response_time_by_url(url_address)
-    ids = Url.where(address: url_address).pluck(:id)
-    times = ids.map {|id| where(id: id).pluck(:responded_in)}
-    times.flatten.max
-  end
 
-  def self.min_response_time_by_url(url_address)
-    ids = Url.where(address: url_address).pluck(:id)
-    times = ids.map {|id| where(id: id).pluck(:responded_in)}
-    times.flatten.min
-  end
 
   def self.all_response_time_by_url(url_address)
     ids = Url.where(address: url_address).pluck(:id)

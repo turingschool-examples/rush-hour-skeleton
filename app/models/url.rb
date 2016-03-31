@@ -6,8 +6,12 @@ class Url < ActiveRecord::Base
 
   validates :address, presence: true
 
-  def self.most_to_least_requested
-    group(:address).count.keys.reverse
+  def self.max_response_time_given_url
+    joins(:payload_requests).maximum(:responded_in)
+  end
+
+  def self.min_response_time_given_url
+    joins(:payload_requests).minimum(:responded_in)
   end
 
   def list_all_verbs_given_url

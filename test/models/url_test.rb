@@ -2,6 +2,10 @@ require_relative '../test_helper'
 
 class UrlTest < Minitest::Test
   include TestHelpers
+  def setup_url
+    url = Url.create(address: "http://jumpstartlab.com")
+    Url.where(id: url.id)
+  end
 
   def test_it_can_accept_url
     url = Url.create(address: "www.turing.io")
@@ -21,17 +25,34 @@ class UrlTest < Minitest::Test
     assert_equal "can't be blank", url.errors.messages[:address][0]
   end
 
-  def test_it_returns_from_most_to_least_requested_urls
+  def test_max_response_time_given_url
+    setup_url
     setup_data
 
-    assert_equal ["http://jumpstartlab.com", "http://turing.io"], Url.most_to_least_requested
+    assert_equal 40, Url.max_response_time_given_url
+  end
+
+  def test_max_response_time_given_a_different_url
+    url = Url.create(address: "http://turing.io")
+    Url.where(address: url.address)
+
+    setup_data
+    require "pry"; binding.pry
+
+    assert_equal 30, Url.max_response_time_given_url
+  end
+
+  def test_min_response_time_given_url
+    setup_url
+    setup_data
+
+    assert_equal 20, Url.min_response_time_given_url
   end
 
   def test_it_lists_all_verbs_given_url
     url= Url.create(address: "http://jumpstartlab.com")
-    #
+
     setup_data
-    # binding.pry
     assert_equal ["GET", "POST"], Url.where(id: url.id).map(&:list_all_verbs_given_url).flatten
     # assert_equal ["GET"], Url.where(address: "http://jumpstartlab.com").list_all_verbs_given_url
   end
