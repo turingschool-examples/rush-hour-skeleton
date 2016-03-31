@@ -1,4 +1,4 @@
-class UserAgent < ActiveRecord::Base
+class UAgent < ActiveRecord::Base
   has_many :payload_requests
 
   validates :browser, presence: true

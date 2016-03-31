@@ -33,7 +33,7 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.find_or_create_by(name: "facebook"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Mozilla", platform: "Windows"),
+                               u_agent: UAgent.find_or_create_by(browser: "Mozilla", platform: "Windows"),
                                resolution: Resolution.find_or_create_by(width: "2560", height: "1440"),
                                ip: Ip.find_or_create_by(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:40:00 -0700",
@@ -43,7 +43,7 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.find_or_create_by(name: "facebook"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Chrome", platform: "Webkit"),
+                               u_agent: UAgent.find_or_create_by(browser: "Chrome", platform: "Webkit"),
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:37:00 -0700",
@@ -53,7 +53,7 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://newegg.com"),
                                request_type: RequestType.find_or_create_by(verb: "POST"),
                                event: Event.find_or_create_by(name: "twitter"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Safari", platform: "Macintosh"),
+                               u_agent: UAgent.find_or_create_by(browser: "Safari", platform: "Macintosh"),
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.first_or_create(address: "63.29.38.200"),
                                requested_at: "2013-16 21:38:00 -0700",
@@ -76,7 +76,7 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.find_or_create_by(name: "facebook"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Mozilla", platform: "Windows"),
+                               u_agent: UAgent.find_or_create_by(browser: "Mozilla", platform: "Windows"),
                                resolution: Resolution.find_or_create_by(width: "2560", height: "1440"),
                                ip: Ip.find_or_create_by(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:40:00 -0700",
@@ -86,7 +86,7 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.find_or_create_by(name: "facebook"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Chrome", platform: "Webkit"),
+                               u_agent: UAgent.find_or_create_by(browser: "Chrome", platform: "Webkit"),
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:37:00 -0700",
@@ -96,7 +96,7 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://newegg.com"),
                                request_type: RequestType.find_or_create_by(verb: "POST"),
                                event: Event.find_or_create_by(name: "twitter"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Safari", platform: "Macintosh"),
+                               u_agent: UAgent.find_or_create_by(browser: "Safari", platform: "Macintosh"),
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.200"),
                                requested_at: "2013-02-16 21:38:00 -0700",
@@ -106,7 +106,7 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://jumpstartlab.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.find_or_create_by(name: "socialLogin"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Chrome", platform: "Macintosh"),
+                               u_agent: UAgent.find_or_create_by(browser: "Chrome", platform: "Macintosh"),
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.224"),
                                requested_at: "2013-02-15 21:38:28 -0700",
@@ -116,11 +116,27 @@ module TestHelpers
                                referrer: Referrer.find_or_create_by(address: "http://jumpstartlab.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.find_or_create_by(name: "socialLogin"),
-                               user_agent: UserAgent.find_or_create_by(browser: "Chrome", platform: "Macintosh"),
+                               u_agent: UAgent.find_or_create_by(browser: "Chrome", platform: "Macintosh"),
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.224"), requested_at: "2013-02-15 21:38:28 -0700",
                                responded_in: 10
                               )]
+  end
+
+  def get_params
+    params = {
+							"url" => "http://jumpstartlab.com/blog",
+							"requested_at" => "2013-02-16 21:38:28 -0700",
+							"responded_in" => 37,
+							"referrer" => "http://jumpstartlab.com",
+							"request_type" => "GET",
+							"parameters" => [],
+							"event" => "socialLogin",
+							"u_agent" => "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+							"resolution_width" => "1920",
+							"resolution_height" => "1280",
+							"ip" => "63.29.38.211"
+						}
   end
 end
 

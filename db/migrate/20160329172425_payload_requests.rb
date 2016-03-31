@@ -5,7 +5,7 @@ class PayloadRequests < ActiveRecord::Migration
       t.belongs_to :referrer, index: true
       t.belongs_to :request_type, index: true
       t.belongs_to :event, index: true
-      t.belongs_to :user_agent, index: true
+      t.belongs_to :u_agent, index: true
       t.belongs_to :resolution, index: true
       t.belongs_to :ip, index: true
       t.string     :requested_at
