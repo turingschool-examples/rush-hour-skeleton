@@ -7,7 +7,7 @@ class ClientCreatorTest < Minitest::Test
     params = {identifier: "jumpstartlab",
                  rootUrl: "www.jumpstartlabs.com"}
 
-    client = ClientCreator.new(params).create_client(params)
+    client = ClientCreator.new(params).client
 
     assert_kind_of Client, client
     assert_equal "jumpstartlab", client.identifier
@@ -17,7 +17,7 @@ class ClientCreatorTest < Minitest::Test
   def test_it_wont_create_client_with_invalid_rootUrl
     params = {identifier: "jumpstartlab"}
 
-    client = ClientCreator.new(params).create_client(params)
+    client = ClientCreator.new(params).client
 
     refute client.save
   end
@@ -25,7 +25,7 @@ class ClientCreatorTest < Minitest::Test
   def test_it_wont_create_client_with_invalid_identifier
     params = {rootUrl: "www.jumpstartlabs.com"}
 
-    client = ClientCreator.new(params).create_client(params)
+    client = ClientCreator.new(params).client
 
     refute client.save
   end
