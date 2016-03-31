@@ -25,22 +25,7 @@ class ClientTest < Minitest::Test
     assert_equal 1, Client.all.count
   end
 
-  # def test_it_checks_for_empty_address
-  #   url = Client.create(address: nil)
-  #
-  #   assert_nil url.address
-  # end
-  #
-  # def test_it_responds_with_an_error_message
-  #   url = Client.create(address: nil)
-  #
-  #   assert_equal "can't be blank", url.errors.messages[:address][0]
-  # end
-  #
-  # def test_it_returns_from_most_to_least_requested_urls
-  #   setup_data
-  #
-  #   assert_equal ["http://jumpstartlab.com", "http://turing.io"], Client.most_to_least_requested
-  # end
-
+  def test_identifier_already_exists_in_clients_table
+    
+  end
 end

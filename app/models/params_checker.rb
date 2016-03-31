@@ -1,4 +1,8 @@
 module ParamsChecker
+  def change_case(params)
+    {:identifier => params['identifier'], :root_url => params['rootUrl']}
+  end
+
   def check(params)
     if params == nil
       status 401
@@ -12,7 +16,9 @@ module ParamsChecker
       status 401
       body "invalid root_url"
       false
-
+    elsif Client.exists?(identifier: params[:identifier])
+      status 403
+      body "identifier already registered"
     else
       status 200
       body "good request"

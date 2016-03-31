@@ -1,16 +1,17 @@
-require_relative '../models/check_client_params'
-require 'pry'
+require_relative '../models/params_checker'
 
 module RushHour
   class Server < Sinatra::Base
     include ParamsChecker
 
     post '/sources' do
+      client = Client.new(change_case(params))
 
-      client = Client.new(params)
-      client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl])
+      client.save if check(change_case(params))
+    end
 
-      client.save if check(params)
+    post '/sources/:identifier/data' do |identifier|
+
     end
 
     not_found do
