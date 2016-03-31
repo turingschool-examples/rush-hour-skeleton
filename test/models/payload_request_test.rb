@@ -73,33 +73,6 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 20, PayloadRequest.min_response_time
   end
 
-  def test_it_returns_max_response_time_given_specific_url
-    setup_data
-    url_address = "http://jumpstartlab.com"
-
-    assert_equal 40, PayloadRequest.max_response_time_by_url(url_address)
-  end
-
-  def test_it_returns_min_response_time_given_specific_url
-    setup_data
-    url_address = "http://jumpstartlab.com"
-
-    assert_equal 20, PayloadRequest.min_response_time_by_url(url_address)
-  end
-
-  def test_list_response_time_given_specific_url_from_longest
-    setup_data
-    url_address = "http://jumpstartlab.com"
-
-    assert_equal [40, 20], PayloadRequest.all_response_time_by_url(url_address)
-  end
-
-  def test_average_response_time_given_specific_url
-    setup_data
-    url_address = "http://jumpstartlab.com"
-
-    assert_equal 30, PayloadRequest.average_response_time_by_url(url_address)
-  end
 
   def test_list_http_referrers_given_specific_url
 
@@ -137,9 +110,9 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_references_a_client
-    pr = PayloadRequest.create(url: Url.create(address: "http://jonliss.com"),
+    pr = PayloadRequest.create(url: Url.find_or_create_by(address: "http://jonliss.com"),
                                referrer: Referrer.create(address: "http://amazon.com"),
-                               request_type: RequestType.create(verb: "GET"),
+                               request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.create(name: "socialLogin"),
                                user_agent: UserAgent.create(browser: "Chrome", platform: "Macintosh"),
                                resolution: Resolution.create(width: "1920", height: "1280"),
@@ -152,5 +125,25 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "jumpstartlab", pr.client.identifier
     assert_equal "http://jumpstartlab.com", pr.client.root_url
 
+  end
+
+  def test_most_frequent_request_type
+    setup_data
+
+    assert_equal "GET", PayloadRequest.most_frequent_request_type
+  end
+
+  def test_event_list_from_most_to_least
+    setup_data
+    expected = {"facebook"=>2, "twitter"=>1} #keep this as a hash with frequency?
+
+    assert_equal expected, PayloadRequest.event_list_from_most_to_least
+  end
+
+  def test_urls_list_from_most_to_least_requested
+    setup_data
+    expected =  {"http://jumpstartlab.com"=>2, "http://turing.io"=>1}
+
+    assert_equal expected, PayloadRequest.urls_list_from_most_to_least_requested
   end
 end

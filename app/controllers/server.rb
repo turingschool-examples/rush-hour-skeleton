@@ -1,10 +1,9 @@
 require_relative '../models/check_client_params'
 require 'pry'
 
-
 module RushHour
   class Server < Sinatra::Base
-    include CheckClientParams
+    include ParamsChecker
 
     post '/sources' do
 
