@@ -19,6 +19,7 @@ module ParamsChecker
     elsif Client.exists?(identifier: params[:identifier])
       status 403
       body "identifier already registered"
+      false
     else
       status 200
       body "good request"
