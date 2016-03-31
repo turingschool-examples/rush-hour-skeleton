@@ -28,7 +28,6 @@ module PayloadParser
 
 
 	def params_parser(params)
-		require 'pry'; binding.pry
 
 		# use json to parse params[:payload]
 		# use strings to access values instead of :symbols
