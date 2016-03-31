@@ -5,8 +5,6 @@ class PayloadParser
 
   def initialize(params)
     create_payload_request(params)
-    require "pry"
-    binding.pry
   end
 
   def payload_to_hash(params)
@@ -17,20 +15,19 @@ class PayloadParser
     elements = payload_to_hash(params)
 
 
-
     PayloadRequest.create({
-                             url_id: load_url(elements["url"]),
-                       requested_at: elements["requestedAt"],
-                       response_time: elements["respondedIn"],
-                        referral_id: load_referral(elements["referredBy"]),
-                    request_type_id: load_request_type(elements["requestType"]),
-                           event_id: load_event_name(elements["eventName"]),
-                      user_agent_id: load_user_agent(elements["userAgent"]),
-                              ip_id: load_ip(elements["ip"]),
-                          client_id: get_client_id(params["id"]),
-                      resolution_id: load_resolution(elements["resolutionWidth"],
-                                                     elements["resolutionHeight"])
-                          })
+      url_id:          load_url(elements["url"]),
+      requested_at:    elements["requestedAt"],
+      response_time:   elements["respondedIn"],
+      referral_id:     load_referral(elements["referredBy"]),
+      request_type_id: load_request_type(elements["requestType"]),
+      event_id:        load_event_name(elements["eventName"]),
+      user_agent_id:   load_user_agent(elements["userAgent"]),
+      ip_id:           load_ip(elements["ip"]),
+      client_id:       get_client_id(params["id"]),
+      resolution_id:   load_resolution(elements["resolutionWidth"],
+                                       elements["resolutionHeight"])
+      })
 
   end
 
