@@ -4,6 +4,10 @@ class PayloadParser
   attr_reader :status, :body
 
   def initialize(params)
+    # confirm params / pre-PayloadRequest.new
+    # require 'pry'; binding.pry
+
+    return missing_payload if params["payload"].empty? || params["payload"].nil?
     identifier = params["id"]
     raw_payload = payload_to_hash(params)
     create_status_and_body(raw_payload, identifier)
