@@ -31,6 +31,6 @@ class ResolutionTest < Minitest::Test
     Resolution.create(width: "800",
                      height: "600")
 
-    assert_equal ["1920 x 1280", "800 x 600"], Resolution.all_resolutions
+    assert_equal [["1920", "1280"], ["800", "600"]], Resolution.all_resolutions
   end
 end

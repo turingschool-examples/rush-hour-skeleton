@@ -1,13 +1,13 @@
 class RequestType < ActiveRecord::Base
   validates :verb, presence: true
 
+  has_many :payload_requests
+
   def self.most_frequent
-    # after changing test, then you might need to join payloads like in Event
-    verb_hash = self.group(:verb).count
-    verb_hash.max_by { |key, value| value }.first
+    joins(:payload_requests).group(:verb).order("count_all desc").count
   end
 
   def self.all_verbs_used
-    self.distinct.pluck(:verb)
+    pluck(:verb)
   end
 end

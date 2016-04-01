@@ -6,48 +6,38 @@ class Url < ActiveRecord::Base
   validates :path,     presence: true
 
   def self.most_to_least_requested
-    # look for alternative? take a look at how we solved events?
-    self.all.sort_by { |url| url.payload_requests.count}.reverse.map {|url| url.full_path }
+    joins(:payload_requests).group(:root_url, :path).order("count_all desc").count
   end
 
   def full_path
     [self.root_url, self.path].join('')
   end
 
-  def self.max_response_time(url)
-    find_by(root_url: url).payload_requests.maximum("response_time")
+  def max_response_time
+    payload_requests.maximum(:response_time)
   end
 
-  # look at any method where you're passing in a url and change to instance method, like so:
-  # def max_response_time
-  #   payload_requests.maximum("response_time")
-  # end
-
-  def self.min_response_time(url)
-    find_by(root_url: url).payload_requests.minimum("response_time")
+  def min_response_time
+    payload_requests.minimum(:response_time)
   end
 
-  def self.average_response_time(url)
-    find_by(root_url: url).payload_requests.average("response_time").to_i
+  def average_response_time
+    payload_requests.average(:response_time).to_i
   end
 
-  def self.all_response_times(url)
-    find_by(root_url: url).payload_requests.order(response_time: :desc).pluck(:response_time)
+  def all_response_times
+    payload_requests.order(response_time: :desc).pluck(:response_time)
   end
 
-  def self.find_verbs_for_a_url(url)
-    find_by(root_url: url).payload_requests.map do |request|
-      request.request_type.verb
-    end.uniq
+  def find_verbs
+    payload_requests.joins(:request_type).pluck(:verb)
   end
 
-  def self.top_referrers(url)
-    referrer_and_count = find_by(root_url: url).payload_requests.group(:referral).count # check out order like we did in Event
-    referrer_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| key.full_path}
+  def top_referrers
+    payload_requests.joins(:referral).group(:root_url, :path).order("count_all desc").limit(3).count
   end
 
-  def self.top_user_agents(url)
-    usr_agent_and_count = find_by(root_url: url).payload_requests.group(:user_agent).count #same
-    usr_agent_and_count.sort_by(&:last).reverse.take(3).to_h.keys.map {|key| "#{key.browser} #{key.os}"}
+  def top_user_agents
+    payload_requests.joins(:user_agent).group(:browser, :os).order("count_all desc").limit(3).count
   end
 end

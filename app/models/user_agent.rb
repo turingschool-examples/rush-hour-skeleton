@@ -1,16 +1,16 @@
 class UserAgent < ActiveRecord::Base
   has_many :payload_requests
+  belongs_to :client
 
   validates :browser, presence: true
   validates :os,      presence: true
 
-  def self.all_web_browsers
-    # joins(:payload_requests)... this will scope only to specific payloads
-    self.distinct.pluck(:browser)
+  def self.all_web_browsers(client_id)
+
   end
 
-  def self.all_operating_systems
-    self.distinct.pluck(:os)
+  def all_operating_systems
+    payload_requests.distinct.pluck(:os)
   end
 end
 

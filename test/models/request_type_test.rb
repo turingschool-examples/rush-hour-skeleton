@@ -19,19 +19,56 @@ class RequestTypeTest < Minitest::Test
 
   def test_it_returns_the_most_frequent_request_type
     # create two payloads with GET and one with POST
-    RequestType.create(verb: "GET")
-    RequestType.create(verb: "POST")
-    RequestType.create(verb: "GET")
+    request_1 = RequestType.create(verb: "GET")
+    request_2 = RequestType.create(verb: "POST")
 
-    assert_equal "GET", RequestType.most_frequent
+    create_payload_requests(request_1.id, request_2.id)
+
+    expected = {"GET" => 2, "POST" => 1}
+
+    assert_equal expected, RequestType.most_frequent
   end
 
   def test_it_returns_all_verbs_requested
     RequestType.create(verb: "GET")
     RequestType.create(verb: "POST")
-    RequestType.create(verb: "GET")
 
     assert RequestType.all_verbs_used.include?("POST")
     assert RequestType.all_verbs_used.include?("GET")
+  end
+
+  def create_payload_requests(request_id1, request_id2)
+    PayloadRequest.create(url_id: 1,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 100,
+                     referral_id: 1,
+                 request_type_id: request_id1,
+                        event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1,
+                       client_id: 1)
+
+    PayloadRequest.create(url_id: 1,
+                    requested_at: "2013-02-16 21:38:28 -0700",
+                   response_time: 200,
+                     referral_id: 1,
+                 request_type_id: request_id1,
+                        event_id: 1,
+                   user_agent_id: 1,
+                   resolution_id: 1,
+                           ip_id: 1,
+                       client_id: 1)
+    PayloadRequest.create(
+      url_id:          1,
+      requested_at:    "2013-02-16 21:38:28 -0700",
+      response_time:   200,
+      referral_id:     1,
+      request_type_id: request_id2,
+      event_id: 1,
+      user_agent_id: 1,
+      resolution_id: 1,
+      ip_id: 1,
+      client_id: 1)
   end
 end

@@ -4,8 +4,9 @@ class Resolution < ActiveRecord::Base
 
   def self.all_resolutions
     # join payloads?
-    self.distinct.pluck(:width, :height).map do |pair|
-      "#{pair[0]} x #{pair[1]}"
-    end
+    self.distinct.pluck(:width, :height)
+    # .map do |pair|
+    #   "#{pair[0]} x #{pair[1]}"
+    # end
   end
 end
