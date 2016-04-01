@@ -8,7 +8,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
-# require 'erb/tilt'
+require 'tilt/erb'
 require 'pry'
 
 Capybara.app = RushHour::Server
@@ -143,3 +143,10 @@ end
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 Capybara.app = RushHour::Server
+
+Capybara.save_and_open_page = "tmp/capybara"
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include TestHelper
+end
