@@ -19,6 +19,12 @@ module RushHour
       status, body = result
     end
 
+    get '/sources/:identifier' do |identifier|
+      Client.create(identifier: params['identifier'], root_url: "http://jumpstartlab.com")
+      @identifier = Client.find_by(identifier: params['identifier']).identifier.capitalize
+      erb :dashboard
+    end
+
     not_found do
       erb :error
     end
