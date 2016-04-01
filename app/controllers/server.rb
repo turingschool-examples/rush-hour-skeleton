@@ -14,7 +14,9 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       result = validate_request(identifier, params)
-    	status, body = result
+
+      add_to_database(params) if result[0] == 200
+      status, body = result
     end
 
     not_found do
