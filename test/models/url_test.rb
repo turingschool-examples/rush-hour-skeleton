@@ -63,7 +63,6 @@ class UrlTest < Minitest::Test
     assert_equal 30.0, url.average_response_time_given_url
   end
 
-
   def test_it_lists_all_verbs_given_url
     setup_data
     url = Url.find(1)
@@ -71,8 +70,9 @@ class UrlTest < Minitest::Test
     assert_equal ["GET", "POST"], url.list_all_verbs_given_url
   end
 
- def test_it_lists_top_three_referrers_given_url #TODO FINISH THIS!!!! GOTO SLEEP
+ def test_it_lists_top_three_referrers_given_url
    referrer_data
+
    url = Url.find(1)
    assert_equal ["http://amazon.com", "http://jumpstartlab.com", "http://newegg.com"], url.list_top_three_referrers_given_url
  end
