@@ -11,10 +11,10 @@ class ClientCreatorTest < Minitest::Test
 
     assert_kind_of Client, client
     assert_equal "jumpstartlab", client.identifier
-    assert_equal "www.jumpstartlabs.com", client.rootUrl
+    assert_equal "www.jumpstartlabs.com", client.root_url
   end
 
-  def test_it_wont_create_client_with_invalid_rootUrl
+  def test_it_wont_create_client_with_invalid_root_url
     params = {identifier: "jumpstartlab"}
 
     client = ClientCreator.new(params).client
@@ -56,7 +56,7 @@ class ClientCreatorTest < Minitest::Test
 
     client_creator = ClientCreator.new(params)
 
-    assert_equal "Rooturl can't be blank\n", client_creator.body
+    assert_equal "Root url can't be blank\n", client_creator.body
     assert_equal 400, client_creator.status
   end
 

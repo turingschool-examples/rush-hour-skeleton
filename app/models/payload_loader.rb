@@ -1,3 +1,5 @@
+require 'uri'
+
 class PayloadLoader
 
   def create_payload_request(raw_payload, identifier)
@@ -17,15 +19,18 @@ class PayloadLoader
   end
 
   def url_parser(raw_url)
-    # look into URI
-    if raw_url[-1] == '/'
-      path = '/'
-      root_url = raw_url.chop
-    else
-      raw_url  = raw_url.split('/')
-      path     = "/#{raw_url.pop}"
-      root_url = raw_url.join('/')
-    end
+    uri = URI(raw_url)
+    path = uri.path
+    root_url = [uri.scheme, uri.host].join("://")
+    # # look into URI
+    # if raw_url[-1] == '/'
+    #   path = '/'
+    #   root_url = raw_url.chop
+    # else
+    #   raw_url  = raw_url.split('/')
+    #   path     = "/#{raw_url.pop}"
+    #   root_url = raw_url.join('/')
+    # end
     [path, root_url]
   end
 

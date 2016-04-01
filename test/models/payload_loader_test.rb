@@ -2,26 +2,32 @@ require_relative '../test_helper'
 
 class PayloadLoaderTest < Minitest::Test
   include TestHelper
-  # def test_it_can_load_a_payload
-  #   user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"
-  #   client = Client.create({identifier: "id", rootUrl: "wwww.id.com/"})
-  #   raw_payload = {
-  #     "url" => "www.url.com/",
-  #     "requestedAt" => Time.now.to_s,
-  #     "respondedIn" => 1,
-  #     "referredBy" => "www.referral.com/",
-  #     "requestType" => "GET",
-  #     "eventName" => "name",
-  #     "userAgent" => user_agent,
-  #     "ip" => "fake ip",
-  #     "resolutionWidth" => "1920",
-  #     "resolutionHeight" => "1080"}
-  #   }
+
+  def test_it_can_load_a_payload
+    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"
+    client = Client.create({identifier: "id", root_url: "wwww.id.com/"})
+    raw_payload = {
+      "url" => "www.id.com/",
+      "requestedAt" => Time.now.to_s,
+      "respondedIn" => 1,
+      "referredBy" => "www.referral.com/",
+      "requestType" => "GET",
+      "eventName" => "name",
+      "userAgent" => user_agent,
+      "ip" => "fake ip",
+      "resolutionWidth" => "1920",
+      "resolutionHeight" => "1080"}
+
+      payload = PayloadLoader.new.create_payload_request(raw_payload, client.identifier)
+
+      assert_equal PayloadRequest, payload.class
+      assert payload.save
+  end
 
   def test_it_can_get_client_id
     payload_loader = PayloadLoader.new
     fake_client = Client.create(identifier: "fake_client",
-                                rootUrl:    "www.fake_client.com")
+                                root_url:    "www.fake_client.com")
 
     id = payload_loader.get_client_id("fake_client").id
 

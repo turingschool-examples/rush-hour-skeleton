@@ -4,6 +4,9 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :referral
   belongs_to :user_agent
   belongs_to :client
+  belongs_to :event
+  belongs_to :ip
+  belongs_to :resolution
 
   validates :url_id,           presence: true
   validates :requested_at,     presence: true
@@ -17,15 +20,14 @@ class PayloadRequest < ActiveRecord::Base
   validates :client_id,        presence: true
 
   def self.average_response_time
-    average("response_time")
-    # average(:response_time)
+    average(:response_time)
   end
 
   def self.max_response_time
-    maximum("response_time")
+    maximum(:response_time)
   end
 
   def self.min_response_time
-    minimum("response_time")
+    minimum(:response_time)
   end
 end

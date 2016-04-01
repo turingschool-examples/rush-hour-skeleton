@@ -5,7 +5,7 @@ class ClientCreator
 
   def initialize(params)
     @client = Client.new(identifier: params[:identifier],
-                         rootUrl:    params[:rootUrl])
+                         root_url:    params[:rootUrl])
     create_status_and_body(params)
   end
 

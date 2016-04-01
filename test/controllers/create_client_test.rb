@@ -29,7 +29,7 @@ class CreateClientTest < Minitest::Test
                      }
     assert_equal 0, Client.count
     assert_equal 400, last_response.status
-    assert_equal "Rooturl can't be blank\n", last_response.body
+    assert_equal "Root url can't be blank\n", last_response.body
   end
 
   def test_create_client_with_invalid_params_no_identifier

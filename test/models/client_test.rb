@@ -5,22 +5,22 @@ class ClientTest < Minitest::Test
 
   def test_it_can_save_a_client
     Client.create(identifier: "jumpstartlab",
-                     rootUrl: "www.jumpstartlabs.com")
+                     root_url: "www.jumpstartlabs.com")
 
     client = Client.first
 
     assert_equal "jumpstartlab", client.identifier
-    assert_equal "www.jumpstartlabs.com", client.rootUrl
+    assert_equal "www.jumpstartlabs.com", client.root_url
   end
 
-  def test_it_doesnt_save_client_with_invalid_rootUrl
+  def test_it_doesnt_save_client_with_invalid_root_url
     Client.create(identifier: "jumpstartlab")
 
     assert_equal [], Client.all.to_a
   end
 
   def test_it_doesnt_save_client_with_invalid_identifier
-    Client.create(rootUrl: "www.jumpstartlabs.com")
+    Client.create(root_url: "www.jumpstartlabs.com")
 
     assert_equal [], Client.all.to_a
   end
