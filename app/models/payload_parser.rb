@@ -16,9 +16,10 @@ module PayloadParser
 	# if all pass, 200 OK
 
 
-	def params_parser(params)
-		params = JSON.parse(params['payload'])
-		x = {
+	def params_parser(params, identifier)
+		params = JSON.parse(params['payload']) if params['payload']
+		root_url = params['url'].split(".com")[0] + ".com" if params['url']
+		{
 		 'url' => params['url'],
 		 'requested_at' => params['requestedAt'],
 		 'responded_in' => params['respondedIn'],
@@ -28,12 +29,14 @@ module PayloadParser
 		 'u_agent' => params['userAgent'],
 		 'resolution_width' => params['resolutionWidth'],
 		 'resolution_height' => params['resolutionHeight'],
-		 'ip' => params['ip']
+		 'ip' => params['ip'],
+		 'identifier' => identifier,
+		 'root_url' => root_url
 	  }
 	end
 
 	def validate_request(identifier, params)
-		params = params_parser(params)
+		params = params_parser(params, identifier)
 		return [403, "Application Not Registered"] unless client_exists?(identifier)
 		return [400, "Payload Not Valid"] unless payload_valid?(params)
 		return [403, "Already Received Request"] if payload_exists?(params)
@@ -77,8 +80,8 @@ module PayloadParser
                           )
 	end
 
-	def add_to_database(params)
-		params = params_parser(params)
+	def add_to_database(params, identifier)
+		params = params_parser(params, identifier)
 		platform = UserAgent.parse(params['u_agent']).platform
 		browser = UserAgent.parse(params['u_agent']).browser
 		PayloadRequest.create(url: Url.find_or_create_by(address: params['url']),
@@ -89,7 +92,8 @@ module PayloadParser
 															 resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
 															 ip: Ip.find_or_create_by(address: params['ip']),
 															 requested_at: params['requested_at'],
-															 responded_in: params['responded_in']
+															 responded_in: params['responded_in'],
+															 client: Client.find_or_create_by(identifier: params['identifier'], root_url: params['root_url'])
 													)
 	end
 end

@@ -48,7 +48,6 @@ class PayloadParserTest < Minitest::Test
   						"{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
  							"captures"=>["jumpstartlab"],
  							"identifier"=>"jumpstartlab"}
-		identifier = "jumpstartlab"
 
 		register_client
 		post '/sources/jumpstartlab/data', params
@@ -57,13 +56,11 @@ class PayloadParserTest < Minitest::Test
 		assert_equal "Payload Request Created", last_response.body
 	end
 
-
 	def test_can_check_invalid_raw_json_and_see_that_its_an_invalid_payload
 		params = {"payload"=>
   						"{\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
  							"captures"=>["jumpstartlab"],
  							"identifier"=>"jumpstartlab"}
-		identifier = "jumpstartlab"
 
 		register_client
 		post '/sources/jumpstartlab/data', params
@@ -81,7 +78,7 @@ class PayloadParserTest < Minitest::Test
 
 			register_client
 
-			params = params_parser(first_params)
+			params = params_parser(first_params, identifier)
 			platform = UserAgent.parse(params['u_agent']).platform
 			browser = UserAgent.parse(params['u_agent']).browser
 			PayloadRequest.create(url: Url.find_or_create_by(address: params['url']),
@@ -92,7 +89,8 @@ class PayloadParserTest < Minitest::Test
 	                               resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
 	                               ip: Ip.find_or_create_by(address: params['ip']),
 																 requested_at: params['requested_at'],
-	                               responded_in: params['responded_in']
+	                               responded_in: params['responded_in'],
+																 client: Client.find_or_create_by(identifier: params['identifier'], root_url: params['root_url'])
 	                              )
 
 		assert_equal 1, PayloadRequest.count
@@ -108,7 +106,6 @@ class PayloadParserTest < Minitest::Test
   						"{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
  							"captures"=>["jumpstartlab"],
  							"identifier"=>"jumpstartlab"}
-		identifier = "jumpstartlab"
 
 		register_client
 		post '/sources/jumpstartlab/data', params
