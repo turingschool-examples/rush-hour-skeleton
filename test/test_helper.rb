@@ -144,9 +144,9 @@ DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 Capybara.app = RushHour::Server
 
-Capybara.save_and_open_page = "tmp/capybara"
+Capybara.save_and_open_page_path = "tmp/capybara"
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
-  include TestHelper
+  include TestHelpers
 end
