@@ -13,7 +13,6 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-      params_parser(params)
       result = validate_request(identifier, params)
     	status, body = result
     end

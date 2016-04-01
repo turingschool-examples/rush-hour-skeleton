@@ -19,7 +19,7 @@ module PayloadParser
 	# 													 referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
 	# 													 request_type: RequestType.find_or_create_by(verb: "GET"),
 	# 													 event: Event.find_or_create_by(name: "facebook"),
-	# 													 user_agent: UserAgent.find_or_create_by(browser: "Mozilla", platform: "Windows"),
+	# 													 u_agent: UAgent.find_or_create_by(browser: "Mozilla", platform: "Windows"),
 	# 													 resolution: Resolution.find_or_create_by(width: "2560", height: "1440"),
 	# 													 ip: Ip.find_or_create_by(address: "63.29.38.211"),
 	# 													 requested_at: "2013-02-16 21:40:00 -0700",
@@ -31,7 +31,7 @@ module PayloadParser
 
 		# use json to parse params[:payload]
 		# use strings to access values instead of :symbols
-		params = JSON.parse(params[:payload])
+		params = JSON.parse(params[:payload]) if params[:payload]
 		{
 		 url: params['url'],
 		 requested_at: params['requestedAt'],
@@ -39,7 +39,7 @@ module PayloadParser
 		 referrer: params['referredBy'],
 		 request_type: params['requestType'],
 		 event: params['eventName'],
-		 user_agent: params['userAgent'],
+		 u_agent: params['userAgent'],
 		 resolution_width: params['resolutionWidth'],
 		 resolution_height: params['resolutionHeight'],
 		 ip: params['ip']
@@ -58,13 +58,24 @@ module PayloadParser
 		Client.exists?(identifier: identifier)
 	end
 
-	# def payload_valid?(params)
-	# 	pr = PayloadRequest.new(url: Url.find_or_create_by(address: params['url'], referrer: Referrer.find_or_create_by(address: params['referrer']))
-	#
-	#
-	# 	# pr = PayloadRequest.new(stuff)
-	# 	# pr.valid?
-	#
-	# 	PayloadRequest.valid?(url: Url.find_or_create_by(params[:url]))
-	# end
+	def payload_valid?(params)
+		# pr = PayloadRequest.new(url: Url.find_or_create_by(address: params['url'], referrer: Referrer.find_or_create_by(address: params['referrer']))
+		# pr = PayloadRequest.new(stuff)
+		# pr.valid?
+
+		platform = UserAgent.parse(params['u_agent']).platform
+		browser = UserAgent.parse(params['u_agent']).browser
+		pr = PayloadRequest.new(url: Url.find_or_create_by(address: params['url']),
+                               referrer: Referrer.find_or_create_by(address: params['referrer']),
+                               request_type: RequestType.find_or_create_by(verb: params['request_type']),
+                               event: Event.find_or_create_by(name: params['event']),
+                               u_agent: UAgent.find_or_create_by(browser: browser, platform: platform),
+                               resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
+                               ip: Ip.find_or_create_by(address: params['ip']),
+															 requested_at: params['requested_at'],
+                               responded_in: params['responded_in']
+                              )
+
+		pr.valid?
+	end
 end

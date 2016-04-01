@@ -9,7 +9,7 @@ class PayloadRequestTest < Minitest::Test
                                referrer: Referrer.create(address: "http://amazon.com"),
                                request_type: RequestType.create(verb: "GET"),
                                event: Event.create(name: "socialLogin"),
-                               user_agent: UserAgent.create(browser: "Chrome", platform: "Macintosh"),
+                               u_agent: UAgent.create(browser: "Chrome", platform: "Macintosh"),
                                resolution: Resolution.create(width: "1920", height: "1280"),
                                ip: Ip.create(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:38:28 -0700",
@@ -20,8 +20,8 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "http://amazon.com", pr.referrer.address
     assert_equal "GET", pr.request_type.verb
     assert_equal "socialLogin", pr.event.name
-    assert_equal "Chrome", pr.user_agent.browser
-    assert_equal "Macintosh", pr.user_agent.platform
+    assert_equal "Chrome", pr.u_agent.browser
+    assert_equal "Macintosh", pr.u_agent.platform
     assert_equal "1920", pr.resolution.width
     assert_equal "1280", pr.resolution.height
     assert_equal "63.29.38.211", pr.ip.address
@@ -34,7 +34,7 @@ class PayloadRequestTest < Minitest::Test
                                referrer: Referrer.create(address: nil),
                                request_type: RequestType.create(verb: nil),
                                event: Event.create(name: nil),
-                               user_agent: UserAgent.create(browser: nil, platform: nil),
+                               u_agent: UAgent.create(browser: nil, platform: nil),
                                resolution: Resolution.create(width: nil, height: nil),
                                ip: Ip.create(address: nil),
                                requested_at: nil,
@@ -46,8 +46,8 @@ class PayloadRequestTest < Minitest::Test
     assert_nil pr.referrer.address
     assert_nil pr.request_type.verb
     assert_nil pr.event.name
-    assert_nil pr.user_agent.browser
-    assert_nil pr.user_agent.platform
+    assert_nil pr.u_agent.browser
+    assert_nil pr.u_agent.platform
     assert_nil pr.resolution.width
     assert_nil pr.resolution.height
     assert_nil pr.ip.address
@@ -78,7 +78,7 @@ class PayloadRequestTest < Minitest::Test
                                referrer: Referrer.create(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
                                event: Event.create(name: "socialLogin"),
-                               user_agent: UserAgent.create(browser: "Chrome", platform: "Macintosh"),
+                               u_agent: UAgent.create(browser: "Chrome", platform: "Macintosh"),
                                resolution: Resolution.create(width: "1920", height: "1280"),
                                ip: Ip.create(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:38:28 -0700",

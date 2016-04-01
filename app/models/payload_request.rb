@@ -5,7 +5,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :request_type
   belongs_to :parameter
   belongs_to :event
-  belongs_to :user_agent
+  belongs_to :u_agent
   belongs_to :resolution
   belongs_to :ip
   belongs_to :client

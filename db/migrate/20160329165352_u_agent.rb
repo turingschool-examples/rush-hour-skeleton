@@ -1,6 +1,6 @@
-class UserAgent < ActiveRecord::Migration
+class UAgent < ActiveRecord::Migration
   def change
-    create_table :user_agents do |t|
+    create_table :u_agents do |t|
       t.string  :browser
 
       t.timestamps null: false

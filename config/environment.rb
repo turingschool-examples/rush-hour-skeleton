@@ -1,4 +1,5 @@
 # require your gems
+require 'useragent'
 require 'JSON'
 require 'bundler'
 Bundler.require
