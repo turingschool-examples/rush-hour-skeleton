@@ -15,21 +15,11 @@ module PayloadParser
 
 	# if all pass, 200 OK
 
-	# PayloadRequest.create(url: Url.find_or_create_by(address: "http://turing.io"),
-	# 													 referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
-	# 													 request_type: RequestType.find_or_create_by(verb: "GET"),
-	# 													 event: Event.find_or_create_by(name: "facebook"),
-	# 													 u_agent: UAgent.find_or_create_by(browser: "Mozilla", platform: "Windows"),
-	# 													 resolution: Resolution.find_or_create_by(width: "2560", height: "1440"),
-	# 													 ip: Ip.find_or_create_by(address: "63.29.38.211"),
-	# 													 requested_at: "2013-02-16 21:40:00 -0700",
-	# 													 responded_in: 20
-	# 													)
-
 
 	def params_parser(params)
-		params = JSON.parse(params[:payload]) if params[:payload]
-		{
+		# binding.pry
+		params = JSON.parse(params['payload'])
+		x = {
 		 'url' => params['url'],
 		 'requested_at' => params['requestedAt'],
 		 'responded_in' => params['respondedIn'],
@@ -44,7 +34,6 @@ module PayloadParser
 	end
 
 	def validate_request(identifier, params)
-		# require 'pry'; binding.pry
 		params = params_parser(params)
 		return [403, "Application Not Registered"] unless client_exists?(identifier)
 		return [400, "Payload Not Valid"] unless payload_valid?(params)
