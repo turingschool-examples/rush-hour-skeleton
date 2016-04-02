@@ -1,14 +1,18 @@
 <div id="identifier">
-	<h2><%= @identifier %> Dashboard Analytics</h2>
+	<h2><%= @identifier.capitalize %> Dashboard Analytics</h2>
 </div>
 
 <div id='analytics'>
-	<h3>Average Response time across all requests: <%= @client.average_response_time %></h3>
+	<h3>Average Response time across all requests: <%= @client.average_response_time.round(2) %></h3>
 	<h3>Max Response time across all requests: <%= @client.max_response_time %></h3>
 	<h3>Min Response time across all requests: <%= @client.min_response_time %></h3>
 	<h3>Most frequent request type: <%= @client.most_requested_verb %></h3>
 	<h3>List of all HTTP verbs used: <%= @client.list_all_verbs %></h3>
-	<h3>List of URLs listed from most requested to least requested: <%= @client.most_to_least_frequent_urls %></h3>
+	<h3>List of URLs listed from most requested to least requested:
+		<% @urls_with_requests.keys.each_with_index do |url, index| %>
+		<a href="/sources/<%= @identifier %>/urls<%= @relativepaths[index] %>"><%= url %></a>
+		<% end %>
+	</h3>
 	<h3>Web browser breakdown across all requests: <%= @client.browsers %></h3>
 	<h3>OS breakdown across all requests: <%= @client.platforms %></h3>
 	<h3>Screen Resolutions across all requests (resolutionWidth x resolutionHeight): <%= @client.screen_resolutions %></h3>

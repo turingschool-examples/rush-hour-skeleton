@@ -60,6 +60,6 @@ class Client < ActiveRecord::Base
   end
 
   def find_payload_requests_by_relative_path(path)
-    payload_requests.where(url: )
+    payload_requests.where(url: Url.find_by(address: path))
   end
 end
