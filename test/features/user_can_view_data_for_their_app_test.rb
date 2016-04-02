@@ -3,38 +3,26 @@ require_relative '../test_helper'
 class UserCanViewDataForTheirApp < FeatureTest
   include TestHelpers
 
-  def test_viewer_can_visit_dashboard_path
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    path = '/sources/jumpstartlab'
-    visit path
-
-    assert_equal path, current_path
-    within("#identifier") do
-      assert page.has_content?("Jumpstartlab")
-    end
-
-    within('#analytics') do
-      assert page.has_content?("Average Response time across all requests")
-      assert page.has_content?("Max Response time across all requests")
-      assert page.has_content?("Min Response time across all requests")
-      assert page.has_content?("Most frequent request type")
-      assert page.has_content?("List of all HTTP verbs used")
-      assert page.has_content?("List of URLs listed from most requested to least requested")
-      assert page.has_content?("Web browser breakdown across all requests")
-      assert page.has_content?("OS breakdown across all requests")
-      assert page.has_content?("Screen Resolutions across all requests (resolutionWidth x resolutionHeight)")
-    end
-  end
-
   def test_user_gets_error_page_when_client_not_found
     path = '/sources/jumpstartlab'
     visit path
 
     assert_equal path, current_path
-    within("h1") do
-      assert page.has_content?("Error")
+    within("h2") do
+      assert page.has_content?("Client not registered")
     end
+  end
 
+  def test_user_gets_error_page_when_client_has_received_no_payload_requests
+    Client.create(identifier: "test", root_url: "http://jumpstartlab.com")
+    path = '/sources/test'
+    visit path
+
+    assert_equal path, current_path
+
+    within("h2") do
+      assert page.has_content?("Client is registered, but no requests have been received")
+    end
   end
 
   def test_viewer_can_visit_dashboard_and_view_stats
