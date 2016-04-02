@@ -27,8 +27,11 @@ class Url < ActiveRecord::Base
   end
 
   def list_top_three_referrers_given_url
-    referrers.group(:address).count.keys.reverse.take(3)
+    referrers.group(:address).order(count: :desc).count.keys.take(3)
   end
 
-  #def jon's homework goes here - last iter 2 question. 
+  def list_top_three_u_agents_given_url
+    # u_agents.group(:browser).count.keys.reverse.take(3)
+    u_agents.group(:browser, :platform).order(count: :desc).count.keys.take(3)
+  end
 end

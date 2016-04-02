@@ -20,9 +20,14 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      Client.create(identifier: params['identifier'], root_url: "http://jumpstartlab.com")
-      @identifier = Client.find_by(identifier: params['identifier']).identifier.capitalize
-      erb :dashboard
+      client = Client.find_by(identifier: params['identifier'])
+      @identifier = client.identifier.capitalize if client
+      if client
+        erb :dashboard
+      else
+        # USE REDIRECT
+        erb :error
+      end
     end
 
     not_found do

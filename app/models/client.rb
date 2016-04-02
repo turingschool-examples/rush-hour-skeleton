@@ -10,5 +10,4 @@ class Client < ActiveRecord::Base
     request_types.group(:verb).count
   end
 
-
 end
