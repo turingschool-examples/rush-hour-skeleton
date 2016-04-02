@@ -20,9 +20,9 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      client = Client.find_by(identifier: params['identifier'])
-      @identifier = client.identifier.capitalize if client
-      if client
+      @client = Client.find_by(identifier: params['identifier'])
+      @identifier = @client.identifier.capitalize if @client
+      if @client
         erb :dashboard
       else
         # USE REDIRECT

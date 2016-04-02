@@ -80,7 +80,8 @@ module TestHelpers
                                resolution: Resolution.find_or_create_by(width: "2560", height: "1440"),
                                ip: Ip.find_or_create_by(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:40:00 -0700",
-                               responded_in: 20
+                               responded_in: 20,
+                               client: Client.find_or_create_by(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
                               ),
     PayloadRequest.create(url: Url.find_or_create_by(address: "http://turing.io"),
                                referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
@@ -90,7 +91,8 @@ module TestHelpers
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.211"),
                                requested_at: "2013-02-16 21:37:00 -0700",
-                               responded_in: 30
+                               responded_in: 30,
+                               client: Client.find_or_create_by(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
                               ),
     PayloadRequest.create(url: Url.find_or_create_by(address:  "http://turing.io"),
                                referrer: Referrer.find_or_create_by(address: "http://newegg.com"),
@@ -100,7 +102,8 @@ module TestHelpers
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.200"),
                                requested_at: "2013-02-16 21:38:00 -0700",
-                               responded_in: 40
+                               responded_in: 40,
+                               client: Client.find_or_create_by(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
                               ),
     PayloadRequest.create(url: Url.find_or_create_by(address: "http://turing.io"),
                                referrer: Referrer.find_or_create_by(address: "http://jumpstartlab.com"),
@@ -110,7 +113,8 @@ module TestHelpers
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.224"),
                                requested_at: "2013-02-15 21:38:28 -0700",
-                               responded_in: 10
+                               responded_in: 10,
+                               client: Client.find_or_create_by(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
                               ),
     PayloadRequest.create(url: Url.find_or_create_by(address: "http://turing.io"),
                                referrer: Referrer.find_or_create_by(address: "http://jumpstartlab.com"),
@@ -119,7 +123,8 @@ module TestHelpers
                                u_agent: UAgent.find_or_create_by(browser: "Chrome", platform: "Macintosh"),
                                resolution: Resolution.find_or_create_by(width: "1920", height: "1280"),
                                ip: Ip.find_or_create_by(address: "63.29.38.224"), requested_at: "2013-02-15 21:38:28 -0700",
-                               responded_in: 10
+                               responded_in: 10,
+                               client: Client.find_or_create_by(identifier: "turing", root_url: "http://turing.io")
                               )]
   end
 

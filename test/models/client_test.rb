@@ -25,7 +25,66 @@ class ClientTest < Minitest::Test
     assert_equal 1, Client.all.count
   end
 
-  def test_identifier_already_exists_in_clients_table
-    
+  def test_max_response_time
+    referrer_data
+    Client.find(1)
+
+    assert_equal 40, Client.find(1).max_response_time
   end
+
+  def test_max_response_time_given_a_different_url
+    referrer_data
+    client = Client.find_by(identifier: "turing")
+
+    assert_equal 10, client.max_response_time
+  end
+
+  def test_min_response_time
+    referrer_data
+    Client.find(1)
+
+    assert_equal 10, Client.find(1).min_response_time
+  end
+
+  def test_all_response_time_from_most_to_least
+    referrer_data
+    client = Client.find(1)
+
+    assert_equal [40, 30, 20, 10], client.all_response_time_from_most_to_least
+  end
+
+  def test_average_response_time
+    referrer_data
+    client = Client.find(1)
+
+    assert_equal 25.0, client.average_response_time
+  end
+
+  def test_average_response_time_different_url
+    referrer_data
+    client = Client.find(2)
+
+    assert_equal 10.0, client.average_response_time
+  end
+
+  def test_it_lists_all_verbs
+    referrer_data
+    client = Client.find(1)
+
+    assert_equal ["GET", "POST"], client.list_all_verbs
+  end
+
+ def test_it_lists_top_three_referrers
+   referrer_data
+
+   client = Client.find(1)
+   assert_equal ["http://amazon.com", "http://newegg.com", "http://jumpstartlab.com"], client.list_top_three_referrers
+ end
+
+ def test_it_lists_top_three_u_agents
+   referrer_data
+
+   client = Client.find(1)
+   assert_equal [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]], client.list_top_three_u_agents
+ end
 end

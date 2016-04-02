@@ -36,7 +36,7 @@ class UserCanViewDataForTheirApp < FeatureTest
   end
 
   def test_viewer_can_visit_dashboard_and_view_stats
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    referrer_data
     path = '/sources/jumpstartlab'
     visit path
 
@@ -47,17 +47,40 @@ class UserCanViewDataForTheirApp < FeatureTest
       assert page.has_content?("Jumpstartlab")
     end
 
+    save_and_open_page
     within('#analytics') do
       assert page.has_content?("Max Response time: 40")
-      # assert page.has_content?("Min Response time: 20")
-      # assert page.has_content?("A list of response times across all requests listed from longest response time to shortest response time")
-      # assert page.has_content?("Average Response time for this URL")
-      # assert page.has_content?("HTTP Verb(s) associated used")
-      # assert page.has_content?("Three most popular referrers")
-      # assert page.has_content?("Three most popular user agents")
+      assert page.has_content?("Min Response time: 10")
+      assert page.has_content?("A list of response times across all requests listed from longest response time to shortest response time: [40, 30, 20, 10]")
+      assert page.has_content?("Average Response time for this URL: 25.0")
+      assert page.has_content?("HTTP Verb(s) associated used: [\"GET\", \"POST\"]")
+      assert page.has_content?("Three most popular referrers: [\"http://amazon.com\", \"http://newegg.com\", \"http://jumpstartlab.com\"]")
+      assert page.has_content?("Three most popular user agents: [[\"Mozilla\", \"Windows\"], [\"Chrome\", \"Macintosh\"], [\"Opera\", \"Webkit\"]]")
     end
   end
 
+  def test_viewer_can_visit_dashboard_and_view_stats_different_client
+    referrer_data
+    path = '/sources/turing'
+    visit path
 
+    setup_data
+
+    assert_equal path, current_path
+    within("#identifier") do
+      assert page.has_content?("Turing")
+    end
+
+    save_and_open_page
+    within('#analytics') do
+      assert page.has_content?("Max Response time: 10")
+      assert page.has_content?("Min Response time: 10")
+      assert page.has_content?("A list of response times across all requests listed from longest response time to shortest response time: [10]")
+      assert page.has_content?("Average Response time for this URL: 10.0")
+      assert page.has_content?("HTTP Verb(s) associated used: [\"GET\"]")
+      assert page.has_content?("Three most popular referrers: [\"http://jumpstartlab.com\"]")
+      assert page.has_content?("Three most popular user agents: [[\"Chrome\", \"Macintosh\"]]")
+    end
+  end
 
 end

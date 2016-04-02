@@ -31,7 +31,6 @@ class Url < ActiveRecord::Base
   end
 
   def list_top_three_u_agents_given_url
-    # u_agents.group(:browser).count.keys.reverse.take(3)
     u_agents.group(:browser, :platform).order(count: :desc).count.keys.take(3)
   end
 end
