@@ -38,8 +38,9 @@ class UserAgentTest < Minitest::Test
     client.user_agents.group(:browser).distinct.count
 
     create_payload_requests(ua1.id, ua2.id, client.id)
-    # require 'pry'; binding.pry
-    assert_equal ["IE 9.0", "Chrome 24.0.1309"], client.user_agents.all_web_browsers
+
+    assert client.user_agents.all_web_browsers.include?("IE 9.0")
+    assert client.user_agents.all_web_browsers.include?("Chrome 24.0.1309")
   end
 
   def test_it_returns_web_browsers_associated_with_client_user_agents

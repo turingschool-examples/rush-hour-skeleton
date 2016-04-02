@@ -18,5 +18,12 @@ module RushHour
       body parser.body
     end
 
+    get '/sources/:identifier' do |identifier|
+      gen_view = ViewGenerator.new(identifier)
+      data     = gen_view.data
+      view     = gen_view.view
+      erb view
+    end
+
   end
 end
