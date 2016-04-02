@@ -16,16 +16,16 @@ class ClientCreator
 
   def already_exists
     @status = 403
-    @body   = "Client with identifier: \"#{client.identifier}\" already exists!\n"
+    @body   = "Client with identifier: \"#{client.identifier}\" already exists!"
   end
 
   def client_created
     @status = 200
-    @body   = "{\"identifier\":\"#{client.identifier}\"}\n"
+    @body   = "{\"identifier\":\"#{client.identifier}\"}"
   end
 
   def parameters_missing
     @status = 400
-    @body   = "#{client.errors.full_messages.join(", ")}\n"
+    @body   = "#{client.errors.full_messages.join(", ")}"
   end
 end

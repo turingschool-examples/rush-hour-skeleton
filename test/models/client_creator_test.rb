@@ -44,7 +44,7 @@ class ClientCreatorTest < Minitest::Test
     client_creator.create_client
     client = client_creator.client
 
-    assert_equal "{\"identifier\":\"jumpstartlab\"}\n", client_creator.body
+    assert_equal "{\"identifier\":\"jumpstartlab\"}", client_creator.body
     assert_equal 200, client_creator.status
   end
 
@@ -56,7 +56,7 @@ class ClientCreatorTest < Minitest::Test
     client_creator.create_client
     client_creator.create_client
 
-    assert_equal "Client with identifier: \"jumpstartlab\" already exists!\n", client_creator.body
+    assert_equal "Client with identifier: \"jumpstartlab\" already exists!", client_creator.body
     assert_equal 403, client_creator.status
   end
 
@@ -66,7 +66,7 @@ class ClientCreatorTest < Minitest::Test
     client_creator = ClientCreator.new(params)
     client_creator.create_client
 
-    assert_equal "Root url can't be blank\n", client_creator.body
+    assert_equal "Root url can't be blank", client_creator.body
     assert_equal 400, client_creator.status
   end
 
@@ -76,7 +76,7 @@ class ClientCreatorTest < Minitest::Test
     client_creator = ClientCreator.new(params)
     client_creator.create_client
 
-    assert_equal "Identifier can't be blank\n", client_creator.body
+    assert_equal "Identifier can't be blank", client_creator.body
     assert_equal 400, client_creator.status
   end
 

@@ -66,23 +66,23 @@ class PayloadParser
 
   def duplicate_request
     @status = 403
-    @body   = "Payload has already been received.\n"
+    @body   = "Payload has already been received"
   end
 
   def payload_successful
     @status = 200
-    @body   = "Payload successfully created.\n"
+    @body   = "Payload successfully created"
   end
 
   def payload_missing
     @status = 400
-    @body   = "No payload present.\n"
+    @body   = "No payload present"
     false
   end
 
   def not_registered
     @status = 403
-    @body   = "Client does not exist.\n"
+    @body   = "Client does not exist"
     false
   end
 end

@@ -18,7 +18,7 @@ class CreateClientTest < Minitest::Test
 
     assert_equal 1, Client.count
     assert_equal 200, last_response.status
-    assert_equal "{\"identifier\":\"name\"}\n", last_response.body
+    assert_equal "{\"identifier\":\"name\"}", last_response.body
   end
 
   def test_create_client_with_invalid_params_no_rootUrl
@@ -29,7 +29,7 @@ class CreateClientTest < Minitest::Test
                      }
     assert_equal 0, Client.count
     assert_equal 400, last_response.status
-    assert_equal "Root url can't be blank\n", last_response.body
+    assert_equal "Root url can't be blank", last_response.body
   end
 
   def test_create_client_with_invalid_params_no_identifier
@@ -40,7 +40,7 @@ class CreateClientTest < Minitest::Test
                      }
     assert_equal 0, Client.count
     assert_equal 400, last_response.status
-    assert_equal "Identifier can't be blank\n", last_response.body
+    assert_equal "Identifier can't be blank", last_response.body
   end
 
   def test_create_duplicate_client
@@ -61,6 +61,6 @@ class CreateClientTest < Minitest::Test
 
     assert_equal 1, Client.count
     assert_equal 403, last_response.status
-    assert_equal "Client with identifier: \"name\" already exists!\n", last_response.body
+    assert_equal "Client with identifier: \"name\" already exists!", last_response.body
   end
 end
