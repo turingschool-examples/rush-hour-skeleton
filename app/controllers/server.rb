@@ -21,7 +21,7 @@ module RushHour
 
     get '/sources/:identifier' do |identifier|
       @client = Client.find_by(identifier: params['identifier'])
-      @identifier = @client.identifier.capitalize if @client
+      @identifier = @client.identifier if @client
 
       if @client == nil
         # USE REDIRECT
@@ -30,8 +30,23 @@ module RushHour
         # USE REDIRECT
         erb :no_data
       elsif @client
+        urls = @client.most_to_least_frequent_urls
+        @urls_with_requests = Hash.new([])
+        urls.map do |url|
+          @urls_with_requests[url] += @client.find_payload_requests_by_relative_path(url)
+        end
+
+        @relativepaths = @urls_with_requests.keys.map { |url| url.split(".com")[1] }
+
         erb :dashboard
       end
+    end
+
+    get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
+      @client = Client.find_by(identifier: identifier)
+      url = "http://#{identifier}.com/#{relativepath}"
+      @requests = @client.find_payload_requests_by_relative_path(url)
+      erb :show
     end
 
     not_found do
