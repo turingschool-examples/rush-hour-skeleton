@@ -141,6 +141,14 @@ class UrlTest < Minitest::Test
     assert_equal 3, top_user_agents.size
   end
 
+  def test_it_has_many_payload_requests
+    url = create_url
+
+    create_generic_payload_requests
+
+    assert_equal 2, url.payload_requests.count
+  end
+
   def create_url
     Url.create(root_url: "www.jumpstartlabs.com",
                path:     "/example")

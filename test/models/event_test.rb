@@ -27,6 +27,14 @@ class EventTest < Minitest::Test
     assert Event.most_to_least_requested.include?("NOTsocialLogin")
   end
 
+  def test_it_has_many_payload_requests
+    event = Event.create(name: "socialLogin")
+
+    create_generic_payload_requests
+
+    assert_equal 2, event.payload_requests.count
+  end
+
   def create_payload_requests(event1_id, event2_id)
     PayloadRequest.create(url_id: 1,
                     requested_at: "2013-02-16 21:38:28 -0700",

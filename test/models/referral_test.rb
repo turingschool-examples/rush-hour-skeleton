@@ -24,4 +24,12 @@ class ReferralTest < Minitest::Test
 
     assert_equal [], Referral.all.to_a
   end
+
+  def test_it_has_many_payload_requests
+    referral = create_referral
+
+    create_generic_payload_requests
+
+    assert_equal 2, referral.payload_requests.count
+  end
 end

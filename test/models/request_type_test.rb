@@ -37,6 +37,14 @@ class RequestTypeTest < Minitest::Test
     assert RequestType.all_verbs_used.include?("GET")
   end
 
+  def test_it_has_many_payload_requests
+    request = RequestType.create(verb: "GET")
+
+    create_generic_payload_requests
+
+    assert_equal 2, request.payload_requests.count
+  end
+
   def create_payload_requests(request_id1, request_id2)
 
     PayloadRequest.create(
