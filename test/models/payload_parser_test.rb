@@ -90,7 +90,7 @@ class PayloadParserTest < Minitest::Test
 	                               ip: Ip.find_or_create_by(address: params['ip']),
 																 requested_at: params['requested_at'],
 	                               responded_in: params['responded_in'],
-																 client: Client.find_or_create_by(identifier: params['identifier'], root_url: params['root_url'])
+																 client: Client.find_or_create_by(identifier: params['identifier'])
 	                              )
 
 		assert_equal 1, PayloadRequest.count

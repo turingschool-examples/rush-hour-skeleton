@@ -13,6 +13,7 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
+      # require 'pry'; binding.pry
       result = validate_request(identifier, params)
 
       add_to_database(params, identifier) if result[0] == 200
@@ -22,6 +23,7 @@ module RushHour
     get '/sources/:identifier' do |identifier|
       @client = Client.find_by(identifier: params['identifier'])
       @identifier = @client.identifier if @client
+
 
       if @client == nil
         # USE REDIRECT
@@ -37,7 +39,6 @@ module RushHour
         end
 
         @relativepaths = @urls_with_requests.keys.map { |url| url.split(".com")[1] }
-
         erb :dashboard
       end
     end
