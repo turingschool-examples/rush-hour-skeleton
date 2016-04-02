@@ -22,11 +22,15 @@ module RushHour
     get '/sources/:identifier' do |identifier|
       @client = Client.find_by(identifier: params['identifier'])
       @identifier = @client.identifier.capitalize if @client
-      if @client
-        erb :dashboard
-      else
+
+      if @client == nil
         # USE REDIRECT
-        erb :error
+        erb :not_registered
+      elsif @client.payload_requests.count == 0
+        # USE REDIRECT
+        erb :no_data
+      elsif @client
+        erb :dashboard
       end
     end
 
