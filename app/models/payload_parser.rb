@@ -8,9 +8,9 @@ class PayloadParser
   end
 
   def send_request(params)
-    parse_and_send_request(params) if params_are_valid?(params, identifier)
-    rescue
-      return attributes_missing
+    parse_and_send_request(params) if params_are_valid?(params, params["id"])
+    # rescue
+    #   return attributes_missing
   end
 
   def params_are_valid?(params, identifier)
@@ -34,11 +34,12 @@ class PayloadParser
   end
 
   def load_payload_request(raw_payload, identifier)
-    @payload_loader.create_payload_request(params, identifier)
+    @payload_loader.create_payload_request(raw_payload, identifier)
   end
 
   def save_payload_and_set_status(payload)
     return duplicate_request if payload_request_exists?(payload)
+      #  require 'pry'; binding.pry
     return payload_successful if payload.save
     attributes_missing
   end

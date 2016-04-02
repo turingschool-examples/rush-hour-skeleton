@@ -8,7 +8,22 @@ class SendPayloadTest < Minitest::Test
     RushHour::Server
   end
 
-  def test_parses_payload_
+  def test_returns_success_post_valid_payload_request
+    post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+    assert_equal 1, Client.count
+    assert_equal 200, last_response.status
+    assert_equal "{\"identifier\":\"jumpstartlab\"}\n", last_response.body
 
+    post '/sources/jumpstartlab/data', "payload={\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com/\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+
+    # require 'pry'; binding.pry
+    assert_equal 1, PayloadRequest.count
+    assert_equal "jumpstartlab", PayloadRequest.first.client.identifier
+    assert_equal 200, last_response.status
+    assert_equal "Payload successfully created.\n", last_response.body
+  end
+
+  def test_returns_attributes_missing_when_payload_request_contains_one_or_more_attributes
+    
   end
 end

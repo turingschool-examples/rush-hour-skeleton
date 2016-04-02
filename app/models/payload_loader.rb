@@ -31,6 +31,7 @@ class PayloadLoader
   end
 
   def load_referral(raw_referral)
+    #$require 'pry'; binding.pry
     path, root_url = url_parser(raw_referral)
     Referral.find_or_create_by(path: path, root_url: root_url)
   end
