@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= identifier %></h1>
+  </div>
+  <div class="identifier-data">
+    <h4>Average Response Time: <%= data[:average_response_time] %></h4>
+    <h4>Max Response Time: <%= data[:max_response_time] %></h4>
+    <h4>Min Response Time: <%= data[:min_response_time] %></h4>
+    <h4>Most Frequent Request Type: <%= data[:most_frequent_request_type] %></h4>
+    <h4>All HTTP Verbs Used: <%= data[:all_http_verbs_used] %></h4>
+    <h4>All URLs from Most to Least Requested: <%= data[:all_urls_from_most_to_least] %></h4>
+    <h4>Web Browser Breakdown Across All Requests: <%= data[:web_browser_breakdown] %></h4>
+    <h4>OS Breakdown Across All Requests: <%= data[:os_breakdown] %></h4>
+    <h4>Screen Resolutions Across All Requests: <%= data[:screen_resolutions] %></h4>
+
+  </div>
+</div>

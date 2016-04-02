@@ -72,11 +72,11 @@ class UserAgentTest < Minitest::Test
 
   end
 
-  def create_client
-    Client.create(
-      identifier: "jumpstartlabs",
-      root_url:    "www.jumpstartlabs.com")
-  end
+  # def create_client
+  #   Client.create(
+  #     identifier: "jumpstartlabs",
+  #     root_url:    "www.jumpstartlabs.com")
+  # end
 
   def create_payload_requests(ua1_id, ua2_id, client_id)
     PayloadRequest.create(

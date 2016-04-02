@@ -39,9 +39,8 @@ class PayloadParser
 
   def save_payload_and_set_status(payload)
     return duplicate_request if payload_request_exists?(payload)
-      #  require 'pry'; binding.pry
     return payload_successful if payload.save
-    attributes_missing
+    attributes_missing(payload)
   end
 
   def payload_request_exists?(payload)
@@ -59,7 +58,7 @@ class PayloadParser
 
     # Try hash refactoring
 
-  def attributes_missing
+  def attributes_missing(payload)
     @status = 400
     @body = "missing one or more attributes"
   end

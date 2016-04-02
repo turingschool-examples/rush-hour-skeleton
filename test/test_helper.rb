@@ -8,7 +8,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
-
+require 'tilt/erb'
 
 Capybara.app = RushHour::Server
 
@@ -24,6 +24,12 @@ module TestHelper
   def teardown
     DatabaseCleaner.clean
     super
+  end
+
+  def create_client
+    Client.create(
+      identifier: "jumpstartlabs",
+      root_url:    "www.jumpstartlabs.com")
   end
 
 end

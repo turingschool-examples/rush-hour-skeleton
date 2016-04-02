@@ -19,10 +19,11 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
+
       gen_view = ViewGenerator.new(identifier)
       data     = gen_view.data
       view     = gen_view.view
-      erb view
+      erb view, locals: {data: data, identifier: identifier}
     end
 
   end

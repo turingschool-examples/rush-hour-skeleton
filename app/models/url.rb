@@ -6,7 +6,7 @@ class Url < ActiveRecord::Base
   validates :path,     presence: true
 
   def self.most_to_least_requested
-    joins(:payload_requests).group(:root_url, :path).order("count_all desc").count
+    group(:root_url, :path).order("count_all desc").count
   end
 
   def full_path

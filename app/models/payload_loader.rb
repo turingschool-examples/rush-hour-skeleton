@@ -20,7 +20,10 @@ class PayloadLoader
 
   def url_parser(raw_url)
     uri = URI(raw_url)
+
     path = uri.path
+    path = "/" if path.empty?
+
     root_url = [uri.scheme, uri.host].join("://")
     [path, root_url]
   end
@@ -31,7 +34,6 @@ class PayloadLoader
   end
 
   def load_referral(raw_referral)
-    #$require 'pry'; binding.pry
     path, root_url = url_parser(raw_referral)
     Referral.find_or_create_by(path: path, root_url: root_url)
   end

@@ -7,7 +7,6 @@ class ViewGenerator
   def initialize(identifier)
     @identifier = identifier
     @client     = Client.find_by(identifier: identifier)
-    @data       = client_data
     @view       = render_client_view
   end
 
@@ -17,6 +16,7 @@ class ViewGenerator
     elsif client_does_not_have_requests?
       :client_has_no_requests
     else
+      @data = client_data
       :show
     end
   end
@@ -31,15 +31,15 @@ class ViewGenerator
 
   def client_data
     {
-      average_response_time: client.payload_requests.average_response_time.to_i,
-      max_response_time:     client.payload_requests.max_response_time.to_i,
-      min_response_time:     client.payload_requests.min_response_time.to_i,
-      most_frequent_request_type: client.request_types.most_frequent,
-      all_http_verbs_used: client.request_types.all_verbs_used,
+      average_response_time:       client.payload_requests.average_response_time.to_i,
+      max_response_time:           client.payload_requests.max_response_time.to_i,
+      min_response_time:           client.payload_requests.min_response_time.to_i,
+      most_frequent_request_type:  client.request_types.most_frequent,
+      all_http_verbs_used:         client.request_types.all_verbs_used,
       all_urls_from_most_to_least: client.urls.most_to_least_requested,
-      web_browser_breakdown: client.user_agents.all_web_browsers,
-      os_breakdown:          client.user_agents.all_operating_systems,
-      screen_resolutions:    client.resolutions.all_resolutions
+      web_browser_breakdown:       client.user_agents.all_web_browsers,
+      os_breakdown:                client.user_agents.all_operating_systems,
+      screen_resolutions:          client.resolutions.all_resolutions
     }
   end
 

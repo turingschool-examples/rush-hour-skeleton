@@ -37,10 +37,11 @@ class UrlTest < Minitest::Test
                       path:     "/blog")
 
     create_payload_requests_with_two_urls(url1.id, url2.id)
+    create_client
 
     urls = { ["www.jumpstartlabs.com", "/example"] => 2, ["www.turing.io", "/blog"] => 1 }
 
-    assert_equal urls, Url.most_to_least_requested
+    assert_equal urls, Client.find(1).urls.most_to_least_requested
   end
 
   def test_it_returns_the_maximum_response_time_for_a_specific_url

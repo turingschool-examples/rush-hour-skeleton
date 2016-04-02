@@ -22,10 +22,11 @@ class RequestTypeTest < Minitest::Test
     request_2 = RequestType.create(verb: "POST")
 
     create_payload_requests(request_1.id, request_2.id)
+    create_client
 
     expected = {"GET" => 2, "POST" => 1}
 
-    assert_equal expected, RequestType.most_frequent
+    assert_equal expected, Client.find(1).request_types.most_frequent
   end
 
   def test_it_returns_all_verbs_requested
