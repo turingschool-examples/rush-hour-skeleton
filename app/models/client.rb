@@ -61,5 +61,6 @@ class Client < ActiveRecord::Base
 
   def find_payload_requests_by_relative_path(path)
     payload_requests.where(url: Url.find_by(address: path))
+    # require 'pry'; binding.pry
   end
 end

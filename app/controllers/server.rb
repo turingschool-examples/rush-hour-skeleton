@@ -13,7 +13,6 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-      # require 'pry'; binding.pry
       result = validate_request(identifier, params)
 
       add_to_database(params, identifier) if result[0] == 200
@@ -47,6 +46,7 @@ module RushHour
       @client = Client.find_by(identifier: identifier)
       url = "http://#{identifier}.com/#{relativepath}"
       @requests = @client.find_payload_requests_by_relative_path(url)
+      # require 'pry'; binding.pry
       erb :show
     end
 

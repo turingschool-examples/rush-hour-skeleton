@@ -74,24 +74,24 @@ class PayloadParserTest < Minitest::Test
 			"{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
 			"captures"=>["jumpstartlab"],
 			"identifier"=>"jumpstartlab"}
-			identifier = "jumpstartlab"
+		identifier = "jumpstartlab"
 
-			register_client
+		register_client
 
-			params = params_parser(first_params, identifier)
-			platform = UserAgent.parse(params['u_agent']).platform
-			browser = UserAgent.parse(params['u_agent']).browser
-			PayloadRequest.create(url: Url.find_or_create_by(address: params['url']),
-	                               referrer: Referrer.find_or_create_by(address: params['referrer']),
-	                               request_type: RequestType.find_or_create_by(verb: params['request_type']),
-	                               event: Event.find_or_create_by(name: params['event']),
-	                               u_agent: UAgent.find_or_create_by(browser: browser, platform: platform),
-	                               resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
-	                               ip: Ip.find_or_create_by(address: params['ip']),
-																 requested_at: params['requested_at'],
-	                               responded_in: params['responded_in'],
-																 client: Client.find_or_create_by(identifier: params['identifier'])
-	                              )
+		params = params_parser(first_params, identifier)
+		platform = UserAgent.parse(params['u_agent']).platform
+		browser = UserAgent.parse(params['u_agent']).browser
+		PayloadRequest.create(url: Url.find_or_create_by(address: params['url']),
+                               referrer: Referrer.find_or_create_by(address: params['referrer']),
+                               request_type: RequestType.find_or_create_by(verb: params['request_type']),
+                               event: Event.find_or_create_by(name: params['event']),
+                               u_agent: UAgent.find_or_create_by(browser: browser, platform: platform),
+                               resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
+                               ip: Ip.find_or_create_by(address: params['ip']),
+															 requested_at: params['requested_at'],
+                               responded_in: params['responded_in'],
+															 client: Client.find_or_create_by(identifier: params['identifier'])
+                              )
 
 		assert_equal 1, PayloadRequest.count
 
