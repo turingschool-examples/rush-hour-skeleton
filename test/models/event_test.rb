@@ -21,12 +21,19 @@ class EventTest < Minitest::Test
     event1 = Event.create(name: "socialLogin")
     event2 = Event.create(name: "NOTsocialLogin")
 
+    create_payload_requests(event1.id, event2.id)
+
+    assert Event.most_to_least_requested.include?("socialLogin")
+    assert Event.most_to_least_requested.include?("NOTsocialLogin")
+  end
+
+  def create_payload_requests(event1_id, event2_id)
     PayloadRequest.create(url_id: 1,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                        event_id: event1.id,
+                        event_id: event1_id,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1,
@@ -37,7 +44,7 @@ class EventTest < Minitest::Test
                    response_time: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                        event_id: event2.id,
+                        event_id: event2_id,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1,
@@ -48,14 +55,12 @@ class EventTest < Minitest::Test
                    response_time: 1,
                      referral_id: 1,
                  request_type_id: 1,
-                        event_id: event1.id,
+                        event_id: event1_id,
                    user_agent_id: 1,
                    resolution_id: 1,
                            ip_id: 1,
                        client_id: 1)
 
-    assert Event.most_to_least_requested.include?("socialLogin")
-    assert Event.most_to_least_requested.include?("NOTsocialLogin")
   end
 
 end

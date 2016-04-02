@@ -172,58 +172,24 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_can_return_average_response_time_across_all_requests
-    PayloadRequest.create(url_id: 1,
-                    requested_at: "2013-02-16 21:38:28 -0700",
-                   response_time: 100,
-                     referral_id: 1,
-                 request_type_id: 1,
-                        event_id: 1,
-                   user_agent_id: 1,
-                   resolution_id: 1,
-                           ip_id: 1,
-                       client_id: 1)
-
-   PayloadRequest.create(url_id: 1,
-                   requested_at: "2013-02-16 21:38:28 -0700",
-                  response_time: 300,
-                    referral_id: 1,
-                request_type_id: 1,
-                       event_id: 1,
-                  user_agent_id: 1,
-                  resolution_id: 1,
-                          ip_id: 1,
-                      client_id: 1)
+    create_payload_requests
 
     assert_equal 200, PayloadRequest.average_response_time
   end
 
   def test_it_can_return_max_response_time_across_all_requests
-    PayloadRequest.create(url_id: 1,
-                    requested_at: "2013-02-16 21:38:28 -0700",
-                   response_time: 100,
-                     referral_id: 1,
-                 request_type_id: 1,
-                        event_id: 1,
-                   user_agent_id: 1,
-                   resolution_id: 1,
-                           ip_id: 1,
-                       client_id: 1)
-
-   PayloadRequest.create(url_id: 1,
-                   requested_at: "2013-02-16 21:38:28 -0700",
-                  response_time: 300,
-                    referral_id: 1,
-                request_type_id: 1,
-                       event_id: 1,
-                  user_agent_id: 1,
-                  resolution_id: 1,
-                          ip_id: 1,
-                      client_id: 1)
+    create_payload_requests
 
     assert_equal 300, PayloadRequest.max_response_time
   end
 
   def test_it_can_return_min_response_time_across_all_requests
+    create_payload_requests
+
+    assert_equal 100, PayloadRequest.min_response_time
+  end
+
+  def create_payload_requests
     PayloadRequest.create(url_id: 1,
                     requested_at: "2013-02-16 21:38:28 -0700",
                    response_time: 100,
@@ -245,8 +211,6 @@ class PayloadRequestTest < Minitest::Test
                   resolution_id: 1,
                           ip_id: 1,
                       client_id: 1)
-
-    assert_equal 100, PayloadRequest.min_response_time
   end
 
 end

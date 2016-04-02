@@ -63,5 +63,4 @@ class CreateClientTest < Minitest::Test
     assert_equal 403, last_response.status
     assert_equal "Client with identifier: \"name\" already exists!\n", last_response.body
   end
-
 end

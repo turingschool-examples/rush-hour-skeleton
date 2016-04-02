@@ -22,15 +22,6 @@ class PayloadLoader
     uri = URI(raw_url)
     path = uri.path
     root_url = [uri.scheme, uri.host].join("://")
-    # # look into URI
-    # if raw_url[-1] == '/'
-    #   path = '/'
-    #   root_url = raw_url.chop
-    # else
-    #   raw_url  = raw_url.split('/')
-    #   path     = "/#{raw_url.pop}"
-    #   root_url = raw_url.join('/')
-    # end
     [path, root_url]
   end
 

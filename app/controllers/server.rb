@@ -5,14 +5,15 @@ module RushHour
     end
 
     post '/sources' do
-      client = ClientCreator.new(params)
-      status client.status
-      body client.body
+      client_creator = ClientCreator.new(params)
+      client_creator.create_client
+      status client_creator.status
+      body client_creator.body
     end
 
     post '/sources/:id/data' do |id|
       parser = PayloadParser.new
-      parser.parse(params)
+      parser.send_request(params)
       status parser.status
       body parser.body
     end
