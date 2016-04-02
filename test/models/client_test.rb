@@ -81,12 +81,12 @@ class ClientTest < Minitest::Test
    assert_equal ["http://amazon.com", "http://newegg.com", "http://jumpstartlab.com"], client.list_top_three_referrers
   end
 
-  def test_it_lists_top_three_u_agents
-   referrer_data
-
-   client = Client.find(1)
-   assert_equal [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]], client.list_top_three_u_agents
-  end
+  # def test_it_lists_top_three_u_agents
+  #  referrer_data
+  #
+  #  client = Client.find(1)
+  #  assert_equal [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]], client.list_top_three_u_agents
+  # end
 
   def test_it_lists_most_requested_verb
    referrer_data

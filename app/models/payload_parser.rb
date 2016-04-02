@@ -58,7 +58,8 @@ module PayloadParser
                                resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
                                ip: Ip.find_or_create_by(address: params['ip']),
 															 requested_at: params['requested_at'],
-                               responded_in: params['responded_in']
+                               responded_in: params['responded_in'],
+															 client: Client.find_by(identifier: params['identifier'])
                               )
 
 		pr.valid?
@@ -75,7 +76,8 @@ module PayloadParser
                                resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
                                ip: Ip.find_or_create_by(address: params['ip']),
 															 requested_at: params['requested_at'],
-                               responded_in: params['responded_in']
+                               responded_in: params['responded_in'],
+															 client: Client.find_by(identifier: params['identifier'])
                           )
 	end
 
@@ -92,7 +94,7 @@ module PayloadParser
 															 ip: Ip.find_or_create_by(address: params['ip']),
 															 requested_at: params['requested_at'],
 															 responded_in: params['responded_in'],
-															 client: Client.find_or_create_by(identifier: params['identifier'], root_url: params['root_url'])
+															 client: Client.find_by(identifier: params['identifier'])
 													)
 	end
 end
