@@ -17,10 +17,6 @@ class UserCanClickOnURLOnDashboard < FeatureTest
   def test_user_can_follow_a_link_for_a_url
     register_client
     referrer_data
-    # Client.create(identifier: "apple", root_url: "http://apple.com")
-
-    # post '/sources', {identifier: "apple",
-    #                             rootUrl: "http://apple.com"}
 
     params = {
       "url": "http://google.com/search",
@@ -45,9 +41,8 @@ class UserCanClickOnURLOnDashboard < FeatureTest
 
     assert_equal path, current_path
 
-    save_and_open_page
     click_link "http://google.com/search"
-    assert_equal "http://sources/apple/urls/search", current_path
+    assert_equal "/sources/jumpstartlab/urls/search", current_path
 
   end
 
