@@ -87,4 +87,39 @@ class ClientTest < Minitest::Test
    client = Client.find(1)
    assert_equal [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]], client.list_top_three_u_agents
  end
+
+ def test_it_lists_most_requested_verb
+   referrer_data
+
+   client = Client.find(1)
+   assert_equal "GET", client.most_requested_verb
+ end
+
+ def test_it_lists_urls_most_frequent_to_least
+   referrer_data
+
+   client = Client.find(1)
+   assert_equal ["http://turing.io"], client.most_to_least_frequent_urls
+ end
+
+ def test_it_lists_browsers
+   referrer_data
+
+   client = Client.find(1)
+   assert_equal ["Mozilla", "Opera", "Chrome"], client.browsers
+ end
+
+ def test_it_lists_platforms
+   referrer_data
+
+   client = Client.find(1)
+   assert_equal ["Windows", "Webkit", "Macintosh"], client.platforms
+ end
+
+ def test_it_lists_screen_resolutions
+   referrer_data
+
+   client = Client.find(1)
+   assert_equal ["2560x1440", "1920x1280"], client.screen_resolutions
+ end
 end

@@ -14,13 +14,15 @@ class UserCanViewDataForTheirApp < FeatureTest
     end
 
     within('#analytics') do
-      assert page.has_content?("Max Response time")
-      assert page.has_content?("Min Response time")
-      assert page.has_content?("A list of response times across all requests listed from longest response time to shortest response time")
-      assert page.has_content?("Average Response time for this URL")
-      assert page.has_content?("HTTP Verb(s) associated used")
-      assert page.has_content?("Three most popular referrers")
-      assert page.has_content?("Three most popular user agents")
+      assert page.has_content?("Average Response time across all requests")
+      assert page.has_content?("Max Response time across all requests")
+      assert page.has_content?("Min Response time across all requests")
+      assert page.has_content?("Most frequent request type")
+      assert page.has_content?("List of all HTTP verbs used")
+      assert page.has_content?("List of URLs listed from most requested to least requested")
+      assert page.has_content?("Web browser breakdown across all requests")
+      assert page.has_content?("OS breakdown across all requests")
+      assert page.has_content?("Screen Resolutions across all requests (resolutionWidth x resolutionHeight)")
     end
   end
 
@@ -47,15 +49,16 @@ class UserCanViewDataForTheirApp < FeatureTest
       assert page.has_content?("Jumpstartlab")
     end
 
-    save_and_open_page
     within('#analytics') do
-      assert page.has_content?("Max Response time: 40")
-      assert page.has_content?("Min Response time: 10")
-      assert page.has_content?("A list of response times across all requests listed from longest response time to shortest response time: [40, 30, 20, 10]")
-      assert page.has_content?("Average Response time for this URL: 25.0")
-      assert page.has_content?("HTTP Verb(s) associated used: [\"GET\", \"POST\"]")
-      assert page.has_content?("Three most popular referrers: [\"http://amazon.com\", \"http://newegg.com\", \"http://jumpstartlab.com\"]")
-      assert page.has_content?("Three most popular user agents: [[\"Mozilla\", \"Windows\"], [\"Chrome\", \"Macintosh\"], [\"Opera\", \"Webkit\"]]")
+      assert page.has_content?("Average Response time across all requests: 25.0")
+      assert page.has_content?("Max Response time across all requests: 40")
+      assert page.has_content?("Min Response time across all requests: 10")
+      assert page.has_content?("Most frequent request type: GET")
+      assert page.has_content?("List of all HTTP verbs used: [\"GET\", \"POST\"]")
+      assert page.has_content?("List of URLs listed from most requested to least requested: [\"http://turing.io\"]")
+      assert page.has_content?("Web browser breakdown across all requests: [\"Mozilla\", \"Opera\", \"Chrome\"]")
+      assert page.has_content?("OS breakdown across all requests: [\"Windows\", \"Webkit\", \"Macintosh\"]")
+      assert page.has_content?("Screen Resolutions across all requests (resolutionWidth x resolutionHeight): [\"2560x1440\", \"1920x1280\"]")
     end
   end
 
@@ -71,16 +74,16 @@ class UserCanViewDataForTheirApp < FeatureTest
       assert page.has_content?("Turing")
     end
 
-    save_and_open_page
     within('#analytics') do
-      assert page.has_content?("Max Response time: 10")
-      assert page.has_content?("Min Response time: 10")
-      assert page.has_content?("A list of response times across all requests listed from longest response time to shortest response time: [10]")
-      assert page.has_content?("Average Response time for this URL: 10.0")
-      assert page.has_content?("HTTP Verb(s) associated used: [\"GET\"]")
-      assert page.has_content?("Three most popular referrers: [\"http://jumpstartlab.com\"]")
-      assert page.has_content?("Three most popular user agents: [[\"Chrome\", \"Macintosh\"]]")
+      assert page.has_content?("Average Response time across all requests: 10.0")
+      assert page.has_content?("Max Response time across all requests: 10")
+      assert page.has_content?("Min Response time across all requests: 10")
+      assert page.has_content?("Most frequent request type: GET")
+      assert page.has_content?("List of all HTTP verbs used: [\"GET\"]")
+      assert page.has_content?("List of URLs listed from most requested to least requested: [\"http://turing.io\"]")
+      assert page.has_content?("Web browser breakdown across all requests: [\"Chrome\"]")
+      assert page.has_content?("OS breakdown across all requests: [\"Macintosh\"]")
+      assert page.has_content?("Screen Resolutions across all requests (resolutionWidth x resolutionHeight): [\"1920x1280\"]")
     end
   end
-
 end

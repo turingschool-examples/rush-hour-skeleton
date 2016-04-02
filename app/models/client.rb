@@ -4,13 +4,14 @@ class Client < ActiveRecord::Base
   has_many :request_types, through: :payload_requests
   has_many :u_agents, through: :payload_requests
   has_many :urls, through: :payload_requests
+  has_many :resolutions, through: :payload_requests
 
   validates :identifier, presence: true, uniqueness: true
   validates :root_url, presence: true
 
 
-  def most_requested_verbs
-    request_types.group(:verb).count
+  def most_requested_verb
+    request_types.group(:verb).order(count: :desc).count.keys.first
   end
 
   def max_response_time
@@ -40,5 +41,21 @@ class Client < ActiveRecord::Base
 
   def list_top_three_u_agents
     u_agents.group(:browser, :platform).order(count: :desc).count.keys.take(3)
+  end
+
+  def most_to_least_frequent_urls
+    urls.group(:address).order(count: :desc).count.keys
+  end
+
+  def browsers
+    u_agents.pluck(:browser).uniq
+  end
+
+  def platforms
+    u_agents.pluck(:platform).uniq
+  end
+
+  def screen_resolutions
+    resolutions.pluck(:width, :height).uniq.map {|pair| "#{pair[0]}x#{pair[1]}"}
   end
 end

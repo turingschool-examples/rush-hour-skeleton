@@ -2,12 +2,14 @@
 	<h2><%= @identifier %> Dashboard Analytics</h2>
 </div>
 
-<div id="analytics">
-	<h3>Max Response time: <%= @client.max_response_time %></h3>
-	<h3>Min Response time: <%= @client.min_response_time %></h3>
-	<h3>A list of response times across all requests listed from longest response time to shortest response time: <%= @client.all_response_time_from_most_to_least %></h3>
-	<h3>Average Response time for this URL: <%= @client.average_response_time %></h3>
-	<h3>HTTP Verb(s) associated used: <%= @client.list_all_verbs %></h3>
-	<h3>Three most popular referrers: <%= @client.list_top_three_referrers %></h3>
-	<h3>Three most popular user agents: <%= @client.list_top_three_u_agents %></h3>
+<div id='analytics'>
+	<h3>Average Response time across all requests: <%= @client.average_response_time %></h3>
+	<h3>Max Response time across all requests: <%= @client.max_response_time %></h3>
+	<h3>Min Response time across all requests: <%= @client.min_response_time %></h3>
+	<h3>Most frequent request type: <%= @client.most_requested_verb %></h3>
+	<h3>List of all HTTP verbs used: <%= @client.list_all_verbs %></h3>
+	<h3>List of URLs listed from most requested to least requested: <%= @client.most_to_least_frequent_urls %></h3>
+	<h3>Web browser breakdown across all requests: <%= @client.browsers %></h3>
+	<h3>OS breakdown across all requests: <%= @client.platforms %></h3>
+	<h3>Screen Resolutions across all requests (resolutionWidth x resolutionHeight): <%= @client.screen_resolutions %></h3>
 </div>
