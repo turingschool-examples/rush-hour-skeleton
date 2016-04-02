@@ -19,6 +19,17 @@ module RushHour
       status, body = result
     end
 
+    get '/sources/:identifier' do |identifier|
+      @client = Client.find_by(identifier: params['identifier'])
+      @identifier = @client.identifier.capitalize if @client
+      if @client
+        erb :dashboard
+      else
+        # USE REDIRECT
+        erb :error
+      end
+    end
+
     not_found do
       erb :error
     end
