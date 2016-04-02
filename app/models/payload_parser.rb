@@ -18,7 +18,6 @@ module PayloadParser
 
 	def params_parser(params, identifier)
 		params = JSON.parse(params['payload']) if params['payload']
-		root_url = params['url'].split(".com")[0] + ".com" if params['url']
 		{
 		 'url' => params['url'],
 		 'requested_at' => params['requestedAt'],
@@ -31,7 +30,7 @@ module PayloadParser
 		 'resolution_height' => params['resolutionHeight'],
 		 'ip' => params['ip'],
 		 'identifier' => identifier,
-		 'root_url' => root_url
+		 'root_url' => params['url']
 	  }
 	end
 

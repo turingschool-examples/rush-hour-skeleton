@@ -74,52 +74,59 @@ class ClientTest < Minitest::Test
     assert_equal ["GET", "POST"], client.list_all_verbs
   end
 
- def test_it_lists_top_three_referrers
+  def test_it_lists_top_three_referrers
    referrer_data
 
    client = Client.find(1)
    assert_equal ["http://amazon.com", "http://newegg.com", "http://jumpstartlab.com"], client.list_top_three_referrers
- end
+  end
 
- def test_it_lists_top_three_u_agents
+  def test_it_lists_top_three_u_agents
    referrer_data
 
    client = Client.find(1)
    assert_equal [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]], client.list_top_three_u_agents
- end
+  end
 
- def test_it_lists_most_requested_verb
+  def test_it_lists_most_requested_verb
    referrer_data
 
    client = Client.find(1)
    assert_equal "GET", client.most_requested_verb
- end
+  end
 
- def test_it_lists_urls_most_frequent_to_least
+  def test_it_lists_urls_most_frequent_to_least
    referrer_data
 
    client = Client.find(1)
    assert_equal ["http://turing.io"], client.most_to_least_frequent_urls
- end
+  end
 
- def test_it_lists_browsers
+  def test_it_lists_browsers
    referrer_data
 
    client = Client.find(1)
    assert_equal ["Mozilla", "Opera", "Chrome"], client.browsers
- end
+  end
 
- def test_it_lists_platforms
+  def test_it_lists_platforms
    referrer_data
 
    client = Client.find(1)
    assert_equal ["Windows", "Webkit", "Macintosh"], client.platforms
- end
+  end
 
- def test_it_lists_screen_resolutions
+  def test_it_lists_screen_resolutions
    referrer_data
 
    client = Client.find(1)
    assert_equal ["2560x1440", "1920x1280"], client.screen_resolutions
- end
+  end
+
+  def test_can_find_clients_payload_requests_by_relative_path
+    referrer_data
+
+    client = Client.find(1)
+    assert_equal nil, client.find_payload_requests_by_relative_path(path)
+  end
 end

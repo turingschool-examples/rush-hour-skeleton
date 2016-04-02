@@ -58,4 +58,8 @@ class Client < ActiveRecord::Base
   def screen_resolutions
     resolutions.pluck(:width, :height).uniq.map {|pair| "#{pair[0]}x#{pair[1]}"}
   end
+
+  def find_payload_requests_by_relative_path(path)
+    payload_requests.where(url: )
+  end
 end
