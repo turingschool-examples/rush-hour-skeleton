@@ -128,7 +128,7 @@ module TestHelpers
                               )]
   end
 
-  def iter7_data
+  def data_with_relative_path
     [PayloadRequest.create(url: Url.find_or_create_by(address: "http://jumpstartlab.com/blog"),
                                referrer: Referrer.find_or_create_by(address: "http://amazon.com"),
                                request_type: RequestType.find_or_create_by(verb: "GET"),
