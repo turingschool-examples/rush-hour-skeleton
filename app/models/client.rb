@@ -60,7 +60,7 @@ class Client < ActiveRecord::Base
     resolutions.pluck(:width, :height).uniq.map {|pair| "#{pair[0]}x#{pair[1]}"}
   end
 
-  def find_payload_requests_by_relative_path(path) #TODO X, test needed, including server 
+  def find_payload_requests_by_relative_path(path) #TODO X, test needed, including server
     payload_requests.where(url: Url.find_by(address: path))
   end
 end
