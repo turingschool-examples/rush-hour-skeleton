@@ -1,3 +1,4 @@
+require 'URI'
 module ClientParser
 	def parse_client_and_direct_to_page
 		@client = Client.find_by(identifier: params['identifier'])
@@ -14,12 +15,13 @@ module ClientParser
 				@urls_with_requests[url] += @client.find_payload_requests_by_relative_path(url) if @client.find_payload_requests_by_relative_path(url)
 			end
 
-			@relativepaths = @urls_with_requests.keys.map { |url| url.split(".com")[1] }
+			@relativepaths = @urls_with_requests.keys.map { |url| URI.parse(url).path }
 			erb :dashboard
 		end
 	end
 
 	def parse_event_data_and_direct_to_page(identifier, eventname)
+		@identifier = identifier
 		client = Client.find_by(identifier: identifier)
 		if client && client.events.find_by(name: eventname)
 			event_hours = client.events.find_by(name: eventname).payload_requests.pluck(:requested_at).map do |time|

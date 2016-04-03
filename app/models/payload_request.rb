@@ -36,4 +36,20 @@ class PayloadRequest < ActiveRecord::Base
   def self.urls_list_from_most_to_least_requested
     joins(:url).group(:address).order(count: :desc).count
   end
+
+  def self.all_response_time_from_most_to_least
+    pluck(:responded_in).sort.reverse  #TODO - find something other than reverse here
+  end
+
+  def self.list_all_verbs
+    joins(:request_type).pluck(:verb).uniq
+  end
+
+  def self.list_top_three_referrers
+    joins(:referrer).group(:address).order(count: :desc).count.keys.take(3)
+  end
+
+  def self.list_top_three_u_agents
+    joins(:u_agent).group(:browser, :platform).order(count: :desc).count.keys.take(3)
+  end
 end

@@ -25,7 +25,6 @@ class Client < ActiveRecord::Base
 
   def all_response_time_from_most_to_least
     payload_requests.pluck(:responded_in).sort.reverse  #TODO - find something other than reverse here
-
   end
 
   def average_response_time

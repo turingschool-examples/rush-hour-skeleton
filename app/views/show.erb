@@ -1,13 +1,9 @@
 <div id="analytics">
-
-<h3>Max Response time: <%= @requests.max_response_time %></h3>
-<h3>Min Response time: <%= @requests.min_response_time %></h3>
-<h3>A list of response times across all requests listed from longest response time to shortest response time:  <%=# @requests.all_response_time_from_most_to_least %></h3>
-<h3>Average Response time for this URL: <%= @requests.average_response_time.round(2) %></h3>
-<h3>HTTP Verb(s) associated with this URL: <%= #@requests.list_all_verbs %> </h3>
-<h3>Three most popular referrers: <%= #@requests.list_top_three_referrers %></h3>
-<h3>Three most popular user agents: <%= #@requests.list_top_u_agents %></h3>
-<h3>Web browser breakdown across all requests:<%= #@requests.browsers %></h3>
-<h3>OS breakdown across all requests: <%= #@requests.platforms %></h3>
-<h3>Screen Resolutions across all requests (resolutionWidth x resolutionHeight): <%= #@requests.screen_resolutions %></h3>
+	<h3>Max Response time: <%= @requests.max_response_time %></h3>
+	<h3>Min Response time: <%= @requests.min_response_time %></h3>
+	<h3>A list of response times across all requests listed from longest response time to shortest response time:  <%= @requests.all_response_time_from_most_to_least %></h3>
+	<h3>Average Response time for this URL: <%= @requests.average_response_time.round(2) %></h3>
+	<h3>HTTP Verb(s) associated with this URL: <%= @requests.list_all_verbs %> </h3>
+	<h3>Three most popular referrers: <%= @requests.list_top_three_referrers %></h3>
+	<h3>Three most popular user agents: <%= @requests.list_top_three_u_agents %></h3>
 </div>
