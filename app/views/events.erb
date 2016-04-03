@@ -1,4 +1,4 @@
 <h1> HOURLY BREAKDOWN YO</h1>
 <% (0..23).step do |index| %>
-<h3><%= index.to_s.rjust(2, "0") %>: <%= @events_by_hour[index.to_s.rjust(2, "0")] %></h3>
+<h3><%= index.to_s.rjust(2, "0") %>: <%= @event_text %><%= @events_by_hour[index.to_s.rjust(2, "0")] %></h3>
 <% end %>

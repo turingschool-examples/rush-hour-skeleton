@@ -21,6 +21,7 @@ module ClientParser
 	end
 
 	def parse_event_data_and_direct_to_page(identifier, eventname)
+		@event_text = "Number of " + eventname + "s= "
 		@identifier = identifier
 		client = Client.find_by(identifier: identifier)
 		if client && client.events.find_by(name: eventname)

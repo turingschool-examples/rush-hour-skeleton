@@ -11,7 +11,6 @@ class UserCanNoEventPage < FeatureTest
     assert_equal path, current_path
 
     assert page.has_content?("Event not found")
-    assert page.has_content?("Back to Events")
+    assert page.has_content?("Events Index")
   end
 end
-
