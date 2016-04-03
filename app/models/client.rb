@@ -5,6 +5,7 @@ class Client < ActiveRecord::Base
   has_many :u_agents, through: :payload_requests
   has_many :urls, through: :payload_requests
   has_many :resolutions, through: :payload_requests
+  has_many :events, through: :payload_requests
 
   validates :identifier, presence: true, uniqueness: true
   validates :root_url, presence: true
@@ -59,7 +60,7 @@ class Client < ActiveRecord::Base
     resolutions.pluck(:width, :height).uniq.map {|pair| "#{pair[0]}x#{pair[1]}"}
   end
 
-  def find_payload_requests_by_relative_path(path)
+  def find_payload_requests_by_relative_path(path) #TODO X, test needed, including server 
     payload_requests.where(url: Url.find_by(address: path))
   end
 end
