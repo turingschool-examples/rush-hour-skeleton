@@ -1,3 +1,6 @@
+<div class="eventspage">
+  <h2 id="yourevents">Your Events</h2>
 <% @event_names.each do |name| %>
-	<h3><a href="/sources/<%= @client.identifier %>/events/<%= name %>"> <%= name %></a></h3>
+	<h3 id="eventful"><a href="/sources/<%= @client.identifier %>/events/<%= name %>"> <%= name %></a></h3>
 <% end %>
+</div>

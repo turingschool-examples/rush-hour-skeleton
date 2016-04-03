@@ -124,7 +124,7 @@ class ClientTest < Minitest::Test
   end
 
   def test_can_find_clients_payload_requests_by_relative_path
-    iter7_data
+    data_with_relative_path
     path = "http://jumpstartlab.com/blog"
 
     client = Client.find(1)

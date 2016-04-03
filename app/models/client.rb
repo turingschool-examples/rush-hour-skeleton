@@ -57,7 +57,8 @@ class Client < ActiveRecord::Base
   end
 
   def screen_resolutions
-    resolutions.pluck(:width, :height).uniq.map {|pair| "#{pair[0]}x#{pair[1]}"}
+    rez = resolutions.pluck(:width, :height).uniq
+    rez.map {|pair| "#{pair[0]}x#{pair[1]}"}
   end
 
   def find_payload_requests_by_relative_path(path) #TODO X, test needed, including server

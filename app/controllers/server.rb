@@ -28,7 +28,7 @@ module RushHour
       erb :show
     end
 
-    get '/sources/:identifier/events/:eventname' do |identifier, eventname| #TODO X, need feature test
+    get '/sources/:identifier/events/:eventname' do |identifier, eventname|
       parse_event_data_and_direct_to_page(identifier, eventname)
     end
 

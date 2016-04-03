@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class UserCanClickOnURLOnDashboard < FeatureTest
   include TestHelpers
-	include Rack::Test::Methods
+  include Rack::Test::Methods
 
   def test_invalid_client_results_in_error_page
     path = '/sources/jumpstartlab'
@@ -35,6 +35,7 @@ class UserCanClickOnURLOnDashboard < FeatureTest
     post '/sources/jumpstartlab/data', params
     save_and_open_page
     visit path
+
     assert_equal path, current_path
 
     click_link "http://google.com/search"
