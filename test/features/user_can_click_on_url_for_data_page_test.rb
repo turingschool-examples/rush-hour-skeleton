@@ -34,8 +34,6 @@ class UserCanClickOnURLOnDashboard < FeatureTest
 
     post '/sources/jumpstartlab/data', params
 
-
-
     path = '/sources/jumpstartlab'
     visit path
 

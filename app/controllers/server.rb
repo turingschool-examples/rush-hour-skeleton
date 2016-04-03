@@ -60,7 +60,9 @@ module RushHour
         @events_by_hour = event_hours.inject(Hash.new(0)) { |hash, hour| hash[hour] += 1; hash }
         erb :events
       else
-        erb :no_event
+        erb :no_event  #TODO this should redirect, instead of taking to a dead page
+        #redirect "sources/#{identifier}/events"
+        #redirect :client_events
       end
     end
 
