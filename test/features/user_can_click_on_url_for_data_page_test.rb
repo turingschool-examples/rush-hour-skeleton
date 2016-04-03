@@ -33,17 +33,13 @@ class UserCanClickOnURLOnDashboard < FeatureTest
     }
 
     post '/sources/jumpstartlab/data', params
-
-
-
-    path = '/sources/jumpstartlab'
+    save_and_open_page
     visit path
 
     assert_equal path, current_path
 
     click_link "http://google.com/search"
     assert_equal "/sources/jumpstartlab/urls/search", current_path
-
   end
 
   # def test_user_gets_error_page_when_client_has_received_no_payload_requests
