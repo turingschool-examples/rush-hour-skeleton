@@ -27,4 +27,15 @@ class UserCanViewStatsForRelativePath< FeatureTest
       assert page.has_content?("Three most popular user agents: [[\"Mozilla\", \"Windows\"], [\"Chrome\", \"Macintosh\"], [\"Opera\", \"Webkit\"]]")
     end
    end
+
+   def test_displays_error_page_for_bad_url_request
+     register_client
+     data_with_relative_path
+
+     path = '/sources/jumpstartlab/urls/blarg'
+     visit path
+     assert_equal path, current_path
+
+     assert page.has_content?("This Url has not been requested")
+   end
 end

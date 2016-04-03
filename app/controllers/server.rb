@@ -25,7 +25,11 @@ module RushHour
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
       find_relative_path_payload_requests(identifier, relativepath)
-      erb :show
+      if @requests.count > 0
+        erb :show
+      else
+        erb :not_requested
+      end
     end
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname|
