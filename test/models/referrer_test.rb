@@ -14,6 +14,7 @@ class ReferrerTest < Minitest::Test
 
     assert_nil referrer.address
   end
+  
   def test_it_responds_with_an_error_message
     referrer = Referrer.create(address: nil)
 

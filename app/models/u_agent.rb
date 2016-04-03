@@ -3,7 +3,6 @@ class UAgent < ActiveRecord::Base
 
   validates :browser, presence: true
   validates :platform, presence: true
-  # validates_uniqueness_of :browser, scope: { :platform }
 
   def self.browser_breakdown_across_all_requests
     pluck(:browser)

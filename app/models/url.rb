@@ -15,7 +15,7 @@ class Url < ActiveRecord::Base
   end
 
   def all_response_time_from_most_to_least_given_url
-    payload_requests.pluck(:responded_in).reverse  #TODO - find something other than reverse here
+    payload_requests.pluck(:responded_in).reverse
   end
 
   def average_response_time_given_url

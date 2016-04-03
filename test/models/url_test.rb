@@ -70,17 +70,17 @@ class UrlTest < Minitest::Test
     assert_equal ["GET", "POST"], url.list_all_verbs_given_url
   end
 
- # def test_it_lists_top_three_referrers_given_url
- #   referrer_data
- #
- #   url = Url.find(1)
- #   assert_equal ["http://amazon.com", "http://jumpstartlab.com", "http://newegg.com"], url.list_top_three_referrers_given_url
- # end
+  def test_it_lists_top_three_referrers_given_url
+   referrer_data
 
- def test_it_lists_top_three_u_agents_given_url
+   url = Url.find(1)
+   assert_equal ["http://amazon.com", "http://jumpstartlab.com", "http://newegg.com"], url.list_top_three_referrers_given_url
+  end
+
+  def test_it_lists_top_three_u_agents_given_url
    referrer_data
 
    url = Url.find(1)
    assert_equal [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]], url.list_top_three_u_agents_given_url
- end
+  end
 end

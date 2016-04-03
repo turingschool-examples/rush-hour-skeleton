@@ -27,7 +27,6 @@ class UAgentTest < Minitest::Test
     assert_equal ["Mozilla", "Chrome", "Safari"], UAgent.browser_breakdown_across_all_requests
   end
 
-
   def test_platform_breakdown_across_all_requests
     setup_data
 

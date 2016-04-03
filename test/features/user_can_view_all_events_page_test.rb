@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class UserCanViewAllEventsPage < FeatureTest
+class UserCanViewAllEventsIndexPage < FeatureTest
   include TestHelpers
 
   def test_user_see_all_events_for_the_account
@@ -17,5 +17,3 @@ class UserCanViewAllEventsPage < FeatureTest
     assert page.has_content?("twitter")
   end
 end
-
-

@@ -72,7 +72,7 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal 20, PayloadRequest.min_response_time
   end
-  
+
   def test_it_references_a_client
     pr = PayloadRequest.create(url: Url.find_or_create_by(address: "http://jonliss.com"),
                                referrer: Referrer.create(address: "http://amazon.com"),
@@ -99,7 +99,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_event_list_from_most_to_least
     setup_data
-    expected = {"facebook"=>2, "twitter"=>1} #keep this as a hash with frequency?
+    expected = {"facebook"=>2, "twitter"=>1}
 
     assert_equal expected, PayloadRequest.event_list_from_most_to_least
   end

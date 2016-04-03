@@ -86,7 +86,6 @@ class UserCanClickOnURLOnDashboard < FeatureTest
 
     setup_data
 
-    save_and_open_page
     assert_equal path, current_path
     within("#identifier") do
       assert page.has_content?("Turing Dashboard Analytics")

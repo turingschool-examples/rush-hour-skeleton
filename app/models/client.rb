@@ -24,7 +24,7 @@ class Client < ActiveRecord::Base
   end
 
   def all_response_time_from_most_to_least
-    payload_requests.pluck(:responded_in).sort.reverse  #TODO - find something other than reverse here
+    payload_requests.pluck(:responded_in).sort.reverse
   end
 
   def average_response_time
@@ -60,7 +60,7 @@ class Client < ActiveRecord::Base
     rez.map {|pair| "#{pair[0]}x#{pair[1]}"}
   end
 
-  def find_payload_requests_by_relative_path(path) #TODO X, test needed, including server
+  def find_payload_requests_by_relative_path(path)
     payload_requests.where(url: Url.find_by(address: path))
   end
 end

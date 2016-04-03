@@ -38,7 +38,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.all_response_time_from_most_to_least
-    pluck(:responded_in).sort.reverse  #TODO - find something other than reverse here
+    pluck(:responded_in).sort.reverse
   end
 
   def self.list_all_verbs

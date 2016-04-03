@@ -1,21 +1,4 @@
 module PayloadParser
-	#params parser method
-
-	# check if client is registered
-	## if not, 403 Forbidden
-
-	# check if payload is valid
-	## payload is not nil
-	### all fields must be valid
-	## if not, 400 Forbidden
-
-	# if it's valid, try to find it in PayloadRequests
-	## if it's already there, 403 Forbidden
-	## else create the new PayloadRequest
-
-	# if all pass, 200 OK
-
-
 	def params_parser(params, identifier)
 		params = JSON.parse(params['payload']) if params['payload']
 		{
@@ -47,8 +30,8 @@ module PayloadParser
 	end
 
 	def payload_valid?(params)
-		platform = UserAgent.parse(params['u_agent']).platform  # TODO MAKE METHODS TO DO THIS
-		browser = UserAgent.parse(params['u_agent']).browser		# AND THIS
+		platform = UserAgent.parse(params['u_agent']).platform
+		browser = UserAgent.parse(params['u_agent']).browser
 
 		pr = PayloadRequest.new(url: Url.find_or_create_by(address: params['url']),
                                referrer: Referrer.find_or_create_by(address: params['referrer']),

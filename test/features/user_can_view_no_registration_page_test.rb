@@ -10,6 +10,5 @@ class UserCanNoViewNoRegistrationPage< FeatureTest
     assert_equal path, current_path
 
     assert page.has_content?("Client not registered")
-   # assert page.has_content?("Back to Events") #TODO need to redirec to a registration page
   end
 end
