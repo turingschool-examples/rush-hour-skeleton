@@ -46,12 +46,10 @@ module RushHour
       @client = Client.find_by(identifier: identifier)
       url = "http://#{identifier}.com/#{relativepath}"
       @requests = @client.find_payload_requests_by_relative_path(url)
-      # require 'pry'; binding.pry
       erb :show
     end
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname| #TODO X, need feature test
-      # require 'pry'; binding.pry
       client = Client.find_by(identifier: identifier)
 
       if client && client.events.find_by(name: eventname)

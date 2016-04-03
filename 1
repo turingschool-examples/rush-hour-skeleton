@@ -1,9 +1,18 @@
-  <h2>Vim Dashboard Analytics</h2>
-<h3>Max Response time </h3>
-Max Response time
-Min Response time
-A list of response times across all requests listed from longest response time to shortest response time.
-Average Response time for this URL
-HTTP Verb(s) associated used to it this URL
-Three most popular referrers
-Three most popular user agents
+require_relative '../test_helper'
+require_relative '../../app/models/params_checker'
+
+class CreateClientDataTest < Minitest::Test
+  include TestHelpers
+  include Rack::Test::Methods
+  include ParamsChecker
+
+  def test_data_can_be_created
+    register_client
+    setup_data
+    pr = PayloadRequest.first
+
+    assert_equal 1, PayloadRequest.first.id
+    count
+
+  end
+end
