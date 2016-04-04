@@ -74,7 +74,7 @@ class CreateClientDataTest < Minitest::Test
     assert_equal 200, last_response.status
     assert_equal "Payload Request Created", last_response.body
     post 'sources/jumpstartlab/data', params
-    assert_equal 403, last_response.status #TODO CHECK THIS.
+    assert_equal 403, last_response.status
     assert_equal "Already Received Request", last_response.body
   end
 

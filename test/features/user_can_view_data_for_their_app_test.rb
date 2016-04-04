@@ -43,7 +43,8 @@ class UserCanViewDataForTheirApp < FeatureTest
       assert page.has_content?("Min Response time across all requests: 10")
       assert page.has_content?("Most frequent request type: GET")
       assert page.has_content?("List of all HTTP verbs used: [\"GET\", \"POST\"]")
-      # assert page.has_content?("List of URLs listed from most requested to least requested: [\"http://turing.io\"]")
+      # save_and_open_page
+      assert page.has_content?("List of URLs listed from most requested to least requested: http://turing.io")
       assert page.has_content?("Web browser breakdown across all requests: [\"Mozilla\", \"Opera\", \"Chrome\"]")
       assert page.has_content?("OS breakdown across all requests: [\"Windows\", \"Webkit\", \"Macintosh\"]")
       assert page.has_content?("Screen Resolutions across all requests (resolutionWidth x resolutionHeight): [\"2560x1440\", \"1920x1280\"]")
