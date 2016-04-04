@@ -20,7 +20,17 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      parse_client_and_direct_to_page
+      @client = Client.find_by(identifier: params['identifier'])
+      @identifier = @client.identifier if @client
+
+      if @client == nil
+        erb :not_registered
+      elsif @client.payload_requests.count == 0
+        erb :no_data
+      elsif @client
+        @relativepaths = get_relative_paths(@client)
+        erb :dashboard
+      end
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
