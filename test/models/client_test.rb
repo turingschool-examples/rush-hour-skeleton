@@ -88,7 +88,10 @@ class ClientTest < Minitest::Test
    referrer_data
 
    client = Client.find(1)
-   assert_equal [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]], client.list_top_three_u_agents
+   combo1 = [["Mozilla", "Windows"], ["Chrome", "Macintosh"], ["Opera", "Webkit"]]
+   combo2 = [["Mozilla", "Windows"], ["Opera", "Webkit"], ["Chrome", "Macintosh"]]
+   result = client.list_top_three_u_agents
+   assert (combo1==result) || (combo2==result)
   end
 
   def test_it_lists_most_requested_verb
