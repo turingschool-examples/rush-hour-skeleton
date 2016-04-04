@@ -18,10 +18,14 @@ module PayloadParser
 	end
 
 	def validate_request(identifier, params)
+		# binding.pry
 		params = params_parser(params, identifier)
+		# binding.pry
 		return [403, "Application Not Registered"] unless client_exists?(identifier)
 		return [400, "Payload Not Valid"] unless payload_valid?(params)
+		# binding.pry
 		return [403, "Already Received Request"] if payload_exists?(params)
+		# binding.pry
 		[200, "Payload Request Created"]
 	end
 
@@ -49,19 +53,22 @@ module PayloadParser
 	end
 
 	def payload_exists?(params)
+		# binding.pry
 		platform = UserAgent.parse(params['u_agent']).platform
 		browser = UserAgent.parse(params['u_agent']).browser
-		PayloadRequest.exists?(url: Url.find_or_create_by(address: params['url']),
-                               referrer: Referrer.find_or_create_by(address: params['referrer']),
-                               request_type: RequestType.find_or_create_by(verb: params['request_type']),
-                               event: Event.find_or_create_by(name: params['event']),
-                               u_agent: UAgent.find_or_create_by(browser: browser, platform: platform),
-                               resolution: Resolution.find_or_create_by(width: params['resolution_width'], height: params['resolution_height']),
-                               ip: Ip.find_or_create_by(address: params['ip']),
+		# binding.pry
+		PayloadRequest.exists?(url: Url.find_by(address: params['url']),
+                               referrer: Referrer.find_by(address: params['referrer']),
+                               request_type: RequestType.find_by(verb: params['request_type']),
+                               event: Event.find_by(name: params['event']),
+                               u_agent: UAgent.find_by(browser: browser, platform: platform),
+                               resolution: Resolution.find_by(width: params['resolution_width'], height: params['resolution_height']),
+                               ip: Ip.find_by(address: params['ip']),
 															 requested_at: params['requested_at'],
                                responded_in: params['responded_in'],
 															 client: Client.find_by(identifier: params['identifier'])
                           )
+													# binding.pry
 	end
 
 	def add_to_database(params, identifier)

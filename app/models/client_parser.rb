@@ -43,7 +43,6 @@ module ClientParser
 	def find_relative_path_payload_requests(identifier, relativepath)
 		@client = Client.find_by(identifier: identifier)
 		url = "http://#{identifier}.com/#{relativepath}"
-		# binding.pry
 		@requests = @client.find_payload_requests_by_relative_path(url)
 	end
 end
