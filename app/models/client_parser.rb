@@ -1,4 +1,3 @@
-require 'URI'
 module ClientParser
 	def parse_client_and_direct_to_page
 		@client = Client.find_by(identifier: params['identifier'])
@@ -44,6 +43,7 @@ module ClientParser
 	def find_relative_path_payload_requests(identifier, relativepath)
 		@client = Client.find_by(identifier: identifier)
 		url = "http://#{identifier}.com/#{relativepath}"
+		# binding.pry
 		@requests = @client.find_payload_requests_by_relative_path(url)
 	end
 end

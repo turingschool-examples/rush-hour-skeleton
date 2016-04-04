@@ -78,7 +78,10 @@ class ClientTest < Minitest::Test
    referrer_data
 
    client = Client.find(1)
-   assert_equal ["http://amazon.com", "http://newegg.com", "http://jumpstartlab.com"], client.list_top_three_referrers
+   top_three=client.list_top_three_referrers
+   combo1 = ["http://amazon.com", "http://jumpstartlab.com", "http://newegg.com"]
+   combo2 = ["http://amazon.com", "http://newegg.com", "http://jumpstartlab.com"]
+   assert (combo1==top_three) || (combo2==top_three)
   end
 
   def test_it_lists_top_three_u_agents
