@@ -1,6 +1,16 @@
 require "bundler"
 Bundler.require
 
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new
+task :default => :spec
+
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.test_files = FileList['test/**/*_test.rb']
+end
+
 require "sinatra/activerecord/rake"
 
 namespace :sanitation do
@@ -24,4 +34,6 @@ namespace :sanitation do
 
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
+
+
 end
