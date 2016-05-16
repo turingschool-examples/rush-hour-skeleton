@@ -1,0 +1,51 @@
+
+Defining the Relationship
+
+* Expectations?
+  Nick- Finish project, very communicative between group.
+  Karina- Get better grip on SQL/sequel. Learn more about headers in HTTP.
+  Colin- learn more about HTTP.
+
+* Availability?
+  Nick- Three hours a day after school-- weekend, however long it takes.
+  Colin- Three hours a day after school-- weekend, however long it takes.
+  Karina- Three hours a day after school-- weekend, however long it takes.
+
+* Communication?
+  Nick- Clear on current task, issues, frustrations.
+  Colin- Be willing to say constructive criticism, doesn't take it to heart.
+  Karina- Open to constructive feedback, making a conscious effort to be more willing to ask questions.
+
+* Strengths?
+  Nick- HTTP verbs, HTTP in general.
+  Colin- SQL, sequel, testing.
+  Karina- Styling, TDD/edge-cases.
+
+* Work on?
+  Nick- Postgres, databases, database requests, styling.
+  Colin- Postgres, databases, database requests, styling.
+  Colin- Postgres, databases, database requests, styling, SQL.
+
+* Features?
+  Nick, Colin, Karina- Get an understanding on what everyone is doing. Start off together.
+
+* Git Workflow?
+  Branch per issue/feature. Never push onto master unless rake runs. Always have a team member go over your pull request. Really good commit messages and comments on pull requests.
+
+* Personal work/communication style?
+  Collaborating mostly together. Take walks together where we don't talk about our project. Stay hydrated.
+
+
+ WHEN WORKING ON BRANCHES, PLEASE CONSIDER THE FOLLOWING:
+
+ * create branch
+   git checkout -b new_branch
+
+ * push it onto git
+   git push origin new_branch
+
+ * when branch ready to merge onto master
+   Create pull request.
+   Accept it.
+   git checkout master.
+   git pull origin master.
