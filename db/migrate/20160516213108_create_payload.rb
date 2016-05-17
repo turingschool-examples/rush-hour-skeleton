@@ -1,6 +1,6 @@
 class CreatePayload < ActiveRecord::Migration
   def change
-    create_table :payload_requests do |t|
+    create_table  :payload_requests do |t|
       t.text      :url
       t.datetime  :requested_at
       t.integer   :responded_in

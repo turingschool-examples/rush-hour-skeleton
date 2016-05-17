@@ -2,6 +2,10 @@ require_relative "../test_helper"
 
 class PayloadRequestTest < Minitest::Test
 
+  def setup
+    @payload = PayloadRequest.new
+  end
+
   def test_full_payload_request_is_valid
     payload = PayloadRequest.create({
       "url"=> "http://jumpstartlab.com/blog",
@@ -63,5 +67,33 @@ class PayloadRequestTest < Minitest::Test
     })
 
     assert payload.invalid?
+  end
+
+  def test_it_has_relationship_with_url
+    assert_respond_to(@payload, :urls)
+  end
+
+  def test_it_has_relationship_with_referred_by
+    assert_respond_to(@payload, :referred_bys)
+  end
+
+  def test_it_has_relationship_with_request_type
+    assert_respond_to(@payload, :request_types)
+  end
+
+  def test_it_has_relationship_with_event_name
+    assert_respond_to(@payload, :event_names)
+  end
+
+  def test_it_has_relationship_with_user_agent
+    assert_respond_to(@payload, :user_agents)
+  end
+
+  def test_it_has_relationship_with_resolution
+    assert_respond_to(@payload, :resolutions)
+  end
+
+  def test_it_has_relationship_with_ip_address
+    assert_respond_to(@payload, :ip_addresses)
   end
 end
