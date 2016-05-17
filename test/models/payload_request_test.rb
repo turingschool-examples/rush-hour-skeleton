@@ -2,12 +2,16 @@ require_relative "../test_helper"
 
 class PayloadRequestTest < Minitest::Test
 
+  def setup
+    @payload = PayloadRequest.new
+  end
+
   def test_full_payload_request_is_valid
     payload = PayloadRequest.create({
       "url"=> "http://jumpstartlab.com/blog",
       "requested_at" => "2013-02-16 21:38:28 -0700",
       "responded_in"=>37,
-      "referred_by"=>"http://jumpstartlab.com",
+      "reference"=>"http://jumpstartlab.com",
       "request_type"=>"GET",
       "parameters"=>[],
       "event_name"=> "socialLogin",
@@ -34,7 +38,7 @@ class PayloadRequestTest < Minitest::Test
       "url"=> "",
       "requested_at" => "",
       "responded_in"=> "",
-      "referred_by"=>"http://jumpstartlab.com",
+      "reference"=>"http://jumpstartlab.com",
       "request_type"=>"GET",
       "parameters"=>[],
       "event_name"=> "socialLogin",
@@ -52,7 +56,7 @@ class PayloadRequestTest < Minitest::Test
       "url"=> nil,
       "requested_at" => nil,
       "responded_in"=> nil,
-      "referred_by"=>"http://jumpstartlab.com",
+      "reference"=>"http://jumpstartlab.com",
       "request_type"=>"GET",
       "parameters"=>[],
       "event_name"=> "socialLogin",
@@ -63,5 +67,33 @@ class PayloadRequestTest < Minitest::Test
     })
 
     assert payload.invalid?
+  end
+
+  def test_it_has_relationship_with_url
+    assert_respond_to(@payload, :urls)
+  end
+
+  def test_it_has_relationship_with_reference
+    assert_respond_to(@payload, :references)
+  end
+
+  def test_it_has_relationship_with_request_type
+    assert_respond_to(@payload, :request_types)
+  end
+
+  def test_it_has_relationship_with_event_name
+    assert_respond_to(@payload, :event_names)
+  end
+
+  def test_it_has_relationship_with_user_agent
+    assert_respond_to(@payload, :user_agents)
+  end
+
+  def test_it_has_relationship_with_resolution
+    assert_respond_to(@payload, :resolutions)
+  end
+
+  def test_it_has_relationship_with_ip_address
+    assert_respond_to(@payload, :ip_addresses)
   end
 end

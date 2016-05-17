@@ -11,25 +11,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516213108) do
+ActiveRecord::Schema.define(version: 20160517215318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "event_names", force: :cascade do |t|
+    t.text "event_name"
+  end
+
+  create_table "ip_addresses", force: :cascade do |t|
+    t.text "ip_address"
+  end
+
   create_table "payload_requests", force: :cascade do |t|
-    t.text     "url"
     t.datetime "requested_at"
     t.integer  "responded_in"
-    t.text     "referred_by"
-    t.string   "request_type"
     t.text     "parameters"
-    t.string   "event_name"
-    t.text     "user_agent"
-    t.string   "resolution_width"
-    t.string   "resolution_height"
-    t.string   "ip"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "url_id"
+    t.integer  "ip_address_id"
+    t.integer  "event_name_id"
+    t.integer  "request_type_id"
+    t.integer  "resolution_id"
+    t.integer  "user_agent_id"
+    t.integer  "reference_id"
+  end
+
+  add_index "payload_requests", ["event_name_id"], name: "index_payload_requests_on_event_name_id", using: :btree
+  add_index "payload_requests", ["ip_address_id"], name: "index_payload_requests_on_ip_address_id", using: :btree
+  add_index "payload_requests", ["reference_id"], name: "index_payload_requests_on_reference_id", using: :btree
+  add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
+  add_index "payload_requests", ["resolution_id"], name: "index_payload_requests_on_resolution_id", using: :btree
+  add_index "payload_requests", ["url_id"], name: "index_payload_requests_on_url_id", using: :btree
+  add_index "payload_requests", ["user_agent_id"], name: "index_payload_requests_on_user_agent_id", using: :btree
+
+  create_table "references", force: :cascade do |t|
+    t.text "reference"
+  end
+
+  create_table "request_types", force: :cascade do |t|
+    t.string "request_type"
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.text "resolution_width"
+    t.text "resolution_height"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text "url"
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.text "browser"
+    t.text "os"
   end
 
 end
