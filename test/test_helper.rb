@@ -9,3 +9,11 @@ require 'minitest/pride'
 require 'capybara/dsl'
 
 Capybara.app = RushHour::Server
+
+DatabaseCleaner.strategy = :truncation
+
+class Minitest::Test
+  def teardown
+    DatabaseCleaner.clean
+  end
+end 
