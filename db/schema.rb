@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517195308) do
+ActiveRecord::Schema.define(version: 20160517213748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,13 +23,23 @@ ActiveRecord::Schema.define(version: 20160517195308) do
     t.string   "request_type"
     t.text     "parameters"
     t.string   "event_name"
-    t.text     "user_agent"
-    t.string   "resolution_width"
-    t.string   "resolution_height"
     t.string   "ip"
     t.string   "referred_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_agent_id"
+    t.string   "resolution_id"
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.string "width"
+    t.string "height"
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.string "browser"
+    t.string "version"
+    t.string "platform"
   end
 
 end
