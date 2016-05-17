@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517210152) do
+ActiveRecord::Schema.define(version: 20160517215318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,20 +35,20 @@ ActiveRecord::Schema.define(version: 20160517210152) do
     t.integer  "event_name_id"
     t.integer  "request_type_id"
     t.integer  "resolution_id"
-    t.integer  "referred_by_id"
     t.integer  "user_agent_id"
+    t.integer  "reference_id"
   end
 
   add_index "payload_requests", ["event_name_id"], name: "index_payload_requests_on_event_name_id", using: :btree
   add_index "payload_requests", ["ip_address_id"], name: "index_payload_requests_on_ip_address_id", using: :btree
-  add_index "payload_requests", ["referred_by_id"], name: "index_payload_requests_on_referred_by_id", using: :btree
+  add_index "payload_requests", ["reference_id"], name: "index_payload_requests_on_reference_id", using: :btree
   add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
   add_index "payload_requests", ["resolution_id"], name: "index_payload_requests_on_resolution_id", using: :btree
   add_index "payload_requests", ["url_id"], name: "index_payload_requests_on_url_id", using: :btree
   add_index "payload_requests", ["user_agent_id"], name: "index_payload_requests_on_user_agent_id", using: :btree
 
-  create_table "referred_bys", force: :cascade do |t|
-    t.text "referred_by"
+  create_table "references", force: :cascade do |t|
+    t.text "reference"
   end
 
   create_table "request_types", force: :cascade do |t|

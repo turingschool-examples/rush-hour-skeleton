@@ -2,7 +2,7 @@ class PayloadRequest < ActiveRecord::Base
  validates  "url_id",
             "requested_at",
             "responded_in",
-            "referred_by_id",
+            "reference_id",
             "request_type_id",
             "parameters",
             "event_name_id",
@@ -10,7 +10,7 @@ class PayloadRequest < ActiveRecord::Base
             "resolution_id",
             "ip_address_id", presence: true
   has_many :urls
-  has_many :referred_bys
+  has_many :references
   has_many :request_types
   has_many :event_names
   has_many :user_agents
