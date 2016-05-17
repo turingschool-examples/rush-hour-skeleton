@@ -8,4 +8,5 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 
+
 Capybara.app = RushHour::Server
