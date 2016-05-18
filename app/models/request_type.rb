@@ -11,7 +11,7 @@ class RequestType < ActiveRecord::Base
     # self.all.max_by do |rtype|
     #   rtype.payload_requests.count
     # end
-    binding.pry
+    # binding.pry
     self.group(:request_type).count
   end
 end
