@@ -77,6 +77,6 @@ class ParserTest < Minitest::Test
   end
 
   def test_it_can_create_payload
-
+    
   end
 end
