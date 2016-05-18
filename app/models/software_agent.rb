@@ -1,4 +1,4 @@
-class UserAgent < ActiveRecord::Base
+class SoftwareAgent < ActiveRecord::Base
   validates "os", presence: true
   validates "browser", presence: true
 
