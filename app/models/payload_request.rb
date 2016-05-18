@@ -28,7 +28,6 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.min_response_time
     minimum("responded_in")
-
   end
 
   def self.counts_request_type_max
@@ -42,7 +41,13 @@ class PayloadRequest < ActiveRecord::Base
     end
     matching_requests.map do |request_type, count|
       request_type.verb
-    end.join(", ")
+    end
+  end
+
+  def self.order_urls_by_count
+    group("url").count.to_a.map do |nested|
+      nested[0].name
+    end
   end
 
 end

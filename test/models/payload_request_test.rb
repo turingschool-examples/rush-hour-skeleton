@@ -31,7 +31,7 @@ class PayloadRequestTest < Minitest::Test
       :ip_id => ip.id,
       :resolution_id => resolution.id
       })
-    assert_equal 38, PayloadRequest.all.average_response_time
+    assert_equal 38, PayloadRequest.average_response_time
   end
 
   def test_it_finds_max_response_time
@@ -47,7 +47,7 @@ class PayloadRequestTest < Minitest::Test
       :ip_id => ip.id,
       :resolution_id => resolution.id
       })
-    assert_equal 39, PayloadRequest.all.max_response_time
+    assert_equal 39, PayloadRequest.max_response_time
   end
 
   def test_it_finds_min_response_time
@@ -63,7 +63,7 @@ class PayloadRequestTest < Minitest::Test
       :ip_id => ip.id,
       :resolution_id => resolution.id
       })
-    assert_equal 37, PayloadRequest.all.min_response_time
+    assert_equal 37, PayloadRequest.min_response_time
   end
 
   def test_it_finds_most_frequent_request_type
@@ -79,8 +79,8 @@ class PayloadRequestTest < Minitest::Test
       :ip_id => ip.id,
       :resolution_id => resolution.id
       })
-    assert_equal 2, PayloadRequest.all.counts_request_type_max
-    assert_equal "GET", PayloadRequest.all.most_frequent_request_type
+    assert_equal 2, PayloadRequest.counts_request_type_max
+    assert_equal ["GET"], PayloadRequest.most_frequent_request_type
   end
 
   def test_it_handles_most_frequent_request_type_when_there_is_a_tie
@@ -97,8 +97,28 @@ class PayloadRequestTest < Minitest::Test
       :ip_id => ip.id,
       :resolution_id => resolution.id
       })
-    assert_equal "GET, POST", PayloadRequest.all.most_frequent_request_type
+    assert_equal ["POST", "GET"], PayloadRequest.most_frequent_request_type
   end
 
+  def test_urls_get_returned_in_order_by_count_for_one
+    assert_equal ["http://jumpstartlab.com/blog"], PayloadRequest.order_urls_by_count
+  end
+
+  def test_urls_get_returned_in_order_by_count_for_multiple
+    url2 = Url.create({:name => "http://jumpstartlab.com/shop"})
+    payload2 = PayloadRequest.create({
+      :url_id => url2.id,
+      :referrer_id => referrer.id,
+      :request_type_id => request_type.id,
+      :requested_at => "2013-02-16 21:38:28 -0700",
+      :event_name_id => event_name.id,
+      :user_agent_id => user_agent.id,
+      :responded_in => 39,
+      :parameters => [],
+      :ip_id => ip.id,
+      :resolution_id => resolution.id
+      })
+    assert_equal ["http://jumpstartlab.com/shop", "http://jumpstartlab.com/blog"], PayloadRequest.order_urls_by_count
+  end
 
 end
