@@ -30,16 +30,16 @@ module TestHelpers
     @ip = Ip.create({:value => "63.29.38.211"})
 
     @payload = PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
+      :url_id => @url.id,
+      :referrer_id => @referrer.id,
+      :request_type_id => @request_type.id,
       :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
+      :event_name_id => @event_name.id,
+      :user_agent_id => @user_agent.id,
       :responded_in => 37,
       :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :ip_id => @ip.id,
+      :resolution_id => @resolution.id
       })
 
   end
