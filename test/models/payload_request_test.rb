@@ -31,7 +31,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["GET"], PayloadRequest.all_http_verbs
   end
 
-  def test_it_sorts_urls_by_fequency
+  def test_it_sorts_urls_by_frequency
     skip
     #need to figure out incrementation
     assert_equal ({"twitter.com" => 100}), PayloadRequest.list_urls_in_frequency
