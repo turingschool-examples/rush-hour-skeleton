@@ -31,15 +31,4 @@ class PayloadRequest < ActiveRecord::Base
     self.minimum("responded_in")
   end
 
-  # def self.most_common_request_type
-  #   self.
-  #this ones a thinker
-
-  def self.all_http_verbs
-    self.uniq.pluck("request_type")
-  end
-
-  def self.list_urls_in_frequency
-    self.group("url").count
-  end
 end
