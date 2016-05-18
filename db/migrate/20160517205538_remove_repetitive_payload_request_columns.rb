@@ -6,6 +6,6 @@ class RemoveRepetitivePayloadRequestColumns < ActiveRecord::Migration
     remove_column(:payload_requests, :user_agent, :text)
     remove_column(:payload_requests, :event_name, :string)
     remove_column(:payload_requests, :request_type, :string)
-    remove_column(:payload_requests, :reference, :text)
+    remove_column(:payload_requests, :referred_by, :text)
   end
 end
