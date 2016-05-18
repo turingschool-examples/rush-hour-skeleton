@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518194446) do
+ActiveRecord::Schema.define(version: 20160518195214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,9 @@ ActiveRecord::Schema.define(version: 20160518194446) do
     t.integer  "url_id"
     t.integer  "referred_by_id"
     t.integer  "request_type_id"
+    t.datetime "requested_at"
+    t.integer  "responded_in"
+    t.string   "parameters",         array: true
   end
 
   create_table "referred_bys", force: :cascade do |t|
@@ -45,25 +48,14 @@ ActiveRecord::Schema.define(version: 20160518194446) do
     t.string "resolution_width"
   end
 
-  create_table "times", force: :cascade do |t|
-    t.string "requested_at"
-    t.string "responded_in"
-  end
-
-  create_table "url_times", force: :cascade do |t|
-    t.integer "url_id"
-    t.integer "time_id"
-  end
-
-  add_index "url_times", ["time_id"], name: "index_url_times_on_time_id", using: :btree
-  add_index "url_times", ["url_id"], name: "index_url_times_on_url_id", using: :btree
-
   create_table "urls", force: :cascade do |t|
-    t.string "name"
+    t.string "address"
   end
 
   create_table "user_agent_infos", force: :cascade do |t|
-    t.text "content"
+    t.text   "browser"
+    t.string "version"
+    t.string "platform"
   end
 
 end
