@@ -99,7 +99,6 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_can_create_n_number_raw_payloads
     assert_equal 3, create_payloads(3).count
-    puts create_payloads(3)
   end
 
   # def test_it_can_find_average_response_time
