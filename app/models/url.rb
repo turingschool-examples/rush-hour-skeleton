@@ -18,5 +18,4 @@ class Url < ActiveRecord::Base
   def average_response_time
     payload_requests.average("responded_in").round
   end
-
 end

@@ -41,7 +41,13 @@ class PayloadRequest < ActiveRecord::Base
     end
     matching_requests.map do |request_type, count|
       request_type.verb
-    end.join(", ")
+    end
+  end
+
+  def self.order_urls_by_count
+    group("url").count.to_a.map do |nested|
+      nested[0].name
+    end
   end
 
 end
