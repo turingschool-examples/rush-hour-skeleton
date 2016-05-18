@@ -13,4 +13,5 @@ group :development, :test do
   gem 'launchy'
   gem 'rack-test'
   gem 'useragent'
+  gem 'database_cleaner'
 end
