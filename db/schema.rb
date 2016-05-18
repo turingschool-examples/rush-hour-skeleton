@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517215318) do
+ActiveRecord::Schema.define(version: 20160518193643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,14 +28,14 @@ ActiveRecord::Schema.define(version: 20160517215318) do
     t.datetime "requested_at"
     t.integer  "responded_in"
     t.text     "parameters"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "url_id"
     t.integer  "ip_address_id"
     t.integer  "event_name_id"
     t.integer  "request_type_id"
     t.integer  "resolution_id"
-    t.integer  "user_agent_id"
+    t.integer  "software_agent_id"
     t.integer  "reference_id"
   end
 
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20160517215318) do
   add_index "payload_requests", ["reference_id"], name: "index_payload_requests_on_reference_id", using: :btree
   add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
   add_index "payload_requests", ["resolution_id"], name: "index_payload_requests_on_resolution_id", using: :btree
+  add_index "payload_requests", ["software_agent_id"], name: "index_payload_requests_on_software_agent_id", using: :btree
   add_index "payload_requests", ["url_id"], name: "index_payload_requests_on_url_id", using: :btree
-  add_index "payload_requests", ["user_agent_id"], name: "index_payload_requests_on_user_agent_id", using: :btree
 
   create_table "references", force: :cascade do |t|
     t.text "reference"
@@ -60,13 +60,13 @@ ActiveRecord::Schema.define(version: 20160517215318) do
     t.text "resolution_height"
   end
 
-  create_table "urls", force: :cascade do |t|
-    t.text "url"
-  end
-
-  create_table "user_agents", force: :cascade do |t|
+  create_table "software_agents", force: :cascade do |t|
     t.text "browser"
     t.text "os"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text "url"
   end
 
 end

@@ -4,7 +4,7 @@ class CreatePayload < ActiveRecord::Migration
       t.text      :url
       t.datetime  :requested_at
       t.integer   :responded_in
-      t.text      :reference
+      t.text      :referred_by
       t.string    :request_type
       t.text      :parameters
       t.string    :event_name
