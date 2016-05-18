@@ -16,6 +16,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bond (0.5.1)
     builder (3.2.2)
     capybara (2.6.2)
@@ -26,7 +28,9 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     coderay (1.1.1)
+    debug_inspector (0.0.2)
     i18n (0.7.0)
+    interception (0.5)
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -36,6 +40,11 @@ GEM
     mime-types-data (3.2015.1120)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    minitest-emoji (2.0.0)
+    mrspec (0.3.1)
+      minitest (~> 5.0)
+      rspec-core (~> 3.2)
+      what_weve_got_here_is_an_error_to_communicate (~> 0.0.8)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
@@ -56,6 +65,10 @@ GEM
       rack (>= 1.0)
       rack-test (~> 0.6.2)
       ripl (>= 0.7.0)
+    rouge (1.10.1)
+    rspec-core (3.4.4)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     shotgun (0.9.1)
       rack (>= 1.0)
     sinatra (1.4.7)
@@ -76,6 +89,10 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     useragent (0.16.7)
+    what_weve_got_here_is_an_error_to_communicate (0.0.8)
+      binding_of_caller (~> 0.7.2)
+      interception (~> 0.5)
+      rouge (~> 1.8, != 1.9.1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -88,6 +105,8 @@ DEPENDENCIES
   json
   launchy
   minitest
+  minitest-emoji
+  mrspec
   pg
   pry
   rack-test
