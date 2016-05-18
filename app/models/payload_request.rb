@@ -18,9 +18,17 @@ class PayloadRequest < ActiveRecord::Base
   has_many :ip_addresses
 
   def self.average_response_time
-
     self.average(:responded_in)
   end
+
+  def self.maximum_response_time
+    self.maximum(:responded_in)
+  end
+
+  def self.minimum_response_time
+    self.minimum(:responded_in)
+  end
+
 
 end
 #each validation on its own line so that each attribute can be clearly showed seperately (will add validations later)

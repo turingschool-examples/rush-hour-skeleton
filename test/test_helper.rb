@@ -7,28 +7,50 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'minitest/emoji'
 require 'capybara/dsl'
+require 'database_cleaner'
+require 'rack/test'
 
 Capybara.app = RushHour::Server
 
-def create_payloads(num)
-  payloads = []
-  num.times do |i|
-    payloads << '{
-      "url":"'"http://jumpstartlab.com/#{i}"'",
-      "requestedAt":"'"#{Time.now}"'",
-      "respondedIn":'"#{i * 10}"',
-      "referredBy":"'"http://jumpstartlab.com/#{i}"'",
-      "requestType":"'"#{["GET", "PUT", "POST"].sample}"'",
-      "parameters": [],
-      "eventName":"'"socialLogin#{i}"'",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
-      "ip":"'"63.29.38.21#{i}"'"
-    }'
+DatabaseCleaner.strategy = :truncation, {except: %w([public.schema.migrations])}
 
+module TestHelpers
+  include Rack::Test::Methods
+
+  def app
+    Server
   end
-  payloads
+
+  def setup
+    DatabaseCleaner.start
+    super
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+    super
+  end
+
+  def create_payloads(num)
+    payloads = []
+    num.times do |i|
+      payloads << '{
+        "url":"'"http://jumpstartlab.com/#{i}"'",
+        "requestedAt":"'"#{Time.now}"'",
+        "respondedIn":'"#{i * 10}"',
+        "referredBy":"'"http://jumpstartlab.com/#{i}"'",
+        "requestType":"'"#{["GET", "PUT", "POST"].sample}"'",
+        "parameters": [],
+        "eventName":"'"socialLogin#{i}"'",
+        "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+        "resolutionWidth":"1920",
+        "resolutionHeight":"1280",
+        "ip":"'"63.29.38.21#{i}"'"
+      }'
+
+    end
+    payloads
+  end
 end
 #database cleaner will do the same as a teardown
 #might want to make a module for testhelpers later for capybara etc.
