@@ -12,6 +12,22 @@ class PayloadRequest < ActiveRecord::Base
   validates :resolution_id, presence: true
   validates :ip, presence: true
 
+  def self.average_response_time
+    self.average("responded_in").truncate
+  end
 
+  def self.top_request_types
+    request_type_hash = self.group(:request_type).order('count_id DESC').count(:id)
+    top_request = request_type_hash.first[0]
+  end
+
+  def self.url_range
+    url_range_hash = self.group(:url).order('count_id DESC').count(:id)
+    url_range_hash.keys
+  end
+
+  def self.all_http_verbs
+    self.pluck("request_type").uniq
+  end
 
 end
