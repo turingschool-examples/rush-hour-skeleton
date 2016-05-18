@@ -23,4 +23,14 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 10, PayloadRequest.min_response_time
   end
 
+  def test_it_finds_all_verbs_without_repeating_itself
+    assert_equal ["GET"], PayloadRequest.all_http_verbs
+  end
+
+  def test_it_sorts_urls_by_fequency
+    skip
+    #need to figure out incrementation
+    assert_equal ({"twitter.com" => 100}), PayloadRequest.list_urls_in_frequency
+  end
+
 end
