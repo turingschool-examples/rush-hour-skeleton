@@ -1,7 +1,7 @@
-class UserAgent < ActiveRecord::Base
+class UserAgentB < ActiveRecord::Base
   belongs_to :payload_request
 
-  validates :user_agent, presence: true
-
-
+  validates :browser, presence: true
+  validates :version, presence: true
+  validates :platform, presence: true
 end
