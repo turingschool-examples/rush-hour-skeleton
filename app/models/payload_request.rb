@@ -28,7 +28,6 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.min_response_time
     minimum("responded_in")
-
   end
 
   def self.counts_request_type_max
