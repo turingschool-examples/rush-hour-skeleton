@@ -1,5 +1,8 @@
 class PayloadParser
 
+  #initialize with payload as ivar instead of passing it
+  #over and over again
+
   def parse_json(string)
     JSON.parse(string)
   end
@@ -28,7 +31,7 @@ class PayloadParser
     user_agents = UserAgent.parse(payload["userAgents"])
     browser = user_agents.browser
     os = user_agents.operating_system
-    UserAgent.create("browser": browser, "os": os)
+    SoftwareAgent.create("browser": browser, "os": os)
   end
 
   def populate_resolutions(payload)
@@ -37,6 +40,7 @@ class PayloadParser
     Resolution.create("resolution_width": width, "resolution_height": height)
   end
 
+ #method that creates payload will call all these other methods
 
 
 
