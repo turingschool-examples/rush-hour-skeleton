@@ -1,17 +1,24 @@
 class PayloadRequest < ActiveRecord::Base
-  has_one :user_agent
-  has_one :resolution
+  belongs_to :user_agent_b
+  belongs_to :resolution
+  belongs_to :url
+  belongs_to :client
+  belongs_to :events
+  belongs_to :ip
+  belongs_to :referrer
+  belongs_to :request
 
-  validates :url,           presence: true
-  validates :requested_at,  presence: true
-  validates :responded_in,  presence: true
-  validates :request_type,  presence: true
-  validates :referred_by,   presence: true
-  validates :parameters,    presence: true
-  validates :event_name,    presence: true
-  validates :user_agent_id, presence: true
-  validates :resolution_id, presence: true
-  validates :ip,            presence: true
+  validates :id_url,           presence: true
+  validates :requested_at,     presence: true
+  validates :responded_in,     presence: true
+  validates :id_request,       presence: true
+  validates :id_referrer,      presence: true
+  validates :parameters,       presence: true
+  validates :id_event,         presence: true
+  validates :id_useragent,     presence: true
+  validates :id_resolution,    presence: true
+  validates :id_ip,            presence: true
+  validates :id_client,        presence: true
 
   def self.average_response_time
     self.average("responded_in").truncate

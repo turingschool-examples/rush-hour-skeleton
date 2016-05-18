@@ -1,5 +1,5 @@
 class UserAgentB < ActiveRecord::Base
-  belongs_to :payload_request
+  has_many :payload_requests
 
   validates :browser, presence: true
   validates :version, presence: true

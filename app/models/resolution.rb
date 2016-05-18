@@ -1,5 +1,5 @@
 class Resolution < ActiveRecord::Base
-  belongs_to :payload_request
+  has_many :payload_requests
 
   validates :width, presence: true
   validates :height, presence: true
