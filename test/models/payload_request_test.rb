@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 class PayloadRequestTest < Minitest::Test
-
+ include TestHelpers
   def setup
     @payload = PayloadRequest.new
   end
@@ -101,50 +101,23 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 3, create_payloads(3).count
   end
 
-  # def test_it_can_find_average_response_time
-  #   #find or create method in active record
-  #   #Url.where().first_or_create
-  #   #ULr.find_or_create_by
-  #   #check return value
-  #   p1= PayloadRequest.create(
-  #   requested_at: Time.now,
-  #   parameters: [],
-  #   responded_in: 40,
-  #   ip_address_id: 1,
-  #   software_agent_id: 1,
-  #   request_type_id: 1,
-  #   url_id: 1,
-  #   #url = URL.create(...)
-  #   reference_id: 1,
-  #   event_name_id: 1,
-  #   resolution_id: 1
-  #   )
-  #   p1= PayloadRequest.create(
-  #   requested_at: Time.now,
-  #   parameters: [],
-  #   responded_in: 35,
-  #   ip_address_id: 1,
-  #   software_agent_id: 1,
-  #   request_type_id: 1,
-  #   url_id: 1,
-  #   reference_id: 1,
-  #   event_name_id: 1,
-  #   resolution_id: 1
-  #   )
-  #   p1= PayloadRequest.create(
-  #   requested_at: Time.now,
-  #   parameters: [],
-  #   responded_in: 37,
-  #   ip_address_id: 1,
-  #   software_agent_id: 1,
-  #   request_type_id: 1,
-  #   url_id: 1,
-  #   reference_id: 1,
-  #   event_name_id: 1,
-  #   resolution_id: 1
-  #   )
-  #
-  #   assert_equal 35, PayloadRequest.average_response_time
-  #
-  # end
+  def test_it_can_find_the_average_response_time
+    payloads = create_payloads(3)
+    payloads.each {|payload| PayloadParser.new(payload)}
+    assert_equal 10, PayloadRequest.average_response_time
+  end
+
+  def test_it_can_find_the_maximum_response_time
+    payloads = create_payloads(3)
+    payloads.each {|payload| PayloadParser.new(payload)}
+    assert_equal 20, PayloadRequest.maximum_response_time
+
+  end
+
+  def test_it_can_find_the_minimum_response_time
+    payloads = create_payloads(3)
+    payloads.each {|payload| PayloadParser.new(payload)}
+    assert_equal 0, PayloadRequest.minimum_response_time
+  end
+
 end
