@@ -4,56 +4,68 @@ module Parser
     JSON.parse(string)
   end
 
-  def parse_resolution(string)
-    payload = json(string)
-    w = payload["resolutionWidth"]
-    h = payload["resolutionHeight"]
-    Resolution.create(
-                        "width": w,
-                        "height": h
-                      )
+  def create_resolution(payload)
+    parsed = json(payload)
+    w = parsed["resolutionWidth"]
+    h = parsed["resolutionHeight"]
+    Resolution.where("width": w).where("height": h).first_or_create
   end
 
-  def parse_user_agent(thing)
-    payload = json(thing)
-    string = payload["userAgent"]
-    user_agent = UserAgent.parse(string)
-    b = user_agent.browser
-    v = user_agent.version
-    p = user_agent.platform
-    UserAgentB.create(
-                        "browser":  b,
-                        "version":  v,
-                        "platform": p
-                      )
+  def create_user_agent(user_agent)
+    parsed_agent = UserAgent.parse(user_agent)
+    b = parsed_agent.browser
+    p = parsed_agent.platform
+    # require 'pry';binding.pry
+    UserAgentB.where("browser": b).where("platform": p).first_or_create
   end
 
-  def parse_table_request(string)
+  def create_url(url)
+    Url.where("address": url).first_or_create
+  end
+
+  def create_referrer(referrer)
+    Referrer.where("address": referrer).first_or_create
+  end
+
+  def create_request(request)
+    Request.where("verb": request).first_or_create
+  end
+
+  def create_event(event)
+    Event.where("name": event).first_or_create
+  end
+
+  def create_ip(ip)
+    Ip.where("address": ip).first_or_create
+    #require 'pry';binding.pry
+  end
+
+  def parse_payload_request(string)
     payload = json(string)
-    r_a = payload["requestedAt"]
-    r_i = payload["respondedIn"]
-    p =   payload["parameters"]
-    u =   Url.create(payload["url"]).id
-    r_b = Referrers.create(payload["referredBy"]).id
-    r_q = Requests.create(payload["requestType"]).id
-    e =   Events.create(payload["eventName"]).id
-    u =   parse_user_agent(payload).id
-    r =   parse_resolution(payload).id
-    ip =  Ip.create(payload[:ip]).id
-    c =   Client.create(payload)
+    requested  = payload["requestedAt"]
+    responded  = payload["respondedIn"]
+    parameters = payload["parameters"]
+    url_id = create_url(payload["url"]).id
+    referrer_id = create_referrer(payload["referredBy"]).id
+    request_id= create_request(payload["requestType"]).id
+    event_id = create_event(payload["eventName"]).id
+    user_agent_id = create_user_agent(payload["userAgent"]).id
+    resolution_id = create_resolution(payload).id
+    ip_id = create_ip(payload["ip"]).id
+    # c =   Client.create(payload)
 
     PayloadRequest.create(
-                           "requested_at":  r_a
-                           "responded_in":  r_i
-                           "parameters":    p
-                           "id_url":        u
-                           "id_referrer":   r_b
-                           "id_request":    r_q
-                           "id_event":      e
-                           "id_useragent":  u
-                           "id_resolution": r
-                           "id_ip":         ip
-                           "id_client":     c
+                           "requested_at":  requested,
+                           "responded_in":  responded,
+                           "parameters":    parameters,
+                           "id_url":        url_id,
+                           "id_referrer":   referred_id,
+                           "id_request":    request_id,
+                           "id_event":      event_id,
+                           "id_useragent":  user_agent_id,
+                           "id_resolution": resolution_id,
+                           "id_ip":         ip_id
+                          #  "id_client":     c
                           )
 
   end
