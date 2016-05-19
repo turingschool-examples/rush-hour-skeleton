@@ -2,9 +2,6 @@ require_relative '../test_helper'
 
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
-  attr_reader :payload, :url, :referrer, :request_type, :event_name,
-              :user_agent, :resolution, :ip
-
 
   def test_resolution_breakdown_returns_resolution_with_count
     resolution2 = Resolution.create({:width => "1920", :height => "1280"})
@@ -18,7 +15,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution2.id
+      :resolution_id => resolution2.id,
+      :client_id => client.id
       })
     assert_equal ({"1280 x 1920" => 2}), Resolution.resolutions_breakdown
   end

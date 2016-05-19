@@ -18,7 +18,7 @@ DatabaseCleaner.strategy = :truncation, {except: %w([public.schema_migrations])}
 module TestHelpers
   include Rack::Test::Methods
   attr_reader :url, :referrer, :request_type, :event_name, :user_agent,
-              :resolution, :ip, :payload
+              :resolution, :ip, :payload, :client
 
   def setup
     DatabaseCleaner.start
@@ -30,6 +30,7 @@ module TestHelpers
     @user_agent = UserAgent.create({:browser => "Mozilla", :platform => "Macintosh"})
     @resolution = Resolution.create({:width => "1920", :height => "1280"})
     @ip = Ip.create({:value => "63.29.38.211"})
+    @client = Client.create({:identifier => "jumpstartlab", :root_url => "http://jumpstartlab.com"})
 
     @payload = PayloadRequest.create({
       :url_id => url.id,
@@ -41,7 +42,8 @@ module TestHelpers
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
   end

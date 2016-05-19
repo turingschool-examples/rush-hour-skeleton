@@ -22,7 +22,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     PayloadRequest.create({
@@ -35,7 +36,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     PayloadRequest.create({
@@ -48,7 +50,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     PayloadRequest.create({
@@ -61,7 +64,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     assert_equal 3, url.top_three_referrers.length
@@ -83,7 +87,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     PayloadRequest.create({
@@ -96,7 +101,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     PayloadRequest.create({
@@ -109,7 +115,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     PayloadRequest.create({
@@ -122,7 +129,8 @@ class UrlTest < Minitest::Test
       :responded_in => 37,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
     assert_equal 3, url.top_three_user_agents.length
@@ -146,7 +154,8 @@ class UrlTest < Minitest::Test
       :responded_in => 40,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
       PayloadRequest.create({
@@ -159,7 +168,8 @@ class UrlTest < Minitest::Test
         :responded_in => 45,
         :parameters => [],
         :ip_id => ip.id,
-        :resolution_id => resolution.id
+        :resolution_id => resolution.id,
+        :client_id => client.id
         })
     assert_equal 45, url.max_response_time
   end
@@ -179,7 +189,8 @@ class UrlTest < Minitest::Test
       :responded_in => 35,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
       PayloadRequest.create({
@@ -192,7 +203,8 @@ class UrlTest < Minitest::Test
         :responded_in => 45,
         :parameters => [],
         :ip_id => ip.id,
-        :resolution_id => resolution.id
+        :resolution_id => resolution.id,
+        :client_id => client.id
         })
 
     assert_equal 35, url.min_response_time
@@ -209,7 +221,8 @@ class UrlTest < Minitest::Test
       :responded_in => 35,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert_equal [37, 35], url.response_times_longest_to_shortest
   end
@@ -229,7 +242,8 @@ class UrlTest < Minitest::Test
       :responded_in => 35,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
 
       PayloadRequest.create({
@@ -242,7 +256,8 @@ class UrlTest < Minitest::Test
         :responded_in => 45,
         :parameters => [],
         :ip_id => ip.id,
-        :resolution_id => resolution.id
+        :resolution_id => resolution.id,
+        :client_id => client.id
         })
 
     assert_equal 39, url.average_response_time

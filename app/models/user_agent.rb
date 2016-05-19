@@ -1,5 +1,6 @@
 class UserAgent < ActiveRecord::Base
   has_many :payload_requests
+  has_many :clients, through: :payload_requests
 
   validates :browser, presence: true
   validates :platform, presence: true

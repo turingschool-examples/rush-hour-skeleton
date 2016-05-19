@@ -2,8 +2,6 @@ require_relative '../test_helper'
 
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
-  attr_reader :payload, :url, :referrer, :request_type, :event_name,
-              :user_agent, :resolution, :ip
 
   def test_it_creates_a_payload_request_with_valid_attributes
     assert_equal "http://jumpstartlab.com/blog", payload.url.name
@@ -29,7 +27,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert_equal 38, PayloadRequest.average_response_time
   end
@@ -45,7 +44,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert_equal 39, PayloadRequest.max_response_time
   end
@@ -61,7 +61,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert_equal 37, PayloadRequest.min_response_time
   end
@@ -77,7 +78,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert_equal 2, PayloadRequest.counts_request_type_max
     assert_equal ["GET"], PayloadRequest.most_frequent_request_type
@@ -95,7 +97,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert PayloadRequest.most_frequent_request_type.include?("POST")
     assert PayloadRequest.most_frequent_request_type.include?("GET")
@@ -117,7 +120,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert PayloadRequest.order_urls_by_count.include?("http://jumpstartlab.com/shop")
     assert PayloadRequest.order_urls_by_count.include?("http://jumpstartlab.com/blog")

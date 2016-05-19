@@ -6,6 +6,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :referrer
   belongs_to :event_name
   belongs_to :ip
+  belongs_to :client
 
   validates :requested_at, presence: true
   validates :responded_in, presence: true
@@ -17,6 +18,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
+  validates :client_id, presence: true
 
   def self.average_response_time
     average("responded_in")
