@@ -9,13 +9,13 @@ class PayloadRequest < ActiveRecord::Base
             "software_agent_id",
             "resolution_id",
             "ip_address_id", presence: true
-  has_many :urls
-  has_many :references
-  has_many :request_types
-  has_many :event_names
-  has_many :software_agents
-  has_many :resolutions
-  has_many :ip_addresses
+  belongs_to :urls
+  belongs_to :references
+  belongs_to :request_types
+  belongs_to :event_names
+  belongs_to :software_agents
+  belongs_to :resolutions
+  belongs_to :ip_addresses
 
   def self.average_response_time
     self.average(:responded_in)

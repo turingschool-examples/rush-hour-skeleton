@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 
 class ReferenceTest < Minitest::Test
+  include TestHelpers
   def test_validations_work
     reference = Reference.create({
         reference: "Lucy's BADDDDDD boys"

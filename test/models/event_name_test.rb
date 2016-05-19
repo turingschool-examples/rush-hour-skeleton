@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 class EventNameTest < Minitest::Test
-
+  include TestHelpers
   def test_validations_work
     event = EventName.create({
         event_name: "Lucy's BADDDDDD boys"

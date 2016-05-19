@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 
 class SoftwareAgentTest < Minitest::Test
+  include TestHelpers
   def test_validations_work
     user = SoftwareAgent.create({
         os: "Lucy's BADDDDDD boys",

@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 
 class IpAddressTest < Minitest::Test
+  include TestHelpers
   def test_validations_work
     ip = IpAddress.create({
         ip_address: "Lucy's BADDDDDD boys"

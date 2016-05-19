@@ -41,11 +41,84 @@ class RequestTypeTest < Minitest::Test
   end
 
   def test_it_finds_most_frequent_request_type
-    payloads = create_payloads(4)
+    p1 = '{
+      "url":"'"http://jumpstartlab.com/"'",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{1 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{1}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"'"socialLogin#{1}"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{1}"'"
+    }'
+
+    p2 =  '{
+      "url":"'"http://jumpstartlab.com/#{2}"'",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{2 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{2}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"'"socialLogin#{2}"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{2}"'"
+    }'
+
+    p3 =  '{
+      "url":"'"http://jumpstartlab.com/#{3}"'",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{3 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{3}"'",
+      "requestType":"POST",
+      "parameters": [],
+      "eventName":"'"socialLogin#{3}"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{3}"'"
+    }'
+    payloads = [p1, p2, p3]
     payloads.each {|payload| PayloadParser.new(payload)}
-    RequestType.all_verbs.each do |verb|
-      puts verb
-    end
-    assert_equal "", RequestType.most_frequent_request_verbs
+    assert_equal "GET", RequestType.most_frequent_request_verbs
+  end
+
+  def test_it_returns_the_first_verb_when_there_is_a_tie_for_most_frequent_type
+
+        p1 =  '{
+          "url":"'"http://jumpstartlab.com/#{2}"'",
+          "requestedAt":"'"#{Time.now}"'",
+          "respondedIn":'"#{2 * 10}"',
+          "referredBy":"'"http://jumpstartlab.com/#{2}"'",
+          "requestType":"GET",
+          "parameters": [],
+          "eventName":"'"socialLogin#{2}"'",
+          "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+          "resolutionWidth":"1920",
+          "resolutionHeight":"1280",
+          "ip":"'"63.29.38.21#{2}"'"
+        }'
+
+        p2 =  '{
+          "url":"'"http://jumpstartlab.com/#{3}"'",
+          "requestedAt":"'"#{Time.now}"'",
+          "respondedIn":'"#{3 * 10}"',
+          "referredBy":"'"http://jumpstartlab.com/#{3}"'",
+          "requestType":"POST",
+          "parameters": [],
+          "eventName":"'"socialLogin#{3}"'",
+          "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+          "resolutionWidth":"1920",
+          "resolutionHeight":"1280",
+          "ip":"'"63.29.38.21#{3}"'"
+        }'
+    payloads = [p1, p2]
+    payloads.each {|payload| PayloadParser.new(payload)}
+    assert_equal "GET", RequestType.most_frequent_request_verbs
+
   end
 end

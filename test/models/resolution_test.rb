@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 
 class ResolutionTest < Minitest::Test
+  include TestHelpers
   def test_validations_work
     resolution = Resolution.create({
         resolution_width: "Lucy's BADDDDDD boys",
@@ -27,7 +28,7 @@ class ResolutionTest < Minitest::Test
     resolution = Resolution.create
     assert resolution.invalid?
   end
-  
+
   def test_it_has_relationship_with_payload_request
     r = Resolution.new
     assert_respond_to(r, :payload_requests)
