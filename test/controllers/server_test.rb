@@ -33,4 +33,9 @@ class ServerTest < Minitest::Test
     assert_equal "Identifier has already been taken", last_response.body
   end
 
+  def test_it_accepts_a_post_to_identifier_data
+    post '/sources/jumpstartlab/data'
+
+    assert_equal 200, last_response.status
+  end
 end
