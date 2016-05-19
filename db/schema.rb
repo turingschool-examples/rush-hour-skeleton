@@ -11,56 +11,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518000056) do
+ActiveRecord::Schema.define(version: 20160518231225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ip", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "ips", force: :cascade do |t|
     t.string "address"
   end
 
-  create_table "parameters", force: :cascade do |t|
-    t.string "params", array: true
-  end
-
   create_table "payload_requests", force: :cascade do |t|
-    t.string   "referred_by"
-    t.string   "request_type"
-    t.string   "event_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "resolution_id"
-    t.integer  "user_agent_id"
-    t.integer  "parameters_id"
+    t.integer  "screen_size_id"
+    t.integer  "user_agent_info_id"
     t.integer  "ip_id"
     t.integer  "url_id"
+    t.integer  "referred_by_id"
+    t.integer  "request_type_id"
+    t.datetime "requested_at"
+    t.integer  "responded_in"
+    t.string   "parameters",         array: true
+    t.integer  "event_id"
   end
 
-  create_table "resolution", force: :cascade do |t|
+  create_table "referred_bys", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "request_types", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "screen_sizes", force: :cascade do |t|
     t.string "resolution_height"
     t.string "resolution_width"
   end
 
-  create_table "times", force: :cascade do |t|
-    t.string "requested_at"
-    t.string "responded_in"
-  end
-
-  create_table "url_times", force: :cascade do |t|
-    t.integer "url_id"
-    t.integer "time_id"
-  end
-
-  add_index "url_times", ["time_id"], name: "index_url_times_on_time_id", using: :btree
-  add_index "url_times", ["url_id"], name: "index_url_times_on_url_id", using: :btree
-
   create_table "urls", force: :cascade do |t|
-    t.string "name"
+    t.string "address"
   end
 
-  create_table "user_agent", force: :cascade do |t|
-    t.text "content"
+  create_table "user_agent_infos", force: :cascade do |t|
+    t.text   "browser"
+    t.string "version"
+    t.string "platform"
+    t.string "os"
   end
 
 end
