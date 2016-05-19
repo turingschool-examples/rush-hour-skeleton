@@ -11,4 +11,16 @@ class Url < ActiveRecord::Base
   def max_url_response_time
     payload_requests.maximum(:responded_in)
   end
+
+  def min_url_response_time
+    payload_requests.minimum(:responded_in)
+  end
+
+  def all_response_times
+    payload_requests.pluck(:responded_in)
+  end
+
+  def average_response_time
+    payload_requests.average(:responded_in)
+  end
 end
