@@ -4,6 +4,7 @@ class Url < ActiveRecord::Base
   has_many :payload_requests
   has_many :request_types, through: :payload_requests
   has_many :references, through: :payload_requests
+  has_many :software_agents, through: :payload_requests
 
   def self.most_to_least_requested_urls
     ids = PayloadRequest.group(:url_id).count.sort_by {|k,v| v}.reverse
@@ -28,8 +29,6 @@ class Url < ActiveRecord::Base
 
   def all_http_verbs
     self.payload_requests.includes(:request_type).pluck(:request_type)
-    # ids = payload_requests.collect { |pr| pr.request_type_id}
-    # ids.map {|id| RequestType.find(id).request_type }
   end
 
   def top_three_referrers
@@ -39,6 +38,9 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_user_agents
-
+    ua = self.payload_requests.group(:software_agent).order('count_all desc').limit(3).count
+    ua.map do |k, v|
+      "#{k.os}, #{k.browser}"
+    end
   end
 end

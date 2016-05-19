@@ -308,4 +308,15 @@ include TestHelpers
                     "http://facebook.com",
                     "http://twitter.com"], Url.find(1).top_three_referrers
   end
+
+  def test_it_can_give_the_top_three_user_agents
+    p4 = create_payloads_with_same_user_agent_for_url(4, "Mac OS X 10_8_2", "Chrome")
+    p3 = create_payloads_with_same_user_agent_for_url(3, "Mac OS X 10_4_1", "Safari")
+    p2 = create_payloads_with_same_user_agent_for_url(2, "Mac OS X 9_8_2", "Safari")
+    p1 = create_payloads_with_same_user_agent_for_url(1, "Mac OS X 10_4_1", "Chrome")
+    [p1, p2, p3, p4].flatten.each {|payload| PayloadParser.new(payload)}
+      assert_equal ["OS X 10.8.2, Chrome",
+                    "OS X 10.4.1, Safari",
+                    "OS X 9.8.2, Safari"], Url.find(1).top_three_user_agents
+  end
 end

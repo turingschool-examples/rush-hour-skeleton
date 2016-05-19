@@ -70,31 +70,31 @@ class PayloadRequestTest < Minitest::Test
   # end
 
   def test_it_has_relationship_with_url
-    assert_respond_to(@payload, :urls)
+    assert_respond_to(@payload, :url)
   end
 
   def test_it_has_relationship_with_reference
-    assert_respond_to(@payload, :references)
+    assert_respond_to(@payload, :reference)
   end
 
   def test_it_has_relationship_with_request_type
-    assert_respond_to(@payload, :request_types)
+    assert_respond_to(@payload, :request_type)
   end
 
   def test_it_has_relationship_with_event_name
-    assert_respond_to(@payload, :event_names)
+    assert_respond_to(@payload, :event_name)
   end
 
   def test_it_has_relationship_with_software_agents
-    assert_respond_to(@payload, :software_agents)
+    assert_respond_to(@payload, :software_agent)
   end
 
   def test_it_has_relationship_with_resolution
-    assert_respond_to(@payload, :resolutions)
+    assert_respond_to(@payload, :resolution)
   end
 
   def test_it_has_relationship_with_ip_address
-    assert_respond_to(@payload, :ip_addresses)
+    assert_respond_to(@payload, :ip_address)
   end
 
   def test_it_can_create_n_number_raw_payloads

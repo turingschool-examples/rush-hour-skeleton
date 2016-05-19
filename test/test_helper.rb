@@ -72,6 +72,28 @@ module TestHelpers
     end
     payloads
   end
+
+
+  def create_payloads_with_same_user_agent_for_url(num, os, browser)
+    payloads = []
+    num.times do |i|
+      payloads << '{
+        "url":"http://jumpstartlab.com/",
+        "requestedAt":"'"#{Time.now}"'",
+        "respondedIn":'"#{i * 10}"',
+        "referredBy":"'"http://google.com"'",
+        "requestType":"'"#{["GET", "PUT", "POST"].sample}"'",
+        "parameters": [],
+        "eventName":"'"socialLogin#{i}"'",
+        "userAgent":"'"Mozilla/5.0 (Macintosh; Intel #{os}) AppleWebKit/537.17 (KHTML, like Gecko) #{browser}/24.0.1309.0 Safari/537.17"'",
+        "resolutionWidth":"1920",
+        "resolutionHeight":"1280",
+        "ip":"'"63.29.38.21#{i}"'"
+      }'
+
+    end
+    payloads
+  end
 end
 #database cleaner will do the same as a teardown
 #might want to make a module for testhelpers later for capybara etc.
