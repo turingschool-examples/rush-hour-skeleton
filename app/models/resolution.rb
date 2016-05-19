@@ -4,8 +4,7 @@ class Resolution < ActiveRecord::Base
 
   has_many :payload_requests
 
-  def all_widths_by_heights
-    self.pluck(:width)
-    self.pluck(:height)
+  def self.all_widths_by_heights
+    self.pluck(:resolution_width, :resolution_height)
   end
 end

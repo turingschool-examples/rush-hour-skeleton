@@ -79,9 +79,9 @@ class ResolutionTest < Minitest::Test
 
     payloads = [p1, p2, p3]
     payloads.each {|payload| PayloadParser.new(payload)}
-    r1 = "1920 X 1280"
-    r2 = "192 X 128"
-    r3 = "19 X 12"
+    r1 = ["1920", "1280"]
+    r2 =[ "192", "128"]
+    r3 = ["19", "12"]
     r = [r1, r2, r3]
     assert_equal r, Resolution.all_widths_by_heights
   end

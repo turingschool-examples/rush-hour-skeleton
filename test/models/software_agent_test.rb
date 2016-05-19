@@ -34,4 +34,70 @@ class SoftwareAgentTest < Minitest::Test
     u = SoftwareAgent.new
     assert_respond_to(u, :payload_requests)
   end
+
+  def test_it_outputs_all_browsers
+    p1 = '{
+      "url":"'"http://jumpstartlab.com/"'",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{1 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{1}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"'"socialLogin#{1}"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{1}"'"
+    }'
+
+    p2 =  '{
+      "url":"http://jumpstartlab.com/",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{2 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{2}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"'"socialLogin#{2}"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari /24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{2}"'"
+    }'
+
+    [p1,p2].each {|payload| PayloadParser.new(payload)}
+    assert_equal ["Chrome", "Safari"], SoftwareAgent.all_browsers
+  end
+
+  def test_it_outputs_all_operating_systems
+    p1 = '{
+      "url":"'"http://jumpstartlab.com/"'",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{1 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{1}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"'"socialLogin#{1}"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{1}"'"
+    }'
+
+    p2 =  '{
+      "url":"http://jumpstartlab.com/",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{2 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{2}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"'"socialLogin#{2}"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_4_1) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{2}"'"
+    }'
+
+    [p1,p2].each {|payload| PayloadParser.new(payload)}
+    assert_equal ["OS X 10.8.2", "OS X 10.4.1"], SoftwareAgent.all_os
+  end
 end
