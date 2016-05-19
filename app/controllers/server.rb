@@ -10,8 +10,8 @@ module RushHour
 
     post '/sources' do
       client_sha = create_sha(params)
-      client = Client.new(identifier: params["identifier"], root_url: params["rootUrl"])
-      if sha_exists?(params)
+      client = Client.new(identifier: params["identifier"], root_url: params["rootUrl"], sha: client_sha)
+      if client_sha_exists?(client)
         response.status = 403
         response.body = "Client already exists"
       else

@@ -5,7 +5,7 @@ module Unique
     Digest::SHA1.hexdigest params.to_s
   end
 
-  def sha_exists?(params)
-    
+  def client_sha_exists?(object)
+    Client.exists?(sha: object.sha)
   end
 end
