@@ -10,7 +10,7 @@ class ReferredByTest < Minitest::Test
   end
 
   def test_it_returns_true_when_impartial_information_is_entered
-    referred = ReferredBy.new({ name: "referred bys!"})
+    referred = ReferredBy.new({ name: "referred bies!"})
     assert referred.save
   end
 
