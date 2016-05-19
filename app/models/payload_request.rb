@@ -9,13 +9,13 @@ class PayloadRequest < ActiveRecord::Base
             "software_agent_id",
             "resolution_id",
             "ip_address_id", presence: true
-  belongs_to :urls
-  belongs_to :references
-  belongs_to :request_types
-  belongs_to :event_names
-  belongs_to :software_agents
-  belongs_to :resolutions
-  belongs_to :ip_addresses
+  belongs_to :url
+  belongs_to :reference
+  belongs_to :request_type
+  belongs_to :event_name
+  belongs_to :software_agent
+  belongs_to :resolution
+  belongs_to :ip_address
 
   def self.average_response_time
     self.average(:responded_in)
@@ -28,11 +28,6 @@ class PayloadRequest < ActiveRecord::Base
   def self.minimum_response_time
     self.minimum(:responded_in)
   end
-
-  def reference
-    Reference.find(reference_id).reference
-  end
-
 end
 #each validation on its own line so that each attribute can be clearly showed seperately (will add validations later)
 #might want to validate something like the url end with ...
