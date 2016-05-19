@@ -5,9 +5,8 @@ module Parser
   end
 
   def create_resolution(payload)
-    parsed = json(payload)
-    w = parsed["resolutionWidth"]
-    h = parsed["resolutionHeight"]
+    w = payload["resolutionWidth"]
+    h = payload["resolutionHeight"]
     Resolution.where("width": w).where("height": h).first_or_create
   end
 
@@ -15,7 +14,6 @@ module Parser
     parsed_agent = UserAgent.parse(user_agent)
     b = parsed_agent.browser
     p = parsed_agent.platform
-    # require 'pry';binding.pry
     UserAgentB.where("browser": b).where("platform": p).first_or_create
   end
 
@@ -37,7 +35,6 @@ module Parser
 
   def create_ip(ip)
     Ip.where("address": ip).first_or_create
-    #require 'pry';binding.pry
   end
 
   def parse_payload_request(string)
@@ -59,7 +56,7 @@ module Parser
                            "responded_in":  responded,
                            "parameters":    parameters,
                            "id_url":        url_id,
-                           "id_referrer":   referred_id,
+                           "id_referrer":   referrer_id,
                            "id_request":    request_id,
                            "id_event":      event_id,
                            "id_useragent":  user_agent_id,
