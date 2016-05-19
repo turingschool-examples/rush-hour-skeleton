@@ -23,6 +23,7 @@ module Parser
   end
 
   def create_referrer(referrer)
+    # require 'pry';binding.pry
     Referrer.where(:address=> referrer).first_or_create
   end
 
@@ -57,10 +58,10 @@ module Parser
                            :responded_in=>     payload[:respondedIn],
                            :parameters=>       payload[:parameters],
                            :url=>              create_url(payload[:url]),
-                           :referrer=>      create_referrer(payload[:referrerBy]),
+                           :referrer=>      create_referrer(payload[:referredBy]),
                            :request=>       create_request(payload[:requestType]),
-                           :event=>         create_request(payload[:eventName]),
-                           :useragent_b=>     create_user_agent(payload[:userAgent]),
+                           :event=>         create_event(payload[:eventName]),
+                           :user_agent_b=>     create_user_agent(payload[:userAgent]),
                            :resolution=>    create_resolution(payload),
                            :ip=>            create_ip(payload[:ip])
                           #  "id_client":     c
