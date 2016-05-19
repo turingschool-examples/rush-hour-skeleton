@@ -17,6 +17,8 @@ DatabaseCleaner.strategy = :truncation, {except: %w([public.schema_migrations])}
 
 module TestHelpers
   include Rack::Test::Methods
+  attr_reader :url, :referrer, :request_type, :event_name, :user_agent,
+              :resolution, :ip, :payload
 
   def setup
     DatabaseCleaner.start
