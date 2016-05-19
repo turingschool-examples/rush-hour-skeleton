@@ -106,7 +106,7 @@ include TestHelpers
     }'
 
     p6 =  '{
-      "url":"http://google.com/",
+      "url":"http://facebook.com/",
       "requestedAt":"'"#{Time.now}"'",
       "respondedIn":'"#{3 * 10}"',
       "referredBy":"'"http://jumpstartlab.com/#{3}"'",
@@ -121,8 +121,8 @@ include TestHelpers
     payloads = [p6, p2, p4, p1, p3, p5]
     payloads.each {|payload| PayloadParser.new(payload)}
     url1 = "http://jumpstartlab.com/"
-    url2 = "http://google.com/"
-    url3 = "http://facebook.com/"
+    url2 = "http://facebook.com/"
+    url3 = "http://google.com/"
     urls = [url1, url2, url3]
     assert_equal urls, Url.most_to_least_requested_urls
   end

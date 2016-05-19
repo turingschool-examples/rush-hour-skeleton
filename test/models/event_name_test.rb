@@ -33,4 +33,97 @@ class EventNameTest < Minitest::Test
     name = EventName.new
     assert_respond_to(name, :payload_requests)
   end
+
+  def test_it_can_give_the_most_to_least_requested_urls
+    p1 = '{
+      "url":"'"http://jumpstartlab.com/"'",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{1 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{1}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"login",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{1}"'"
+    }'
+
+    p2 =  '{
+      "url":"http://jumpstartlab.com/",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{2 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{2}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"search",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{2}"'"
+    }'
+
+    p3 =  '{
+      "url":"http://google.com/",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{3 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{3}"'",
+      "requestType":"POST",
+      "parameters": [],
+      "eventName":"search",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{3}"'"
+    }'
+
+    p4 = '{
+      "url":"'"http://jumpstartlab.com/"'",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{1 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{1}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"search",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{1}"'"
+    }'
+
+    p5 =  '{
+      "url":"http://facebook.com/",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{2 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{2}"'",
+      "requestType":"GET",
+      "parameters": [],
+      "eventName":"'"socialLogin"'",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{2}"'"
+    }'
+
+    p6 =  '{
+      "url":"http://facebook.com/",
+      "requestedAt":"'"#{Time.now}"'",
+      "respondedIn":'"#{3 * 10}"',
+      "referredBy":"'"http://jumpstartlab.com/#{3}"'",
+      "requestType":"POST",
+      "parameters": [],
+      "eventName":"socialLogin",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+      "resolutionWidth":"1920",
+      "resolutionHeight":"1280",
+      "ip":"'"63.29.38.21#{3}"'"
+    }'
+    payloads = [p6, p2, p4, p1, p3, p5]
+    payloads.each {|payload| PayloadParser.new(payload)}
+    en1 = "login"
+    en2 = "search"
+    en3 = "socialLogin"
+    en = [en2, en3, en1]
+    assert_equal en, EventName.most_to_least_requested_event_names
+  end
 end
