@@ -4,6 +4,7 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
 
   def self.list_urls_by_frequency
-    self.select("address").group("address").order("count_id DESC").count("id").keys
+    select("address").group("address").order("count_id DESC").count("id").keys
   end
+
 end

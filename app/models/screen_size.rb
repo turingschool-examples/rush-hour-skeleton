@@ -3,4 +3,8 @@ class ScreenSize < ActiveRecord::Base
 
   validates :resolution_width, presence: true
   validates :resolution_height, presence: true
+
+  # def self.all_screen_sizes
+  #       uniq.pluck("").sort
+  # end
 end

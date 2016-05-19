@@ -13,4 +13,12 @@ class EventTest < Minitest::Test
     event = Event.new({ name: "events!"})
     assert event.save
   end
+
+  def test_it_lists_events_most_received_to_least
+    event1 = Event.create({ name: "events!"})
+    event2 = Event.create({ name: "events!"})
+    event3 = Event.create({ name: "A-list events!"})
+    assert_equal ["events!", "A-list events!"], Event.list_events_by_frequency
+
+  end
 end
