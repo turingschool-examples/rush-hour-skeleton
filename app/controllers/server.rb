@@ -5,11 +5,13 @@ module RushHour
     end
 
     post '/sources' do
-      client = Client.new(params["identifier"], params["rootUrl"])
-      if client.errors.full_messages.include?("Can't be blank")
+      client = Client.create({identifier: params["identifier"],root_url: params["rootUrl"]})
+      if client.errors.full_messages.join(",").include?("can't be blank")
         status 400
-      elsif client.errors.full_messages.include?("Identifier: Already Exists")
+        body client.errors.full_messages.join(", ")
+      elsif client.errors.full_messages.join(",").include?("has already been taken")
         status 403
+        body client.errors.full_messages.join(", ")
       else
         status 200
       end
