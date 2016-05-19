@@ -42,9 +42,10 @@ ActiveRecord::Schema.define(version: 20160519064005) do
     t.integer  "responded_in"
     t.string   "parameters",         array: true
     t.integer  "event_id"
+    t.integer  "client_id"
   end
 
-  create_table "referred_bys", force: :cascade do |t|
+  create_table "referred_bies", force: :cascade do |t|
     t.string "name"
   end
 

@@ -5,4 +5,7 @@ class CreateClientTable < ActiveRecord::Migration
       t.string      :root_url
     end
   end
+
+  add_column "payload_requests", "client_id", :integer
+    rename_table "referred_bys", "referred_bies"
 end
