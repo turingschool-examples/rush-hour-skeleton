@@ -7,4 +7,8 @@ class Url < ActiveRecord::Base
     select("address").group("address").order("count_id DESC").count("id").keys
   end
 
+  # def self.url_max_response_time(url)
+  #   joins(:payload_requests)
+  # end
+
 end
