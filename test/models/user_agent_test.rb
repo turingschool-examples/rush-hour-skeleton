@@ -4,7 +4,7 @@ class PayloadRequestTest < Minitest::Test
   include TestHelpers
 
   def test_browser_breakdown_returns_browser_with_count
-    user_agent2 = UserAgent.create({:browser => "Chrome", :platform => "Windows"})
+    user_agent2 = PayloadUserAgent.create({:browser => "Chrome", :platform => "Windows"})
     PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
@@ -18,11 +18,11 @@ class PayloadRequestTest < Minitest::Test
       :resolution_id => resolution.id,
       :client_id => client.id
       })
-    assert_equal ({"Mozilla" => 1, "Chrome" => 1}), UserAgent.web_browser_breakdown
+    assert_equal ({"Mozilla" => 1, "Chrome" => 1}), PayloadUserAgent.web_browser_breakdown
   end
 
   def test_platform_breakdown_returns_platform_with_count
-    user_agent2 = UserAgent.create({:browser => "Chrome", :platform => "Macintosh"})
+    user_agent2 = PayloadUserAgent.create({:browser => "Chrome", :platform => "Macintosh"})
     PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
@@ -36,7 +36,7 @@ class PayloadRequestTest < Minitest::Test
       :resolution_id => resolution.id,
       :client_id => client.id
       })
-    assert_equal ({"Macintosh" => 2}), UserAgent.web_platform_breakdown
+    assert_equal ({"Macintosh" => 2}), PayloadUserAgent.web_platform_breakdown
   end
 
 end

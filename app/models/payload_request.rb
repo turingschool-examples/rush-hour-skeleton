@@ -2,7 +2,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :url
   belongs_to :request_type
   belongs_to :resolution
-  belongs_to :user_agent
+  belongs_to :user_agent, :class_name => "PayloadUserAgent"
   belongs_to :referrer
   belongs_to :event_name
   belongs_to :ip

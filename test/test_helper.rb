@@ -31,7 +31,7 @@ module TestHelpers
     @referrer = Referrer.create({:name => "http://jumpstartlab.com"})
     @request_type = RequestType.create({:verb => "GET"})
     @event_name = EventName.create({:name => "socialLogin"})
-    @user_agent = UserAgent.create({:browser => "Mozilla", :platform => "Macintosh"})
+    @user_agent = PayloadUserAgent.create({:browser => "Mozilla", :platform => "Macintosh"})
     @resolution = Resolution.create({:width => "1920", :height => "1280"})
     @ip = Ip.create({:value => "63.29.38.211"})
     @client = Client.create({:identifier => "jumpstartlab", :root_url => "http://jumpstartlab.com"})

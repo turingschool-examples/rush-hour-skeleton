@@ -6,7 +6,7 @@ class Client < ActiveRecord::Base
   has_many :request_types, through: :payload_requests
   has_many :resolutions, through: :payload_requests
   has_many :urls, through: :payload_requests
-  has_many :user_agents, through: :payload_requests
+  has_many :user_agents, through: :payload_requests, :class_name => "PayloadUserAgent"
 
 
   validates :identifier, presence: true, uniqueness: true
