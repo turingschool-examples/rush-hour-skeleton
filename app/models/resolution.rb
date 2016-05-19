@@ -3,4 +3,13 @@ class Resolution < ActiveRecord::Base
 
   validates :width, presence: true
   validates :height, presence: true
+
+  def self.resolutions_breakdown
+    breakdown = {}
+    group("height", "width").count.map do |dimensions, count|
+      breakdown["#{dimensions[0]} x #{dimensions[1]}"] = count
+    end
+    breakdown
+  end
+
 end
