@@ -1,11 +1,11 @@
 class Url < ActiveRecord::Base
-  validates "url", presence: true
+  validates :url, presence: true
 
   has_many :payload_requests
 
   def self.most_to_least_requested_urls
-    ids = PayloadRequest.group(:url_id).count.keys
-    ids.map {|id| Url.find(id).url}
+    ids = PayloadRequest.group(:url_id).count.sort_by {|k,v| v}.reverse
+    f = ids.map {|id| Url.find(id[0]).url}
   end
 
   def max_response_time

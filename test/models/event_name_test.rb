@@ -118,7 +118,7 @@ class EventNameTest < Minitest::Test
       "resolutionHeight":"1280",
       "ip":"'"63.29.38.21#{3}"'"
     }'
-    payloads = [p6, p2, p4, p1, p3, p5]
+    payloads = [p1, p2, p3, p4, p5, p6]
     payloads.each {|payload| PayloadParser.new(payload)}
     en1 = "login"
     en2 = "search"
