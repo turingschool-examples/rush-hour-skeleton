@@ -8,7 +8,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_resolution_breakdown_returns_resolution_with_count
     resolution2 = Resolution.create({:width => "1920", :height => "1280"})
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,

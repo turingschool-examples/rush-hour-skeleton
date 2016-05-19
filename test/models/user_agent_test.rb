@@ -7,7 +7,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_browser_breakdown_returns_browser_with_count
     user_agent2 = UserAgent.create({:browser => "Chrome", :platform => "Windows"})
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -24,7 +24,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_platform_breakdown_returns_platform_with_count
     user_agent2 = UserAgent.create({:browser => "Chrome", :platform => "Macintosh"})
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,

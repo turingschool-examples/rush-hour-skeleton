@@ -64,7 +64,71 @@ class UrlTest < Minitest::Test
       :resolution_id => resolution.id
       })
 
-    assert_equal [], url.top_three_referrers
+    assert_equal 3, url.top_three_referrers.length
+    assert_equal "http://jumpstartlab.com/test2", url.top_three_referrers[0].name
+  end
+
+  def test_it_can_pull_three_most_popular_user_agents
+    id_1 = UserAgent.create({browser: "Chrome", platform: "Macintosh" })
+    id_2 = UserAgent.create({browser: "Safari", platform: "Windows" })
+    id_3 = UserAgent.create({browser: "Opera", platform: "Linux" })
+
+    PayloadRequest.create({
+      :url_id => url.id,
+      :referrer_id => referrer.id,
+      :request_type_id => request_type.id,
+      :requested_at => "2013-02-16 21:38:28 -0700",
+      :event_name_id => event_name.id,
+      :user_agent_id => id_1.id,
+      :responded_in => 37,
+      :parameters => [],
+      :ip_id => ip.id,
+      :resolution_id => resolution.id
+      })
+
+    PayloadRequest.create({
+      :url_id => url.id,
+      :referrer_id => referrer.id,
+      :request_type_id => request_type.id,
+      :requested_at => "2013-02-16 21:38:28 -0700",
+      :event_name_id => event_name.id,
+      :user_agent_id => id_1.id,
+      :responded_in => 37,
+      :parameters => [],
+      :ip_id => ip.id,
+      :resolution_id => resolution.id
+      })
+
+    PayloadRequest.create({
+      :url_id => url.id,
+      :referrer_id => referrer.id,
+      :request_type_id => request_type.id,
+      :requested_at => "2013-02-16 21:38:28 -0700",
+      :event_name_id => event_name.id,
+      :user_agent_id => id_2.id,
+      :responded_in => 37,
+      :parameters => [],
+      :ip_id => ip.id,
+      :resolution_id => resolution.id
+      })
+
+    PayloadRequest.create({
+      :url_id => url.id,
+      :referrer_id => referrer.id,
+      :request_type_id => request_type.id,
+      :requested_at => "2013-02-16 21:38:28 -0700",
+      :event_name_id => event_name.id,
+      :user_agent_id => id_3.id,
+      :responded_in => 37,
+      :parameters => [],
+      :ip_id => ip.id,
+      :resolution_id => resolution.id
+      })
+
+    assert_equal 3, url.top_three_user_agents.length
+    assert_equal "Chrome", url.top_three_user_agents[0].browser
+    assert_equal "Macintosh", url.top_three_user_agents[0].platform
+
   end
 
   def test_it_finds_max_response_time_for_url_with_one_request
@@ -72,7 +136,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_finds_max_response_time_for_url_with_multiple_requests
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -85,7 +149,7 @@ class UrlTest < Minitest::Test
       :resolution_id => resolution.id
       })
 
-      payload3 = PayloadRequest.create({
+      PayloadRequest.create({
         :url_id => url.id,
         :referrer_id => referrer.id,
         :request_type_id => request_type.id,
@@ -105,7 +169,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_finds_max_response_time_for_url_with_two_requests
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -118,7 +182,7 @@ class UrlTest < Minitest::Test
       :resolution_id => resolution.id
       })
 
-      payload3 = PayloadRequest.create({
+      PayloadRequest.create({
         :url_id => url.id,
         :referrer_id => referrer.id,
         :request_type_id => request_type.id,
@@ -135,7 +199,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_finds_response_times_longest_to_shortest
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -155,7 +219,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_finds_average_response_time_for_url_with_multiple_requests
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -168,7 +232,7 @@ class UrlTest < Minitest::Test
       :resolution_id => resolution.id
       })
 
-      payload3 = PayloadRequest.create({
+      PayloadRequest.create({
         :url_id => url.id,
         :referrer_id => referrer.id,
         :request_type_id => request_type.id,

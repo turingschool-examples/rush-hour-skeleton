@@ -19,7 +19,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_finds_average_response_time
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -35,7 +35,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_finds_max_response_time
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -51,7 +51,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_finds_min_response_time
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -67,7 +67,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_finds_most_frequent_request_type
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -85,7 +85,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_handles_most_frequent_request_type_when_there_is_a_tie
     request_type2 = RequestType.create({:verb => "POST"})
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type2.id,
@@ -107,7 +107,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_urls_get_returned_in_order_by_count_for_multiple
     url2 = Url.create({:name => "http://jumpstartlab.com/shop"})
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url2.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,

@@ -7,7 +7,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_browser_breakdown_returns_browser_with_count
     event_name2 = EventName.create({:name => "Show"})
-    payload2 = PayloadRequest.create({
+    PayloadRequest.create({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
