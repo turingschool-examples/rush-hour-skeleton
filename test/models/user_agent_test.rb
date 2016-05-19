@@ -2,8 +2,6 @@ require_relative '../test_helper'
 
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
-  attr_reader :payload, :url, :referrer, :request_type, :event_name,
-              :user_agent, :resolution, :ip
 
   def test_browser_breakdown_returns_browser_with_count
     user_agent2 = UserAgent.create({:browser => "Chrome", :platform => "Windows"})
@@ -17,7 +15,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert_equal ({"Mozilla" => 1, "Chrome" => 1}), UserAgent.web_browser_breakdown
   end
@@ -34,7 +33,8 @@ class PayloadRequestTest < Minitest::Test
       :responded_in => 39,
       :parameters => [],
       :ip_id => ip.id,
-      :resolution_id => resolution.id
+      :resolution_id => resolution.id,
+      :client_id => client.id
       })
     assert_equal ({"Macintosh" => 2}), UserAgent.web_platform_breakdown
   end
