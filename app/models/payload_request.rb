@@ -29,10 +29,6 @@ class PayloadRequest < ActiveRecord::Base
     self.minimum(:responded_in)
   end
 
-  def request_type_name
-    RequestType.find(request_type_id).request_type
-  end
-
   def reference
     Reference.find(reference_id).reference
   end

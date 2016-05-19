@@ -1,7 +1,8 @@
 class RequestType < ActiveRecord::Base
-  validates "request_type", presence: true
+  validates :request_type, presence: true
 
   has_many :payload_requests
+  has_many :urls, through: :payload_requests
 
   def self.all_verbs
     self.pluck(:request_type)
