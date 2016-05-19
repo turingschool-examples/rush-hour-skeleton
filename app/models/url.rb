@@ -28,4 +28,20 @@ class Url < ActiveRecord::Base
       RequestType.find(id).name
     end
   end
+
+  def three_most_popular_referrers
+    referred_by_ids = payload_requests.select("referred_by_id")
+
+    referred_by_ids.group("referred_by_id").order("count_id DESC").limit(3).count("id").keys.map do |id|
+        ReferredBy.find(id).name
+    end
+  end
+
+  def three_most_popular_user_agents
+    user_agent_ids = payload_requests.select("user_agent_info_id")
+
+    user_agent_ids.group("user_agent_info_id").order("count_id DESC").limit(3).count("id").keys.map do |id|
+        "OS: #{UserAgentInfo.find(id).os}, Browser: #{UserAgentInfo.find(id).browser}"
+    end
+  end
 end
