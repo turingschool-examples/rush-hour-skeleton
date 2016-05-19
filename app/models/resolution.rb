@@ -8,3 +8,4 @@ class Resolution < ActiveRecord::Base
     self.pluck(:resolution_width, :resolution_height)
   end
 end
+    

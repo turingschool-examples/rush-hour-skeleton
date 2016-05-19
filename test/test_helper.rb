@@ -51,6 +51,27 @@ module TestHelpers
     end
     payloads
   end
+
+  def create_payloads_with_same_references_for_url(num, reference)
+    payloads = []
+    num.times do |i|
+      payloads << '{
+        "url":"http://jumpstartlab.com/",
+        "requestedAt":"'"#{Time.now}"'",
+        "respondedIn":'"#{i * 10}"',
+        "referredBy":"'"#{reference}"'",
+        "requestType":"'"#{["GET", "PUT", "POST"].sample}"'",
+        "parameters": [],
+        "eventName":"'"socialLogin#{i}"'",
+        "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+        "resolutionWidth":"1920",
+        "resolutionHeight":"1280",
+        "ip":"'"63.29.38.21#{i}"'"
+      }'
+
+    end
+    payloads
+  end
 end
 #database cleaner will do the same as a teardown
 #might want to make a module for testhelpers later for capybara etc.

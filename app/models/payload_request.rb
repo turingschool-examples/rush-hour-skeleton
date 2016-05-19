@@ -29,6 +29,13 @@ class PayloadRequest < ActiveRecord::Base
     self.minimum(:responded_in)
   end
 
+  def request_type_name
+    RequestType.find(request_type_id).request_type
+  end
+
+  def reference
+    Reference.find(reference_id).reference
+  end
 
 end
 #each validation on its own line so that each attribute can be clearly showed seperately (will add validations later)

@@ -8,19 +8,27 @@ class Url < ActiveRecord::Base
     ids.map {|id| Url.find(id).url}
   end
 
-  def max_url_response_time
+  def max_response_time
     payload_requests.maximum(:responded_in)
   end
 
-  def min_url_response_time
+  def min_response_time
     payload_requests.minimum(:responded_in)
   end
 
   def all_response_times
-    payload_requests.pluck(:responded_in)
+    payload_requests.order('responded_in desc').pluck(:responded_in)
   end
 
   def average_response_time
     payload_requests.average(:responded_in)
+  end
+
+  def all_http_verbs
+    payload_requests.collect { |pr| pr.request_type_name}
+  end
+
+  def top_three_referrers
+    a = payload_requests.collect {|pr| pr.reference}.reverse.uniq.take(3)
   end
 end
