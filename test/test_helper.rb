@@ -20,6 +20,10 @@ module TestHelpers
   attr_reader :url, :referrer, :request_type, :event_name, :user_agent,
               :resolution, :ip, :payload, :client
 
+  def app
+    RushHour::Server
+  end
+
   def setup
     DatabaseCleaner.start
 

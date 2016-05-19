@@ -1,6 +1,7 @@
 # require your gems
 require 'bundler'
 Bundler.require
+require 'pry'
 
 # set the pathname for the root of the app
 require 'pathname'

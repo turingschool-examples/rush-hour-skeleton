@@ -3,7 +3,7 @@ class Url < ActiveRecord::Base
   has_many :request_types, through: :payload_requests
   has_many :referrers, through: :payload_requests
   has_many :clients, through: :payload_requests
-  
+
   validates :name, presence: true
 
   def associated_verbs

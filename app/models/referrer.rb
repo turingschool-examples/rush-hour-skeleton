@@ -6,6 +6,6 @@ class Referrer < ActiveRecord::Base
   validates :name, presence: true
 
   def self.rank_by_count
-    puts group(:name).count
+    group(:name).count
   end
 end
