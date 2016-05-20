@@ -17,8 +17,7 @@ module RushHour
       end
     end
 
-    post '/sources/:identifier/data' do
+    post '/sources/:identifier/data' do |identifier|
 
     end
-  end
 end
