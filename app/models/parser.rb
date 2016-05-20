@@ -39,16 +39,15 @@ module Parser
 
   def parse_payload_request(string)
     payload = json(string)
-    
     PayloadRequest.create(
-                           :requested_at=>     payload[:requestedAt],
-                           :responded_in=>     payload[:respondedIn],
-                           :parameters=>       payload[:parameters],
-                           :url=>              create_url(payload[:url]),
+                           :requested_at=>  payload[:requestedAt],
+                           :responded_in=>  payload[:respondedIn],
+                           :parameters=>    payload[:parameters],
+                           :url=>           create_url(payload[:url]),
                            :referrer=>      create_referrer(payload[:referredBy]),
                            :request=>       create_request(payload[:requestType]),
                            :event=>         create_event(payload[:eventName]),
-                           :user_agent_b=>     create_user_agent(payload[:userAgent]),
+                           :user_agent_b=>  create_user_agent(payload[:userAgent]),
                            :resolution=>    create_resolution(payload),
                            :ip=>            create_ip(payload[:ip])
                           #  "id_client":     c
@@ -62,7 +61,5 @@ module Parser
   # payload_request.url.create(address: "hello.com")
   # payload_request.url.create(address: "hello.com")
   # payload_request.save
-  #
   end
-
 end
