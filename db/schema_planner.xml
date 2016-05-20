@@ -37,19 +37,22 @@
     <type label="SET" length="1" sql="SET" quote=""/>
     <type label="Bit" length="0" sql="bit" quote=""/>
   </group>
-</datatypes><table x="600" y="254" name="payload_requests">
+</datatypes><table x="519" y="405" name="payload_requests">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="requested_at" null="1" autoincrement="0">
+<row name="request_at_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="responded_in" null="1" autoincrement="0">
+<default>NULL</default><relation table="requested_at_times" row="id" />
+</row>
+<row name="response_time_ids" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="parameters" null="1" autoincrement="0">
+<default>NULL</default><relation table="response_times" row="id" />
+</row>
+<row name="parameter_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<default>NULL</default><relation table="parameters" row="id" />
+</row>
 <row name="request_type_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="request_types" row="id" />
@@ -78,17 +81,6 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="ips" row="id" />
 </row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="471" y="346" name="urls">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="name" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
 <row name="client_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="clients" row="id" />
@@ -97,7 +89,18 @@
 <part>id</part>
 </key>
 </table>
-<table x="819" y="253" name="request_types">
+<table x="862" y="687" name="urls">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="850" y="411" name="request_types">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -108,7 +111,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="824" y="332" name="resolutions">
+<table x="861" y="489" name="resolutions">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -122,7 +125,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="827" y="434" name="user_agents">
+<table x="861" y="587" name="user_agents">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -136,7 +139,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="325" y="350" name="clients">
+<table x="264" y="499" name="clients">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -147,7 +150,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="836" y="540" name="referrers">
+<table x="862" y="763" name="referrers">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -158,7 +161,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="835" y="623" name="event_names">
+<table x="864" y="838" name="event_names">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -169,11 +172,35 @@
 <part>id</part>
 </key>
 </table>
-<table x="834" y="707" name="ips">
+<table x="865" y="914" name="ips">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="value" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="850" y="360" name="parameters">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="848" y="307" name="response_times">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="847" y="221" name="requested_at_times">
+<row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
