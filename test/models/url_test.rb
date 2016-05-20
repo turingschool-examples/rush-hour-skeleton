@@ -73,9 +73,9 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_can_pull_three_most_popular_user_agents
-    id_1 = UserAgent.create({browser: "Chrome", platform: "Macintosh" })
-    id_2 = UserAgent.create({browser: "Safari", platform: "Windows" })
-    id_3 = UserAgent.create({browser: "Opera", platform: "Linux" })
+    id_1 = PayloadUserAgent.create({browser: "Chrome", platform: "Macintosh" })
+    id_2 = PayloadUserAgent.create({browser: "Safari", platform: "Windows" })
+    id_3 = PayloadUserAgent.create({browser: "Opera", platform: "Linux" })
 
     PayloadRequest.create({
       :url_id => url.id,

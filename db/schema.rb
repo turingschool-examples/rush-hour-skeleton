@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519170556) do
+ActiveRecord::Schema.define(version: 20160520233456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,18 +29,22 @@ ActiveRecord::Schema.define(version: 20160519170556) do
     t.string "value"
   end
 
+  create_table "parameters", force: :cascade do |t|
+    t.string "list"
+  end
+
   create_table "payload_requests", force: :cascade do |t|
-    t.datetime "requested_at"
-    t.integer  "responded_in"
-    t.string   "parameters"
-    t.integer  "url_id"
-    t.integer  "referrer_id"
-    t.integer  "request_type_id"
-    t.integer  "event_name_id"
-    t.integer  "user_agent_id"
-    t.integer  "resolution_id"
-    t.integer  "ip_id"
-    t.integer  "client_id"
+    t.integer "url_id"
+    t.integer "referrer_id"
+    t.integer "request_type_id"
+    t.integer "event_name_id"
+    t.integer "user_agent_id"
+    t.integer "resolution_id"
+    t.integer "ip_id"
+    t.integer "client_id"
+    t.integer "requested_at_id"
+    t.integer "responded_in_id"
+    t.integer "parameter_id"
   end
 
   create_table "referrers", force: :cascade do |t|
@@ -51,9 +55,17 @@ ActiveRecord::Schema.define(version: 20160519170556) do
     t.string "verb"
   end
 
+  create_table "requested_ats", force: :cascade do |t|
+    t.string "time"
+  end
+
   create_table "resolutions", force: :cascade do |t|
     t.string "width"
     t.string "height"
+  end
+
+  create_table "responded_ins", force: :cascade do |t|
+    t.integer "time"
   end
 
   create_table "urls", force: :cascade do |t|

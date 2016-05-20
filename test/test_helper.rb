@@ -27,16 +27,16 @@ module TestHelpers
   def setup
     DatabaseCleaner.start
 
-    @url = Url.create({:name=> "http://jumpstartlab.com/blog"})
-    @referrer = Referrer.create({:name => "http://jumpstartlab.com"})
-    @request_type = RequestType.create({:verb => "GET"})
-    @event_name = EventName.create({:name => "socialLogin"})
-    @user_agent = UserAgent.create({:browser => "Mozilla", :platform => "Macintosh"})
-    @resolution = Resolution.create({:width => "1920", :height => "1280"})
-    @ip = Ip.create({:value => "63.29.38.211"})
-    @client = Client.create({:identifier => "jumpstartlab", :root_url => "http://jumpstartlab.com"})
+    @url = Url.find_or_create_by({:name=> "http://jumpstartlab.com/blog"})
+    @referrer = Referrer.find_or_create_by({:name => "http://jumpstartlab.com"})
+    @request_type = RequestType.find_or_create_by({:verb => "GET"})
+    @event_name = EventName.find_or_create_by({:name => "socialLogin"})
+    @user_agent = PayloadUserAgent.find_or_create_by({:browser => "Mozilla", :platform => "Macintosh"})
+    @resolution = Resolution.find_or_create_by({:width => "1920", :height => "1280"})
+    @ip = Ip.find_or_create_by({:value => "63.29.38.211"})
+    @client = Client.find_or_create_by({:identifier => "jumpstartlab", :root_url => "http://jumpstartlab.com"})
 
-    @payload = PayloadRequest.create({
+    @payload = PayloadRequest.find_or_create_by({
       :url_id => url.id,
       :referrer_id => referrer.id,
       :request_type_id => request_type.id,
@@ -47,8 +47,7 @@ module TestHelpers
       :parameters => [],
       :ip_id => ip.id,
       :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+      :client_id => client.id })
 
   end
 

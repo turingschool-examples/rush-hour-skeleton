@@ -18,7 +18,10 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do
-
+      parsed_payload = Parser.parse_payload(params["payload"])
+      result = DataLoader.load(parsed_payload, params["identifier"])
+      status result[:status]
+      body result[:body]
     end
   end
 end
