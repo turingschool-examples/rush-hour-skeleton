@@ -24,7 +24,7 @@ class Url < ActiveRecord::Base
     sorted_id = user_agent_id_count.sort_by { |k, v| -v }.first(3)
 
     sorted_id.map do |id|
-      UserAgent.find(id[0])
+      PayloadUserAgent.find(id[0])
     end
   end
 

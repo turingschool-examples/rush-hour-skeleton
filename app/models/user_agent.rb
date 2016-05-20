@@ -1,4 +1,6 @@
-class UserAgent < ActiveRecord::Base
+class PayloadUserAgent < ActiveRecord::Base
+  self.table_name = "user_agents"
+
   has_many :payload_requests
   has_many :clients, through: :payload_requests
 
