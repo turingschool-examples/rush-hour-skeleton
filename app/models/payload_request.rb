@@ -8,20 +8,21 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :referrer
   belongs_to :request
 
-  validates :id_url,           presence: true
+  validates :url_id,              presence: true
   validates :requested_at,     presence: true
   validates :responded_in,     presence: true
-  validates :id_request,       presence: true
-  validates :id_referrer,      presence: true
+  validates :request_id,       presence: true
+  validates :referrer_id,      presence: true
   validates :parameters,       presence: true
-  validates :id_event,         presence: true
-  validates :id_useragent,     presence: true
-  validates :id_resolution,    presence: true
-  validates :id_ip,            presence: true
+  validates :event_id,         presence: true
+  validates :user_agent_b_id,    presence: true
+  validates :resolution_id,    presence: true
+  validates :ip_id,            presence: true
+  # validates :shaq, uniquess: true
   # validates :id_client,        presence: true
 
   def self.average_response_time
-    self.average("responded_in").truncate
+    self.average(:responded_in).truncate
   end
 
   def self.top_request_types
@@ -30,7 +31,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.url_range
-    url_range_hash = self.group(:url).order('count_id DESC').count(:id)
+    url_range_hash = self.group(:id_url).order('count_id DESC').count(:id)
     url_range_hash.keys
   end
 

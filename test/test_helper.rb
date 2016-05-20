@@ -28,3 +28,10 @@ module TestHelpers
     super
   end
 end
+
+
+# def create_payload(num=1)
+#   num.times do |i|
+#     Url.create(address: "example.com/blog#{i}")
+#     RequestType.create()
+#     PayloadRequest.create({})
