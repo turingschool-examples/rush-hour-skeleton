@@ -14,7 +14,4 @@ class ResolutionTest < Minitest::Test
 
     assert_equal [["1280", "1900"], ["1100", "1980"], ["1200", "2200"]], res
   end
-
-
-
 end

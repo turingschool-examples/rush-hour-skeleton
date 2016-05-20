@@ -118,5 +118,4 @@ class ValidatePayloadRequestTest < Minitest::Test
     assert_equal 37, min
   end
 
-
 end
