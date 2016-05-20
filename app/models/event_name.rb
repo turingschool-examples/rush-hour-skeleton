@@ -1,7 +1,7 @@
 class EventName < ActiveRecord::Base
   has_many :payload_requests
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   def self.events_breakdown
     breakdown = {}

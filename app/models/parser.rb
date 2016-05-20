@@ -8,8 +8,10 @@ class Parser
      "requestType" => parsed_json["requestType"],
      "parameters" => parsed_json["parameters"],
      "eventName" => parsed_json["eventName"],
-     "userAgent" => parse_user_agent(parsed_json["userAgent"]) }
-
+     "userAgent" => parse_user_agent(parsed_json["userAgent"]),
+     "resolutionWidth" => parsed_json["resolutionWidth"],
+     "resolutionHeight" => parsed_json["resolutionHeight"],
+     "ip" => parsed_json["ip"]}
   end
 
   def self.parse_json(json)

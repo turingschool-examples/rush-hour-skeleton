@@ -31,6 +31,7 @@ class ParserTest < Minitest::Test
     assert_equal "socialLogin", result["eventName"]
     assert_equal "Chrome", result["userAgent"].browser
     assert_equal "Macintosh%3B Intel Mac OS X 10_8_2", result["userAgent"].platform
-
+    assert_equal "1920", result["resolutionWidth"]
+    assert_equal "1280", result["resolutionHeight"]
   end
 end

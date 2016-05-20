@@ -18,7 +18,10 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do
-
+      parsed_payload = Parser.parse_payload(params["payload"])
+      puts parsed_payload
+      result = DataLoader.load(parsed_payload, params["identifier"])
+      puts result.errors.full_messages
     end
   end
 end
