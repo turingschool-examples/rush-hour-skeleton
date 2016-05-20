@@ -3,4 +3,9 @@ class Resolution < ActiveRecord::Base
 
   validates :width, presence: true
   validates :height, presence: true
+
+  def self.screen_resolutions
+    self.pluck(:width, :height)
+  end
+
 end
