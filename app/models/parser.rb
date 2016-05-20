@@ -18,12 +18,10 @@ module Parser
   end
 
   def create_url(url)
-    #  require 'pry';binding.pry
     Url.where(:address=> url).first_or_create
   end
 
   def create_referrer(referrer)
-    # require 'pry';binding.pry
     Referrer.where(:address=> referrer).first_or_create
   end
 
@@ -41,18 +39,7 @@ module Parser
 
   def parse_payload_request(string)
     payload = json(string)
-    # requested  = payload[:requestedAt]
-    # responded  = payload[:respondedIn]
-    # parameters = payload[:parameters]
-    # # url_id = create_url(payload[:url]).id
-    # referrer_id = create_referrer(payload[:referredBy]).id
-    # request_id= create_request(payload[:requestType]).id
-    # event_id = create_event(payload[:eventName]).id
-    # user_agent_id = create_user_agent(payload[:userAgent]).id
-    # resolution_id = create_resolution(payload).id
-    # ip_id = create_ip(payload[:ip]).id
-    # c =   Client.create(payload)
-
+    
     PayloadRequest.create(
                            :requested_at=>     payload[:requestedAt],
                            :responded_in=>     payload[:respondedIn],

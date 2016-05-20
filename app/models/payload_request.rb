@@ -8,14 +8,14 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :referrer
   belongs_to :request
 
-  validates :url_id,              presence: true
+  validates :url_id,           presence: true
   validates :requested_at,     presence: true
   validates :responded_in,     presence: true
   validates :request_id,       presence: true
   validates :referrer_id,      presence: true
   validates :parameters,       presence: true
   validates :event_id,         presence: true
-  validates :user_agent_b_id,    presence: true
+  validates :user_agent_b_id,  presence: true
   validates :resolution_id,    presence: true
   validates :ip_id,            presence: true
   # validates :shaq, uniquess: true
@@ -26,18 +26,30 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.top_request_types
-    request_type_hash = self.group(:request_type).order('count_id DESC').count(:id)
-    top_request = request_type_hash.first[0]
+    ordered_hash = includes(:request).group(:verb).order('count_id DESC')
+    top_requests = ordered_hash.count('id').keys
+    # require 'pry';binding.pry
   end
 
-  def self.url_range
-    url_range_hash = self.group(:id_url).order('count_id DESC').count(:id)
-    url_range_hash.keys
+  def self.url_most_requested_to_least
+    count_hash = includes(:url).group(:address).order('count_id DESC')
+    ordered_hash= count_hash.count('id').key
   end
 
   def self.all_http_verbs
-    require 'pry'; binding.pry
-    self.pluck("request_type").uniq
+    self.includes(:request).pluck(:verb).uniq
+  end
+
+  def self.max_response_time
+    self.maximum(:responded_in)
+  end
+
+  def self.min_response_time
+    self.minimum(:responded_in)
+  end
+
+  def self.event_most_received_to_least
+    self.order('event_id DESC').includes(:event).pluck(:name).uniq
   end
 
 end
