@@ -1,5 +1,6 @@
 class Parser
   def self.parse_payload(payload)
+    return nil if payload.nil?
     parsed_json = parse_json(payload)
     {"url" => parsed_json["url"],
      "requestedAt" => parsed_json["requestedAt"],
