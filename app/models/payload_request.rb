@@ -7,10 +7,13 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :event_name
   belongs_to :ip
   belongs_to :client
+  belongs_to :requested_at
+  belongs_to :responded_in
+  belongs_to :parameter
 
-  validates :requested_at, presence: true
-  validates :responded_in, presence: true
-  validates :parameters, presence: true
+  validates :requested_at_id, presence: true
+  validates :responded_in_id, presence: true
+  validates :parameter_id, presence: true
   validates :url_id, presence: true
   validates :referrer_id, presence: true
   validates :request_type_id, presence: true

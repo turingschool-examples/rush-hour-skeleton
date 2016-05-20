@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520172738) do
+ActiveRecord::Schema.define(version: 20160520180324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 20160520172738) do
 
   create_table "ips", force: :cascade do |t|
     t.string "value"
+  end
+
+  create_table "parameters", force: :cascade do |t|
+    t.string "list"
   end
 
   create_table "payload_requests", force: :cascade do |t|
@@ -47,16 +51,12 @@ ActiveRecord::Schema.define(version: 20160520172738) do
     t.string "name"
   end
 
-  create_table "request_at_times", force: :cascade do |t|
-    t.string "list"
-  end
-
-  create_table "request_ats", force: :cascade do |t|
-    t.datetime "time"
-  end
-
   create_table "request_types", force: :cascade do |t|
     t.string "verb"
+  end
+
+  create_table "requested_ats", force: :cascade do |t|
+    t.datetime "time"
   end
 
   create_table "resolutions", force: :cascade do |t|
