@@ -7,6 +7,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :screen_size
   belongs_to :url
   belongs_to :user_agent_info
+  belongs_to :client
 
   validates :url_id, presence: true
   validates :requested_at, presence: true
