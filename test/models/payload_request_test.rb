@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class ValidatePayloadRequestTest < Minitest::Test
+class PayloadRequestTest < Minitest::Test
     include TestHelpers
 
   def setup
@@ -59,7 +59,7 @@ class ValidatePayloadRequestTest < Minitest::Test
     assert @payload.valid?
   end
 
-  def test_it_validates_new_payload_request_with_missing_fields
+  def test_it_does_not_validate_new_payload_request_with_missing_fields
     refute @payload2.valid?
   end
 

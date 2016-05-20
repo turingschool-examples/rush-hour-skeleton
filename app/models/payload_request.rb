@@ -33,7 +33,7 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.url_most_requested_to_least
     count_hash = includes(:url).group(:address).order('count_id DESC')
-    ordered_hash= count_hash.count('id').key
+    ordered_hash= count_hash.count('id').keys
   end
 
   def self.all_http_verbs
@@ -50,7 +50,7 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.event_most_received_to_least
     self.order('event_id DESC').includes(:event).pluck(:name).uniq
-    self.pluck("request_type").uniq
+    #self.pluck("request_type").uniq
   end
 
 end

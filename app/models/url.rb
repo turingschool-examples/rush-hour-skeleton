@@ -25,6 +25,12 @@ class Url < ActiveRecord::Base
 
   def most_popular_referrers
     count_hash = payload_requests.includes(:referrer).group(:address).order('count_id DESC')
-    ordered_hash= count_hash.count('id').key[0..2]
+    ordered_hash= count_hash.count('id').keys[0..2]
   end
+
+  def most_popular_user_agents
+    count_hash = payload_requests.group(:user_agent_b).order('count_id DESC')
+    ordered_hash = count_hash.count('id').keys
+  end
+
 end
