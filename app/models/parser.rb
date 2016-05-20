@@ -15,7 +15,6 @@ module Parser
     parsed_agent = UserAgent.parse(user_agent)
     b = parsed_agent.browser
     p = parsed_agent.platform
-    # require 'pry';binding.pry
     UserAgentB.where("browser": b).where("platform": p).first_or_create
   end
 
@@ -37,7 +36,6 @@ module Parser
 
   def create_ip(ip)
     Ip.where("address": ip).first_or_create
-    #require 'pry';binding.pry
   end
 
   def parse_payload_request(string)
@@ -67,7 +65,6 @@ module Parser
                            "id_ip":         ip_id
                           #  "id_client":     c
                           )
-
   end
 
 end

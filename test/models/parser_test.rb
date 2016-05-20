@@ -34,36 +34,19 @@ class ParserTest < Minitest::Test
 
   end
 
-  # def test_it_parses_json
-  #   hash = {
-  #             "url"=>"http://jumpstartlab.com/blog",
-  #             "requestedAt"=>"2013-02-16 21:38:28 -0700",
-  #             "respondedIn"=>37,
-  #             "referredBy"=>"http://jumpstartlab.com",
-  #             "requestType"=>"GET", "parameters"=>[],
-  #             "eventName"=>"socialLogin", "userAgent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-  #             "resolutionWidth"=>"1920", "resolutionHeight"=>"1280",
-  #             "ip"=>"63.29.38.211"
-  #           }
-  #   assert_equal hash, json(@string)
-  # end
-  #
-  # def test_it_can_create_resolution_table
-  #   resolution_table = parse_resolution(@string)
-  #
-  #   assert_equal "1280", resolution_table.height
-  #   assert_equal "1920", resolution_table.width
-  #   assert_equal true, resolution_table.id.integer?
-  # end
-  #
-  # def test_it_can_create_user_agent_table
-  #   user_agent_table = parse_user_agent(@string)
-  #
-  #   assert_equal "Chrome", user_agent_table.browser
-  #   assert_equal "24.0.1309.0", user_agent_table.version
-  #   assert_equal "Macintosh", user_agent_table.platform
-  #   assert_equal true, user_agent_table.id.integer?
-  # end
+  def test_it_parses_json
+    hash = {
+              "url"=>"http://jumpstartlab.com/blog",
+              "requestedAt"=>"2013-02-16 21:38:28 -0700",
+              "respondedIn"=>37,
+              "referredBy"=>"http://jumpstartlab.com",
+              "requestType"=>"GET", "parameters"=>[],
+              "eventName"=>"socialLogin", "userAgent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+              "resolutionWidth"=>"1920", "resolutionHeight"=>"1280",
+              "ip"=>"63.29.38.211"
+            }
+    assert_equal hash, json(@string)
+  end
 
   def test_create_url_table
     url = "http://jumpstartlab.com/blog"
@@ -108,8 +91,6 @@ class ParserTest < Minitest::Test
   def test_create_event_table
     user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"
     user_agent2 = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2"
-
-
 
     first = create_user_agent(user_agent)
     second = create_user_agent(user_agent2)
