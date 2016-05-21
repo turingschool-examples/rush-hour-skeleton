@@ -25,8 +25,10 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, path|
+      puts path
       @identifier = identifier
-      @path = get_relative_path(path)
+      @url = Url.find_by(name: Url.get_by_relative_path(path))
+      puts @url.name
     end
   end
 end

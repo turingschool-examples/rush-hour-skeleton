@@ -6,8 +6,10 @@ class Url < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def get_relative_path(path)
-
+  def self.get_by_relative_path(path)
+    pluck("name").find do |name|
+      name.split("/")[3] == path
+    end
   end
 
   def associated_verbs
