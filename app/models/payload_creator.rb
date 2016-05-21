@@ -27,7 +27,6 @@ module PayloadCreator
     user_agent = UserAgent.parse(user_agent_info)
     user_agent_qualities[:browser] = user_agent.browser
     user_agent_qualities[:platform] = user_agent.platform
-    # We should decide what we need from the user agent and adjust our table to reflect that
     user_agent_qualities[:version] = "Windows 8.1"
     user_agent_qualities[:os] = user_agent.os
     user_agent_qualities
