@@ -14,32 +14,11 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       payload = create_new_payload(params, identifier)
-
-      if payload_sha_exists?(payload)
-        response_payload_already_exists
-      elsif bad_url?(params)
-        response_payload_contains_bad_url
-      else
-        if payload.save
-          response_payload_created
-        else
-          response_list_all_payload_errors
-        end
-      end
+      payload_response_decider(payload)
     end
 
     post '/sources' do
-      client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl])
-      client_sha = create_sha(params)
-      if client_sha_exists?(client)
-        response_client_already_exists
-      else
-        if client.save
-          response_client_created
-        else
-          response_list_all_client_errors
-        end
-      end
+      client_response_decider
     end
   end
 end
