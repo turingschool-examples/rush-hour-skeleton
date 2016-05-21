@@ -23,5 +23,10 @@ module RushHour
       status result[:status]
       body result[:body]
     end
+
+    get '/sources/:identifier/urls/:relativepath' do |identifier, path|
+      @identifier = identifier
+      @path = get_relative_path(path)
+    end
   end
 end

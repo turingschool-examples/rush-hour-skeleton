@@ -6,6 +6,10 @@ class Url < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def get_relative_path(path)
+
+  end
+
   def associated_verbs
     request_types.pluck("verb")
   end
