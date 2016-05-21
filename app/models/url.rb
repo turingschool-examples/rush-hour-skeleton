@@ -3,6 +3,7 @@ class Url < ActiveRecord::Base
   has_many :request_types, through: :payload_requests
   has_many :referrers, through: :payload_requests
   has_many :clients, through: :payload_requests
+  has_many :responded_ins, through: :payload_requests
 
   validates :name, presence: true
 
@@ -11,8 +12,11 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_referrers
+    # change referrer_id to referrer to get group objects
     referrer_id_count = payload_requests.group("referrer_id").count
     sorted_id = referrer_id_count.sort_by { |k, v| -v }.first(3)
+
+    #binding.pry
 
     sorted_id.map do |id|
       Referrer.find(id[0])
@@ -29,18 +33,18 @@ class Url < ActiveRecord::Base
   end
 
   def max_response_time
-    payload_requests.maximum("responded_in")
+    responded_ins.maximum("time")
   end
 
   def min_response_time
-    payload_requests.minimum("responded_in")
+    responded_ins.minimum("time")
   end
 
   def response_times_longest_to_shortest
-    payload_requests.order("responded_in").reverse_order.pluck("responded_in")
+    responded_ins.order("time").reverse_order.pluck("time")
   end
 
   def average_response_time
-    payload_requests.average("responded_in").round
+    responded_ins.average("time").round
   end
 end

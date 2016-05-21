@@ -4,262 +4,185 @@ class UrlTest < Minitest::Test
   include TestHelpers
 
   def test_it_can_pull_associated_verbs
-    assert_equal ["GET"], url.associated_verbs
+    create_payloads(1)
+    url = Url.find(1)
+
+    assert_equal ["GET 0"], url.associated_verbs
   end
 
   def test_it_can_pull_three_most_popular_referrers
-    id_1 = Referrer.create({:name => "http://jumpstartlab.com/test1"})
-    id_2 = Referrer.create({:name => "http://jumpstartlab.com/test2"})
-    id_3 = Referrer.create({:name => "http://jumpstartlab.com/test3"})
+    create_payloads(1)
+    url = Url.find(1)
 
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => id_1.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
 
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => id_2.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.create(name: "http://test.com"),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.find(1),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
 
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => id_2.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
 
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => id_3.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.create(name: "http://test.com1"),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.find(1),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
 
     assert_equal 3, url.top_three_referrers.length
-    assert_equal "http://jumpstartlab.com/test2", url.top_three_referrers[0].name
+    assert_equal "http://jumpstartlab.com0", url.top_three_referrers[0].name
   end
 
   def test_it_can_pull_three_most_popular_user_agents
-    id_1 = PayloadUserAgent.create({browser: "Chrome", platform: "Macintosh" })
-    id_2 = PayloadUserAgent.create({browser: "Safari", platform: "Windows" })
-    id_3 = PayloadUserAgent.create({browser: "Opera", platform: "Linux" })
+    create_payloads(1)
+    url = Url.find(1)
 
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => id_1.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
 
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => id_1.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.create(browser: "test", platform: "test1"),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.find(1),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
 
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => id_2.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
-
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => id_3.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.create(browser: "test1", platform: "test2"),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.find(1),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
 
     assert_equal 3, url.top_three_user_agents.length
-    assert_equal "Chrome", url.top_three_user_agents[0].browser
-    assert_equal "Macintosh", url.top_three_user_agents[0].platform
+    assert_equal "Mozilla 0", url.top_three_user_agents[0].browser
+    assert_equal "Macintosh 0", url.top_three_user_agents[0].platform
 
-  end
-
-  def test_it_finds_max_response_time_for_url_with_one_request
-    assert_equal 37, url.max_response_time
   end
 
   def test_it_finds_max_response_time_for_url_with_multiple_requests
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 40,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    create_payloads(1)
+    url = Url.find(1)
 
-      PayloadRequest.create({
-        :url_id => url.id,
-        :referrer_id => referrer.id,
-        :request_type_id => request_type.id,
-        :requested_at => "2013-02-16 21:38:28 -0700",
-        :event_name_id => event_name.id,
-        :user_agent_id => user_agent.id,
-        :responded_in => 45,
-        :parameters => [],
-        :ip_id => ip.id,
-        :resolution_id => resolution.id,
-        :client_id => client.id
-        })
-    assert_equal 45, url.max_response_time
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.create(time: 37),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
+
+    assert_equal 37, url.max_response_time
   end
 
-  def test_it_finds_min_response_time_for_url_with_one_request
-    assert_equal 37, url.min_response_time
-  end
+  def test_it_finds_min_response_time_for_url_with_multiple_requests
+    create_payloads(1)
+    url = Url.find(1)
 
-  def test_it_finds_max_response_time_for_url_with_two_requests
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 35,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
-
-      PayloadRequest.create({
-        :url_id => url.id,
-        :referrer_id => referrer.id,
-        :request_type_id => request_type.id,
-        :requested_at => "2013-02-16 21:38:28 -0700",
-        :event_name_id => event_name.id,
-        :user_agent_id => user_agent.id,
-        :responded_in => 45,
-        :parameters => [],
-        :ip_id => ip.id,
-        :resolution_id => resolution.id,
-        :client_id => client.id
-        })
-
-    assert_equal 35, url.min_response_time
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.create(time: 37),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
+    assert_equal 0, url.min_response_time
   end
 
   def test_it_finds_response_times_longest_to_shortest
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 35,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
-    assert_equal [37, 35], url.response_times_longest_to_shortest
-  end
+    create_payloads(1)
+    url = Url.find(1)
 
-  def test_it_finds_average_response_time_for_url_with_one_request
-    assert_equal 37, url.average_response_time
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.create(time: 37),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
+
+    assert_equal [37, 0], url.response_times_longest_to_shortest
   end
 
   def test_it_finds_average_response_time_for_url_with_multiple_requests
-    PayloadRequest.create({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 35,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id
-      })
+    create_payloads(1)
+    url = Url.find(1)
 
-      PayloadRequest.create({
-        :url_id => url.id,
-        :referrer_id => referrer.id,
-        :request_type_id => request_type.id,
-        :requested_at => "2013-02-16 21:38:28 -0700",
-        :event_name_id => event_name.id,
-        :user_agent_id => user_agent.id,
-        :responded_in => 45,
-        :parameters => [],
-        :ip_id => ip.id,
-        :resolution_id => resolution.id,
-        :client_id => client.id
-        })
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.create(time: 37),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
 
-    assert_equal 39, url.average_response_time
+    assert_equal 19, url.average_response_time
   end
 end
