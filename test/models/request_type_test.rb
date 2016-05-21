@@ -4,7 +4,9 @@ class PayloadRequestTest < Minitest::Test
   include TestHelpers
 
   def test_it_returns_unique_list_of_http_verbs
-    assert_equal ["GET"], RequestType.list_of_verbs_used
+    create_payloads(1)
+
+    assert_equal ["GET 0"], RequestType.list_of_verbs_used
   end
 
 end
