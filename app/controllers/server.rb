@@ -29,6 +29,7 @@ module RushHour
     end
 
     post '/sources' do
+      client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl])
       client_sha = create_sha(params)
       if client_sha_exists?(client)
         response_client_already_exists
