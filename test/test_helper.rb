@@ -17,8 +17,6 @@ DatabaseCleaner.strategy = :truncation, {except: %w([public.schema_migrations])}
 
 module TestHelpers
   include Rack::Test::Methods
-  attr_reader :url, :referrer, :request_type, :event_name, :user_agent,
-              :resolution, :ip, :payload, :client
 
   def app
     RushHour::Server
@@ -26,29 +24,36 @@ module TestHelpers
 
   def setup
     DatabaseCleaner.start
+  end
 
-    @url = Url.find_or_create_by({:name=> "http://jumpstartlab.com/blog"})
-    @referrer = Referrer.find_or_create_by({:name => "http://jumpstartlab.com"})
-    @request_type = RequestType.find_or_create_by({:verb => "GET"})
-    @event_name = EventName.find_or_create_by({:name => "socialLogin"})
-    @user_agent = PayloadUserAgent.find_or_create_by({:browser => "Mozilla", :platform => "Macintosh"})
-    @resolution = Resolution.find_or_create_by({:width => "1920", :height => "1280"})
-    @ip = Ip.find_or_create_by({:value => "63.29.38.211"})
-    @client = Client.find_or_create_by({:identifier => "jumpstartlab", :root_url => "http://jumpstartlab.com"})
+  def create_payloads(number)
+    number.times do |i|
 
-    @payload = PayloadRequest.find_or_create_by({
-      :url_id => url.id,
-      :referrer_id => referrer.id,
-      :request_type_id => request_type.id,
-      :requested_at => "2013-02-16 21:38:28 -0700",
-      :event_name_id => event_name.id,
-      :user_agent_id => user_agent.id,
-      :responded_in => 37,
-      :parameters => [],
-      :ip_id => ip.id,
-      :resolution_id => resolution.id,
-      :client_id => client.id })
+      url = Url.find_or_create_by({:name=> "http://jumpstartlab.com/blog#{i}"})
+      referrer = Referrer.find_or_create_by({:name => "http://jumpstartlab.com#{i}"})
+      request_type = RequestType.find_or_create_by({:verb => "GET #{i}"})
+      requested_at = RequestedAt.find_or_create_by({time: "2013-02-16 21:38:28 -070#{i}"})
+      event_name = EventName.find_or_create_by({:name => "socialLogin #{i}"})
+      user_agent = PayloadUserAgent.find_or_create_by({:browser => "Mozilla #{i}", :platform => "Macintosh #{i}"})
+      responded_in = RespondedIn.find_or_create_by({time: i})
+      parameter = Parameter.find_or_create_by({list: "#{i}"})
+      resolution = Resolution.find_or_create_by({:width => "1920 #{i}", :height => "1280 #{i}"})
+      ip = Ip.find_or_create_by({:value => "63.29.38.21#{i}"})
+      client = Client.find_or_create_by({:identifier => "jumpstartlab#{i}", :root_url => "http://jumpstartlab.com#{i}"})
 
+      PayloadRequest.find_or_create_by({
+        :url => url,
+        :referrer => referrer,
+        :request_type => request_type,
+        :requested_at => requested_at,
+        :event_name => event_name,
+        :user_agent => user_agent,
+        :responded_in => responded_in,
+        :parameter => parameter,
+        :ip => ip,
+        :resolution => resolution,
+        :client => client })
+    end
   end
 
   def teardown
