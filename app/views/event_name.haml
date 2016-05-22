@@ -1,0 +1,5 @@
+%h2= @client.identifier
+%h3= @event_name
+
+- @hour_breakdown.each do |key, value|
+  %p= "Hour Received:#{key}, Number of Events:#{value.count}"

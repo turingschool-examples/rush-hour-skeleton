@@ -51,5 +51,19 @@ module RushHour
       end
     end
 
+
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @client = Client.find_by(identifier: identifier)
+      if EventName.find_by(name: event_name)
+        @event_name = event_name
+        @hour_breakdown = @client.breakdown_by_hour(event_name)
+        haml :event_name
+      else
+        @display_error = "Event has not been defined."
+        haml :error
+      end
+    end
+
+
   end
 end
