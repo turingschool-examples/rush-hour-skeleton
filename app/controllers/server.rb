@@ -25,10 +25,15 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, path|
-      puts path
-      @identifier = identifier
-      @url = Url.find_by(name: Url.get_by_relative_path(path))
-      puts @url.name
+      @client = Client.find_by(identifier: identifier)
+      name = Url.get_name_by_relative_path(path)
+      if @client.urls.find_by(name: name)
+        @url = @client.urls.find_by(name: name)
+        haml :url
+      else
+        redirect not_found
+      end
     end
+
   end
 end

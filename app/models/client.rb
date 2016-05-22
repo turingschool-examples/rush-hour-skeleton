@@ -34,5 +34,4 @@ class Client < ActiveRecord::Base
       nested[0].name
     end
   end
-
 end

@@ -1,0 +1,33 @@
+%h1= @client.identifier.capitalize
+%h2= @url.name
+
+.row
+  %h3 Response Times
+  %div.col-md-6
+    %p Average Response Time
+    %p Max Response Time
+    %p Min Response Time
+    %p All Response Times
+
+  %div.col-md-6
+    %p=@url.average_response_time
+    %p=@url.max_response_time
+    %p=@url.min_response_time
+    - @url.response_times_longest_to_shortest.each do |response_time|
+      = response_time
+
+.row
+  %h3 HTTP Requests
+  - @url.associated_verbs.each do |verb, count|
+    %p= "#{verb}: #{count}"
+
+.row
+  %h3 Most Popular Referrers
+  - @url.top_three_referrers.each do |referrer|
+    %p= "#{referrer.name}"
+
+
+.row
+  %h3 Most Popular UserAgents
+  - @url.top_three_user_agents.each do |user_agent|
+    %p= "#{user_agent.browser} : #{user_agent.platform}"
