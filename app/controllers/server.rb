@@ -46,7 +46,8 @@ module RushHour
         @url = @client.urls.find_by(name: name)
         haml :url
       else
-        redirect not_found
+        @display_error = "Url not found for given client"
+        haml :error
       end
     end
 

@@ -9,26 +9,30 @@
 
 %h4= "Minimum Response Time Across All Requests: #{@client.responded_ins.min_response_time}"
 
-%h4= "Most Frequent Request Type:"
+%h4 Most Frequent Request Type:
 - @client.most_frequent_request_type.each do |type|
   %p= haml :'/shared/_array', locals: {item: type}
 
-%h4= "All HTTP Verbs Used:"
+%h4 All HTTP Verbs Used:
 - @client.request_types.list_of_verbs_used.each do |verb|
   %p= haml :'/shared/_array', locals: {item: verb}
 
-%h4= "URLs Ordered by Request Amount:"
+%h4 URLs Ordered by Request Amount:
 - @client.order_urls_by_count.each do |url|
   %p= haml :'/shared/_array', locals: {item: url}
 
-%h4= "Web Browser Breakdown"
+%h4 Web Browser Breakdown
 - @client.user_agents.web_browser_breakdown.each do |browser, count|
   %p= haml :'/shared/_hash', locals: {key: browser, value: count}
 
-%h4= "Operating System Breakdown"
+%h4 Operating System Breakdown
 - @client.user_agents.web_platform_breakdown.each do |platform, count|
   %p= haml :'/shared/_hash', locals: {key: platform, value: count}
 
-%h4= "Screen Resolutions Across All Requests"
+%h4 Screen Resolutions Across All Requests
 - @client.resolutions.resolutions_breakdown.each do |resolution, count|
   %p= haml :'/shared/_hash', locals: {key: resolution, value: count}
+
+%h4 URLs for Client
+- @client.urls.uniq.each do |url|
+  %a{href: "/sources/#{@client.identifier}/urls/#{url.name.split("/")[3]}"}=url.name
