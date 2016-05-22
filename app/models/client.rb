@@ -43,4 +43,27 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def find_matching_payloads(event_name)
+    event_name = EventName.find_by(name: event_name)
+    payloads = payload_requests.where(event_name: event_name)
+  end
+
+  def matching_request_ats(event_name)
+    find_matching_payloads(event_name).map do |payload|
+      payload.requested_at
+    end
+  end
+
+  def breakdown_by_hour(event_name)
+    hour_hash = matching_request_ats(event_name).group_by do |requested_at|
+      requested_at.hour
+    end
+    1.upto(24) do |i|
+      if hour_hash.keys.include?(i) == false
+        hour_hash[i] = []
+      end
+    end
+    hour_hash.sort
+  end
+
 end

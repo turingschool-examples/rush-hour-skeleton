@@ -4,4 +4,9 @@ class RequestedAt < ActiveRecord::Base
 
   validates :time, presence: true, uniqueness: true
 
+  def hour
+    Time.zone = "UTC"
+    Time.zone.parse(time).hour
+  end
+
 end

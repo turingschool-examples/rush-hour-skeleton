@@ -122,4 +122,54 @@ class ClientTest < Minitest::Test
       assert_equal 28, client.responded_ins.max_response_time
       assert_equal 0, client.responded_ins.min_response_time
   end
+
+  def test_it_finds_matching_payloads
+    create_payloads(1)
+
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.find(1),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
+
+    client = Client.find(1)
+    assert_equal 2, client.find_matching_payloads("socialLogin 0").count
+    assert_equal 0, client.find_matching_payloads("test").count
+  end
+
+  def test_it_can_breakdown_by_hour
+    create_payloads(1)
+    client = Client.find(1)
+
+    assert_equal [4], client.breakdown_by_hour("socialLogin 0").keys
+  end
+
+  def test_it_can_breakdown_by_hour_with_two_payloads
+    create_payloads(1)
+
+    PayloadRequest.find_or_create_by({
+        :url => Url.find(1),
+        :referrer => Referrer.find(1),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.create(time: "2013-02-16 22:38:28 -0700"),
+        :event_name => EventName.find(1),
+        :user_agent => PayloadUserAgent.find(1),
+        :responded_in => RespondedIn.find(1),
+        :parameter => Parameter.find(1),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.find(1),
+        :client => Client.find(1) })
+
+    client = Client.find(1)
+    assert_equal [4, 5], client.breakdown_by_hour("socialLogin 0").keys
+    assert_equal [], client.breakdown_by_hour("socialLogin 6").keys
+  end
+
 end
