@@ -1,45 +1,53 @@
-module Parser
+class Parser
 
-  def json(string)
+  def self.json(string)
     JSON.parse(string, {:symbolize_names => true})
   end
 
-  def create_resolution(payload)
+  def self.parse_client_params(params)
+    {identifier: params[:identifier], root_url: params[:rootURL]}
+  end
+
+  def self.create_resolution(payload)
     width = payload[:resolutionWidth]
     height = payload[:resolutionHeight]
     Resolution.where(:width=> width).where(:height=> height).first_or_create
   end
 
-  def create_user_agent(user_agent)
+  def self.create_user_agent(user_agent)
     parsed_agent = UserAgent.parse(user_agent)
     browser = parsed_agent.browser
     platform = parsed_agent.platform
     UserAgentB.where(:browser=> browser).where(:platform=> platform).first_or_create
   end
 
-  def create_url(url)
+  def self.create_url(url)
     Url.where(:address=> url).first_or_create
   end
 
-  def create_referrer(referrer)
+  def self.create_referrer(referrer)
     Referrer.where(:address=> referrer).first_or_create
   end
 
-  def create_request(request)
+  def self.create_request(request)
     Request.where(:verb=> request).first_or_create
   end
 
-  def create_event(event)
+  def self.create_event(event)
     Event.where(:name=> event).first_or_create
   end
 
-  def create_ip(ip)
+  def self.create_ip(ip)
     Ip.where(:address=> ip).first_or_create
   end
 
-  def parse_payload_request(string)
+  def self.find_client_id(identifier)
+    Client.find_by(identifier: identifier).id
+  end
+
+  def self.parse_payload(string, identifier)
     payload = json(string)
-    PayloadRequest.create(
+    h = PayloadRequest.create(
                            :requested_at=>  payload[:requestedAt],
                            :responded_in=>  payload[:respondedIn],
                            :parameters=>    payload[:parameters],
@@ -49,9 +57,10 @@ module Parser
                            :event=>         create_event(payload[:eventName]),
                            :user_agent_b=>  create_user_agent(payload[:userAgent]),
                            :resolution=>    create_resolution(payload),
-                           :ip=>            create_ip(payload[:ip])
-                          #  "id_client":     c
+                           :ip=>            create_ip(payload[:ip]),
+                           :client_id =>    find_client_id(identifier)
                           )
+                          require 'pry';binding.pry
 
   # payload_request = PayloadRequest.new(requested_at: requested)
   #

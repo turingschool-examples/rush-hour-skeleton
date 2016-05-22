@@ -4,10 +4,10 @@ class ClientTest < Minitest::Test
     include TestHelpers
 
   def setup
-    @client1 = Client.create({:url => "www.google.com",
-                              :identifier => "1"
+    @client1 = Client.create({:root_url => "www.google.com",
+                              :identifier => "www.jumpstart.labs"
                               })
-    @client2 = Client.create({:url => "www.google.com"
+    @client2 = Client.create({:root_url => "www.google.com"
                               })
   end
 

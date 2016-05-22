@@ -7,6 +7,13 @@ class Client < ActiveRecord::Base
   has_many :urls,        through: :payload_requests
   has_many :referrers,   through: :payload_requests
 
-  validates :url,           presence: true
-  validates :identifier,    presence: true
+  validates :root_url,      presence: true, uniqueness: true
+  validates :identifier,    presence: true, uniqueness: true
+
+  def valid_params(params)
+    Client.exists?(params)
+  end
+
+
+
 end
