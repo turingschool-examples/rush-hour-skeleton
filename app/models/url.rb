@@ -7,16 +7,20 @@ class Url < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def self.get_name_by_relative_path(path)
+    pluck("name").find do |name|
+      name.split("/")[3] == path
+    end
+  end
+
   def associated_verbs
-    request_types.pluck("verb")
+    request_types.group("verb").count
   end
 
   def top_three_referrers
     # change referrer_id to referrer to get group objects
     referrer_id_count = payload_requests.group("referrer_id").count
     sorted_id = referrer_id_count.sort_by { |k, v| -v }.first(3)
-
-    #binding.pry
 
     sorted_id.map do |id|
       Referrer.find(id[0])

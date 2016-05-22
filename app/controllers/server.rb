@@ -1,7 +1,7 @@
 module RushHour
   class Server < Sinatra::Base
     not_found do
-      erb :error
+      haml :error
     end
 
     post '/sources' do
@@ -38,6 +38,18 @@ module RushHour
         haml :error
       end
     end
-    
+
+    get '/sources/:identifier/urls/:relativepath' do |identifier, path|
+      @client = Client.find_by(identifier: identifier)
+      name = Url.get_name_by_relative_path(path)
+      if @client.urls.find_by(name: name)
+        @url = @client.urls.find_by(name: name)
+        haml :url
+      else
+        @display_error = "Url not found for given client"
+        haml :error
+      end
+    end
+
   end
 end
