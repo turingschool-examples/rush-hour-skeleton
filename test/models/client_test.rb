@@ -99,4 +99,27 @@ class ClientTest < Minitest::Test
     assert client.order_urls_by_count.include?("http://test.com")
     assert client.order_urls_by_count.include?("http://jumpstartlab.com/blog0")
   end
+
+  def test_it_calculates_response_analytics
+    create_payloads(1)
+
+    PayloadRequest.find_or_create_by({
+        :url => Url.create(name: "http://test.com"),
+        :referrer => Referrer.create(name: "http://test.com"),
+        :request_type => RequestType.find(1),
+        :requested_at => RequestedAt.create(time: "test"),
+        :event_name => EventName.create(name: "test"),
+        :user_agent => PayloadUserAgent.create(browser: "test", platform: "test"),
+        :responded_in => RespondedIn.create(time: 28),
+        :parameter => Parameter.create(list: "[]"),
+        :ip => Ip.create(value: "127.0.0.1"),
+        :resolution => Resolution.create(width: "1920", height: "1280"),
+        :client => Client.find(1) })
+
+      client = Client.find(1)
+
+      assert_equal 14, client.responded_ins.average_response_time
+      assert_equal 28, client.responded_ins.max_response_time
+      assert_equal 0, client.responded_ins.min_response_time
+  end
 end

@@ -5,6 +5,7 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'useragent'
+gem 'haml'
 
 group :development, :test do
   gem 'rake'

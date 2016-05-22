@@ -23,5 +23,21 @@ module RushHour
       status result[:status]
       body result[:body]
     end
+
+    get '/sources/:identifier' do |identifier|
+      if Client.find_by(identifier: identifier)
+        @client = Client.find_by(identifier: identifier)
+        if @client.check_for_payloads
+          haml :show
+        else
+          @display_error = "There is currently no payload data for this client."
+          haml :error
+        end
+      else
+        @display_error = "This Client Does Not Exist"
+        haml :error
+      end
+    end
+    
   end
 end

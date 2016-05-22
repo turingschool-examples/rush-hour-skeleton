@@ -35,4 +35,12 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def check_for_payloads
+    if payload_requests.count > 0
+      true
+    else
+      false
+    end
+  end
+
 end
