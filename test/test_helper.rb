@@ -10,12 +10,12 @@ require 'capybara/dsl'
 require 'database_cleaner'
 
 DatabaseCleaner.strategy = :truncation, {except: %[public.schema_migrations]}
-Capybara.app = RushHour::Server
+Capybara.app = RushHourApp
 
 module TestHelpers
   include Rack::Test::Methods
   def app     # def app is something that Rack::Test is looking for
-    Server
+    RushHourApp
   end
 
   def setup
@@ -28,10 +28,3 @@ module TestHelpers
     super
   end
 end
-
-
-def create_payload(num = 1)
-  num.times do |i|
-    Url.create(address: "example.com/blog#{i}")
-    RequestType.create()
-    PayloadRequest.create({})
