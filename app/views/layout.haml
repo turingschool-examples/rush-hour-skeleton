@@ -1,0 +1,8 @@
+%html
+  %head
+    %title Rush Hour
+    %link{:href => "/css/bootstrap.min.css", :rel => 'stylesheet'}
+  %body
+    =haml :header
+    .container.well#site-content
+      =yield
