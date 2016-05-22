@@ -27,6 +27,8 @@ GEM
       xpath (~> 2.0)
     coderay (1.1.1)
     database_cleaner (1.5.3)
+    haml (4.0.7)
+      tilt
     i18n (0.7.0)
     json (1.8.3)
     launchy (2.4.3)
@@ -88,6 +90,7 @@ DEPENDENCIES
   activerecord
   capybara
   database_cleaner
+  haml
   launchy
   minitest
   pg

@@ -6,7 +6,7 @@ class RequestType < ActiveRecord::Base
   validates :verb, presence: true, uniqueness: true
 
   def self.list_of_verbs_used
-    pluck("verb")
+    pluck("verb").uniq
   end
 
 end
