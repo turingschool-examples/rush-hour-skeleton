@@ -1,7 +1,7 @@
 module RushHour
   class Server < Sinatra::Base
     not_found do
-      erb :error
+      haml :error
     end
 
     post '/sources' do
@@ -22,6 +22,21 @@ module RushHour
       result = DataLoader.load(parsed_payload, params["identifier"])
       status result[:status]
       body result[:body]
+    end
+
+    get '/sources/:identifier' do |identifier|
+      if Client.find_by(identifier: identifier)
+        @client = Client.find_by(identifier: identifier)
+        if @client.check_for_payloads
+          haml :show
+        else
+          @display_error = "There is currently no payload data for this client."
+          haml :error
+        end
+      else
+        @display_error = "This Client Does Not Exist"
+        haml :error
+      end
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, path|
