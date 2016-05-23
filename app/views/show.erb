@@ -1,0 +1,9 @@
+<ul>
+  <li>Average response time across all requests: <%= @single_url.max_response_time%></li>
+  <li>Max Response time accross all requests: <%= @single_url.min_response_time%></li>
+  <li>Min Response time across all requests: <%= @single_url.response_times_across_all_requests %></li>
+  <li>Most frequent request type: <%= @single_url.average_response_time %></li>
+  <li>List of all HTTP verbs used: <%= @single_url.http_verbs_associated %></li>
+  <li>List of URLs listed from most requested  to least requested: <%= @single_url.most_popular_referrers %></li>
+  <li>Web browser breakdown across all requests(userAgent): <%= @single_url.most_popular_user_agents%> </li>
+</ul>
