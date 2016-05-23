@@ -18,8 +18,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_b_id,  presence: true
   validates :resolution_id,    presence: true
   validates :ip_id,            presence: true
-  # validates :shaq, uniquess: true
-  # validates :id_client,        presence: true
+  validates :client_id,        presence: true
+  validates :key,              presence: true, uniqueness: true
 
   def self.average_response_time
     self.average(:responded_in).truncate

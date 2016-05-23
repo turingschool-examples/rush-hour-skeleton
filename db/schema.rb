@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521202513) do
+ActiveRecord::Schema.define(version: 20160522204143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160521202513) do
     t.integer  "ip_id"
     t.integer  "client_id"
     t.integer  "event_id"
+    t.string   "key"
   end
 
   add_index "payload_requests", ["client_id"], name: "index_payload_requests_on_client_id", using: :btree
