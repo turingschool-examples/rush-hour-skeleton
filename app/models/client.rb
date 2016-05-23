@@ -15,4 +15,12 @@ class Client < ActiveRecord::Base
     Client.exists?(params)
   end
 
+  def find_urls
+    urls.pluck(:address).uniq
+  end
+
+  def find_urls_by_relative_paths(path)
+    payload_requests.where(url: Url.find_by(address: path))
+  end
+
 end

@@ -1,5 +1,7 @@
 module RushHour
+  require_relative "../models/client_helper"
   class Server < Sinatra::Base
+    include ClientHelper
 
     not_found do
       erb :error
@@ -24,10 +26,6 @@ module RushHour
     post '/sources/:identifier/data' do |identifier|
       parser = Parser.new
       client = Client.find_by(identifier: identifier)
-      #require 'pry';binding.pry
-      # if @errors
-      #   status error_status[@errors]
-      #   body @errors
       if client.nil?
         status 403
         body "Url does not exist"
@@ -62,8 +60,10 @@ module RushHour
       end
     end
 
-    def error_status
-      {"can't be blank" => 400, "key isn't unique" => 403}
+    get '/sources/:IDENTIFIER/urls/:RELATIVEPATH' do |identifier, relativepath|
+      find_urls_from_a_payload_requests(identifier, realtivepath)
+      @single_url.count > 0 ?  (erb :show) : (erb :not_requested)
     end
+    
   end
 end
