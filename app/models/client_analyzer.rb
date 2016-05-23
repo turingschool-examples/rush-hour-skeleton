@@ -7,6 +7,4 @@ class ClientAnalyzer
   def parse_client_params
     {identifier: @params[:identifier], root_url: @params[:rootUrl]}
   end
-
-
 end

@@ -70,13 +70,13 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 79, time
   end
 
-  def test_top_request_types
+  def test_most_frequent_request_type
     request1 = Request.create(verb: "GET")
     request2 = Request.create(verb: "POST")
 
-    top = PayloadRequest.all.top_request_types
+    top = PayloadRequest.all.most_frequent_request_type
 
-    assert_equal ["GET", "POST"], top
+    assert_equal "GET", top
   end
 
   def test_url_most_requested_to_least

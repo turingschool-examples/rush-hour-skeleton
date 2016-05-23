@@ -25,10 +25,9 @@ class PayloadRequest < ActiveRecord::Base
     self.average(:responded_in).truncate
   end
 
-  def self.top_request_types
+  def self.most_frequent_request_type
     ordered_hash = includes(:request).group(:verb).order('count_id DESC')
-    top_requests = ordered_hash.count('id').keys
-    # require 'pry';binding.pry
+    top_requests = ordered_hash.count('id').keys[0]
   end
 
   def self.url_most_requested_to_least

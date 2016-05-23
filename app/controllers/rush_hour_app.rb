@@ -21,24 +21,18 @@ class RushHourApp < Sinatra::Base
     end
   end
 
-  post '/sources/:identifier/data' do |identifier|
-
-    if Client.find_by(identifier: identifier)
-       Parser.parse_payload(params[:payload], identifier)
-       status 200
-       body Ok
-    elsif PayloadRequest.find_by
-      if
-        status 403
-        body "Payload already received"
+  get '/sources/:IDENTIFIER' do |identifier|
+    if client = Client.find_by(identifier: identifier)
+      @requests = client.payload_request
+      if @requests.count > 0
+        erb :index
       else
-        status 400
-        body "Payload is missing "
+        body "Hmm.. it seems as if no payload data has been recieved for this source."
+      end
     else
-      status 403
-      body "Url does not exist"
+      body "Hmm.. it seems as if the identifier does not exist."
     end
-
   end
+
 
 end
