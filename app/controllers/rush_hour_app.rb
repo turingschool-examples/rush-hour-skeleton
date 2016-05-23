@@ -27,24 +27,36 @@ class RushHourApp < Sinatra::Base
     # if @errors
     #   status error_status[@errors]
     #   body @errors
-      if client.nil?
-          status 403
-          body "Url does not exist"
-      elsif parser.parse_payload(params[:payload], identifier)
-        @errors = parser.payload.errors.full_messages.join(", ")
-        if @errors.include?("can't be blank")
-          status 400
-          body "Payload is missing"
-        elsif @errors.include?("already been taken")
-         status 403
-         body "Payload already received"
-        else
-         status 200
-         body "OK"
-       end
+    if client.nil?
+      status 403
+      body "Url does not exist"
+    elsif parser.parse_payload(params[:payload], identifier)
+      @errors = parser.payload.errors.full_messages.join(", ")
+      if @errors.include?("can't be blank")
+        status 400
+        body "Payload is missing"
+      elsif @errors.include?("already been taken")
+        status 403
+        body "Payload already received"
+      else
+        status 200
+        body "OK"
       end
+    end
   end
 
+  get '/sources/:IDENTIFIER' do |identifier|
+    if client = Client.find_by(identifier: identifier)
+      @requests = client.payload_request
+      if @requests.count > 0
+        erb :index
+      else
+        body "Hmm.. it seems as if no payload data has been recieved for this source."
+      end
+    else
+      body "Hmm.. it seems as if the identifier does not exist."
+    end
+  end
 
   def error_status
     {"can't be blank" => 400, "key isn't unique" => 403}

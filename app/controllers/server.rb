@@ -20,3 +20,5 @@ module RushHour
     # end
   end
 end
+
+#RushHour::Server
