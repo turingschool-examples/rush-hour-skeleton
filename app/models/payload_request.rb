@@ -1,5 +1,5 @@
 class PayloadRequest < ActiveRecord::Base
-  belongs_to :clients
+  belongs_to :client
   belongs_to :user_agent_b
   belongs_to :resolution
   belongs_to :url

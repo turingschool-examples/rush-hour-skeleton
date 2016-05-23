@@ -5,8 +5,8 @@
   <li>Most frequent request type: <%= @requests.most_frequent_request_type %></li>
   <li>List of all HTTP verbs used: <%= @requests.all_http_verbs %></li>
   <li>List of URLs listed from most requested to least requested: <%= @requests.url_most_requested_to_least %></li>
-  <li>Web browser breakdown across all requests(userAgent): <%= @requests.user_agent_b.web_browser_breakdown %> </li>
-  <li>OS breakdown across all requests(userAgent): <%= @requests.user_agent_b.os_breakdown %> </li>
-  <li>Screen Resolutions across all requests (resolutionWidth x resolutionHeight): <%= @requests.resolution.screen_resolutions %> </li>
-  <li>Events listed from most received to least: <%= @requests.event_most_recieved_to_least %> </li>
+  <li>Web browser breakdown across all requests(userAgent): <%= @user_agents.web_browser_breakdown %> </li>
+  <li>OS breakdown across all requests(userAgent): <%= @user_agents.os_breakdown %> </li>
+  <li>Screen Resolutions across all requests (resolutionWidth x resolutionHeight): <%= @resolutions.screen_resolutions %> </li>
+  <li>Events listed from most received to least: <%= @events.event_most_recieved_to_least(@requests) %> </li>
 </ul>

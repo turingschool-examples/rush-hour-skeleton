@@ -35,6 +35,11 @@ class EventTest < Minitest::Test
   end
 
   def test_event_most_received_to_least
+    client = #make client
+    #client.events.create()... give client events
+    #give events a bunch of payload requests
+    #assert_equal , client.events.event_most_recieved_to_least(client)
+
     event = Event.find(1)
     event.event_most_recieved_to_least
   end
