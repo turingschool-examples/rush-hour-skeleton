@@ -8,4 +8,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 
+DatabaseCleaner.strategy = :truncation
+
 Capybara.app = RushHour::Server
