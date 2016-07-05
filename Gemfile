@@ -13,3 +13,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rack-test'
 end
+
+group :test do
+  gem 'database_cleaner'
+end
