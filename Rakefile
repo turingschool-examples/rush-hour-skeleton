@@ -6,7 +6,7 @@ require "rake/testtask"
 require "sinatra/activerecord/rake"
 
 Rake::TestTask.new do |t|
-  t.pattern = "test/test*.rb"
+  t.pattern = "test/*/*test.rb"
   t.verbose = true
 end
 
