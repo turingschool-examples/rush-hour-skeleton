@@ -10,23 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706141731) do
+ActiveRecord::Schema.define(version: 20160706214618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "ips", force: :cascade do |t|
+    t.text     "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payload_requests", force: :cascade do |t|
-    t.text     "url"
-    t.date     "requestedAt"
-    t.integer  "respondedIn"
-    t.text     "referredBy"
-    t.text     "requestType"
-    t.text     "userAgent"
-    t.text     "resolutionWidth"
-    t.text     "resolutionHeight"
-    t.text     "ip"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.date     "requested_at"
+    t.integer  "responded_in"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.text     "url_id"
+    t.text     "referral_id"
+    t.text     "request_type_id"
+    t.text     "user_agent_id"
+    t.text     "resolution_id"
+    t.text     "ip_id"
+  end
+
+  create_table "referrals", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "request_types", force: :cascade do |t|
+    t.text     "verb"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.text     "height"
+    t.text     "width"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text     "root"
+    t.text     "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.text     "browser"
+    t.text     "os"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
