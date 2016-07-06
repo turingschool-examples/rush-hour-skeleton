@@ -3,6 +3,7 @@ Bundler.require
 
 require "sinatra/activerecord/rake"
 
+task default: :test # <——— important
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
