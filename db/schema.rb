@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20160706222615) do
 
-# ActiveRecord::Schema.define(version: 20160706215534) do
-#
-#   These are extensions that must be enabled in order to support this database
-#   enable_extension "plpgsql"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "ips", force: :cascade do |t|
     t.text     "address"
@@ -34,6 +33,13 @@
     t.string   "ip"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "referred_bies", force: :cascade do |t|
+    t.text     "root_url"
+    t.text     "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "resolutions", force: :cascade do |t|
