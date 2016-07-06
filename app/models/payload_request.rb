@@ -20,11 +20,17 @@ def assign_data(data)
 end
 
 def payload_request_data(formatted_data)
-  
+
 end
 
 class PayloadRequest < ActiveRecord::Base
   #presumably will put in this space belongs_to :url, etc., all the class names, once we make those.
+  # belongs_to :url
+  # belongs_to :request_type
+  # belongs_to :resolution
+  # belongs_to :ip
+  # belongs_to :user_agent
+  # belongs_to :referred_by
 
   validates :url, presence: true
   validates :requested_at, presence: true
