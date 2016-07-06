@@ -1,3 +1,28 @@
+require 'json'
+require 'useragent'
+
+def parse_it(request)
+  JSON.parse("#{request}")
+end
+
+def valid_columns
+  {"url" => :url, "requestedAt" => :requested_at,
+   "respondedIn" => :responded_in, "referredBy" => :referred_by,
+   "requestType" => :request_type, "userAgent" => :user_agent,
+   "resolutionWidth" => :resolution_width,
+   "resolutionHeight" => :resolution_height, "ip" => :ip}
+end
+
+def assign_data(data)
+  data.map do |key, value|
+    [valid_columns[key], value]
+  end.to_h
+end
+
+def payload_request_data(formatted_data)
+  
+end
+
 class PayloadRequest < ActiveRecord::Base
   #presumably will put in this space belongs_to :url, etc., all the class names, once we make those.
 
