@@ -6,7 +6,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :respondedIn, presence: true
   validates :referredBy, presence: true
   validates :requestType, presence: true
-  validates :UserAgent, presence: true
+  validates :userAgent, presence: true
   validates :resolutionWidth, presence: true
   validates :resolultionHeight, presence: true
   validates :ip, presence: true
