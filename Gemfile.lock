@@ -23,6 +23,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     concurrent-ruby (1.0.2)
+    database_cleaner (1.5.3)
     i18n (0.7.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -41,6 +42,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rake (11.2.2)
     ripl (0.7.1)
       bond (~> 0.5.1)
     ripl-multi_line (0.3.1)
@@ -76,10 +78,12 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   capybara
+  database_cleaner
   launchy
   minitest
   pg
   rack-test
+  rake
   shotgun
   sinatra
   sinatra-activerecord
