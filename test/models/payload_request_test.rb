@@ -4,7 +4,7 @@ class PayloadRequestTest < Minitest::Test
   include TestHelpers
 
   def test_it_parses_the_payload
-    payload = JSON.parse('{
+    payload_request = JSON.parse('{
               "url": "http://jumpstartlab.com/blog",
               "requestedAt": "2013-02-16 21:38:28 -0700",
               "respondedIn": 37,
@@ -16,7 +16,12 @@ class PayloadRequestTest < Minitest::Test
               "ip": "63.29.38.211"
             }')
 
-    assert_equal "63.29.38.211", payload["ip"]
+    assert_equal "63.29.38.211", payload_request["ip"]
+    assert_equal 37, payload_request["respondedIn"]
+  end
+
+  def test_database_starts_clean
+    assert PayloadRequest.all.empty?
 
   end
 
