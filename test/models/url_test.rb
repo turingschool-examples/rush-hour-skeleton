@@ -7,5 +7,6 @@ class UrlTest < Minitest::Test
     url = Url.create(root_url: "http://www.google.com", path: "/")
     assert_equal '/', url.path
     assert_equal 'http://www.google.com', url.root_url
+    assert url.valid?
   end
 end
