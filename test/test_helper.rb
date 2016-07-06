@@ -10,13 +10,20 @@ require 'capybara/dsl'
 require 'database_cleaner'
 require "json"
 
+DatabaseCleaner.strategy = :truncation
+
 module TestHelpers
 
-  DatabaseCleaner.strategy = :truncation
+  def setup
+    DatabaseCleaner.start
+    super
+  end
 
-  DatabaseCleaner.start
+  def teardown
+    DatabaseCleaner.clean
+    super
+  end
 
-  DatabaseCleaner.clean
 end
 
 Capybara.app = RushHour::Server
