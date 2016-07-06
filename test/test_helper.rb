@@ -9,6 +9,13 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 
-Capybara.app = RushHour::Server
+module TestHelpers
 
-DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.strategy = :truncation
+
+  DatabaseCleaner.start
+
+  DatabaseCleaner.clean
+end
+
+Capybara.app = RushHour::Server
