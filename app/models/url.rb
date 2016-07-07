@@ -1,4 +1,5 @@
 class Url < ActiveRecord::Base
-  validates :address, :referred_by_id,
+  validates :address, :referral_id,
             presence: true
+  belongs_to :referrals
 end
