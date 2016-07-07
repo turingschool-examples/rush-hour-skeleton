@@ -12,4 +12,11 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
+  gem 'json'
+  gem 'pry'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'rake'
 end
