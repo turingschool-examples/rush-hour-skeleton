@@ -1,5 +1,5 @@
 class Ip < ActiveRecord::Base
-  # validates :ip, presence: true
+  validates :address, presence: true
 
   has_many :payload_requests
 end
