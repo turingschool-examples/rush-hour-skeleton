@@ -21,6 +21,7 @@ module TestHelpers
       address: payload_parser[:url],
       referral_id: create_referral.id
       )
+
   end
 
   def create_ip
@@ -60,18 +61,18 @@ module TestHelpers
     )
   end
 
-  def create_payload(n)
-    n.times do
+  def create_payload
+    # n.times do |i|
       PayloadRequest.create(
       requested_at: payload_parser[:requested_at],
       responded_in: payload_parser[:responded_in],
-      url_id: create_url,
+      url_id: create_url.id,
       ip_id: create_ip,
       request_type_id: create_request_type,
-      user_agent_id: create_user_agent,
+      software_agent_id: create_software_agent,
       resolution_id: create_resolution
       )
-    end
+    # end
   end
 
   def payload
