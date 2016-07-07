@@ -61,4 +61,39 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 6, payload_request.ip_id
   end
 
+  #Average Response time for our clients app across all requests
+  def test_average_response_time_across_all_requests
+    date_time = DateTime.new
+    PayloadRequest.create(requested_at: date_time, responded_in: 30, url_id: 1, referred_by_id: 2, request_type_id: 3, u_agent_id: 4, resolution_id: 5, ip_id: 6)
+
+    PayloadRequest.create(requested_at: date_time, responded_in: 45, url_id: 2, referred_by_id: 3, request_type_id: 4, u_agent_id: 5, resolution_id: 6, ip_id: 7)
+
+    PayloadRequest.create(requested_at: date_time, responded_in: 60, url_id: 3, referred_by_id: 4, request_type_id: 5, u_agent_id: 6, resolution_id: 7, ip_id: 8)
+
+    assert_equal 45, PayloadRequest.average_response_time
+  end
+
+  #Max Response time across all requests
+  def test_max_response_time_across_all_requests
+    date_time = DateTime.new
+    PayloadRequest.create(requested_at: date_time, responded_in: 30, url_id: 1, referred_by_id: 2, request_type_id: 3, u_agent_id: 4, resolution_id: 5, ip_id: 6)
+
+    PayloadRequest.create(requested_at: date_time, responded_in: 45, url_id: 2, referred_by_id: 3, request_type_id: 4, u_agent_id: 5, resolution_id: 6, ip_id: 7)
+
+    PayloadRequest.create(requested_at: date_time, responded_in: 60, url_id: 3, referred_by_id: 4, request_type_id: 5, u_agent_id: 6, resolution_id: 7, ip_id: 8)
+
+    assert_equal 60, PayloadRequest.max_response_time
+  end
+
+  #Min Response time across all requests
+  def test_min_response_time_across_all_requests
+    date_time = DateTime.new
+    PayloadRequest.create(requested_at: date_time, responded_in: 30, url_id: 1, referred_by_id: 2, request_type_id: 3, u_agent_id: 4, resolution_id: 5, ip_id: 6)
+
+    PayloadRequest.create(requested_at: date_time, responded_in: 45, url_id: 2, referred_by_id: 3, request_type_id: 4, u_agent_id: 5, resolution_id: 6, ip_id: 7)
+
+    PayloadRequest.create(requested_at: date_time, responded_in: 60, url_id: 3, referred_by_id: 4, request_type_id: 5, u_agent_id: 6, resolution_id: 7, ip_id: 8)
+
+    assert_equal 30, PayloadRequest.min_response_time
+  end
 end
