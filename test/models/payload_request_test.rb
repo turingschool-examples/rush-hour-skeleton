@@ -111,21 +111,24 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 5, PayloadRequest.count
   end
 
- # def test_average_response_time_for_all_requests
- #   create_faker_payload(2)
- #
- #   sum_response_time = PayloadRequest.sum(:responded_in)
- #   average_time = sum_response_time / PayloadRequest.count
- #
- #   assert_equal 2, PayloadRequest.count
- #   assert_equal average_time, PayloadRequest.average(:responded_in)
- # end
- #
- # def test_max_response_time_for_all_requests
- #   create_faker_payload(2)
- #
- #   assert_equal 0, PayloadRequest.maximum(:responded_in)
- # end
+ def test_average_response_time_for_all_requests
+   create_faker_payloads(2)
+
+   sum_response_time = PayloadRequest.sum(:responded_in)
+   average_time = (sum_response_time / PayloadRequest.count)
+   average_time = average_time
+
+   assert_equal 2, PayloadRequest.count
+   assert_equal average_time, PayloadRequest.average(:responded_in).to_i
+ end
+
+ def test_max_response_time_for_all_requests
+   create_faker_payloads(2)
+
+   max = PayloadRequest.all.pluck(:responded_in).max
+
+   assert_equal max, PayloadRequest.maximum(:responded_in)
+ end
  #
  # def test_min_response_time_for_all_requests
  #   create_faker_payload(2)
