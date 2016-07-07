@@ -1,6 +1,5 @@
 require 'json'
 require 'useragent'
-require 'pry'
 
 module DataProcessor
   def parse_it(request)
@@ -18,12 +17,12 @@ module DataProcessor
     ip = assign_data_to_ip(formatted)
     PayloadRequest.create({:requested_at => formatted[:requested_at],
                           :responded_in => formatted[:responded_in],
-                          :url_id => 1,
-                          :request_type_id => 1,
-                          :resolution_id => 1,
-                          :ip_id => 1,
-                          :u_agent_id => 1,
-                          :referred_by_id => 1})
+                          :url_id => url,
+                          :request_type_id => type,
+                          :resolution_id => res,
+                          :ip_id => ip,
+                          :u_agent_id => agent,
+                          :referred_by_id => refer})
 
   end
 
