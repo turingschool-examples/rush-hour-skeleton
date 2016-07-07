@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706232139) do
+ActiveRecord::Schema.define(version: 20160707022437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160706232139) do
     t.integer  "ip_id"
   end
 
-  create_table "referred_bys", force: :cascade do |t|
+  create_table "referrals", force: :cascade do |t|
     t.text     "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,17 +47,26 @@ ActiveRecord::Schema.define(version: 20160706232139) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "urls", force: :cascade do |t|
-    t.text     "address"
-    t.integer  "referred_by_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+  create_table "resolutions", force: :cascade do |t|
+    t.text     "width"
+    t.text     "height"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "user_agents", force: :cascade do |t|
+  create_table "software_agents", force: :cascade do |t|
     t.text     "browser"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "version"
+    t.text     "platform"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text     "address"
+    t.integer  "referral_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
