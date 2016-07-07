@@ -10,11 +10,13 @@ class ResolutionTest < Minitest::Test
     assert resolution.valid?
   end
 
-  # def test_it_can_display_all_screen_resolutions
-  #   res_1 = {:width => 1280, :height => 800}
-  #   res_2 = {:width => 1024, :height => 768}
-  #   Resolution.create(res_1)
-  #   Resolution.create(res_2)
-  #   assert_equal [1024000, 786432], Resolution.resolutions
-  # end
+  def test_it_can_display_all_screen_resolutions
+    res_1 = {:width => 1280, :height => 800}
+    res_2 = {:width => 1024, :height => 768}
+    Resolution.create(res_1)
+    Resolution.create(res_2)
+    Resolution.create(res_1)
+    expected = {1024000 => 2, 786432 => 1}
+    assert_equal expected, Resolution.resolutions
+  end
 end

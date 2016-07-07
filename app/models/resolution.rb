@@ -4,9 +4,11 @@ class Resolution < ActiveRecord::Base
   validates :width, presence: true
   validates :height, presence: true
 
-  # def self.resolutions
-  #   all.map do |object|
-  #     object.width * object.height
-  #   end
-  # end
+  def self.resolutions
+    resolutions = Hash.new(0)
+    all.each do |object|
+      resolutions[object.width * object.height] += 1
+    end
+    resolutions
+  end
 end
