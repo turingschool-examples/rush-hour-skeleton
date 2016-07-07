@@ -111,5 +111,67 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 5, PayloadRequest.count
   end
 
+ # def test_average_response_time_for_all_requests
+ #   create_faker_payload(2)
+ #
+ #   sum_response_time = PayloadRequest.sum(:responded_in)
+ #   average_time = sum_response_time / PayloadRequest.count
+ #
+ #   assert_equal 2, PayloadRequest.count
+ #   assert_equal average_time, PayloadRequest.average(:responded_in)
+ # end
+ #
+ # def test_max_response_time_for_all_requests
+ #   create_faker_payload(2)
+ #
+ #   assert_equal 0, PayloadRequest.maximum(:responded_in)
+ # end
+ #
+ # def test_min_response_time_for_all_requests
+ #   create_faker_payload(2)
+ #
+ #   assert_equal 0, PayloadRequest.minimum(:responded_in)
+ # end
+ #
+ # def test_most_frequent_request_type
+ #   create_faker_payload(10)
+ #
+ #   assert_equal "GET", RequestType.most_frequent_request
+ # end
+ #
+ # def test_return_all_verbs_for_request_type
+ #   create_faker_payload(10)
+ #
+ #   assert_equal 0, RequestType.all_verbs
+ # end
+ #
+ # def test_most_frequest_to_least_for_url
+ #   create_faker_payload(10)
+ #
+ #   most = Url.most_frequent
+ #   least = Url.least_frequent
+ #
+ #   assert_equal most, Url.most_to_least.first
+ #   assert_equal least, Url.most_to_least.last
+ # end
+ #
+ # def test_web_browser_breakdown_for_software_agent
+ #   create_faker_payload(10)
+ #
+ #   assert_equal 0, SoftwareAgent.all(:browser)
+ # end
+ #
+ # def test_os_breakdown_for_software_agent
+ #   create_faker_payload(10)
+ #
+ #   assert_equal 0, SoftwareAgent.all(:os)
+ # end
+ #
+ # def test_resolution_breakdown_for_resolution
+ #   create_faker_payload(10)
+ #   #for each do ("#{:width} x #{:height}")
+ #
+ #   assert_equal 0, Resolution.all_resolutions
+
 
 end
