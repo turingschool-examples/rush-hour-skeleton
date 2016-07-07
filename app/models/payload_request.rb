@@ -16,4 +16,15 @@ class PayloadRequest < ActiveRecord::Base
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
 
+  def self.average_response_time
+    PayloadRequest.average(:responded_in)
+  end
+
+  def self.max_response_time
+    PayloadRequest.maximum(:responded_in)
+  end
+
+  def self.min_response_time
+    PayloadRequest.minimum(:responded_in)
+  end
 end
