@@ -4,18 +4,20 @@ require 'bundler'
 Bundler.require
 
 require File.expand_path("../../config/environment", __FILE__)
+require_relative '../app/models/url'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 require 'json'
+# require 'useragent'
 
 DatabaseCleaner.strategy = :truncation
 
 module TestHelpers
 
   def create_url
-    Url.create(
+    URL.create(
       address: payload_parser[:url],
       referred_by_id: create_referred_by
       )
@@ -27,8 +29,8 @@ module TestHelpers
     )
   end
 
-  def create_referred_by
-    ReferredBy.create(
+  def create_referral
+    Referral.create(
       address: payload_parser[:referred_by]
     )
   end
@@ -40,11 +42,17 @@ module TestHelpers
     )
   end
 
-  def create_user_agent
-    UserAgent.create(
-    browser: payload_parser[:user_agent]
-    )
-  end
+  # def software_agent
+  #   UserAgent.parse(payload_parser[:software_agent])
+  # end
+  #
+  # def create_software_agent
+  #   SoftwareAgent.create(
+  #   browser: software_agent.browser,
+  #   version: software_agent.version,
+  #   platform: software_agent.platform
+  #   )
+  # end
 
   def create_request_type
     RequestType.create(
