@@ -27,6 +27,8 @@ GEM
       xpath (~> 2.0)
     coderay (1.1.1)
     database_cleaner (1.5.3)
+    faker (1.6.3)
+      i18n (~> 0.5)
     i18n (0.7.0)
     json (1.8.3)
     launchy (2.4.3)
@@ -88,6 +90,7 @@ DEPENDENCIES
   activerecord
   capybara
   database_cleaner
+  faker
   json
   launchy
   minitest

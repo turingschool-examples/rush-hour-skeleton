@@ -15,6 +15,7 @@ group :development, :test do
   gem 'rack-test'
   gem 'json'
   gem 'pry'
+  gem 'faker'
 end
 
 group :test do
