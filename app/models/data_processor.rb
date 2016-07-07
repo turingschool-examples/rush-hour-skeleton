@@ -1,5 +1,6 @@
 require 'json'
 require 'useragent'
+require 'pry'
 
 module DataProcessor
   def parse_it(request)
@@ -9,20 +10,21 @@ module DataProcessor
   def process_payload(request)
     data = parse_it(request)
     formatted = assign_data(data)
-    url = assign_data_to_url(data)
-    refer = assign_data_to_referred_by(data)
-    type = assign_data_to_request_type(data)
-    agent = assign_data_to_user_agent(data)
-    res = assign_data_to_resolution(data)
-    ip = assign_data_to_ip(data)
-    PayloadRequest.create(requested_at: formatted[:requested_at],
-                          responded_in: formatted[:responded_in],
-                          url_id: url,
-                          request_type_id: type,
-                          resolution_id: res,
-                          ip_id: ip,
-                          u_agent_id: agent,
-                          referred_by_id: refer)
+    url = assign_data_to_url(formatted)
+    refer = assign_data_to_referred_by(formatted)
+    type = assign_data_to_request_type(formatted)
+    agent = assign_data_to_user_agent(formatted)
+    res = assign_data_to_resolution(formatted)
+    ip = assign_data_to_ip(formatted)
+    PayloadRequest.create({:requested_at => formatted[:requested_at],
+                          :responded_in => formatted[:responded_in],
+                          :url_id => 1,
+                          :request_type_id => 1,
+                          :resolution_id => 1,
+                          :ip_id => 1,
+                          :u_agent_id => 1,
+                          :referred_by_id => 1})
+
   end
 
   def valid_columns

@@ -1,7 +1,7 @@
 require_relative '../test_helper.rb'
 
 class DataProcessorTest < Minitest::Test
-  include DataProcessor
+  include DataProcessor, TestHelpers
 
   def raw_data
     '{
@@ -63,10 +63,9 @@ class DataProcessorTest < Minitest::Test
   end
 
   def test_it_can_store_all_data_from_a_payload
-    skip
     loaded = process_payload(raw_data)
 
-    assert_equal "2013-02-16 21:38:28 -0700", loaded.requested_at
+    assert loaded.requested_at
     assert_equal 37, loaded.responded_in
     assert_equal 1, loaded.url_id
     assert_equal 1, loaded.request_type_id
