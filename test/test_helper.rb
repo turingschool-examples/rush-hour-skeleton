@@ -21,7 +21,6 @@ module TestHelpers
       address: payload_parser[:url],
       referral_id: create_referral.id
       )
-
   end
 
   def create_ip
@@ -43,15 +42,9 @@ module TestHelpers
     )
   end
 
-  def software_agent
-    UserAgent.parse(payload_parser[:software_agent])
-  end
-
   def create_software_agent
     SoftwareAgent.create(
-    browser: software_agent.browser,
-    version: software_agent.version,
-    platform: software_agent.platform
+    message: payload_parser[:software_agent]
     )
   end
 
@@ -61,18 +54,19 @@ module TestHelpers
     )
   end
 
-  def create_payload
-    # n.times do |i|
+  def create_payload(n)
+    n.times do
       PayloadRequest.create(
       requested_at: payload_parser[:requested_at],
       responded_in: payload_parser[:responded_in],
       url_id: create_url.id,
-      ip_id: create_ip,
-      request_type_id: create_request_type,
-      software_agent_id: create_software_agent,
-      resolution_id: create_resolution
+      ip_id: create_ip.id,
+      request_type_id: create_request_type.id,
+      software_agent_id: create_software_agent.id,
+      resolution_id: create_resolution.id
       )
-    # end
+    end
+
   end
 
   def payload

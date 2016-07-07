@@ -10,4 +10,14 @@ class ReferralTest < Minitest::Test
     assert_equal address, referral.address
   end
 
+  def test_referral_relationship_to_urls
+    create_payload(1)
+    referral = Referral.first
+    referral.urls << Url.all.first
+
+    refute referral.urls.empty?
+    referral.urls.exists?(referral.id)
+    assert_equal 1, referral.urls.size
+  end
+
 end
