@@ -21,10 +21,10 @@ class RequestTypeTest < Minitest::Test
   end
 
   def test_returns_most_frequent_request_type
-    RequestType.create(name: "GET")
-    RequestType.create(name: "POST")
     RequestType.create(name: "POST")
     assert_equal "POST", RequestType.most_frequent_request_type
+    RequestType.create(name: "GET")
+    assert_equal "GET", RequestType.most_frequent_request_type
   end
 
 end
