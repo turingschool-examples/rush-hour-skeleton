@@ -2,22 +2,17 @@ require_relative '../test_helper'
 require 'pry'
 
 class PayloadRequestTest < Minitest::Test
-  include TestHelpers #(does this include the module?)
-
+  include TestHelpers
 
   def test_that_you_can_create_payload_request
-    # payload = PayloadRequest.create(url_id:2,
-    # requested_at: "2013-02-16 21:38:28 -0700",
-    # responded_in: 37,
-    # referred_by: 2,
-    # request_type: 2,
-    # user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    # resolution_id: 4,
-    # ip: 2)
-
-    binding.pry
-    payload = create_payload
-
+    payload = PayloadRequest.create(url_id:2,
+    requested_at:"2013-02-16 21:38:28 -0700",
+    responded_in:37,
+    referred_by:2,
+    request_type:2,
+    user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+    resolution_id:4,
+    ip:2)
     assert_equal 4, payload.resolution_id
     assert_equal "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", payload.user_agent
   end
@@ -42,8 +37,7 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(responded_in:10)
     PayloadRequest.create(responded_in:220)
     PayloadRequest.create(responded_in:100)
-
     assert_equal 10, PayloadRequest.minimum(:responded_in)
   end
-
+  
 end
