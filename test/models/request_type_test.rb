@@ -1,5 +1,4 @@
 require_relative '../test_helper.rb'
-require 'pry'
 
 class RequestTypeTest < Minitest::Test
   include TestHelpers
