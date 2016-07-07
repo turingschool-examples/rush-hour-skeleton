@@ -20,4 +20,10 @@ class ReferralTest < Minitest::Test
     assert_equal 1, referral.urls.size
   end
 
+  def test_cannot_create_referral_without_address
+    referral = Referral.new({})
+
+    refute referral.valid?
+  end
+
 end

@@ -20,4 +20,10 @@ class RequestTypeTest < Minitest::Test
     assert_equal 1, request_type.payload_requests.size
   end
 
+  def test_cannot_create_request_type_without_verb
+    request = RequestType.new({})
+
+    refute request.valid?
+  end
+
 end

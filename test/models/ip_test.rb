@@ -19,4 +19,11 @@ class IpTest < Minitest::Test
     ip.payload_requests.exists?(ip.id)
     assert_equal 1, ip.payload_requests.size
   end
+
+  def test_it_cannot_create_ip_without_address
+    ip = Ip.new({})
+
+    refute ip.valid?
+  end
+
 end

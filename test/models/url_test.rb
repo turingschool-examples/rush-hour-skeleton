@@ -20,4 +20,17 @@ class UrlTest < Minitest::Test
     url.payload_requests.exists?(url.id)
     assert_equal 1, url.payload_requests.size
   end
+
+  def test_it_cannot_create_url_without_address
+    url = Url.new(referral_id: 1)
+
+    refute url.valid?
+  end
+
+  def test_it_cannot_create_url_without_referral_id
+    url = Url.new(address: "www.google.com")
+
+    refute url.valid?
+  end
+  
 end

@@ -20,4 +20,10 @@ class SoftwareAgentTest < Minitest::Test
     assert_equal 1, software_agent.payload_requests.size
   end
 
+  def test_it_cannot_create_software_agent_without_message
+    agent = SoftwareAgent.new({})
+
+    refute agent.valid?
+  end
+  
 end

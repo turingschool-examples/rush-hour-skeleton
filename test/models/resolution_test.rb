@@ -21,4 +21,17 @@ class ResolutionTest < Minitest::Test
     resolution.payload_requests.exists?(resolution.id)
     assert_equal 1, resolution.payload_requests.size
   end
+
+  def test_it_cannot_create_resolution_without_width
+    resolution = Resolution.new(height: "1280")
+
+    refute resolution.valid?
+  end
+
+  def test_it_cannot_create_resolution_without_height
+    resolution = Resolution.new(width: "640")
+
+    refute resolution.valid?
+  end
+
 end
