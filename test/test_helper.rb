@@ -1,5 +1,8 @@
 ENV["RACK_ENV"] ||= "test"
 
+require 'simplecov'
+SimpleCov.start
+
 require 'bundler'
 Bundler.require
 
@@ -7,19 +10,23 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
+require 'database_cleaner'
+require 'useragent'
 
+DatabaseCleaner.strategy = :truncation
 Capybara.app = RushHour::Server
 
 
 
 module TestHelpers
 
-  def payload_requests
-    PayloadRequest.new
+  def setup
+   DatabaseCleaner.start
+   super
   end
 
   def teardown
-    PayloadRequest.destroy_all
+   DatabaseCleaner.clean
     super
   end
 end
