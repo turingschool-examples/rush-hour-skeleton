@@ -9,3 +9,17 @@ require 'minitest/pride'
 require 'capybara/dsl'
 
 Capybara.app = RushHour::Server
+
+
+
+module TestHelpers
+
+  def payload_requests
+    PayloadRequest.new
+  end
+
+  def teardown
+    PayloadRequest.destroy_all
+    super
+  end
+end
