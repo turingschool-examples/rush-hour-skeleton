@@ -5,7 +5,7 @@ class ReferralTest < Minitest::Test
 
   def test_it_can_create_referral_instance
     referral = create_referral
-    address = "63.29.38.211"
+    address = "http://jumpstartlab.com"
 
     assert_equal address, referral.address
   end

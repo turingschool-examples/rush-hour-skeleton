@@ -4,7 +4,7 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
-# gem 'useragent'
+gem 'useragent'
 
 group :development, :test do
   gem 'shotgun'

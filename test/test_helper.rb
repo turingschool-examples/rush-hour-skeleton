@@ -10,16 +10,16 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 require 'json'
-# require 'useragent'
+require 'useragent'
 
 DatabaseCleaner.strategy = :truncation
 
 module TestHelpers
 
   def create_url
-    URL.create(
+    Url.create(
       address: payload_parser[:url],
-      referred_by_id: create_referred_by
+      referral_id: create_referral.id
       )
   end
 
@@ -31,7 +31,7 @@ module TestHelpers
 
   def create_referral
     Referral.create(
-      address: payload_parser[:referred_by]
+      address: payload_parser[:referral]
     )
   end
 
@@ -42,17 +42,17 @@ module TestHelpers
     )
   end
 
-  # def software_agent
-  #   UserAgent.parse(payload_parser[:software_agent])
-  # end
-  #
-  # def create_software_agent
-  #   SoftwareAgent.create(
-  #   browser: software_agent.browser,
-  #   version: software_agent.version,
-  #   platform: software_agent.platform
-  #   )
-  # end
+  def software_agent
+    UserAgent.parse(payload_parser[:software_agent])
+  end
+
+  def create_software_agent
+    SoftwareAgent.create(
+    browser: software_agent.browser,
+    version: software_agent.version,
+    platform: software_agent.platform
+    )
+  end
 
   def create_request_type
     RequestType.create(
@@ -83,9 +83,9 @@ module TestHelpers
     :url => payload["url"],
     :requested_at => payload["requestedAt"],
     :responded_in => payload["respondedIn"],
-    :referred_by => payload["referredBy"],
+    :referral => payload["referredBy"],
     :request_type => payload["requestType"],
-    :user_agent => payload["userAgent"],
+    :software_agent => payload["userAgent"],
     :resolution_width => payload["resolutionWidth"],
     :resolution_height => payload["resolutionHeight"],
     :ip => payload["ip"]

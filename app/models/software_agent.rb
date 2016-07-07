@@ -1,4 +1,4 @@
 class SoftwareAgent < ActiveRecord::Base
-  validates :brower, :version, :platform, presence: true
+  validates :browser, :version, :platform, presence: true
   has_many :payload_requests
 end
