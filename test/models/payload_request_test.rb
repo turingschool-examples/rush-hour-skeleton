@@ -32,4 +32,17 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "63.29.38.211", payload_parser[:ip]
   end
 
+  def test_relationships_of_payload_request #WIP
+    payload_request = create_payload
+    url = Url.first
+    url.payload_requests << payload_request
+
+    # require 'pry'; binding.pry
+    refute url.payload_requests.empty?
+    # assert_instance_of Resolution, payload_request.resolutions.first
+    # assert_instance_of RequestType, payload_request.request_types.first
+    # assert_instance_of SoftwareAgent, payload_request.software_agents.first
+    # assert_instance_of Ip, payload_request.ips.first
+  end
+
 end
