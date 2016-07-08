@@ -7,7 +7,7 @@ class ClientChecker
 
   def res
     if client.save
-      [200, 'Sucess']
+      [200, "Sucess"]
     elsif client.errors.full_messages.join(', ') == "Identifier has already been taken"
       [403, 'Identifier Already Exists']
     else
