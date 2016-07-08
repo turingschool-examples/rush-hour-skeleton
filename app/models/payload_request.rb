@@ -16,6 +16,12 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :resolution
   belongs_to :ip
 
+  def self.most_frequent_type
+    values = PayloadRequest.pluck(:request_type_id)
+    id = values.group_by(&:itself).values.max_by(&:size).first
+    RequestType.find(id).verb
+  end
+
   def referrer
     Referrer.find(self.referred_by_id)
   end
@@ -36,5 +42,14 @@ class PayloadRequest < ActiveRecord::Base
       payload.responded_in
     end
     responses.min
+  end
+
+  def self.specific_url_types(url)
+    id = Url.find_by_address(url).id
+    payloads = PayloadRequest.where(url_id: id)
+    responses = payloads.map do |payload|
+      payload.request_type
+    end
+    responses
   end
 end

@@ -8,4 +8,6 @@ class Url < ActiveRecord::Base
     frequency = urls.inject(Hash.new(0)) { |hash , value | hash[value] += 1; hash }
     urls.max_by { |value| frequency[value] }
   end
+
+
 end

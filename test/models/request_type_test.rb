@@ -8,20 +8,4 @@ class RequestTypeTest < Minitest::Test
     assert_equal "GET", type.verb
   end
 
-  def test_most_common_type_of_request
-    RequestType.create(verb: "GET")
-    RequestType.create(verb: "GET")
-    RequestType.create(verb: "GET")
-    RequestType.create(verb: "POST")
-    assert_equal "GET", RequestType.most_frequent_type
-  end
-
-  def test_list_of_http_verbs_used
-    RequestType.create(verb: "GET")
-    RequestType.create(verb: "GET")
-    RequestType.create(verb: "GET")
-    RequestType.create(verb: "POST")
-    assert_equal ["GET", "GET", "GET", "POST"], RequestType.pluck(:verb)
-  end
-
 end
