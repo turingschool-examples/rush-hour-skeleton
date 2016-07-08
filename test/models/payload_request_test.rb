@@ -111,74 +111,78 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 5, PayloadRequest.count
   end
 
- def test_average_response_time_for_all_requests
-   create_faker_payloads(2)
+  def test_average_response_time_for_all_requests
+    create_faker_payloads(2)
 
-   sum_response_time = PayloadRequest.sum(:responded_in)
-   average_time = (sum_response_time / PayloadRequest.count)
-   average_time = average_time
+    sum_response_time = PayloadRequest.sum(:responded_in)
+    average_time = (sum_response_time / PayloadRequest.count)
+    average_time = average_time
 
-   assert_equal 2, PayloadRequest.count
-   assert_equal average_time, PayloadRequest.average(:responded_in).to_i
- end
+    assert_equal 2, PayloadRequest.count
+    assert_equal average_time, PayloadRequest.average(:responded_in).to_i
+  end
 
- def test_max_response_time_for_all_requests
-   create_faker_payloads(2)
+  def test_max_response_time_for_all_requests
+    create_faker_payloads(2)
 
-   max = PayloadRequest.all.pluck(:responded_in).max
+    max = PayloadRequest.all.pluck(:responded_in).max
 
-   assert_equal max, PayloadRequest.maximum(:responded_in)
- end
+    assert_equal max, PayloadRequest.maximum(:responded_in)
+  end
 
- def test_min_response_time_for_all_requests
-   create_faker_payloads(2)
+  def test_min_response_time_for_all_requests
+    create_faker_payloads(2)
 
-   min = PayloadRequest.all.pluck(:responded_in).min
+    min = PayloadRequest.all.pluck(:responded_in).min
 
-   assert_equal min, PayloadRequest.minimum(:responded_in)
- end
+    assert_equal min, PayloadRequest.minimum(:responded_in)
+  end
 
- def test_most_frequent_request_type
-   skip #Method works. Need to figure out how to get proper assertion.
-   create_faker_payloads(10)
-  #  most_frequent = most_frequent_request_type
+  def test_most_frequent_request_type
+    skip #Method works. Need to figure out how to get proper assertion.
+    create_faker_payloads(10)
+    #  most_frequent = most_frequent_request_type
 
-   assert_equal "GET", PayloadRequest.all.most_frequent_request_type
- end
- #
- # def test_return_all_verbs_for_request_type
- #   create_faker_payloads(10)
- #
- #   assert_equal 0, RequestType.all_verbs
- # end
- #
- # def test_most_frequest_to_least_for_url
- #   create_faker_payloads(10)
- #
- #   most = Url.most_frequent
- #   least = Url.least_frequent
- #
- #   assert_equal most, Url.most_to_least.first
- #   assert_equal least, Url.most_to_least.last
- # end
- #
- # def test_web_browser_breakdown_for_software_agent
- #   create_faker_payloads(10)
- #
- #   assert_equal 0, SoftwareAgent.all(:browser)
- # end
- #
- # def test_os_breakdown_for_software_agent
- #   create_faker_payloads(10)
- #
- #   assert_equal 0, SoftwareAgent.all(:os)
- # end
- #
- # def test_resolution_breakdown_for_resolution
- #   create_faker_payloads(10)
- #   #for each do ("#{:width} x #{:height}")
- #
- #   assert_equal 0, Resolution.all_resolutions
+    assert_equal "GET", PayloadRequest.all.most_frequent_request_type
+  end
+
+  def test_return_all_verbs_for_request_type
+    skip #Method works. Need to figure out how to get proper assertion.
+    create_faker_payloads(10)
+
+    assert_equal 0, RequestType.all_verbs_used
+  end
+
+  def test_most_frequest_to_least_for_url
+    skip #Method works. Need to figure out how to get proper assertion.
+    create_faker_payloads(10)
+
+    #  most = Url.most_frequent
+    #  least = Url.least_frequent
+    list = ["http://example.com/jasonisnice", "http://example.com/weloveangela", "http://example.com/robertaisnice", "http://example.com/mattisnice"]
+    assert_equal list, PayloadRequest.url_frequency
+    #  assert_equal most, Url.most_to_least.first
+    #  assert_equal least, Url.most_to_least.last
+  end
+  #
+  def test_web_browser_breakdown_for_software_agent
+    create_faker_payloads(10)
+
+
+    assert_equal 0, SoftwareAgent.all_browsers_used
+  end
+  #
+  # def test_os_breakdown_for_software_agent
+  #   create_faker_payloads(10)
+  #
+  #   assert_equal 0, SoftwareAgent.all(:os)
+  # end
+  #
+  # def test_resolution_breakdown_for_resolution
+  #   create_faker_payloads(10)
+  #   #for each do ("#{:width} x #{:height}")
+  #
+  #   assert_equal 0, Resolution.all_resolutions
 
 
 end
