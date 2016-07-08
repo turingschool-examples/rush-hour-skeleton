@@ -69,7 +69,6 @@ module TestHelpers
     end
   end
 
-
   def payload
     JSON.parse(raw_payload)
   end
@@ -118,10 +117,11 @@ module TestHelpers
   end
 
   def create_faker_url
+    urls = ['http://example.com/jasonisnice', 'http://example.com/mattisnice', 'http://example.com/weloveangela', 'http://example.com/robertaisnice']
     Url.find_or_create_by(
-      address: Faker::Internet.url('example.com'),
-      referral_id: create_faker_referral.id
-      )
+    address: urls.sample,
+    referral_id: create_faker_referral.id
+    )
   end
 
   def create_faker_ip
@@ -137,15 +137,22 @@ module TestHelpers
   end
 
   def create_faker_resolution
+    resolutions = [{"1280" => "800"}, {"1020" => "640"}, {"1520" => "1080"}]
+    width_height = resolutions.sample
     Resolution.find_or_create_by(
-    width: "1280",
-    height: "800",
+    width: width_height.keys,
+    height: width_height.values
     )
   end
 
-  def create_faker_software_agent
+  def create_faker_software_agent #use different os
+    messages = []
+    message1 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"
+    message2 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17"
+    message3 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Safari/537.17"
+    messages.push(message1, message2, message3)
     SoftwareAgent.find_or_create_by(
-    message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"
+    message: messages.sample
     )
   end
 
