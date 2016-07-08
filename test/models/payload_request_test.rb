@@ -173,4 +173,15 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 42, PayloadRequest.all.max_response_time_by_url(url)
   end
 
+  def test_min_response_time_for_a_url
+    three_relationship_requests
+    url = 'http://example.com/jasonisnice'
+
+    assert_equal 28, PayloadRequest.all.min_response_time_by_url(url)
+
+    url = 'http://example.com/mattisnice'
+
+    assert_equal 42, PayloadRequest.all.min_response_time_by_url(url)
+  end
+
 end
