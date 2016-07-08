@@ -157,9 +157,20 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_max_response_time_for_all_requests
-    create_faker_payloads(2)
+    three_relationship_requests
 
-    assert_equal PayloadRequest.maximum(:responded_in), PayloadRequest.max_response_time
+    assert_equal 42, PayloadRequest.max_response_time
+  end
+
+  def test_max_response_time_for_a_url
+    three_relationship_requests
+    url = 'http://example.com/jasonisnice'
+
+    assert_equal 37, PayloadRequest.all.max_response_time_by_url(url)
+
+    url = 'http://example.com/mattisnice'
+
+    assert_equal 42, PayloadRequest.all.max_response_time_by_url(url)
   end
 
 end
