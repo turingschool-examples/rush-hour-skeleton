@@ -35,14 +35,14 @@ module TestHelpers
 
   def create_payload(integer)
     integer.times do |i|
-    url           = Url.create(address: "http://jumpstartlab.com/blog#{i}")
-    requested_at  = Time.now
-    request_type  = RequestType.create(verb: "GET #{i}")
-    resolution    = Resolution.create(width: "1920#{i}", height: "1280#{i}")
-    referrer      = Referrer.create(address: "http://jumpstartlab.com#{i}")
-    software_agent = SoftwareAgent.create(os: "OSX 10.11.5#{i}", browser: "Chrome#{i}")
-    ip            = Ip.create(address: "63.29.38.211#{i}")
-
+    url            =  Url.create(address: "http://jumpstartlab.com/blog#{i}")
+    requested_at   =  Time.now
+    request_type   =  RequestType.create(verb: "GET #{i}")
+    resolution     =  Resolution.create(width: "1920#{i}", height: "1280#{i}")
+    referrer       =  Referrer.create(address: "http://jumpstartlab.com#{i}")
+    software_agent =  SoftwareAgent.create(os: "OSX 10.11.5#{i}", browser: "Chrome#{i}")
+    ip             =  Ip.create(address: "63.29.38.211#{i}")
+    client         =  Client.find_or_create_by({:identifier => "jumpstartlab#{i}", :root_url => "http://jumpstartlab.com#{i}"})
     PayloadRequest.find_or_create_by({
         :url_id => url.id,
         :requested_at => requested_at,
@@ -51,7 +51,8 @@ module TestHelpers
         :resolution_id => resolution.id,
         :referred_by_id => referrer.id,
         :software_agent_id => software_agent.id,
-        :ip_id => ip.id })
+        :ip_id => ip.id,
+        :client_id => client.id })
     end
   end
 

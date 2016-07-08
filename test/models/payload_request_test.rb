@@ -21,6 +21,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 0, payload.responded_in
     assert_equal "63.29.38.2110", payload.ip.address
 end
+
 def test_find_average
   PayloadRequest.create(url_id:1, requested_at: Time.now,responded_in:50,referred_by_id:1,request_type_id:1,software_agent_id:1,ip_id:1,resolution_id:1)
   PayloadRequest.create(url_id:1, requested_at: Time.now,responded_in:150,referred_by_id:1,request_type_id:1,software_agent_id:1,ip_id:1,resolution_id:1)
