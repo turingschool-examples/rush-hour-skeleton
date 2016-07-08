@@ -22,6 +22,13 @@ class PayloadRequest < ActiveRecord::Base
     RequestType.find(id).verb
   end
 
+  def self.list_of_http_verbs_used
+    values = PayloadRequest.pluck(:request_type_id)
+    values.map do |type|
+      RequestType.find(type).verb
+    end
+  end
+
   def referrer
     Referrer.find(self.referred_by_id)
   end
@@ -44,12 +51,5 @@ class PayloadRequest < ActiveRecord::Base
     responses.min
   end
 
-  def self.specific_url_types(url)
-    id = Url.find_by_address(url).id
-    payloads = PayloadRequest.where(url_id: id)
-    responses = payloads.map do |payload|
-      payload.request_type
-    end
-    responses
-  end
+
 end

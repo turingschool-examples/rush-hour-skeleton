@@ -35,13 +35,13 @@ module TestHelpers
 
   def create_payload(integer)
     integer.times do |i|
-      url           = Url.create(address: "http://jumpstartlab.com/blog#{i}")
+      url           = Url.find_or_create_by(address: "http://jumpstartlab.com/blog#{i}")
       requested_at  = Time.now
-      request_type  = RequestType.create(verb: "GET")
-      resolution    = Resolution.create(width: "1920#{i}", height: "1280#{i}")
-      referrer      = Referrer.create(address: "http://jumpstartlab.com#{i}")
-      software_agent = SoftwareAgent.create(os: "OSX 10.11.5#{i}", browser: "Chrome#{i}")
-      ip            = Ip.create(address: "63.29.38.211#{i}")
+      request_type  = RequestType.find_or_create_by(verb: "GET")
+      resolution    = Resolution.find_or_create_by(width: "1920#{i}", height: "1280#{i}")
+      referrer      = Referrer.find_or_create_by(address: "http://jumpstartlab.com#{i}")
+      software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5#{i}", browser: "Chrome#{i}")
+      ip            = Ip.find_or_create_by(address: "63.29.38.211#{i}")
 
       PayloadRequest.find_or_create_by({
           :url_id => url.id,

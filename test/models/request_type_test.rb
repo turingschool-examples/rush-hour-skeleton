@@ -8,4 +8,11 @@ class RequestTypeTest < Minitest::Test
     assert_equal "GET", type.verb
   end
 
+  def test_uniqueness
+   type = RequestType.create(verb: "GET")
+   type = RequestType.create(verb: "POST")
+   type = RequestType.create(verb: "PUT")
+
+  end
+
 end

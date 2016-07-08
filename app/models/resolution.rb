@@ -1,7 +1,6 @@
 class Resolution< ActiveRecord::Base
   validates :height,     presence: true
   validates :width,      presence:true
-  # validates :width :height,  uniqness:true
 
   has_many :payload_requests
 
