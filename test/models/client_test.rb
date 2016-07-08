@@ -21,8 +21,7 @@ class ClientTest < Minitest::Test
     assert_equal 1, client.ips.length
     assert_equal 1, client.request_types.length
     assert_equal 1, client.resolutions.length
-    binding.pry
-    # assert_equal 1, client.referrers.length
-    # assert_equal 1, client.software_agents.length
+    assert_equal 1, client.software_agents.length
+    assert_equal 1, client.referrers.length
   end
 end

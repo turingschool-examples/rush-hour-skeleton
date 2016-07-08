@@ -6,6 +6,7 @@ class SoftwareAgent < ActiveRecord::Base
   has_many :payload_requests
   has_many :clients, through: :payload_requests
 
+
   def self.web_browser_breakdown
     user_agent_id = PayloadRequest.distinct.pluck(:software_agent_id)
     user_agent_id.map do |id|
