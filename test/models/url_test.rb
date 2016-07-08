@@ -1,6 +1,7 @@
 require_relative '../test_helper'
 
 class UrlTest < Minitest::Test
+  include TestHelpers
 
   def test_that_it_creates_a_url_row
     url = Url.new(path: "/blog" , root: "www.google.com" )
