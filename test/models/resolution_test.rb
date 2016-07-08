@@ -34,4 +34,12 @@ class ResolutionTest < Minitest::Test
     refute resolution.valid?
   end
 
+  def test_resolution_breakdown_for_resolution
+    20.times do
+      create_faker_resolution
+    end
+    options = ["(1520 x 1080)", "(1280 x 800)", "(1020 x 640)"]
+    assert_equal options, Resolution.all_resolutions_used.max(3)
+  end
+
 end

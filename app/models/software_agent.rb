@@ -21,7 +21,7 @@ class SoftwareAgent < ActiveRecord::Base
     end
 
     os = user_agents.map do |user_agent|
-      user_agent.platform
+      user_agent.os
     end
     return os
   end

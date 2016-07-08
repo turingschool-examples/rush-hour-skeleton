@@ -27,6 +27,10 @@ class PayloadRequest < ActiveRecord::Base
   end
 
 
+  def self.max_response_time
+    PayloadRequest.all.pluck(:responded_in).max
+  end
+
     # id = freq.max_by { |key,value| value}
     # id = id.first
     # Url.find(id).address

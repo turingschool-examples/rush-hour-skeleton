@@ -139,52 +139,27 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_most_frequent_request_type
-    skip #Method works. Need to figure out how to get proper assertion (database seed)
-    create_faker_payloads(10)
-    #  most_frequent = most_frequent_request_type
+    three_relationship_requests
 
-    assert_equal "GET", PayloadRequest.all.most_frequent_request_type
+    assert_equal "POST", PayloadRequest.all.most_frequent_request_type
   end
 
   def test_return_all_verbs_for_request_type
-    skip #Method works. Need to figure out how to get proper assertion (database seed)
-    create_faker_payloads(10)
+    three_relationship_requests
 
-    assert_equal 0, RequestType.all_verbs_used
+    assert_equal ["GET","POST"], RequestType.all_verbs_used
   end
 
   def test_most_frequest_to_least_for_url
-    skip #Method works. Need to figure out how to get proper assertion (database seed)
-    create_faker_payloads(10)
+    three_relationship_requests
 
-    #  most = Url.most_frequent
-    #  least = Url.least_frequent
-    list = ["http://example.com/jasonisnice", "http://example.com/weloveangela", "http://example.com/robertaisnice", "http://example.com/mattisnice"]
-    assert_equal list, PayloadRequest.url_frequency
-    #  assert_equal most, Url.most_to_least.first
-    #  assert_equal least, Url.most_to_least.last
+    assert_equal ["http://example.com/jasonisnice","http://example.com/mattisnice"], PayloadRequest.url_frequency
   end
 
-  def test_web_browser_breakdown_for_software_agent
-    skip #Method works. Need to figure out how to get proper assertion (database seed)
-    create_faker_payloads(10)
+  def test_max_response_time_for_all_requests
+    create_faker_payloads(2)
 
-    assert_equal ["Chrome", "Safari", "Safari"], SoftwareAgent.all_browsers_used
-  end
-
-  def test_os_breakdown_for_software_agent
-    skip #Method works. Need to figure out how to get proper assertion (database seed)
-    create_faker_payloads(10)
-
-    assert_equal ["Macintosh", "Macintosh", "Macintosh"], SoftwareAgent.all_os_used
-  end
-
-  def test_resolution_breakdown_for_resolution
-    skip
-    create_faker_payloads(10)
-    #for each do ("#{:width} x #{:height}")
-
-    assert_equal 0, Resolution.all_resolutions_used
+    assert_equal PayloadRequest.maximum(:responded_in), PayloadRequest.max_response_time
   end
 
 end

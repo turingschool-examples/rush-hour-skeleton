@@ -25,5 +25,17 @@ class SoftwareAgentTest < Minitest::Test
 
     refute agent.valid?
   end
-  
+
+  def test_web_browser_breakdown_for_software_agent
+    three_software_agents
+
+    assert_equal ["Chrome", "Safari", "Safari"], SoftwareAgent.all_browsers_used
+  end
+
+  def test_os_breakdown_for_software_agent
+    three_software_agents
+
+    assert_equal ["iOS", "OS X 10.8.2", "Windows XP"], SoftwareAgent.all_os_used
+  end
+
 end
