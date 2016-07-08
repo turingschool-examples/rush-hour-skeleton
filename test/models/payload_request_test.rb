@@ -22,7 +22,8 @@ class PayloadRequestTest < Minitest::Test
     ip_id: create_ip.id,
     request_type_id: create_request_type.id,
     software_agent_id: create_software_agent.id,
-    resolution_id: create_resolution.id
+    resolution_id: create_resolution.id,
+    client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000))
     )
 
     refute payload.valid?
@@ -35,7 +36,8 @@ class PayloadRequestTest < Minitest::Test
     ip_id: create_ip.id,
     request_type_id: create_request_type.id,
     software_agent_id: create_software_agent.id,
-    resolution_id: create_resolution.id
+    resolution_id: create_resolution.id,
+    client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000))
     )
 
     refute payload.valid?
@@ -48,7 +50,8 @@ class PayloadRequestTest < Minitest::Test
     ip_id: create_ip.id,
     request_type_id: create_request_type.id,
     software_agent_id: create_software_agent.id,
-    resolution_id: create_resolution.id
+    resolution_id: create_resolution.id,
+    client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000))
     )
 
     refute payload.valid?
@@ -61,7 +64,8 @@ class PayloadRequestTest < Minitest::Test
     url_id: create_url.id,
     request_type_id: create_request_type.id,
     software_agent_id: create_software_agent.id,
-    resolution_id: create_resolution.id
+    resolution_id: create_resolution.id,
+    client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000))
     )
 
     refute payload.valid?
@@ -74,7 +78,8 @@ class PayloadRequestTest < Minitest::Test
     url_id: create_url.id,
     ip_id: create_ip.id,
     software_agent_id: create_software_agent.id,
-    resolution_id: create_resolution.id
+    resolution_id: create_resolution.id,
+    client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000))
     )
 
     refute payload.valid?
@@ -87,7 +92,8 @@ class PayloadRequestTest < Minitest::Test
     url_id: create_url.id,
     ip_id: create_ip.id,
     request_type_id: create_request_type.id,
-    resolution_id: create_resolution.id
+    resolution_id: create_resolution.id,
+    client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000))
     )
 
     refute payload.valid?
@@ -100,11 +106,27 @@ class PayloadRequestTest < Minitest::Test
     url_id: create_url.id,
     ip_id: create_ip.id,
     request_type_id: create_request_type.id,
-    software_agent_id: create_software_agent.id
+    software_agent_id: create_software_agent.id,
+    client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000))
     )
 
     refute payload.valid?
   end
+
+
+    def test_it_cannot_create_payload_request_without_client_id
+      payload = PayloadRequest.new(
+      requested_at: payload_parser[:requested_at],
+      responded_in: payload_parser[:responded_in],
+      url_id: create_url.id,
+      ip_id: create_ip.id,
+      request_type_id: create_request_type.id,
+      resolution_id: create_resolution.id,
+      software_agent_id: create_software_agent.id
+      )
+
+      refute payload.valid?
+    end
 
   def test_can_create_faker_payloads
     create_faker_payloads(5)

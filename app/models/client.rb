@@ -1,4 +1,6 @@
 class Client < ActiveRecord::Base
-  validates :identifier, :root_url presence: true
+  validates :root_url, presence: true
+  validates :identifier, presence: true, uniqueness: true
   has_many :payload_requests
+
 end
