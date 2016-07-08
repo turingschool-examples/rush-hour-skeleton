@@ -32,5 +32,37 @@ class UrlTest < Minitest::Test
 
     refute url.valid?
   end
-  
+
+  def test_url_response_times
+    three_relationship_requests
+
+    url = Url.first
+
+    assert_equal [37, 28], url.all_response_times
+  end
+
+  def test_average_response_time_for_url
+    three_relationship_requests
+
+    url = Url.first
+
+    assert_equal 32, url.average_response_time
+  end
+
+  def test_verbs_used_for_url
+    three_relationship_requests
+
+    url = Url.first
+
+    assert_equal ["GET", "POST"], url.all_verbs
+  end
+
+  def test_most_popular_referrers
+    create_faker_payloads(30)
+
+    url = Url.first
+
+    assert_equal "www.", Url.most_popular_referrers
+  end
+
 end
