@@ -8,7 +8,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :ip
 
   def self.average_response_time
-    average(:responded_in)
+    average(:responded_in).to_i
   end
 
   def self.min_response_time
