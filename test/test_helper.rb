@@ -12,10 +12,17 @@ require 'database_cleaner'
 require 'json'
 require 'useragent'
 require 'faker'
+require 'rack/test'
 
 DatabaseCleaner.strategy = :truncation
 
 module TestHelpers
+  include Rack::Test::Methods
+
+  def app
+    RushHour::Server
+  end
+
 
   def create_url
     Url.create(
@@ -64,7 +71,8 @@ module TestHelpers
       ip_id: create_ip.id,
       request_type_id: create_request_type.id,
       software_agent_id: create_software_agent.id,
-      resolution_id: create_resolution.id
+      resolution_id: create_resolution.id,
+      client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000)).id
       )
     end
   end
@@ -111,7 +119,8 @@ module TestHelpers
       ip_id: create_faker_ip.id,
       request_type_id: create_faker_request_type.id,
       software_agent_id: create_faker_software_agent.id,
-      resolution_id: create_faker_resolution.id
+      resolution_id: create_faker_resolution.id,
+      client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000)).id
       )
     end
   end
@@ -171,7 +180,8 @@ module TestHelpers
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "GET").id,
     software_agent_id: create_faker_software_agent.id,
-    resolution_id: create_faker_resolution.id
+    resolution_id: create_faker_resolution.id,
+    client_id: Client.find_or_create_by(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com").id
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
@@ -180,7 +190,8 @@ module TestHelpers
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
     software_agent_id: create_faker_software_agent.id,
-    resolution_id: create_faker_resolution.id
+    resolution_id: create_faker_resolution.id,
+    client_id: Client.find_or_create_by(identifier: 'startlab', root_url: "http://jumpstartlab.com").id
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
@@ -189,7 +200,8 @@ module TestHelpers
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
     software_agent_id: create_faker_software_agent.id,
-    resolution_id: create_faker_resolution.id
+    resolution_id: create_faker_resolution.id,
+    client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id
     )
   end
 

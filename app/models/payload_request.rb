@@ -1,12 +1,12 @@
 class PayloadRequest < ActiveRecord::Base
+  validates :url_id, :requested_at, :responded_in, :request_type_id, :resolution_id, :ip_id, :software_agent_id, :client_id, presence: true
 
-  validates :url_id, :requested_at, :responded_in, :request_type_id, :resolution_id, :ip_id, :software_agent_id, presence: true
-
-  belongs_to :resolutions
-  belongs_to :urls
-  belongs_to :request_types
-  belongs_to :software_agents
-  belongs_to :ips
+  belongs_to :resolution
+  belongs_to :url
+  belongs_to :request_type
+  belongs_to :software_agent
+  belongs_to :ip
+  belongs_to :client
 
 
   def self.most_frequent_request_type
@@ -18,7 +18,11 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.url_frequency
-    addresses = PayloadRequest.all.pluck(:url_id)
+    # all.map do |pr|
+    #   pr.url
+    # end
+
+    addresses = self.all.pluck(:url_id)
     freq = addresses.reduce(Hash.new(0)) { |hash,value| hash[value] += 1; hash }
     url = freq.sort_by { |key,value| value}.reverse
     url.map do |item|
