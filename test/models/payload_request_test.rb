@@ -139,7 +139,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_most_frequent_request_type
-    skip #Method works. Need to figure out how to get proper assertion.
+    skip #Method works. Need to figure out how to get proper assertion (database seed)
     create_faker_payloads(10)
     #  most_frequent = most_frequent_request_type
 
@@ -147,14 +147,14 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_return_all_verbs_for_request_type
-    skip #Method works. Need to figure out how to get proper assertion.
+    skip #Method works. Need to figure out how to get proper assertion (database seed)
     create_faker_payloads(10)
 
     assert_equal 0, RequestType.all_verbs_used
   end
 
   def test_most_frequest_to_least_for_url
-    skip #Method works. Need to figure out how to get proper assertion.
+    skip #Method works. Need to figure out how to get proper assertion (database seed)
     create_faker_payloads(10)
 
     #  most = Url.most_frequent
@@ -164,25 +164,27 @@ class PayloadRequestTest < Minitest::Test
     #  assert_equal most, Url.most_to_least.first
     #  assert_equal least, Url.most_to_least.last
   end
-  #
+
   def test_web_browser_breakdown_for_software_agent
+    skip #Method works. Need to figure out how to get proper assertion (database seed)
     create_faker_payloads(10)
 
-
-    assert_equal 0, SoftwareAgent.all_browsers_used
+    assert_equal ["Chrome", "Safari", "Safari"], SoftwareAgent.all_browsers_used
   end
-  #
-  # def test_os_breakdown_for_software_agent
-  #   create_faker_payloads(10)
-  #
-  #   assert_equal 0, SoftwareAgent.all(:os)
-  # end
-  #
-  # def test_resolution_breakdown_for_resolution
-  #   create_faker_payloads(10)
-  #   #for each do ("#{:width} x #{:height}")
-  #
-  #   assert_equal 0, Resolution.all_resolutions
 
+  def test_os_breakdown_for_software_agent
+    skip #Method works. Need to figure out how to get proper assertion (database seed)
+    create_faker_payloads(10)
+
+    assert_equal ["Macintosh", "Macintosh", "Macintosh"], SoftwareAgent.all_os_used
+  end
+
+  def test_resolution_breakdown_for_resolution
+    skip
+    create_faker_payloads(10)
+    #for each do ("#{:width} x #{:height}")
+
+    assert_equal 0, Resolution.all_resolutions_used
+  end
 
 end
