@@ -20,10 +20,21 @@ class PayloadRequest < ActiveRecord::Base
     Referrer.find(self.referred_by_id)
   end
 
-  # def self.find_max_response_by_url(url)
-  #   Url.find(address: url)
-  #   # hey urls what is the id for this url
-  #   # hey payload give me max for this url
-  # end
+  def self.find_max_response_by_url(url)
+    id = Url.find_by_address(url).id
+    payloads = PayloadRequest.where(url_id: id)
+    responses = payloads.map do |payload|
+      payload.responded_in
+    end
+    responses.max
+  end
 
+  def self.find_min_response_by_url(url)
+    id = Url.find_by_address(url).id
+    payloads = PayloadRequest.where(url_id: id)
+    responses = payloads.map do |payload|
+      payload.responded_in
+    end
+    responses.min
+  end
 end
