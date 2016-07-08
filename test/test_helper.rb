@@ -166,7 +166,7 @@ module TestHelpers
   def three_relationship_requests
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
-    responded_in: rand(20..50),
+    responded_in: 37,
     url_id: Url.find_or_create_by(address: "http://example.com/jasonisnice", referral_id: 1).id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "GET").id,
@@ -175,7 +175,7 @@ module TestHelpers
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
-    responded_in: rand(20..50),
+    responded_in: 28,
     url_id:  Url.find_or_create_by(address: "http://example.com/jasonisnice", referral_id: 1).id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
@@ -184,7 +184,7 @@ module TestHelpers
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
-    responded_in: rand(20..50),
+    responded_in: 42,
     url_id: Url.find_or_create_by(address: "http://example.com/mattisnice", referral_id: 1).id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,

@@ -26,9 +26,21 @@ class PayloadRequest < ActiveRecord::Base
     end
   end
 
-
   def self.max_response_time
-    PayloadRequest.all.pluck(:responded_in).max
+    PayloadRequest.maximum(:responded_in)
+    # PayloadRequest.all.pluck(:responded_in).max
+  end
+
+  def self.max_response_time_by_url(url)
+    url = Url.all.select { |m| m.address == url }
+    url.first.id
+    PayloadRequest.where(url_id: url.first.id).pluck(:responded_in).max
+  end
+
+  def self.min_response_time_by_url(url)
+    url = Url.all.select { |m| m.address == url }
+    url.first.id
+    PayloadRequest.where(url_id: url.first.id).pluck(:responded_in).min
   end
 
     # id = freq.max_by { |key,value| value}
