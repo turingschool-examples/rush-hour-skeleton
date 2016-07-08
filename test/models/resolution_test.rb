@@ -19,10 +19,10 @@ class ResolutionTest < Minitest::Test
     JSON.parse(payload)
   end
 
-  def test_it_returns_values
-    parsed_payload["resolutionWidth"] => "1920"
-    parsed_payload["resolutionHeight"] => "1280"
-  end
+  # def test_it_returns_values
+  #   parsed_payload["resolutionWidth"] => "1920"
+  #   parsed_payload["resolutionHeight"] => "1280"
+  # end
 
   def test_that_it_creates_a_resolution_height_row
     res = Resolution.new(height: "600", width: "800")
@@ -33,12 +33,16 @@ class ResolutionTest < Minitest::Test
     res = Resolution.new(width: "800")
     refute res.valid?
     assert res.invalid?
+    assert res.width?
+    refute res.height?
   end
 
   def test_that_it_fails_when_only_a_resolution_height_is_provided
     res = Resolution.new(height: "600")
     refute res.valid?
     assert res.invalid?
+    refute res.width?
+    assert res.height?
   end
 
   def test_there_is_a_relationship_with_payload_requests
@@ -48,6 +52,16 @@ class ResolutionTest < Minitest::Test
     res = Resolution.new(height: "600", width: "800")
 
     assert pr.respond_to?(:resolution)
+    assert res.width?
+    assert res.height?
+  end
+
+  def test_it_finds_the_resolution
+    res = Resolution.new(height: "600", width: "800")
+
+    assert res.width?
+    assert res.height?
+    assert_equal 480000, Resolution.resolution_breakdown
   end
 
 end
