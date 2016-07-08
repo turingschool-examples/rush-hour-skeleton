@@ -137,11 +137,11 @@ module TestHelpers
   end
 
   def create_faker_resolution
-    resolutions = [{"1280" => "800"}, {"1020" => "640"}, {"1520" => "1080"}]
+    resolutions = [["1280", "800"], ["1020", "640"], ["1520", "1080"]]
     width_height = resolutions.sample
     Resolution.find_or_create_by(
-    width: width_height.keys,
-    height: width_height.values
+    width: width_height[0],
+    height: width_height[1]
     )
   end
 
@@ -161,6 +161,42 @@ module TestHelpers
     RequestType.find_or_create_by(
     verb: verbs.sample
     )
+  end
+
+  def three_relationship_requests
+    PayloadRequest.create(
+    requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
+    responded_in: rand(20..50),
+    url_id: Url.find_or_create_by(address: "http://example.com/jasonisnice", referral_id: 1).id,
+    ip_id: create_faker_ip.id,
+    request_type_id: RequestType.find_or_create_by(verb: "GET").id,
+    software_agent_id: create_faker_software_agent.id,
+    resolution_id: create_faker_resolution.id
+    )
+    PayloadRequest.create(
+    requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
+    responded_in: rand(20..50),
+    url_id:  Url.find_or_create_by(address: "http://example.com/jasonisnice", referral_id: 1).id,
+    ip_id: create_faker_ip.id,
+    request_type_id: RequestType.find_or_create_by(verb: "POST").id,
+    software_agent_id: create_faker_software_agent.id,
+    resolution_id: create_faker_resolution.id
+    )
+    PayloadRequest.create(
+    requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
+    responded_in: rand(20..50),
+    url_id: Url.find_or_create_by(address: "http://example.com/mattisnice", referral_id: 1).id,
+    ip_id: create_faker_ip.id,
+    request_type_id: RequestType.find_or_create_by(verb: "POST").id,
+    software_agent_id: create_faker_software_agent.id,
+    resolution_id: create_faker_resolution.id
+    )
+  end
+
+  def three_software_agents
+    SoftwareAgent.create(message: "Mozilla/5.0 (Macintosh; iOS) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+    SoftwareAgent.create(message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17")
+    SoftwareAgent.create(message: "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Safari/537.17")
   end
 
   def setup
