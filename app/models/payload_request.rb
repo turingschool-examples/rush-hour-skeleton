@@ -1,4 +1,5 @@
 class PayloadRequest < ActiveRecord::Base
+
   validates :url_id,               presence: true
   validates :requested_at,         presence: true
   validates :responded_in,         presence: true
@@ -14,4 +15,15 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :software_agent
   belongs_to :resolution
   belongs_to :ip
+
+  def referrer
+    Referrer.find(self.referred_by_id)
+  end
+
+  # def self.find_max_response_by_url(url)
+  #   Url.find(address: url)
+  #   # hey urls what is the id for this url
+  #   # hey payload give me max for this url
+  # end
+
 end
