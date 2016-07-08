@@ -9,11 +9,12 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 require 'json'
+require 'uri'
+require 'useragent'
 
 DatabaseCleaner.strategy = :truncation
 
 Capybara.app = RushHour::Server
-
 
 module TestHelpers
 
@@ -46,17 +47,33 @@ module TestHelpers
   end
 
   def create_payload
-   url             = Url.find_or_create_by(root: find_root(parsed_payload["url"], path: find_path(parsed_payload["url"]))"/blog")
+   url             = Url.find_or_create_by(root: parsed_root, path: parsed_path)
    request_type    = RequestType.find_or_create_by(verb: parsed_payload["requestType"])
    resolution      = Resolution.find_or_create_by(height: parsed_payload["resolutionHeight"], width: parsed_payload["resolutionWidth"])
    referral        = Referral.find_or_create_by(name: parsed_payload["referredBy"])
-   user_agent_device = UserAgentDevice.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
+   user_agent_device = UserAgentDevice.find_or_create_by(os: parsed_os, browser: parsed_browser)
    ip              = Ip.find_or_create_by(ip_address: parsed_payload["ip"])
-   payload_request = PayloadRequest.find_or_create_by(url_id: 1, requested_at: "#{Time.now}",
+   payload_request = PayloadRequest.find_or_create_by(url_id: 1, requested_at: Time.now.to_s,
                      responded_in: 5, referral_id: referral.id,
                      request_type_id: request_type.id, user_agent_device_id: user_agent_device.id,
                      resolution_id: resolution.id, ip_id: ip.id)
-    p payload_request
+  p payload_request
+ end
+
+ def parsed_root
+   URI.parse(parsed_payload["url"]).host
+ end
+
+ def parsed_path
+   URI.parse(parsed_payload["url"]).path
+ end
+
+ def parsed_os
+   UserAgent.parse(parsed_payload["userAgent"]).platform
+ end
+
+ def parsed_browser
+   UserAgent.parse(parsed_payload["userAgent"]).browser
  end
 
 end
