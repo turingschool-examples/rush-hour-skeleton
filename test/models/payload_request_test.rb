@@ -40,10 +40,15 @@ end
     assert_equal 0, PayloadRequest.minimum(:responded_in)
   end
 
-  # def test_find_max_response_by_url
-  #   create_payload(3)
-  #   binding.pry
-  #
-  #   assert_equal 89, PayloadRequest.find_max_response_by_url("http://www.googleit.com")
-  # end
+  def test_find_max_response_by_url
+    create_payload(3)
+
+    assert_equal 0, PayloadRequest.find_max_response_by_url("http://jumpstartlab.com/blog0")
+  end
+
+  def test_find_min_response_by_url
+    create_payload(3)
+
+    assert_equal 0, PayloadRequest.find_min_response_by_url("http://jumpstartlab.com/blog0")
+  end
 end
