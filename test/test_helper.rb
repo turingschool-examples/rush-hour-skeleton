@@ -53,10 +53,11 @@ module TestHelpers
    referral        = Referral.find_or_create_by(name: parsed_payload["referredBy"])
    user_agent_device = UserAgentDevice.find_or_create_by(os: parsed_os, browser: parsed_browser)
    ip              = Ip.find_or_create_by(ip_address: parsed_payload["ip"])
-   payload_request = PayloadRequest.find_or_create_by(url_id: 1, requested_at: Time.now.to_s,
+
+   payload_request = PayloadRequest.create({url_id: 1, requested_at: Time.now.to_s,
                      responded_in: 5, referral_id: referral.id,
                      request_type_id: request_type.id, user_agent_device_id: user_agent_device.id,
-                     resolution_id: resolution.id, ip_id: ip.id)
+                     resolution_id: resolution.id, ip_id: ip.id})
   p payload_request
  end
 
@@ -77,3 +78,25 @@ module TestHelpers
  end
 
 end
+# def create_payload(number = 1)
+#
+#   number.times do |i|
+#
+#   url               = Url.find_or_create_by({root: "http://jumpstartlab.com", path: "/path"})
+#   referral          = Referral.find_or_create_by({name: "http://jumpstartlab.com"})
+#   request_type      = RequestType.find_or_create_by({verb: "GET"})
+#   user_agent_device = UserAgentDevice.find_or_create_by({os: "Mozilla/5.0", browser: "Macintosh; Intel Mac OS X 10_8_2"})
+#   resolution        = Resolution.find_or_create_by({height: "1920", width: "1280"})
+#   ip                = Ip.find_or_create_by({ip_address: "63.29.38.211"})
+#
+#   payload_request = PayloadRequest.create({
+#     url_id: url,
+#     requested_at: Time.now.to_s,
+#     responded_in: 10,
+#     referral_id: referral,
+#     request_type_id: request_type,
+#     user_agent_device_id: user_agent_device,
+#     resolution_id: resolution,
+#     ip_id: ip})
+#   end
+# end
