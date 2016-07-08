@@ -125,65 +125,20 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_can_find_the_average
-    pr1 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 40,
-                            url_id: 1,
-                            referral_id: 1,
-                            request_type_id: 1,
-                            user_agent_device_id: 1,
-                            resolution_id: 1,
-                            ip_id: 1)
-    pr2 = PayloadRequest.create(requested_at: "2014-02-16 21:38:28 -0700",
-                            responded_in: 60,
-                            url_id: 2,
-                            referral_id: 2,
-                            request_type_id: 2,
-                            user_agent_device_id: 2,
-                            resolution_id: 2,
-                            ip_id: 2)
+    create_payload(5)
 
-      assert_equal 50, PayloadRequest.average_response_time
+    assert_equal 15, PayloadRequest.average_response_time
   end
 
   def test_it_can_find_the_minimum_reponse_time
-    pr1 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 40,
-                            url_id: 1,
-                            referral_id: 1,
-                            request_type_id: 1,
-                            user_agent_device_id: 1,
-                            resolution_id: 1,
-                            ip_id: 1)
-    pr2 = PayloadRequest.create(requested_at: "2014-02-16 21:38:28 -0700",
-                            responded_in: 60,
-                            url_id: 2,
-                            referral_id: 2,
-                            request_type_id: 2,
-                            user_agent_device_id: 2,
-                            resolution_id: 2,
-                            ip_id: 2)
+    create_payload(5)
 
-      assert_equal 40, PayloadRequest.min_response_time
+    assert_equal 5, PayloadRequest.min_response_time
   end
 
   def test_it_can_find_the_maximum_response_time
-    pr1 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 40,
-                            url_id: 1,
-                            referral_id: 1,
-                            request_type_id: 1,
-                            user_agent_device_id: 1,
-                            resolution_id: 1,
-                            ip_id: 1)
-    pr2 = PayloadRequest.create(requested_at: "2014-02-16 21:38:28 -0700",
-                            responded_in: 60,
-                            url_id: 2,
-                            referral_id: 2,
-                            request_type_id: 2,
-                            user_agent_device_id: 2,
-                            resolution_id: 2,
-                            ip_id: 2)
+    create_payload(5)
 
-      assert_equal 60, PayloadRequest.max_response_time
+    assert_equal 25, PayloadRequest.max_response_time
   end
 end
