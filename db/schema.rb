@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706230403) do
+ActiveRecord::Schema.define(version: 20160707215649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,12 +26,12 @@ ActiveRecord::Schema.define(version: 20160706230403) do
     t.integer  "responded_in"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.text     "url_id"
-    t.text     "referral_id"
-    t.text     "request_type_id"
-    t.text     "user_agent_device_id"
-    t.text     "resolution_id"
-    t.text     "ip_id"
+    t.integer  "url_id"
+    t.integer  "referral_id"
+    t.integer  "request_type_id"
+    t.integer  "user_agent_device_id"
+    t.integer  "resolution_id"
+    t.integer  "ip_id"
   end
 
   create_table "referrals", force: :cascade do |t|
