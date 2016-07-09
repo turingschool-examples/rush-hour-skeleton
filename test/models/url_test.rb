@@ -50,13 +50,25 @@ class UrlTest < Minitest::Test
     assert_equal ["GET", "POST"], url.all_verbs
   end
 
-  def test_most_popular_referrers #method working, just need to seed data to test
+  def test_most_popular_referrers
+    three_relationship_requests
+    five_more_pr_for_referral_test
+
+    url = Url.first
+    expected = ["www.facebook.com", "wwww.google.com", "wwww.theonion.com"]
+    
+    assert_equal expected, url.most_popular_referrers.sort
+  end
+
+  def test_three_most_popular_user_agents
     three_relationship_requests
     five_more_pr_for_referral_test
 
     url = Url.first
 
-    assert_equal ["wwww.google.com", "www.facebook.com", "wwww.theonion.com"], url.most_popular_referrers
+    expected = ["Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Safari/537.17", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17", "Mozilla/5.0 (Macintosh; iOs) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17"]
+
+    assert_equal expected, url.most_popular_user_agents
   end
 
 end
