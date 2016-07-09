@@ -6,4 +6,5 @@ class ReferrerTest < Minitest::Test
     website = Referrer.create(address:"google.com")
     assert_equal "google.com", website.address
   end
+
 end

@@ -1,13 +1,17 @@
 class Url < ActiveRecord::Base
-  validates :address,   presence:true
+  validates :address,   presence: true
+  validates :address, uniqueness: true
 
   has_many :payload_requests
   has_many :clients, through: :payload_requests
   has_many :software_agents, through: :payload_requests
 
   def self.urls_from_most_to_least_requested
-    urls = Url.pluck(:address)
-    frequency = urls.inject(Hash.new(0)) { |hash , value | hash[value] += 1; hash }
-    urls.max_by { |value| frequency[value] }
+    joins(:payload_requests).group("urls.address").order(count: :desc).count.keys
   end
+
+  def popular_agents
+    software_agents.group("os","browser").order(count: :desc).count.take(3)
+  end
+
 end

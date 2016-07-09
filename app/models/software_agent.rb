@@ -2,6 +2,8 @@ class SoftwareAgent < ActiveRecord::Base
 
   validates :os,         presence:true
   validates :browser,    presence:true
+  # validates :os,         uniqueness: true
+  # validates :browser,    uniqueness: true
 
   has_many :payload_requests
   has_many :clients, through: :payload_requests
@@ -20,5 +22,4 @@ class SoftwareAgent < ActiveRecord::Base
       SoftwareAgent.find(id).os
     end
   end
-
 end

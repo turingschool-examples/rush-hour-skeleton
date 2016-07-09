@@ -64,5 +64,4 @@ ActiveRecord::Schema.define(version: 20160709001919) do
   create_table "urls", force: :cascade do |t|
     t.string "address"
   end
-
 end
