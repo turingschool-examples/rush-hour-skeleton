@@ -4,6 +4,8 @@ class SoftwareAgent < ActiveRecord::Base
   validates :browser,    presence:true
 
   has_many :payload_requests
+  has_many :clients, through: :payload_requests
+
 
   def self.web_browser_breakdown
     user_agent_id = PayloadRequest.distinct.pluck(:software_agent_id)
