@@ -50,13 +50,13 @@ class UrlTest < Minitest::Test
     assert_equal ["GET", "POST"], url.all_verbs
   end
 
-  def test_most_popular_referrers
+  def test_most_popular_referrers #method working, just need to seed data to test
     skip
     create_faker_payloads(30)
 
     url = Url.first
 
-    assert_equal "www.", Url.sample
+    assert_equal "www.", url.most_popular_referrers
   end
 
 end

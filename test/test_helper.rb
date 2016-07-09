@@ -193,7 +193,7 @@ module TestHelpers
     software_agent_id: create_faker_software_agent.id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com").id,
-    referral_id: create_faker_resolution.id
+    referral_id: create_faker_referral.id
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
@@ -204,7 +204,7 @@ module TestHelpers
     software_agent_id: create_faker_software_agent.id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'startlab', root_url: "http://jumpstartlab.com").id,
-    referral_id: create_faker_resolution.id
+    referral_id: create_faker_referral.id
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
@@ -215,7 +215,7 @@ module TestHelpers
     software_agent_id: create_faker_software_agent.id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
-    referral_id: create_faker_resolution.id
+    referral_id: create_faker_referral.id
     )
   end
 
