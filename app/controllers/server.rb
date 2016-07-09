@@ -12,8 +12,10 @@ module RushHour
       status, body = cv
     end
 
-    post '/sources/' do
-
+    post "/sources/:identifier/data" do |identifier|
+      client = Client.find_by(:identifier).id
+      #parse the params for the PR
+      client.payload_requests.create(parsed_data) #if this doesn't work, move client id to parser
     end
 
   end
