@@ -221,7 +221,7 @@ module TestHelpers
     )
   end
 
-  def five_more_pr_for_referral_test
+  def five_payload_requests
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
     responded_in: 37,
@@ -272,6 +272,43 @@ module TestHelpers
     url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Chrome/537.17").id,
+    resolution_id: create_faker_resolution.id,
+    client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
+    referral_id: Referral.find_or_create_by(address: "www.food.com").id
+    )
+  end
+
+  def eight_payload_requests
+    five_payload_requests
+    PayloadRequest.create(
+    requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
+    responded_in: 20,
+    url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
+    ip_id: create_faker_ip.id,
+    request_type_id: RequestType.find_or_create_by(verb: "PUT").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Chrome/537.17").id,
+    resolution_id: create_faker_resolution.id,
+    client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
+    referral_id: Referral.find_or_create_by(address: "www.food.com").id
+    )
+    PayloadRequest.create(
+    requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
+    responded_in: 20,
+    url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
+    ip_id: create_faker_ip.id,
+    request_type_id: RequestType.find_or_create_by(verb: "POST").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Chrome/537.17").id,
+    resolution_id: create_faker_resolution.id,
+    client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
+    referral_id: Referral.find_or_create_by(address: "www.food.com").id
+    )
+    PayloadRequest.create(
+    requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
+    responded_in: 20,
+    url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
+    ip_id: create_faker_ip.id,
+    request_type_id: RequestType.find_or_create_by(verb: "PUT").id,
     software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Chrome/537.17").id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
