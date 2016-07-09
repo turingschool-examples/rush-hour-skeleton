@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+require 'uri'
+
 gem 'sinatra', require: 'sinatra/base'
 gem 'pg'
 gem 'activerecord'
