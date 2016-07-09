@@ -51,12 +51,12 @@ class UrlTest < Minitest::Test
   end
 
   def test_most_popular_referrers #method working, just need to seed data to test
-    skip
-    create_faker_payloads(30)
+    three_relationship_requests
+    five_more_pr_for_referral_test
 
     url = Url.first
 
-    assert_equal "www.", url.most_popular_referrers
+    assert_equal ["wwww.google.com", "www.facebook.com", "wwww.theonion.com"], url.most_popular_referrers
   end
 
 end
