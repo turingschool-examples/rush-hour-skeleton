@@ -64,13 +64,13 @@ end
   end
 
   def test_most_common_type_of_request
-    create_payload(3)
+    create_payload2(3)
 
     assert_equal "GET", PayloadRequest.most_frequent_type
   end
 
   def test_list_of_http_verbs_used
-    create_payload(3)
+    create_payload2(3)
     assert_equal ["GET", "GET", "GET"], PayloadRequest.list_of_http_verbs_used
   end
 
