@@ -7,8 +7,10 @@ class Parser
   end
 
   def self.parse_payload(payload)
+
     parsed_json = parse_json(payload)
-    {"url" => parsed_json["url"],
+
+    { "url" => parsed_json["url"],
      "requestedAt" => parsed_json["requestedAt"],
      "respondedIn" => parsed_json["respondedIn"],
      "referredBy" => parsed_json["referredBy"],
@@ -18,7 +20,7 @@ class Parser
      "resolutionHeight" => parsed_json["resolutionHeight"],
      "ip" => parsed_json["ip"],
      "parameters" => parsed_json["parameters"]
-   }
+    }
   end
 
   def self.parse_user_agent(user_agent)

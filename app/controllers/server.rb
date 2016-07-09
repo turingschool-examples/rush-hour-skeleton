@@ -1,7 +1,7 @@
 module RushHour
   class Server < Sinatra::Base
 
-    post '/sources' do
+  post '/sources' do
     client = Client.create({identifier: params["identifier"],root_url: params["rootUrl"]})
     if client.error_message.include?("can't be blank")
       status 400
@@ -17,8 +17,8 @@ module RushHour
   post '/sources/:identifier/data' do
     parsed_payload = Parser.parse_payload(params["payload"])
     result = DataLoader.load(parsed_payload, params["identifier"])
-    status result[:status]
-    body result[:body]
+    # status result[:status]
+    # body result[:body]
   end
 
     not_found do
