@@ -68,8 +68,7 @@ end
     assert_equal 2, PayloadRequest.find_average_response_time_by_url("http://turing.io/blog")
   end
 
-  def test_find_request_types_by_url
-    create_payload2(2)
+     create_payload2(2)
 
     # assert_equal 0, PayloadRequest.specific_url_request_types("http://jumpstartlab.com/blog0")
   end
