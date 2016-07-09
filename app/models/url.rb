@@ -1,8 +1,6 @@
 class Url < ActiveRecord::Base
-  validates :address, :referral_id,
-            presence: true
+  validates :address, presence: true
 
-  belongs_to :referral
   has_many   :payload_requests
   has_many   :request_types, through: :payload_requests
 

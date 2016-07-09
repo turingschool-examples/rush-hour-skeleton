@@ -26,8 +26,7 @@ module TestHelpers
 
   def create_url
     Url.create(
-      address: payload_parser[:url],
-      referral_id: create_referral.id
+      address: payload_parser[:url]
       )
   end
 
@@ -72,7 +71,8 @@ module TestHelpers
       request_type_id: create_request_type.id,
       software_agent_id: create_software_agent.id,
       resolution_id: create_resolution.id,
-      client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000)).id
+      client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000)).id,
+      referral_id: create_faker_referral.id
       )
     end
   end
@@ -120,7 +120,8 @@ module TestHelpers
       request_type_id: create_faker_request_type.id,
       software_agent_id: create_faker_software_agent.id,
       resolution_id: create_faker_resolution.id,
-      client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000)).id
+      client_id: Client.create(identifier: rand(1..1000), root_url: rand(1..1000)).id,
+      referral_id: create_faker_referral.id
       )
     end
   end
@@ -128,8 +129,7 @@ module TestHelpers
   def create_faker_url
     urls = ['http://example.com/jasonisnice', 'http://example.com/mattisnice', 'http://example.com/weloveangela', 'http://example.com/robertaisnice']
     Url.find_or_create_by(
-    address: urls.sample,
-    referral_id: create_faker_referral.id
+    address: urls.sample
     )
   end
 
@@ -187,32 +187,35 @@ module TestHelpers
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
     responded_in: 37,
-    url_id: Url.find_or_create_by(address: "http://example.com/jasonisnice", referral_id: 1).id,
+    url_id: Url.find_or_create_by(address: "http://example.com/jasonisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "GET").id,
     software_agent_id: create_faker_software_agent.id,
     resolution_id: create_faker_resolution.id,
-    client_id: Client.find_or_create_by(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com").id
+    client_id: Client.find_or_create_by(identifier: 'jumpstartlab', root_url: "http://jumpstartlab.com").id,
+    referral_id: create_faker_resolution.id
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
     responded_in: 28,
-    url_id:  Url.find_or_create_by(address: "http://example.com/jasonisnice", referral_id: 1).id,
+    url_id:  Url.find_or_create_by(address: "http://example.com/jasonisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
     software_agent_id: create_faker_software_agent.id,
     resolution_id: create_faker_resolution.id,
-    client_id: Client.find_or_create_by(identifier: 'startlab', root_url: "http://jumpstartlab.com").id
+    client_id: Client.find_or_create_by(identifier: 'startlab', root_url: "http://jumpstartlab.com").id,
+    referral_id: create_faker_resolution.id
     )
     PayloadRequest.create(
     requested_at: Faker::Time.between(2.days.ago, Date.today, :all).to_s,
     responded_in: 42,
-    url_id: Url.find_or_create_by(address: "http://example.com/mattisnice", referral_id: 1).id,
+    url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
     software_agent_id: create_faker_software_agent.id,
     resolution_id: create_faker_resolution.id,
-    client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id
+    client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
+    referral_id: create_faker_resolution.id
     )
   end
 
