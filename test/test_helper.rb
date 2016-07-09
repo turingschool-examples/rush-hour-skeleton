@@ -169,8 +169,10 @@ module TestHelpers
     messages = []
     message1 = "Mozilla/5.0 (Macintosh; iOs) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17"
     message2 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17"
-    message3 = "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Safari/537.17"
-    messages.push(message1, message2, message3)
+    message3 = "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Aol/537.17"
+    message4 = "Mozilla/5.0 (Macintosh; Linux) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Firefox/537.17"
+    message5 = "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Chrome/537.17"
+    messages.push(message1, message2, message3, message4, message5)
     SoftwareAgent.find_or_create_by(
     message: messages.sample
     )
@@ -201,7 +203,7 @@ module TestHelpers
     url_id:  Url.find_or_create_by(address: "http://example.com/jasonisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
-    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Chrome/537.17").id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'startlab', root_url: "http://jumpstartlab.com").id,
     referral_id: Referral.find_or_create_by(address: "wwww.google.com").id
@@ -212,7 +214,7 @@ module TestHelpers
     url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
-    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; iOs) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Firefox/537.17").id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
     referral_id: Referral.find_or_create_by(address: "www.facebook.com").id
@@ -237,7 +239,7 @@ module TestHelpers
     url_id:  Url.find_or_create_by(address: "http://example.com/jasonisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
-    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; iOs) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Chrome/537.17").id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'startlab', root_url: "http://jumpstartlab.com").id,
     referral_id: Referral.find_or_create_by(address: "wwww.theonion.com").id
@@ -248,7 +250,7 @@ module TestHelpers
     url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
-    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Firefox/537.17").id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
     referral_id: Referral.find_or_create_by(address: "www.facebook.com").id
@@ -270,7 +272,7 @@ module TestHelpers
     url_id: Url.find_or_create_by(address: "http://example.com/mattisnice").id,
     ip_id: create_faker_ip.id,
     request_type_id: RequestType.find_or_create_by(verb: "POST").id,
-    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Safari/537.17").id,
+    software_agent_id: SoftwareAgent.find_or_create_by(message: "Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Chrome/537.17").id,
     resolution_id: create_faker_resolution.id,
     client_id: Client.find_or_create_by(identifier: 'jumplab', root_url: "http://jumpstartlab.com").id,
     referral_id: Referral.find_or_create_by(address: "www.food.com").id

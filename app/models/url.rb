@@ -23,8 +23,17 @@ class Url < ActiveRecord::Base
     top_three = freq.keys[-3..-1].reverse
   end
 
+  # def most_popular_user_agents
+  #   freq = software_agents.group(:message).count
+  #   top_three = freq.keys[-3..-1].reverse
+  # end
+
   def most_popular_user_agents
-    freq = software_agents.group(:message).count
-    top_three = freq.keys[-3..-1].reverse
+    freq = software_agents.group(:message).count.map do |key, value|
+      [UserAgent.parse(key).browser, UserAgent.parse(key).os, value]
+    end
+    ranked_ua = freq.sort_by {|ua| ua[-1]}[-3..-1].reverse
+    ranked_ua.map { |ua| ua[0..1] }
   end
+
 end
