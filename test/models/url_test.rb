@@ -9,14 +9,11 @@ class UrlTest < Minitest::Test
   end
 
   def test_urls_from_most_requested_to_least_requested
-    url = Url.create(address:"http://www.turing.io")
-    url = Url.create(address:"http://www.turing.io")
-    url = Url.create(address:"http://www.foragoodstrftime.com/")
-    url = Url.create(address:"http://www.foragoodstrftime.com/")
-    url = Url.create(address:"http://www.turing.io")
-    url = Url.create(address:"http://www.galvanize.com")
+    create_payload(1)
+    create_payload2(2)
+    create_payload3(1)
 
-    expected = "http://www.turing.io"
+    expected = "http://turing.io/blog"
     assert_equal expected, Url.urls_from_most_to_least_requested
   end
 end

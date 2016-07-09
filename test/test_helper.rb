@@ -55,6 +55,94 @@ module TestHelpers
     end
   end
 
+  def create_payload2(integer)
+    integer.times do |i|
+      url           = Url.find_or_create_by(address: "http://turing.io/blog")
+      requested_at  = Time.now
+      request_type  = RequestType.find_or_create_by(verb: "GET")
+      resolution    = Resolution.find_or_create_by(width: "1366", height: "768")
+      referrer      = Referrer.find_or_create_by(address: "http://turing.com")
+      software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.9.0", browser: "Firefox")
+      ip            = Ip.find_or_create_by(address: "63.29.38.211")
+
+      PayloadRequest.find_or_create_by({
+          :url_id => url.id,
+          :requested_at => requested_at,
+          :responded_in => i,
+          :request_type_id => request_type.id,
+          :resolution_id => resolution.id,
+          :referred_by_id => referrer.id,
+          :software_agent_id => software_agent.id,
+          :ip_id => ip.id })
+    end
+  end
+
+  def create_payload3(integer)
+    integer.times do |i|
+      url           = Url.find_or_create_by(address: "http://galvanize.com/blog")
+      requested_at  = Time.now
+      request_type  = RequestType.find_or_create_by(verb: "POST")
+      resolution    = Resolution.find_or_create_by(width: "1280", height: "80")
+      referrer      = Referrer.find_or_create_by(address: "http://galvanize.com")
+      software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
+      ip            = Ip.find_or_create_by(address: "63.29.38.211")
+
+      PayloadRequest.find_or_create_by({
+          :url_id => url.id,
+          :requested_at => requested_at,
+          :responded_in => i,
+          :request_type_id => request_type.id,
+          :resolution_id => resolution.id,
+          :referred_by_id => referrer.id,
+          :software_agent_id => software_agent.id,
+          :ip_id => ip.id })
+    end
+  end
+
+  def create_payload4(integer)
+    integer.times do |i|
+      url           = Url.find_or_create_by(address: "http://google.com/blog")
+      requested_at  = Time.now
+      request_type  = RequestType.find_or_create_by(verb: "GET")
+      resolution    = Resolution.find_or_create_by(width: "1920", height: "1280")
+      referrer      = Referrer.find_or_create_by(address: "http://google.com")
+      software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
+      ip            = Ip.find_or_create_by(address: "63.29.38.211")
+
+      PayloadRequest.find_or_create_by({
+          :url_id => url.id,
+          :requested_at => requested_at,
+          :responded_in => i,
+          :request_type_id => request_type.id,
+          :resolution_id => resolution.id,
+          :referred_by_id => referrer.id,
+          :software_agent_id => software_agent.id,
+          :ip_id => ip.id })
+    end
+  end
+
+  def create_payload5(integer)
+    integer.times do |i|
+      url           = Url.find_or_create_by(address: "http://robohash.com/blog")
+      requested_at  = Time.now
+      request_type  = RequestType.find_or_create_by(verb: "PUT")
+      resolution    = Resolution.find_or_create_by(width: "320", height: "568")
+      referrer      = Referrer.find_or_create_by(address: "http://robohash.com")
+      software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
+      ip            = Ip.find_or_create_by(address: "63.29.38.211")
+
+      PayloadRequest.find_or_create_by({
+          :url_id => url.id,
+          :requested_at => requested_at,
+          :responded_in => i,
+          :request_type_id => request_type.id,
+          :resolution_id => resolution.id,
+          :referred_by_id => referrer.id,
+          :software_agent_id => software_agent.id,
+          :ip_id => ip.id })
+    end
+  end
+
   def teardown
    DatabaseCleaner.clean
     super
