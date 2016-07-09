@@ -2,6 +2,7 @@ class UserAgentDevice < ActiveRecord::Base
   validates :browser, presence: true
   validates :os, presence: true
   validates :browser, uniqueness: { scope: :os }
+
   has_many :payload_requests
 
   def self.browser_breakdown
@@ -11,4 +12,5 @@ class UserAgentDevice < ActiveRecord::Base
   def self.os_breakdown
     group(:os)
   end
+  
 end

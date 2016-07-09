@@ -8,6 +8,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
   validates :sha, presence: true
+
   belongs_to :url
   belongs_to :referral
   belongs_to :request_type

@@ -1,8 +1,8 @@
 class Url < ActiveRecord::Base
    validates :root, presence: true
    validates :path, presence: true, uniqueness: true
-   has_many :payload_requests
 
+   has_many :payload_requests
    has_many :request_types, through: :payload_requests
   # has_many :referrals, through: :payload_requests
   # has_many :user_agent_devices, through: :payload_requests
