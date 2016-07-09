@@ -23,6 +23,11 @@ module TestHelpers
    super
   end
 
+  def teardown
+   DatabaseCleaner.clean
+    super
+  end
+
   def app
     RushHour::Server
   end
@@ -48,8 +53,9 @@ module TestHelpers
     software_agent =  SoftwareAgent.create(os: "OSX 10.11.5#{i}", browser: "Chrome#{i}")
     ip             =  Ip.create(address: "63.29.38.211#{i}")
     client         =  Client.find_or_create_by({:identifier => "jumpstartlab#{i}", :root_url => "http://jumpstartlab.com#{i}"})
-    parameter      = Parameter.find_or_create_by({user_input: "#{i}"})
-    PayloadRequest.find_or_create_by({
+    parameter      =  Parameter.find_or_create_by({user_input: "#{i}"})
+
+    payload = PayloadRequest.find_or_create_by({
         :url_id => url.id,
         :requested_at => requested_at,
         :responded_in => i,
@@ -61,12 +67,10 @@ module TestHelpers
         :parameter_id => parameter.id,
         :client_id => client.id })
     end
+
   end
 
-  def teardown
-   DatabaseCleaner.clean
-    super
-  end
+
 end
 
 Capybara.app = RushHour::Server

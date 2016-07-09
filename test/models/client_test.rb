@@ -13,9 +13,7 @@ class ClientTest < Minitest::Test
 
   def test_all_through_client_relationships
     create_payload(1)
-
     client = Client.find(1)
-
     assert_equal 1, client.urls.length
     assert_equal 1, client.request_types.length
     assert_equal 1, client.ips.length
@@ -23,5 +21,6 @@ class ClientTest < Minitest::Test
     assert_equal 1, client.resolutions.length
     assert_equal 1, client.software_agents.length
     assert_equal 1, client.referrers.length
+    assert_equal 1 ,client.parameters.length
   end
 end
