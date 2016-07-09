@@ -52,7 +52,7 @@ class UrlTest < Minitest::Test
 
   def test_most_popular_referrers
     three_relationship_requests
-    five_more_pr_for_referral_test
+    five_payload_requests
 
     url = Url.first
     expected = ["www.facebook.com", "wwww.google.com", "wwww.theonion.com"]
@@ -62,7 +62,7 @@ class UrlTest < Minitest::Test
 
   def test_three_most_popular_user_agents
     three_relationship_requests
-    five_more_pr_for_referral_test
+    five_payload_requests
 
     url = Url.first
 
