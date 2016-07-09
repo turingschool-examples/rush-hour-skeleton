@@ -3,7 +3,8 @@ class Url < ActiveRecord::Base
 
   has_many   :payload_requests
   has_many   :request_types, through: :payload_requests
-  has_many :referrals, through: :payload_requests
+  has_many   :referrals, through: :payload_requests
+  has_many   :software_agents, through: :payload_requests
 
   def all_response_times
     payload_requests.pluck(:responded_in).sort.reverse
@@ -22,4 +23,8 @@ class Url < ActiveRecord::Base
     top_three = freq.keys[-3..-1].reverse
   end
 
+  def most_popular_user_agents
+    freq = software_agents.group(:message).count
+    top_three = freq.keys[-3..-1].reverse
+  end
 end
