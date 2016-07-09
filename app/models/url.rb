@@ -9,6 +9,7 @@ class Url < ActiveRecord::Base
   # need to find a way to track the data and increment it
 
   def verbs
+    #not working yet
     RequestType.distinct.pluck(:verb).join(' , ')
     # request_types.pluck(:verb).uniq
     # RequestType.group(:verb).count(:id)
