@@ -8,7 +8,6 @@ class UrlTest < Minitest::Test
     address = "http://jumpstartlab.com/blog"
 
     assert_equal address, url.address
-    refute_nil url.referral_id
   end
 
   def test_url_relationship_to_payload_requests
@@ -22,13 +21,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_it_cannot_create_url_without_address
-    url = Url.new(referral_id: 1)
-
-    refute url.valid?
-  end
-
-  def test_it_cannot_create_url_without_referral_id
-    url = Url.new(address: "www.google.com")
+    url = Url.new(address: "")
 
     refute url.valid?
   end
@@ -57,13 +50,13 @@ class UrlTest < Minitest::Test
     assert_equal ["GET", "POST"], url.all_verbs
   end
 
-  def test_most_popular_referrers
+  def test_most_popular_referrers #method working, just need to seed data to test
     skip
     create_faker_payloads(30)
 
     url = Url.first
 
-    assert_equal "www.", Url.sample
+    assert_equal "www.", url.most_popular_referrers
   end
 
 end

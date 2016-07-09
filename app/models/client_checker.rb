@@ -6,6 +6,7 @@ class ClientChecker
   end
 
   def res
+    # require 'pry'; binding.pry
     if client.save
       [200, "Sucess"]
     elsif client.errors.full_messages.join(', ') == "Identifier has already been taken"

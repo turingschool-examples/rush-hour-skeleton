@@ -40,7 +40,6 @@ class ClientTest < Minitest::Test
   end
 
   def test_it_cannot_create_client_with_existing_identifier
-
     client = Client.new(identifier: 'jumpstartlab')
 
     refute client.valid?
