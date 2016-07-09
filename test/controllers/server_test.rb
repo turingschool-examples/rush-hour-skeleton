@@ -4,9 +4,9 @@ class ServerTest < Minitest::Test
   include TestHelpers
 
   def test_it_can_take_in_param_and_return_200_status
-
     params = {"identifier" => "test", "rootUrl" => "http://test.com"}
     post '/sources', params
+    
     assert_equal 200, last_response.status
   end
 
