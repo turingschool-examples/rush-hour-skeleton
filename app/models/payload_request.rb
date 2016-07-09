@@ -28,6 +28,8 @@ class PayloadRequest < ActiveRecord::Base
       RequestType.find(type).verb
     end
   end
+  #
+
 
   def referrer
     Referrer.find(self.referred_by_id)

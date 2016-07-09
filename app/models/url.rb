@@ -10,4 +10,6 @@ class Url < ActiveRecord::Base
     id = urls.max_by { |value| frequency[value] }
     Url.find(2).address
   end
+
+  
 end

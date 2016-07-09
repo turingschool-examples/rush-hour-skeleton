@@ -103,7 +103,7 @@ module TestHelpers
     integer.times do |i|
       url           = Url.find_or_create_by(address: "http://google.com/blog")
       requested_at  = Time.now
-      request_type  = RequestType.find_or_create_by(verb: "GET")
+      request_type  = RequestType.find_or_create_by(verb: "POST")
       resolution    = Resolution.find_or_create_by(width: "1920", height: "1280")
       referrer      = Referrer.find_or_create_by(address: "http://google.com")
       software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
