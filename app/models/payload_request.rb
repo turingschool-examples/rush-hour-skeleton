@@ -60,8 +60,4 @@ class PayloadRequest < ActiveRecord::Base
     times = payloads.all.pluck(:responded_in)
     times.reduce(:+)/times.count
   end
-
-
-
-
 end

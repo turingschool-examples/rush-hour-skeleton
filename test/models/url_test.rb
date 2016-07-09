@@ -13,7 +13,7 @@ class UrlTest < Minitest::Test
     create_payload2(2)
     create_payload3(1)
 
-    expected = ""
+    expected = ["http://turing.io/blog", "http://jumpstartlab.com/blog0", "http://galvanize.com/blog"]
     assert_equal expected, Url.urls_from_most_to_least_requested
   end
 end
