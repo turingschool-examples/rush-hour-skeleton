@@ -1,13 +1,12 @@
 class PayloadRequest < ActiveRecord::Base
-
-  validates :url_id, :requested_at, :responded_in, :request_type_id, :resolution_id, :ip_id, :software_agent_id, presence: true
+  validates :url_id, :requested_at, :responded_in, :request_type_id, :resolution_id, :ip_id, :software_agent_id, :client_id, presence: true
 
   belongs_to :resolution
   belongs_to :url
   belongs_to :request_type
   belongs_to :software_agent
   belongs_to :ip
-
+  belongs_to :client
 
   def self.most_frequent_request_type
     verbs = PayloadRequest.all.pluck(:request_type_id)

@@ -11,13 +11,12 @@ class IpTest < Minitest::Test
   end
 
   def test_ip_relationship_to_payload_requests
-    create_payload(1)
+    three_relationship_requests
     ip = Ip.first
     ip.payload_requests << PayloadRequest.all.first
 
-    refute ip.payload_requests.empty?
-    ip.payload_requests.exists?(ip.id)
-    assert_equal 1, ip.payload_requests.size
+    assert ip.respond_to?(:payload_requests)
+    assert_instance_of PayloadRequest, ip.payload_requests.first
   end
 
   def test_it_cannot_create_ip_without_address

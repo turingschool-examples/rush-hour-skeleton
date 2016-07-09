@@ -3,8 +3,8 @@ class Url < ActiveRecord::Base
             presence: true
 
   belongs_to :referral
-  has_many :payload_requests
-  has_many :request_types, through: :payload_requests
+  has_many   :payload_requests
+  has_many   :request_types, through: :payload_requests
 
   def all_response_times
     payload_requests.pluck(:responded_in).sort.reverse

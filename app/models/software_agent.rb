@@ -27,4 +27,3 @@ class SoftwareAgent < ActiveRecord::Base
   end
 
 end
-# require 'pry'; binding.pry
