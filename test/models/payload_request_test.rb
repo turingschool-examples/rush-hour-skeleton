@@ -51,7 +51,6 @@ end
     assert_equal ["GET", "GET", "GET"], PayloadRequest.list_of_http_verbs_used
   end
 
-
   def test_find_max_response_by_url
     create_payload(3)
 
@@ -64,19 +63,10 @@ end
     assert_equal 0, PayloadRequest.find_min_response_by_url("http://jumpstartlab.com/blog0")
   end
 
-  # def test_find_request_types_by_url
-  #   PayloadRequest.create('{
-  #                           "url":"http://jumpstartlab.com/blog",
-  #                           "requestedAt":"2013-02-16 21:38:28 -0700",
-  #                           "respondedIn":37,
-  #                           "referredBy":"http://jumpstartlab.com",
-  #                           "requestType":"GET",
-  #                           "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-  #                           "resolutionWidth":"1920",
-  #                           "resolutionHeight":"1280",
-  #                           "ip":"63.29.38.211"
-  #   }')
-  #
-  #   assert_equal 0, PayloadRequest.specific_url_request_types("http://jumpstartlab.com/blog0")
-  # end
+  def test_find_request_types_by_url
+    create_payload(1)
+    create_payload2(2)
+
+    # assert_equal 0, PayloadRequest.specific_url_request_types("http://jumpstartlab.com/blog0")
+  end
 end
