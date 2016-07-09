@@ -11,7 +11,7 @@ class Url < ActiveRecord::Base
   end
 
   def average_response_time
-    (all_response_times).sum / (Url.count)
+    Url.first.payload_requests.average(:responded_in).to_i
   end
 
   def all_verbs
@@ -22,11 +22,6 @@ class Url < ActiveRecord::Base
     freq = referrals.group(:address).count
     top_three = freq.keys[-3..-1].reverse
   end
-
-  # def most_popular_user_agents
-  #   freq = software_agents.group(:message).count
-  #   top_three = freq.keys[-3..-1].reverse
-  # end
 
   def most_popular_user_agents
     freq = software_agents.group(:message).count.map do |key, value|

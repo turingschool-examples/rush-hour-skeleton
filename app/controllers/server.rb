@@ -13,5 +13,12 @@ module RushHour
     post "/sources/:identifier/data" do |identifier|
       RequestMaker.new(identifier, params).make
     end
+
+    get "/sources/identifier" do |identifier|
+      @identifier = Client.find(identifier)
+
+      erb :client_show
+    end
+
   end
 end
