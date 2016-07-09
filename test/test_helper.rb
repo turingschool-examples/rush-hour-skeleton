@@ -140,8 +140,19 @@ module TestHelpers
   end
 
   def create_faker_referral
+    addresses = []
+    address1 = 'http://www.example.com'
+    address2 = 'http://www.nba.com'
+    address3 = 'http://www.facebook.com'
+    address4 = 'http://www.nfl.com'
+    address5 = 'http://www.google.com'
+    address6 = 'http://www.mlb.com'
+    address7 = 'http://www.oddmanout.com'
+
+    addresses.push(address1, address2, address3, address4, address5, address6, address7)
+
     Referral.find_or_create_by(
-      address: 'http://www.example.com'
+      address: addresses.sample
     )
   end
 

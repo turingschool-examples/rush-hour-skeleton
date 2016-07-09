@@ -8,7 +8,6 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :ip
   belongs_to :client
 
-
   def self.most_frequent_request_type
     verbs = PayloadRequest.all.pluck(:request_type_id)
     freq = verbs.reduce(Hash.new(0)) { |hash,value| hash[value] += 1; hash }
@@ -18,17 +17,32 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.url_frequency
-    # all.map do |pr|
-    #   pr.url
-    # end
-
-    addresses = self.all.pluck(:url_id)
+    addresses = PayloadRequest.all.pluck(:url_id)
     freq = addresses.reduce(Hash.new(0)) { |hash,value| hash[value] += 1; hash }
     url = freq.sort_by { |key,value| value}.reverse
     url.map do |item|
       Url.find(item[0]).address
     end
   end
+
+  def self.url_response_times
+    # addresses = PayloadRequest.all.pluck(:url_id)
+    # times = PayloadRequest.all.pluck(:responded_in)
+    # thing = addresses.zip(times)
+    # per_time = thing.reduce(Hash.new(0)) { |thing, value| thing[value] = thing; thing}
+    # require "pry"; binding.pry
+    # response_times = addresses.reduce(Hash.new(0)) { |hash,value| hash[value] += 1; hash }
+    #
+    #
+    # url = freq.sort_by { |key,value| value}.reverse
+    # url.map do |item|
+    #   Url.find(item[0]).address
+    # end
+  end
+
+
+  #  [[1, 42], [1, 48], [2, 23], [1, 36], [2, 21], [3, 29], [1, 34], [3, 45], [1, 25], [4, 31]]
+
 
   def self.max_response_time
     PayloadRequest.maximum(:responded_in)
