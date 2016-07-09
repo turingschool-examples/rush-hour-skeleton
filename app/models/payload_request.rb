@@ -33,9 +33,13 @@ class PayloadRequest < ActiveRecord::Base
     Referrer.find(self.referred_by_id)
   end
 
-  def self.find_max_response_by_url(url)
+  def self.find_specific_url(url)
     id = Url.find_by_address(url).id
     payloads = PayloadRequest.where(url_id: id)
+  end
+
+  def self.find_max_response_by_url(url)
+    payloads = find_specific_url(url)
     responses = payloads.map do |payload|
       payload.responded_in
     end
@@ -43,13 +47,21 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.find_min_response_by_url(url)
-    id = Url.find_by_address(url).id
-    payloads = PayloadRequest.where(url_id: id)
+    payloads = find_specific_url(url)
     responses = payloads.map do |payload|
       payload.responded_in
     end
     responses.min
   end
+
+
+  def self.find_average_response_time_by_url(url)
+    payloads = find_specific_url(url)
+    times = payloads.all.pluck(:responded_in)
+    times.reduce(:+)/times.count
+  end
+
+
 
 
 end
