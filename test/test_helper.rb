@@ -45,7 +45,7 @@ module TestHelpers
 
   def create_payload(integer)
     integer.times do |i|
-    url            =  Url.create(address: "http://jumpstartlab.com/blog#{i}")
+    url            =  Url.find_or_create_by(address: "http://jumpstartlab.com/blog#{i}")
     requested_at   =  Time.now
     request_type   =  RequestType.create(verb: "GET #{i}")
     resolution     =  Resolution.create(width: "1920#{i}", height: "1280#{i}")

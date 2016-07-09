@@ -8,7 +8,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :ip_id,                presence: true
   validates :resolution_id,        presence: true
   validates :client_id,            presence: true
-  validates :parameter_id,        presence: true
+  validates :parameter_id,         presence: true
 
   belongs_to :url
   belongs_to :referrer, foreign_key: :referred_by_id
@@ -18,9 +18,4 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :ip
   belongs_to :client
   belongs_to :parameter
-  #
-  # def referrer
-  #   Referrer.find(self.referred_by_id)
-  # end
-
 end
