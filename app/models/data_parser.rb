@@ -18,10 +18,14 @@ class DataParser
    referral        = Referral.find_or_create_by(name:payload["referredBy"])
    user_agent_device = UserAgentDevice.find_or_create_by(os: parsed_os, browser: parsed_browser)
    ip              = Ip.find_or_create_by(ip_address:payload["ip"])
-   payload_request = PayloadRequest.create(url: url, requested_at: Time.now.to_s,
-                     responded_in: 5, referral_id: referral.id,
+   client          = Client.find_or_create_by(identifier: payload[:identifier])
+   responded_in    = payload[:responded_in]
+   requested_at    = payload[:requested_at]
+   payload_request = PayloadRequest.create(url: url, requested_at: requested_at,
+                     responded_in: responded_in, referral_id: referral.id,
                      request_type: request_type, user_agent_device_id: user_agent_device.id,
-                     resolution: resolution, ip: ip, sha: @sha)
+                     resolution: resolution, ip: ip, sha: @sha, client_id: client.id)
+
   end
 
   def parsed_root

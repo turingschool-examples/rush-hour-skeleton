@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708230938) do
+ActiveRecord::Schema.define(version: 20160709212249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.text     "identifier"
+    t.text     "root_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "ips", force: :cascade do |t|
     t.text     "ip_address"
@@ -22,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160708230938) do
   end
 
   create_table "payload_requests", force: :cascade do |t|
-    t.date     "requested_at"
+    t.text     "requested_at"
     t.integer  "responded_in"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -33,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160708230938) do
     t.integer  "resolution_id"
     t.integer  "ip_id"
     t.binary   "sha"
+    t.integer  "client_id"
   end
 
   create_table "referrals", force: :cascade do |t|
