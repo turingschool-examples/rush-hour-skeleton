@@ -11,8 +11,13 @@ class IpTest < Minitest::Test
   end
 
   def test_that_it_creates_a_payload_with_ip
-    create_payload
+    create_single_payload
     assert_equal 1, PayloadRequest.count
+  end
+
+  def test_that_it_creates_a_payload_with_ip
+    create_multiple_payloads(2)
+    assert_equal 2, PayloadRequest.count
   end
 
 end

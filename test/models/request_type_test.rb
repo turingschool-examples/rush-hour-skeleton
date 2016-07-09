@@ -14,12 +14,23 @@ class RequestTypeTest < Minitest::Test
   end
 
   def test_that_it_has_a_relationship_with_payload_request
-    pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700", responded_in: 37, url_id: 1, referral_id: 1, request_type_id: 1, user_agent_device_id: 1, resolution_id: 1, ip_id: 1)
+     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700", responded_in: 37, url_id: 1, referral_id: 1, request_type_id: 1, user_agent_device_id: 1, resolution_id: 1, ip_id: 1, sha: 1)
 
     assert pr.respond_to?(:request_type)
   end
 
   def test_that_calculates_most_frequent_request_types
-
+    create_multiple_payloads(5)
+    assert_equal "GET", RequestType.frequent_request_types
   end
+
+  def test_that_can_list_all_verbs_used
+    create_multiple_payloads(5)
+
+    assert_equal "GET", RequestType.verb_list
+  end
+
+
+
+
 end

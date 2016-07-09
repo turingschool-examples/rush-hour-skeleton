@@ -57,11 +57,14 @@ class ResolutionTest < Minitest::Test
   end
 
   def test_it_finds_the_resolution
-    res = Resolution.new(height: "600", width: "800")
+    res = Resolution.create(height: "600", width: "800")
+    res = Resolution.create(height: "500", width: "800")
+    res = Resolution.create(height: "700", width: "800")
+
 
     assert res.width?
     assert res.height?
-    assert_equal 480000, Resolution.resolution_breakdown
+    assert_equal ["600 x 800", "500 x 800", "700 x 800"], Resolution.resolution
   end
 
 end
