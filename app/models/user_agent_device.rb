@@ -6,11 +6,11 @@ class UserAgentDevice < ActiveRecord::Base
   has_many :payload_requests
 
   def self.browser_breakdown
-    group(:browser)
+    group(:browser).count
   end
 
   def self.os_breakdown
-    group(:os)
+    group(:os).count
   end
-  
+
 end
