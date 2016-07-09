@@ -56,7 +56,7 @@ class UrlTest < Minitest::Test
 
     url = Url.first
     expected = ["www.facebook.com", "wwww.google.com", "wwww.theonion.com"]
-    
+
     assert_equal expected, url.most_popular_referrers.sort
   end
 
@@ -66,7 +66,7 @@ class UrlTest < Minitest::Test
 
     url = Url.first
 
-    expected = ["Mozilla/5.0 (Macintosh; Windows XP) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Safari/537.17", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17", "Mozilla/5.0 (Macintosh; iOs) AppleWebKit/537.17 (KHTML, like Gecko) Safari/24.0.1309.0 Safari/537.17"]
+    expected = [["Chrome", "OS X 10.8.2"], ["Safari", "Windows XP"], ["Safari", "iOs"]]
 
     assert_equal expected, url.most_popular_user_agents
   end
