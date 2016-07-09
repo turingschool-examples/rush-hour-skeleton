@@ -9,7 +9,6 @@ class ClientTest < Minitest::Test
   end
 
   def test_it_can_create_client_instance
-
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
 
     assert_equal 1, Client.count
