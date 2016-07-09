@@ -8,5 +8,8 @@ class Url < ActiveRecord::Base
     joins(:payload_requests).group("urls.address").order(count: :desc).count.keys
   end
 
-  
+  def popular_agents
+    software_agents.group("os","browser").order(count: :desc).count.take(3)
+  end
+
 end
