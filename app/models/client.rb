@@ -14,4 +14,26 @@ class Client < ActiveRecord::Base
   def error_message
     errors.full_messages.join(", ")
   end
+
+# Max Response time
+# Min Response time
+# A list of response times across all requests listed from longest response time to shortest response time.
+# Average Response time for this URL
+# HTTP Verb(s) associated used to it this URL
+# Three most popular referrers
+# Three most popular user agents
+
+  def max_response_time
+    payload_requests.maximum(:responded_in)
+  end
+
+  def min_response_time
+    payload_requests.minimum(:responded_in)
+  end
+
+  def average_response_time
+    payload_requests.average(:responded_in)
+  end
+
+  
 end

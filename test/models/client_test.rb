@@ -23,4 +23,8 @@ class ClientTest < Minitest::Test
     assert_equal 1, client.referrers.length
     assert_equal 1 ,client.parameters.length
   end
+
+  # def test_max_response_time
+  #   assert_equal "", Client.max_response_time
+  # end
 end
