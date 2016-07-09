@@ -22,7 +22,7 @@ module RushHour
     # body result[:body]
   end
 
-    not_found do
+  not_found do
       erb :error
     end
   end
