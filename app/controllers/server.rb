@@ -7,8 +7,13 @@ module RushHour
     end
 
     post '/sources' do
+      # require 'pry'; binding.pry
       cv = ClientChecker.new(params).res
       status, body = cv
+    end
+
+    post '/sources/' do
+
     end
 
   end

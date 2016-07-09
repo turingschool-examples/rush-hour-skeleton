@@ -2,7 +2,7 @@ class ClientChecker
   attr_reader :client
 
   def initialize(params)
-    @client = Client.create(params[:client])
+    @client = Client.create(identifier: params["identifier"], root_url: params["rootUrl"])
   end
 
   def res
