@@ -18,11 +18,8 @@ module RushHour
       end
   end
 
-    post '/sources/:IDENTIFIER/data' do |identifier|
-      client = Client.find_by(params[:identifier])
-      payload = DataParser.new(params[:payload]).parse_payload
-      require "pry"; binding.pry
-#need to check if it's a valid object, if it's the same type of model
+    post '/sources/:identifier/data' do |identifier|
+      payload = DataParser.new(params[:payload]).parse_payload(identifier)
     if payload.save
       status 200
       body "Payload received"
@@ -42,7 +39,7 @@ module RushHour
   end
 
 
-# ["Identifier can't be blank", "Root url can't be blank"]
+# this is for the client test: ["Identifier can't be blank", "Root url can't be blank"]
 
 #{"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
 
@@ -57,7 +54,5 @@ module RushHour
 # Server: WEBrick/1.3.1 (Ruby/2.3.0/2015-12-25)
 # Date: Sat, 09 Jul 2016 20:03:56 GMT
 # Connection: Keep-Alive
-    #post '/path_for_payload_in_JSON_format'
-    #this is where we'd call in the parser and create_payload method
   end
 end

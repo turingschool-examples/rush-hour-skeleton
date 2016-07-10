@@ -13,4 +13,7 @@ class UserAgentDevice < ActiveRecord::Base
     group(:os).count
   end
 
+  def self.user_agent_pair
+    pluck(:browser, :os)
+  end
 end

@@ -7,8 +7,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_device_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
-  validates :sha, presence: true
-  validates :client_id, presence: true
+  # validates :sha, presence: true
+  # validates :client_id, presence: true
 
   belongs_to :url
   belongs_to :referral
@@ -28,5 +28,9 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.max_response_time
     maximum(:responded_in)
+  end
+
+  def self.return_all_response_times
+    pluck(:responded_in)
   end
 end
