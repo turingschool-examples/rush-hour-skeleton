@@ -50,6 +50,6 @@ class Client < ActiveRecord::Base
 
   def all_screen_resolutions
     res = resolutions.pluck("width, height").uniq
-    what = res.map { |r| "#{r.first} X #{r.last}" }
+    res.map { |r| "#{r.first} X #{r.last}" }
   end
 end

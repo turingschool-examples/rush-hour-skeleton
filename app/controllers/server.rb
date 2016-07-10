@@ -22,7 +22,6 @@ module RushHour
     status result[:status]
   end
 
-
   get '/sources/:identifier' do |identifier|
 
     @client = Client.find_by(identifier: identifier)
