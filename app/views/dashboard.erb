@@ -1,0 +1,25 @@
+<div class="text-center">
+  <h1> <% @client.identifier.capitalize%></h1>
+</div>
+</div>
+<div class="row col-md-6 col-md-offset-3">
+  <div class="text-center">
+    <p> You are viewing the data for <%= @client.identifier.capitalize %>,
+      you can see all the statistical data for the following client:
+      <%= @client.identifier.capitalize %>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div id="stats" class="text-center row">
+    <h4><%= @client.identifier.capitalize %> Payload Statistics</h4>
+    <div class="col-md-offset-3 col-md-6">
+      <%= erb :_dashboard_response_time_table,
+      locals: { average: @client.average_response_time,
+        min: @client.min_response_time,
+        max: @client.max_response_time,
+        freq: @client.most_frequent_request_type} %>
+      </div>
+    </div>
+  </div>

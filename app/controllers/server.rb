@@ -15,13 +15,21 @@ module RushHour
   end
 
   post '/sources/:identifier/data' do
-    binding.pry
     parsed_payload = Parser.parse_payload(params["payload"])
     result = DataLoader.load(parsed_payload, params["identifier"])
-    # status result[:status]
-    # body result[:body]
+
+    status result[:body]
+    status result[:status]
   end
 
+  get '/sources/:identifier' do |identifier|
+
+    @client = Client.find_by(identifier: identifier)
+    pass unless @client
+    payload_requests = @client.payload_requests
+    pass if payload_requests.empty?
+    erb :dashboard
+  end
     not_found do
       erb :error
     end
