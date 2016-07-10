@@ -20,7 +20,7 @@ class GetCorrectClientDashboardTest < Minitest::Test
       payload = PayloadRequest.find_or_create_by({
           :url_id => url.id,
           :requested_at => requested_at,
-          :responded_in => 1,
+          :responded_in => 69,
           :request_type_id => request_type.id,
           :resolution_id => resolution.id,
           :referred_by_id => referrer.id,
@@ -34,10 +34,10 @@ class GetCorrectClientDashboardTest < Minitest::Test
 
     get '/sources/Client69'
     assert_equal 200, last_response.status
-    expected = "You are viewing the data for wipitgood"
-    # assert_equal true, last_response.body.include?(expected)
-    # assert_equal true, last_response.body.include?("GET")
-    # assert_equal true, last_response.body.include?("48")
+    expected = "You are viewing the data for Client69"
+    assert_equal true, last_response.body.include?(expected)
+    assert_equal true, last_response.body.include?("GET")
+    assert_equal true, last_response.body.include?("69")
 
   end
 
