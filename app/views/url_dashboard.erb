@@ -1,0 +1,38 @@
+<div class="jumbotron container-fluid">
+  <div class="text-center">
+    <h1> <%= url.address %> </h1>
+  </div>
+  <br>
+  <div class="row col-md-6 col-md-offset-3">
+    <div class="text-center">
+      <p> This page provides detailed traffic analytics</p>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div id="times" class="text-center col-md-6">
+      <h4>Response Times</h4>
+      <%= erb :dashboard_response_time_table,
+        locals: {average: url.average_response_time_for_url,
+                 min: url.min_response_time_for_url,
+                 max: url.max_response_time_for_url,
+                 freq: nil } %>
+    </div>
+    <div id="all-times" class="text-center col-md-6">
+      <h4>All Response Times</h4>
+      <%= erb :dashboard_list_table, locals: { ordered_list: url.list_of_response_times_across_requests_for_urls } %>
+    </div>
+  </div>
+  <div class="row">
+    <div id = "referrers" class="text-center col-md-6">
+      <h4>Popular Referrers</h4>
+      <%= erb :dashboard_list_table, locals: { ordered_list: url.three_most_popular_referrers }%>
+    </div>
+    <div id = "agents" class="text-center col-md-6">
+      <h4> Popular Agents </h4>
+      <%= erb :dashboard_list_table, locals: { ordered_list: url.three_most_popular_software_agents }%>
+    </div>
+  </div>
+</div>

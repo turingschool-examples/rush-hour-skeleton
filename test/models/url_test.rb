@@ -26,7 +26,7 @@ class UrlTest < Minitest::Test
   def test_min_response_time_for_urls
     create_payload(3)
 
-    assert_equal 2, Url.last.min_response_time_for_url
+    assert_equal 0, Url.first.min_response_time_for_url
   end
 
   def test_average_response_time_for_url

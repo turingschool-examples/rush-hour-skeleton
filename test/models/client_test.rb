@@ -8,7 +8,7 @@ class ClientTest < Minitest::Test
     client = Client.find(1)
 
     assert_equal "jumpstartlab0", client.identifier
-    assert_equal "http://jumpstartlab.com0", client.root_url
+    assert_equal "http://jumpstartlab.com", client.root_url
   end
 
   def test_all_through_client_relationships
@@ -100,4 +100,18 @@ class ClientTest < Minitest::Test
     expected = ["1366 X 768"]
     assert_equal expected, Client.first.all_screen_resolutions
   end
+
+  def test_client_can_return_list_of_relative_paths
+   create_payload(1)
+   expected = "http://jumpstartlab.com/blog0"
+
+   assert_equal expected, Client.first.find_url_by_relative_path("blog0").address
+ end
+
+ def test_relative_path_exists
+   create_payload(1)
+   assert Client.first.relative_path_exists?("blog0")
+   refute Client.first.relative_path_exists?("other")
+ end
+
 end

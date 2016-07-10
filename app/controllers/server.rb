@@ -23,7 +23,6 @@ module RushHour
   end
 
   get '/sources/:identifier' do |identifier|
-
     @client = Client.find_by(identifier: identifier)
     pass unless @client
     payload_requests = @client.payload_requests
@@ -31,8 +30,16 @@ module RushHour
     erb :dashboard
   end
 
-  not_found do
-      erb :error
-    end
+  get '/sources/:identifier/urls/:rel_path' do |identifier, rel_path|
+     client = Client.find_by(identifier: identifier)
+     url = client.find_url_by_relative_path(rel_path)
+     pass unless url
+     erb :url_dashboard, locals: { url: url }
+   end
+
+   get '/sources/:identifier/urls/*' do |identifier, splat|
+     error_message = "No Data for #{splat} for #{identifier.capitalize}"
+     erb :error, locals: { error_message: error_message }
+   end
   end
 end
