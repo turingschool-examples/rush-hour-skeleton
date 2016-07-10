@@ -67,19 +67,6 @@ class UrlTest < Minitest::Test
     assert url.respond_to?(:user_agent_devices)
   end
 
-  def test_it_has_unique_path_for_each_url_root
-    skip
-    url = Url.create(root: "www.google.com", path: "/cats")
-    url1 = Url.create(root: "www.google.com", path: "/cats")
-
-    url2 = Url.create(root: "www.google.com", path: "/news")
-
-    assert url.valid?
-    refute url1.valid?
-    assert url2.valid?
-    assert_equal 3, Url.count
-  end
-
   def test_the_find_specific_url
     setup
 
