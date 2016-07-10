@@ -7,7 +7,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_device_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
-  # validates :sha, presence: true
+  validates :sha, presence: true
   validates :client_id, presence: true
 
   belongs_to :url
