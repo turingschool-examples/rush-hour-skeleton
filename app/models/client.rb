@@ -15,10 +15,6 @@ class Client < ActiveRecord::Base
     errors.full_messages.join(", ")
   end
 
-  # Web browser breakdown across all requests
-  # OS breakdown across all requests
-  # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
-
   def max_response_time
     payload_requests.maximum(:responded_in)
   end
@@ -44,4 +40,16 @@ class Client < ActiveRecord::Base
     urls.find_by(id: url_id).address
   end
 
+  def web_browser_breakdown
+    software_agents.group(:browser).order(count: :desc).count.keys
+  end
+
+  def web_os_breakdown
+    software_agents.group(:os).order(count: :desc).count.keys
+  end
+
+  def all_screen_resolutions
+    res = resolutions.pluck("width, height").uniq
+    what = res.map { |r| "#{r.first} X #{r.last}" }
+  end
 end
