@@ -153,8 +153,8 @@ module TestHelpers
       requested_at  = Time.now
       request_type  = RequestType.find_or_create_by(verb: "PUT")
       resolution    = Resolution.find_or_create_by(width: "320", height: "568")
-      referrer      = Referrer.find_or_create_by(address: "http://robohash.com")
-      software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
+      referrer      = Referrer.find_or_create_by(address: "http://robohash.com#{i}")
+      software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5#{i}", browser: "Chrome#{i}")
       ip            = Ip.find_or_create_by(address: "63.29.38.211")
       client         =  Client.find_or_create_by({:identifier => "robohash", :root_url => "http://robohash"})
       parameter      =  Parameter.find_or_create_by({user_input: "#{i}"})
@@ -162,7 +162,7 @@ module TestHelpers
       PayloadRequest.find_or_create_by({
           :url_id => url.id,
           :requested_at => requested_at,
-          :responded_in => 50,
+          :responded_in => 50 + i,
           :request_type_id => request_type.id,
           :resolution_id => resolution.id,
           :referred_by_id => referrer.id,
