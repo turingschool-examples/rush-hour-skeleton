@@ -15,13 +15,9 @@ class Client < ActiveRecord::Base
     errors.full_messages.join(", ")
   end
 
-# Max Response time
-# Min Response time
-# A list of response times across all requests listed from longest response time to shortest response time.
-# Average Response time for this URL
-# HTTP Verb(s) associated used to it this URL
-# Three most popular referrers
-# Three most popular user agents
+  # Web browser breakdown across all requests
+  # OS breakdown across all requests
+  # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 
   def max_response_time
     payload_requests.maximum(:responded_in)
@@ -32,8 +28,20 @@ class Client < ActiveRecord::Base
   end
 
   def average_response_time
-    payload_requests.average(:responded_in)
+    payload_requests.average(:responded_in).to_i
   end
 
-  
+  def list_of_all_http_verbs_used
+    request_types.pluck(:verb).uniq
+  end
+
+  def most_frequent_request_type
+    request_types.group(:verb).order(count: :desc).count.keys.first
+  end
+
+  def list_urls_from_most_to_least
+    url_id = payload_requests.pluck(:url_id).sort.last
+    urls.find_by(id: url_id).address
+  end
+
 end

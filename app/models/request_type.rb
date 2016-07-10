@@ -8,6 +8,4 @@ class RequestType < ActiveRecord::Base
   def self.sorted_list_of_http_verbs_used
     joins(:payload_requests).group("request_types.verb").order(count: :desc).count.keys
   end
-
-
 end
