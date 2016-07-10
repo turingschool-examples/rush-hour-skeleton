@@ -48,7 +48,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_list_of_http_verbs_used
     create_payload2(3)
-    
+
     assert_equal ["GET", "GET", "GET"], PayloadRequest.list_of_http_verbs_used
   end
 
@@ -67,6 +67,6 @@ class PayloadRequestTest < Minitest::Test
   def test_find_average_response_time_by_url
     create_payload2(5)
 
-    assert_equal 2, PayloadRequest.find_average_response_time_by_url("http://turing.io/blog")
+    assert_equal 5, PayloadRequest.find_average_response_time_by_url("http://turing.io/blog")
   end
 end

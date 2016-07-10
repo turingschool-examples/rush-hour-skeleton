@@ -66,24 +66,6 @@ module TestHelpers
         :ip_id => ip.id,
         :parameter_id => parameter.id,
         :client_id => client.id })
-
-      # url           = Url.find_or_create_by(address: "http://jumpstartlab.com/blog#{i}")
-      # requested_at  = Time.now
-      # request_type  = RequestType.find_or_create_by(verb: "GET")
-      # resolution    = Resolution.find_or_create_by(width: "1920#{i}", height: "1280#{i}")
-      # referrer      = Referrer.find_or_create_by(address: "http://jumpstartlab.com#{i}")
-      # software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5#{i}", browser: "Chrome#{i}")
-      # ip            = Ip.find_or_create_by(address: "63.29.38.211#{i}")
-      #
-      # PayloadRequest.find_or_create_by({
-      #     :url_id => url.id,
-      #     :requested_at => requested_at,
-      #     :responded_in => i,
-      #     :request_type_id => request_type.id,
-      #     :resolution_id => resolution.id,
-      #     :referred_by_id => referrer.id,
-      #     :software_agent_id => software_agent.id,
-      #     :ip_id => ip.id })
     end
   end
 
@@ -96,13 +78,13 @@ module TestHelpers
       referrer      = Referrer.find_or_create_by(address: "http://turing.com")
       software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.9.0", browser: "Firefox")
       ip            = Ip.find_or_create_by(address: "63.29.38.211")
-      client         =  Client.find_or_create_by({:identifier => "jumpstartlab#{i}", :root_url => "http://jumpstartlab.com#{i}"})
+      client         =  Client.find_or_create_by({:identifier => "turing", :root_url => "http://turing.io"})
       parameter      =  Parameter.find_or_create_by({user_input: "#{i}"})
 
       PayloadRequest.find_or_create_by({
           :url_id => url.id,
           :requested_at => requested_at,
-          :responded_in => i,
+          :responded_in => 5,
           :request_type_id => request_type.id,
           :resolution_id => resolution.id,
           :referred_by_id => referrer.id,
@@ -122,13 +104,13 @@ module TestHelpers
       referrer      = Referrer.find_or_create_by(address: "http://galvanize.com")
       software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
       ip            = Ip.find_or_create_by(address: "63.29.38.211")
-      client         =  Client.find_or_create_by({:identifier => "jumpstartlab#{i}", :root_url => "http://jumpstartlab.com#{i}"})
+      client         =  Client.find_or_create_by({:identifier => "galvanize", :root_url => "http://galvanize.com"})
       parameter      =  Parameter.find_or_create_by({user_input: "#{i}"})
 
       PayloadRequest.find_or_create_by({
           :url_id => url.id,
           :requested_at => requested_at,
-          :responded_in => i,
+          :responded_in => 10,
           :request_type_id => request_type.id,
           :resolution_id => resolution.id,
           :referred_by_id => referrer.id,
@@ -148,13 +130,13 @@ module TestHelpers
       referrer      = Referrer.find_or_create_by(address: "http://google.com")
       software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
       ip            = Ip.find_or_create_by(address: "63.29.38.211")
-      client         =  Client.find_or_create_by({:identifier => "jumpstartlab#{i}", :root_url => "http://jumpstartlab.com#{i}"})
+      client         =  Client.find_or_create_by({:identifier => "google", :root_url => "http://google.com"})
       parameter      =  Parameter.find_or_create_by({user_input: "#{i}"})
 
       PayloadRequest.find_or_create_by({
           :url_id => url.id,
           :requested_at => requested_at,
-          :responded_in => i,
+          :responded_in => 20,
           :request_type_id => request_type.id,
           :resolution_id => resolution.id,
           :referred_by_id => referrer.id,
@@ -174,13 +156,13 @@ module TestHelpers
       referrer      = Referrer.find_or_create_by(address: "http://robohash.com")
       software_agent = SoftwareAgent.find_or_create_by(os: "OSX 10.11.5", browser: "Chrome")
       ip            = Ip.find_or_create_by(address: "63.29.38.211")
-      client         =  Client.find_or_create_by({:identifier => "jumpstartlab#{i}", :root_url => "http://jumpstartlab.com#{i}"})
+      client         =  Client.find_or_create_by({:identifier => "robohash", :root_url => "http://robohash"})
       parameter      =  Parameter.find_or_create_by({user_input: "#{i}"})
 
       PayloadRequest.find_or_create_by({
           :url_id => url.id,
           :requested_at => requested_at,
-          :responded_in => i,
+          :responded_in => 50,
           :request_type_id => request_type.id,
           :resolution_id => resolution.id,
           :referred_by_id => referrer.id,
