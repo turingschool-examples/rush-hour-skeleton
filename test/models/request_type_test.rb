@@ -23,6 +23,4 @@ class RequestTypeTest < Minitest::Test
     create_payload5(5)
     assert_equal ["PUT", "POST", "GET"], RequestType.sorted_list_of_http_verbs_used
   end
-
-
 end

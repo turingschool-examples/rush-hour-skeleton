@@ -14,4 +14,42 @@ class Client < ActiveRecord::Base
   def error_message
     errors.full_messages.join(", ")
   end
+
+  def max_response_time
+    payload_requests.maximum(:responded_in)
+  end
+
+  def min_response_time
+    payload_requests.minimum(:responded_in)
+  end
+
+  def average_response_time
+    payload_requests.average(:responded_in).to_i
+  end
+
+  def list_of_all_http_verbs_used
+    request_types.pluck(:verb).uniq
+  end
+
+  def most_frequent_request_type
+    request_types.group(:verb).order(count: :desc).count.keys.first
+  end
+
+  def list_urls_from_most_to_least
+    url_id = payload_requests.pluck(:url_id).sort.last
+    urls.find_by(id: url_id).address
+  end
+
+  def web_browser_breakdown
+    software_agents.group(:browser).order(count: :desc).count.keys
+  end
+
+  def web_os_breakdown
+    software_agents.group(:os).order(count: :desc).count.keys
+  end
+
+  def all_screen_resolutions
+    res = resolutions.pluck("width, height").uniq
+    what = res.map { |r| "#{r.first} X #{r.last}" }
+  end
 end

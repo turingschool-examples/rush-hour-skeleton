@@ -6,12 +6,15 @@ class ServerTest < Minitest::Test
   def test_it_can_take_in_param_and_return_200_status
 
     params = {"identifier" => "test", "rootUrl" => "http://test.com"}
+
     post '/sources', params
+
     assert_equal 200, last_response.status
   end
 
   def test_it_returns_400_status_if_identifier_is_blank
     params = {"rootUrl" => "http://test.com"}
+
     post '/sources',  params
 
     assert_equal 400, last_response.status
@@ -20,6 +23,7 @@ class ServerTest < Minitest::Test
 
   def test_it_returns_400_status_if_root_url_is_blank
     params = {"identifier" => "test"}
+
     post '/sources', params
 
     assert_equal 400, last_response.status
@@ -28,6 +32,7 @@ class ServerTest < Minitest::Test
 
   def test_it_returns_403_status_if_identifier_already_exists
     create_payload(1)
+
     params = {"identifier" => "jumpstartlab0", "rootUrl" => "http://test.com0"}
     post '/sources', params
 
