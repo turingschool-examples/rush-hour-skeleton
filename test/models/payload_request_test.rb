@@ -25,13 +25,13 @@ class PayloadRequestTest < Minitest::Test
   def test_find_average
     create_payload(3)
 
-    assert_equal 1, PayloadRequest.average(:responded_in).to_i
+    assert_equal 0, PayloadRequest.average(:responded_in).to_i
   end
 
   def test_max_response_time
     create_payload(3)
 
-    assert_equal 2, PayloadRequest.maximum(:responded_in)
+    assert_equal 0, PayloadRequest.maximum(:responded_in)
   end
 
   def test_min_response_time

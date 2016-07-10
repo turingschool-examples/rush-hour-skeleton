@@ -1,0 +1,13 @@
+<table class="table table-striped table-bordered table-hover table-sm">
+  <% ordered_list.each_with_index do |list_item, index| %>
+    <% if index % 2 == 1 %>
+      <tr class="active">
+        <td> <%= list_item %> </td>
+      </tr>
+    <% else %>
+      <tr class="info">
+        <td> <%= list_item %> </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

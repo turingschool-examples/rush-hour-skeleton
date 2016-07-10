@@ -19,6 +19,6 @@ class ReferrerTest < Minitest::Test
   def test_top_three_referres_for_url
     create_payload(2)
     create_payload3(4)
-    assert_equal ["http://jumpstartlab.com0", "http://jumpstartlab.com1", "http://galvanize.com"], Referrer.top_three_referrers_for_url("http://jumpstartlab.com/blog")
+    assert_equal ["http://jumpstartlab.com0", "http://galvanize.com"], Referrer.top_three_referrers_for_url("http://jumpstartlab.com/blog")
   end
 end

@@ -52,4 +52,15 @@ class Client < ActiveRecord::Base
     res = resolutions.pluck("width, height").uniq
     res.map { |r| "#{r.first} X #{r.last}" }
   end
+
+  def find_url_by_relative_path(relative_path)
+    full_path = root_url + "/" + relative_path
+    urls.find_by(address: full_path)
+  end
+
+  def relative_path_exists?(relative_path)
+
+    full_path = root_url + "/" + relative_path
+    !!urls.find_by(address: full_path)
+  end
 end

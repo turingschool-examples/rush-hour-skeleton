@@ -13,11 +13,11 @@ class SoftwareAgentTest < Minitest::Test
 
   def test_browser_breakdown_returns_browser_with_count
     create_payload(2)
-    assert_equal ["Chrome0", "Chrome1"], SoftwareAgent.web_browser_breakdown
+    assert_equal ["Chrome0"], SoftwareAgent.web_browser_breakdown
   end
 
   def test_platform_breakdown_returns_platform_with_count
     create_payload(2)
-    assert_equal ["OSX 10.11.50", "OSX 10.11.51"], SoftwareAgent.web_platform_breakdown
+    assert_equal ["OSX 10.11.50"], SoftwareAgent.web_platform_breakdown
   end
 end
