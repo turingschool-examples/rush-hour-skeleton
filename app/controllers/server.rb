@@ -1,17 +1,18 @@
 module RushHour
   class Server < Sinatra::Base
+
     not_found do
       erb :error
     end
 
     post '/sources' do
       client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl])
-      if client.save
-        status  200
-        body  client.errors.full_messages.join(", ")
-      elsif client.errors.full_messages.include?("Identifier has already been taken")
+      if Client.exists?(identifier: params[:identifier])
         status 403
-        body  client.errors.full_messages.join(", ")
+        body  "Identifier has already been taken"
+      elsif client.save
+        status  200
+        body "Client created"
       else
         status  400
         body  client.errors.full_messages.join(", ")
@@ -20,21 +21,20 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       payload = DataParser.new(params[:payload]).parse_payload(identifier)
-      if payload.save
+      if PayloadRequest.exists?(:id)
+        #NOT WORKING
+      # elsif client.errors.full_messages.include?("Application has already been registered")
+        status 403
+        body "Payload has already been received"
+      elsif payload.save
         status 200
         body "Payload received"
-      elsif client.errors.full_messages.include?("Payload can't be blank")
+      else
         status 400
         body client.errors.full_messages.join(", ")
-      elsif client.errors.full_messages.include?("Payload has already been received")
-        status 403
-        body client.errors.full_messages.join(", ")
-      elsif client.errors.full_messages.include?("Application has already been registered")
-        status 403
-        body client.errors.full_messages.join(", ")
-      else
-        payload.errors.full_messages
-        body "Something else must be wrong."
+      # elsif client.errors.full_messages.include?("Payload has already been received")
+      #   status 403
+      #   body client.errors.full_messages.join(", ")
       end
     end
 

@@ -54,7 +54,7 @@ module TestHelpers
   def parsed_payload
     JSON.parse(payload)
   end
-  
+
   # def create_single_payload(number=1)
   #   number.times do |i|
   #     url               = Url.find_or_create_by(root: parsed_root, path: parsed_path)
@@ -113,6 +113,10 @@ module TestHelpers
 
  def parsed_browser
    UserAgent.parse(parsed_payload["userAgent"]).browser
+ end
+
+ def create_client
+   Client.create(identifier: "turing", root_url: "https://turing.io")
  end
 
 end
