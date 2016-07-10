@@ -22,6 +22,7 @@ module RushHour
     status result[:status]
   end
 
+
   get '/sources/:identifier' do |identifier|
 
     @client = Client.find_by(identifier: identifier)
@@ -30,7 +31,8 @@ module RushHour
     pass if payload_requests.empty?
     erb :dashboard
   end
-    not_found do
+
+  not_found do
       erb :error
     end
   end

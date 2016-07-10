@@ -9,7 +9,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :ip_id,                presence: true
   validates :resolution_id,        presence: true
   validates :client_id,            presence: true
-  # validates :parameter_id,         presence: true
+  validates :parameter_id,         presence: true
 
   belongs_to :url
   belongs_to :referrer, foreign_key: :referred_by_id
