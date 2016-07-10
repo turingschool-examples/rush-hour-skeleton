@@ -36,6 +36,10 @@ module RushHour
       end
     end
 
+    post 'sources/:identifier' do |identifier|
+    erb :client
+  end
+
 
     # this is for the client test: ["Identifier can't be blank", "Root url can't be blank"]
 

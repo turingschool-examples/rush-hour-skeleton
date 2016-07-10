@@ -29,18 +29,17 @@ class Url < ActiveRecord::Base
   end
 
   def verb_list_for_url
-    request_types.verb_list
+    request_types.verb_list.uniq
   end
 
   def top_referrers_for_url
-    # rough start need to map by the values to assert counts
-    l = referrals.return_all_referrals.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    l.keys
+    referrals.group(:name).order("count(name) DESC").limit(3).pluck(:name)
   end
 
   def top_user_agents_for_url
-    # rough start need to map by the values to assert counts
-    l = user_agent_devices.user_agent_pair.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    l.keys
+    occurrences = payload_requests.group(:user_agent_device_id).order('count_all desc').limit(3).count
+    occurrences.map do |user, times|
+      "Browser: #{UserAgentDevice.find(user).browser}, OS: #{UserAgentDevice.find(user).os}"
+    end
   end
 end

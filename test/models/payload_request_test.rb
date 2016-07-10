@@ -12,7 +12,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: 1,
                             resolution_id: 1,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
 
     assert pr.valid?
     assert pr.respond_to?(:requested_at)
