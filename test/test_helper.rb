@@ -9,15 +9,17 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 require 'json'
+require 'rack/test'
 
-DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.strategy = :truncation, {except: %w([public.schema.migrations])}
 
 Capybara.app = RushHour::Server
 
 module TestHelpers
+  include Rack::Test::Methods
 
   def app
-    RushHour
+    RushHour::Server
   end
 
   def setup
@@ -29,9 +31,13 @@ module TestHelpers
   end
 
   def create_single_payload
-      dp = DataParser.new(payload)
-      dp.parse_payload
-    end
+    dp = DataParser.new(payload)
+    dp.parse_payload
+  end
+
+  def create_client
+    client = Client.new(identifier: "turing", root_url: "https://www.turing.io/")
+  end
 
   def payload
     '{"url":"http://jumpstartlab.com/blog",
@@ -48,7 +54,7 @@ module TestHelpers
   def parsed_payload
     JSON.parse(payload)
   end
-  #
+  
   # def create_single_payload(number=1)
   #   number.times do |i|
   #     url               = Url.find_or_create_by(root: parsed_root, path: parsed_path)
