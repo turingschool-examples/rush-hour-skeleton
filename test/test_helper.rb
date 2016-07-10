@@ -28,12 +28,10 @@ module TestHelpers
     DatabaseCleaner.clean
   end
 
-  def create_single_payload(number=1)
-    number.times do |i|
+  def create_single_payload
       dp = DataParser.new(payload)
       dp.parse_payload
     end
-  end
 
   def payload
     '{"url":"http://jumpstartlab.com/blog",
@@ -76,7 +74,7 @@ module TestHelpers
       user_agent_device = UserAgentDevice.find_or_create_by(os: parsed_os, browser: parsed_browser.insert(-1, "#{i}"))
       ip                = Ip.find_or_create_by(ip_address: parsed_payload["ip"].sub("6", "#{i}"))
       payload_request   = PayloadRequest.create({url: url,
-                                                 requested_at: Time.now.to_s,
+                                                 requested_at: "2013-02-16 2#{i}:38:28 -0700",
                                                  responded_in: 5 *(i + 1),
                                                  referral: referral,
                                                  request_type: request_type,
@@ -84,6 +82,7 @@ module TestHelpers
                                                  resolution: resolution,
                                                  ip: ip,
                                                  sha: Digest::SHA256.digest("#{i + 2}")})
+
       # p payload_request
       # p url
       # p request_type

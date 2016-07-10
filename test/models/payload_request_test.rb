@@ -155,13 +155,12 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_can_find_the_minimum_reponse_time
     create_multiple_payloads(5)
-
     assert_equal 5, PayloadRequest.min_response_time
   end
 
   def test_it_can_find_the_maximum_response_time
     create_multiple_payloads(5)
-
+# require "pry"; binding.pry
     assert_equal 25, PayloadRequest.max_response_time
   end
 end
