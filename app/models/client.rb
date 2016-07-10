@@ -28,7 +28,7 @@ class Client < ActiveRecord::Base
   end
 
   def list_of_all_http_verbs_used
-    request_types.pluck(:verb).uniq
+    request_types.pluck(:verb).uniq.join(", ")
   end
 
   def most_frequent_request_type
@@ -41,16 +41,16 @@ class Client < ActiveRecord::Base
   end
 
   def web_browser_breakdown
-    software_agents.group(:browser).order(count: :desc).count.keys
+    software_agents.group(:browser).order(count: :desc).count.keys.join
   end
 
   def web_os_breakdown
-    software_agents.group(:os).order(count: :desc).count.keys
+    software_agents.group(:os).order(count: :desc).count.keys.join
   end
 
   def all_screen_resolutions
     res = resolutions.pluck("width, height").uniq
-    res.map { |r| "#{r.first} X #{r.last}" }
+    res.map { |r| "#{r.first} X #{r.last}" }.join(", ")
   end
 
   def find_url_by_relative_path(relative_path)
