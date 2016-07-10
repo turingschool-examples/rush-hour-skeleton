@@ -21,20 +21,18 @@ module RushHour
 
     post '/sources/:identifier/data' do |identifier|
       payload = DataParser.new(params[:payload]).parse_payload(identifier)
-      if PayloadRequest.exists?(:id)
-        #NOT WORKING
-      # elsif client.errors.full_messages.include?("Application has already been registered")
+      if !Client.where(identifier: identifier)
         status 403
-        body "Payload has already been received"
+        body "Application has not been registered"
       elsif payload.save
         status 200
         body "Payload received"
-      else
+      elsif payload.nil?
         status 400
-        body client.errors.full_messages.join(", ")
-      # elsif client.errors.full_messages.include?("Payload has already been received")
-      #   status 403
-      #   body client.errors.full_messages.join(", ")
+        body payload.errors.full_messages.join(", ")
+      else payload.errors.full_messages.include?("has already been received")
+         status 403
+         body "Payload has already been received"
       end
     end
 
