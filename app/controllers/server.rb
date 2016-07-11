@@ -24,9 +24,7 @@ module RushHour
 
   get '/sources/:identifier' do |identifier|
     @identifier = identifier
-
     @client = Client.find_by(identifier: identifier)
-    # require "pry"; binding.pry
     pass unless @client
     payload_requests = @client.payload_requests
     pass if payload_requests.empty?

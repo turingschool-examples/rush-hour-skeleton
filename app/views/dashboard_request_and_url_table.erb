@@ -4,15 +4,16 @@
     <td> <%= all %> </td>
   </tr>
   <tr class="active">
-    <td> Most Frequent Request Types </td>
-    <td> <%= most %> </td>
+    <td> URL Requests - Most to Least </td>
+    <td> <a href="<%= most.join %>"><%= most.join %></a> </td>
+
   </tr>
   <tr class="info">
-    <td> URL Requests - Most to Least </td>
-    <td> <%= most_url %> </td>
+    <td> Operating Systems </td>
+    <td> <%= os %> </td>
   </tr>
     <tr class="active">
-      <td> Screen Resolutions </td>
-      <td> <%= res  %> </td>
+      <td> Browsers </td>
+      <td> <%= browser  %> </td>
     </tr>
 </table>
