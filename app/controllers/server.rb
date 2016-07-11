@@ -1,5 +1,16 @@
+        require 'pry'
+
 module RushHour
   class Server < Sinatra::Base
+
+  def most_urls
+      urls = @client.list_urls_from_most_to_least
+      urls.map do |url|
+      rel_path= url.split("/").last
+      new_urls =url.split("//")[1].split(".")[0] + "/urls/#{rel_path}"
+    end
+  end
+
 
   post '/sources' do
     client = Client.create({identifier: params["identifier"],root_url: params["rootUrl"]})
@@ -24,6 +35,7 @@ module RushHour
 
   get '/sources/:identifier' do |identifier|
     @identifier = identifier
+
     @client = Client.find_by(identifier: identifier)
     pass unless @client
     payload_requests = @client.payload_requests
