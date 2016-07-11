@@ -132,7 +132,6 @@ module TestHelpers
               sha: Digest::SHA256.digest("data_three"),
               client: Client.find_or_create_by(identifier: "turing", root_url: "https://turing.io")
               })
-            end
           end
-
-        end
+    end
+end

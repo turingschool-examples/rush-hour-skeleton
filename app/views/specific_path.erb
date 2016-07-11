@@ -1,0 +1,10 @@
+<h1> Data for <%= @specific_path.root + @specific_path.path %>: </h1>
+<h3>
+ Average Response Time: <%= @specific_path.average_response_time_for_url %><br />
+ Minimum Response Time: <%= @specific_path.min_response_time_for_url %><br />
+ Maximum Response Time: <%= @specific_path.max_response_time_for_url %><br />
+ Verb List for URL: <%= @specific_path.verb_list_for_url %><br />
+ Response Times From Longest to Shortest Response Time: <%= @specific_path.response_time_list_for_url.sort.reverse %><br />
+ Top Referrers for URL: <%= @specific_path.top_referrers_for_url %><br />
+ Top User Agents for URL: <%= @specific_path.top_user_agents_for_url %><br />
+ </h3>
