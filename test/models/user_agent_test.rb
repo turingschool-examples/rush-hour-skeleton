@@ -38,16 +38,16 @@ class UserAgentDeviceTest < Minitest::Test
   end
 
   def test_that_can_breakdown_browser_across_all_requests
-      create_multiple_payloads(3)
-      ua1 = UserAgentDevice.create(browser: "Mozilla", os: "Macintosh")
-      ua2 = UserAgentDevice.create(browser: "Safari", os: "Windows")
-      ua3 = UserAgentDevice.create(browser: "Safari", os: "Macintosh")
-      PayloadRequest.all[0].update(user_agent_device_id: ua1.id)
-      PayloadRequest.all[1].update(user_agent_device_id: ua2.id)
-      PayloadRequest.all[2].update(user_agent_device_id: ua3.id)
+    create_multiple_payloads(3)
+    ua1 = UserAgentDevice.create(browser: "Mozilla", os: "Macintosh")
+    ua2 = UserAgentDevice.create(browser: "Safari", os: "Windows")
+    ua3 = UserAgentDevice.create(browser: "Safari", os: "Macintosh")
+    PayloadRequest.all[0].update(user_agent_device_id: ua1.id)
+    PayloadRequest.all[1].update(user_agent_device_id: ua2.id)
+    PayloadRequest.all[2].update(user_agent_device_id: ua3.id)
 
-      expected = {"Chrome0"=>1, "Mozilla"=>1, "Chrome1"=>1, "Chrome2"=>1, "Safari"=>2}
-      assert_equal expected, UserAgentDevice.browser_breakdown
+    expected = {"Chrome0"=>1, "Mozilla"=>1, "Chrome1"=>1, "Chrome2"=>1, "Safari"=>2}
+    assert_equal expected, UserAgentDevice.browser_breakdown
   end
 
   def test_can_breakdown_os_across_all_requests
