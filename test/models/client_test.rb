@@ -53,7 +53,7 @@ class ClientTest < Minitest::Test
     create_payload3(3)
     create_payload4(4)
 
-    assert_equal ["GET"], Client.first.list_of_all_http_verbs_used
+    assert_equal "GET", Client.first.list_of_all_http_verbs_used
   end
 
   def test_most_frequent_request_type
@@ -66,11 +66,9 @@ class ClientTest < Minitest::Test
   end
 
   def test_list_urls_from_most_to_least
-    create_payload2(2)
-    create_payload3(3)
-    create_payload4(4)
+    create_payload(5)
 
-    expected = "http://turing.io/blog"
+    expected = ["http://jumpstartlab.com/blog0"]
     assert_equal expected, Client.first.list_urls_from_most_to_least
   end
 
@@ -79,7 +77,7 @@ class ClientTest < Minitest::Test
     create_payload3(3)
     create_payload4(4)
 
-    expected = ["Firefox"]
+    expected = "Firefox"
     assert_equal expected, Client.first.web_browser_breakdown
   end
 
@@ -88,7 +86,7 @@ class ClientTest < Minitest::Test
     create_payload3(3)
     create_payload4(4)
 
-    expected = ["OSX 10.9.0"]
+    expected = "OSX 10.9.0"
     assert_equal expected, Client.first.web_os_breakdown
   end
 
@@ -97,7 +95,7 @@ class ClientTest < Minitest::Test
     create_payload3(3)
     create_payload4(4)
 
-    expected = ["1366 X 768"]
+    expected = "1366 X 768"
     assert_equal expected, Client.first.all_screen_resolutions
   end
 

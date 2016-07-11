@@ -36,8 +36,8 @@ class Client < ActiveRecord::Base
   end
 
   def list_urls_from_most_to_least
-    url_id = payload_requests.pluck(:url_id).sort.last
-    urls.find_by(id: url_id).address
+    url_ids = payload_requests.pluck(:url_id).sort.reverse.uniq
+    url_ids.map { |url_id| Url.find_by(id: url_id).address }
   end
 
   def web_browser_breakdown
