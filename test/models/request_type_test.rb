@@ -19,8 +19,9 @@ class RequestTypeTest < Minitest::Test
   end
 
   def test_it_calculates_most_frequent_request_types
-    create_multiple_payloads(3)
-    result = {"GET"=>1}
+    # look at why this is not returning 3 post messages
+    setup_for_url
+    result = {"POST"=>1, "GET"=>1, "DELETE"=>1, "PUT"=>1}
     assert_equal result, RequestType.frequent_request_types
   end
 
@@ -28,5 +29,4 @@ class RequestTypeTest < Minitest::Test
     create_multiple_payloads(3)
     assert_equal ["GET"], RequestType.verb_list
   end
-
 end

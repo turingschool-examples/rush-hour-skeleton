@@ -62,5 +62,4 @@ class UserAgentDeviceTest < Minitest::Test
     expected = {"Linux"=>1, "Windows"=>1, "Macintosh"=>4}
     assert_equal expected, UserAgentDevice.os_breakdown
   end
-
 end

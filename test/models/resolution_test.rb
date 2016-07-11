@@ -48,5 +48,4 @@ class ResolutionTest < Minitest::Test
     assert res.height?
     assert_equal ["600 x 800", "500 x 800", "700 x 800"], Resolution.resolution
   end
-
 end

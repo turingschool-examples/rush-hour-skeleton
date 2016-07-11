@@ -10,5 +10,4 @@ class RequestType < ActiveRecord::Base
   def self.verb_list
     pluck(:verb)
   end
-
 end

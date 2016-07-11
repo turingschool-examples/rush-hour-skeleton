@@ -1,6 +1,6 @@
 class Url < ActiveRecord::Base
    validates :root, presence: true
-   validates :path, presence: true
+   validates :path, presence: true, uniqueness: true
 
    has_many :payload_requests
    has_many :request_types, through: :payload_requests
@@ -25,7 +25,8 @@ class Url < ActiveRecord::Base
   end
 
   def response_time_list_for_url
-    payload_requests.return_all_response_times
+    payload_requests.return_all_response_times.sort.reverse
+    # made this change
   end
 
   def average_response_time_for_url

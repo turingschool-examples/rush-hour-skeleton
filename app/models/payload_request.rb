@@ -1,5 +1,5 @@
 class PayloadRequest < ActiveRecord::Base
-  validates :requested_at, presence: true # uniqueness: true
+  validates :requested_at, presence: true
   validates :responded_in, presence: true
   validates :url_id, presence: true
   validates :referral_id, presence: true
@@ -7,10 +7,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_device_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
-  validates :sha, presence: true
+  validates :sha, presence: true #add uniq to the sha
   validates :client_id, presence: true
-
-  validates :client_id, uniqueness: { scope: :requested_at, message: "Client ID should only appear once per requested at." }
 
   belongs_to :url
   belongs_to :referral

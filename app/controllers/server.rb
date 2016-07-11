@@ -55,6 +55,7 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      # @complete_name = #concatinated name 
       @client = Client.find_by(identifier: identifier)
         @specific_path = @client.urls.find_specific_url("#{'/'}"+relative_path)
       if @specific_path.nil?
