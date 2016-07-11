@@ -25,22 +25,19 @@ class PayloadRequestTest < Minitest::Test
     assert pr.respond_to?(:resolution_id)
     assert pr.respond_to?(:ip_id)
     assert pr.respond_to?(:sha)
-    #can do individually for each validation,
-    #payload_request.url -- that will test the connection b/w pr and url and get a certain url
-    #want to make sure we can use pr.url and can use method respond_to?(:url)
-    #pr.respond_to?(:url) wont' pass until it belongs to (sets up the relationship)
   end
 
   def test_it_needs_a_requested_at
     pr = PayloadRequest.new(requested_at: nil,
-                            responded_in: 40,
+                            responded_in: "2013-02-16 21:38:28 -0700",
                             url_id: 1,
                             referral_id: 1,
                             request_type_id: 1,
                             user_agent_device_id: 1,
                             resolution_id: 1,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -53,7 +50,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: 1,
                             resolution_id: 1,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -66,7 +64,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: 1,
                             resolution_id: 1,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -79,7 +78,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: 1,
                             resolution_id: 1,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -92,7 +92,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: 1,
                             resolution_id: 1,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -105,7 +106,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: nil,
                             resolution_id: 1,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -118,7 +120,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: 1,
                             resolution_id: nil,
                             ip_id: 1,
-                            sha: 1)
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -131,7 +134,8 @@ class PayloadRequestTest < Minitest::Test
                             user_agent_device_id: 1,
                             resolution_id: 1,
                             ip_id: nil,
-                            sha: '1')
+                            sha: 1,
+                            client_id: 1)
     refute pr.valid?
   end
 
@@ -143,14 +147,28 @@ class PayloadRequestTest < Minitest::Test
                             request_type_id: 1,
                             user_agent_device_id: 1,
                             resolution_id: 1,
-                            ip_id: nil,
-                            sha: '1')
+                            ip_id: 1,
+                            sha: nil,
+                            client_id: 1)
+    refute pr.valid?
+  end
+
+  def test_it_needs_a_client_id
+    pr = PayloadRequest.new(requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 40,
+                            url_id: 1,
+                            referral_id: 1,
+                            request_type_id: 1,
+                            user_agent_device_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1,
+                            sha: 1,
+                            client_id: nil)
     refute pr.valid?
   end
 
   def test_it_can_find_the_average
     create_multiple_payloads(5)
-
     assert_equal 15, PayloadRequest.average_response_time
   end
 
@@ -161,7 +179,11 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_can_find_the_maximum_response_time
     create_multiple_payloads(5)
-# require "pry"; binding.pry
     assert_equal 25, PayloadRequest.max_response_time
+  end
+
+  def test_it_can_return_all_response_times
+    create_multiple_payloads(5)
+    assert_equal [5, 10, 15, 20, 25], PayloadRequest.return_all_response_times
   end
 end

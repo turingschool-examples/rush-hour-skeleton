@@ -14,47 +14,47 @@ module RushHour
         status  200
         body "Client created"
       else
-        status  400
-        body  client.errors.full_messages.join(", ")
+        status 400
+        body client.errors.full_messages.join(", ")
       end
     end
 
     post '/sources/:identifier/data' do |identifier|
-      payload = DataParser.new(params[:payload]).parse_payload(identifier)
-      if !Client.where(identifier: identifier)
+
+      client = Client.find_by(identifier: identifier)
+      payload = DataParser.new(params[:payload]).parse_payload(identifier) unless params[:payload].nil? || client.nil?
+      if client.nil? #!Client.where(identifier: identifier) #
         status 403
         body "Application has not been registered"
+        #body #payload.errors.full_messages
+      elsif payload.nil?
+        status 400
+        body "Payload cannot be blank"
       elsif payload.save
         status 200
         body "Payload received"
-      elsif payload.nil?
-        status 400
-        body payload.errors.full_messages.join(", ")
-      else payload.errors.full_messages.include?("has already been received")
-         status 403
-         body "Payload has already been received"
+      else #payload.errors.full_messages.include?("has already been received")
+        status 403
+        body "Payload has already been received"
+        #body #payload.errors.full_messages
       end
     end
 
-    post 'sources/:identifier' do |identifier|
-    erb :client
-  end
+    get '/sources/:identifier' do |identifier|
+      if Client.where(identifier: identifier)
+        @client = Client.find_by(identifier: identifier)
+        erb :show
+        #   #goes to their endpoint and they can view statistics
+      elsif !Client.where(identifier: identifier)
+        body "Client does not exist"
+      elsif Client.where(identifier: identifier) && PayloadRequest.where(client_id: client)
+        body "Please submit your payload request."
+      end
+    end
 
+    get '/' do
+      erb :index
+    end
 
-    # this is for the client test: ["Identifier can't be blank", "Root url can't be blank"]
-
-    #{"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
-
-
-    # #http://jumpstartlab.com'  http://localhost:9393/sources
-    # HTTP/1.1 200 OK
-    # Content-Type: text/html;charset=utf-8
-    # Content-Length: 24
-    # X-Xss-Protection: 1; mode=block
-    # X-Content-Type-Options: nosniff
-    # X-Frame-Options: SAMEORIGIN
-    # Server: WEBrick/1.3.1 (Ruby/2.3.0/2015-12-25)
-    # Date: Sat, 09 Jul 2016 20:03:56 GMT
-    # Connection: Keep-Alive
   end
 end
