@@ -2,10 +2,10 @@ class DataLoader
 
   def self.load(payload, identifier)
     if !Client.find_by(identifier: identifier)
-      response = {status: 403, body: "Application is not registered"}
+     {status: 403, body: "Application is not registered"}
     elsif payload.nil?
 
-      response = {status: 400, body: "Missing payload"}
+     {status: 400, body: "Missing payload"}
     elsif check_existance(payload, identifier) == false
 
       result = PayloadRequest.new ({
@@ -21,11 +21,10 @@ class DataLoader
         parameter:        Parameter.find_or_create_by(user_input: payload["parameters"].to_s) })
 
         result.save
-        response = {status: 200, body: "OK"}
+        {status: 200, body: "OK"}
       else
-        response = {status: 403, body: "Payload already exists"}
+        {status: 403, body: "Payload already exists"}
       end
-      response
     end
 
     def self.check_existance(payload, identifier)
@@ -42,5 +41,15 @@ class DataLoader
         resolution:     Resolution.find_by(width: payload["resolutionWidth"], height: payload["resolutionHeight"]),
         client:         Client.find_by(identifier: identifier)
         })
-      end
+  end
+
+  def self.error_check(client)
+    if client.error_message.include?("can't be blank")
+    {status: 400, body: client.error_message}
+    elsif client.error_message.include?("has already been taken")
+      {status: 403, body: client.error_message}
+    else
+      {status: 200}
     end
+  end
+end

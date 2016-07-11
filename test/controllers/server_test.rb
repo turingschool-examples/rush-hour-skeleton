@@ -8,7 +8,6 @@ class ServerTest < Minitest::Test
     params = {"identifier" => "test", "rootUrl" => "http://test.com"}
 
     post '/sources', params
-
     assert_equal 200, last_response.status
   end
 
@@ -25,7 +24,6 @@ class ServerTest < Minitest::Test
     params = {"identifier" => "test"}
 
     post '/sources', params
-
     assert_equal 400, last_response.status
     assert_equal "Root url can't be blank", last_response.body
   end

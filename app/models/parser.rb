@@ -7,7 +7,6 @@ class Parser
   end
 
   def self.parse_payload(payload)
-
     parsed_json = parse_json(payload)
 
     { "url" => parsed_json["url"],

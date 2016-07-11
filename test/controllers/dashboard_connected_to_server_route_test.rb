@@ -31,7 +31,6 @@ class GetCorrectClientDashboardTest < Minitest::Test
         end
     create_payload
 
-
     get '/sources/Client69'
     assert_equal 200, last_response.status
     expected = "You are viewing the data for Client69"
@@ -40,20 +39,4 @@ class GetCorrectClientDashboardTest < Minitest::Test
     assert_equal true, last_response.body.include?("69")
 
   end
-
-  # def test_gets_correct_route_when_client_exists_without_payload
-  #   Client.create(identifier: "Client2", root_url: "www.client2.com")
-  #   get '/sources/Client2'
-  #   assert_equal 200, last_response.status
-  #   expected = "There is no payload data"
-  #   assert_equal true, last_response.body.include?(expected)
-  # end
-  #
-  # def test_gets_correct_route_when_dashboard_request_for_invalid_client
-  #   get '/sources/Client3'
-  #   assert_equal 200, last_response.status
-  #   expected = "Client3 does not exist"
-  #   assert_equal true, last_response.body.include?(expected)
-  # end
-
 end
