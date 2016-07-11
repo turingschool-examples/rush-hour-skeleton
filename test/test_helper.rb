@@ -120,13 +120,24 @@ module TestHelpers
           sha: Digest::SHA256.digest("data_two"),
           client: Client.find_or_create_by(identifier: "turing", root_url: "https://turing.io")
           })
+          PayloadRequest.find_or_create_by({url: Url.find_or_create_by(root: "http://jumpstartlab.com", path: "/blog"),
+            requested_at: "2016-02-16 29:38:28 -0700",
+            responded_in: 50,
+            referral: Referral.find_or_create_by(name: "https://google.com"),
+            request_type: RequestType.find_or_create_by(verb: "DELETE"),
+            user_agent_device: UserAgentDevice.find_or_create_by(os: "SafariXL", browser: "Mac"),
+            resolution: Resolution.find_or_create_by(height: "1000", width: "3000"),
+            ip: Ip.find_or_create_by(ip_address: "22.22.22.222"),
+            sha: Digest::SHA256.digest("data_two"),
+            client: Client.find_or_create_by(identifier: "turing", root_url: "https://turing.io")
+            })
           3.times do |i|
             PayloadRequest.find_or_create_by({url: Url.find_or_create_by(root: "http://jumpstartlab.com", path: "/blog"),
               requested_at: "2016-02-16 2#{i}:38:20 -0700",
               responded_in: 100,
               referral: Referral.find_or_create_by(name: "http://turing.io"),
               request_type: RequestType.find_or_create_by(verb: "POST"),
-              user_agent_device: UserAgentDevice.find_or_create_by(os: "Firefox#{i}", browser: "Mac_daddy"),
+              user_agent_device: UserAgentDevice.find_or_create_by(os: "Firefox", browser: "Mac_daddy"),
               resolution: Resolution.find_or_create_by(height: "#{i}00", width: "900"),
               ip: Ip.find_or_create_by(ip_address: "6#{i}.66.66.666"),
               sha: Digest::SHA256.digest("data_three"),

@@ -27,5 +27,4 @@ class ReferralTest < Minitest::Test
     refute ref2.valid?
     assert_equal 2, Referral.count
   end
-
 end

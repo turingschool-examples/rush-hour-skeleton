@@ -28,5 +28,4 @@ class IpTest < Minitest::Test
     refute ip3.valid?
     assert_equal 2, Ip.count
   end
-
 end
