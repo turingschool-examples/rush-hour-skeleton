@@ -2,7 +2,7 @@ module RushHour
   class Server < Sinatra::Base
 
     not_found do
-      erb :error
+      send_error("Error")
     end
 
     post '/sources' do
@@ -41,12 +41,14 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      if Client.where(identifier: identifier)
+      client = Client.find_by(identifier: identifier)
+      if client.nil?
+      #!Client.where(identifier: identifier)
+        send_error("Client does not exist")
+      elsif Client.where(identifier: identifier)
         @client = Client.find_by(identifier: identifier)
         erb :show
         #   #goes to their endpoint and they can view statistics
-      elsif !Client.where(identifier: identifier)
-        body "Client does not exist"
       elsif Client.where(identifier: identifier) && PayloadRequest.where(client_id: client)
         body "Please submit your payload request."
       end
@@ -56,5 +58,27 @@ module RushHour
       erb :index
     end
 
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      client = Client.find_by(identifier: identifier)
+      # if client.nil?
+      #   erb :error
+      # elsif client
+      #   erb :url
+        @client.urls.find_specific_url(relative_path)
+
+      # @url = client.urls.find_by(path: params[:relative_path])
+      # specific_path = @client.urls.find_specific_url(relative_path)
+      # if specific_path.nil?
+      #   send_error("That URL has not been requested")
+      # elsif client.url.exists?
+      #   erb :"#{:identifier}/urls/#{:relative_path}"
+        # verb_list_for_url
+      end
+    end
+
+    def send_error(body)
+      body = @error
+      erb :error
+    end
+
   end
-end
