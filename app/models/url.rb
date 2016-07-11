@@ -12,6 +12,10 @@ class Url < ActiveRecord::Base
      find_by(path: path)
   end
 
+  def self.top_urls
+    group(:path).order('count_all DESC').count
+  end
+
   def max_response_time_for_url
     payload_requests.max_response_time
   end

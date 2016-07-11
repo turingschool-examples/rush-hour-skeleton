@@ -20,7 +20,8 @@ class RequestTypeTest < Minitest::Test
 
   def test_it_calculates_most_frequent_request_types
     create_multiple_payloads(3)
-    assert_equal "GET", RequestType.frequent_request_types
+    result = {"GET"=>1}
+    assert_equal result, RequestType.frequent_request_types
   end
 
   def test_it_can_list_all_verbs_used

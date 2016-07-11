@@ -1,12 +1,17 @@
 require "bundler"
 Bundler.require
 
+require "rake"
+require "rake/testtask"
 require 'sinatra/activerecord/rake'
-require 'rake/testtask'
 
-# task :test do
-#   Dir.glob('./test/**/*_test.rb') { |file| require file }
-# end
+Rake::TestTask.new do |t|
+  t.pattern = 'test/*/*_test.rb'
+  t.verbose = true
+  t.warning = false
+end
+
+task default: :test
 
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"

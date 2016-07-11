@@ -2,7 +2,7 @@ class DataParser
   attr_reader :payload
 
   def initialize(data)
-    @payload = parsed_request(data)
+    @payload = parsed_request(data) 
     @sha = Digest::SHA256.digest(payload.to_s)
   end
 
@@ -24,8 +24,7 @@ class DataParser
    payload_request = PayloadRequest.create(url: url, requested_at: requested_at,
                      responded_in: responded_in, referral_id: referral.id,
                      request_type: request_type, user_agent_device_id: user_agent_device.id,
-                     resolution: resolution, ip: ip, sha: @sha, client_id: client.id)
-
+                     resolution: resolution, ip: ip, sha: @sha, client: client)
   end
 
   def parsed_root
