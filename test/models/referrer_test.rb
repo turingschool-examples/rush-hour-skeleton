@@ -21,4 +21,18 @@ class ReferrerTest < Minitest::Test
     create_payload3(4)
     assert_equal ["http://jumpstartlab.com0", "http://galvanize.com"], Referrer.top_three_referrers_for_url("http://jumpstartlab.com/blog")
   end
+
+
+  def test_doesnt_create_if_missing_field
+    Referrer.create
+    assert_equal 0, Referrer.count
+  end
+
+  def test_for_relationship_with_payload_request
+    create_payload(1)
+    payload= PayloadRequest.find(1)
+    assert_equal "http://jumpstartlab.com0", payload.referrer.address
+  end
+
+  
 end

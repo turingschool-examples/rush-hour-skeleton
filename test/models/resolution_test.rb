@@ -21,4 +21,23 @@ class ResolutionTest < Minitest::Test
     assert_equal 4, Resolution.count
     assert_equal expected, Resolution.all_screen_resolutions_across_all_requests
   end
+
+  def test_for_uniqness
+    Resolution.create(height: "1366px", width:"768px")
+    Resolution.create(height: "1366px", width:"768px")
+    Resolution.create(height: "1500px", width:"230px")
+    assert_equal 2, Resolution.count
+  end
+
+
+  def test_doesnt_create_if_missing_field
+    Resolution.create
+    assert_equal 0, Resolution.count
+  end
+
+  def test_for_relationship_with_payload_request
+    create_payload(1)
+    payload= PayloadRequest.find(1)
+    assert_equal "12800", payload.resolution.height
+  end
 end

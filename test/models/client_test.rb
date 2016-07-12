@@ -24,6 +24,7 @@ class ClientTest < Minitest::Test
     assert_equal 1 ,client.parameters.length
   end
 
+
   def test_max_response_time
     create_payload2(2)
     create_payload3(3)
