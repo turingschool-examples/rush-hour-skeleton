@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 require 'uri'
 
+gem 'simplecov', :require => false, :group => :test
 gem 'sinatra', require: 'sinatra/base'
 gem 'pg'
 gem 'activerecord'

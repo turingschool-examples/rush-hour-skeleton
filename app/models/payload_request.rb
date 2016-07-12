@@ -33,4 +33,14 @@ class PayloadRequest < ActiveRecord::Base
   def self.return_all_response_times
     pluck(:responded_in)
   end
+
+  def self.most_frequent_request_type
+    request_hash = select(:request_type_id).map do |x|
+      RequestType.find_by(id: x.request_type_id)
+    end
+    verbs = request_hash.map {|request| request.verb}
+    count = Hash.new(0)
+    verbs.map {|word| count[word] += 1}
+    count.sort_by {|key, value| value}[-1].first
+  end
 end
