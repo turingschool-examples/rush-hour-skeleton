@@ -5,7 +5,15 @@
   </tr>
   <tr class="active">
     <td> URL Requests - Most to Least </td>
-    <td> <a href="<%= most %>"><%= most %></a> </td>
+    <td>
+      <ol>
+      <% most.each do |url| %>
+        <li>
+          <a href="<%=url%>" class="most-link"><%= url %></a>
+        </li>
+        <% end %>
+      </ol>
+    </td>
 
   </tr>
   <tr class="info">

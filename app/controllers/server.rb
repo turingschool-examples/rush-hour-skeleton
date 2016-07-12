@@ -4,10 +4,13 @@ module RushHour
   helpers do
     def most_urls
         urls = @client.list_urls_from_most_to_least
-        urls.map do |url|
-        rel_path= url.split("/").last
-        new_urls =url.split("//")[1].split(".")[0] + "/urls/#{rel_path}"
-      end
+        # string = urls.join(',')
+        
+        # urls.map do |url|
+        # rel_path= url.split("/").last
+        # final =url.split("//")[1].split(".")[0] + "/urls/#{rel_path}"
+        # final.to_s.split
+    #   end
     end
   end
 

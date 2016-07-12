@@ -8,6 +8,17 @@ class UrlTest < Minitest::Test
     assert_equal "Turing.io", url.address
   end
 
+  def test_doesnt_create_if_missing_field
+    Url.create
+    assert_equal 0, Url.count
+  end
+
+  def test_for_relationship_with_payload_request
+    create_payload(1)
+    payload= PayloadRequest.find(1)
+    assert_equal "http://jumpstartlab.com/blog0", payload.url.address
+  end
+
   def test_urls_from_most_requested_to_least_requested
     create_payload(1)
     create_payload2(2)

@@ -24,7 +24,7 @@
     <div class="col-md-offset-3 col-md-6">
       <%= erb :dashboard_request_and_url_table,
       locals: { all: @client.list_of_all_http_verbs_used,
-        most: most_urls.join,
+        most: most_urls,
         os: @client.web_os_breakdown,
         browser: @client.web_browser_breakdown} %>
     </div>
