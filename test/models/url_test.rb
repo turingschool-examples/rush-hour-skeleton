@@ -87,7 +87,7 @@ class UrlTest < Minitest::Test
     setup_for_url
     url = Url.find_specific_url("/blog")
 
-    expected = ["Browser: Mac_daddy, OS: Firefox", "Browser: Macintosh, OS: Chrome", "Browser: Mac, OS: Safari"]
+    expected = ["Browser: Mac_daddy, OS: Firefox", "Browser: Mac, OS: Safari", "Browser: Macintosh, OS: Chrome"]
     assert_equal expected, url.top_user_agents_for_url
   end
 end

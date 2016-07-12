@@ -186,4 +186,10 @@ class PayloadRequestTest < Minitest::Test
     create_multiple_payloads(5)
     assert_equal [5, 10, 15, 20, 25], PayloadRequest.return_all_response_times
   end
+
+  def test_it_can_return_most_frequent_request_type
+    setup_for_url
+    result = "POST"
+    assert_equal result, PayloadRequest.most_frequent_request_type
+  end
 end

@@ -26,7 +26,6 @@ class Url < ActiveRecord::Base
 
   def response_time_list_for_url
     payload_requests.return_all_response_times.sort.reverse
-    # made this change
   end
 
   def average_response_time_for_url
