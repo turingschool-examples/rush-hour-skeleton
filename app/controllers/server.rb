@@ -22,7 +22,7 @@ module RushHour
     parsed_payload = Parser.parse_payload(params["payload"])
     result = DataLoader.load(parsed_payload, params["identifier"])
 
-    status result[:body]
+    body result[:body]
     status result[:status]
   end
 

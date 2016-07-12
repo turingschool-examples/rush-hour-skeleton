@@ -28,6 +28,14 @@ class ServerTest < Minitest::Test
     assert_equal "Root url can't be blank", last_response.body
   end
 
+  def test_it_returns_identifier
+    params = {"identifier" => "test", "rootUrl" => "http://test.com"}
+
+    post '/sources', params
+    assert_equal 200, last_response.status
+    assert_equal "test", last_response.body
+  end
+
   def test_it_returns_403_status_if_identifier_already_exists
     create_payload(1)
 

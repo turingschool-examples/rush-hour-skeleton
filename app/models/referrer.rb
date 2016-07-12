@@ -1,5 +1,5 @@
 class Referrer < ActiveRecord::Base
-  validates :address,   presence: true
+  validates :address, presence: true, uniqueness: true
 
   has_many :payload_requests
   has_many :clients, through: :payload_requests
@@ -21,5 +21,4 @@ class Referrer < ActiveRecord::Base
     end
     payloads
   end
-
 end
