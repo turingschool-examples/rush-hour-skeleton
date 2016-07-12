@@ -14,9 +14,9 @@ class DataLoader
         responded_in:     payload["respondedIn"],
         request_type:     RequestType.find_or_create_by(verb: payload["requestType"]),
         resolution:       Resolution.find_or_create_by(height: payload["resolutionWidth"], width: payload["resolutionHeight"]),
-        referrer:         Referrer.create(address: payload["referredBy"]),
-        software_agent:   SoftwareAgent.create(os: payload["software_agent"].os, browser: payload["software_agent"].browser),
-        ip:               Ip.create(address: payload["ip"]),
+        referrer:         Referrer.find_or_create_by(address: payload["referredBy"]),
+        software_agent:   SoftwareAgent.find_or_create_by(os: payload["software_agent"].os, browser: payload["software_agent"].browser),
+        ip:               Ip.find_or_create_by(address: payload["ip"]),
         client:           Client.find_by(identifier: identifier),
         parameter:        Parameter.find_or_create_by(user_input: payload["parameters"].to_s) })
 
