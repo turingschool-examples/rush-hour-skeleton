@@ -1,0 +1,50 @@
+<div class = "container">
+  <div class = "jumbotron">
+    <%= erb :'shared/_header', locals: {specific_path: @specific_path} %>
+  </div>
+
+  <div class = "well">
+    <table class = "span4">
+      <tr>
+        <td>Average Response Time:</td>
+        <td><%= @specific_path.average_response_time_for_url %></td>
+      </tr>
+      <tr>
+        <td>Minimum Response Time:</td>
+        <td><%= @specific_path.min_response_time_for_url %></td>
+      </tr>
+      <tr>
+        <td>Maximum Response Time:</td>
+        <td><%= @specific_path.max_response_time_for_url %></td>
+      </tr>
+      <tr>
+        <td>Verb List for URL:</td>
+        <td><% @specific_path.verb_list_for_url.each do |url| %>
+          <p><%= url %></p>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Response Times (Longest to Shortest):  </td>
+        <td><% @specific_path.response_time_list_for_url.each do |time| %>
+          <%= time %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Top Referrers for URL:</td>
+        <td><% @specific_path.top_referrers_for_url.each do |referrer| %>
+          <p><%= referrer %></p>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Top User Agents for URL:</td>
+        <td><% @specific_path.top_user_agents_for_url.each do |ua| %>
+          <p><%= ua %></p>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
