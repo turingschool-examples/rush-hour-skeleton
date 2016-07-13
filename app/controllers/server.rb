@@ -27,7 +27,8 @@ module RushHour
     post '/sources/:identifier/data' do |identifier|
       client = Client.find_by(identifier: identifier)
       payload_request = DataParser.new(params[:payload]).parse_payload(identifier) unless params[:payload].nil? || client.nil?
-
+      # status Handler.post_with_payload(client, payload_request, params)[:status]
+      # body Handler.post_with_payload(client, payload_request, params)[:body]
       if client.nil?
         status 403
         body "Application has not been registered"
