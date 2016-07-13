@@ -1,4 +1,6 @@
 module RushHour
+  # include Handler
+
   class Server < Sinatra::Base
 
     not_found do
@@ -7,36 +9,16 @@ module RushHour
 
     post '/sources' do
       client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl])
-      if Client.exists?(identifier: params[:identifier])
-        status 403
-        body  "Identifier has already been taken"
-      elsif client.save
-        status  200
-        body "Client created"
-      else
-        status 400
-        body client.errors.full_messages.join(", ")
-      end
+        status Handler.post_to_sources(client, params)[:status]
+        body Handler.post_to_sources(client, params)[:body]
     end
 
     post '/sources/:identifier/data' do |identifier|
-
       client = Client.find_by(identifier: identifier)
+      binding.pry
       payload_request = DataParser.new(params[:payload]).parse_payload(identifier) unless params[:payload].nil? || client.nil?
-
-      if client.nil?
-        status 403
-        body "Application has not been registered"
-      elsif payload_request.nil?
-        status 400
-        body "Payload cannot be blank"
-      elsif payload_request.validates?
-        status 200
-        body "Payload received"
-      else
-        status 403
-        body "Payload has already been received"
-      end
+      status Handler.post_with_payload(client, payload_request, params)[:status]
+      body Handler.post_with_payload(client, payload_request, params)[:body]
     end
 
     get '/sources/:identifier' do |identifier|

@@ -26,7 +26,6 @@ class DataParser
                      responded_in: responded_in, referral_id: referral.id,
                      request_type: request_type, user_agent_device_id: user_agent_device.id,
                      resolution: resolution, ip: ip, sha: @sha, client: client)
-    # payload_request.validates? ? payload_request.save : payload_request.destroy
   end
 
   def parsed_root
