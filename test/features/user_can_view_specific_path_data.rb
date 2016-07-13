@@ -6,13 +6,13 @@ class ClientCanViewSpecificPathData < FeatureTest
     client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
   end
 
-  def client_can_view_their_name_in_header
+  def test_client_can_view_their_name_in_header
     visit '/sources/jumpstartlab/urls/blog'
 
     assert page.has_content?("jumpstartlab")
   end
 
-  def client_can_specific_path_data_on_page
+  def test_client_can_specific_path_data_on_page
     create_multiple_payloads(3)
     visit '/sources/jumpstartlab/'
 

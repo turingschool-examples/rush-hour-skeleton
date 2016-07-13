@@ -8,9 +8,9 @@ class Url < ActiveRecord::Base
    has_many :requested_at, through: :payload_requests
    has_many :user_agent_devices, through: :payload_requests
 
-  def self.find_specific_url(path)
-     find_by(path: path)
-  end
+  # def self.find_by(path: path)
+  #    find_by(path: path)
+  # end
 
   def self.top_urls
     group(:path).order('count_all DESC').count

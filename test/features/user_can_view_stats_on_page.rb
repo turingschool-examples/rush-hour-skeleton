@@ -1,5 +1,5 @@
 require_relative '../test_helper'
-class ClientCanViewSpecificPathData < FeatureTest
+class ClientCanViewStatsOnPage < FeatureTest
   include TestHelpers
 
   def setup
@@ -7,7 +7,7 @@ class ClientCanViewSpecificPathData < FeatureTest
     create_multiple_payloads(3)
   end
 
-  def user_can_view_stats_on_page
+  def test_user_can_view_stats_on_page
     visit '/sources/jumpstartlab/'
 
     assert has_content?("Average Response Time")

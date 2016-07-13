@@ -17,7 +17,7 @@ module RushHour
         body  "Identifier has already been taken"
       elsif client.save
         status  200
-        body "Client created"
+        body "{identifier: '#{client.identifier}'}"
       else
         status 400
         body client.errors.full_messages.join(", ")
@@ -61,9 +61,8 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
-      # @complete_name = #concatinated name
       @client = Client.find_by(identifier: identifier)
-        @specific_path = @client.urls.find_specific_url("#{'/'}"+relative_path)
+        @specific_path = @client.urls.find_by(path: "#{'/'}"+relative_path)
       if @specific_path.nil?
         send_error("That URL has not been requested")
       else
