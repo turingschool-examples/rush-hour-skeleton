@@ -1,0 +1,57 @@
+<div class = "container">
+  <div class = "jumbotron">
+    <h2>Data for <%= @client.identifier %></h3>
+    </div>
+
+    <div class = "client_stats">
+      <table class = "span3">
+        <tr>
+          <td>Average Response Time:</td>
+          <td><%= @client.payload_requests.average_response_time %></td>
+        </tr>
+        <tr>
+          <td>Minimum Response Time:</td>
+          <td><%= @client.payload_requests.min_response_time %></td>
+        </tr>
+        <tr>
+          <td>Maximum Response Time:</td>
+          <td><%= @client.payload_requests.max_response_time %></td>
+        </tr>
+        <tr>
+          <td>Most Frequent Request Types:</td>
+          <td><%= @client.payload_requests.most_frequent_request_type %></td>
+        </tr>
+        <tr>
+          <td>Most Requested Browser Type:</td>
+          <td><%= @client.user_agent_devices.browser_breakdown %></td>
+        </tr>
+        <tr>
+          <td>List of URLs listed from most requested to least requested:</td>
+          <td><% @client.urls.top_urls.each do |url| %>
+            <p><%= url %></p>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>Web browser breakdown across all requests:</td>
+          <td><% @client.user_agent_devices.os_breakdown.each do |browser, count| %>
+            <p><%= browser %>: <%= count %></p>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>OS breakdown across all requests:</td>
+          <td><% @client.user_agent_devices.browser_breakdown.each do |os, count| %>
+            <p><%= os %>: <%= count %></p>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>Screen Resolutions across all requests:</td>
+          <td><% @client.resolutions.resolution.each do |resolution| %>
+            <p><%= resolution %></p>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
