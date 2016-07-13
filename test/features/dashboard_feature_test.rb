@@ -31,16 +31,22 @@ class DashboardFeatureTest < FeatureTest
   def test_visit_dashboard
     create_payload_test
     visit('/sources/ClientJump')
+    page.has_xpath?('/sources/ClientJump')
+    assert page.has_content?("You are viewing the data")
+    assert has_content?("Most Frequent Request Type")
+    assert has_content?("Maximum Response Time")
   end
 
   def test_click_link
     create_payload_test
     visit('/sources/ClientJump')
+    page.has_xpath?('/sources/ClientJump')
+    assert page.has_css?("h1")
+    assert has_content?("jumpstart")
     page.all(:css, '.most-link').each do |link|
       link.click
     end
   end
-
 
 
 end
