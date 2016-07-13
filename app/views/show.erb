@@ -1,6 +1,6 @@
 <div class = "container">
   <div class = "jumbotron">
-    <h2>Data for <%= @client.identifier %></h3>
+    <%= erb :'shared/_header', locals: {client: client} %>
     </div>
 
     <div class = "client_stats">
