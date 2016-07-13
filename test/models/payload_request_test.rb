@@ -22,6 +22,12 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "63.29.38.2110", payload.ip.address
   end
 
+  def test_payload_uniqness
+    create_payload(1)
+    create_payload(1)
+    assert_equal 1, PayloadRequest.count 
+  end
+
   def test_find_average
     create_payload(3)
 
