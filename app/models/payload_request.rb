@@ -7,7 +7,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_device_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
-  validates :sha, presence: true #add uniq to the sha
+  validates :sha, presence: true
   validates :client_id, presence: true
 
   belongs_to :url
@@ -34,9 +34,20 @@ class PayloadRequest < ActiveRecord::Base
     pluck(:responded_in)
   end
 
+  def validates?
+    all_shas = PayloadRequest.pluck(:sha)
+    last_sha = all_shas.pop
+    if all_shas.include?(last_sha)
+      self.destroy
+      false
+    else
+      true
+    end
+  end
+
   def self.most_frequent_request_type
-    request_hash = select(:request_type_id).map do |x|
-      RequestType.find_by(id: x.request_type_id)
+    request_hash = select(:request_type_id).map do |id|
+      RequestType.find_by(id: id.request_type_id)
     end
     verbs = request_hash.map {|request| request.verb}
     count = Hash.new(0)

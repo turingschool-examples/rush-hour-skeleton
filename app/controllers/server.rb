@@ -22,14 +22,15 @@ module RushHour
     post '/sources/:identifier/data' do |identifier|
 
       client = Client.find_by(identifier: identifier)
-      payload = DataParser.new(params[:payload]).parse_payload(identifier) unless params[:payload].nil? || client.nil?
+      payload_request = DataParser.new(params[:payload]).parse_payload(identifier) unless params[:payload].nil? || client.nil?
+
       if client.nil?
         status 403
         body "Application has not been registered"
-      elsif payload.nil?
+      elsif payload_request.nil?
         status 400
         body "Payload cannot be blank"
-      elsif payload.save
+      elsif payload_request.validates?
         status 200
         body "Payload received"
       else
@@ -55,7 +56,7 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
-      # @complete_name = #concatinated name 
+      # @complete_name = #concatinated name
       @client = Client.find_by(identifier: identifier)
         @specific_path = @client.urls.find_specific_url("#{'/'}"+relative_path)
       if @specific_path.nil?
