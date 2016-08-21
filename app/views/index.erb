@@ -1,0 +1,38 @@
+<div class='col-lg-12 navbar navbar-default navbar-static-top'>
+  <a class='navbar-brand'>Rush Hour</a>
+</div>
+<div class="list-group">
+  <a class="list-group-item active">
+    Payload Request Statistics
+  </a>
+  <a class="list-group-item">
+      Average response time across all requests: <%= @requests.average_response_time %>
+  </a>
+  <a class="list-group-item">
+      Max Response time accross all requests: <%= @requests.max_response_time %>
+  </a>
+  <a class="list-group-item">
+      Min Response time across all requests: <%= @requests.min_response_time %>
+  </a>
+  <a class="list-group-item">
+    Most frequent request type: <%= @requests.most_frequent_request_type %>
+  </a>
+  <a class="list-group-item">
+    List of all HTTP verbs used: <%= @requests.all_http_verbs %>
+  </a>
+  <a class="list-group-item">
+    List of URLs listed from most requested to least requested: <%= @requests.url_most_requested_to_least %>
+  </a>
+  <a class="list-group-item">
+    Web browser breakdown across all requests(userAgent): <%= @user_agents.web_browser_breakdown %>
+  </a>
+  <a class="list-group-item">
+    OS breakdown across all requests(userAgent): <%= @user_agents.os_breakdown %>
+  </a>
+  <a class="list-group-item">
+    Screen Resolutions across all requests (resolutionWidth x resolutionHeight): <%= @resolutions.screen_resolutions %>
+  </a>
+  <a class="list-group-item">
+      Events listed from most received to least: <%= @events.event_most_recieved_to_least(@requests) %>
+  </a>
+  </table>
