@@ -11,22 +11,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823192551) do
+ActiveRecord::Schema.define(version: 20160823224159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "ips", force: :cascade do |t|
+    t.text     "ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payload_requests", force: :cascade do |t|
-    t.text     "url"
     t.datetime "requested_at"
     t.integer  "responded_in"
-    t.text     "referred_by"
-    t.text     "request_type"
-    t.text     "user_agent"
-    t.text     "resolution_width"
-    t.text     "resolution_height"
-    t.text     "ip"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "resolution_id"
+    t.integer  "user_agent_id"
+    t.integer  "referral_id"
+    t.integer  "ip_id"
+    t.integer  "request_type_id"
+    t.integer  "url_id"
   end
+
+  create_table "referrals", force: :cascade do |t|
+    t.text     "referred_by"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "request_types", force: :cascade do |t|
+    t.text     "request_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.text     "height"
+    t.text     "width"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text     "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.text     "browser"
+    t.text     "operating_system"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
 end
