@@ -2,29 +2,7 @@ require_relative '../test_helper'
 
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
-  # '''
-  # validates :request_type_id,   presence: true
-  # validates :target_url_id,     presence: true
-  # validates :referrer_url_id,   presence: true
-  # validates :resolution_id,     presence: true
-  # validates :user_agent_id,     presence: true
-  # validates :ip_id,             presence: true
-  # validates :responded_in,      presence: true
-  # validates :requested_at,      presence: true
-  # '''
   def setup
-    # payload = {
-    #   "url":"http://jumpstartlab.com/blog",
-    #   "requestedAt":"2013-02-16 21:38:28 -0700",
-    #   "respondedIn":37,
-    #   "referredBy":"http://jumpstartlab.com",
-    #   "requestType":"GET",
-    #   "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    #   "resolutionWidth":"1920",
-    #   "resolutionHeight":"1280",
-    #   "ip":"63.29.38.211"
-    # }
-    #
     @snake_cased_data = {
       request_type_id: 1,
       target_url_id: 1,

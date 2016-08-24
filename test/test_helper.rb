@@ -9,6 +9,7 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
 require 'pg'
+require './app/models/data_parser'
 
 Capybara.app = RushHour::Server
 

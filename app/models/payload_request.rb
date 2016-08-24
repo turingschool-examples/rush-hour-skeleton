@@ -1,4 +1,11 @@
 class PayloadRequest < ActiveRecord::Base
+  has_many :request_types
+  has_many :target_urls
+  has_many :referrer_urls
+  has_many :resolutions
+  has_many :user_agents
+  has_many :ips
+
   validates :request_type_id,   presence: true
   validates :target_url_id,     presence: true
   validates :referrer_url_id,   presence: true
