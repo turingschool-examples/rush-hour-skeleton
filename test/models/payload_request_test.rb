@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require './app/models/payload_request'
 
-class PayloadRequestTest < Minitest::Test
+class PayloadRequestTest < ModelTest
   def test_it_finds_an_active_record_object
     PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
