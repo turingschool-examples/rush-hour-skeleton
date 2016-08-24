@@ -18,3 +18,7 @@ module TestHelpers
     super
   end
 end
+
+class ModelTest < Minitest::Test
+  include TestHelpers
+end
