@@ -3,7 +3,7 @@ require './app/models/request_type'
 
 class RequestTypeTest < ModelTest
   def test_it_validates_input
-    request_type = RequestType.new({request_type: "GET"})
+    request_type = RequestType.new({method: "GET"})
 
     request_type_sad = RequestType.new({})
     assert request_type.save
@@ -11,8 +11,8 @@ class RequestTypeTest < ModelTest
   end
 
   def test_it_has_unique_requests
-    request_type = RequestType.create({request_type: "GET"})
-    request_type = RequestType.new({request_type: "GET"})
+    request_type = RequestType.create({method: "GET"})
+    request_type = RequestType.new({method: "GET"})
 
     refute request_type.save
   end

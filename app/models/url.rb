@@ -1,6 +1,6 @@
 class Url < ActiveRecord::Base
   has_many :payload_requests
 
-  validates :url, presence: true
-  validates :url, uniqueness: true
+  validates  :web_address, presence: true
+  validates :web_address, uniqueness: true
 end

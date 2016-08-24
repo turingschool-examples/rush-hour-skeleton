@@ -14,7 +14,7 @@ class IpTest < ModelTest
   def test_address_is_unique
     ip = Ip.new({address: "test ip"})
 
-     ip.save
+    ip.save
 
     ip = Ip.new({address: "test ip"})
 
