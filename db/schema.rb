@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824203919) do
+ActiveRecord::Schema.define(version: 20160824210310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,17 +23,22 @@ ActiveRecord::Schema.define(version: 20160824203919) do
   end
 
   create_table "payload_requests", force: :cascade do |t|
-    t.string   "url"
-    t.datetime "requested_at"
+    t.integer  "target_url_id"
+    t.integer  "referrer_url_id"
+    t.integer  "request_type_id"
+    t.integer  "user_agent_id"
+    t.integer  "resolution_id"
+    t.integer  "ip_id"
     t.integer  "responded_in"
-    t.string   "referred_by"
-    t.string   "request_type"
-    t.string   "user_agent"
-    t.string   "resolution_width"
-    t.string   "resolution_height"
-    t.string   "ip"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "requested_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "referrer_urls", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "request_types", force: :cascade do |t|
@@ -49,7 +54,7 @@ ActiveRecord::Schema.define(version: 20160824203919) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "urls", force: :cascade do |t|
+  create_table "target_urls", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
