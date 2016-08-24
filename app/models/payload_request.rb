@@ -1,3 +1,3 @@
 class PayloadRequest < ActiveRecord::Base
-  validates :url, :requested_at, :responded_in, :referred_by, :user_agent, :resolution_width, :resolution_height, :ip, presence: true
+  validates :requested_at, :responded_in, :resolution_id, :user_agent_id, :referral_id, :ip_id, :request_type_id, :url_id, presence: true
 end
