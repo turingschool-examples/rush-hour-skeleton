@@ -19,9 +19,9 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_validates
-    refute PayloadRequest.create(url: "www.google.com").valid?
     parsed_payload = JSON.parse(create_payload)
-    
-    assert PayloadRequest.create(parsed_payload).valid?
+
+    refute PayloadRequest.new(url: "www.google.com").valid?
+    assert PayloadRequest.new(parsed_payload).valid?
   end
 end
