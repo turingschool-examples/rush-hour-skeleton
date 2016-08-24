@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require 'pg'
 
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
@@ -87,6 +86,8 @@ class PayloadRequestTest < Minitest::Test
     assert req.ip.nil?
     refute req.valid?
   end
+
+
 
 
 

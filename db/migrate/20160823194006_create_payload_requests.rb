@@ -1,4 +1,4 @@
-class CreatePayloadRequest < ActiveRecord::Migration
+class CreatePayloadRequests < ActiveRecord::Migration
   def change
     create_table :payload_requests do |t|
       t.string :url
@@ -10,7 +10,7 @@ class CreatePayloadRequest < ActiveRecord::Migration
       t.string :resolution_width
       t.string :resolution_height
       t.string :ip
-      
+
       t.timestamps null: false
     end
   end
