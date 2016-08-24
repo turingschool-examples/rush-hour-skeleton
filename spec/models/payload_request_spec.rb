@@ -4,33 +4,31 @@ require './app/models/payload_request'
 RSpec.describe PayloadRequest, type: :model do
 
   let(:payload) { PayloadRequest.new(
-    "url"=>"http://jumpstartlab.com/blog",
+    "url_id"=>1,
     "requested_at"=>"2013-02-16 21:38:28 -0700",
     "responded_in"=>37,
-    "referred_by"=>"http://jumpstartlab.com",
-    "request_type"=>"GET",
-    "user_agent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    "resolution_width"=>"1920",
-    "resolution_height"=>"1280",
-    "ip"=>"63.29.38.211")}
+    "source_id"=>2,
+    "request_type_id"=>3,
+    "u_agent_id"=>5,
+    "screen_resolution_id"=>4,
+    "ip_id"=>6)}
 
   let(:malformed_payload) { PayloadRequest.new(
-    "url"=> nil,
+    "url_id"=> nil,
     "requested_at"=>"2013-02-16 21:38:28 -0700",
     "responded_in"=>37,
-    "referred_by"=>"http://jumpstartlab.com",
-    "request_type"=>"GET",
-    "user_agent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    "resolution_width"=>"1920",
-    "resolution_height"=>"1280",
-    "ip"=>"63.29.38.211")}
+    "source_id"=>2,
+    "request_type_id"=>3,
+    "u_agent_id"=>5,
+    "screen_resolution_id"=>4,
+    "ip_id"=>6)}
 
   it "takes a payload and returns a payload request object" do
     expect(payload).to be_an_instance_of PayloadRequest
   end
 
-  it "has a url" do
-    expect(payload.url).to eq("http://jumpstartlab.com/blog")
+  it "has a url id" do
+    expect(payload.url_id).to eq(1)
   end
 
   it "has a date" do
@@ -41,32 +39,28 @@ RSpec.describe PayloadRequest, type: :model do
     expect(payload.responded_in).to eq(37)
   end
 
-  it "has a referred by" do
-    expect(payload.referred_by).to eq("http://jumpstartlab.com")
+  it "has a source_id" do
+    expect(payload.source_id).to eq(2)
   end
 
-  it "has a request type" do
-    expect(payload.request_type).to eq("GET")
+  it "has a request type_id" do
+    expect(payload.request_type_id).to eq(3)
   end
 
-  it "has a user_agent" do
-    expect(payload.user_agent).to eq("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+  it "has a u_agent_id" do
+    expect(payload.u_agent_id).to eq(5)
   end
 
-  it "has a resolution width" do
-    expect(payload.resolution_width).to eq("1920")
+  it "has a screen_resolution_id width" do
+    expect(payload.screen_resolution_id).to eq(4)
   end
 
-  it "has a resolution height" do
-    expect(payload.resolution_height).to eq("1280")
+  it "has an ip_id address" do
+    expect(payload.ip_id).to eq(6)
   end
 
-  it "has an ip address" do
-    expect(payload.ip).to eq("63.29.38.211")
-  end
-
-  it "will not create a payload request without a url" do
-    expect(PayloadRequest.new(:url => "")).to be_invalid
+  it "will not create a payload request without a url id" do
+    expect(PayloadRequest.new(:url_id => "")).to be_invalid
   end
 
   it "will not create a payload request without a requested_at" do
@@ -77,27 +71,23 @@ RSpec.describe PayloadRequest, type: :model do
     expect(PayloadRequest.new(:responded_in => "")).to be_invalid
   end
 
-  it "will not create a payload request without a referred_by" do
-    expect(PayloadRequest.new(:referred_by => "")).to be_invalid
+  it "will not create a payload request without a source_id" do
+    expect(PayloadRequest.new(:source_id => "")).to be_invalid
   end
 
-  it "will not create a payload request without a request_type" do
-    expect(PayloadRequest.new(:request_type => "")).to be_invalid
+  it "will not create a payload request without a request_type_id" do
+    expect(PayloadRequest.new(:request_type_id => "")).to be_invalid
   end
 
-  it "will not create a payload request without a user_agent" do
-    expect(PayloadRequest.new(:user_agent => "")).to be_invalid
+  it "will not create a payload request without a u_agent_id" do
+    expect(PayloadRequest.new(:u_agent_id => "")).to be_invalid
   end
 
-  it "will not create a payload request without a resolution_width" do
-    expect(PayloadRequest.new(:resolution_width => "")).to be_invalid
+  it "will not create a payload request without a screen_resolution_id" do
+    expect(PayloadRequest.new(:screen_resolution_id => "")).to be_invalid
   end
 
-  it "will not create a payload request without a resolution_height" do
-    expect(PayloadRequest.new(:resolution_height => "")).to be_invalid
-  end
-
-  it "will not create a payload request without an ip" do
-    expect(PayloadRequest.new(:ip => "")).to be_invalid
+  it "will not create a payload request without an ip_id" do
+    expect(PayloadRequest.new(:ip_id => "")).to be_invalid
   end
 end
