@@ -13,4 +13,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :u_agent_id, presence: true
   validates :screen_resolution_id, presence: true
   validates :ip_id, presence: true
+
+  def self.average_response_time
+    PayloadRequest.average(:responded_in).to_i
+  end
 end

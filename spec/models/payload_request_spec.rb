@@ -2,6 +2,10 @@ require './spec/spec_helper'
 require './app/models/payload_request'
 
 RSpec.describe PayloadRequest, type: :model do
+  # include TestHelpers
+
+
+
 
   let(:payload) { PayloadRequest.new(
     "url_id"=>1,
@@ -90,4 +94,31 @@ RSpec.describe PayloadRequest, type: :model do
   it "will not create a payload request without an ip_id" do
     expect(PayloadRequest.new(:ip_id => "")).to be_invalid
   end
+
+  it "will find the average response time" do
+    5.times { PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>35,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)}
+    5.times { PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>37,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)}
+
+    expect(PayloadRequest.all.length).to eq(10)
+    # binding.pry
+    expect(PayloadRequest.average_response_time).to eq(36)
+  end
+
+
 end
