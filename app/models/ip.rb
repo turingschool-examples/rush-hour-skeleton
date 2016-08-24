@@ -1,3 +1,3 @@
-class Ips < ActiveRecord::Base
+class Ip < ActiveRecord::Base
   validates :ip, presence: true
 end
