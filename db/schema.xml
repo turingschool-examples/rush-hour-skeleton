@@ -89,16 +89,22 @@
 <part>id</part>
 </key>
 </table>
-<table x="764.3333333333334" y="74" name="urls">
+<table x="784.3333333333334" y="75" name="urls">
 <row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="url" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="745.3333333333334" y="167" name="referred_bies">
+<table x="819.3333333333334" y="197" name="referred_bies">
 <row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="url" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
@@ -109,11 +115,14 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="ip_address" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="751.3333333333334" y="307" name="user_agents">
+<table x="532.3333333333334" y="450" name="user_agents">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -121,8 +130,11 @@
 <part>id</part>
 </key>
 </table>
-<table x="751.3333333333334" y="234" name="request_types">
+<table x="831.3333333333334" y="322" name="request_types">
 <row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="verb" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
