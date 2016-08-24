@@ -8,8 +8,13 @@ gem 'sinatra-activerecord'
 group :development, :test do
   gem 'shotgun'
   gem 'minitest'
+  gem 'rake'
   gem 'tux'
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
+end
+
+group :test do
+  gem 'database_cleaner'
 end
