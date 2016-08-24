@@ -1,9 +1,11 @@
 require_relative "../test_helper"
 
 class PayloadRequestTest < Minitest::Test
+  include TestHelpers
+
   def create_payload
-    # NOTE: The payload below has the column types reformatted already 
-    payload = {
+    # NOTE: The payload below has the column types reformatted already
+    payload = '{
       "url":"http://jumpstartlab.com/blog",
       "requested_at":"2013-02-16 21:38:28 -0700",
       "responded_in":37,
@@ -13,11 +15,13 @@ class PayloadRequestTest < Minitest::Test
       "resolution_width":"1920",
       "resolution_height":"1280",
       "ip":"63.29.38.211"
-    }
+    }'
   end
 
   def test_it_validates
     refute PayloadRequest.create(url: "www.google.com").valid?
-    assert PayloadRequest.create(create_payload).valid?
+    parsed_payload = JSON.parse(create_payload)
+    
+    assert PayloadRequest.create(parsed_payload).valid?
   end
 end
