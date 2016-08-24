@@ -18,5 +18,11 @@ DatabaseCleaner.strategy = :truncation
 module TestHelpers
   def setup
     DatabaseCleaner.clean
+    super
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+    super
   end
 end

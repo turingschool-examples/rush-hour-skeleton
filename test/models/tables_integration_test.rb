@@ -21,7 +21,7 @@ class TableIntegrationTest < Minitest::Test
   def test_it_creates_all_tables_with_valid_information
     DataParser.create(@payload)
 
-    assert_equal 1, PayloadRequest.all
+    assert_equal 1, PayloadRequest.all.length
     assert_equal 1, RequestType.all.length
     assert_equal 1, TargetURL.all.length
     assert_equal 1, ReferrerURL.all.length
