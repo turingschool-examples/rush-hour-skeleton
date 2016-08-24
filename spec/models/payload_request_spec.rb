@@ -66,38 +66,38 @@ RSpec.describe PayloadRequest, type: :model do
   end
 
   it "will not create a payload request without a url" do
-    expect(PayloadRequest.create(:url => "")).to be_invalid
+    expect(PayloadRequest.new(:url => "")).to be_invalid
   end
 
   it "will not create a payload request without a requested_at" do
-    expect(PayloadRequest.create(:requested_at => "")).to be_invalid
+    expect(PayloadRequest.new(:requested_at => "")).to be_invalid
   end
 
   it "will not create a payload request without a responded_in" do
-    expect(PayloadRequest.create(:responded_in => "")).to be_invalid
+    expect(PayloadRequest.new(:responded_in => "")).to be_invalid
   end
 
   it "will not create a payload request without a referred_by" do
-    expect(PayloadRequest.create(:referred_by => "")).to be_invalid
+    expect(PayloadRequest.new(:referred_by => "")).to be_invalid
   end
 
   it "will not create a payload request without a request_type" do
-    expect(PayloadRequest.create(:request_type => "")).to be_invalid
+    expect(PayloadRequest.new(:request_type => "")).to be_invalid
   end
 
   it "will not create a payload request without a user_agent" do
-    expect(PayloadRequest.create(:user_agent => "")).to be_invalid
+    expect(PayloadRequest.new(:user_agent => "")).to be_invalid
   end
 
   it "will not create a payload request without a resolution_width" do
-    expect(PayloadRequest.create(:resolution_width => "")).to be_invalid
+    expect(PayloadRequest.new(:resolution_width => "")).to be_invalid
   end
 
   it "will not create a payload request without a resolution_height" do
-    expect(PayloadRequest.create(:resolution_height => "")).to be_invalid
+    expect(PayloadRequest.new(:resolution_height => "")).to be_invalid
   end
 
   it "will not create a payload request without an ip" do
-    expect(PayloadRequest.create(:ip => "")).to be_invalid
+    expect(PayloadRequest.new(:ip => "")).to be_invalid
   end
 end
