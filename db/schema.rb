@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824210310) do
+ActiveRecord::Schema.define(version: 20160825000618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160824210310) do
     t.integer  "target_url_id"
     t.integer  "referrer_url_id"
     t.integer  "request_type_id"
-    t.integer  "user_agent_id"
+    t.integer  "u_agent_id"
     t.integer  "resolution_id"
     t.integer  "ip_id"
     t.integer  "responded_in"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20160824210310) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_agents", force: :cascade do |t|
+  create_table "u_agents", force: :cascade do |t|
     t.string   "browser"
     t.string   "os"
     t.datetime "created_at", null: false
