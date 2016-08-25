@@ -8,7 +8,7 @@ class PayloadRequestTest < Minitest::Test
       target_url_id: 1,
       referrer_url_id: 1,
       resolution_id: 1,
-      user_agent_id: 1,
+      u_agent_id: 1,
       ip_id: 1 ,
       responded_in: 37,
       requested_at: "2013-02-16 21:38:28 -0700"
@@ -25,7 +25,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal req.target_url_id, 1
     assert_equal req.referrer_url_id, 1
     assert_equal req.resolution_id, 1
-    assert_equal req.user_agent_id, 1
+    assert_equal req.u_agent_id, 1
     assert_equal req.ip_id, 1
     assert_equal req.responded_in, 37
     assert_equal req.requested_at, "2013-02-16 21:38:28 -0700"
@@ -57,9 +57,9 @@ class PayloadRequestTest < Minitest::Test
     refute req.valid?
   end
 
-  def test_is_invalid_with_missing_user_agent_id
-    req = PayloadRequest.create(data_without(:user_agent_id))
-    assert req.user_agent_id.nil?
+  def test_is_invalid_with_missing_u_agent_id
+    req = PayloadRequest.create(data_without(:u_agent_id))
+    assert req.u_agent_id.nil?
     refute req.valid?
   end
 
