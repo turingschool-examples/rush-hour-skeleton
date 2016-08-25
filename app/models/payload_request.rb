@@ -6,6 +6,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :u_agent
   belongs_to :ip
 
+  validates :client_id,         presence: true
   validates :request_type_id,   presence: true
   validates :target_url_id,     presence: true
   validates :referrer_url_id,   presence: true

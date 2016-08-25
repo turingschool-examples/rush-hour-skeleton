@@ -4,6 +4,7 @@ class PayloadRequestTest < Minitest::Test
   include TestHelpers
   def setup
     @snake_cased_data = {
+      client_id: 1,
       request_type_id: 1,
       target_url_id: 1,
       referrer_url_id: 1,
@@ -78,6 +79,12 @@ class PayloadRequestTest < Minitest::Test
   def test_is_invalid_with_missing_requested_at
     req = PayloadRequest.create(data_without(:requested_at))
     assert req.requested_at.nil?
+    refute req.valid?
+  end
+
+  def test_is_invalid_with_missing_requested_at
+    req = PayloadRequest.create(data_without(:client_id))
+    assert req.client_id.nil?
     refute req.valid?
   end
 end
