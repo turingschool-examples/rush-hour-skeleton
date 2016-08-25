@@ -17,10 +17,10 @@ Capybara.app = RushHour::Server
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean_with(:truncation)
 # module TestHelpers
-#   before :each do
-#     DatabaseCleaner.start
-#   end
-#
+# #   before :each do
+# #     DatabaseCleaner.start
+# #   end
+# #
 #   after :each do
 #     DatabaseCleaner.clean
 #   end
