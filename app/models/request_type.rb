@@ -1,10 +1,10 @@
 class RequestType < ActiveRecord::Base
   has_many :payload_requests
 
-  validates :method, presence: true
-  validates :method, uniqueness: true
+  validates :http_verb, presence: true
+  validates :http_verb, uniqueness: true
 
   def self.list_all_verbs
-    RequestType.pluck(:method)
+    RequestType.pluck(:http_verb)
   end
 end
