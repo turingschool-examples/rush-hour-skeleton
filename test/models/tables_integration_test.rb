@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require 'pry'
 
 class TableIntegrationTest < Minitest::Test
   include TestHelpers
