@@ -49,7 +49,7 @@ RSpec.describe ScreenResolution, type: :model do
     expect(ScreenResolution.display_resolutions).to eq([["1920", "1280"], ["1280", "720"], ["1920", "720"], ["1280", "1080"]])
   end
 
-  skip "will find screen resolutions by payload request" do
+  it "will find screen resolutions by payload request id" do
     screen_resolutions = [["1920", "1280"], ["1280", "720"], ["1920", "720"], ["1280", "1080"]]
     screen_resolutions.each do |pair|
       ScreenResolution.create("width" => pair[0],
@@ -68,6 +68,9 @@ RSpec.describe ScreenResolution, type: :model do
                   "ip_id"=>6)
                 end
 
-    expect(ScreenResolution.display_resolution_id_count).to eq([["1920", "1280"], ["1280", "720"], ["1920", "720"], ["1280", "1080"]])
+    expect(ScreenResolution.all_display_resolutions).to eq({2=>{"width"=>"1280", "height"=>"720", "count"=>2},
+                                                            4=>{"width"=>"1280", "height"=>"1080", "count"=>3},
+                                                            1=>{"width"=>"1920", "height"=>"1280", "count"=>1},
+                                                            3=>{"width"=>"1920", "height"=>"720", "count"=>3}})
   end
 end
