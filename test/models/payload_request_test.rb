@@ -96,6 +96,4 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 32, PayloadRequest.min_response_time
     assert_equal 3, PayloadRequest.all.count
   end
-
-
 end
