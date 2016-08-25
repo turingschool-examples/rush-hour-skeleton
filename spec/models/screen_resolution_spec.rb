@@ -39,9 +39,35 @@ RSpec.describe ScreenResolution, type: :model do
     expect(ScreenResolution.new("width" => "1920")).to be_invalid
   end
 
-  it "will find all screen resolutions" do
+  it "will find all unique screen resolutions" do
     ScreenResolution.create("width" =>"1920", "height" => "1280")
     ScreenResolution.create("width" =>"1280", "height" => "720")
-    expect(ScreenResolution.display_resolutions).to eq([["1920", "1280"], ["1280", "720"]])
+    ScreenResolution.create("width" =>"1920", "height" => "1280")
+    ScreenResolution.create("width" =>"1920", "height" => "720")
+    ScreenResolution.create("width" =>"1280", "height" => "1080")
+
+    expect(ScreenResolution.display_resolutions).to eq([["1920", "1280"], ["1280", "720"], ["1920", "720"], ["1280", "1080"]])
+  end
+
+  skip "will find screen resolutions by payload request" do
+    screen_resolutions = [["1920", "1280"], ["1280", "720"], ["1920", "720"], ["1280", "1080"]]
+    screen_resolutions.each do |pair|
+      ScreenResolution.create("width" => pair[0],
+                              "height" => pair[1])
+                            end
+
+    [1,2,3,4,2,3,3,4,4].each do |screen_res_id|
+      PayloadRequest.create(
+                  "url_id"=>1,
+                  "requested_at"=>"2013-02-16 21:38:28 -0700",
+                  "responded_in"=>30,
+                  "source_id"=>2,
+                  "request_type_id"=>3,
+                  "u_agent_id"=>5,
+                  "screen_resolution_id"=>screen_res_id,
+                  "ip_id"=>6)
+                end
+
+    expect(ScreenResolution.display_resolution_id_count).to eq([["1920", "1280"], ["1280", "720"], ["1920", "720"], ["1280", "1080"]])
   end
 end
