@@ -1,13 +1,13 @@
 class Url < ActiveRecord::Base
   has_many :payload_requests
+  has_many :request_types, through: :payload_requests
+  has_many :referrals, through: :payload_requests
 
-  validates  :web_address, presence: true
+  validates :web_address, presence: true
   validates :web_address, uniqueness: true
 
   def response_times
-    payload_requests.map do |request|
-      request.pluck("responded_in")
-    end
+    payload_requests.pluck(:responded_in)
   end
 
   def min_response_time
@@ -23,11 +23,11 @@ class Url < ActiveRecord::Base
   end
 
   def http_verbs
-    payload_requests.http_verbs
+    request_types.pluck(:http_verb)
   end
 
-  def referalls
-    payload_requests.referrals
+  def top_three_referrers
+    referrals.group(:referred_by).limit(3).count(:referral_id)
   end
 
   def user_agents

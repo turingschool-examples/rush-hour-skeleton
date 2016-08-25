@@ -3,7 +3,7 @@ require './app/models/url'
 
 class UrlTest < ModelTest
   def setup
-    @url = Url.create(url: "http://www.example.com")
+    @url = Url.create(web_address: "http://www.example.com")
     @payload = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
                             resolution_id: 1,
@@ -24,7 +24,7 @@ class UrlTest < ModelTest
   end
 
   def test_it_has_unique_urls
-    url = Url.new(url: "http://www.example.com")
+    url = Url.new(web_address: "http://www.example.com")
 
     refute url.save
   end
@@ -48,5 +48,10 @@ class UrlTest < ModelTest
 
   def test_it_knows_http_verbs_for_this_url
     assert_equal [], @url.http_verbs
+  end
+
+  def test_it_can_return_top_3_referrers_to_a_site
+    expected = {}
+    assert_equal expected, @url.top_three_referrers
   end
 end
