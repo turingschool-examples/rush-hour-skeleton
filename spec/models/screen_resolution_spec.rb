@@ -2,6 +2,11 @@ require './spec/spec_helper'
 require './app/models/screen_resolution'
 
 RSpec.describe ScreenResolution, type: :model do
+
+  after :each do
+      DatabaseCleaner.clean
+    end
+
   let(:screen_resolution) { ScreenResolution.new("height" =>"1280", "width" => "1920")}
 
   it "takes a u agent and returns a u agent object" do
@@ -32,5 +37,11 @@ RSpec.describe ScreenResolution, type: :model do
   it "will not allow duplicate width" do
     ScreenResolution.create("width" =>"1920")
     expect(ScreenResolution.new("width" => "1920")).to be_invalid
+  end
+
+  it "will find all screen resolutions" do
+    ScreenResolution.create("width" =>"1920", "height" => "1280")
+    ScreenResolution.create("width" =>"1280", "height" => "720")
+    expect(ScreenResolution.display_resolutions).to eq([["1920", "1280"], ["1280", "720"]])
   end
 end

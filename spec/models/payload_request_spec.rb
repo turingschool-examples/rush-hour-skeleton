@@ -3,9 +3,9 @@ require './app/models/payload_request'
 
 RSpec.describe PayloadRequest, type: :model do
   # include TestHelpers
-
-
-
+  after :each do
+      DatabaseCleaner.clean
+    end
 
   let(:payload) { PayloadRequest.new(
     "url_id"=>1,
@@ -120,5 +120,217 @@ RSpec.describe PayloadRequest, type: :model do
     expect(PayloadRequest.average_response_time).to eq(36)
   end
 
+  it "will find the max response time" do
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>35,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
 
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>30,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>20,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    expect(PayloadRequest.max_response_time).to eq(35)
+  end
+
+  it "will find the min response time" do
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>35,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>30,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>20,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    expect(PayloadRequest.min_response_time).to eq(20)
+  end
+
+  it "will find max response time for a specific url" do
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>35,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>30,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>20,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    expect(PayloadRequest.url_max_response_time(2)).to eq(30)
+  end
+
+  it "will find min response time for a specific url" do
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>35,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>30,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>20,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    expect(PayloadRequest.url_min_response_time(2)).to eq(20)
+  end
+
+  it "will find all response times for a specific url in descending order" do
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>35,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>30,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>20,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>25,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    expect(PayloadRequest.url_response_times(2)).to eq([30, 25, 20])
+  end
+
+  it "will find average response time for a specific url" do
+    PayloadRequest.create(
+                "url_id"=>1,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>35,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>30,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    PayloadRequest.create(
+                "url_id"=>2,
+                "requested_at"=>"2013-02-16 21:38:28 -0700",
+                "responded_in"=>20,
+                "source_id"=>2,
+                "request_type_id"=>3,
+                "u_agent_id"=>5,
+                "screen_resolution_id"=>4,
+                "ip_id"=>6)
+
+    expect(PayloadRequest.url_avg_response_time(2)).to eq(25)
+  end
 end
