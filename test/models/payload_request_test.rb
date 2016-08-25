@@ -20,7 +20,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_validates_for_all_fields
     # parsed_payload = JSON.parse(create_payload)
-    payload = {url_id: 1,
+    payload = { url_id: 1,
               requested_at: "date",
               responded_in: 34,
               referred_by_id: 1,
