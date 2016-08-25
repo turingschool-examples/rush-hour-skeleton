@@ -35,5 +35,24 @@ class UserAgentTest < ModelTest
       refute user_agent.save
     end
 
+    def test_it_can_show_all_browsers
+      user_agent1 = UserAgent.create({browser: "Chrome", operating_system: "Windows"})
+      user_agent2 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
+      user_agent3 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
+      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
+      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
+
+      assert_equal ["Chrome", "Internet Explorer", "Chrome"], UserAgent.get_all_browsers
+    end
+
+    def test_it_can_show_all_operating_systems
+      user_agent1 = UserAgent.create({browser: "Chrome", operating_system: "Windows"})
+      user_agent2 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
+      user_agent3 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
+      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
+      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
+
+      assert_equal ["Windows", "Windows", "iOS"], UserAgent.get_all_operating_systems
+    end
 
   end

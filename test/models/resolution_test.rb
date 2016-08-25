@@ -46,4 +46,15 @@ class ResolutionTest < ModelTest
 
     refute resolution.save
   end
+
+  def test_it_can_find_all_resolutions
+    skip
+    resolution1 = Resolution.create({height: "100",
+                                 width: "250"
+                                 })
+    resolution2 = Resolution.new({height: "200",
+                                 width: "300"
+                                 })
+    assert_equal [["250, 100"], ["300, 200"]], Resolution.get_all_screen_resolutions
+  end
 end
