@@ -27,7 +27,7 @@ class TableIntegrationTest < Minitest::Test
     DataParser.create(@payload)
     pr = PayloadRequest.all.first
 
-    assert_equal "http://jumpstartlab.com/blog", pr.target_url.name
+    assert_equal "http://jumpstartlab.com/", pr.target_url.name
   end
 
   def test_it_creates_referrer_url_relationships
@@ -69,4 +69,55 @@ class TableIntegrationTest < Minitest::Test
     assert_equal false, pr.request_type.id == pr2.request_type.id
     assert_equal 2, RequestType.all.length
   end
+
+  def test_target_url_assigns_ids_accordingly
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+
+    assert_equal true, pr.target_url.id == pr3.target_url.id
+    assert_equal false, pr.target_url.id == pr2.target_url.id
+    assert_equal 2, TargetUrl.all.length
+  end
+
+  def test_referrer_url_assigns_ids_accordingly
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+
+    assert_equal false, pr.referrer_url.id == pr3.referrer_url.id
+    assert_equal true, pr3.referrer_url.id == pr2.referrer_url.id
+    assert_equal 2, ReferrerUrl.all.length
+  end
+
+  def test_resolution_assigns_ids_accordingly
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+
+    assert_equal true, pr.resolution.id == pr3.resolution.id
+    assert_equal false, pr.resolution.id == pr2.resolution.id
+    assert_equal 2, Resolution.all.length
+  end
+
+  def test_u_agent_assigns_ids_accordingly
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+
+    assert_equal true, pr.u_agent.id == pr3.u_agent.id
+    assert_equal true, pr.u_agent.id == pr2.u_agent.id
+    assert_equal 1, UAgent.all.length
+  end
+
+  def test_ip_assigns_ids_accordingly
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+
+    assert_equal false, pr.ip.id == pr3.ip.id
+    assert_equal false, pr.ip.id == pr2.ip.id
+    assert_equal 3, Ip.all.length
+  end
+
 end

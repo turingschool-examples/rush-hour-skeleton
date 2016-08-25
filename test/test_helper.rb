@@ -18,7 +18,7 @@ DatabaseCleaner.strategy = :truncation
 module TestHelpers
   def setup
     @payload = {
-      "url":"http://jumpstartlab.com/blog",
+      "url":"http://jumpstartlab.com/",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":37,
       "referredBy":"http://jumpstartlab.com",
@@ -33,9 +33,9 @@ module TestHelpers
       "url":"http://google.com",
       "requestedAt":"2013-03-21 21:38:28 -0700",
       "respondedIn":41,
-      "referredBy":"http://yahoo.com",
+      "referredBy":"http://google.com",
       "requestType":"POST",
-      "userAgent":"Mozilla/7.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/24.0.1309.0 Chrome/537.17",
+      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"800",
       "resolutionHeight":"600",
       "ip":"34.32.40.211"
@@ -49,7 +49,7 @@ module TestHelpers
       "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
-      "ip":"63.29.38.211"
+      "ip":"23.20.40.211"
     }
 
     DatabaseCleaner.clean
