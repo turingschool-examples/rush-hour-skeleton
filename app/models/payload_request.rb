@@ -26,6 +26,7 @@ class PayloadRequest < ActiveRecord::Base
     PayloadRequest.minimum(:responded_in).to_i
   end
 
+# Need to put these into Url model as instance methods, no need to pass an (id)
   def self.url_max_response_time(id)
     requests  = PayloadRequest.where(url_id: id)
     requests.maximum(:responded_in).to_i
