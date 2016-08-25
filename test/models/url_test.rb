@@ -5,6 +5,8 @@ class UrlTest < Minitest::Test
 
   def test_it_validates_url
     url = Url.create(url: "www.google.com")
-    assert url.valid?
+
+    assert Url.all.first.valid?
+    assert_equal 1, Url.all.count
   end
 end
