@@ -22,12 +22,7 @@ class DataParser
   end
 
   def self.find_client_identifier(referred_by)
-    counter = 0
-    referred_by.chars.reduce("") do |result, character|
-      counter += 1 if character == "/"
-      result += character unless counter == 3
-      result
-    end
+    "http://#{URI.parse(referred_by).host}"
   end
 
   def self.parse_resolutions(data)
