@@ -80,4 +80,22 @@ class PayloadRequestTest < Minitest::Test
     assert req.requested_at.nil?
     refute req.valid?
   end
+
+  def test_average_response_time
+    make_payloads
+    assert_equal 43.0, PayloadRequest.average_response_time
+  end
+
+  def test_max_response_time
+    make_payloads
+    assert_equal 60, PayloadRequest.max_response_time
+  end
+
+  def test_min_response_time
+    make_payloads
+    assert_equal 32, PayloadRequest.min_response_time
+    assert_equal 3, PayloadRequest.all.count
+  end
+
+
 end
