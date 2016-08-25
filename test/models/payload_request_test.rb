@@ -18,10 +18,32 @@ class PayloadRequestTest < Minitest::Test
     }'
   end
 
-  def test_it_validates
-    parsed_payload = JSON.parse(create_payload)
+  def test_it_validates_for_all_fields
+    # parsed_payload = JSON.parse(create_payload)
+    payload = {url_id: 1,
+              requested_at: "date",
+              responded_in: 34,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            }
 
-    refute PayloadRequest.new(url: "www.google.com").valid?
-    assert PayloadRequest.new(parsed_payload).valid?
+    # refute PayloadRequest.new(url_id: 1).valid?
+    assert PayloadRequest.create(payload).valid?
+  end
+
+  def test_it_fails_if_not_all_field_filled
+    payload = {url_id: 1,
+              requested_at: "date",
+              responded_in: 34,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 3,
+              resolution_id: 6
+            }
+
+    refute PayloadRequest.create(payload).valid?
   end
 end
