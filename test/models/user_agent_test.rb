@@ -35,4 +35,24 @@ class UserAgentTest < Minitest::Test
     assert_equal nil, ua.os
     refute ua.valid?
   end
+
+  def test_it_only_adds_unique_data
+    data_1 = { browser: "Chrome",  os: "MacOSX" }
+    data_2 = { browser: "Chrome",  os: "Linux" }
+    data_3 = { browser: "Firefox", os: "Linux" }
+
+    assert_equal 0, UAgent.count
+
+    ua_1 = UAgent.create(data_1)
+    ua_2 = UAgent.create(data_2)
+    ua_3 = UAgent.create(data_3)
+
+    assert_equal 3, UAgent.count
+    assert ua_1.valid? && ua_2.valid? && ua_3.valid?
+
+    ua_4 = UAgent.create(data_1)
+
+    assert_equal 3, UAgent.count
+    refute ua_4.valid?
+  end
 end
