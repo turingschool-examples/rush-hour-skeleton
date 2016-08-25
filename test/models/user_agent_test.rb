@@ -38,21 +38,29 @@ class UserAgentTest < ModelTest
     def test_it_can_show_all_browsers
       user_agent1 = UserAgent.create({browser: "Chrome", operating_system: "Windows"})
       user_agent2 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
-      user_agent3 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
-      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
-      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
+      user_agent4 = UserAgent.create({browser: "Firefox", operating_system: "iOS"})
+      user_agent5 = UserAgent.create({browser: "Safari", operating_system: "iOS"})
 
-      assert_equal ["Chrome", "Internet Explorer", "Chrome"], UserAgent.get_all_browsers
-    end
-
-    def test_it_can_show_all_operating_systems
-      user_agent1 = UserAgent.create({browser: "Chrome", operating_system: "Windows"})
-      user_agent2 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
-      user_agent3 = UserAgent.create({browser: "Internet Explorer", operating_system: "Windows"})
-      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
-      user_agent4 = UserAgent.create({browser: "Chrome", operating_system: "iOS"})
-
-      assert_equal ["Windows", "Windows", "iOS"], UserAgent.get_all_operating_systems
+      PayloadRequest.create({ requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              user_agent_id: user_agent1.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 6
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              user_agent_id: user_agent2.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 6
+                              })
+                              
+      assert_equal [], UserAgent.get_all_browsers_count
     end
 
   end

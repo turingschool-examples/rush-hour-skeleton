@@ -27,10 +27,13 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_referrers
-    referrals.group(:referred_by).limit(3).count(:referral_id)
+    referral_count = referrals.group(:referred_by).count(:referral_id)
+    sorted_referrals = referral_count.sort_by do |referred_by, count|
+      count
+    end.reverse
+    sorted_referrals.first(3).map do |referrer|
+      referrer.first
+    end
   end
 
-  def user_agents
-
-  end
 end
