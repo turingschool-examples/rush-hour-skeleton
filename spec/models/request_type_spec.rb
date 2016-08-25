@@ -40,7 +40,7 @@ RSpec.describe RequestType, type: :model do
       Url.create("address" => address)
     end
 
-    [[1,1],[1,1],[1,2],[1,3],[2,1],[1,2]].each do |request_type_url_id|
+    [[1,1],[1,1],[1,2],[1,3],[2,1],[2,2]].each do |request_type_url_id|
       PayloadRequest.create(
         "url_id"                =>  request_type_url_id[1],
         "requested_at"          =>  "2013-02-16 21:38:28 -0700",
@@ -86,14 +86,36 @@ RSpec.describe RequestType, type: :model do
     expect(RequestType.group_by_request_type).to eq({1=>2, 2=>1})
   end
 
+  it "knows all the request ids associated with a given url" do
+    make_request_types_and_payload_requests_and_urls
+
+    result_1 = { 1 => 2, 2 => 1}
+    result_2 = { 1 => 1, 2 => 1}
+    result_3 = { 1 => 1 }
+
+    actual_1 = RequestType.request_type_id_associated_with_url("www.jumpstartlab.com")
+    actual_2 = RequestType.request_type_id_associated_with_url("www.turing.io")
+    actual_3 = RequestType.request_type_id_associated_with_url("www.google.com")
+
+    expect(actual_1).to eq(result_1)
+    expect(actual_2).to eq(result_2)
+    expect(actual_3).to eq(result_3)
+  end
+
   it "knows all the request types associated with a given url" do
+    make_request_types_and_payload_requests_and_urls
+
     result_1 = { "GET" => 2, "PUT" => 1}
     result_2 = { "GET" => 1, "PUT" => 1}
-    result_3 = { "GET" => 1, "PUT" => 0}
+    result_3 = { "GET" => 1 }
 
-    expect(verbs_associated_with_url("www.jumpstartlab.com")).to eq(result_1)
-    expect(verbs_associated_with_url("www.turing.io")).to eq(result_2)
-    expect(verbs_associated_with_url("www.google.com")).to eq(result_3)
+    actual_1 = RequestType.verbs_associated_with_url("www.jumpstartlab.com")
+    actual_2 = RequestType.verbs_associated_with_url("www.turing.io")
+    actual_3 = RequestType.verbs_associated_with_url("www.google.com")
+
+    expect(actual_1).to eq(result_1)
+    expect(actual_2).to eq(result_2)
+    expect(actual_3).to eq(result_3)
   end
 
 end

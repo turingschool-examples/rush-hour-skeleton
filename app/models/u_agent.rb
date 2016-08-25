@@ -15,8 +15,8 @@ class UAgent < ActiveRecord::Base
 
   def self.breakdown(type)
     group_by_u_agent.to_a.reduce({}) do |result, grouping|
-      browser = UAgent.find_by(:id => grouping[0]).send(type)
-      result = incrament_browser_count(result, browser, grouping[1])
+      u_agent = UAgent.find_by(:id => grouping[0]).send(type)
+      result = incrament_browser_count(result, u_agent, grouping[1])
     end
   end
 

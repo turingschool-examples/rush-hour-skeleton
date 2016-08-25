@@ -1,9 +1,9 @@
 class PayloadRequest < ActiveRecord::Base
-  belongs_to :urls
-  belongs_to :sources
-  belongs_to :request_types
-  belongs_to :u_agents
-  belongs_to :screen_resolutions
+  belongs_to :url
+  belongs_to :source
+  belongs_to :request_type
+  belongs_to :u_agent
+  belongs_to :screen_resolution
 
   validates :url_id, presence: true
   validates :requested_at, presence: true
