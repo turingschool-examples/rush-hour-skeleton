@@ -16,4 +16,12 @@ class RequestTypeTest < ModelTest
 
     refute request_type.save
   end
+
+  def test_it_can_return_all_verbs_used
+    request_type1 = RequestType.create({method: "GET"})
+    request_type2 = RequestType.create({method: "PUSH"})
+    request_type3 = RequestType.create({method: "DELETE"})
+
+    assert_equal ["GET", "PUSH", "DELETE"], RequestType.list_all_verbs
+  end
 end

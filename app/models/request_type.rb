@@ -3,4 +3,8 @@ class RequestType < ActiveRecord::Base
 
   validates :method, presence: true
   validates :method, uniqueness: true
+
+  def self.list_all_verbs
+    RequestType.all.pluck(:method)
+  end
 end
