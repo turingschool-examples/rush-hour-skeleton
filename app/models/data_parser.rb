@@ -4,9 +4,9 @@ class DataParser
 
   def self.create(data)
     PayloadRequest.create(
-      request_type: RequestType.create({ name: data[:requestType]}),
-      target_url:   TargetUrl.create({ name: data[:url]}),
-      referrer_url: ReferrerUrl.create({ name: data[:referredBy]}),
+      request_type: RequestType.create({name: data[:requestType]}),
+      target_url:   TargetUrl.create({name: data[:url]}),
+      referrer_url: ReferrerUrl.create({name: data[:referredBy]}),
       resolution:   Resolution.create(parse_resolutions(data)),
       u_agent:      UAgent.create(parse_user_agent(data)),
       ip:           Ip.create({address: data[:ip]}),
