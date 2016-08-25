@@ -1,5 +1,5 @@
 class RequestType < ActiveRecord::Base
-  belongs_to :payload_request
+  has_many :payload_requests
 
   validates :name, presence: true
 end

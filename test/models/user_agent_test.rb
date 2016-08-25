@@ -7,7 +7,7 @@ class UserAgentTest < Minitest::Test
     data = { browser: "Chrome",
              os: "MacOSX" }
 
-    ua = RushHour::UserAgent.create(data)
+    ua = UAgent.create(data)
 
     assert_equal "Chrome", ua.browser
     assert_equal "MacOSX", ua.os
@@ -18,7 +18,7 @@ class UserAgentTest < Minitest::Test
     data = { browser: nil,
              os: "MacOSX" }
 
-    ua = RushHour::UserAgent.create(data)
+    ua = UAgent.create(data)
 
     assert_equal nil, ua.browser
     assert_equal "MacOSX", ua.os
@@ -29,7 +29,7 @@ class UserAgentTest < Minitest::Test
     data = { browser: "Chrome",
              os: nil }
 
-    ua = RushHour::UserAgent.create(data)
+    ua = UAgent.create(data)
 
     assert_equal "Chrome", ua.browser
     assert_equal nil, ua.os

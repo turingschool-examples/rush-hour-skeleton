@@ -1,5 +1,5 @@
-class TargetURL < ActiveRecord::Base
-  belongs_to :payload_request
+class TargetUrl < ActiveRecord::Base
+  has_many :payload_requests
 
   validates :name, presence: true
 end

@@ -1,5 +1,5 @@
-class ReferrerURL < ActiveRecord::Base
-  belongs_to :payload_request
-  
+class ReferrerUrl < ActiveRecord::Base
+  has_many :payload_requests
+
   validates :name, presence: true
 end

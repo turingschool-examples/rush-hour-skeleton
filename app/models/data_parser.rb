@@ -3,20 +3,13 @@ require 'useragent'
 class DataParser
 
   def self.create(data)
-    request_type = RequestType.create({ name: data[:requestType]})
-    target_url = TargetURL.create({ name: data[:url]})
-    referrer_url = ReferrerURL.create({ name: data[:referredBy] })
-    resolution = Resolution.create(parse_resolutions(data))
-    user_agent = RushHour::UserAgent.create(parse_user_agent(data))
-    ip = IP.create({address: data[:ip]})
-
     PayloadRequest.create(
-      request_type_id: request_type.id,
-      target_url_id: target_url.id,
-      referrer_url_id: referrer_url.id,
-      resolution_id: resolution.id,
-      user_agent_id: user_agent.id,
-      ip_id: ip.id,
+      request_type: RequestType.create({ name: data[:requestType]}),
+      target_url: TargetUrl.create({ name: data[:url]}),
+      referrer_url: ReferrerUrl.create({ name: data[:referredBy] }),
+      resolution: Resolution.create(parse_resolutions(data)),
+      u_agent: UAgent.create(parse_user_agent(data)),
+      ip: Ip.create({address: data[:ip]}),
       responded_in: data[:respondedIn],
       requested_at: data[:requestedAt]
     )
