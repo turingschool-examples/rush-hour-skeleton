@@ -1,5 +1,3 @@
-require 'useragent'
-
 class DataParser
 
   def self.create(data)
