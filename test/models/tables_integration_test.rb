@@ -4,20 +4,6 @@ require 'pry'
 class TableIntegrationTest < Minitest::Test
   include TestHelpers
 
-  def setup
-    @payload = {
-      "url":"http://jumpstartlab.com/blog",
-      "requestedAt":"2013-02-16 21:38:28 -0700",
-      "respondedIn":37,
-      "referredBy":"http://jumpstartlab.com",
-      "requestType":"GET",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
-      "ip":"63.29.38.211"
-    }
-  end
-
   def test_it_creates_all_tables_with_valid_information
     DataParser.create(@payload)
 
@@ -30,6 +16,13 @@ class TableIntegrationTest < Minitest::Test
     assert_equal 1, Ip.all.length
   end
 
+  def test_it_creates_request_type_relationships
+    DataParser.create(@payload)
+    pr = PayloadRequest.all.first
+
+    assert_equal "GET", pr.request_type.name
+  end
+
   def test_it_creates_target_url_relationships
     DataParser.create(@payload)
     pr = PayloadRequest.all.first
@@ -37,18 +30,43 @@ class TableIntegrationTest < Minitest::Test
     assert_equal "http://jumpstartlab.com/blog", pr.target_url.name
   end
 
-  def test_it_creates_requested_at_relationships
+  def test_it_creates_referrer_url_relationships
     DataParser.create(@payload)
     pr = PayloadRequest.all.first
 
-    assert_equal "GET", pr.request_type.name
+    assert_equal "http://jumpstartlab.com", pr.referrer_url.name
+  end
+
+  def test_it_creates_resolution_relationships
+    DataParser.create(@payload)
+    pr = PayloadRequest.all.first
+
+    assert_equal "1920", pr.resolution.width
+    assert_equal "1280", pr.resolution.height
   end
 
   def test_it_links_user_agent_correctly
     DataParser.create(@payload)
     pr = PayloadRequest.all.first
 
-    assert_equal "Chrome", pr.u_agent.browser
+    assert_equal "Chrome",    pr.u_agent.browser
+    assert_equal "Macintosh", pr.u_agent.os
   end
 
+  def test_it_links_ip_correctly
+    DataParser.create(@payload)
+    pr = PayloadRequest.all.first
+
+    assert_equal "63.29.38.211", pr.ip.address
+  end
+
+  def test_request_type_assigns_ids_accordingly
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+
+    assert_equal true, pr.request_type.id == pr3.request_type.id
+    assert_equal false, pr.request_type.id == pr2.request_type.id
+    assert_equal 2, RequestType.all.length
+  end
 end
