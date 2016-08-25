@@ -59,4 +59,14 @@ class TableIntegrationTest < Minitest::Test
 
     assert_equal "63.29.38.211", pr.ip.address
   end
+
+  def test_request_type_assigns_ids_accordingly
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+
+    assert_equal true, pr.request_type.id == pr3.request_type.id
+    assert_equal false, pr.request_type.id == pr2.request_type.id
+    assert_equal 2, RequestType.all.length
+  end
 end
