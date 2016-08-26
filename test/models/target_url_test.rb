@@ -35,5 +35,82 @@ class TargetUrlTest < Minitest::Test
     refute url_2.valid?
   end
 
-  
+  def test_it_calculates_max_response_time
+    DataParser.create(@params_client1)
+    DataParser.create(@params_client2)
+    DataParser.create(@params_pay1)
+    DataParser.create(@params_pay2)
+    DataParser.create(@params_pay3)
+    url = PayloadRequest.first.target_url.name
+
+    assert_equal 40, TargetUrl.max_response_time(url)
+  end
+
+  def test_it_calculates_min_response_time
+    DataParser.create(@params_client1)
+    DataParser.create(@params_client2)
+    DataParser.create(@params_pay1)
+    DataParser.create(@params_pay2)
+    DataParser.create(@params_pay3)
+    url = PayloadRequest.first.target_url.name
+
+    assert_equal 37, TargetUrl.min_response_time(url)
+  end
+
+  def test_it_returns_sorted_list_of_response_times
+    DataParser.create(@params_client1)
+    DataParser.create(@params_client2)
+    DataParser.create(@params_pay1)
+    DataParser.create(@params_pay2)
+    DataParser.create(@params_pay3)
+    url = PayloadRequest.first.target_url.name
+
+    assert_equal [40, 37], TargetUrl.sorted_response_times(url)
+  end
+
+  def test_it_calculates_average_response_time
+    DataParser.create(@params_client1)
+    DataParser.create(@params_client2)
+    DataParser.create(@params_pay1)
+    DataParser.create(@params_pay2)
+    DataParser.create(@params_pay3)
+    url = PayloadRequest.first.target_url.name
+
+    assert_equal 38.5, TargetUrl.average_response_time(url)
+  end
+
+  def test_it_returns_http_verbs_associated_with_url
+    DataParser.create(@params_client1)
+    DataParser.create(@params_client2)
+    DataParser.create(@params_pay1)
+    DataParser.create(@params_pay2)
+    DataParser.create(@params_pay3)
+    url = PayloadRequest.first.target_url.name
+
+    assert_equal ["GET"], TargetUrl.associated_http_verbs(url)
+  end
+
+  def test_it_returns_three_most_popular_referrers
+    DataParser.create(@params_client1)
+    DataParser.create(@params_client2)
+    DataParser.create(@params_pay1)
+    DataParser.create(@params_pay2)
+    DataParser.create(@params_pay3)
+    url = PayloadRequest.first.target_url.name
+
+    result = ["http://google.com", "http://jumpstartlab.com"]
+    assert_equal result, TargetUrl.top_three_referrers(url)
+  end
+
+  def test_it_returns_three_most_popular_user_agents
+    DataParser.create(@params_client1)
+    DataParser.create(@params_client2)
+    DataParser.create(@params_pay1)
+    DataParser.create(@params_pay2)
+    DataParser.create(@params_pay3)
+    url = PayloadRequest.first.target_url.name
+
+    result = [["Chrome", "Macintosh"]]
+    assert_equal result, TargetUrl.top_three_user_agents(url)
+  end
 end
