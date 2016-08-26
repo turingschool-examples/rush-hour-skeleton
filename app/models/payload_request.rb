@@ -18,7 +18,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :requested_at,      presence: true
 
   def self.average_response_time
-    average(:responded_in).to_f
+    average(:responded_in).to_f.round(2)
   end
 
   def self.max_response_time
