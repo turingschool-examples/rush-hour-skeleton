@@ -6,15 +6,26 @@ Bundler.require
 require File.expand_path("../../config/environment", __FILE__)
 # require 'minitest/autorun'
 # require 'minitest/pride'
+require 'sinatra'
+require 'sinatra/base'
 require 'capybara/dsl'
 require 'rspec'
 require 'database_cleaner'
 require 'pry'
+require 'rack/test'
+
 # require 'active_record'
 
 Capybara.app = RushHour::Server
 
 DatabaseCleaner.strategy = :truncation
+
+RSpec.configure do |config|
+  config.color = true
+  config.tty = true
+  config.formatter = :documentation
+  config.include Rack::Test::Methods
+end
 # DatabaseCleaner.clean_with(:truncation)
 # module TestHelpers
 #   after :each do
