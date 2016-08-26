@@ -8,7 +8,7 @@ class PayloadParser
   end
 
   def replace(payload)
-    substitutions = {"requestedAt" => "requested_at", "respondedIn" => "responded_in", "referredBy" => "referred_by", "requestType" => "request_type", "userAgent" => "user_agent", "resolutionWidth" => "resolution_width", "resolutionHeight" => "resolution_height"}
+    substitutions = {"requestedAt" => "requested_at", "respondedIn" => "responded_in", "referredBy" => "referred_by", "requestType" => "request_type", "userAgent" => "system_information", "resolutionWidth" => "resolution_width", "resolutionHeight" => "resolution_height"}
     substitutions.each_pair { |key, value| payload.gsub!(key, value) }
     payload
   end

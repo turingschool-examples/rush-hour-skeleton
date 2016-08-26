@@ -7,7 +7,7 @@ class UrlTest < ModelTest
     @payload = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
                             resolution_id: 1,
-                            user_agent_id: 2,
+                            system_information_id: 2,
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
