@@ -3,7 +3,8 @@ require './app/models/client'
 
 class ClientTest < ModelTest
   def test_it_has_rootUrl
-    client = Client.new({rootUrl: "http://example.com"})
+    client = Client.new({rootUrl: "http://example.com",
+                          identifier: 'exmaple'})
 
     client_sad = Client.new({})
     assert client.save
