@@ -2,7 +2,8 @@ module RushHour
   class Server < Sinatra::Base
     attr_reader :params,
                 :parameters,
-                :messages
+                :messages,
+                :exists
 
     not_found do
       erb :error
@@ -12,7 +13,8 @@ module RushHour
       @params = params
       @parameters = client_params
       @messages = client_messages
-      response = params_valid? ? check_if_client_exists : bad_request
+      @exists = client_exists?
+      response = params_valid? ? check_if_exists : bad_request
       status response[:status_msg]
       body response[:message]
     end
@@ -21,7 +23,8 @@ module RushHour
       @params = params
       @parameters = payload_params
       @messages = payload_messages
-      response = params_valid? ? check_if_client_exists : bad_request
+      @exists = payload_request_exists?
+      response = params_valid? ? check_if_exists : bad_request
       # puts "\n\n\n******************************\n\n\n"
       # count = PayloadRequest.all.count
       # puts "\n\n\n******************************\n\n\n"
@@ -32,8 +35,8 @@ module RushHour
 
     private
 
-    def check_if_client_exists
-      client_exists? ? forbidden : ok
+    def check_if_exists
+      exists ? forbidden : ok
     end
 
     def ok
@@ -47,7 +50,7 @@ module RushHour
     end
 
     def forbidden
-      { :status_msg => 403, :message => "Client already exists" }
+      { :status_msg => 403, :message => messages[403] }
     end
 
     def params_valid?
@@ -59,12 +62,13 @@ module RushHour
     end
 
     def client_messages
-
-      {400 => "Parameters must include #{client_params.join(' and ')}."}
+      {400 => "Parameters must include #{client_params.join(' and ')}.",
+       403 => "Client already exists"}
     end
 
     def payload_messages
-      {400 => "Parameters must include #{payload_params[0..7].join(', ')} and #{payload_params[8]}." }
+      {400 => "Parameters must include #{payload_params[0..7].join(', ')} and #{payload_params[8]}.",
+       403 => "Payload request already exists"}
     end
 
     def payload_params
@@ -74,6 +78,11 @@ module RushHour
 
     def client_exists?
       !(Client.find_by identifier: params[:identifier]).nil?
+    end
+
+    def payload_request_exists?
+      # !(PayloadRequest.find_by identifier: params[:identifier]).nil?
+      # !(PayloadRequest.where(...))
     end
   end
 end
