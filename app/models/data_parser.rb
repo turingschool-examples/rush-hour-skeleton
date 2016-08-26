@@ -1,16 +1,31 @@
 class DataParser
 
-  def self.create(data)
-    PayloadRequest.create(
-      request_type: RequestType.find_or_create_by( name: data[:requestType] ),
-      target_url:   TargetUrl.find_or_create_by( name: data[:url] ),
-      referrer_url: ReferrerUrl.find_or_create_by( name: data[:referredBy] ),
-      resolution:   Resolution.find_or_create_by(parse_resolutions(data)),
-      u_agent:      UAgent.find_or_create_by(parse_user_agent(data)),
-      ip:           Ip.find_or_create_by({address: data[:ip]}),
-      responded_in: data[:respondedIn],
-      requested_at: data[:requestedAt]
-    )
+  def self.create(params)
+    if params[:payload].nil?
+      parse_client_data(params)
+    else
+      parse_payload_data(params)
+    end
+  end
+
+  def self.parse_client_data(params)
+    Client.create({ identifier: params[:identifier],
+                    root_url:   params[:rootUrl] })
+  end
+
+  def self.parse_payload_data(params)
+    data = params[:payload]
+
+    data[:client_identifier] = find_client_identifier(data[:referredBy])
+
+    data[:resolution_info] = parse_resolutions(data)
+    data[:u_agent_info] = parse_user_agent(data)
+
+    CreatePayloadRequest.create(data)
+  end
+
+  def self.find_client_identifier(referred_by)
+    "http://#{URI.parse(referred_by).host}"
   end
 
   def self.parse_resolutions(data)

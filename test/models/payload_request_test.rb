@@ -4,6 +4,7 @@ class PayloadRequestTest < Minitest::Test
   include TestHelpers
   def setup
     @snake_cased_data = {
+      client_id: 1,
       request_type_id: 1,
       target_url_id: 1,
       referrer_url_id: 1,
@@ -79,5 +80,21 @@ class PayloadRequestTest < Minitest::Test
     req = PayloadRequest.create(data_without(:requested_at))
     assert req.requested_at.nil?
     refute req.valid?
+  end
+
+  def test_average_response_time
+    make_payloads
+    assert_equal 43.0, PayloadRequest.average_response_time
+  end
+
+  def test_max_response_time
+    make_payloads
+    assert_equal 60, PayloadRequest.max_response_time
+  end
+
+  def test_min_response_time
+    make_payloads
+    assert_equal 32, PayloadRequest.min_response_time
+    assert_equal 3, PayloadRequest.all.count
   end
 end
