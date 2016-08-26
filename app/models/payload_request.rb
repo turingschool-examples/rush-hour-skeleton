@@ -48,4 +48,21 @@ class PayloadRequest < ActiveRecord::Base
       raw_urls = url_counts.sort_by { |key, value| value }.reverse
       raw_urls.map { |url_obj| url_obj[0] }
     end
+
+    def self.all_u_agents
+      all.map do |payload|
+        payload.u_agent
+      end
+    end
+
+    def self.all_screen_resolutions
+      all.map do |payload|
+        payload.resolution
+      end
+    end
+
+
+
+
+
 end
