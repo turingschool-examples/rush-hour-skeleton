@@ -224,4 +224,115 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 2, PayloadRequest.most_requested_urls.count
     assert_equal url1, PayloadRequest.most_requested_urls[0]
   end
+
+  def test_it_returns_collection_of_all_uagents_across_all_requests
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 34,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 1,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 2,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 2,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 2,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    u_agent1 = UAgent.create(agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+    u_agent2 = UAgent.create(agent: "Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+
+    assert_instance_of UAgent, PayloadRequest.all_u_agents.first
+    assert_equal 3, PayloadRequest.all_u_agents.count
+  end
+
+  def test_it_returns_collection_of_all_uagents_across_all_requests
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 34,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 1,
+              resolution_id: 1,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 2,
+              resolution_id: 2,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 2,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 2,
+              resolution_id: 2,
+              ip_id: 2
+            })
+    resolution1 = Resolution.create(height: 1920, width: 1200)
+    resolution2 = Resolution.create(height: 2300, width: 1200)
+
+
+    assert_instance_of Resolution, PayloadRequest.all_screen_resolutions.first
+    assert_equal 3, PayloadRequest.all_screen_resolutions.count
+  end
+
+
+
+  # def test_it_returns_web_browser_breakdown_across_all_requests
+  #   PayloadRequest.create({ url_id: 1,
+  #             requested_at: "date",
+  #             responded_in: 34,
+  #             referred_by_id: 1,
+  #             request_type_id: 1,
+  #             u_agent_id: 1,
+  #             resolution_id: 6,
+  #             ip_id: 2
+  #           })
+  #   PayloadRequest.create({ url_id: 1,
+  #             requested_at: "date",
+  #             responded_in: 36,
+  #             referred_by_id: 1,
+  #             request_type_id: 1,
+  #             u_agent_id: 2,
+  #             resolution_id: 6,
+  #             ip_id: 2
+  #           })
+  #   PayloadRequest.create({ url_id: 2,
+  #             requested_at: "date",
+  #             responded_in: 36,
+  #             referred_by_id: 1,
+  #             request_type_id: 2,
+  #             u_agent_id: 2,
+  #             resolution_id: 6,
+  #             ip_id: 2
+  #           })
+  #   u_agent1 = UAgent.create(agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+  #   u_agent2 = UAgent.create(agent: "Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+  #
+  #   expected = {"Chrome" => 2}
+  #   assert_equal expected, PayloadRequest.browser_breakdown
+  #   assert_equal 3, PayloadRequest.all_u_agents.count
+  # end
+
+
 end

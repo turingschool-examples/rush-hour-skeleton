@@ -9,4 +9,5 @@ class UAgentTest < Minitest::Test
     assert UAgent.all.first.valid?
     assert_equal 1, UAgent.all.count
   end
+
 end
