@@ -274,7 +274,7 @@ class UrlTest < Minitest::Test
     payload6 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
                 responded_in: 50,
-                referred_by_id: 3,
+                referred_by_id: 2,
                 request_type_id: 1,
                 u_agent_id: 3,
                 resolution_id: 6,
@@ -299,14 +299,15 @@ class UrlTest < Minitest::Test
                 ip_id: 2
                 )
 
-    referred_by1 = Referred_by.create(url: "http://jumpstartlab.com")
-    referred_by2 = Referred_by.create(url: "http://google.com")
-    referred_by3 = Referred_by.create(url: "http://orangebloods.com")
-    referred_by4 = Referred_by.create(url: "http://facebook.com")
+    referred_by1 = ReferredBy.create(url: "http://jumpstartlabs.com")
+    referred_by2 = ReferredBy.create(url: "http://google.com")
+    referred_by3 = ReferredBy.create(url: "http://orangebloods.com")
+    referred_by4 = ReferredBy.create(url: "http://facebook.com")
 
-
-    #that it returns the correct referred by object
-    #that it returns 3 referred by objects
+    assert_equal referred_by1, url.top_three_referred_bies[0]
+    assert_equal referred_by2, url.top_three_referred_bies[1]
+    assert_equal referred_by3, url.top_three_referred_bies[2]
+    assert_equal 3, url.top_three_referred_bies.count
 
   end
 end

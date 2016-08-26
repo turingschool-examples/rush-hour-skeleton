@@ -23,6 +23,21 @@ class Url < ActiveRecord::Base
     payload_requests.average("responded_in")
   end
 
+  def top_three_referred_bies
+    referred_by_counts = referred_bies.group(:url).count
+    raw_referred_bies = referred_by_counts.sort_by { |key, value| value }.reverse
+    raw_referred_bies.map do |key, value|
+      referred_bies.find_by(url: key)
+    end[0..2]
+  end
+
+#   url.referred_bies.group(:url).count
+  # def top_three_referred_bies
+  #   payload_requests.group('referred_b')
+  # end
+
+
+
 # may decide to create explicit url.request_types method (which is redundant)
 
 
