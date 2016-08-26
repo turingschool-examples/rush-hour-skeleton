@@ -6,6 +6,6 @@ class UserAgent < ActiveRecord::Base
   validates :browser, uniqueness: {scope: :operating_system}
 
   def self.get_all_browsers_count
-    UserAgent.group(:browser).count(:user_agent_id)
+    joins(:payload_requests).group(:browser).count(:browser)
   end
 end

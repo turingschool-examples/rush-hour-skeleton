@@ -60,7 +60,7 @@ class UserAgentTest < ModelTest
                               url_id: 6
                               })
                               
-      assert_equal [], UserAgent.get_all_browsers_count
+      assert_equal 1, UserAgent.get_all_browsers_count
     end
 
   end

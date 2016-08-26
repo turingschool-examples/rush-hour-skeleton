@@ -48,13 +48,31 @@ class ResolutionTest < ModelTest
   end
 
   def test_it_can_find_all_resolutions
-    skip
     resolution1 = Resolution.create({height: "100",
                                  width: "250"
                                  })
-    resolution2 = Resolution.new({height: "200",
+    resolution2 = Resolution.create({height: "200",
                                  width: "300"
                                  })
-    assert_equal [["250, 100"], ["300, 200"]], Resolution.get_all_screen_resolutions
+    PayloadRequest.create({ requested_at: '2016-08-23',
+                            responded_in: 5,
+                            resolution_id: resolution1.id,
+                            user_agent_id: 2,
+                            referral_id: 3,
+                            ip_id: 4,
+                            request_type_id: 5,
+                            url_id: 2
+                            })
+                           
+    PayloadRequest.create({ requested_at: '2016-08-23',
+                            responded_in: 4,
+                            resolution_id: resolution2.id,
+                            user_agent_id: 2,
+                            referral_id: 3,
+                            ip_id: 4,
+                            request_type_id: 5,
+                            url_id: 3
+                            })
+    assert_equal [["100", "250"], ["200", "300"]], Resolution.get_all_screen_resolutions
   end
 end
