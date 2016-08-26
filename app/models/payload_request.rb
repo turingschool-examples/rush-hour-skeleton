@@ -1,4 +1,5 @@
 class PayloadRequest < ActiveRecord::Base
+  belongs_to :client
   belongs_to :request_type
   belongs_to :target_url
   belongs_to :referrer_url
@@ -23,7 +24,7 @@ class PayloadRequest < ActiveRecord::Base
   def self.max_response_time
     maximum(:responded_in)
   end
-  
+
   def self.min_response_time
     minimum(:responded_in)
   end
