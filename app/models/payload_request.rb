@@ -27,6 +27,8 @@ class PayloadRequest < ActiveRecord::Base
       all.maximum("responded_in")
     end
 
-
+    def self.min_response_time
+      all.minimum("responded_in")
+    end
 
 end

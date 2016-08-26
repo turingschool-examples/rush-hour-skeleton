@@ -94,4 +94,28 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 36, PayloadRequest.max_response_time
     assert_equal 2, PayloadRequest.all.count
   end
+
+  def test_it_returns_min_response_time_across_all_payloads
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 34,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+
+    assert_equal 34, PayloadRequest.min_response_time
+    assert_equal 2, PayloadRequest.all.count
+  end
 end
