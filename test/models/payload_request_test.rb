@@ -4,6 +4,7 @@ class PayloadRequestTest < Minitest::Test
   include TestHelpers
   def setup
     @snake_cased_data = {
+      client_id: 1,
       request_type_id: 1,
       target_url_id: 1,
       referrer_url_id: 1,

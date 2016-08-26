@@ -34,4 +34,6 @@ class TargetUrlTest < Minitest::Test
     assert_equal 1, TargetUrl.count
     refute url_2.valid?
   end
+
+  
 end

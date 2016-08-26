@@ -17,39 +17,48 @@ DatabaseCleaner.strategy = :truncation
 
 module TestHelpers
   def setup
-    @payload = {
-      "url":"http://jumpstartlab.com/",
-      "requestedAt":"2013-02-16 21:38:28 -0700",
-      "respondedIn":37,
-      "referredBy":"http://jumpstartlab.com",
-      "requestType":"GET",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
-      "ip":"63.29.38.211"
+    @params_client1 = {
+      identifier: "jumpstartlab",
+      rootUrl: "http://jumpstartlab.com"
     }
-
-    @payload2 = {
-      "url":"http://google.com",
-      "requestedAt":"2013-03-21 21:38:28 -0700",
-      "respondedIn":41,
-      "referredBy":"http://google.com",
-      "requestType":"POST",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"800",
-      "resolutionHeight":"600",
-      "ip":"34.32.40.211"
+    @params_pay1 = {
+      payload: {"url":"http://jumpstartlab.com/",
+                "requestedAt":"2013-02-16 21:38:28 -0700",
+                "respondedIn":37,
+                "referredBy":"http://jumpstartlab.com",
+                "requestType":"GET",
+                "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                "resolutionWidth":"1920",
+                "resolutionHeight":"1280",
+                "ip":"63.29.38.211"},
+              }
+    @params_client2 = {
+      identifier: "google",
+      rootUrl: "http://google.com"
     }
-    @payload3 = {
-      "url":"http://jumpstartlab.com/",
-      "requestedAt":"2015-02-16 21:38:28 -0700",
-      "respondedIn":40,
-      "referredBy":"http://google.com",
-      "requestType":"GET",
-      "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolutionWidth":"1920",
-      "resolutionHeight":"1280",
-      "ip":"23.20.40.211"
+    @params_pay2 = {
+      payload: {"url":"http://google.com",
+                "requestedAt":"2013-03-21 21:38:28 -0700",
+                "respondedIn":41,
+                "referredBy":"http://google.com",
+                "requestType":"POST",
+                "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                "resolutionWidth":"800",
+                "resolutionHeight":"600",
+                "ip":"34.32.40.211"},
+    }
+    @params_pay3 = {
+      payload: {"url":"http://jumpstartlab.com/",
+                "requestedAt":"2015-02-16 21:38:28 -0700",
+                "respondedIn":40,
+                "referredBy":"http://google.com",
+                "requestType":"GET",
+                "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                "resolutionWidth":"1920",
+                "resolutionHeight":"1280",
+                "ip":"23.20.40.211"},
+      identifier: "google",
+      rootUrl: "http://google.com"
     }
 
     DatabaseCleaner.clean
@@ -62,7 +71,7 @@ module TestHelpers
   end
 
   def make_payloads
-    payload1 = {
+    payload1 = { payload: {
       "url":"http://mysite.com/",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":32,
@@ -72,8 +81,8 @@ module TestHelpers
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"5.6.7.8"
-    }
-    payload2 = {
+    }}
+    payload2 = { payload: {
       "url":"http://mysite.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":37,
@@ -83,8 +92,8 @@ module TestHelpers
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"5.5.4.3"
-    }
-    payload3 = {
+    }}
+    payload3 = { payload: {
       "url":"http://mysite.com/",
       "requestedAt":"2013-02-16 21:38:28 -0700",
       "respondedIn":60,
@@ -94,7 +103,13 @@ module TestHelpers
       "resolutionWidth":"640",
       "resolutionHeight":"480",
       "ip":"1.2.3.4"
-    }
+    }}
+    client1 = { identifier: "google", rootUrl: "http://www.google.com" }
+    client2 = { identifier: "yahoo", rootUrl: "http://www.yahoo.com" }
+    client3 = { identifier: "google", rootUrl: "http://www.google.com" }
+    DataParser.create(client1)
+    DataParser.create(client2)
+    DataParser.create(client3)
     DataParser.create(payload1)
     DataParser.create(payload2)
     DataParser.create(payload3)
