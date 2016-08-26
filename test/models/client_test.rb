@@ -1,0 +1,12 @@
+require_relative '../test_helper'
+require './app/models/client'
+
+class ClientTest < ModelTest
+  def test_it_has_rootUrl
+    client = Client.new({rootUrl: "http://example.com"})
+
+    client_sad = Client.new({})
+    assert client.save
+    refute client_sad.save
+  end
+end
