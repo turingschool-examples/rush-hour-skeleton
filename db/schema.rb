@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825140804) do
+ActiveRecord::Schema.define(version: 20160826165136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.text     "rootUrl"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "identifier"
+  end
 
   create_table "ips", force: :cascade do |t|
     t.text     "address"
@@ -25,14 +32,15 @@ ActiveRecord::Schema.define(version: 20160825140804) do
   create_table "payload_requests", force: :cascade do |t|
     t.datetime "requested_at"
     t.integer  "responded_in"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.integer  "resolution_id"
-    t.integer  "user_agent_id"
+    t.integer  "system_information_id"
     t.integer  "referral_id"
     t.integer  "ip_id"
     t.integer  "request_type_id"
     t.integer  "url_id"
+    t.integer  "client_id"
   end
 
   create_table "referrals", force: :cascade do |t|
@@ -54,17 +62,17 @@ ActiveRecord::Schema.define(version: 20160825140804) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "urls", force: :cascade do |t|
-    t.text     "web_address"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "user_agents", force: :cascade do |t|
+  create_table "system_informations", force: :cascade do |t|
     t.text     "browser"
     t.text     "operating_system"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.text     "web_address"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
