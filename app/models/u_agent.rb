@@ -5,11 +5,11 @@ class UAgent < ActiveRecord::Base
   validates :os,      presence: true
   validates :browser, uniqueness: { scope: :os }
 
-  def browser_counts_for_all_requests
+  def self.browser_counts_for_all
     joins(:payload_requests).group(:browser).count
   end
 
-  def os_counts_for_all_requests
+  def self.os_counts_for_all
     joins(:payload_requests).group(:os).count
   end
 end

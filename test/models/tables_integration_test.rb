@@ -56,7 +56,7 @@ class TableIntegrationTest < Minitest::Test
     pr = PayloadRequest.all.first
 
     assert_equal "Chrome",    pr.u_agent.browser
-    assert_equal "Macintosh", pr.u_agent.os
+    assert_equal "OS X 10.8.2", pr.u_agent.os
   end
 
   def test_it_links_ip_correctly

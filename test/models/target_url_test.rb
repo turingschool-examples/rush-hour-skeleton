@@ -110,7 +110,15 @@ class TargetUrlTest < Minitest::Test
     DataParser.create(@params_pay3)
     url = PayloadRequest.first.target_url.name
 
-    result = [["Chrome", "Macintosh"]]
+    result = [["Chrome", "OS X 10.8.2"]]
     assert_equal result, TargetUrl.top_three_user_agents(url)
+  end
+
+  def test_most_to_least_requested
+    make_payloads
+    most_visited = "http://mysite.com/"
+    second_place = "http://mysite.com/blog"
+    assert_equal most_visited, TargetUrl.most_to_least_requested[0]
+    assert_equal second_place, TargetUrl.most_to_least_requested[1]
   end
 end

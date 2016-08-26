@@ -36,6 +36,6 @@ class DataParser
   def self.parse_user_agent(data)
     user_agent = UserAgent.parse(data[:userAgent])
     { browser: user_agent.browser,
-      os:      user_agent.platform }
+      os:      user_agent.os }
   end
 end

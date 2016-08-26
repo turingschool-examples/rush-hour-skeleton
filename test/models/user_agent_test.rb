@@ -55,4 +55,16 @@ class UserAgentTest < Minitest::Test
     assert_equal 3, UAgent.count
     refute ua_4.valid?
   end
+
+  def test_browser_counts_for_all
+    make_payloads
+    assert_equal 2, UAgent.browser_counts_for_all['Chrome']
+    assert_equal 1, UAgent.browser_counts_for_all['Firefox']
+  end
+
+  def test_os_counts_for_all
+    make_payloads
+    assert_equal 2, UAgent.os_counts_for_all['OS X 10.8.2']
+    assert_equal 1, UAgent.os_counts_for_all['OS X 10.11']
+  end
 end

@@ -57,5 +57,4 @@ class ResolutionTest < Minitest::Test
     assert_equal 1, Resolution.resolutions_for_all['640x480']
     assert_equal 2, Resolution.resolutions_for_all['1920x1280']
   end
-
 end
