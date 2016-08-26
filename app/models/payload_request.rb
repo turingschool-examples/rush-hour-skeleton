@@ -25,25 +25,4 @@ class PayloadRequest < ActiveRecord::Base
   def self.min_response_time
     PayloadRequest.minimum(:responded_in).to_i
   end
-
-# Need to put these into Url model as instance methods, no need to pass an (id)
-  def self.url_max_response_time(id)
-    requests  = PayloadRequest.where(url_id: id)
-    requests.maximum(:responded_in).to_i
-  end
-
-  def self.url_min_response_time(id)
-    requests  = PayloadRequest.where(url_id: id)
-    requests.minimum(:responded_in).to_i
-  end
-
-  def self.url_response_times(id)
-    requests  = PayloadRequest.where(url_id: id)
-    requests.order('responded_in DESC').pluck(:responded_in)
-  end
-
-  def self.url_avg_response_time(id)
-    requests  = PayloadRequest.where(url_id: id)
-    requests.average(:responded_in).to_i
-  end
 end
