@@ -1,4 +1,4 @@
-class UserAgent < ActiveRecord::Base
+class SystemInformation < ActiveRecord::Base
   has_many :payload_requests
 
   validates :browser, :operating_system, presence: true
@@ -6,10 +6,10 @@ class UserAgent < ActiveRecord::Base
   validates :browser, uniqueness: {scope: :operating_system}
 
   def self.get_all_browsers
-    UserAgent.pluck(:browser)
+    SystemInformation.pluck(:browser)
   end
 
   def self.get_all_operating_systems
-    UserAgent.pluck(:operating_system)
+    SystemInformation.pluck(:operating_system)
   end
 end
