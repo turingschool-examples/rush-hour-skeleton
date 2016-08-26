@@ -20,7 +20,8 @@ class UrlTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             )
     payload2 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -29,7 +30,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                   )
     payload3 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -38,7 +40,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                             )
     #payload4 has a different url_id
     payload4 = PayloadRequest.create(url_id: 2,
@@ -48,7 +51,8 @@ class UrlTest < Minitest::Test
                  request_type_id: 2,
                  u_agent_id: 3,
                  resolution_id: 6,
-                 ip_id: 2
+                 ip_id: 2,
+                 client_id: 1
                                     )
 
     # url_1 = PayloadRequest.where(url_id: 1)
@@ -67,7 +71,8 @@ class UrlTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             )
     payload2 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -76,7 +81,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                   )
     payload3 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -85,7 +91,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                             )
     #payload4 has a different url_id
     payload4 = PayloadRequest.create(url_id: 2,
@@ -95,8 +102,9 @@ class UrlTest < Minitest::Test
                  request_type_id: 2,
                  u_agent_id: 3,
                  resolution_id: 6,
-                 ip_id: 2
-                                    )
+                 ip_id: 2,
+                 client_id: 1
+                              )
 
     # url_1 = PayloadRequest.where(url_id: 1)
 
@@ -114,7 +122,8 @@ class UrlTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             )
     payload2 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -123,7 +132,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                   )
     payload3 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -132,7 +142,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                             )
 
     assert_equal [50, 34, 12], url.response_times_by_order
@@ -149,7 +160,8 @@ class UrlTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             )
     payload2 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -158,7 +170,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                   )
     payload3 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -167,7 +180,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 2,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                             )
 
     assert_equal 32, url.average_response_time
@@ -184,7 +198,8 @@ class UrlTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             )
     payload2 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -193,7 +208,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 1,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                   )
     payload3 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
@@ -202,7 +218,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 1,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                             )
     payload4 = PayloadRequest.create(url_id: 2,
                 requested_at: "date",
@@ -211,7 +228,8 @@ class UrlTest < Minitest::Test
                 request_type_id: 1,
                 u_agent_id: 3,
                 resolution_id: 6,
-                ip_id: 2
+                ip_id: 2,
+                client_id: 1
                 )
 
     request_type1 = RequestType.create(verb: "GET")
