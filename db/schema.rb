@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824203948) do
+ActiveRecord::Schema.define(version: 20160826002241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.string "identifier"
+    t.string "root_url"
+  end
 
   create_table "ip_addresses", force: :cascade do |t|
     t.string "address"
@@ -31,8 +36,10 @@ ActiveRecord::Schema.define(version: 20160824203948) do
     t.integer  "u_agent_id"
     t.integer  "screen_resolution_id"
     t.integer  "ip_id"
+    t.integer  "client_id"
   end
 
+  add_index "payload_requests", ["client_id"], name: "index_payload_requests_on_client_id", using: :btree
   add_index "payload_requests", ["ip_id"], name: "index_payload_requests_on_ip_id", using: :btree
   add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
   add_index "payload_requests", ["screen_resolution_id"], name: "index_payload_requests_on_screen_resolution_id", using: :btree
