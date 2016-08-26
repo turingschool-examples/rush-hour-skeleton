@@ -62,7 +62,8 @@ RSpec.describe UAgent, type: :model do
           "request_type_id"       =>  1,
           "u_agent_id"            =>  u_agent_id,
           "screen_resolution_id"  =>  4,
-          "ip_id"                 =>  6)
+          "ip_id"                 =>  6,
+          "client_id"             =>  10)
       end
   end
 

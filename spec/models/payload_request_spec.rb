@@ -27,7 +27,8 @@ RSpec.describe PayloadRequest, type: :model do
     "request_type_id"=>3,
     "u_agent_id"=>5,
     "screen_resolution_id"=>4,
-    "ip_id"=>6)}
+    "ip_id"=>6,
+    "client_id"=>6)}
 
   let(:malformed_payload) { PayloadRequest.new(
     "url_id"=> nil,
@@ -75,6 +76,10 @@ RSpec.describe PayloadRequest, type: :model do
     expect(payload.ip_id).to eq(6)
   end
 
+  it "has an client_id address" do
+    expect(payload.client_id).to eq(6)
+  end
+
   it "will not create a payload request without a url id" do
     expect(PayloadRequest.new(:url_id => "")).to be_invalid
   end
@@ -107,6 +112,10 @@ RSpec.describe PayloadRequest, type: :model do
     expect(PayloadRequest.new(:ip_id => "")).to be_invalid
   end
 
+  it "will not create a payload request without an ip_id" do
+    expect(PayloadRequest.new(:client_id => "")).to be_invalid
+  end
+
   it "will find the average response time" do
     5.times { PayloadRequest.create(
                 "url_id"=>1,
@@ -116,7 +125,8 @@ RSpec.describe PayloadRequest, type: :model do
                 "request_type_id"=>3,
                 "u_agent_id"=>5,
                 "screen_resolution_id"=>4,
-                "ip_id"=>6)}
+                "ip_id"=>6,
+                "client_id"=>10)}
 
     5.times { PayloadRequest.create(
                 "url_id"=>1,
@@ -126,7 +136,8 @@ RSpec.describe PayloadRequest, type: :model do
                 "request_type_id"=>3,
                 "u_agent_id"=>5,
                 "screen_resolution_id"=>4,
-                "ip_id"=>6)}
+                "ip_id"=>6,
+                "client_id"=>10)}
 
     expect(PayloadRequest.all.length).to eq(10)
     expect(PayloadRequest.average_response_time).to eq(36)
@@ -142,7 +153,8 @@ RSpec.describe PayloadRequest, type: :model do
                 "request_type_id"=>3,
                 "u_agent_id"=>5,
                 "screen_resolution_id"=>4,
-                "ip_id"=>6)
+                "ip_id"=>6,
+                "client_id"=>10)
               end
 
     expect(PayloadRequest.max_response_time).to eq(35)
@@ -158,7 +170,8 @@ RSpec.describe PayloadRequest, type: :model do
                 "request_type_id"=>3,
                 "u_agent_id"=>5,
                 "screen_resolution_id"=>4,
-                "ip_id"=>6)
+                "ip_id"=>6,
+                "client_id"=>10)
               end
 
     expect(PayloadRequest.min_response_time).to eq(20)
