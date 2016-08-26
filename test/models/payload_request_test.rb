@@ -188,4 +188,40 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 3, PayloadRequest.all_http_verbs_used.count
     assert_instance_of RequestType, PayloadRequest.all_http_verbs_used.first
   end
+
+  def test_it_returns_most_requested_urls
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 34,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 2,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    url1 = Url.create(url: "www.jumpstartlab.com")
+    url2 = Url.create(url: "www.google.com")
+
+    assert_instance_of Url, PayloadRequest.most_requested_urls.first
+    assert_equal 2, PayloadRequest.most_requested_urls.count
+    assert_equal url1, PayloadRequest.most_requested_urls[0]
+  end
 end

@@ -42,4 +42,10 @@ class PayloadRequest < ActiveRecord::Base
         payload.request_type
       end
     end
+
+    def self.most_requested_urls
+      url_counts = all.group(:url).count
+      raw_urls = url_counts.sort_by { |key, value| value }.reverse
+      raw_urls.map { |url_obj| url_obj[0] }
+    end
 end
