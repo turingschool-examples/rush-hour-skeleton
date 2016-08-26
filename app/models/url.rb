@@ -31,6 +31,16 @@ class Url < ActiveRecord::Base
     end[0..2]
   end
 
+  def top_three_u_agents
+    agent_counts = u_agents.group(:agent).count
+    raw_agents = agent_counts.sort_by { |key, value| value }.reverse
+    raw_agents.map do |key, value|
+      u_agents.find_by(agent: key)
+    end[0..2]
+  end
+
+
+
 #   url.referred_bies.group(:url).count
   # def top_three_referred_bies
   #   payload_requests.group('referred_b')
