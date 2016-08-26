@@ -1,16 +1,34 @@
 module RushHour
   class Server < Sinatra::Base
+    attr_reader :params,
+                :parameters,
+                :messages
+
     not_found do
       erb :error
     end
 
     post '/sources' do
       @params = params
+      @parameters = client_params
+      @messages = client_messages
       response = params_valid? ? check_if_client_exists : bad_request
-      count = Client.all.count
       status response[:status_msg]
       body response[:message]
     end
+
+    post '/sources/:identifier/data' do
+      @params = params
+      @parameters = payload_params
+      @messages = payload_messages
+      response = params_valid? ? check_if_client_exists : bad_request
+      # puts "\n\n\n******************************\n\n\n"
+      # count = PayloadRequest.all.count
+      # puts "\n\n\n******************************\n\n\n"
+      status response[:status_msg]
+      body response[:message]
+    end
+
 
     private
 
@@ -25,7 +43,7 @@ module RushHour
     end
 
     def bad_request
-      { :status_msg => 400, :message => "Parameters must include identifier and root url." }
+      { :status_msg => 400, :message => messages[400] }
     end
 
     def forbidden
@@ -33,7 +51,25 @@ module RushHour
     end
 
     def params_valid?
-      !params[:identifier].nil? && !params[:rootUrl].nil?
+      return parameters.none? { |param| params[param].nil? }
+    end
+
+    def client_params
+      [:identifier, :rootUrl]
+    end
+
+    def client_messages
+
+      {400 => "Parameters must include #{client_params.join(' and ')}."}
+    end
+
+    def payload_messages
+      {400 => "Parameters must include #{payload_params[0..7].join(', ')} and #{payload_params[8]}." }
+    end
+
+    def payload_params
+      [:url, :requestedAt, :respondedIn, :referredBy, :requestType,
+       :userAgent, :resolutionWidth, :resolutionHeight, :ip]
     end
 
     def client_exists?
