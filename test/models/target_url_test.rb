@@ -34,4 +34,69 @@ class TargetUrlTest < Minitest::Test
     assert_equal 1, TargetUrl.count
     refute url_2.valid?
   end
+
+  def test_it_calculates_max_response_time
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+    url = pr.target_url.name
+
+    assert_equal 40, TargetUrl.max_response_time(url)
+  end
+
+  def test_it_calculates_min_response_time
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+    url = pr.target_url.name
+
+    assert_equal 37, TargetUrl.min_response_time(url)
+  end
+
+  def test_it_returns_sorted_list_of_response_times
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+    url = pr.target_url.name
+
+    assert_equal [40, 37], TargetUrl.sorted_response_times(url)
+  end
+
+  def test_it_calculates_average_response_time
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+    url = pr.target_url.name
+
+    assert_equal 38.5, TargetUrl.average_response_time(url)
+  end
+
+  def test_it_returns_http_verbs_associated_with_url
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+    url = pr.target_url.name
+
+    assert_equal ["GET"], TargetUrl.associated_http_verbs(url)
+  end
+
+  def test_it_returns_three_most_popular_referrers
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+    url = pr.target_url.name
+
+    result = ["http://jumpstartlab.com", "http://google.com"]
+    assert_equal result, TargetUrl.top_three_referrers(url)
+  end
+
+  def test_it_returns_three_most_popular_user_agents
+    pr = DataParser.create(@payload)
+    pr2 = DataParser.create(@payload2)
+    pr3 = DataParser.create(@payload3)
+    url = pr.target_url.name
+
+    result = ["http://jumpstartlab.com", "http://google.com"]
+    assert_equal result, TargetUrl.top_three_user_agents(url)
+  end
 end
