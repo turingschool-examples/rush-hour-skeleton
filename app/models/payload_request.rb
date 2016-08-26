@@ -22,4 +22,11 @@ class PayloadRequest < ActiveRecord::Base
     def self.average_response_time
       all.average("responded_in")
     end
+
+    def self.max_response_time
+      all.maximum("responded_in")
+    end
+
+
+
 end

@@ -20,4 +20,6 @@ module DataParser
     parsed(raw_payload).map {|key, value| [new_keys[key] || key, value]}.to_h
   end
 
+  
+
 end
