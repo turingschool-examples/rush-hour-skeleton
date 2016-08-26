@@ -46,4 +46,9 @@ class TargetUrl < ActiveRecord::Base
       [UAgent.find(ua).browser, UAgent.find(ua).os]
     end
   end
+
+  def self.most_to_least_requested
+    urls_requested = joins(:payload_requests).group(:name).count
+    urls_requested.sort_by{ |k,v| v }.map(&:first).reverse
+  end
 end

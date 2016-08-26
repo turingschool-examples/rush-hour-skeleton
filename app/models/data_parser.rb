@@ -15,9 +15,12 @@ class DataParser
 
   def self.parse_payload_data(params)
     data = params[:payload]
+
     data[:client_identifier] = find_client_identifier(data[:referredBy])
+
     data[:resolution_info] = parse_resolutions(data)
     data[:u_agent_info] = parse_user_agent(data)
+
     CreatePayloadRequest.create(data)
   end
 

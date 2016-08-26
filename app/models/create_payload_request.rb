@@ -1,6 +1,7 @@
 class CreatePayloadRequest
 
   def self.create(data)
+
     PayloadRequest.create(
       client_id:    Client.find_by( root_url: data[:client_identifier] ).id,
       request_type: RequestType.find_or_create_by( name: data[:requestType] ),
