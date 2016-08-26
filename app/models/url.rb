@@ -41,4 +41,23 @@ class Url < ActiveRecord::Base
     request_types
   end
 
+  def url_max_response_time
+    requests  = PayloadRequest.where(url_id: id)
+    requests.maximum(:responded_in).to_i
+  end
+
+  def url_min_response_time
+    requests  = PayloadRequest.where(url_id: id)
+    requests.minimum(:responded_in).to_i
+  end
+
+  def url_response_times
+    requests  = PayloadRequest.where(url_id: id)
+    requests.order('responded_in DESC').pluck(:responded_in)
+  end
+
+  def url_avg_response_time
+    requests  = PayloadRequest.where(url_id: id)
+    requests.average(:responded_in).to_i
+  end
 end
