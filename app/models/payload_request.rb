@@ -31,4 +31,9 @@ class PayloadRequest < ActiveRecord::Base
       all.minimum("responded_in")
     end
 
+    def self.most_requested_type
+      request_counts = all.group(:request_type).count
+      request_counts.max_by{ |key, value| value }[0]
+    end
+
 end
