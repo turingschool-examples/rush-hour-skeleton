@@ -36,20 +36,41 @@ class SystemInformationTest < ModelTest
     end
 
     def test_it_can_show_all_browsers
-      sys_info1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
-      sys_info2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
-      sys_info3 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
-      sys_info4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
-      sys_info4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
-
+      user_agent1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
+      user_agent2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
+      user_agent4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
+require 'pry';binding.pry
+      pr1 = PayloadRequest.create({requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              system_information_id: user_agent1.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 6})
+      pr2 = PayloadRequest.create({requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              system_information_id: user_agent2.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 6})
+      pr3 = PayloadRequest.create({requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              system_information_id: user_agent4.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 6})
+binding.pry
       assert_equal ["Chrome", "Internet Explorer", "Chrome"], SystemInformation.get_all_browsers
     end
 
     def test_it_can_show_all_operating_systems
       sys_info1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
       sys_info2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
-      sys_info3 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
-      sys_info4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
       sys_info4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
 
       assert_equal ["Windows", "Windows", "iOS"], SystemInformation.get_all_operating_systems

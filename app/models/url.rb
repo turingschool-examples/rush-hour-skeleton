@@ -27,10 +27,10 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_referrers
-    referrals.group(:referred_by).limit(3).count(:referral_id)
-  end
+    referrals.group(:referred_by).select("count(referral_id) as total").order('total' => :desc)
+  end #random 3 :(
 
   def user_agents
-
+    payload_requests.group(:user_using_id).limit(3).count(:user_using_id)
   end
 end

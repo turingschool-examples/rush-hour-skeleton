@@ -7,4 +7,8 @@ class RequestType < ActiveRecord::Base
   def self.list_all_verbs
     RequestType.pluck(:http_verb)
   end
+
+  def self.most_frequent_request
+    PayloadRequest.join(:request_types).group(:http_verb)
+  end
 end

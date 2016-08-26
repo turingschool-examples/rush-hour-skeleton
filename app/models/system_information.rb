@@ -6,7 +6,9 @@ class SystemInformation < ActiveRecord::Base
   validates :browser, uniqueness: {scope: :operating_system}
 
   def self.get_all_browsers
-    SystemInformation.pluck(:browser)
+    counts = self.group(:browser).select(:browser).map do |row|
+      [row.browser, row.payload_requests.count]
+    end
   end
 
   def self.get_all_operating_systems

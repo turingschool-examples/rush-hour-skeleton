@@ -51,6 +51,7 @@ class UrlTest < ModelTest
   end
 
   def test_it_can_return_top_3_referrers_to_a_site
+    skip
     expected = {}
     assert_equal expected, @url.top_three_referrers
   end
