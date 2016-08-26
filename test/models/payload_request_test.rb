@@ -27,7 +27,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             }
 
     # refute PayloadRequest.new(url_id: 1).valid?
@@ -41,7 +42,9 @@ class PayloadRequestTest < Minitest::Test
               referred_by_id: 1,
               request_type_id: 2,
               u_agent_id: 3,
-              resolution_id: 6
+              resolution_id: 6,
+              client_id: 1
+
             }
 
     refute PayloadRequest.create(payload).valid?
@@ -55,7 +58,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -64,7 +68,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
 
     assert_equal 35, PayloadRequest.average_response_time
@@ -79,7 +84,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -88,7 +94,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
 
     assert_equal 36, PayloadRequest.max_response_time
@@ -103,7 +110,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -112,7 +120,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
 
     assert_equal 34, PayloadRequest.min_response_time
@@ -127,7 +136,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -136,7 +146,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -145,7 +156,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     request_type1 = RequestType.create(verb: "GET")
     request_type2 = RequestType.create(verb: "POST")
@@ -162,7 +174,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -171,7 +184,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -180,7 +194,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     request_type1 = RequestType.create(verb: "GET")
     request_type2 = RequestType.create(verb: "POST")
@@ -197,7 +212,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -206,7 +222,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 2,
               requested_at: "date",
@@ -215,7 +232,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 3,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     url1 = Url.create(url: "www.jumpstartlab.com")
     url2 = Url.create(url: "www.google.com")
@@ -233,7 +251,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 1,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -242,7 +261,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 2,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 2,
               requested_at: "date",
@@ -251,7 +271,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 2,
               resolution_id: 6,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     u_agent1 = UAgent.create(agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
     u_agent2 = UAgent.create(agent: "Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
@@ -268,7 +289,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 1,
               resolution_id: 1,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 1,
               requested_at: "date",
@@ -277,7 +299,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 1,
               u_agent_id: 2,
               resolution_id: 2,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     PayloadRequest.create({ url_id: 2,
               requested_at: "date",
@@ -286,7 +309,8 @@ class PayloadRequestTest < Minitest::Test
               request_type_id: 2,
               u_agent_id: 2,
               resolution_id: 2,
-              ip_id: 2
+              ip_id: 2,
+              client_id: 1
             })
     resolution1 = Resolution.create(height: 1920, width: 1200)
     resolution2 = Resolution.create(height: 2300, width: 1200)
