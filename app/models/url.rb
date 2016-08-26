@@ -21,16 +21,29 @@ class Url < ActiveRecord::Base
   def average_response_time
     payload_requests.average_response_time
   end
+  
+  def response_times_from_highest_to_lowest
+    response_times.sort.reverse
+  end
 
   def http_verbs
     request_types.pluck(:http_verb)
   end
+  
+  def self.most_requested_urls
+    url_counts = joins(:payload_requests).group(:web_address).count
+    url_ordered_counts = url_counts.sort_by {|url, count| count }.reverse
+    url_ordered_counts.collect {|url, count| url }
+  end
 
   def top_three_referrers
-    referrals.group(:referred_by).limit(3).count(:referral_id)
+    referral_count = referrals.group(:referred_by).count(:referral_id)
+    sorted_referrals = referral_count.sort_by do |referred_by, count|
+      count
+    end.reverse
+    sorted_referrals.first(3).map do |referrer|
+      referrer.first
+    end
   end
 
-  def user_agents
-
-  end
 end

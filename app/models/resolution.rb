@@ -5,7 +5,8 @@ class Resolution < ActiveRecord::Base
   validates :height, uniqueness: {scope: :width}
   validates :width, uniqueness: {scope: :height}
 
-  # def self.get_all_screen_resolutions
-  #   Resolution.pluck(:width, :height)
-  # end
+  def self.get_all_screen_resolutions
+    screen_reso_counts = joins(:payload_requests).group(:height,:width).count(:height,:width)
+    screen_reso_counts.collect { |resolution, count| resolution }
+  end
 end
