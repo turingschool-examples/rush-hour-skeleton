@@ -1,6 +1,7 @@
 class Url < ActiveRecord::Base
   has_many :payload_requests
   has_many :request_types, through: :payload_requests
+  
   validates :url, presence: true
 
   def maximum_response_time
