@@ -37,4 +37,15 @@ class PayloadRequest < ActiveRecord::Base
       request_counts.max_by{ |key, value| value }[0]
     end
 
+    def self.all_http_verbs_used
+      all.map do |payload|
+        payload.request_type
+      end
+    end
+
+    def self.most_requested_urls
+      url_counts = all.group(:url).count
+      raw_urls = url_counts.sort_by { |key, value| value }.reverse
+      raw_urls.map { |url_obj| url_obj[0] }
+    end
 end
