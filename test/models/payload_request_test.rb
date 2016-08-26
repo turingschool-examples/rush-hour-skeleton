@@ -153,4 +153,39 @@ class PayloadRequestTest < Minitest::Test
     assert_equal request_type1, PayloadRequest.most_requested_type
     refute_equal request_type2, PayloadRequest.most_requested_type
   end
+
+  def test_it_returns_all_HTTP_types_used
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 34,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 1,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    PayloadRequest.create({ url_id: 1,
+              requested_at: "date",
+              responded_in: 36,
+              referred_by_id: 1,
+              request_type_id: 2,
+              u_agent_id: 3,
+              resolution_id: 6,
+              ip_id: 2
+            })
+    request_type1 = RequestType.create(verb: "GET")
+    request_type2 = RequestType.create(verb: "POST")
+
+    assert_equal 3, PayloadRequest.all_http_verbs_used.count
+    assert_instance_of RequestType, PayloadRequest.all_http_verbs_used.first
+  end
 end

@@ -37,4 +37,9 @@ class PayloadRequest < ActiveRecord::Base
       request_counts.max_by{ |key, value| value }[0]
     end
 
+    def self.all_http_verbs_used
+      all.map do |payload|
+        payload.request_type
+      end
+    end
 end
