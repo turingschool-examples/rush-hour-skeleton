@@ -19,8 +19,7 @@ class PayloadRequest < ActiveRecord::Base
     validates :resolution_id, presence: true
     validates :ip_id, presence: true
 
-    # def reassigns_url_string
-    #   parsed_payload = JSON.parse(payload)
-    #   Url.new(url: parsed_payload[:url])
-    # end
+    def self.average_response_time
+      all.average("responded_in")
+    end
 end
