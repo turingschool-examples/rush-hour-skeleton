@@ -28,8 +28,9 @@ RSpec.describe RushHour::Server, type: :model do
     Client.create("identifier" => "jumpstartlab",
       "root_url" => "www.jumpstartlab.com")
 
+
     post '/sources', {"identifier" => "jumpstartlab",
-                      "root_url" => "www.jumpstartlab.com"}
+                      "rootUrl" => "www.jumpstartlab.com"}
 
     expect(last_response.status).to eq(403)
     expect(last_response.body).to eq("Client already exists")
@@ -37,7 +38,7 @@ RSpec.describe RushHour::Server, type: :model do
 
   it "returns status 200 and identifier message when it creates a new client" do
     post '/sources', {"identifier" => "jumpstartlab",
-                      "root_url" => "www.jumpstartlab.com"}
+                      "rootUrl" => "www.jumpstartlab.com"}
 
     expected_body = JSON.generate({"identifier" => "jumpstartlab"})
     expect(last_response.status).to eq(200)

@@ -7,6 +7,7 @@ module RushHour
     post '/sources' do
       @params = params
       response = params_valid? ? check_if_client_exists : bad_request
+      count = Client.all.count
       status response[:status_msg]
       body response[:message]
     end
@@ -19,8 +20,8 @@ module RushHour
 
     def ok
       client = Client.create("identifier" => params[:identifier],
-                    "root_url" => params[:root_url])
-      { :status_msg => 200, :message => JSON.generate({"identifier" => client.identifier})}
+                    "root_url" => params[:rootUrl])
+      { :status_msg => 200, :message => JSON.generate({"identifier" => client.identifier}) }
     end
 
     def bad_request
@@ -32,7 +33,7 @@ module RushHour
     end
 
     def params_valid?
-      !params[:identifier].nil? && !params[:root_url].nil?
+      !params[:identifier].nil? && !params[:rootUrl].nil?
     end
 
     def client_exists?
