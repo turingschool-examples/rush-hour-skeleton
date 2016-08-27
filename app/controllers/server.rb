@@ -1,14 +1,24 @@
+require_relative '../models/data_parser' # <= this doesn't work yet
+
 module RushHour
   class Server < Sinatra::Base
     post '/sources' do
-      # raw_data = params[:client]
+      # p params
+      # p params["rootUrl"]
+      # actual_params = {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
+
       # parsed_data = DataParser thing
       # client = Client.new(parsed_data)
-      client = Client.new(params[:client])
-      if Client.find_by(params[:client])
+      # client = Client.new(params[:client])
+
+      client_data = DataParser.new(params)
+      parsed_client = client_data.formatted_client
+      client = Client.new(parsed_client)
+      if Client.exists?(identifier: params["identifier"])
         status 403
         body "Identifier Already Exists"
       elsif client.save
+        "{'identifier':'#{params['identifier']}'}"
         status 200
         body "Success!"
       else

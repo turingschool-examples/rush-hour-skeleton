@@ -1,7 +1,7 @@
-require_relative 'data_parser'
+# require_relative 'data_parser'
 
 class PayloadRequest < ActiveRecord::Base
-  include DataParser
+  # include DataParser
 
     belongs_to :url
     belongs_to :referred_by
@@ -19,7 +19,7 @@ class PayloadRequest < ActiveRecord::Base
     validates :u_agent_id, presence: true
     validates :resolution_id, presence: true
     validates :ip_id, presence: true
-    validates :client_id, presence: true 
+    validates :client_id, presence: true
 
     def self.average_response_time
       all.average("responded_in")
@@ -62,7 +62,7 @@ class PayloadRequest < ActiveRecord::Base
       end
     end
 
-    
+
 
 
 
