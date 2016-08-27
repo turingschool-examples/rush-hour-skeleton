@@ -11,7 +11,7 @@ RSpec.describe DataParser, type: :model do
   let(:create_url) { Url.create("address" => "http://jumpstartlab.com/blog") }
   let(:create_source) { Source.create("address" => "http://jumpstartlab.com") }
   let(:create_request_type) { RequestType.create("verb" => "GET") }
-  let(:create_ip) { Ip.create("address" => "63.29.38.211") }
+  let(:create_ip_address) { IpAddress.create("address" => "63.29.38.211") }
 
   def sample_payload
     JSON.generate({"url":"http://jumpstartlab.com/blog",
@@ -96,36 +96,36 @@ RSpec.describe DataParser, type: :model do
     2.times { expect(dp.request_type_id).to eq(1) }
   end
 
-  skip "checks if ip exists in the ips table" do
-    expect(dp.ip_exists?).to eq(false)
+  it "checks if ip address exists in the ip addresses table" do
+    expect(dp.ip_address_exists?).to eq(false)
 
-    create_ip
+    create_ip_address
 
-    expect(dp.ip_exists?).to eq(true)
+    expect(dp.ip_address_exists?).to eq(true)
   end
 
-  skip "will create a new ip object and return its id" do
-    expect(dp.create_ip_return_id).to eq(1)
+  it "will create a new ip address object and return its id" do
+    expect(dp.create_ip_address_return_id).to eq(1)
   end
 
-  skip "will find a existing ip object and return its id" do
-    create_ip
-    expect(dp.return_existing_ip_id).to eq(1)
+  it "will find a existing ip address object and return its id" do
+    create_ip_address
+    expect(dp.return_existing_ip_address_id).to eq(1)
   end
 
-  skip "will return a ip id whether or not it finds a preexisting ip" do
-    2.times { expect(dp.ip_id).to eq(1) }
+  it "will return a ip address id whether or not it finds a preexisting ip address" do
+    2.times { expect(dp.ip_address_id).to eq(1) }
   end
 
 
-  skip "parses a payload" do
+  it "parses a payload" do
     parsed_payload = {
       "url_id" => 1,
       "requested_at" => "2013-02-16 21:38:28 -0700",
       "responded_in" => 37,
       "source_id" => 1,
       "request_type_id" => 1,
-      "ip_id" => 1
+      "ip_address_id" => 1
     }
     expect(dp.parse_payload).to eq(parsed_payload)
   end

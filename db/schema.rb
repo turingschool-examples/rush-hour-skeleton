@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826002241) do
+ActiveRecord::Schema.define(version: 20160827003433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,12 +35,12 @@ ActiveRecord::Schema.define(version: 20160826002241) do
     t.integer  "request_type_id"
     t.integer  "u_agent_id"
     t.integer  "screen_resolution_id"
-    t.integer  "ip_id"
+    t.integer  "ip_address_id"
     t.integer  "client_id"
   end
 
   add_index "payload_requests", ["client_id"], name: "index_payload_requests_on_client_id", using: :btree
-  add_index "payload_requests", ["ip_id"], name: "index_payload_requests_on_ip_id", using: :btree
+  add_index "payload_requests", ["ip_address_id"], name: "index_payload_requests_on_ip_address_id", using: :btree
   add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
   add_index "payload_requests", ["screen_resolution_id"], name: "index_payload_requests_on_screen_resolution_id", using: :btree
   add_index "payload_requests", ["source_id"], name: "index_payload_requests_on_source_id", using: :btree
