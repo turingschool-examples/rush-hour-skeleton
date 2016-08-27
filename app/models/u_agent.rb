@@ -11,3 +11,11 @@ class UAgent < ActiveRecord::Base
 
 
 end
+
+# user_agent = UserAgent.parse(string)
+# user_agent.browser
+# # => 'Chrome'
+# user_agent.version
+# # => '19.0.1084.56'
+# user_agent.platform
+# # => 'Macintosh'

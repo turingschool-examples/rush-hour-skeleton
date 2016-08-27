@@ -1,7 +1,6 @@
 require_relative '../test_helper'
 
 class DataParserTest < Minitest::Test
-  include DataParser
   def raw_payload
     '{
       "url":"http://jumpstartlab.com/blog",
@@ -17,7 +16,8 @@ class DataParserTest < Minitest::Test
   end
 
   def test_it_parses_raw_json
-    parsed = parsed(raw_payload)
+    payload = DataParser.new(raw_payload)
+    parsed = payload.parsed_payload
 
     expected = {"url"=>"http://jumpstartlab.com/blog",
                    "requestedAt"=>"2013-02-16 21:38:28 -0700",
@@ -33,7 +33,8 @@ class DataParserTest < Minitest::Test
   end
 
   def test_it_reassigns_column_keys_to_snake_case
-
+    payload = DataParser.new(raw_payload)
+    parsed = payload.formatted_payload
     expected = {"url"=>"http://jumpstartlab.com/blog",
                    "requested_at"=>"2013-02-16 21:38:28 -0700",
                    "responded_in"=>37,
@@ -44,13 +45,14 @@ class DataParserTest < Minitest::Test
                     "resolution_height"=>"1280",
                     "ip"=>"63.29.38.211"}
 
-    assert_equal expected, formatted_payload(raw_payload)
+    assert_equal expected, parsed
   end
 
   def test_it_parses_client_string
-    raw_client = 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    raw_client = {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
+    client = DataParser.new(raw_client)
     expected = {"identifier" => "jumpstartlab", "root_url" => "http://jumpstartlab.com"}
 
-    assert_equal expected, formatted_client(raw_client)
+    assert_equal expected, client.formatted_client
   end
 end

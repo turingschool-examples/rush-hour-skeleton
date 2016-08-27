@@ -1,6 +1,12 @@
 require 'json'
 
-module DataParser
+class DataParser
+  attr_reader :raw_data
+
+  def initialize(raw_data)
+    @raw_data = raw_data
+  end
+
   def new_keys
     { "requestedAt"=>"requested_at",
       "respondedIn"=>"responded_in",
@@ -8,36 +14,21 @@ module DataParser
       "requestType"=>"request_type",
       "userAgent"=>"u_agent",
       "resolutionWidth"=>"resolution_width",
-      "resolutionHeight"=>"resolution_height"
+      "resolutionHeight"=>"resolution_height",
+      "rootUrl"=>"root_url"
     }
   end
 
-  def parsed(raw_payload)
-    JSON.parse(raw_payload)
+  def parsed_payload
+    JSON.parse(raw_data)
   end
 
-  def formatted_payload(raw_payload)
-    parsed(raw_payload).map {|key, value| [new_keys[key] || key, value]}.to_h
+  def formatted_payload
+    parsed_payload.map {|key, value| [new_keys[key] || key, value]}.to_h
   end
 
-  def formatted_client(raw_client)
-    formatted_string = raw_client.gsub("&", "=").split("=")
-    formatted = {}
-    formatted["identifier"] = formatted_string[1]
-    formatted["root_url"] = formatted_string[3]
-    formatted
+  def formatted_client
+    raw_data.map {|key, value| [new_keys[key] || key, value]}.to_h
   end
-
-
-
-
-  # user_agent = UserAgent.parse(string)
-  # user_agent.browser
-  # # => 'Chrome'
-  # user_agent.version
-  # # => '19.0.1084.56'
-  # user_agent.platform
-  # # => 'Macintosh'
-
 
 end
