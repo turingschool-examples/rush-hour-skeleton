@@ -19,9 +19,16 @@ module RushHour
       end
     end
 
-    post '/sources/:identifier/data' do
-
-    end
+    # post '/sources/:identifier/data' do
+    #   data = PayloadParser.parse(params))
+    #   payload_data = CreatePayloadRequest.parse(data)
+    #   payload = PayloadRequest.new(payload_data)
+    #   if payload.save
+    #
+    #   else
+    #
+    #   end
+    # end
   end
 
 end

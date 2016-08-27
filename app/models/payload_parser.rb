@@ -1,15 +1,15 @@
 class PayloadParser
-  def self.create(params)
+  def self.parse(params)
     data = JSON.parse(params[:payload])
-
     data = data.map { |key, value| [key.to_sym, value] }.to_h
-
     data[:client_identifier] = params[:identifier]
-
     data[:resolution_info] = parse_resolutions(data)
     data[:u_agent_info] = parse_user_agent(data)
+    data
+  end
 
-    CreatePayloadRequest.create(data)
+  def self.create(params)
+    CreatePayloadRequest.create(parse(params))
   end
 
   def self.parse_resolutions(data)
