@@ -22,3 +22,12 @@ end
 class ModelTest < Minitest::Test
   include TestHelpers
 end
+
+class ControllerTest < Minitest::Test
+  include TestHelpers
+  include Rack::Test::Methods
+
+  def app
+    RushHour::Server
+  end
+end

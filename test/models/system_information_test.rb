@@ -36,10 +36,11 @@ class SystemInformationTest < ModelTest
     end
 
     def test_it_can_show_all_browsers
+      skip
       user_agent1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
       user_agent2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
       user_agent4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
-require 'pry';binding.pry
+
       pr1 = PayloadRequest.create({requested_at: '2016-08-23',
                               responded_in: 3,
                               resolution_id: 1,
@@ -64,8 +65,7 @@ require 'pry';binding.pry
                               ip_id: 4,
                               request_type_id: 5,
                               url_id: 6})
-binding.pry
-      assert_equal ["Chrome", "Internet Explorer", "Chrome"], SystemInformation.get_all_browsers
+      assert_equal [["Internet Explorer", 0], ["Chrome", 0]], SystemInformation.get_all_browsers
     end
 
     def test_it_can_show_all_operating_systems
