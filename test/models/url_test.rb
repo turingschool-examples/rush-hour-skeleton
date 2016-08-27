@@ -11,7 +11,8 @@ class UrlTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     super
   end
@@ -54,7 +55,8 @@ class UrlTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
 
     PayloadRequest.create({ requested_at: '2016-08-23',
@@ -64,7 +66,8 @@ class UrlTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     assert_equal [5, 4, 3], @url.response_times_from_highest_to_lowest
   end
@@ -82,7 +85,8 @@ class UrlTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url2.id
+                            url_id: @url2.id,
+                            client_id: 3
                             })
     @payload3 = PayloadRequest.create({ requested_at: '2016-08-25',
                             responded_in: 1,
@@ -91,7 +95,8 @@ class UrlTest < ModelTest
                             referral_id: 1,
                             ip_id: 1,
                             request_type_id: 1,
-                            url_id: @url2.id
+                            url_id: @url2.id,
+                            client_id: 3
                             })
     assert_equal ["http://www.google.com", "http://www.example.com"], Url.most_requested_urls
   end
@@ -108,7 +113,8 @@ class UrlTest < ModelTest
                             referral_id: referral1.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload2 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -117,7 +123,8 @@ class UrlTest < ModelTest
                             referral_id: referral1.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload3 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -126,7 +133,8 @@ class UrlTest < ModelTest
                             referral_id: referral2.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload4 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -135,7 +143,8 @@ class UrlTest < ModelTest
                             referral_id: referral2.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload5 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -144,7 +153,8 @@ class UrlTest < ModelTest
                             referral_id: referral3.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload6 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -153,7 +163,8 @@ class UrlTest < ModelTest
                             referral_id: referral3.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload7 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -162,7 +173,8 @@ class UrlTest < ModelTest
                             referral_id: referral4.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload8 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -171,7 +183,8 @@ class UrlTest < ModelTest
                             referral_id: referral3.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
     payload9 = PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 3,
@@ -180,7 +193,8 @@ class UrlTest < ModelTest
                             referral_id: referral1.id,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: @url.id
+                            url_id: @url.id,
+                            client_id: 3
                             })
 
     assert_equal ["Turing", "Google", "Yahoo"], @url.top_three_referrers

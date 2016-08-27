@@ -18,12 +18,20 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-      parsed_payload_attributes = PayloadParser.new(params[:payload]).parse
+      parsed_payload_attributes = PayloadParser.new(params).parse
       payload = PayloadPopulator.populate(parsed_payload_attributes, identifier)
 
       if payload.save
         status 200
         body "200 OK"
+      elsif payload.errors.full_messages.any? do |message|
+          message.include?("already")
+        end
+        status 403
+        body "403 Forbidden"
+      else
+        status 400
+        body "400 Bad Request"
       end
     end
 

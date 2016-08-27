@@ -1,11 +1,11 @@
 class PayloadParser
-  attr_reader :payload
+
   def initialize(payload)
-    @payload = payload
+    @payload = payload[:payload]
   end
 
   def parse
-    # require 'pry'; binding.pry
+    return {} if @payload.nil?
     parsed = JSON.parse(@payload)
     @payload = replace_keys(parsed)
   end

@@ -1,4 +1,3 @@
-require 'pry'
 class IdentifierParser
 
   def initialize(source)

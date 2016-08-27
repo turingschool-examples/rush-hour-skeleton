@@ -3,7 +3,7 @@ require './app/controllers/server'
 
 class SourceControllerTest < ControllerTest
   def test_it_can_handle_incomplete_request
-    post '/sources', {source: { } }
+    post '/sources'
 
     assert_equal 400, last_response.status
     assert_equal "Root url can't be blank, Identifier can't be blank", last_response.body

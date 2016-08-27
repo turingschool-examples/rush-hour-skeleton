@@ -10,7 +10,8 @@ class PayloadRequestTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: 6
+                            url_id: 6,
+                            client_id: 3
                             })
     payload_request = PayloadRequest.first
 
@@ -26,7 +27,8 @@ class PayloadRequestTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: 6
+                            url_id: 6,
+                            client_id: 3
                             })
     assert payload_happy.save
 
@@ -37,13 +39,10 @@ class PayloadRequestTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: 6
+                            url_id: 6,
+                            client_id: 3
                             })
 
     refute payload_sad.save
   end
-  
-  
-  
-  
 end

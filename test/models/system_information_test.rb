@@ -46,7 +46,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 3,
                               ip_id: 4,
                               request_type_id: 5,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -55,7 +56,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -64,7 +66,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
 
       expected = {"Internet Explorer"=>1, "Chrome"=>2}
@@ -82,7 +85,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 3,
                               ip_id: 4,
                               request_type_id: 5,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -91,7 +95,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -100,7 +105,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
 
       expected = {"Windows"=>2, "iOS"=>1}
@@ -120,7 +126,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 3,
                               ip_id: 4,
                               request_type_id: 5,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -129,7 +136,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -138,7 +146,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-23',
                               responded_in: 3,
@@ -147,7 +156,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 3,
                               ip_id: 4,
                               request_type_id: 5,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -156,7 +166,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -165,7 +176,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
       PayloadRequest.create({ requested_at: '2016-08-25',
                               responded_in: 1,
@@ -174,7 +186,8 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2
+                              url_id: 2,
+                              client_id: 3
                               })
 
       expected = [[["Internet Explorer", "Windows"], 2], [["Chrome", "iOS"], 2], [["Chrome", "Windows"], 2]]
