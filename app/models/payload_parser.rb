@@ -8,11 +8,6 @@ class PayloadParser
     data
   end
 
-  def self.create(params)
-    parsed_data = parse(params)
-    CreatePayloadRequest.create(parsed_data)
-  end
-
   def self.parse_resolutions(data)
     { width:  data[:resolutionWidth],
       height: data[:resolutionHeight] }

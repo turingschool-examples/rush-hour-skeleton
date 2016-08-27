@@ -1,4 +1,9 @@
 class CreatePayloadRequest
+  def self.create(params)
+    data = PayloadParser.parse(params)
+    parse(data)
+  end
+
   def self.parse(data)
     PayloadRequest.new({
       client_id:    Client.find_by( identifier: data[:client_identifier] ).id,
@@ -13,11 +18,18 @@ class CreatePayloadRequest
     })
   end
 
-  def self.create(data)
-    parse(data)
+  def self.record_exists?(payload)
+    match = PayloadRequest.where(
+      client_id: payload.client_id,
+      request_type_id: payload.request_type_id,
+      target_url_id: payload.target_url_id,
+      referrer_url_id: payload.referrer_url_id,
+      resolution_id: payload.resolution_id,
+      u_agent_id: payload.u_agent_id,
+      ip_id: payload.ip_id,
+      responded_in: payload.responded_in,
+      requested_at: payload.requested_at
+    )
+    !match.empty?
   end
-
-  # def self.unique_payload?(data)
-  #   PayloadRequest.exists?( requested_at: data[:requestedAt] )
-  # end
 end

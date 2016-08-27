@@ -17,8 +17,6 @@ class PayloadRequest < ActiveRecord::Base
   validates :responded_in,      presence: true
   validates :requested_at,      presence: true
 
-  validates :requested_at, uniqueness: true
-
   def self.average_response_time
     average(:responded_in).to_f.round(2)
   end
