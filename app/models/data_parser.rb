@@ -20,6 +20,15 @@ module DataParser
     parsed(raw_payload).map {|key, value| [new_keys[key] || key, value]}.to_h
   end
 
+  def formatted_client(raw_client)
+    formatted_string = raw_client.gsub("&", "=").split("=")
+    formatted = {}
+    formatted["identifier"] = formatted_string[1]
+    formatted["root_url"] = formatted_string[3]
+    formatted
+  end
+
+
 
 
   # user_agent = UserAgent.parse(string)

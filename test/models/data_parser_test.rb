@@ -46,4 +46,11 @@ class DataParserTest < Minitest::Test
 
     assert_equal expected, formatted_payload(raw_payload)
   end
+
+  def test_it_parses_client_string
+    raw_client = 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    expected = {"identifier" => "jumpstartlab", "root_url" => "http://jumpstartlab.com"}
+
+    assert_equal expected, formatted_client(raw_client)
+  end
 end

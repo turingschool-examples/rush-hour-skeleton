@@ -1,6 +1,5 @@
 module RushHour
   class Server < Sinatra::Base
-
     post '/sources' do
       # raw_data = params[:client]
       # parsed_data = DataParser thing
