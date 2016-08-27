@@ -41,10 +41,45 @@ class DataParser
     source_exists? ? return_existing_source_id : create_source_return_id
   end
 
+  def request_type_exists?
+    !(RequestType.find_by(verb: parse["requestType"])).nil?
+  end
+
+  def create_request_type_return_id
+    RequestType.create(verb: parse["requestType"]).id
+  end
+
+  def return_existing_request_type_id
+    RequestType.find_by(verb: parse["requestType"]).id
+  end
+
+  def request_type_id
+    request_type_exists? ? return_existing_request_type_id : create_request_type_return_id
+  end
+
+  def ip_exists?
+    !(Ip.find_by(address: parse["ip"])).nil?
+  end
+
+  def create_ip_return_id
+    Ip.create(address: parse["ip"]).id
+  end
+
+  def return_existing_ip_id
+    Ip.find_by(address: parse["ip"]).id
+  end
+
+  def ip_id
+    ip_exists? ? return_existing_ip_id : create_ip_return_id
+  end
+
   def parse_payload
     { "url_id" => url_id,
       "requested_at" => parse["requestedAt"],
-      "responded_in" => parse["respondedIn"]
+      "responded_in" => parse["respondedIn"],
+      "source_id" => source_id,
+      "request_type_id" => request_type_id,
+      "ip_id" => ip_id
     }
   end
 
