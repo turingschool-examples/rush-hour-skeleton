@@ -2,15 +2,8 @@ require_relative '../models/data_parser' # <= this doesn't work yet
 
 module RushHour
   class Server < Sinatra::Base
+
     post '/sources' do
-      # p params
-      # p params["rootUrl"]
-      # actual_params = {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
-
-      # parsed_data = DataParser thing
-      # client = Client.new(parsed_data)
-      # client = Client.new(params[:client])
-
       client_data = DataParser.new(params)
       parsed_client = client_data.formatted_client
       client = Client.new(parsed_client)
@@ -27,19 +20,17 @@ module RushHour
       end
     end
 
+    # post '/sources/:identifier/data' do
+    #   if Client.find_by(identifier: params["identifier"])
+    #     payload_data = DataParser.new(params["payload"])
+    #     #perform_payload_uniqueness_check
+    #     #if check is passed save payload
+    #     #else return error
+    #   # p params
+    # end
+
     not_found do
       erb :error
     end
   end
 end
-
-# post '/items' do
-#   item = Item.new(params[:item])
-#   if item.save
-#     status  200
-#     body  "Item created"
-#   else
-#     status  400
-#     body  item.errors.full_messages.join(", ")
-#   end
-# end
