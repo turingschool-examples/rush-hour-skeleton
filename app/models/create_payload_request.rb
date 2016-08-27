@@ -1,6 +1,6 @@
 class CreatePayloadRequest
   def self.parse(data)
-    {
+    PayloadRequest.new({
       client_id:    Client.find_by( identifier: data[:client_identifier] ).id,
       request_type: RequestType.find_or_create_by( name: data[:requestType] ),
       target_url:   TargetUrl.find_or_create_by( name: data[:url] ),
@@ -10,10 +10,14 @@ class CreatePayloadRequest
       ip:           Ip.find_or_create_by( address: data[:ip] ),
       responded_in: data[:respondedIn],
       requested_at: data[:requestedAt]
-    }
+    })
   end
 
   def self.create(data)
-    PayloadRequest.create(parse(data))
+    parse(data)
   end
+
+  # def self.unique_payload?(data)
+  #   PayloadRequest.exists?( requested_at: data[:requestedAt] )
+  # end
 end

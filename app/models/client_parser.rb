@@ -5,6 +5,7 @@ class ClientParser
   end
 
   def self.create(params)
-    Client.create(parse(params))
+    parsed_data = parse(params)
+    Client.new(parsed_data)
   end
 end

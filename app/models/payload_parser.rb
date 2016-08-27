@@ -9,7 +9,8 @@ class PayloadParser
   end
 
   def self.create(params)
-    CreatePayloadRequest.create(parse(params))
+    parsed_data = parse(params)
+    CreatePayloadRequest.create(parsed_data)
   end
 
   def self.parse_resolutions(data)
