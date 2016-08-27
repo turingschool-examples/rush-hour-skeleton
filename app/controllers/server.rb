@@ -21,7 +21,7 @@ module RushHour
       parsed_payload_attributes = PayloadParser.new(params).parse
       payload = PayloadPopulator.populate(parsed_payload_attributes, identifier)
 
-      if PayloadRequest.find_by(responded_in: payload.responded_in, resolution_id: payload.resolution_id, system_information_id: payload.system_information_id, referral_id: payload.referral_id, ip_id: payload.ip_id, request_type_id: payload.request_type_id, url_id: payload.url_id, client_id: payload.client_id)
+      if PayloadRequest.find_by(requested_at: payload.requested_at, responded_in: payload.responded_in, resolution_id: payload.resolution_id, system_information_id: payload.system_information_id, referral_id: payload.referral_id, ip_id: payload.ip_id, request_type_id: payload.request_type_id, url_id: payload.url_id, client_id: payload.client_id)
         status 403
         body "403 Forbidden"
       elsif payload.save
