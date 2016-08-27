@@ -2,8 +2,8 @@ require 'pry'
 module RushHour
   class Server < Sinatra::Base
     post '/sources' do
-      p params
-      parsed_client_attributes = IdentifierParser.new(params[:source]).parse
+      parsed_client_attributes = IdentifierParser.new(params).parse
+
       client = Client.new(parsed_client_attributes)
       if client.save
         status 200
