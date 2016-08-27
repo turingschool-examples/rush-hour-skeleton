@@ -4,7 +4,7 @@ class Url < ActiveRecord::Base
   has_many :referred_bies, through: :payload_requests
   has_many :u_agents, through: :payload_requests
 
-  validates :url, presence: true
+  validates :url, presence: true, uniqueness: true
 
   def maximum_response_time
     payload_requests.maximum("responded_in")
