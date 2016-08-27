@@ -15,6 +15,11 @@ Capybara.app = RushHour::Server
 DatabaseCleaner.strategy = :truncation
 
 module TestHelpers
+  include Rack::Test::Methods
+  def app
+    RushHour::Server
+  end
+
   def setup
     DatabaseCleaner.clean
     super
