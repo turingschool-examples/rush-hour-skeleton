@@ -36,44 +36,149 @@ class SystemInformationTest < ModelTest
     end
 
     def test_it_can_show_all_browsers
-      skip
-      user_agent1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
-      user_agent2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
-      user_agent4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
+      sys_info1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
+      sys_info2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
+      sys_info3 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
+      PayloadRequest.create({ requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              system_information_id: sys_info1.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info2.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info3.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
 
-      pr1 = PayloadRequest.create({requested_at: '2016-08-23',
-                              responded_in: 3,
-                              resolution_id: 1,
-                              system_information_id: user_agent1.id,
-                              referral_id: 3,
-                              ip_id: 4,
-                              request_type_id: 5,
-                              url_id: 6})
-      pr2 = PayloadRequest.create({requested_at: '2016-08-23',
-                              responded_in: 3,
-                              resolution_id: 1,
-                              system_information_id: user_agent2.id,
-                              referral_id: 3,
-                              ip_id: 4,
-                              request_type_id: 5,
-                              url_id: 6})
-      pr3 = PayloadRequest.create({requested_at: '2016-08-23',
-                              responded_in: 3,
-                              resolution_id: 1,
-                              system_information_id: user_agent4.id,
-                              referral_id: 3,
-                              ip_id: 4,
-                              request_type_id: 5,
-                              url_id: 6})
-      assert_equal [["Internet Explorer", 0], ["Chrome", 0]], SystemInformation.get_all_browsers
+      expected = {"Internet Explorer"=>1, "Chrome"=>2}
+      assert_equal expected, SystemInformation.get_all_browsers_count
     end
 
     def test_it_can_show_all_operating_systems
       sys_info1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
       sys_info2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
-      sys_info4 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
+      sys_info3 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
+      PayloadRequest.create({ requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              system_information_id: sys_info1.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info2.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info3.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
 
-      assert_equal ["Windows", "Windows", "iOS"], SystemInformation.get_all_operating_systems
+      expected = {"Windows"=>2, "iOS"=>1}
+      assert_equal expected, SystemInformation.get_all_operating_systems_count
+    end
+
+    def test_it_can_return_top_3_system_info_combos
+      sys_info1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
+      sys_info2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
+      sys_info3 = SystemInformation.create({browser: "Chrome", operating_system: "iOS"})
+      sys_info4 = SystemInformation.create({browser: "Firefox", operating_system: "iOS"})
+      sys_info5 = SystemInformation.create({browser: "Safari", operating_system: "iOS"})
+      PayloadRequest.create({ requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              system_information_id: sys_info1.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info1.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info2.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-23',
+                              responded_in: 3,
+                              resolution_id: 1,
+                              system_information_id: sys_info2.id,
+                              referral_id: 3,
+                              ip_id: 4,
+                              request_type_id: 5,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info3.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info3.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
+      PayloadRequest.create({ requested_at: '2016-08-25',
+                              responded_in: 1,
+                              resolution_id: 1,
+                              system_information_id: sys_info4.id,
+                              referral_id: 1,
+                              ip_id: 1,
+                              request_type_id: 1,
+                              url_id: 2
+                              })
+
+      expected = [[["Internet Explorer", "Windows"], 2], [["Chrome", "iOS"], 2], [["Chrome", "Windows"], 2]]
+      assert_equal expected, SystemInformation.get_three_most_popular_system_info_combos
     end
 
   end

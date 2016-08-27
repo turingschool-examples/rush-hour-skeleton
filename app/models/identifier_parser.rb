@@ -16,7 +16,7 @@ class IdentifierParser
       if substitutions.keys.include?(key.to_sym)
         result[substitutions[key.to_sym]] = value
       else
-        result[key] = value
+        result[key.to_sym] = value
       end
     end
     result

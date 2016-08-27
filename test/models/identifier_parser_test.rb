@@ -10,7 +10,7 @@ class PayloadParserTest < ModelTest
   end
 
   def test_it_parses_a_param_string
-    payload = 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    payload = {'identifier'=>'jumpstartlab', 'rootUrl'=>'http://jumpstartlab.com'}
     parser = IdentifierParser.new(payload)
     expected ={identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
     assert_equal expected, parser.parse

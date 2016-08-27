@@ -12,7 +12,7 @@ class SourceControllerTest < ControllerTest
   end
 
   def test_it_can_create_a_client
-    post '/sources', {source: 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'}
+    post '/sources', {'identifier'=>'jumpstartlab', 'rootUrl'=>'http://jumpstartlab.com'}
 
     assert_equal 200, last_response.status
     assert_equal "{\"identifier\": \"jumpstartlab\"}", last_response.body
@@ -20,8 +20,8 @@ class SourceControllerTest < ControllerTest
   end
 
   def test_wont_allow_duplicates
-    post '/sources', {source: 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com' }
-    post '/sources', {source: 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com' }
+    post '/sources', {'identifier'=> 'jumpstartlab', 'rootUrl'=>'http://jumpstartlab.com' }
+    post '/sources', {'identifier'=> 'jumpstartlab', 'rootUrl'=>'http://jumpstartlab.com' }
 
     assert_equal 403, last_response.status
 
