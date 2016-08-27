@@ -5,6 +5,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :u_agent
   belongs_to :screen_resolution
   belongs_to :client
+  belongs_to :ip_address
 
   validates :url_id, presence: true
   validates :requested_at, presence: true
@@ -13,7 +14,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :request_type_id, presence: true
   validates :u_agent_id, presence: true
   validates :screen_resolution_id, presence: true
-  validates :ip_id, presence: true
+  validates :ip_address_id, presence: true
   validates :client_id, presence: true
 
   def self.average_response_time

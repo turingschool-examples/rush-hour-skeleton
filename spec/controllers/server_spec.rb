@@ -59,7 +59,7 @@ RSpec.describe RushHour::Server, type: :model do
     "request_type_id"=>4,
     "u_agent_id"=>5,
     "screen_resolution_id"=>6,
-    "ip_id"=>7,
+    "ip_address_id"=>7,
     "client_id"=>8}
   end
 
@@ -106,7 +106,7 @@ RSpec.describe RushHour::Server, type: :model do
     expect(last_response.status).to eq(400)
     expect(last_response.body).to eq(payload_error_message)
 
-    post '/sources/jumpstartlab/data', invalid_payload_request("ip_id")
+    post '/sources/jumpstartlab/data', invalid_payload_request("ip_address_id")
 
     expect(last_response.status).to eq(400)
     expect(last_response.body).to eq(payload_error_message)

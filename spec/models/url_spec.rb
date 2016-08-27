@@ -26,7 +26,7 @@ RSpec.describe Url, type: :model do
           "request_type_id"       =>  1,
           "u_agent_id"            =>  5,
           "screen_resolution_id"  =>  4,
-          "ip_id"                 =>  6,
+          "ip_address_id"                 =>  6,
           "client_id"             =>  10)
       end
   end
@@ -52,7 +52,7 @@ RSpec.describe Url, type: :model do
           "request_type_id"       =>  1,
           "u_agent_id"            =>  5,
           "screen_resolution_id"  =>  4,
-          "ip_id"                 =>  6,
+          "ip_address_id"                 =>  6,
           "client_id"             =>  10)
       end
   end
@@ -76,7 +76,7 @@ RSpec.describe Url, type: :model do
           "request_type_id"       =>  1,
           "u_agent_id"            =>  u_agent_id,
           "screen_resolution_id"  =>  4,
-          "ip_id"                 =>  6,
+          "ip_address_id"                 =>  6,
           "client_id"             =>  10)
       end
   end
@@ -138,7 +138,7 @@ RSpec.describe Url, type: :model do
       "request_type_id"       =>  verb.id,
       "u_agent_id"            =>  5,
       "screen_resolution_id"  =>  4,
-      "ip_id"                 =>  6,
+      "ip_address_id"                 =>  6,
       "client_id"             =>  10)
 
     expect(url.verbs).to include(verb)
@@ -170,7 +170,7 @@ RSpec.describe Url, type: :model do
                   "request_type_id"=>3,
                   "u_agent_id"=>5,
                   "screen_resolution_id"=>4,
-                  "ip_id"=>6,
+                  "ip_address_id"=>6,
                   "client_id"=>10)
                 end
 
@@ -189,7 +189,7 @@ RSpec.describe Url, type: :model do
                   "request_type_id"=>3,
                   "u_agent_id"=>5,
                   "screen_resolution_id"=>4,
-                  "ip_id"=>6,
+                  "ip_address_id"=>6,
                   "client_id"=>10)
                 end
 
@@ -208,7 +208,7 @@ RSpec.describe Url, type: :model do
                   "request_type_id"=>3,
                   "u_agent_id"=>5,
                   "screen_resolution_id"=>4,
-                  "ip_id"=>6,
+                  "ip_address_id"=>6,
                   "client_id"=>10)
                 end
 
@@ -227,7 +227,7 @@ RSpec.describe Url, type: :model do
                   "request_type_id"=>3,
                   "u_agent_id"=>5,
                   "screen_resolution_id"=>4,
-                  "ip_id"=>6,
+                  "ip_address_id"=>6,
                   "client_id"=>10)
                 end
 

@@ -16,7 +16,7 @@ RSpec.describe PayloadRequest, type: :model do
                 "request_type_id"=>3,
                 "u_agent_id"=>5,
                 "screen_resolution_id"=>4,
-                "ip_id"=>6)
+                "ip_address_id"=>6)
   end
 
   let(:payload) { PayloadRequest.new(
@@ -27,7 +27,7 @@ RSpec.describe PayloadRequest, type: :model do
     "request_type_id"=>3,
     "u_agent_id"=>5,
     "screen_resolution_id"=>4,
-    "ip_id"=>6,
+    "ip_address_id"=>6,
     "client_id"=>6)}
 
   let(:malformed_payload) { PayloadRequest.new(
@@ -38,7 +38,7 @@ RSpec.describe PayloadRequest, type: :model do
     "request_type_id"=>3,
     "u_agent_id"=>5,
     "screen_resolution_id"=>4,
-    "ip_id"=>6)}
+    "ip_address_id"=>6)}
 
   it "takes a payload and returns a payload request object" do
     expect(payload).to be_an_instance_of PayloadRequest
@@ -72,8 +72,8 @@ RSpec.describe PayloadRequest, type: :model do
     expect(payload.screen_resolution_id).to eq(4)
   end
 
-  it "has an ip_id address" do
-    expect(payload.ip_id).to eq(6)
+  it "has an ip_address_id address" do
+    expect(payload.ip_address_id).to eq(6)
   end
 
   it "has an client_id address" do
@@ -108,11 +108,11 @@ RSpec.describe PayloadRequest, type: :model do
     expect(PayloadRequest.new(:screen_resolution_id => "")).to be_invalid
   end
 
-  it "will not create a payload request without an ip_id" do
-    expect(PayloadRequest.new(:ip_id => "")).to be_invalid
+  it "will not create a payload request without an ip_address_id" do
+    expect(PayloadRequest.new(:ip_address_id => "")).to be_invalid
   end
 
-  it "will not create a payload request without an ip_id" do
+  it "will not create a payload request without an ip_address_id" do
     expect(PayloadRequest.new(:client_id => "")).to be_invalid
   end
 
@@ -124,7 +124,7 @@ RSpec.describe PayloadRequest, type: :model do
     "request_type_id"=>3,
     "u_agent_id"=>5,
     "screen_resolution_id"=>4,
-    "ip_id"=>6,
+    "ip_address_id"=>6,
     "client_id"=>10}
   end
 

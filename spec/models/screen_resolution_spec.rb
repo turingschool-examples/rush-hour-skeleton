@@ -65,7 +65,7 @@ RSpec.describe ScreenResolution, type: :model do
                   "request_type_id"=>3,
                   "u_agent_id"=>5,
                   "screen_resolution_id"=>screen_res_id,
-                  "ip_id"=>6,
+                  "ip_address_id"=>6,
                   "client_id"=>10)
                 end
 
