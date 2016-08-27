@@ -1,16 +1,60 @@
 class PayloadParser
+  attr_reader :payload
   def initialize(payload)
     @payload = payload
   end
 
   def parse
-    JSON.parse(replace(@payload))
+    parsed = JSON.parse(@payload)
+
+    @payload = replace_keys(parsed)
+    populate(@payload)
   end
 
-  def replace(payload)
-    substitutions = {"requestedAt" => "requested_at", "respondedIn" => "responded_in", "referredBy" => "referred_by", "requestType" => "request_type", "userAgent" => "system_information", "resolutionWidth" => "resolution_width", "resolutionHeight" => "resolution_height"}
-    substitutions.each_pair { |key, value| payload.gsub!(key, value) }
-    payload
+  def replace_keys(json_result)
+    substitutions = {:requestedAt => :requested_at, :respondedIn => :responded_in, :referredBy => :referred_by, :requestType => :request_type, :userAgent => :system_information, :resolutionWidth => :resolution_width, :resolutionHeight => :resolution_height}
+    result = {}
+    json_result.each_pair do |json_key, value|
+      if substitutions.keys.include?(json_key)
+        result[ substitutions[json_key] ] = value
+      else
+        result[json_key] = value
+      end
+    end
+    format_agent(result)
+  end
+
+  def format_agent(payload)
+    agent = UserAgent.parse(payload[:system_information])
+
+    result = {}
+    payload.each_pair do |key, value|
+      if key == :system_information
+        result[:browser] = agent.browser
+        result[:operating_system] = agent.os
+      else
+        result[key] = value
+      end
+    end
+    @payload = result
+  end
+
+  def populate(payload)
+    ip = Ip.find_or_create_by(address: payload[:ip])
+    referral = Referral.find_or_create_by(referred_by: payload[:referred_by])
+    request_type = RequestType.find_or_create_by(http_verb: payload[:request_type])
+    resolution = Resolution.find_or_create_by(height: payload[:resolution_height], width: payload[:resolution_width])
+    url = Url.find_or_create_by(web_address: payload[:url])
+    system_information = SystemInformation.find_or_create_by(browser: payload[:browser], operating_system: payload[:operating_system])
+
+    payload_request = PayloadRequest.create(requested_at: payload[:requested_at],
+      responded_in: payload[:responded_in],
+      resolution_id: resolution.id,
+      system_information_id: system_information.id,
+      referral_id: referral.id,
+      ip_id: ip.id,
+      request_type_id: request_type.id,
+      url_id: url.id)
   end
 end
 #

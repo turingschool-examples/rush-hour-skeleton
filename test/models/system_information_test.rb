@@ -66,7 +66,7 @@ class SystemInformationTest < ModelTest
                               request_type_id: 1,
                               url_id: 2
                               })
-      
+
       expected = {"Internet Explorer"=>1, "Chrome"=>2}
       assert_equal expected, SystemInformation.get_all_browsers_count
     end
@@ -102,11 +102,11 @@ class SystemInformationTest < ModelTest
                               request_type_id: 1,
                               url_id: 2
                               })
-    
+
       expected = {"Windows"=>2, "iOS"=>1}
       assert_equal expected, SystemInformation.get_all_operating_systems_count
     end
-    
+
     def test_it_can_return_top_3_system_info_combos
       sys_info1 = SystemInformation.create({browser: "Chrome", operating_system: "Windows"})
       sys_info2 = SystemInformation.create({browser: "Internet Explorer", operating_system: "Windows"})
@@ -176,7 +176,7 @@ class SystemInformationTest < ModelTest
                               request_type_id: 1,
                               url_id: 2
                               })
-    
+
       expected = [[["Internet Explorer", "Windows"], 2], [["Chrome", "iOS"], 2], [["Chrome", "Windows"], 2]]
       assert_equal expected, SystemInformation.get_three_most_popular_system_info_combos
     end

@@ -45,7 +45,7 @@ class UrlTest < ModelTest
   def test_it_can_average_response_times_per_url
     assert_equal 3, @url.average_response_time
   end
-  
+
   def test_it_can_return_all_response_times_per_url
     PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 5,
@@ -56,7 +56,7 @@ class UrlTest < ModelTest
                             request_type_id: 5,
                             url_id: @url.id
                             })
-                            
+
     PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 4,
                             resolution_id: 1,
@@ -72,7 +72,7 @@ class UrlTest < ModelTest
   def test_it_knows_http_verbs_for_this_url
     assert_equal [], @url.http_verbs
   end
-  
+
   def test_it_returns_most_requested_urls
     @url2 = Url.create(web_address: "http://www.google.com")
     @payload2 = PayloadRequest.create({ requested_at: '2016-08-23',

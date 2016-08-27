@@ -5,7 +5,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :resolution
   belongs_to :client
   belongs_to :system_information
-  
+
   validates :requested_at, :responded_in, :resolution_id, :system_information_id, :referral_id, :ip_id, :request_type_id, :url_id, presence: true
 
 
@@ -20,10 +20,9 @@ class PayloadRequest < ActiveRecord::Base
   def self.min_response_time
     minimum('responded_in')
   end
-  
+
   def self.all_response_times
     pluck('responded_in')
   end
-  
 
 end
