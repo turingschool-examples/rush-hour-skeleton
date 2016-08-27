@@ -7,7 +7,7 @@ RSpec.describe DataParser, type: :model do
     DatabaseCleaner.clean
   end
 
-  let(:dp) { DataParser.new(sample_payload) }
+  let(:dp) { DataParser.new(sample_params_request_path) }
   let(:create_url) { Url.create("address" => "http://jumpstartlab.com/blog") }
   let(:create_source) { Source.create("address" => "http://jumpstartlab.com") }
   let(:create_request_type) { RequestType.create("verb" => "GET") }
@@ -17,10 +17,20 @@ RSpec.describe DataParser, type: :model do
                                        "operating_system" => u_agent[:operating_system]) }
 
   def u_agent
-    parsed_sample_payload = JSON.parse(sample_payload)
-    user_agent = UserAgent.new(parsed_sample_payload["userAgent"])
+    parsed_sample_params = JSON.parse(sample_payload)
+    user_agent = UserAgent.new(parsed_sample_params["userAgent"])
     { :browser => user_agent.name.to_s,
       :operating_system => user_agent.os }
+  end
+
+  def sample_params_request_path
+    {"payload" => sample_payload,
+    "identifier" => "jumpstartlab"}
+  end
+
+  def sample_params_with_invalid_request_path
+    {"payload" => sample_payload,
+     "identifier" => "turing"}
   end
 
   def sample_payload
@@ -37,6 +47,7 @@ RSpec.describe DataParser, type: :model do
 
   it "is initialized with a payload" do
     expect(dp.payload).to eq(sample_payload)
+    expect(dp.client_identifier).to eq(sample_params_request_path["identifier"])
   end
 
   it "parses incoming json payload into ruby hash" do
@@ -169,16 +180,32 @@ RSpec.describe DataParser, type: :model do
     2.times { expect(dp.screen_resolution_id).to eq(1) }
   end
 
+  it "will store a client identifier" do
+    expect(dp.client_identifier).to eq("jumpstartlab")
+  end
+
+  it "will find client id from identifier or return nil" do
+    Client.create("identifier" => "jumpstartlab",
+      "root_url" => "www.jumpstartlab.com")
+    expect(dp.client_id).to eq(1)
+
+    dp_invalid = DataParser.new(sample_params_with_invalid_request_path)
+    expect(dp_invalid.client_id).to eq(nil)
+  end
+
   it "parses a payload" do
+    Client.create("identifier" => "jumpstartlab",
+      "root_url" => "www.jumpstartlab.com")
     parsed_payload = {
       "url_id" => 1,
-      "requested_at" => "2013-02-16 21:38:28 -0700",
+      "requested_at" => DateTime.parse("2013-02-16 21:38:28 -0700"),
       "responded_in" => 37,
       "source_id" => 1,
       "request_type_id" => 1,
       "u_agent_id" => 1,
       "screen_resolution_id" => 1,
-      "ip_address_id" => 1
+      "ip_address_id" => 1,
+      "client_id" => 1
     }
     expect(dp.parse_payload).to eq(parsed_payload)
   end

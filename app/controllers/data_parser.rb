@@ -1,8 +1,10 @@
 class DataParser
-  attr_reader :payload
+  attr_reader :payload,
+              :client_identifier
 
-  def initialize(payload)
-    @payload = payload
+  def initialize(params)
+    @payload = params["payload"]
+    @client_identifier = params["identifier"]
   end
 
   def parse
@@ -108,15 +110,25 @@ class DataParser
     screen_resolution_exists? ? return_existing_screen_resolution_id : create_screen_resolution_return_id
   end
 
+  # def client_identifer
+  #   request_path.split("/")[2]
+  # end
+
+  def client_id
+    client = Client.find_by("identifier" => client_identifier)
+    client.nil? ? nil : client.id
+  end
+
   def parse_payload
     { "url_id" => url_id,
-      "requested_at" => parse["requestedAt"],
+      "requested_at" => DateTime.parse(parse["requestedAt"]),
       "responded_in" => parse["respondedIn"],
       "source_id" => source_id,
       "request_type_id" => request_type_id,
       "u_agent_id" => u_agent_id,
       "screen_resolution_id" => screen_resolution_id,
-      "ip_address_id" => ip_address_id
+      "ip_address_id" => ip_address_id,
+      "client_id" => client_id
     }
   end
 

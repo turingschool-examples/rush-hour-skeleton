@@ -1,9 +1,10 @@
 module RushHour
   class Server < Sinatra::Base
-    attr_reader :params,
+    attr_reader :expected_params,
                 :parameters,
                 :messages,
-                :exists
+                :exists,
+                :payload_request
 
     not_found do
       erb :error
@@ -11,7 +12,7 @@ module RushHour
 
     post '/sources' do
       @params = params
-      @parameters = client_params
+      @expected_params = client_params
       @messages = client_messages
       @exists = client_exists?
       response = params_valid? ? check_if_exists : bad_request
@@ -21,15 +22,32 @@ module RushHour
 
     post '/sources/:identifier/data' do
       @params = params
-      @parameters = payload_params
+      @expected_params = payload_request_parameters
       @messages = payload_messages
-      @exists = payload_request_exists?
-      # request.path_info # => '/sources/jumpstartlab/data'
-      # identifier = request.path_info.split("/")[0]
-      response = params_valid? ? check_if_exists : bad_request
-      # puts "\n\n\n******************************\n\n\n"
-      # count = PayloadRequest.all.count
-      # puts "\n\n\n******************************\n\n\n"
+      if !params_valid?
+        response = bad_request
+      elsif !payload_valid?
+        response = bad_request
+      else
+        @payload_request = DataParser.new(params).parse_payload
+        if payload_request_exists?
+          response = response = {
+            :status_msg => 403,
+            :message => "Payload request already exists"
+          }
+        elsif application_request_does_not_exist?
+          response = response = {
+            :status_msg => 403,
+            :message => "Application does not exist"
+          }
+        else
+          PayloadRequest.create(payload_request)
+          response = {
+            :status_msg => 200,
+            :message => "Success"
+          }
+        end
+      end
       status response[:status_msg]
       body response[:message]
     end
@@ -56,7 +74,16 @@ module RushHour
     end
 
     def params_valid?
-      return parameters.none? { |param| params[param].nil? }
+      expected_params.all? do |expected_param|
+        !params[expected_param].nil? && params[expected_param] != ""
+      end
+    end
+
+    def payload_valid?
+      parsed_payload = JSON.parse(params["payload"])
+      payload_params.all? do |payload_param|
+        !parsed_payload[payload_param].nil? && parsed_payload[payload_param] != ""
+      end
     end
 
     def client_params
@@ -74,8 +101,12 @@ module RushHour
     end
 
     def payload_params
-      [:url, :requestedAt, :respondedIn, :referredBy, :requestType,
-       :userAgent, :resolutionWidth, :resolutionHeight, :ip]
+      ["url", "requestedAt", "respondedIn", "referredBy", "requestType",
+       "userAgent", "resolutionWidth", "resolutionHeight", "ip"]
+    end
+
+    def payload_request_parameters
+      [:payload, :identifier]
     end
 
     def client_exists?
@@ -83,8 +114,21 @@ module RushHour
     end
 
     def payload_request_exists?
-      # !(PayloadRequest.find_by identifier: params[:identifier]).nil?
-      # !(PayloadRequest.where(...))
+      pr = PayloadRequest.where(url_id: payload_request["url_id"],
+                                requested_at: payload_request["requested_at"].getutc,
+                                responded_in: payload_request["responded_in"],
+                                source_id: payload_request["source_id"],
+                                request_type_id: payload_request["request_type_id"],
+                                u_agent_id: payload_request["u_agent_id"],
+                                screen_resolution_id: payload_request["screen_resolution_id"],
+                                ip_address_id: payload_request["ip_address_id"],
+                                client_id: payload_request["client_id"])
+      !pr.empty?
+    end
+
+    def application_request_does_not_exist?
+      client = Client.find_by(id: payload_request["client_id"])
+      client.nil?
     end
   end
 end
