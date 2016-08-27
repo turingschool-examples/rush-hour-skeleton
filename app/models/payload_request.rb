@@ -8,9 +8,6 @@ class PayloadRequest < ActiveRecord::Base
 
   validates :requested_at, :responded_in, :resolution_id, :system_information_id, :referral_id, :ip_id, :request_type_id, :url_id, :client_id, presence: true
 
-
-
-
   def self.average_response_time
     average('responded_in')
   end

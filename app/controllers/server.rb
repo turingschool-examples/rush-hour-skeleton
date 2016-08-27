@@ -21,14 +21,12 @@ module RushHour
       parsed_payload_attributes = PayloadParser.new(params).parse
       payload = PayloadPopulator.populate(parsed_payload_attributes, identifier)
 
-      if payload.save
-        status 200
-        body "200 OK"
-      elsif payload.errors.full_messages.any? do |message|
-          message.include?("already")
-        end
+      if PayloadRequest.find_by(responded_in: payload.responded_in, resolution_id: payload.resolution_id, system_information_id: payload.system_information_id, referral_id: payload.referral_id, ip_id: payload.ip_id, request_type_id: payload.request_type_id, url_id: payload.url_id, client_id: payload.client_id)
         status 403
         body "403 Forbidden"
+      elsif payload.save
+        status 200
+        body "200 OK"
       else
         status 400
         body "400 Bad Request"

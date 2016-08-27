@@ -28,6 +28,6 @@ class PayloadControllerTest < ControllerTest
 
     assert_equal 403, last_response.status
     assert_equal "403 Forbidden", last_response.body
-    assert_equal 0, PayloadRequest.count
+    assert_equal 1, PayloadRequest.count
   end
 end
