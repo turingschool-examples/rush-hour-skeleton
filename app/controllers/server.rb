@@ -17,6 +17,16 @@ module RushHour
       end
     end
 
+    post '/sources/:identifier/data' do |identifier|
+      parsed_payload_attributes = PayloadParser.new(params[:payload]).parse
+      payload = PayloadPopulator.populate(parsed_payload_attributes, identifier)
+
+      if payload.save
+        status 200
+        body "200 OK"
+      end
+    end
+
     not_found do
       erb :error
     end

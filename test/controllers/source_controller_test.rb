@@ -24,6 +24,5 @@ class SourceControllerTest < ControllerTest
     post '/sources', {'identifier'=> 'jumpstartlab', 'rootUrl'=>'http://jumpstartlab.com' }
 
     assert_equal 403, last_response.status
-
   end
 end
