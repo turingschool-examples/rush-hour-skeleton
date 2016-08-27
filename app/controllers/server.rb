@@ -20,8 +20,12 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do
-      redirect '/sources/:identifier/error' unless ClientCreator.client_exists?(params)
+      unless ClientCreator.client_exists?(params)
+        redirect '/sources/:identifier/error'
+      end
+
       payload = CreatePayloadRequest.create(params)
+      
       if  CreatePayloadRequest.record_exists?(payload)
         status 403
         body "Identifier has already been taken"

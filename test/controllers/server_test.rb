@@ -63,7 +63,6 @@ class ServerTest < Minitest::Test
       rootUrl: "http://jumpstartlab.com"
     }
     post '/sources/jumpstartlab/data', params
-    payload = PayloadRequest.last
 
     assert_equal 200, last_response.status
     success_data = '{"identifier":"jumpstartlab"}'
@@ -90,7 +89,6 @@ class ServerTest < Minitest::Test
     })
     client.save
     post '/sources/jumpstartlab/data', params
-    payload = PayloadRequest.last
     assert_equal 1, PayloadRequest.count
 
     post '/sources/jumpstartlab/data', params

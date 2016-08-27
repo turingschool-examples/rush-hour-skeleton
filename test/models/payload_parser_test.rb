@@ -59,7 +59,7 @@ class PayloadParserTest < Minitest::Test
     refute ClientCreator.client_exists?(params)
   end
 
-  def test_it_can_determine_if_client_doesnt_exist
+  def test_it_can_determine_if_client_does_exist
     make_payloads
     params = { payload: '{
       "url":"http://google.com/",
