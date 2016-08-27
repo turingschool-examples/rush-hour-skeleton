@@ -12,6 +12,16 @@ RSpec.describe DataParser, type: :model do
   let(:create_source) { Source.create("address" => "http://jumpstartlab.com") }
   let(:create_request_type) { RequestType.create("verb" => "GET") }
   let(:create_ip_address) { IpAddress.create("address" => "63.29.38.211") }
+  let(:create_screen_resolution) { ScreenResolution.create("width" => "1920", "height" => "1280") }
+  let(:create_u_agent) { UAgent.create("browser" => u_agent[:browser],
+                                       "operating_system" => u_agent[:operating_system]) }
+
+  def u_agent
+    parsed_sample_payload = JSON.parse(sample_payload)
+    user_agent = UserAgent.new(parsed_sample_payload["userAgent"])
+    { :browser => user_agent.name.to_s,
+      :operating_system => user_agent.os }
+  end
 
   def sample_payload
     JSON.generate({"url":"http://jumpstartlab.com/blog",
@@ -117,6 +127,47 @@ RSpec.describe DataParser, type: :model do
     2.times { expect(dp.ip_address_id).to eq(1) }
   end
 
+  it "checks if u agent exists in the u agent table" do
+    expect(dp.u_agent_exists?).to eq(false)
+
+    create_u_agent
+
+    expect(dp.u_agent_exists?).to eq(true)
+  end
+
+  it "will create a new u agent object and return its id" do
+    expect(dp.create_u_agent_return_id).to eq(1)
+  end
+
+  it "will find a existing u agent object and return its id" do
+    create_u_agent
+    expect(dp.return_existing_u_agent_id).to eq(1)
+  end
+
+  it "will return a u agent id whether or not it finds a preexisting u agent" do
+    2.times { expect(dp.u_agent_id).to eq(1) }
+  end
+
+  it "checks if screen resolution exists in the screen resolutions table" do
+    expect(dp.screen_resolution_exists?).to eq(false)
+
+    create_screen_resolution
+
+    expect(dp.screen_resolution_exists?).to eq(true)
+  end
+
+  it "will create a new screen resolution object and return its id" do
+    expect(dp.create_screen_resolution_return_id).to eq(1)
+  end
+
+  it "will find a existing screen resolution object and return its id" do
+    create_screen_resolution
+    expect(dp.return_existing_screen_resolution_id).to eq(1)
+  end
+
+  it "will return a screen resolution id whether or not it finds a preexisting screen resolution" do
+    2.times { expect(dp.screen_resolution_id).to eq(1) }
+  end
 
   it "parses a payload" do
     parsed_payload = {
@@ -125,6 +176,8 @@ RSpec.describe DataParser, type: :model do
       "responded_in" => 37,
       "source_id" => 1,
       "request_type_id" => 1,
+      "u_agent_id" => 1,
+      "screen_resolution_id" => 1,
       "ip_address_id" => 1
     }
     expect(dp.parse_payload).to eq(parsed_payload)

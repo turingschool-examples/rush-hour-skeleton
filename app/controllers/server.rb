@@ -24,6 +24,8 @@ module RushHour
       @parameters = payload_params
       @messages = payload_messages
       @exists = payload_request_exists?
+      # request.path_info # => '/sources/jumpstartlab/data'
+      # identifier = request.path_info.split("/")[0]
       response = params_valid? ? check_if_exists : bad_request
       # puts "\n\n\n******************************\n\n\n"
       # count = PayloadRequest.all.count

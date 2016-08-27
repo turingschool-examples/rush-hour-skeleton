@@ -73,12 +73,49 @@ class DataParser
     ip_address_exists? ? return_existing_ip_address_id : create_ip_address_return_id
   end
 
+  def u_agent_exists?
+    u_agent = UserAgent.new(parse["userAgent"])
+    !(UAgent.where(browser: u_agent.name.to_s, operating_system: u_agent.os)).empty?
+  end
+
+  def create_u_agent_return_id
+    u_agent = UserAgent.new(parse["userAgent"])
+    UAgent.create(browser: u_agent.name.to_s, operating_system: u_agent.os).id
+  end
+
+  def return_existing_u_agent_id
+    u_agent = UserAgent.new(parse["userAgent"])
+    UAgent.where(browser: u_agent.name.to_s, operating_system: u_agent.os).first.id
+  end
+
+  def u_agent_id
+    u_agent_exists? ? return_existing_u_agent_id : create_u_agent_return_id
+  end
+
+  def screen_resolution_exists?
+    !(ScreenResolution.where(width: parse["resolutionWidth"], height: parse["resolutionHeight"])).empty?
+  end
+
+  def create_screen_resolution_return_id
+    ScreenResolution.create(width: parse["resolutionWidth"], height: parse["resolutionHeight"]).id
+  end
+
+  def return_existing_screen_resolution_id
+    ScreenResolution.where(width: parse["resolutionWidth"], height: parse["resolutionHeight"]).first.id
+  end
+
+  def screen_resolution_id
+    screen_resolution_exists? ? return_existing_screen_resolution_id : create_screen_resolution_return_id
+  end
+
   def parse_payload
     { "url_id" => url_id,
       "requested_at" => parse["requestedAt"],
       "responded_in" => parse["respondedIn"],
       "source_id" => source_id,
       "request_type_id" => request_type_id,
+      "u_agent_id" => u_agent_id,
+      "screen_resolution_id" => screen_resolution_id,
       "ip_address_id" => ip_address_id
     }
   end
