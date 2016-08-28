@@ -61,9 +61,10 @@ class ResolutionTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: 2
+                            url_id: 2,
+                            client_id: 3
                             })
-                           
+
     PayloadRequest.create({ requested_at: '2016-08-23',
                             responded_in: 4,
                             resolution_id: resolution2.id,
@@ -71,7 +72,8 @@ class ResolutionTest < ModelTest
                             referral_id: 3,
                             ip_id: 4,
                             request_type_id: 5,
-                            url_id: 3
+                            url_id: 3,
+                            client_id: 3
                             })
     assert_equal [["100", "250"], ["200", "300"]], Resolution.get_all_screen_resolutions
   end

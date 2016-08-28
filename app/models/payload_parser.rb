@@ -1,24 +1,23 @@
 class PayloadParser
-  attr_reader :payload
+
   def initialize(payload)
-    @payload = payload
+    @payload = payload[:payload]
   end
 
   def parse
+    return {} if @payload.nil?
     parsed = JSON.parse(@payload)
-
     @payload = replace_keys(parsed)
-    populate(@payload)
   end
 
   def replace_keys(json_result)
     substitutions = {:requestedAt => :requested_at, :respondedIn => :responded_in, :referredBy => :referred_by, :requestType => :request_type, :userAgent => :system_information, :resolutionWidth => :resolution_width, :resolutionHeight => :resolution_height}
     result = {}
     json_result.each_pair do |json_key, value|
-      if substitutions.keys.include?(json_key)
-        result[ substitutions[json_key] ] = value
+      if substitutions.keys.include?(json_key.to_sym)
+        result[ substitutions[json_key.to_sym] ] = value
       else
-        result[json_key] = value
+        result[json_key.to_sym] = value
       end
     end
     format_agent(result)
@@ -39,33 +38,5 @@ class PayloadParser
     @payload = result
   end
 
-  def populate(payload)
-    ip = Ip.find_or_create_by(address: payload[:ip])
-    referral = Referral.find_or_create_by(referred_by: payload[:referred_by])
-    request_type = RequestType.find_or_create_by(http_verb: payload[:request_type])
-    resolution = Resolution.find_or_create_by(height: payload[:resolution_height], width: payload[:resolution_width])
-    url = Url.find_or_create_by(web_address: payload[:url])
-    system_information = SystemInformation.find_or_create_by(browser: payload[:browser], operating_system: payload[:operating_system])
 
-    payload_request = PayloadRequest.create(requested_at: payload[:requested_at],
-      responded_in: payload[:responded_in],
-      resolution_id: resolution.id,
-      system_information_id: system_information.id,
-      referral_id: referral.id,
-      ip_id: ip.id,
-      request_type_id: request_type.id,
-      url_id: url.id)
-  end
 end
-#
-# payload = '{
-#   "url":"http://jumpstartlab.com/blog",
-#   "requestedAt":"2013-02-16 21:38:28 -0700",
-#   "respondedIn":37,
-#   "referredBy":"http://jumpstartlab.com",
-#   "requestType":"GET",
-#   "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-#   "resolutionWidth":"1920",
-#   "resolutionHeight":"1280",
-#   "ip":"63.29.38.211"
-# }'
