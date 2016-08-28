@@ -24,17 +24,26 @@ module RushHour
     post '/sources/:identifier/data' do
       client = Client.find_by(identifier: params["identifier"])
       if client
-        payload_data = DataParser.new(params)
-        payload_data.assign_foreign_keys
-        saved_payload = PayloadRequest.find_by(client_id: client.id)
-          if PayloadRequest.exists?(id: saved_payload.id)
-            status 403
-            body "Already received"
-          elsif params["payload"].nil?
+        if params["payload"].nil?
+          status 400
+          body "Missing payload"
+        elsif PayloadRequest.exists?(url_id: payload)
+          status 403
+          body "Already received"
+        else
+          payload_data = DataParser.new(params)
+          payload_data.assign_foreign_keys
+          status 200
+          body "Success"
         end
+      else
+        status 403
+        body "Application not registered"
       end
+    end
 
-
+      # parsed_payload = payload_data.assign_foreign_keys
+      # saved_payload = PayloadRequest.find_by(client_id: client.id)
 
       #   if payload_data.assign_foreign_keys is successful,
       #     200 success
@@ -51,7 +60,6 @@ module RushHour
       #   if check is passed save payload
       #   else return error
       # p params
-    end
 
     not_found do
       erb :error

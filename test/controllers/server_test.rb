@@ -91,10 +91,19 @@ class ServerTest < Minitest::Test
     post "/sources/#{raw_client_payload_data["identifier"]}/data", raw_client_payload_data
 
     assert_equal 403, last_response.status
+    assert_equal "Already received", last_response.body
   end
 
   def test_it_returns_error_if_payload_empty
-    
+    empty_payload = {"payload"=>"{}", "splat"=>[], "captures"=>["jumpstartlab"], "identifier"=>"jumpstartlab"}
+
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+
+    populate_payloads
+    post "/sources/#{empty_payload["identifier"]}/data", empty_payload
+
+    assert_equal 400, last_response.status
+    assert_equal "Missing payload", last_response.body
   end
 
 end
