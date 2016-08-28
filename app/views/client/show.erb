@@ -1,67 +1,83 @@
-<h1>Analytics for: <%= @client.identifier %></h1>
-<h2>URL: <%= @client.root_url %></h2>
+<div class="container">
+  <div class="row">
+    <h1>Analytics for: <%= @client.identifier %></h1>
+    <h2>URL: <%= @client.root_url %></h2>
+    <!-- Response Times  -->
+    <div><h3>Response Time Statistics</h3>
+    <table class="table table-striped">
+      <tr>
+        <td>Average Response Time: </td>
+        <td><%= @payloads.average_response_time %> ms</td>
+      </tr>
+      <tr>
+        <td>Max Response Time: </td>
+        <td><%= @payloads.max_response_time %> ms</td>
+      </tr>
+      <tr>
+        <td>Min Response Time: </td>
+        <td><%= @payloads.min_response_time %> ms</td>
+      </tr>
+    </table>
+  </div>
 
-<!-- Response Times  -->
-<table>
-  <tr>
-    <td>Average Response Time: </td>
-    <td><%= @payloads.average_response_time %></td>
-  </tr>
-  <tr>
-    <td>Max Response Time: </td>
-    <td><%= @payloads.max_response_time %></td>
-  </tr>
-  <tr>
-    <td>Min Response Time: </td>
-    <td><%= @payloads.min_response_time %></td>
-  </tr>
-</table>
+    <!-- Site information -->
+    <div><h3>Site Information</h3>
+    <table class="table table-striped">
+      <tr>
+        <td>Most Frequent Request Type: </td>
+        <td><%= @request_types.most_frequent_request %></td>
+      </tr>
+      <tr>
+        <td>List of all HTTP verbs used</td>
+        <td><%= @request_types.list_all_verbs.join(', ') %></td>
+      </tr>
 
+    <tr>
+        <td>List of URLs (most to least) </td>
+        <td><%= @urls.most_requested_urls.join("\n") %></td>
+      </tr>
+    </table>
+  </div>
 
-<!-- Site information -->
-<table>
-  <tr>
-    <td>Most Frequent Request Type: </td>
-    <td><%= @request_types.most_frequent_request %></td>
-  </tr>
-  <tr>
-    <td>List of all HTTP verbs used</td>
-    <td><%= @request_types.list_all_verbs.join(', ') %></td>
-  </tr>
+    <!-- System information -->
+    <div class="container">
 
-<tr>
-    <td>List of URLs (most to least) </td>
-    <td><%= @urls.most_requested_urls.join("\n") %></td>
-  </tr>
-</table>
+    <div class="row">
+      <h3>System Information</h3>
 
+        <div class="col-md-4"><h4>What Browsers are your Users Using?</h4>
+        <table class="table table-striped">
+          <!-- WebBrowser Breakdown -->
+          <% @system_information.get_all_browsers_count.each_pair do |browser, count| %>
+          <tr>
+            <td><%= browser %>: </td>
+            <td><%= count %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+        <!-- OS Breakdown -->
+        <div class="col-md-4"><h4>What OS are your Users Using?</h4>
+        <table class="table table-striped">
+          <% @system_information.get_all_operating_systems_count.each_pair do |op_sys, count| %>
+          <tr>
+            <td><%= op_sys %>: </td>
+            <td><%= count %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+        <!-- Resolution Breakdown -->
+        <div class="col-md-4"><h4>What Screen Res are your Users Using?</h4>
+        <table class="table table-striped">
+          <% @resolution.get_all_screen_resolutions.each do |height, width| %>
+          <tr>
+            <td><%= height %> x <%= width %></td>
+          </tr>
+          <% end %>
+        </table>
+    </div>
+  </div>
 
-<!-- System information -->
-<table>
-  <!-- WebBrowser Breakdown -->
-  <% @system_information.get_all_browsers_count.each_pair do |browser, count| %>
-  <tr>
-    <td><%= browser %>: </td>
-    <td><%= count %></td>
-  </tr>
-  <% end %>
-</table>
-
- <!-- OS Breakdown -->
-<table>
-  <% @system_information.get_all_operating_systems_count.each_pair do |op_sys, count| %>
-  <tr>
-    <td><%= op_sys %>: </td>
-    <td><%= count %></td>
-  </tr>
-  <% end %>
-</table>
-
-<!-- Resolution Breakdown -->
-<table>
-  <% @resolution.get_all_screen_resolutions.each do |height, width| %>
-  <tr>
-    <td><%= height %> x <%= width %></td>
-  </tr>
-  <% end %>
-</table>
+  </div>
+</div>
