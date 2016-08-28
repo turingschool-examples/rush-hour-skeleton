@@ -84,13 +84,26 @@ class DataParserTest < Minitest::Test
 
     assert_equal 1, PayloadRequest.all.count
     assert_equal 1, PayloadRequest.first.url_id
+    assert_equal 1, PayloadRequest.first.referred_by_id
+    assert_equal 1, PayloadRequest.first.request_type_id
+    assert_equal 1, PayloadRequest.first.u_agent_id
+    assert_equal 1, PayloadRequest.first.resolution_id
+    assert_equal 1, PayloadRequest.first.ip_id
+    assert_equal 1, PayloadRequest.first.client_id
   end
 
   def test_it_checks_for_payload_uniqueness
-    skip
-    raw_payload = raw_client_payload_data["payload"]
-    parsed_payload = DataParser.new(raw_payload)
 
+    parsed_payload1 = DataParser.new(raw_client_payload_data)
+    parsed_payload1.assign_foreign_keys
 
+    assert_equal 1, PayloadRequest.all.count
+
+    parsed_payload2 = DataParser.new(raw_client_payload_data)
+    parsed_payload2.assign_foreign_keys
+
+    assert_equal 1, PayloadRequest.all.count
   end
+
+  
 end
