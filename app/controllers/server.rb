@@ -50,7 +50,7 @@ module RushHour
           body "403 Forbidden - No Payload data for this source"
         else
           status 200
-          body "200 OK"
+          # erb :'client/show'
         end
       end
     end

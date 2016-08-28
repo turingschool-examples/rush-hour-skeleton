@@ -1,0 +1,39 @@
+<h1>Analytics for: <%= @client.identifier %></h1>
+<h2>URL: <%= @client.root_url %></h2>
+
+
+<!-- Response Times  -->
+<table>
+  <tr>
+    <td>Average Response Time: </td>
+    <td><%= @payloads.average_response_time %></td>
+  </tr>
+  <tr>
+    <td>Max Response Time: </td>
+    <td><%= @payloads.max_response_time %></td>
+  </tr>
+  <tr>
+    <td>Min Response Time: </td>
+    <td><%= @payloads.min_response_time %></td>
+  </tr>
+</table>
+
+
+<!-- Site information -->
+<table>
+  <tr>
+    <td>Most Frequent Request Type: </td>
+    <td><%= @payloads.most_frequent_request %></td>
+  </tr>
+  <tr>
+    <td>Max Response Time: </td>
+    <td><%= @payloads.max_response_time %></td>
+  </tr>
+  <tr>
+    <td>Min Response Time: </td>
+    <td><%= @payloads.min_response_time %></td>
+  </tr>
+</table>
+
+
+<!-- System information -->

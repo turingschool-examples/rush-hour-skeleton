@@ -9,6 +9,6 @@ class RequestType < ActiveRecord::Base
   end
 
   def self.most_frequent_request
-    PayloadRequest.join(:request_types).group(:http_verb)
+    joins(:payload_requests).group(:http_verb).count(:http_verb)
   end
 end
