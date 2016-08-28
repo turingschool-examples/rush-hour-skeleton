@@ -1,8 +1,10 @@
-require_relative '../models/data_parser' # <= this doesn't work yet
+require_relative '../models/data_parser'
+require_relative '../models/sub_table_checker'
 require "pry"
 
 module RushHour
   class Server < Sinatra::Base
+    include SubTableChecker
 
     post '/sources' do
       client_data = DataParser.new(params)
@@ -23,22 +25,46 @@ module RushHour
 
     post '/sources/:identifier/data' do
       client = Client.find_by(identifier: params["identifier"])
-      if client
-        if params["payload"].nil?
-          status 400
-          body "Missing payload"
-        elsif PayloadRequest.exists?(url_id: payload)
-          status 403
-          body "Already received"
-        else
-          payload_data = DataParser.new(params)
-          payload_data.assign_foreign_keys
-          status 200
-          body "Success"
-        end
+      raw_payload = DataParser.new(params)
+      # binding.pry
+      if !raw_payload.raw_data.keys.include?("payload")
+        status 400
+        body "Missing payload"
       else
-        status 403
-        body "Application not registered"
+        formatted_payload = raw_payload.formatted_payload
+        if client
+          payload = PayloadRequest.find_by(url_id: check_url_exists(formatted_payload),
+          referred_by_id: check_referred_by_exists(formatted_payload),
+          request_type_id: check_request_type_exists(formatted_payload),
+          u_agent_id: check_u_agent_exists(formatted_payload),
+          resolution_id: check_resolution_exists(formatted_payload),
+          ip_id: check_ip_exists(formatted_payload)
+                                          )
+          if payload
+            status 403
+            body "Already received"
+          else
+            new_payload = PayloadRequest.new(url_id: check_url_exists(formatted_payload),
+            requested_at: formatted_payload["requested_at"],
+            responded_in: formatted_payload["responded_in"],
+            referred_by_id: check_referred_by_exists(formatted_payload),
+            request_type_id: check_request_type_exists(formatted_payload),
+            u_agent_id: check_u_agent_exists(formatted_payload),
+            resolution_id: check_resolution_exists(formatted_payload),
+            ip_id: check_ip_exists(formatted_payload)
+                                            )
+            if new_payload.save
+              status 200
+              body "Success"
+            # else
+              # status 400
+              # body "Missing payload data"
+            end
+          end
+        else
+          status 403
+          body "Application not registered"
+        end
       end
     end
 
