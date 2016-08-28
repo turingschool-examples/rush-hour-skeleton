@@ -1,6 +1,8 @@
 require_relative '../test_helper'
 
 class DataParserTest < Minitest::Test
+  include TestHelpers
+  
   def raw_payload
     '{
       "url":"http://jumpstartlab.com/blog",
@@ -93,6 +95,7 @@ class DataParserTest < Minitest::Test
   end
 
   def test_it_checks_for_payload_uniqueness
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
 
     parsed_payload1 = DataParser.new(raw_client_payload_data)
     parsed_payload1.assign_foreign_keys
@@ -105,5 +108,5 @@ class DataParserTest < Minitest::Test
     assert_equal 1, PayloadRequest.all.count
   end
 
-  
+
 end

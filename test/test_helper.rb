@@ -12,7 +12,8 @@ require 'rack/test'
 
 Capybara.app = RushHour::Server
 
-DatabaseCleaner.strategy = :truncation, {except: %w([public.schema.migrations])}
+DatabaseCleaner.strategy = :truncation
+# , {except: %w([public.schema.migrations])}
 
 module TestHelpers
   include Rack::Test::Methods

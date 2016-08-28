@@ -276,7 +276,7 @@ class UrlTest < Minitest::Test
     payload4 = PayloadRequest.create(url_id: 1,
                 requested_at: "date",
                 responded_in: 12,
-                referred_by_id: 2,
+                referred_by_id: 1,
                 request_type_id: 1,
                 u_agent_id: 3,
                 resolution_id: 6,

@@ -1,4 +1,5 @@
 require_relative '../test_helper'
+require "pry"
 
 class ResolutionTest < Minitest::Test
   include TestHelpers
@@ -10,7 +11,6 @@ class ResolutionTest < Minitest::Test
     assert_equal 1920, resolution.height
     assert resolution.valid?
     refute resolution2.valid?
-
     assert_equal 1, Resolution.all.count
   end
 end

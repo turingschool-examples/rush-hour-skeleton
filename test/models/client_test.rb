@@ -10,11 +10,11 @@ class ClientTest < Minitest::Test
     assert_equal 1, Client.all.count
   end
 
-  def test_it_ensures_no_repeated_entries
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-
-    assert_equal 1, Client.all.count
-  end
+  # def test_it_ensures_no_repeated_entries
+  #   Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+  #   Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+  #
+  #   assert_equal 1, Client.all.count
+  # end
 
 end

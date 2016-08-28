@@ -1,4 +1,5 @@
 require_relative '../models/data_parser' # <= this doesn't work yet
+require "pry"
 
 module RushHour
   class Server < Sinatra::Base
@@ -21,13 +22,15 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do
-      if Client.find_by(identifier: params["identifier"])
+      client = Client.find_by(identifier: params["identifier"])
+      if client
         payload_data = DataParser.new(params)
-        saved_payload = payload_data.assign_foreign_keys
-          if saved_payload.exists?(id: saved_payload.id)
+        payload_data.assign_foreign_keys
+        saved_payload = PayloadRequest.find_by(client_id: client.id)
+          if PayloadRequest.exists?(id: saved_payload.id)
             status 403
             body "Already received"
-          # elsif params["payload"].nil?
+          elsif params["payload"].nil?
         end
       end
 
