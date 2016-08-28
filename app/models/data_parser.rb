@@ -4,8 +4,23 @@ require 'pry'
 class DataParser
   attr_reader :raw_data
 
+  attr_accessor :url,
+                :referred_by,
+                :request_type,
+                :u_agent,
+                :resolution,
+                :ip,
+                :client
+
   def initialize(raw_data)
-    @raw_data = raw_data
+    @raw_data     = raw_data
+    @url          = url
+    @referred_by  = referred_by
+    @request_type = request_type
+    @u_agent      = u_agent
+    @resolution   = resolution
+    @ip           = ip
+    @client       = client
   end
 
   def new_keys
@@ -32,24 +47,18 @@ class DataParser
     raw_data.map {|key, value| [new_keys[key] || key, value]}.to_h
   end
 
+  def populate_tables
+    @url = Url.find_or_create_by(url: formatted_payload["url"])
+    @referred_by = ReferredBy.find_or_create_by(url: formatted_payload["referred_by"])
+    @request_type = RequestType.find_or_create_by(verb: formatted_payload["request_type"])
+    @u_agent = UAgent.find_or_create_by(agent: formatted_payload["u_agent"])
+    @resolution = Resolution.find_or_create_by(width: formatted_payload["resolution_width"], height: formatted_payload["resolution_height"])
+    @ip = Ip.find_or_create_by(ip_address: formatted_payload["ip"])
+    @client = Client.find_by(identifier: raw_data["identifier"])
+  end
+
   def assign_foreign_keys
-    formatted_payload
-
-    url = Url.find_or_create_by(url: formatted_payload["url"])
-    referred_by = ReferredBy.find_or_create_by(url: formatted_payload["referred_by"])
-    request_type = RequestType.find_or_create_by(verb: formatted_payload["request_type"])
-    u_agent = UAgent.find_or_create_by(agent: formatted_payload["u_agent"])
-    resolution = Resolution.find_or_create_by(width: formatted_payload["resolution_width"], height: formatted_payload["resolution_height"])
-    ip = Ip.find_or_create_by(ip_address: formatted_payload["ip"])
-    client = Client.find_by(identifier: raw_data["identifier"])
-
-    # url = Url.find_by(url: formatted_payload[:url])
-    # binding.pry
-    # referred_by = ReferredBy.find_by(url: formatted_payload[:referred_by])
-    # request_type = RequestType.find_by(verb: formatted_payload[:request_type])
-    # u_agent = UAgent.find_by(agent: formatted_payload[:u_agent])
-    # resolution = Resolution.find_by(width: formatted_payload[:resolution_width], height: formatted_payload[:resolution_height])
-    # ip = Ip.find_by(ip_address: formatted_payload[:ip])
+    populate_tables
 
     PayloadRequest.find_or_create_by(url_id: url.id,
                           requested_at: formatted_payload["requested_at"],
