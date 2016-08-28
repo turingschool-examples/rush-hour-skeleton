@@ -18,18 +18,23 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-      parsed_payload_attributes = PayloadParser.new(params).parse
-      payload = PayloadPopulator.populate(parsed_payload_attributes, identifier)
-
-      if PayloadRequest.find_by(requested_at: payload.requested_at, responded_in: payload.responded_in, resolution_id: payload.resolution_id, system_information_id: payload.system_information_id, referral_id: payload.referral_id, ip_id: payload.ip_id, request_type_id: payload.request_type_id, url_id: payload.url_id, client_id: payload.client_id)
+      unless Client.find_by(identifier: identifier)
         status 403
-        body "403 Forbidden"
-      elsif payload.save
-        status 200
-        body "200 OK"
+        body "403 Forbidden - Application Not Registered"
       else
-        status 400
-        body "400 Bad Request"
+        parsed_payload_attributes = PayloadParser.new(params).parse
+        payload = PayloadPopulator.populate(parsed_payload_attributes, identifier)
+
+        if PayloadRequest.find_by(requested_at: payload.requested_at, responded_in: payload.responded_in, resolution_id: payload.resolution_id, system_information_id: payload.system_information_id, referral_id: payload.referral_id, ip_id: payload.ip_id, request_type_id: payload.request_type_id, url_id: payload.url_id, client_id: payload.client_id)
+          status 403
+          body "403 Forbidden - Already Received Request"
+        elsif payload.save
+          status 200
+          body "200 OK"
+        else
+          status 400
+          body "400 Bad Request: " + payload.errors.full_messages.join('. ')
+        end
       end
     end
 
