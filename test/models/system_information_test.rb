@@ -105,7 +105,7 @@ class SystemInformationTest < ModelTest
                               referral_id: 1,
                               ip_id: 1,
                               request_type_id: 1,
-                              url_id: 2,
+                              url_id: 1,
                               client_id: 3
                               })
 

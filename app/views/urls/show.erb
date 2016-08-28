@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+<!-- Response Info -->
+    <H1>Analytics for <%= @url.web_address %> </H1>
+    <div><h3>Response Time Statistics</h3>
+      <table class="table table-striped">
+        <tr>
+          <!-- Max -->
+          <td>Max Response Time: </td>
+          <td><%= @url.max_response_time %> ms</td>
+        </tr>
+        <tr>
+          <!-- Min -->
+          <td>Min Response Time: </td>
+          <td><%= @url.min_response_time %> ms</td>
+        </tr>
+        <tr>
+          <!-- List of Response Times Across all requests sorted -->
+          <td>All response times: </td>
+          <td><%= @url.response_times_from_highest_to_lowest %></td>
+        </tr>
+        <tr>
+          <!-- Average for this URL -->
+          <td>Average Response Time: </td>
+          <td><%= @url.average_response_time %> ms</td>
+        </tr>
+      </table>
+    </div>
+    <!-- HTTP Verbs -->
+    <div><h3>Site Information</h3>
+      <table class="table table-striped">
+        <tr>
+          <!-- List of Verbs -->
+          <td>List of all HTTP verbs used</td>
+          <td><%= @url.http_verbs.join(", ") %></td>
+        </tr>
+      </table>
+    </div>
+    <!-- Referrers -->
+    <div><h3>Referrals</h3>
+      <table class="table table-striped">
+        <tr>
+          <!-- Three most popular -->
+          <td>Top Three Referrers (is that a word?)</td>
+          <td><%= @url.top_three_referrers %></td>
+        </tr>
+      </table>
+    </div>
+    <!-- Sys Info -->
+    <div><h3>System Information</h3>
+      <table class="table table-striped">
+        <tr>
+          <!-- Three most popular user agents -->
+          <td>Top Three Systems</td>
+          <td><%= @url.top_user_agents %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

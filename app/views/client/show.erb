@@ -7,15 +7,15 @@
     <table class="table table-striped">
       <tr>
         <td>Average Response Time: </td>
-        <td><%= @payloads.average_response_time %> ms</td>
+        <td><%= @client.average_response_time %> ms</td>
       </tr>
       <tr>
         <td>Max Response Time: </td>
-        <td><%= @payloads.max_response_time %> ms</td>
+        <td><%= @client.max_response_time %> ms</td>
       </tr>
       <tr>
         <td>Min Response Time: </td>
-        <td><%= @payloads.min_response_time %> ms</td>
+        <td><%= @client.min_response_time %> ms</td>
       </tr>
     </table>
   </div>
@@ -25,16 +25,21 @@
     <table class="table table-striped">
       <tr>
         <td>Most Frequent Request Type: </td>
-        <td><%= @request_types.most_frequent_request %></td>
+        <td><%= @client.most_frequent_request_type %></td>
       </tr>
       <tr>
         <td>List of all HTTP verbs used</td>
-        <td><%= @request_types.list_all_verbs.join(', ') %></td>
+        <td><%= @client.list_all_verbs.join(', ') %></td>
       </tr>
 
     <tr>
         <td>List of URLs (most to least) </td>
-        <td><%= @urls.most_requested_urls.join("\n") %></td>
+        <% @client.sorted_urls_by_request_count.each do |url, count| %>
+        <td>
+          <% relative_path = url.gsub(@client.root_url, "") %>
+          <a href='<%= @client.identifier%>/urls<%= relative_path %>'><%= url %></a>: <%= count %>
+        </td>
+        <% end %>
       </tr>
     </table>
   </div>
@@ -48,7 +53,7 @@
         <div class="col-md-4"><h4>What Browsers are your Users Using?</h4>
         <table class="table table-striped">
           <!-- WebBrowser Breakdown -->
-          <% @system_information.get_all_browsers_count.each_pair do |browser, count| %>
+          <% @client.browser_count.each_pair do |browser, count| %>
           <tr>
             <td><%= browser %>: </td>
             <td><%= count %></td>
@@ -59,7 +64,7 @@
         <!-- OS Breakdown -->
         <div class="col-md-4"><h4>What OS are your Users Using?</h4>
         <table class="table table-striped">
-          <% @system_information.get_all_operating_systems_count.each_pair do |op_sys, count| %>
+          <% @client.operating_system_count.each_pair do |op_sys, count| %>
           <tr>
             <td><%= op_sys %>: </td>
             <td><%= count %></td>
@@ -70,9 +75,9 @@
         <!-- Resolution Breakdown -->
         <div class="col-md-4"><h4>What Screen Res are your Users Using?</h4>
         <table class="table table-striped">
-          <% @resolution.get_all_screen_resolutions.each do |height, width| %>
+          <% @client.screen_resolutions.each do |resolution, count| %>
           <tr>
-            <td><%= height %> x <%= width %></td>
+            <td><%= resolution.first %> x <%= resolution.last %>: <%= count%></td>
           </tr>
           <% end %>
         </table>

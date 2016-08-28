@@ -50,11 +50,24 @@ module RushHour
           body "403 Forbidden - No Payload data for this source"
         else
           status 200
-          @request_types = @client.request_types
-          @urls = @client.urls
-          @system_information = @client.system_informations
-          @resolution = @client.resolutions
           erb :'client/show'
+        end
+      end
+    end
+    
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @client = Client.find_by(identifier: identifier)
+      if @client.nil?
+        status 403
+        body "403 Forbidden - Identifier does not exist! Ya Dun Goofed! YA DING DONG!"
+      else 
+        @url = Url.find_by(web_address: "#{@client.root_url}/#{relative_path}")
+        if @url.nil?
+          status 403
+          body "403 Forbidden - No Payload data for this source"
+        else
+          status 200
+          erb :'urls/show'
         end
       end
     end
