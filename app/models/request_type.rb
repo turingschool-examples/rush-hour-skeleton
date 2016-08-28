@@ -5,7 +5,7 @@ class RequestType < ActiveRecord::Base
   validates :http_verb, uniqueness: true
 
   def self.list_all_verbs
-    RequestType.pluck(:http_verb)
+    joins(:payload_requests).pluck(:http_verb)
   end
 
   def self.most_frequent_request

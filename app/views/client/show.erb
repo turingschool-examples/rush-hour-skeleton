@@ -1,7 +1,6 @@
 <h1>Analytics for: <%= @client.identifier %></h1>
 <h2>URL: <%= @client.root_url %></h2>
 
-
 <!-- Response Times  -->
 <table>
   <tr>
@@ -23,17 +22,46 @@
 <table>
   <tr>
     <td>Most Frequent Request Type: </td>
-    <td><%= @payloads.most_frequent_request %></td>
+    <td><%= @request_types.most_frequent_request %></td>
   </tr>
   <tr>
-    <td>Max Response Time: </td>
-    <td><%= @payloads.max_response_time %></td>
+    <td>List of all HTTP verbs used</td>
+    <td><%= @request_types.list_all_verbs.join(', ') %></td>
   </tr>
-  <tr>
-    <td>Min Response Time: </td>
-    <td><%= @payloads.min_response_time %></td>
+
+<tr>
+    <td>List of URLs (most to least) </td>
+    <td><%= @urls.most_requested_urls.join("\n") %></td>
   </tr>
 </table>
 
 
 <!-- System information -->
+<table>
+  <!-- WebBrowser Breakdown -->
+  <% @system_information.get_all_browsers_count.each_pair do |browser, count| %>
+  <tr>
+    <td><%= browser %>: </td>
+    <td><%= count %></td>
+  </tr>
+  <% end %>
+</table>
+
+ <!-- OS Breakdown -->
+<table>
+  <% @system_information.get_all_operating_systems_count.each_pair do |op_sys, count| %>
+  <tr>
+    <td><%= op_sys %>: </td>
+    <td><%= count %></td>
+  </tr>
+  <% end %>
+</table>
+
+<!-- Resolution Breakdown -->
+<table>
+  <% @resolution.get_all_screen_resolutions.each do |height, width| %>
+  <tr>
+    <td><%= height %> x <%= width %></td>
+  </tr>
+  <% end %>
+</table>

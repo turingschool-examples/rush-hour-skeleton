@@ -39,18 +39,22 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      client = Client.find_by(identifier: identifier)
-      if client.nil?
+      @client = Client.find_by(identifier: identifier)
+      if @client.nil?
         status 403
         body "403 Forbidden - Identifier does not exist"
       else
-        payloads = client.payload_requests
-        if payloads.empty?
+        @payloads = @client.payload_requests
+        if @payloads.empty?
           status 403
           body "403 Forbidden - No Payload data for this source"
         else
           status 200
-          # erb :'client/show'
+          @request_types = @client.request_types
+          @urls = @client.urls
+          @system_information = @client.system_informations
+          @resolution = @client.resolutions
+          erb :'client/show'
         end
       end
     end
