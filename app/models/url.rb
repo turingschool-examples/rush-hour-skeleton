@@ -2,7 +2,7 @@ class Url < ActiveRecord::Base
   has_many :payload_requests
   has_many :request_types, through: :payload_requests
   has_many :referrals, through: :payload_requests
-
+  has_many :system_informations, through: :payload_requests
   validates :web_address, presence: true
   validates :web_address, uniqueness: true
 
@@ -45,5 +45,14 @@ class Url < ActiveRecord::Base
       referrer.first
     end
   end
-
+  
+  def top_user_agents
+    sys_infos = system_informations.group(:browser, :operating_system).count(:system_information_id)
+    sorted_sys_info = sys_infos.sort_by do |sys_info, count|
+      count
+    end.reverse
+    sorted_sys_info.first(3).map do |system_information|
+      system_information.first
+    end
+  end
 end
