@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class DataParserTest < Minitest::Test
   include TestHelpers
-  
+
   def raw_payload
     '{
       "url":"http://jumpstartlab.com/blog",
@@ -76,37 +76,5 @@ class DataParserTest < Minitest::Test
     assert_equal 1, Ip.all.count
     assert_equal 1, Client.all.count
   end
-
-  def test_it_can_assign_payload_request_foreign_keys
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-
-    # expected = PayloadRequest.find(1)
-    parsed_payload = DataParser.new(raw_client_payload_data)
-    parsed_payload.assign_foreign_keys
-
-    assert_equal 1, PayloadRequest.all.count
-    assert_equal 1, PayloadRequest.first.url_id
-    assert_equal 1, PayloadRequest.first.referred_by_id
-    assert_equal 1, PayloadRequest.first.request_type_id
-    assert_equal 1, PayloadRequest.first.u_agent_id
-    assert_equal 1, PayloadRequest.first.resolution_id
-    assert_equal 1, PayloadRequest.first.ip_id
-    assert_equal 1, PayloadRequest.first.client_id
-  end
-
-  def test_it_checks_for_payload_uniqueness
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-
-    parsed_payload1 = DataParser.new(raw_client_payload_data)
-    parsed_payload1.assign_foreign_keys
-
-    assert_equal 1, PayloadRequest.all.count
-
-    parsed_payload2 = DataParser.new(raw_client_payload_data)
-    parsed_payload2.assign_foreign_keys
-
-    assert_equal 1, PayloadRequest.all.count
-  end
-
 
 end
