@@ -50,10 +50,6 @@ module RushHour
           body "403 Forbidden - No Payload data for this source"
         else
           status 200
-          @request_types = @client.request_types
-          @urls = @client.urls
-          @system_information = @client.system_informations
-          @resolution = @client.resolutions
           erb :'client/show'
         end
       end

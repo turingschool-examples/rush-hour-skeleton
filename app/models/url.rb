@@ -27,7 +27,7 @@ class Url < ActiveRecord::Base
   end
 
   def http_verbs
-    request_types.pluck(:http_verb)
+    request_types.pluck(:http_verb).uniq
   end
 
   def self.most_requested_urls
