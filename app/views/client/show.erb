@@ -1,0 +1,90 @@
+<%= home_link %>
+
+<div class="container">
+  <div class="row">
+    <h1>Analytics for: <%= @client.identifier %></h1>
+    <h2>URL: <a href="<%= @client.root_url %>"</a></h2>
+    <!-- Response Times  -->
+    <div><h3>Response Time Statistics</h3>
+    <table class="table table-striped">
+      <tr>
+        <td>Average Response Time: </td>
+        <td><%= @client.average_response_time %> ms</td>
+      </tr>
+      <tr>
+        <td>Max Response Time: </td>
+        <td><%= @client.max_response_time %> ms</td>
+      </tr>
+      <tr>
+        <td>Min Response Time: </td>
+        <td><%= @client.min_response_time %> ms</td>
+      </tr>
+    </table>
+  </div>
+
+    <!-- Site information -->
+    <div><h3>Site Information</h3>
+    <table class="table table-striped">
+      <tr>
+        <td>Most Frequent Request Type: </td>
+        <td><%= @client.most_frequent_request_type %></td>
+      </tr>
+      <tr>
+        <td>List of all HTTP verbs used</td>
+        <td><%= @client.list_all_verbs.join(', ') %></td>
+      </tr>
+
+    <tr>
+        <td>List of URLs (most to least) </td>
+        <% @client.sorted_urls_by_request_count.each do |url, count| %>
+        <td>
+          <% relative_path = url.gsub(@client.root_url, "") %>
+          <a href='<%= @client.identifier%>/urls<%= relative_path %>'><%= url %></a>: <%= count %>
+        </td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
+
+    <!-- System information -->
+    <div class="container">
+
+    <div class="row">
+      <h3>System Information</h3>
+
+        <div class="col-md-4"><h4>What Browsers are your Users Using?</h4>
+        <table class="table table-striped">
+          <!-- WebBrowser Breakdown -->
+          <% @client.browser_count.each_pair do |browser, count| %>
+          <tr>
+            <td><%= browser %>: </td>
+            <td><%= count %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+        <!-- OS Breakdown -->
+        <div class="col-md-4"><h4>What OS are your Users Using?</h4>
+        <table class="table table-striped">
+          <% @client.operating_system_count.each_pair do |op_sys, count| %>
+          <tr>
+            <td><%= op_sys %>: </td>
+            <td><%= count %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+        <!-- Resolution Breakdown -->
+        <div class="col-md-4"><h4>What Screen Res are your Users Using?</h4>
+        <table class="table table-striped">
+          <% @client.screen_resolutions.each do |resolution, count| %>
+          <tr>
+            <td><%= resolution.first %> x <%= resolution.last %>: <%= count%></td>
+          </tr>
+          <% end %>
+        </table>
+    </div>
+  </div>
+
+  </div>
+</div>
