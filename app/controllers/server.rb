@@ -56,8 +56,8 @@ module RushHour
             request_type_id: check_request_type_exists(formatted_payload),
             u_agent_id: check_u_agent_exists(formatted_payload),
             resolution_id: check_resolution_exists(formatted_payload),
-            ip_id: check_ip_exists(formatted_payload)
-                                            )
+            ip_id: check_ip_exists(formatted_payload),
+            client_id: check_client_exists(params["identifier"]))
             if new_payload.save
               status 200
               body "Success"
