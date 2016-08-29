@@ -54,13 +54,13 @@ module RushHour
         end
       end
     end
-    
+
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @client = Client.find_by(identifier: identifier)
       if @client.nil?
         status 403
         body "403 Forbidden - Identifier does not exist! Ya Dun Goofed! YA DING DONG!"
-      else 
+      else
         @url = Url.find_by(web_address: "#{@client.root_url}/#{relative_path}")
         if @url.nil?
           status 403
@@ -71,52 +71,56 @@ module RushHour
         end
       end
     end
-    
+
     get '/sources' do
       erb :sources
+    end
+
+    get '/about' do
+      erb :about
     end
 
     not_found do
       erb :error
     end
-    
-    helpers do 
+
+    helpers do
       def home_link
         "<a href='/sources'>Home</a>"
       end
-      
+
       def sources_identifier_link
         "<a href='/sources/#{@client.identifier}'>Link to Source Info</a>"
       end
-      
+
       def jumpstart_link
         "<a href='/sources/jumpstartlab'>Jumpstart statistics</a>"
       end
-      
+
       def google_link
         "<a href='/sources/google'>Google Statistics</a>"
       end
-      
+
       def apple_link
         "<a href='/sources/apple'>Apple Statistics</a>"
       end
-      
+
       def microsoft_link
         "<a href='/sources/microsoft'>Microsoft Statistics</a>"
       end
-      
+
       def palantir_link
         "<a href='/sources/palantir'>Palantir Statistics</a>"
       end
-      
+
       def yahoo_link
         "<a href='/sources/yahoo'>Yahoo Statistics</a>"
       end
-      
+
       def turing_link
         "<a href='/sources/turing'>Turing Statistics</a>"
       end
-      
+
       def facebook_link
         "<a href='/sources/facebook'>Facebook Statistics</a>"
       end
