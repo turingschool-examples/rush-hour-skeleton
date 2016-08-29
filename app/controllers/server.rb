@@ -97,6 +97,11 @@ module RushHour
       def identifier_link(identifier)
         "<a href='/sources/#{identifier}'>#{identifier.capitalize} statistics</a>"
       end
+
+      def relative_path_link(identifier, root, url)
+        path = url.gsub(root, "")
+        "<a href='/sources/#{identifier}/urls/#{path}'>#{url}</a>"
+      end
     end
   end
 end

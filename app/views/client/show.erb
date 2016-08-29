@@ -34,13 +34,12 @@
         <td><%= @client.list_all_verbs.join(', ') %></td>
       </tr>
 
-    <tr>
+      <tr>
         <td>List of URLs (most to least) </td>
         <% @client.sorted_urls_by_request_count.each do |url, count| %>
-        <td>
-          <% relative_path = url.gsub(@client.root_url, "") %>
-          <a href='<%= @client.identifier%>/urls<%= relative_path %>'><%= url %></a>: <%= count %>
-        </td>
+          <td>
+            <%= relative_path_link(@client.identifier, @client.root_url, url) %>: <%= count %>
+          </td>
         <% end %>
       </tr>
     </table>
