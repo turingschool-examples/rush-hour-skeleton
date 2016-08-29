@@ -31,3 +31,8 @@ class ControllerTest < Minitest::Test
     RushHour::Server
   end
 end
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include TestHelpers
+end
