@@ -1,0 +1,19 @@
+<table class="table table-striped">
+  <tr>
+    <td>Most Frequent Request Type: </td>
+    <td><%= client.most_frequent_request_type %></td>
+  </tr>
+  <tr>
+    <td>List of all HTTP verbs used</td>
+    <td><%= client.list_all_verbs.join(', ') %></td>
+  </tr>
+
+  <tr>
+    <td>List of URLs (most to least) </td>
+    <% client.sorted_urls_by_request_count.each do |url, count| %>
+      <td>
+        <%= relative_path_link(client.identifier, client.root_url, url) %>: <%= count %>
+      </td>
+    <% end %>
+  </tr>
+</table>

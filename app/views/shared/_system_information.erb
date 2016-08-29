@@ -1,0 +1,10 @@
+<div class="col-md-4"><h4>What Browsers are your Users Using?</h4>
+  <table class="table table-striped">
+    <% browser_count.each_pair do |browser, count| %>
+    <tr>
+      <td><%= browser %>: </td>
+      <td><%= count %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

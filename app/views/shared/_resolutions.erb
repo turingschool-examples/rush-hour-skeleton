@@ -1,0 +1,10 @@
+<!-- Resolution Breakdown -->
+<div class="col-md-4"><h4>What Screen Res are your Users Using?</h4>
+  <table class="table table-striped">
+    <% resolutions.each do |resolution, count| %>
+    <tr>
+      <td><%= resolution.first %> x <%= resolution.last %>: <%= count%></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
