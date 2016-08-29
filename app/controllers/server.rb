@@ -88,6 +88,17 @@ module RushHour
       end
     end
 
+    # get '/sources/:identifier/urls/:relativepath' do
+    #   client = Client.find_by(identifier: params["identifier"])
+    #   all_urls = client.urls
+    #   single_url = all_urls.find_by(url: params["url"])
+    #
+    #   erb :'client/dashboard', locals: {payloads: payloads}
+    #
+    #   single_url.max_response_time
+    #
+    # end
+
     not_found do
       erb :error
     end

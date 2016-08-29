@@ -58,4 +58,21 @@ module SubTableChecker
   def check_client_exists(client_params)
     Client.find_by(identifier: client_params).id
   end
+
+  def relative_path(url)
+    url.split('/')[3..-1].join('/')
+  end
+
+  def validate_url(params)
+    client = Client.find_by(identifier: params["identifier"])
+    params[:relativepath] = relative_path(params["payload"]["url"])
+    url = client.urls.where(url: params["payload"]["url"], path: relative_path(params["payload"]["url"]))
+
+
+  end
+
+  # client = Client.find_by(identifier: params["identifier"])
+  # all_urls = client.urls
+  # single_url = all_urls.where(url: params["url"])
+  # path = relative_path(single_url)
 end

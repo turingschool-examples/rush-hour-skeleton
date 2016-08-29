@@ -1,7 +1,10 @@
 require 'json'
 require 'pry'
+require_relative 'sub_table_checker'
 
 class DataParser
+  include SubTableChecker
+  
   attr_reader :raw_data
 
   attr_accessor :url,
@@ -48,7 +51,7 @@ class DataParser
   end
 
   def populate_tables
-    @url = Url.find_or_create_by(url: formatted_payload["url"])
+    @url = Url.find_or_create_by(url: formatted_payload["url"], path: relative_path(formatted_payload["url"]))
     @referred_by = ReferredBy.find_or_create_by(url: formatted_payload["referred_by"])
     @request_type = RequestType.find_or_create_by(verb: formatted_payload["request_type"])
     @u_agent = UAgent.find_or_create_by(agent: formatted_payload["u_agent"])
