@@ -1,0 +1,27 @@
+<%= home_link %>
+
+<div class="container">
+  <div class="row">
+    <h1>Analytics for: <%= @client.identifier %></h1>
+    <h2>URL: <a href="<%= @client.root_url %>"><%= @client.root_url %></a></h2>
+    <!-- Response Times  -->
+    <div><h3>Response Time Statistics</h3>
+      <%= erb :'shared/_response_times', locals: {client: @client} %>
+  </div>
+
+    <!-- Site information -->
+    <div><h3>Site Information</h3>
+      <%= erb :'shared/_site_information', locals: {client: @client} %>
+  </div>
+
+    <!-- System information -->
+  <div class="container">
+
+    <div class="row">
+      <h3>System Information</h3>
+      <%= erb :'shared/_system_information', locals: {browser_count: @client.browser_count} %>
+      <%= erb :'shared/_os_breakdown', locals: {operating_systems_counts: @client.operating_system_count} %>
+      <%= erb :'shared/_resolutions', locals: {resolutions: @client.screen_resolutions} %>
+    </div>
+  </div>
+</div>

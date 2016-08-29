@@ -1,0 +1,6 @@
+<div class="jumbotron">
+  <h1>Welcome to Rush Hour</h1>
+</div>
+<% @clients.each do |client| %>
+  <%= identifier_link(client.identifier) %> <br>
+<% end %>

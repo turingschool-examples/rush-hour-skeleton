@@ -1,0 +1,10 @@
+<div class="col-md-4"><h4>What OS are your Users Using?</h4>
+  <table class="table table-striped">
+    <% operating_systems_counts.each_pair do |op_sys, count| %>
+    <tr>
+      <td><%= op_sys %>: </td>
+      <td><%= count %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
