@@ -73,6 +73,7 @@ module RushHour
     end
 
     get '/sources' do
+      @clients = Client.all
       erb :sources
     end
 
@@ -93,36 +94,8 @@ module RushHour
         "<a href='/sources/#{@client.identifier}'>Link to Source Info</a>"
       end
 
-      def jumpstart_link
-        "<a href='/sources/jumpstartlab'>Jumpstart statistics</a>"
-      end
-
-      def google_link
-        "<a href='/sources/google'>Google Statistics</a>"
-      end
-
-      def apple_link
-        "<a href='/sources/apple'>Apple Statistics</a>"
-      end
-
-      def microsoft_link
-        "<a href='/sources/microsoft'>Microsoft Statistics</a>"
-      end
-
-      def palantir_link
-        "<a href='/sources/palantir'>Palantir Statistics</a>"
-      end
-
-      def yahoo_link
-        "<a href='/sources/yahoo'>Yahoo Statistics</a>"
-      end
-
-      def turing_link
-        "<a href='/sources/turing'>Turing Statistics</a>"
-      end
-
-      def facebook_link
-        "<a href='/sources/facebook'>Facebook Statistics</a>"
+      def identifier_link(identifier)
+        "<a href='/sources/#{identifier}'>#{identifier.capitalize} statistics</a>"
       end
     end
   end

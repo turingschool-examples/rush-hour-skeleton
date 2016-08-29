@@ -59,9 +59,9 @@ class IdentifierTest < FeatureTest
 
     assert_equal '/sources', current_path
     assert page.has_content?("Welcome")
-    assert page.has_content?("Jumpstart statistics")
+    assert page.has_content?("Jumpstartlab statistics")
 
-    page.click_link("Jumpstart statistics")
+    page.click_link("Jumpstartlab statistics")
 
     assert_equal '/sources/jumpstartlab', current_path
     assert page.has_content?("Analytics for: jumpstartlab")
