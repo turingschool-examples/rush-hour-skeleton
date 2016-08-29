@@ -54,4 +54,8 @@ module SubTableChecker
       Ip.find_by(ip_address: formatted_payload["ip"]).id
     end
   end
+
+  def check_client_exists(client_params)
+    Client.find_by(identifier: client_params).id
+  end
 end

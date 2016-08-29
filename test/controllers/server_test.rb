@@ -131,5 +131,4 @@ class ServerTest < Minitest::Test
     assert_equal "Success", last_response.body
   end
 
-
 end

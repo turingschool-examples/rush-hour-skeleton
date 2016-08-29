@@ -1,10 +1,15 @@
 require_relative '../models/data_parser'
 require_relative '../models/sub_table_checker'
 require "pry"
+require "useragent"
 
 module RushHour
   class Server < Sinatra::Base
     include SubTableChecker
+    #
+    # get '/' do
+    #   erb :
+    # end
 
     post '/sources' do
       client_data = DataParser.new(params)
@@ -68,24 +73,20 @@ module RushHour
       end
     end
 
-      # parsed_payload = payload_data.assign_foreign_keys
-      # saved_payload = PayloadRequest.find_by(client_id: client.id)
-
-      #   if payload_data.assign_foreign_keys is successful,
-      #     200 success
-      #   elsif payload_data.assign_foreign_key is unsuccessful
-      #       if unsuccessful because params["payload"] = nil
-      #         400 bad request missing payload
-      #       elsif unsuccessful because Payload.exists?(pass in all the things)
-      #         403 already received
-      # else
-      #     403 forbidden application not registered
-      # end
-      #
-      #   perform_payload_uniqueness_check (is this something we are already doing in assign_foreign_keys? I think so)
-      #   if check is passed save payload
-      #   else return error
-      # p params
+    get '/sources/:identifier' do
+      client = Client.find_by(identifier: params["identifier"])
+      payloads = PayloadRequest.where(client_id: client.id) unless client.nil?
+      if client.nil?
+        @message = "#{params["identifier"]} does not exist"
+        erb :'client/error'
+      elsif payloads.empty?
+        @message = "No payload data has been received for #{params["identifier"]}"
+        erb :'client/error'
+      else
+        # @average_response_time = payloads.average_response_time
+        erb :'client/dashboard', locals: {payloads: payloads}
+      end
+    end
 
     not_found do
       erb :error

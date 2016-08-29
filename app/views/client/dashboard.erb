@@ -1,0 +1,20 @@
+<h3><%= payloads.first.requested_at %></h3>
+<%= payloads.average_response_time %>
+<%= payloads.max_response_time %>
+<%= payloads.min_response_time %>
+<%= payloads.most_requested_type.verb %>
+<% payloads.all_http_verbs_used.map do |verb| %>
+  <%= verb %>
+<% end %>
+<% payloads.most_requested_urls.map do |url| %>
+  <%= url.url %>
+<% end %>
+<% payloads.all_u_agents.map do |u_agent| %>
+  <%= UserAgent.parse(u_agent.agent).browser %>
+<% end %>
+<% payloads.all_u_agents.map do |u_agent| %>
+  <%= UserAgent.parse(u_agent.agent).platform %>
+<% end %>
+<% payloads.all_screen_resolutions.map do |resolution| %>
+  <%= resolution.height %> x <%= resolution.width %>
+<% end %>

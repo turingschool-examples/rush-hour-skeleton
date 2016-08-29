@@ -12,12 +12,13 @@ require 'rack/test'
 
 Capybara.app = RushHour::Server
 
+
 DatabaseCleaner.strategy = :truncation
 # , {except: %w([public.schema.migrations])}
 
 module TestHelpers
   include Rack::Test::Methods
-  def app     # def app is something that Rack::Test is looking for
+  def app
     RushHour::Server
   end
 
@@ -30,4 +31,9 @@ module TestHelpers
     DatabaseCleaner.clean
     super
   end
+end
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include TestHelpers
 end
