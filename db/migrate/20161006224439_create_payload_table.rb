@@ -4,7 +4,7 @@ class CreatePayloadTable < ActiveRecord::Migration
 
       t.text :url
       t.datetime :requestedAt
-      t.integer :responedIn
+      t.integer :respondedIn
       t.text :referredBy
       t.string :requestType
       t.string :eventName
