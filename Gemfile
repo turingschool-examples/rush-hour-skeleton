@@ -9,8 +9,10 @@ group :development, :test do
   gem 'shotgun'
   gem 'rspec'
   gem 'rspec-core'
+  gem 'nyan-cat-formatter'
   gem 'tux'
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
+  gem 'database_cleaner'
 end
