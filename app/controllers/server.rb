@@ -3,5 +3,7 @@ module RushHour
     not_found do
       erb :error
     end
+    
+    # Write the rest of your controller code here!
   end
 end
