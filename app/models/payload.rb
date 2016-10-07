@@ -1,4 +1,12 @@
 class Payload < ActiveRecord::Base
+  belongs_to :agent
+  belongs_to :event
+  belongs_to :ip
+  belongs_to :referred_by
+  belongs_to :request_type
+  belongs_to :resolution 
+  belongs_to :url
+  belongs_to :user_agent
 
   validates :url_id, presence: true
   validates :requested_at, presence: true
