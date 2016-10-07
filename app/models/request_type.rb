@@ -2,5 +2,5 @@ class RequestType < ActiveRecord::Base
 
   has_many :payloads
 
-  validates :requestType, presence: true
+  validates :request_type, presence: true
 end

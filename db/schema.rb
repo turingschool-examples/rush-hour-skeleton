@@ -16,20 +16,20 @@ ActiveRecord::Schema.define(version: 20161007004144) do
   enable_extension "plpgsql"
 
   create_table "payloads", force: :cascade do |t|
-    t.text     "url"
-    t.datetime "requestedAt"
-    t.integer  "respondedIn"
-    t.text     "referredBy"
+    t.text     "url_id"
+    t.datetime "requested_at"
+    t.integer  "responded_in"
+    t.text     "referred_by_id"
     t.integer  "request_type_id"
-    t.string   "eventName"
-    t.string   "userAgent"
-    t.integer  "resolutionWidth"
-    t.integer  "resolutionHeight"
-    t.string   "ip"
+    t.string   "event_name_id"
+    t.string   "user_agent_id"
+    t.integer  "resolution_width_id"
+    t.integer  "resolution_height_id"
+    t.string   "ip_id"
   end
 
   create_table "request_types", force: :cascade do |t|
-    t.string "requestType"
+    t.string "request_type"
   end
 
 end

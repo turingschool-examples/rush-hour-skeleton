@@ -2,7 +2,7 @@ class CreateRequestTypesTable < ActiveRecord::Migration
   def change
     create_table :request_types do |t|
 
-      t.string :requestType
+      t.string :request_type
 
       t.timestamp null: false
     end
