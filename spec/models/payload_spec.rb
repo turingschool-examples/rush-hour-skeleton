@@ -133,7 +133,7 @@ RSpec.describe "Payload" do
     expect(payload).to_not be_valid
   end
 
-  describe ".requestType" do
+  describe ".request_type" do
 
     it "payload is associated with request type" do
       RequestType.create(request_type: "GET")
@@ -148,6 +148,110 @@ RSpec.describe "Payload" do
                             ip_id:"63.29.38.211")
 
       expect(payload.request_type.request_type).to eq("GET")
+    end
+  end
+  
+  describe ".url" do
+    it "associates a url with a payload" do
+      Url.create(url: "http://beesbeesbees.com")
+      payload = Payload.new(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: "http://jumpstartlab.com",
+                            request_type_id: 1,
+                            event_name_id: "socialLogin",
+                            user_agent_id: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                            resolution_id: 1280,
+                            ip_id:"63.29.38.211")
+
+      expect(payload.url.url).to eq("http://beesbeesbees.com")
+    end  
+  end
+  
+  describe ".referred_by" do
+    it "associates referred_by with a payload" do
+      ReferredBy.create(referred_by: "http://beesbeesbees.com")
+      payload = Payload.new(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: "socialLogin",
+                            user_agent_id: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                            resolution_id: 1280,
+                            ip_id:"63.29.38.211")
+
+      expect(payload.referred_by.referred_by).to eq("http://beesbeesbees.com")
+    end
+  end
+  
+  describe ".event_name" do
+    it "associates an event name with a payload" do
+      EventName.create(event_name: "socialLogin")
+      payload = Payload.new(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                            resolution_id: 1280,
+                            ip_id:"63.29.38.211")
+
+      expect(payload.event_name.event_name).to eq("socialLogin")
+    end
+  end
+  
+  describe ".user_agent" do
+    it "associates a user agent with a payload" do
+      UserAgent.create(user_agent: "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+      payload = Payload.new(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1280,
+                            ip_id:"63.29.38.211")
+
+      expect(payload.user_agent.user_agent).to eq("Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+    end
+  end
+  
+  describe ".resolution_id" do
+    it "associates a resolution with a payload" do
+      Resolution.create(resolution_width: 1280, resolution_height: 720)
+      payload = Payload.new(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id:"63.29.38.211")
+
+      expect(payload.resolution.resolution_width).to eq(1280)
+      expect(payload.resolution.resolution_height).to eq(720)
+
+    end
+  end
+  
+  describe ".ip_id" do
+    it "associates an ip with a payload" do
+      Ip.create(ip: "63.29.38.211")
+      payload = Payload.new(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(payload.ip.ip).to eq("63.29.38.211")
     end
   end
 end
