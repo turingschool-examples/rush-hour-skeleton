@@ -6,7 +6,7 @@ class CreatePayloadTable < ActiveRecord::Migration
       t.datetime :requestedAt
       t.integer :respondedIn
       t.text :referredBy
-      t.string :requestType
+      t.integer :request_type_id
       t.string :eventName
       t.string :userAgent
       t.integer :resolutionWidth
