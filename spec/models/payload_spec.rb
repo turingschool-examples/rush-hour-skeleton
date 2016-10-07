@@ -238,4 +238,20 @@ RSpec.describe "Payload" do
     end
   end
   
+  describe ".ip_id" do
+    it "associates an ip with a payload" do
+      Ip.create(ip: "63.29.38.211")
+      payload = Payload.new(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(payload.ip.ip).to eq("63.29.38.211")
+    end
+  end
 end
