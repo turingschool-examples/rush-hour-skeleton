@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20161007174916) do
     t.integer  "ip_id"
   end
 
-  create_table "referred_bys", force: :cascade do |t|
+  create_table "referred_bies", force: :cascade do |t|
     t.string "referred_by"
   end
 
