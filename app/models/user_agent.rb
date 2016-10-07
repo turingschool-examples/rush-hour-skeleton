@@ -1,5 +1,6 @@
-class UserAgent < ActiveRecord::Base
+class Agent < ActiveRecord::Base
 
-  validates :user_agent, presence: true
+  validates :browser, presence: true
+  validates :operating_system, presence: true
 
 end

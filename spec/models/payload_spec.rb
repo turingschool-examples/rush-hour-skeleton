@@ -6,8 +6,8 @@ describe Payload do
                    responded_in: 12,
                    referred_by_id: 2,
                    request_type_id: 3,
-                   event_name_id: 4,
-                   user_agent_id: 5,
+                   event_id: 4,
+                   agent_id: 5,
                    resolution_id: 6,
                    ip_id: 7)
 
@@ -19,8 +19,8 @@ describe Payload do
                    responded_in: 12,
                    referred_by_id: 2,
                    request_type_id: 3,
-                   event_name_id: 4,
-                   user_agent_id: 5,
+                   event_id: 4,
+                   agent_id: 5,
                    resolution_id: 6,
                    ip_id: 7)
 
@@ -32,8 +32,8 @@ describe Payload do
                    url_id: 1,
                    referred_by_id: 2,
                    request_type_id: 3,
-                   event_name_id: 4,
-                   user_agent_id: 5,
+                   event_id: 4,
+                   agent_id: 5,
                    resolution_id: 6,
                    ip_id: 7)
 
@@ -45,8 +45,8 @@ describe Payload do
                    responded_in: 12,
                    url_id: 1,
                    request_type_id: 3,
-                   event_name_id: 4,
-                   user_agent_id: 5,
+                   event_id: 4,
+                   agent_id: 5,
                    resolution_id: 6,
                    ip_id: 7)
 
@@ -58,8 +58,8 @@ describe Payload do
                    responded_in: 12,
                    referred_by_id: 2,
                    url_id: 1,
-                   event_name_id: 4,
-                   user_agent_id: 5,
+                   event_id: 4,
+                   agent_id: 5,
                    resolution_id: 6,
                    ip_id: 7)
 
@@ -72,7 +72,7 @@ describe Payload do
                    referred_by_id: 2,
                    request_type_id: 3,
                    url_id: 1,
-                   user_agent_id: 5,
+                   agent_id: 5,
                    resolution_id: 6,
                    ip_id: 7)
 
@@ -84,8 +84,8 @@ describe Payload do
                    responded_in: 12,
                    referred_by_id: 2,
                    request_type_id: 3,
-                   event_name_id: 4,
-                   user_agent_id: 5,
+                   event_id: 4,
+                   agent_id: 5,
                    url_id: 1,
                    ip_id: 7)
 
@@ -97,8 +97,8 @@ describe Payload do
                    responded_in: 12,
                    referred_by_id: 2,
                    request_type_id: 3,
-                   event_name_id: 4,
-                   user_agent_id: 5,
+                   event_id: 4,
+                   agent_id: 5,
                    resolution_id: 6,
                    url_id: 1)
 

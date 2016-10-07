@@ -1,9 +1,9 @@
 require_relative '../spec_helper'
 
-describe EventName do
+describe Event do
   it "is invalid without a event name" do
-    event_name = EventName.create()
+    event = Event.create()
 
-    expect(event_name).to_not be_valid
+    expect(event).to_not be_valid
   end
 end

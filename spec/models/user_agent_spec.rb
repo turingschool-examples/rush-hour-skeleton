@@ -1,9 +1,9 @@
 require_relative '../spec_helper'
 
-describe UserAgent do
+describe Agent do
   it "is invalid without a user agent" do
-    user_agent = UserAgent.create()
+    agent = Agent.create()
 
-    expect(user_agent).to_not be_valid
+    expect(agent).to_not be_valid
   end
 end

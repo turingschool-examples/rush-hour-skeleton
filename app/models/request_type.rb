@@ -1,5 +1,5 @@
 class RequestType < ActiveRecord::Base
 
-  validates :request_type, presence: true
+  validates :http_verb, presence: true
 
 end
