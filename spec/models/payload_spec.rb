@@ -214,4 +214,339 @@ describe Payload do
     expect(payload.url.root_url).to eq("google.com")
     expect(payload.url.path).to eq("images")
   end
+
+  it "can return average response time across all payloads" do
+    Payload.create(requested_at: "test",
+                 responded_in: 3,
+                 referred_by_id: 8,
+                 request_type_id: 1,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+   Payload.create(requested_at: "test",
+                responded_in: 2,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: 3,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+    Payload.create(requested_at: "test",
+               responded_in: 1,
+               referred_by_id: 8,
+               request_type_id: 1,
+               event_id: 7,
+               agent_id: 3,
+               resolution_id: 1,
+               url_id: 1,
+               ip_id: 1)
+
+    expect(Payload.average_response_time).to eq(2)
+  end
+
+  it "can return maximum response time across all payloads" do
+    Payload.create(requested_at: "test",
+                 responded_in: 3,
+                 referred_by_id: 8,
+                 request_type_id: 1,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+   Payload.create(requested_at: "test",
+                responded_in: 2,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: 3,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+    Payload.create(requested_at: "test",
+               responded_in: 1,
+               referred_by_id: 8,
+               request_type_id: 1,
+               event_id: 7,
+               agent_id: 3,
+               resolution_id: 1,
+               url_id: 1,
+               ip_id: 1)
+
+    expect(Payload.max_response_time).to eq(3)
+  end
+
+  it "can return min response time across all payloads" do
+    Payload.create(requested_at: "test",
+                 responded_in: 3,
+                 referred_by_id: 8,
+                 request_type_id: 1,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+   Payload.create(requested_at: "test",
+                responded_in: 2,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: 3,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+    Payload.create(requested_at: "test",
+               responded_in: 1,
+               referred_by_id: 8,
+               request_type_id: 1,
+               event_id: 7,
+               agent_id: 3,
+               resolution_id: 1,
+               url_id: 1,
+               ip_id: 1)
+
+    expect(Payload.min_response_time).to eq(1)
+  end
+
+  it "payload returns most frequent request type" do
+    get = RequestType.create(http_verb: "GET")
+    post = RequestType.create(http_verb: "POST")
+
+    Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: get.id,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+
+    Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: get.id,
+                event_id: 7,
+                agent_id: 3,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+
+    Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: post.id,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+
+    expect(Payload.most_frequent_request_type).to eq("GET")
+
+   end
+
+   it "payload returns all request types" do
+     get = RequestType.create(http_verb: "GET")
+     post = RequestType.create(http_verb: "POST")
+     put = RequestType.create(http_verb: "PUT")
+
+     Payload.create(requested_at: "test",
+                  responded_in: 12,
+                  referred_by_id: 8,
+                  request_type_id: get.id,
+                  event_id: 7,
+                  agent_id: 3,
+                  resolution_id: 1,
+                  url_id: 1,
+                  ip_id: 1)
+
+    Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: put.id,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+
+     Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: get.id,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+
+     Payload.create(requested_at: "test",
+                  responded_in: 12,
+                  referred_by_id: 8,
+                  request_type_id: post.id,
+                  event_id: 7,
+                  agent_id: 3,
+                  resolution_id: 1,
+                  url_id: 1,
+                  ip_id: 1)
+
+     expect(Payload.all_request_types).to eq(["GET", "POST", "PUT"])
+
+  end
+
+  it "payload returns most visitied urls in descending order" do
+    google = Url.create(root_url: "google.com", path: "/images")
+    yahoo = Url.create(root_url: "yahoo.com", path: "/images")
+
+
+    Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: 1,
+                 event_id: 7,
+                 agent_id: 3,
+                 resolution_id: 1,
+                 url_id: google.id,
+                 ip_id: 1)
+
+   Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: 3,
+                resolution_id: 1,
+                url_id: google.id,
+                ip_id: 1)
+
+    Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: 3,
+                resolution_id: 1,
+                url_id: yahoo.id,
+                ip_id: 1)
+
+    expect(Payload.urls_descending).to eq(["google.com/images", "yahoo.com/images"])
+  end
+
+  it "payload returns web browser breakdown accross payloads" do
+    chrome = Agent.create(browser: "chrome", operating_system: "mac os")
+    safari = Agent.create(browser: "safari", operating_system: "mac os")
+    mozilla = Agent.create(browser: "mozilla", operating_system: "mac os")
+
+    Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: 1,
+                 event_id: 7,
+                 agent_id: chrome.id,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+
+   Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: mozilla.id,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+
+    Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: safari.id,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+
+    expect(Payload.browser_breakdown).to eq({"safari"=>1, "chrome"=>1, "mozilla"=>1})
+  end
+
+
+  it "payload returns operating system breakdown accross payloads" do
+    chrome = Agent.create(browser: "chrome", operating_system: "mac os")
+    safari = Agent.create(browser: "safari", operating_system: "windows os")
+
+    Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: 1,
+                 event_id: 7,
+                 agent_id: chrome.id,
+                 resolution_id: 1,
+                 url_id: 1,
+                 ip_id: 1)
+
+   Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: chrome.id,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+
+    Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: safari.id,
+                resolution_id: 1,
+                url_id: 1,
+                ip_id: 1)
+
+    expect(Payload.os_breakdown).to eq({"windows os"=>1, "mac os"=>2})
+  end
+
+  it "payload returns resoltions accross all payloads" do
+    one = Resolution.create(height: "11", width: "9")
+    two = Resolution.create(height: "10", width: "8")
+
+    Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 8,
+                 request_type_id: 1,
+                 event_id: 7,
+                 agent_id: 1,
+                 resolution_id: one.id,
+                 url_id: 1,
+                 ip_id: 1)
+
+   Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: 1,
+                resolution_id: one.id,
+                url_id: 1,
+                ip_id: 1)
+
+    Payload.create(requested_at: "test",
+                responded_in: 12,
+                referred_by_id: 8,
+                request_type_id: 1,
+                event_id: 7,
+                agent_id: 1,
+                resolution_id: two.id,
+                url_id: 1,
+                ip_id: 1)
+
+    expect(Payload.resolutions_breakdown).to eq({{"height"=>"10", "width"=>"8"}=>1, {"height"=>"11", "width"=>"9"}=>2})
+  end
+
 end
