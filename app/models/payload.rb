@@ -9,9 +9,6 @@ class Payload < ActiveRecord::Base
   validates  :resolution_id, presence: true
   validates  :visitor_id, presence: true
 
-  validates  :responded_in, uniqueness: true
-  validates  :requested_at, uniqueness: true
-
   belongs_to :url
   belongs_to :referral
   belongs_to :request
