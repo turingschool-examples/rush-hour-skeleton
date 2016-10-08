@@ -13,12 +13,5 @@ RSpec.describe "Visitor" do
 
       expect(visitor).to be_valid
     end
-
-    it "has a unique ip address" do
-      visitor1 = Visitor.create(ip: "63.29.38.211")
-      visitor2 = Visitor.create(ip: "63.29.38.211")
-
-      expect(visitor2).to_not be_valid
-    end
   end
 end
