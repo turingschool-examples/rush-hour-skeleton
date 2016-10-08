@@ -23,7 +23,8 @@ describe Url do
                    agent_id: 5,
                    resolution_id: 6,
                    requested_at: "twest",
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 10,
@@ -33,7 +34,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -43,7 +45,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
 
     expect(Url.max_response_time(url.id)).to eq(12)
@@ -59,7 +62,8 @@ describe Url do
                    agent_id: 5,
                    resolution_id: 6,
                    requested_at: "twest",
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 10,
@@ -69,7 +73,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -79,7 +84,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
 
     expect(Url.min_response_time(url.id)).to eq(8)
@@ -95,7 +101,8 @@ describe Url do
                    agent_id: 5,
                    resolution_id: 6,
                    requested_at: "twest",
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 10,
@@ -105,7 +112,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -115,7 +123,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
 
     expect(Url.response_times_desc(url.id)).to eq([12, 10, 8])
@@ -135,7 +144,8 @@ describe Url do
                    agent_id: 5,
                    resolution_id: 6,
                    requested_at: "twest",
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 10,
@@ -145,7 +155,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -155,7 +166,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: 99,
                    responded_in: 8,
@@ -165,7 +177,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
 
     expect(Url.all_http_verbs(url.id)).to eq(["DELETE", "GET", "POST"])
@@ -187,7 +200,8 @@ describe Url do
                    agent_id: 5,
                    resolution_id: 6,
                    requested_at: "twest",
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 10,
@@ -197,7 +211,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -207,7 +222,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -217,7 +233,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -227,7 +244,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -237,7 +255,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -247,7 +266,8 @@ describe Url do
                    agent_id: 5,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(Url.top_three_referrals(url.id)).to eq(["google.com/images", "yahoo.com/images", "askjeeves.com/images"])
   end
@@ -268,7 +288,8 @@ describe Url do
                    agent_id: safari.id,
                    resolution_id: 6,
                    requested_at: "twest",
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 10,
@@ -278,7 +299,8 @@ describe Url do
                    agent_id: safari.id,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -288,7 +310,8 @@ describe Url do
                    agent_id: safari.id,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -298,7 +321,8 @@ describe Url do
                    agent_id: chrome.id,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -308,7 +332,8 @@ describe Url do
                    agent_id: chrome.id,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -318,7 +343,8 @@ describe Url do
                    agent_id: ie.id,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     Payload.create(url_id: url.id,
                    responded_in: 8,
@@ -328,7 +354,8 @@ describe Url do
                    agent_id: mozilla.id,
                    requested_at: "twest",
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(Url.top_three_agents(url.id)).to eq(["Safari OSX", "Chrome Linux", "IE OSX"])
   end
