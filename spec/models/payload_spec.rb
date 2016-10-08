@@ -133,53 +133,6 @@ RSpec.describe "Payload" do
       expect(payload).to be_valid
     end
 
-    it "is invalid unless responded_in is unique" do
-      payload1 = Payload.create( url_id:             12,
-                                 responded_in:       37,
-                                 requested_at:       "2013-02-16",
-                                 referral_id:        2,
-                                 request_id:         3,
-                                 event_id:           4,
-                                 user_agent_stat_id: 5,
-                                 resolution_id:      6,
-                                 visitor_id:         7 )
-
-      payload2 = Payload.create( url_id:             12,
-                                 responded_in:       37,
-                                 requested_at:       "2016-01-30",
-                                 referral_id:        2,
-                                 request_id:         3,
-                                 event_id:           4,
-                                 user_agent_stat_id: 5,
-                                 resolution_id:      6,
-                                 visitor_id:         7 )
-
-      expect(payload2).to_not be_valid
-    end
-
-    it "is invalid unless requested_at is unique" do
-      payload1 = Payload.create( url_id:             12,
-                                 responded_in:       37,
-                                 requested_at:       "2013-02-16",
-                                 referral_id:        2,
-                                 request_id:         3,
-                                 event_id:           4,
-                                 user_agent_stat_id: 5,
-                                 resolution_id:      6,
-                                 visitor_id:         7 )
-
-      payload2 = Payload.create( url_id:             12,
-                                 responded_in:       17,
-                                 requested_at:       "2013-02-16",
-                                 referral_id:        2,
-                                 request_id:         3,
-                                 event_id:           4,
-                                 user_agent_stat_id: 5,
-                                 resolution_id:      6,
-                                 visitor_id:         7 )
-
-     expect(payload2).to_not be_valid
-    end
   end
 
   describe ".average_response_time" do
