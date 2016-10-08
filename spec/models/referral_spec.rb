@@ -7,5 +7,18 @@ RSpec.describe "Referral" do
 
       expect(referral).to_not be_valid
     end
+
+    it "is valid with source" do
+      referral = Referral.create(source: "http://jumpstartlab.com")
+
+      expect(referral).to be_valid
+    end
+
+    it "has a unique source" do
+      referral1 = Referral.create(source: "http://jumpstartlab.com")
+      referral2 = Referral.create(source: "http://jumpstartlab.com")
+
+      expect(referral2).to_not be_valid
+    end
   end
 end
