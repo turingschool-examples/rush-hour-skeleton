@@ -1,6 +1,6 @@
-class CreateEventNames < ActiveRecord::Migration
+class CreateEvents < ActiveRecord::Migration
   def change
-    create_table :event_names do |t|
+    create_table :events do |t|
       t.text :event_name
       t.timestamps null:false
     end

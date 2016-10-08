@@ -1,5 +1,6 @@
 class RequestType < ActiveRecord::Base
+  has_many :payload
 
-  validates :request_type, presence: true
+  validates :http_verb, presence: true
 
 end
