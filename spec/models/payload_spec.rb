@@ -9,7 +9,8 @@ describe Payload do
                    event_id: 4,
                    agent_id: 5,
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -22,7 +23,8 @@ describe Payload do
                    event_id: 4,
                    agent_id: 5,
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -35,7 +37,8 @@ describe Payload do
                    event_id: 4,
                    agent_id: 5,
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -48,7 +51,8 @@ describe Payload do
                    event_id: 4,
                    agent_id: 5,
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -61,7 +65,8 @@ describe Payload do
                    event_id: 4,
                    agent_id: 5,
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -74,7 +79,8 @@ describe Payload do
                    url_id: 1,
                    agent_id: 5,
                    resolution_id: 6,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -87,7 +93,8 @@ describe Payload do
                    event_id: 4,
                    agent_id: 5,
                    url_id: 1,
-                   ip_id: 7)
+                   ip_id: 7,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -100,7 +107,8 @@ describe Payload do
                    event_id: 4,
                    agent_id: 5,
                    resolution_id: 6,
-                   url_id: 1)
+                   url_id: 1,
+                   client_id: 3)
 
     expect(payload).to_not be_valid
   end
@@ -114,7 +122,8 @@ describe Payload do
                  event_id: 4,
                  agent_id: a.id,
                  resolution_id: 6,
-                 ip_id: 7)
+                 ip_id: 7,
+                 client_id: 3)
 
   expect(payload.agent.class).to eq(Agent)
   expect(payload.agent.browser).to eq("safari")
@@ -130,7 +139,8 @@ describe Payload do
                  event_id: e.id,
                  agent_id: 3,
                  resolution_id: 6,
-                 ip_id: 7)
+                 ip_id: 7,
+                 client_id: 3)
 
     expect(payload.event.class).to eq(Event)
     expect(payload.event.event_name).to eq("social_login")
@@ -145,7 +155,8 @@ describe Payload do
                  event_id: 7,
                  agent_id: 3,
                  resolution_id: 6,
-                 ip_id: i.id)
+                 ip_id: i.id,
+                 client_id: 3)
 
     expect(payload.ip.class).to eq(Ip)
     expect(payload.ip.address).to eq("192.4.5.6")
@@ -160,7 +171,8 @@ describe Payload do
                  event_id: 7,
                  agent_id: 3,
                  resolution_id: 6,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
     expect(payload.referred_by.class).to eq(ReferredBy)
     expect(payload.referred_by.root_url).to eq("turing.io")
@@ -176,7 +188,8 @@ describe Payload do
                  event_id: 7,
                  agent_id: 3,
                  resolution_id: 6,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
     expect(payload.request_type.class).to eq(RequestType)
     expect(payload.request_type.http_verb).to eq("GET")
@@ -191,7 +204,8 @@ describe Payload do
                  event_id: 7,
                  agent_id: 3,
                  resolution_id: r.id,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
     expect(payload.resolution.class).to eq(Resolution)
     expect(payload.resolution.height).to eq("1")
@@ -208,7 +222,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: u.id,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
     expect(payload.url.class).to eq(Url)
     expect(payload.url.root_url).to eq("google.com")
@@ -224,7 +239,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
    Payload.create(requested_at: "test",
                 responded_in: 2,
                 referred_by_id: 8,
@@ -233,7 +249,8 @@ describe Payload do
                 agent_id: 3,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
     Payload.create(requested_at: "test",
                responded_in: 1,
                referred_by_id: 8,
@@ -242,7 +259,8 @@ describe Payload do
                agent_id: 3,
                resolution_id: 1,
                url_id: 1,
-               ip_id: 1)
+               ip_id: 1,
+               client_id: 3)
 
     expect(Payload.average_response_time).to eq(2)
   end
@@ -256,7 +274,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
    Payload.create(requested_at: "test",
                 responded_in: 2,
                 referred_by_id: 8,
@@ -265,7 +284,8 @@ describe Payload do
                 agent_id: 3,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
     Payload.create(requested_at: "test",
                responded_in: 1,
                referred_by_id: 8,
@@ -274,7 +294,8 @@ describe Payload do
                agent_id: 3,
                resolution_id: 1,
                url_id: 1,
-               ip_id: 1)
+               ip_id: 1,
+               client_id: 3)
 
     expect(Payload.max_response_time).to eq(3)
   end
@@ -288,7 +309,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
    Payload.create(requested_at: "test",
                 responded_in: 2,
                 referred_by_id: 8,
@@ -297,7 +319,8 @@ describe Payload do
                 agent_id: 3,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
     Payload.create(requested_at: "test",
                responded_in: 1,
                referred_by_id: 8,
@@ -306,7 +329,8 @@ describe Payload do
                agent_id: 3,
                resolution_id: 1,
                url_id: 1,
-               ip_id: 1)
+               ip_id: 1,
+               client_id: 3)
 
     expect(Payload.min_response_time).to eq(1)
   end
@@ -323,7 +347,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
     Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -333,7 +358,8 @@ describe Payload do
                 agent_id: 3,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     Payload.create(requested_at: "test",
                  responded_in: 12,
@@ -343,7 +369,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
     expect(Payload.most_frequent_request_type).to eq("GET")
 
@@ -362,7 +389,8 @@ describe Payload do
                   agent_id: 3,
                   resolution_id: 1,
                   url_id: 1,
-                  ip_id: 1)
+                  ip_id: 1,
+                  client_id: 3)
 
     Payload.create(requested_at: "test",
                  responded_in: 12,
@@ -372,7 +400,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
      Payload.create(requested_at: "test",
                  responded_in: 12,
@@ -382,7 +411,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
      Payload.create(requested_at: "test",
                   responded_in: 12,
@@ -392,7 +422,8 @@ describe Payload do
                   agent_id: 3,
                   resolution_id: 1,
                   url_id: 1,
-                  ip_id: 1)
+                  ip_id: 1,
+                  client_id: 3)
 
      expect(Payload.all_request_types).to eq(["GET", "POST", "PUT"])
 
@@ -411,7 +442,8 @@ describe Payload do
                  agent_id: 3,
                  resolution_id: 1,
                  url_id: google.id,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
    Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -421,7 +453,8 @@ describe Payload do
                 agent_id: 3,
                 resolution_id: 1,
                 url_id: google.id,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -431,7 +464,8 @@ describe Payload do
                 agent_id: 3,
                 resolution_id: 1,
                 url_id: yahoo.id,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     expect(Payload.urls_descending).to eq(["google.com/images", "yahoo.com/images"])
   end
@@ -449,7 +483,8 @@ describe Payload do
                  agent_id: chrome.id,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
    Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -459,7 +494,8 @@ describe Payload do
                 agent_id: mozilla.id,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -469,7 +505,8 @@ describe Payload do
                 agent_id: safari.id,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     expect(Payload.browser_breakdown).to eq({"safari"=>1, "chrome"=>1, "mozilla"=>1})
   end
@@ -487,7 +524,8 @@ describe Payload do
                  agent_id: chrome.id,
                  resolution_id: 1,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
    Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -497,7 +535,8 @@ describe Payload do
                 agent_id: chrome.id,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -507,7 +546,8 @@ describe Payload do
                 agent_id: safari.id,
                 resolution_id: 1,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     expect(Payload.os_breakdown).to eq({"windows os"=>1, "mac os"=>2})
   end
@@ -524,7 +564,8 @@ describe Payload do
                  agent_id: 1,
                  resolution_id: one.id,
                  url_id: 1,
-                 ip_id: 1)
+                 ip_id: 1,
+                 client_id: 3)
 
    Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -534,7 +575,8 @@ describe Payload do
                 agent_id: 1,
                 resolution_id: one.id,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     Payload.create(requested_at: "test",
                 responded_in: 12,
@@ -544,9 +586,40 @@ describe Payload do
                 agent_id: 1,
                 resolution_id: two.id,
                 url_id: 1,
-                ip_id: 1)
+                ip_id: 1,
+                client_id: 3)
 
     expect(Payload.resolutions_breakdown).to eq({{"height"=>"10", "width"=>"8"}=>1, {"height"=>"11", "width"=>"9"}=>2})
   end
 
+  it "is invalid without a client" do
+    payload = Payload.create(requested_at: "test",
+                   responded_in: 12,
+                   referred_by_id: 2,
+                   request_type_id: 3,
+                   event_id: 4,
+                   agent_id: 5,
+                   resolution_id: 6,
+                   ip_id: 7
+                   )
+
+    expect(payload).to_not be_valid
+  end
+
+  it "payload return associated client" do
+    c = Client.create(identifer: "bradanthony", root_url: "turing")
+    payload = Payload.create(requested_at: "test",
+                 responded_in: 12,
+                 referred_by_id: 2,
+                 request_type_id: 3,
+                 event_id: 5,
+                 agent_id: 3,
+                 resolution_id: 6,
+                 ip_id: 7,
+                 client_id: c.id)
+
+    expect(payload.client.class).to eq(Client)
+    expect(payload.client.identifer).to eq("bradanthony")
+    expect(payload.client.root_url).to eq("turing")
+  end
 end

@@ -9,6 +9,7 @@ class Payload < ActiveRecord::Base
   belongs_to :resolution
   belongs_to :url
   belongs_to :user_agent
+  belongs_to :client
 
   validates :url_id, presence: true
   validates :requested_at, presence: true
@@ -19,6 +20,7 @@ class Payload < ActiveRecord::Base
   validates :agent_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
+  validates :client_id, presence: true
 
   def self.average_response_time
     self.average(:responded_in)
@@ -54,7 +56,6 @@ class Payload < ActiveRecord::Base
   end
 
   def self.browser_breakdown
-
     grouped_browsers = group(:agent_id).count
     grouped_browsers.reduce({}) do |hash, (key, value)|
        hash[Agent.find(key).browser] = value
@@ -81,7 +82,4 @@ class Payload < ActiveRecord::Base
       hash
     end
   end
-
-
-
 end
