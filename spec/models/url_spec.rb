@@ -218,6 +218,60 @@ RSpec.describe "Url" do
     end
   end
 
+  describe ".list_of_http_verbs" do
+    it "return the list of all http verbs across payloads" do
+      url = Url.create(url_address: "http://jumpstartlab.com")
+
+      request_1 = Request.create(request_type: "GET")
+      request_2 = Request.create(request_type: "PUT")
+      request_3 = Request.create(request_type: "POST")
+
+      payload1 = Payload.create( url_id:             url.id,
+                                 responded_in:       40,
+                                 requested_at:       "2013-02-16",
+                                 referral_id:        1,
+                                 request_id:         request_1.id,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload2 = Payload.create( url_id:             url.id,
+                                 responded_in:       30,
+                                 requested_at:       "2014-02-16",
+                                 referral_id:        1,
+                                 request_id:         request_2.id,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload3 = Payload.create( url_id:             url.id,
+                                 responded_in:       20,
+                                 requested_at:       "2016-02-16",
+                                 referral_id:        1,
+                                 request_id:         request_3.id,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload4 = Payload.create( url_id:             url.id,
+                                 responded_in:       40,
+                                 requested_at:       "2013-02-16",
+                                 referral_id:        1,
+                                 request_id:         request_1.id,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      all_verbs = ["PUT", "GET", "POST"]
+      expect(url.list_of_http_verbs).to eq(all_verbs)
+    end
+  end
+
+
   describe ".three_most_popular_referrals" do
     it "returns three most popular referrers" do
       url = Url.create(url_address: "http://jumpstartlab.com")
@@ -292,7 +346,7 @@ RSpec.describe "Url" do
   end
 
   describe ".three_most_popular_user_agents" do
-    it "returns three most popular referrers" do
+    it "returns three most popular user agents" do
       url = Url.create(url_address: "http://jumpstartlab.com")
 
       uas1 = UserAgentStat.create(operating_system: "Windows", browser: "Chrome")

@@ -5,6 +5,7 @@ class Url < ActiveRecord::Base
   has_many :payloads
   has_many :referrals, through: :payloads
   has_many :user_agent_stats, through: :payloads
+  has_many :requests, through: :payloads
 
 
   def self.most_to_least_requested
@@ -14,7 +15,7 @@ class Url < ActiveRecord::Base
 #note that these aren't ``.self` methods (class methods) because they reference a specific url, and not the class Url.
 #alisher: gotcha, Erin!
 # I didn't touch the methods you created, your testing looks good!
-# A few things I noticed:
+# A few things to note as well:
 # - You don't have to pass url as a parameter to these methods, as longs you you call this methods on an instance of Url class
 # - Some of these methods are built in Payload, so max_response_time, for example, can be changed to:
 # def max_response_time
@@ -39,7 +40,7 @@ class Url < ActiveRecord::Base
   end
 
   def list_of_http_verbs
-
+    requests.list_all_http_verbs_used
   end
 
   def three_most_popular_referrals
