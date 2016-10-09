@@ -5,9 +5,9 @@ class Client < ActiveRecord::Base
   validates :identifier, uniqueness: true
   validates :identifier, uniqueness: {scope: :root_url}
   validates :root_url, uniqueness: {scope: :identifier}
-  
+
   has_many :payloads
 
-
+  
 
 end
