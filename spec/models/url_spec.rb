@@ -98,7 +98,7 @@ RSpec.describe "Url" do
                                   resolution_id:      6,
                                   visitor_id:         7 )
 
-      expect(url1.max_response_time(url1)).to eq(38)
+      expect(url1.max_response_time).to eq(38)
     end
   end
 
@@ -137,7 +137,7 @@ RSpec.describe "Url" do
                                   resolution_id:      6,
                                   visitor_id:         7 )
 
-      expect(url1.min_response_time(url1)).to eq(37)
+      expect(url1.min_response_time).to eq(37)
     end
 
     it "returns max response time for a specific url" do
@@ -174,7 +174,7 @@ RSpec.describe "Url" do
                                   resolution_id:      6,
                                   visitor_id:         7 )
 
-      expect(url1.average_response_time(url1)).to eq(39)
+      expect(url1.average_response_time).to eq(39)
     end
   end
 
@@ -266,7 +266,7 @@ RSpec.describe "Url" do
                                  resolution_id:      6,
                                  visitor_id:         7 )
 
-      all_verbs = ["PUT", "GET", "POST"]
+      all_verbs = ["POST", "GET", "PUT"]
       expect(url.list_of_http_verbs).to eq(all_verbs)
     end
   end

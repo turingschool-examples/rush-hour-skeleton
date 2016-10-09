@@ -13,4 +13,5 @@ class Request < ActiveRecord::Base
     sorted_requests = count.sort_by { |request, count| count}.reverse
     sorted_requests.first.first
   end
+
 end
