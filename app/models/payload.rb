@@ -57,7 +57,21 @@ class Payload < ActiveRecord::Base
 
   def self.browser_breakdown
     Payload.pluck(:agent_id).reduce({}) do |r, id|
-      r[UserAgent.browser_name(Agent.find(id).agent)] = Payload.pluck(:agent_id).count
+      r[UserAgent.browser_name(Agent.find(id).agent)] = Payload.pluck(:agent_id).count(id)
+      r
+    end
+  end
+
+  def self.os_breakdown
+    Payload.pluck(:agent_id).reduce({}) do |r, id|
+      r[UserAgent.os(Agent.find(id).agent)] = Payload.pluck(:agent_id).count(id)
+      r
+    end
+  end
+
+  def self.resolution_breakdown
+    Payload.pluck(:resolution_id).reduce({}) do |r, id|
+      r["#{(Resolution.find(id).resolution_width)}" + " x " + "#{(Resolution.find(id).resolution_height)}"] = Payload.pluck(:resolution_id).count(id)
       r
     end
   end
