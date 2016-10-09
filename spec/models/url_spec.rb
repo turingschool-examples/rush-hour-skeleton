@@ -266,7 +266,7 @@ RSpec.describe "Url" do
                                  resolution_id:      6,
                                  visitor_id:         7 )
 
-      all_verbs = ["POST", "GET", "PUT"]
+      all_verbs = ["GET", "POST" , "PUT"]
       expect(url.list_of_http_verbs).to eq(all_verbs)
     end
   end

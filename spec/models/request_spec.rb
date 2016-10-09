@@ -23,7 +23,7 @@ RSpec.describe "Request" do
       request_4 = Request.create(request_type: "PATCH")
       request_5 = Request.create(request_type: "DELETE")
 
-      expected = ["POST", "GET", "PATCH", "DELETE", "PUT"]
+      expected = ["DELETE", "GET", "PATCH", "POST", "PUT"]
       expect(Request.list_all_http_verbs_used).to eq(expected)
     end
 
@@ -34,7 +34,7 @@ RSpec.describe "Request" do
       request_4 = Request.create(request_type: "PUT")
       request_5 = Request.create(request_type: "POST")
 
-      expected = ["POST", "GET", "PUT"]
+      expected = ["GET", "POST", "PUT"]
       expect(Request.list_all_http_verbs_used).to eq(expected)
     end
   end
