@@ -139,6 +139,6 @@ describe Client do
     expect(c.url.find(u.id).class).to eq(Url)
     expect(c.url.find(u.id).root_url).to eq("google.com")
     expect(c.url.find(u.id).path).to eq("/images")
-
   end
+  
 end

@@ -35,18 +35,18 @@ class Payload < ActiveRecord::Base
   end
 
   def self.most_frequent_request_type
-    id = group(:request_type_id).count.max_by{|key, value| value}.first
+    id = self.group(:request_type_id).count.max_by{|key, value| value}.first
     RequestType.find(id).http_verb
   end
 
   def self.all_request_types
-    group(:request_type_id).count.keys.map do |id|
+    self.group(:request_type_id).count.keys.map do |id|
       RequestType.find(id).http_verb
     end.sort
   end
 
   def self.urls_descending
-    grouped_urls = group(:url_id).count.sort_by do |key, value|
+    grouped_urls = self.group(:url_id).count.sort_by do |key, value|
       value
     end.reverse
 
@@ -56,7 +56,7 @@ class Payload < ActiveRecord::Base
   end
 
   def self.browser_breakdown
-    grouped_browsers = group(:agent_id).count
+    grouped_browsers = self.group(:agent_id).count
     grouped_browsers.reduce({}) do |hash, (key, value)|
        hash[Agent.find(key).browser] = value
        hash
@@ -64,7 +64,7 @@ class Payload < ActiveRecord::Base
   end
 
   def self.os_breakdown
-    grouped_os = group(:agent_id).count
+    grouped_os = self.group(:agent_id).count
     grouped_os.reduce({}) do |hash, (key, value)|
        hash[Agent.find(key).operating_system] = value
        hash
@@ -77,7 +77,6 @@ class Payload < ActiveRecord::Base
       keys = {}
       keys["height"] = Resolution.find(key).height
       keys["width"] = Resolution.find(key).width
-
       hash[keys] = value
       hash
     end
