@@ -265,8 +265,9 @@ RSpec.describe "Payload" do
                                  resolution_id:      6,
                                  visitor_id:         7 )
 
-      expected = [20, 30, 40]
+      expected = [40, 30, 20]
       expect(Payload.all_response_times).to eq(expected)
     end
   end
+
 end

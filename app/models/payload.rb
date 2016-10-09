@@ -30,6 +30,8 @@ class Payload < ActiveRecord::Base
   end
 
   def self.all_response_times
-    pluck("responded_in").sort
+    pluck("responded_in").sort.reverse
   end
+
+  
 end
