@@ -88,4 +88,25 @@ class Payload < ActiveRecord::Base
     end[0]
   end
 
+  def self.all_response_times_by_url(input_url)
+    Payload.pluck(:responded_in, :url_id).sort.reverse.select do |time_url_id|
+      Url.find(time_url_id[1]).url == input_url
+    end.reduce([]) do |r, time_url_id|
+      r << time_url_id[0]
+      r
+    end
+  end
+
+  def self.average_response_time_by_url(input_url)
+    all_response_times = Payload.all_response_times_by_url(input_url)
+    all_response_times.reduce(:+) / all_response_times.count
+  end
+
+  def self.http_verbs_by_url(input_url)
+    Payload.pluck(:request_type_id, :url_id).reduce([]) do |r, type_url|
+      r << RequestType.find(type_url[0]).request_type if Url.find(type_url[1]).url == input_url
+      r
+    end
+  end
+
 end
