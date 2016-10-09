@@ -33,10 +33,22 @@ RSpec.describe "Request" do
       request_3 = Request.create(request_type: "PUT")
       request_4 = Request.create(request_type: "PUT")
       request_5 = Request.create(request_type: "POST")
-      
+
       expected = ["POST", "GET", "PUT"]
       expect(Request.list_all_http_verbs_used).to eq(expected)
     end
+  end
+  describe ".most_frequent_request_type" do
+    it "returns most frequent request type" do
+      request_1 = Request.create(request_type: "GET")
+      request_2 = Request.create(request_type: "GET")
+      request_3 = Request.create(request_type: "GET")
+      request_4 = Request.create(request_type: "PUT")
+      request_5 = Request.create(request_type: "PUT")
+      request_5 = Request.create(request_type: "POST")
 
+      expected = "GET"
+      expect(Request.most_frequent_request_type).to eq(expected)
+    end
   end
 end
