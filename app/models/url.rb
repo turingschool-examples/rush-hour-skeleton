@@ -9,30 +9,19 @@ class Url < ActiveRecord::Base
 
 
   def self.most_to_least_requested
-    Url.joins(:payloads).group(:url_address).order("COUNT(payloads.*) DESC").pluck(:url_address)
+    joins(:payloads).group(:url_address).order("COUNT(payloads.*) DESC").pluck(:url_address)
   end
 
-#note that these aren't ``.self` methods (class methods) because they reference a specific url, and not the class Url.
-#alisher: gotcha, Erin!
-# I didn't touch the methods you created, your testing looks good!
-# A few things to note as well:
-# - You don't have to pass url as a parameter to these methods, as longs you you call this methods on an instance of Url class
-# - Some of these methods are built in Payload, so max_response_time, for example, can be changed to:
-# def max_response_time
-#   payloads.max_response_time
-# end
-# Thanks!
-
-  def max_response_time(url)
-    url.payloads.maximum("responded_in")
+  def max_response_time
+    payloads.max_response_time
   end
 
-  def min_response_time(url)
-    url.payloads.minimum("responded_in")
+  def min_response_time
+    payloads.min_response_time
   end
 
-  def average_response_time(url)
-    url.payloads.average("responded_in")
+  def average_response_time
+    payloads.average_response_time
   end
 
   def longest_to_shortest_response_time

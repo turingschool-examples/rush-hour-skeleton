@@ -5,7 +5,7 @@ class Request < ActiveRecord::Base
 
   def self.list_all_http_verbs_used
     all_verbs = select(:request_type).distinct.group(:id)
-    all_verbs.map { |verb| verb.request_type }
+    all_verbs.map { |verb| verb.request_type }.sort
   end
 
   def self.most_frequent_request_type
@@ -13,4 +13,5 @@ class Request < ActiveRecord::Base
     sorted_requests = count.sort_by { |request, count| count}.reverse
     sorted_requests.first.first
   end
+
 end

@@ -8,6 +8,7 @@ class Payload < ActiveRecord::Base
   validates  :user_agent_stat_id, presence: true
   validates  :resolution_id, presence: true
   validates  :visitor_id, presence: true
+  # validates  :client_id, presence: true
 
   belongs_to :url
   belongs_to :referral
@@ -16,6 +17,7 @@ class Payload < ActiveRecord::Base
   belongs_to :visitor
   belongs_to :resolution
   belongs_to :user_agent_stat
+  belongs_to :client
 
   def self.average_response_time
     average("responded_in")
@@ -33,5 +35,5 @@ class Payload < ActiveRecord::Base
     pluck("responded_in").sort.reverse
   end
 
-  
+
 end
