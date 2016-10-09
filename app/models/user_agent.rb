@@ -1,6 +1,6 @@
-class UserAgent < ActiveRecord::Base
+class Agent < ActiveRecord::Base
 
   has_many :payloads
 
-  validates :user_agent, presence: true
+  validates :agent, presence: true
 end

@@ -4,7 +4,7 @@ class Payload < ActiveRecord::Base
   belongs_to :url
   belongs_to :referred_by
   belongs_to :event_name
-  belongs_to :user_agent
+  belongs_to :agent
   belongs_to :resolution
   belongs_to :ip
 
@@ -14,7 +14,7 @@ class Payload < ActiveRecord::Base
   validates :referred_by_id, presence: true
   validates :request_type_id, presence: true
   validates :event_name_id, presence: true
-  validates :user_agent_id, presence: true
+  validates :agent_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
 
@@ -47,11 +47,12 @@ class Payload < ActiveRecord::Base
     end
   end
 
-  def self.request_types_by_frequency
-    Payload.pluck(:request_type_id).uniq.reduce({}) do |r, id|
-      r[id] RequestType.find(id).count
+  def self.most_to_least_requested
+    order = Payload.order('url_id DESC')
+    order.reduce([]) do |r, obj|
+      r << obj.url.url
       r
-    end.sort_by { |k,v| v }
+    end.uniq
   end
 
 end
