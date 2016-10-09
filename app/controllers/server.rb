@@ -14,6 +14,10 @@ module RushHour
       erb :sources
     end
 
+    get 'sources/:IDENTIFIER/data/new' do
+
+    end
+
     post "/sources" do
       # 1. Get hash of identifier and root url
       # 2. Create new client (without saving) with id and root url
@@ -24,6 +28,10 @@ module RushHour
       status response[:status]
       body response[:body]
     end
-  end
 
+    post 'sources/:IDENTIFIER/data' do
+
+    end
+
+  end
 end
