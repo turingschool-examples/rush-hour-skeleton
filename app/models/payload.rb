@@ -55,4 +55,11 @@ class Payload < ActiveRecord::Base
     end.uniq
   end
 
+  def self.browser_breakdown
+    Payload.pluck(:agent_id).reduce({}) do |r, id|
+      r[UserAgent.browser_name(Agent.find(id).agent)] = Payload.pluck(:agent_id).count
+      r
+    end
+  end
+
 end
