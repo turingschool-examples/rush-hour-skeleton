@@ -76,4 +76,16 @@ class Payload < ActiveRecord::Base
     end
   end
 
+  def self.max_response_time_by_url(input_url)
+    Payload.pluck(:responded_in, :url_id).sort.reverse.detect do |time_url_id|
+      Url.find(time_url_id[1]).url == input_url
+    end[0]
+  end
+
+  def self.min_response_time_by_url(input_url)
+    Payload.pluck(:responded_in, :url_id).sort.detect do |time_url_id|
+      Url.find(time_url_id[1]).url == input_url
+    end[0]
+  end
+
 end
