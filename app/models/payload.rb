@@ -40,4 +40,11 @@ class Payload < ActiveRecord::Base
     RequestType.find(id_occurance.max_by { |k, v| v }[0]).send(column)
   end
 
+  def self.all_http_verbs
+    Payload.pluck(:request_type_id).uniq.reduce([]) do |r, id|
+      r << RequestType.find(id).request_type
+      r
+    end
+  end
+
 end

@@ -410,4 +410,46 @@ RSpec.describe "Payload" do
       # expect(Payload.most_frequent(:event_name)).to eq("Ted")
     end
   end
+
+  describe ".all_http:verbs" do
+    it "returns all used http verbs" do
+      RequestType.create(request_type: "GET")
+      RequestType.create(request_type: "POST")
+      RequestType.create(request_type: "PUT")
+      RequestType.create(request_type: "PATCH")
+      RequestType.create(request_type: "DELETE")
+
+      payload1 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload2 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 2,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload3 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 5,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(Payload.all_http_verbs).to eq(["GET", "POST", "DELETE"])
+    end
+  end
 end
