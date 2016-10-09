@@ -47,4 +47,11 @@ class Payload < ActiveRecord::Base
     end
   end
 
+  def self.request_types_by_frequency
+    Payload.pluck(:request_type_id).uniq.reduce({}) do |r, id|
+      r[id] RequestType.find(id).count
+      r
+    end.sort_by { |k,v| v }
+  end
+
 end
