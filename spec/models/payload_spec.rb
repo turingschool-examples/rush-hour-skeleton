@@ -280,4 +280,56 @@ RSpec.describe "Payload" do
       expect(Payload.average_response_time).to eq(38)
     end
   end
+
+  describe ".max_response_time" do
+    it "returns max_response_time" do
+      payload1 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload2 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(Payload.max_response_time).to eq(39)
+    end
+  end
+
+  describe ".min_response_time" do
+    it "returns min_response_time" do
+      payload1 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload2 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(Payload.min_response_time).to eq(37)
+    end
+  end
 end

@@ -19,10 +19,19 @@ class Payload < ActiveRecord::Base
   validates :ip_id, presence: true
 
   def self.average_response_time
-    result = Payload.all.reduce(0) do |r, payload|
-      r += payload.responded_in
-      r
-    end./Payload.all.length
+    Payload.average(:responded_in)
+  end
+
+  def self.max_response_time
+    Payload.maximum(:responded_in)
+  end
+
+  def self.min_response_time
+    Payload.minimum(:responded_in)
+  end
+
+  def most_frequent
+
   end
 
 end
