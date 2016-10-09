@@ -8,8 +8,7 @@ class Client < ActiveRecord::Base
   has_many :request_type, through: :payload
   has_many :referred_by, through: :payload
 
-  validates :identifer, presence: true
-  validates :identifer, uniqueness: true
-  validates :root_url, presence: true
+  validates :identifier, presence: true, uniqueness: true
+  validates :root_url, presence: true, uniqueness: true
 
 end

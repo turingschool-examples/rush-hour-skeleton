@@ -1,9 +1,11 @@
 require_relative "../models/response.rb"
+require_relative "../models/processor.rb"
+require 'pry'
 
 module RushHour
-
   class Server < Sinatra::Base
-    include Response
+    include Response, Processor
+
     not_found do
       erb :error
     end
@@ -13,9 +15,15 @@ module RushHour
     end
 
     post "/sources" do
-      request_parser(params)
-      status process_client[:status]
-      body process_client[:body]
+      # 1. Get hash of identifier and root url
+      # 2. Create new client (without saving) with id and root url
+      # 3. Return messages
+      # 4. Set messages to http response
+      data = clean_data(params)
+      response = process_client(Client.new(data), params[:identifier])
+      status response[:status]
+      body response[:body]
     end
   end
+
 end

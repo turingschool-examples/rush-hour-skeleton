@@ -1,16 +1,16 @@
 require_relative '../spec_helper'
 
 describe Client do
-  it "is invalid with same identifer" do
-    c1 = Client.create(identifer: "bradanthony", root_url: "turing")
-    c2 = Client.create(identifer: "bradanthony", root_url: "turing")
+  it "is invalid with same identifier" do
+    c1 = Client.create(identifier: "bradanthony", root_url: "turing")
+    c2 = Client.create(identifier: "bradanthony", root_url: "turing")
 
     expect(c2).to_not be_valid
     expect(c1).to be_valid
   end
 
   it "can return associated agent info" do
-    c = Client.create(identifer: "Bradanthony", root_url: "turing")
+    c = Client.create(identifier: "Bradanthony", root_url: "turing")
     a = Agent.create(browser: "Chrome", operating_system: "OSX")
     pl = Payload.create(requested_at: "test",
                    responded_in: 12,
@@ -28,7 +28,7 @@ describe Client do
   end
 
   it "can return associated event info" do
-    c = Client.create(identifer: "Bradanthony", root_url: "turing")
+    c = Client.create(identifier: "Bradanthony", root_url: "turing")
     e = Event.create(event_name: "social_login")
     pl = Payload.create(requested_at: "test",
                    responded_in: 12,
@@ -46,7 +46,7 @@ describe Client do
   end
 
   it "can return associated ip info" do
-    c = Client.create(identifer: "Bradanthony", root_url: "turing")
+    c = Client.create(identifier: "Bradanthony", root_url: "turing")
     i = Ip.create(address: "192.168.1.0")
     pl = Payload.create(requested_at: "test",
                    responded_in: 12,
@@ -64,7 +64,7 @@ describe Client do
   end
 
   it "can return associated referred_by info" do
-    c = Client.create(identifer: "Bradanthony", root_url: "turing")
+    c = Client.create(identifier: "Bradanthony", root_url: "turing")
     rb = ReferredBy.create(root_url: "google.com", path: "/images")
     pl = Payload.create(requested_at: "test",
                    responded_in: 12,
@@ -83,7 +83,7 @@ describe Client do
   end
 
   it "can return associated request_type info" do
-    c = Client.create(identifer: "Bradanthony", root_url: "turing")
+    c = Client.create(identifier: "Bradanthony", root_url: "turing")
     rt = RequestType.create(http_verb: "GET")
     pl = Payload.create(requested_at: "test",
                    responded_in: 12,
@@ -102,7 +102,7 @@ describe Client do
   end
 
   it "can return associated resolution info" do
-    c = Client.create(identifer: "Bradanthony", root_url: "turing")
+    c = Client.create(identifier: "Bradanthony", root_url: "turing")
     r = Resolution.create(height: "10", width: "20")
     pl = Payload.create(requested_at: "test",
                    responded_in: 12,
@@ -122,7 +122,7 @@ describe Client do
   end
 
   it "can return associated url info" do
-    c = Client.create(identifer: "Bradanthony", root_url: "turing")
+    c = Client.create(identifier: "Bradanthony", root_url: "turing")
     u = Url.create(root_url: "google.com", path: "/images")
     pl = Payload.create(requested_at: "test",
                    responded_in: 12,

@@ -607,7 +607,7 @@ describe Payload do
   end
 
   it "payload return associated client" do
-    c = Client.create(identifer: "bradanthony", root_url: "turing")
+    c = Client.create(identifier: "bradanthony", root_url: "turing")
     payload = Payload.create(requested_at: "test",
                  responded_in: 12,
                  referred_by_id: 2,
@@ -619,7 +619,7 @@ describe Payload do
                  client_id: c.id)
 
     expect(payload.client.class).to eq(Client)
-    expect(payload.client.identifer).to eq("bradanthony")
+    expect(payload.client.identifier).to eq("bradanthony")
     expect(payload.client.root_url).to eq("turing")
   end
 end
