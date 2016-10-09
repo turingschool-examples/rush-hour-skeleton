@@ -139,9 +139,7 @@ RSpec.describe "Url" do
 
       expect(url1.min_response_time(url1)).to eq(37)
     end
-  end
 
-g
     it "returns max response time for a specific url" do
       url1 = Url.create( url_address: "www.google.com")
       url2 = Url.create( url_address: "www.yahoo.com")
@@ -180,4 +178,189 @@ g
     end
   end
 
+  describe "longest_to_shortest_response_time" do
+    it "returns an array of longest to shortest response times" do
+      url1 = Url.create( url_address: "www.google.com")
+      url2 = Url.create( url_address: "www.yahoo.com")
+
+      payload1 = Payload.create( url_id:             url1.id,
+                                 responded_in:       30,
+                                 requested_at:       "2013-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload2 = Payload.create( url_id:             url1.id,
+                                 responded_in:       40,
+                                 requested_at:       "2014-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload3 = Payload.create( url_id:             url2.id,
+                                 responded_in:       20,
+                                 requested_at:       "2016-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      response_times = [40, 30]
+      expect(url1.longest_to_shortest_response_time).to eq(response_times)
+    end
+  end
+
+  describe ".three_most_popular_referrals" do
+    it "returns three most popular referrers" do
+      url = Url.create(url_address: "http://jumpstartlab.com")
+
+      ref1  = Referral.create(source: "http://google.com")
+      ref2  = Referral.create(source: "http://coursereport.com")
+      ref3  = Referral.create(source: "http://turing.io")
+
+      payload1 = Payload.create( url_id:             url.id,
+                                 responded_in:       40,
+                                 requested_at:       "2013-02-16",
+                                 referral_id:        ref1.id,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload2 = Payload.create( url_id:             url.id,
+                                 responded_in:       30,
+                                 requested_at:       "2014-02-16",
+                                 referral_id:        ref2.id,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload3 = Payload.create( url_id:             url.id,
+                                 responded_in:       20,
+                                 requested_at:       "2016-02-16",
+                                 referral_id:        ref3.id,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload4 = Payload.create( url_id:             url.id,
+                                 responded_in:       40,
+                                 requested_at:       "2013-02-16",
+                                 referral_id:        ref2.id,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload5 = Payload.create( url_id:             url.id,
+                                 responded_in:       30,
+                                 requested_at:       "2014-02-16",
+                                 referral_id:        ref1.id,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload6 = Payload.create( url_id:             url.id,
+                                 responded_in:       20,
+                                 requested_at:       "2016-02-16",
+                                 referral_id:        ref2.id,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: 5,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      top_three = ["http://coursereport.com", "http://google.com", "http://turing.io"]
+      expect(url.three_most_popular_referrals).to eq(top_three)
+    end
+  end
+
+  describe ".three_most_popular_user_agents" do
+    it "returns three most popular referrers" do
+      url = Url.create(url_address: "http://jumpstartlab.com")
+
+      uas1 = UserAgentStat.create(operating_system: "Windows", browser: "Chrome")
+      uas2 = UserAgentStat.create(operating_system: "Mac OS",  browser: "Chrome")
+      uas3 = UserAgentStat.create(operating_system: "Mac OS",  browser: "Safari")
+
+      payload1 = Payload.create( url_id:             url.id,
+                                 responded_in:       40,
+                                 requested_at:       "2013-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: uas1.id,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload2 = Payload.create( url_id:             url.id,
+                                 responded_in:       30,
+                                 requested_at:       "2014-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: uas2.id,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload3 = Payload.create( url_id:             url.id,
+                                 responded_in:       20,
+                                 requested_at:       "2016-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: uas3.id,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload4 = Payload.create( url_id:             url.id,
+                                 responded_in:       40,
+                                 requested_at:       "2013-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: uas2.id,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload5 = Payload.create( url_id:             url.id,
+                                 responded_in:       30,
+                                 requested_at:       "2014-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: uas1.id,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      payload6 = Payload.create( url_id:             url.id,
+                                 responded_in:       20,
+                                 requested_at:       "2016-02-16",
+                                 referral_id:        2,
+                                 request_id:         3,
+                                 event_id:           4,
+                                 user_agent_stat_id: uas2.id,
+                                 resolution_id:      6,
+                                 visitor_id:         7 )
+
+      top_three = [["Chrome", "Mac OS"], ["Chrome", "Windows"], ["Safari", "Mac OS"]]
+      expect(url.three_most_popular_user_agents).to eq(top_three)
+    end
+  end
 end
