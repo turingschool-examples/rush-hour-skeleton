@@ -10,6 +10,8 @@ class Payload < ActiveRecord::Base
   validates  :visitor_id, presence: true
   # validates  :client_id, presence: true
 
+  validates
+
   belongs_to :url
   belongs_to :referral
   belongs_to :request
