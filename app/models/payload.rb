@@ -30,8 +30,14 @@ class Payload < ActiveRecord::Base
     Payload.minimum(:responded_in)
   end
 
-  def most_frequent
-
+  def self.most_frequent(column)
+    column_values = Payload.pluck("#{column.to_s}_id".to_sym)
+    id_occurance = column_values.reduce({}) do |r, id|
+      r[id] = column_values.count(id)
+      r
+    end
+    #TODO MAKE DYNAMIC
+    RequestType.find(id_occurance.max_by { |k, v| v }[0]).send(column)
   end
 
 end

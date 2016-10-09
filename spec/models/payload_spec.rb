@@ -332,4 +332,82 @@ RSpec.describe "Payload" do
       expect(Payload.min_response_time).to eq(37)
     end
   end
+
+  describe ".most_frequent_request_type" do
+    it "returns most frequent request type" do
+      RequestType.create(request_type: "GET")
+      RequestType.create(request_type: "POST")
+      payload1 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload2 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload3 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 2,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(Payload.most_frequent(:request_type)).to eq("GET")
+    end
+
+    it "returns dynamic responses" do
+      RequestType.create(request_type: "GET")
+      RequestType.create(request_type: "POST")
+      EventName.create(event_name: "Bill")
+      EventName.create(event_name: "Ted")
+
+      payload1 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload2 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 2,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload3 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 2,
+                            event_name_id: 1,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(Payload.most_frequent(:request_type)).to eq("GET")
+      # expect(Payload.most_frequent(:event_name)).to eq("Ted")
+    end
+  end
 end
