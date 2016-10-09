@@ -11,6 +11,7 @@ class CreatePayloadsTable < ActiveRecord::Migration
       t.integer :agent_id
       t.integer :resolution_id
       t.integer :ip_id
+      t.integer :client_id
 
       t.timestamp null: false
     end

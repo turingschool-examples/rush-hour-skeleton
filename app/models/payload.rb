@@ -7,6 +7,7 @@ class Payload < ActiveRecord::Base
   belongs_to :agent
   belongs_to :resolution
   belongs_to :ip
+  belongs_to :client
 
   validates :url_id, presence: true
   validates :requested_at, presence: true
