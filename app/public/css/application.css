@@ -9,12 +9,7 @@ body {
 .content-center {
   text-align: center;
   margin-top: 4.5em;
-}
-
-.index-individual-robots {
-  margin: 1em;
-  clear: both;
-  width: 100%;
+  align-content: center;
 }
 
 .button-styles {
