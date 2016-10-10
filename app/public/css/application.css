@@ -1,0 +1,26 @@
+body {
+    background-image: url('/bg_image.jpeg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.content-center {
+  text-align: center;
+  margin-top: 4.5em;
+}
+
+.index-individual-robots {
+  margin: 1em;
+  clear: both;
+  width: 100%;
+}
+
+.button-styles {
+  margin: 5px;
+}
+
+.dashboard-header {
+  color: #fff;
+}
