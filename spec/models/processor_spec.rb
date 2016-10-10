@@ -15,4 +15,11 @@ describe Processor do
     expect(Processor.clean_data(params)).to eq(expected)
   end
 
+  # it "returns referred by ID" do
+  #   pc = Processor.params_cleaner(test_data)
+  #   expected = ReferredBy.find_by(root_url: pc[:referredBy]).id
+  #
+  #   expect(pc[:referred_by_id]).to eq(expected)
+  # end
+
 end

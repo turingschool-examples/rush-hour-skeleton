@@ -60,4 +60,21 @@ describe Response do
     expect(Response.process_client(client, client_identifier)).to eq(expected)
   end
 
+  it "returns 403 status if client does not exist" do
+    identifier = "test_identifier"
+    expected = {status: 403, body: "Client test_identifier is not registered\n"}
+
+    expect(Response.process_data(test_data, identifier)).to eq(expected)
+  end
+
+  it "returns 403 status if missing parameters and client exists" do
+    Client.create(identifier: "test_identifier", root_url: "test_url")
+    identifier = "test_identifier"
+    data = {}
+    expected = {:status=>403, :body=>"Missing parameters\n"}
+
+    expect(Response.process_data(data, identifier)).to eq(expected)
+  end
+
+
 end

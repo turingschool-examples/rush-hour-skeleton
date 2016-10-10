@@ -7,9 +7,4 @@ describe ReferredBy do
     expect(referred_by).to_not be_valid
   end
 
-  it "is invalid without a path" do
-    referred_by = ReferredBy.create(root_url: "test")
-
-    expect(referred_by).to_not be_valid
-  end
 end
