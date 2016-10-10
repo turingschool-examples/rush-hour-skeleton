@@ -14,9 +14,11 @@ module RushHour
       erb :sources
     end
 
-    get 'sources/:IDENTIFIER/data/new' do
-
+    get "/sources/:id" do |id|
+      @client = Processor.get_client_stats(id)
+      erb :show
     end
+
 
     post "/sources" do
       # 1. Get hash of identifier and root url
@@ -31,8 +33,8 @@ module RushHour
 
     post "/sources/:IDENTIFIER/data" do |identifier|
       response = Response.process_data(params, identifier)
-      status "test"
-      body "test"
+      status response[:status]
+      body response[:body]
     end
 
   end

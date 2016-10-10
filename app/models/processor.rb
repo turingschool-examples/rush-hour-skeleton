@@ -18,7 +18,7 @@ extend self
     user_agent = UserAgent.parse(json_parser(params)['userAgent'])
     rb = URI.parse(json_parser(params)['referredBy'])
     u = URI.parse(json_parser(params)['url'])
-    {
+     {
        requested_at: json_parser(params)['requestedAt'],
        responded_in: json_parser(params)['respondedIn'],
        referred_by_id: ReferredBy.find_or_create_by(root_url: rb.host, path: rb.path).id,
@@ -31,4 +31,7 @@ extend self
      }
   end
 
+  def get_client_stats(id)
+    Client.find_by(identifier: id)
+  end
 end

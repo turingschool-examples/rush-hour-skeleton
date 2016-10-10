@@ -1,36 +1,36 @@
 class Url < ActiveRecord::Base
-  has_many :payload
+  has_many :payloads
 
   validates :root_url, presence: true
   validates :path, presence: true
 
 
-  def self.max_response_time(id)
-    Payload.where(url_id: id).maximum(:responded_in)
+  def max_response_time
+    payloads.maximum(:responded_in)
   end
 
-  def self.min_response_time(id)
-    Payload.where(url_id: id).minimum(:responded_in)
+  def min_response_time
+    payloads.minimum(:responded_in)
   end
 
-  def self.response_times_desc(id)
-    Payload.where(url_id: id).order(responded_in: :desc).map do |e|
+  def response_times_desc
+    payloads.order(responded_in: :desc).map do |e|
       e.responded_in
     end
   end
 
-  def self.average_response_time(id)
-    Payload.where(url_id: id).average(:responded_in).to_f
+  def average_response_time
+    payloads.average(:responded_in).to_f
   end
 
-  def self.all_http_verbs(id)
-    Payload.where(url_id: id).map do |e|
+  def all_http_verbs
+    payloads.map do |e|
       RequestType.find(e.request_type_id).http_verb
     end.sort
   end
 
-  def self.top_three_referrals(id)
-    grouped_arr = Payload.where(url_id: id).group(:referred_by_id).count.sort_by{|k,v| v}.reverse
+  def top_three_referrals
+    grouped_arr = payloads(url_id: id).group(:referred_by_id).count.sort_by{|k,v| v}.reverse
     mapped_arr = grouped_arr.each do |e|
       e[0] = ReferredBy.find(e[0]).root_url + ReferredBy.find(e[0]).path
     end
@@ -39,8 +39,8 @@ class Url < ActiveRecord::Base
     end[0..2]
   end
 
-  def self.top_three_agents(id)
-    grouped_arr = Payload.where(url_id: id).group(:agent_id).count.sort_by{|k,v| v}.reverse
+  def top_three_agents
+    grouped_arr = payloads.group(:agent_id).count.sort_by{|k,v| v}.reverse
     mapped_arr = grouped_arr.each do |e|
       e[0] = Agent.find(e[0]).browser + " " + Agent.find(e[0]).operating_system
     end
