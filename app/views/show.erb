@@ -1,3 +1,57 @@
-<h1> test </h1>
-<p> <%= @client.identifier %></p>
-<p> <%= @client.average_response_time %></p>
+<h1> <%= @client.identifier%></h1>
+<table>
+  <tr>
+    <th>Statistic</th>
+    <th>Stats</th>
+  </tr>
+  <tr>
+    <td>Average Response Time</td>
+    <td><%= @client.average_response_time %></td>
+  </tr>
+
+  <tr>
+    <td>Max Response Time</td>
+    <td><%= @client.max_response_time %></td>
+  </tr>
+
+  <tr>
+    <td>Min Response Time</td>
+    <td><%= @client.min_response_time %></td>
+  </tr>
+
+  <tr>
+    <td>Most Frequent Request Type</td>
+    <td><%= @client.most_frequent_request_type %></td>
+  </tr>
+
+  <tr>
+    <td>Most Frequent Request Type</td>
+    <td><%= @client.most_frequent_request_type %></td>
+  </tr>
+
+  <tr>
+    <td>List of Http Verbs</td>
+    <td><%= @client.all_request_types.join(", ") %></td>
+  </tr>
+
+  <tr>
+    <td>Urls from Most Requested to Least</td>
+    <td><%= @client.urls_descending.join("\n") %></td>
+  </tr>
+
+  <tr>
+    <td>Web Browswer Breakdown</td>
+    <td><%= @client.browser_breakdown %></td>
+  </tr>
+
+  <tr>
+    <td>Operating System Breakdown </td>
+    <td><%= @client.os_breakdown %></td>
+  </tr>
+
+  <tr>
+    <td>Screen Resolution </td>
+    <td><%= @client.resolutions_breakdown %></td>
+  </tr>
+
+</table>
