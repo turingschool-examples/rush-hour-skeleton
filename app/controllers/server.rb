@@ -25,6 +25,7 @@ module RushHour
 
     post "/sources/:identifier/data" do |identifier|
       status 400 unless params.keys.include?("payload")
+      status 403 if Client.find_by(identifier: identifier).nil?
       Processor.parse(params[:payload], identifier)
     end
 
