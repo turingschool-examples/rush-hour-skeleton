@@ -24,9 +24,17 @@ module RushHour
     end
 
     post "/sources/:identifier/data" do |identifier|
-      status 400 unless params.keys.include?("payload")
-      status 403 if Client.find_by(identifier: identifier).nil?
+      return (status 400) && payload_missing unless params.keys.include?("payload")
+      return (status 403) && client_doesnt_exist if Client.find_by(identifier: identifier).nil?
       Processor.parse(params[:payload], identifier)
+    end
+
+    def client_doesnt_exist
+      p "Client doesn't exist."
+    end
+
+    def payload_missing
+      p "the damn payload is missing, bro"
     end
 
   end
