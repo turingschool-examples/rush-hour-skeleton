@@ -19,3 +19,8 @@ body {
 .dashboard-header {
   color: #fff;
 }
+
+.login-button-styles {
+  margin: 10px;
+  padding: 1.5em;
+}
