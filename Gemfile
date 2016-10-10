@@ -6,6 +6,9 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'user_agent'
 gem 'pry'
+gem 'rb-readline'
+gem 'pry-coolline'
+gem 'json'
 
 group :development, :test do
   gem 'shotgun'
