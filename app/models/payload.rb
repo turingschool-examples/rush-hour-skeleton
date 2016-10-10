@@ -8,7 +8,6 @@ class Payload < ActiveRecord::Base
   validates  :user_agent_stat_id, presence: true
   validates  :resolution_id, presence: true
   validates  :visitor_id, presence: true
-  # validates  :client_id, presence: true
 
   belongs_to :url
   belongs_to :referral
