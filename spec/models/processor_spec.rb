@@ -52,5 +52,21 @@ describe Processor do
     expect(pc[:resolution_id]).to eq(Resolution.find_by(width: "1920", height: "1280").id)
   end
 
+  it "returns json parsed hash" do
+    pc = Processor.json_parser(test_data)
+    expected = {"url"=>"http://jumpstartlab.com/blog",
+                "requestedAt"=>"2013-02-16 21:38:28 -0700",
+                "respondedIn"=>37,
+                "referredBy"=>"http://jumpstartlab.com",
+                "requestType"=>"GET",
+                "eventName"=>"socialLogin",
+                "userAgent"=>"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                "resolutionWidth"=>"1920",
+                "resolutionHeight"=>"1280",
+                "ip"=>"63.29.38.211"}
+
+    expect(pc).to eq(expected)
+  end
+
 
 end
