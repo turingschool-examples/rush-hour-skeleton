@@ -24,9 +24,20 @@ module Response
     end
   end
 
+  # def error_view(identifier)
+  #     @client = Processor.get_client_stats(identifier)
+  #     @id = identifier
+  #     if Client.find_by(identifier: identifier).nil?
+  #       erb :"error_identifier"
+  #     elsif Client.find_by(identifier: identifier).payload.empty?
+  #       erb :"error_payload"
+  #     else
+  #       erb :"show"
+  #   end
+  # end
+
   def data_responder(client, params)
     clean_data = Processor.params_cleaner(params[:payload])
-
     pl = client.payload.create(clean_data)
 
     if pl.save
@@ -35,6 +46,4 @@ module Response
       {status: 400, body: "#{client.payload.errors.full_messages.join("\n")}\n"}
     end
   end
-
-
 end
