@@ -73,4 +73,26 @@ RSpec.describe "PayloadBuilder" do
       expect(built[:ip]).to eq("123.456.789.0")
     end
   end
+
+  describe ".build_user_agent_stats" do
+    it "finds or creates user agent" do
+      user_agent_data =   {:browser=>"Chrome", :operating_system=>"OS10"}
+
+      found = UserAgentStat.find_by(browser: user_agent_data[:browser], operating_system: user_agent_data[:operating_system])
+      expect(found).to eq(nil)
+
+      built = PayloadBuilder.build_user_agent_stats(user_agent_data)
+      expect(built[:browser]).to eq("Chrome")
+      expect(built[:operating_system]).to eq("OS10")
+    end
+
+    it "is parsed by user agent gem" do
+      user_agent_data2 = {:user_agent=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"}
+
+
+      built2 = PayloadBuilder.build_user_agent_stats(user_agent_data2)
+      expect(built2[:browser]).to eq("Chrome")
+      expect(built2[:operating_system]).to eq("Macintosh")
+    end
+  end
 end

@@ -41,7 +41,10 @@ class PayloadBuilder
   end
 
   def self.build_user_agent_stats(payload)
-    UserAgentStat.find_or_create_by(browser: payload[:browser], operating_system: payload[:operating_system])
+    user_agent = UserAgent.parse(payload[:user_agent])
+    browser = payload[:browser] || user_agent.browser
+    operating_system = payload[:operating_system] || user_agent.platform
+    UserAgentStat.find_or_create_by(browser: browser, operating_system: operating_system)
   end
 
   def self.build_visitor(payload)
