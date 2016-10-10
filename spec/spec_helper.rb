@@ -22,7 +22,7 @@ RSpec.configure do |c|
 end
 
 def test_data
-  {
+  '{
     "url":"http://jumpstartlab.com/blog",
     "requestedAt":"2013-02-16 21:38:28 -0700",
     "respondedIn":37,
@@ -33,7 +33,7 @@ def test_data
     "resolutionWidth":"1920",
     "resolutionHeight":"1280",
     "ip":"63.29.38.211"
-  }
+  }'
 end
 
 def test_data_2
