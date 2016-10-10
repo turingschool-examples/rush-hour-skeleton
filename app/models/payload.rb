@@ -18,6 +18,7 @@ class Payload < ActiveRecord::Base
   validates :agent_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
+  validates_uniqueness_of :client_id, scope: [:url_id, :requested_at, :responded_in, :referred_by_id, :request_type_id, :event_name_id, :agent_id, :resolution_id, :ip_id]
 
   def self.average_response_time
     Payload.average(:responded_in)
@@ -109,10 +110,10 @@ class Payload < ActiveRecord::Base
       r
     end
   end
-  
+
   def self.three_most_popular_referrers(input_url)
     Payload.pluck(:referred_by_id, :url_id).reduce({}) do |r, referral_url|
-      r[ReferredBy.find(referral_url[0]).referred_by] = (Payload.pluck(:referred_by_id)).count(referral_url[0]) if  Url.find(referral_url[1]).url == input_url      
+      r[ReferredBy.find(referral_url[0]).referred_by] = (Payload.pluck(:referred_by_id)).count(referral_url[0]) if  Url.find(referral_url[1]).url == input_url
       r
     end.sort_by { |k, v| v }.reverse.first(3)
   end
@@ -120,11 +121,11 @@ class Payload < ActiveRecord::Base
   def self.three_most_popular_user_agents(input_url)
     result = Payload.pluck(:agent_id, :url_id).reduce({}) do |r, agent_type|
       r[Agent.find(agent_type[0]).agent] = (Payload.pluck(:agent_id)).count(agent_type[0]) if Url.find(agent_type[1]).url == input_url
-      r  
+      r
     end
-    
+
     sorted = result.sort_by { |k, v| v }.reverse.first(3)
-    
+
     sorted.map do |ua|
       [UserAgent.os(ua.to_s), UserAgent.browser_name(ua.to_s).to_s]
     end

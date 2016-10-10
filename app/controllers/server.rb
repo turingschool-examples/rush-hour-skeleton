@@ -26,6 +26,7 @@ module RushHour
     post "/sources/:identifier/data" do |identifier|
       return (status 400) && payload_missing unless params.keys.include?("payload")
       return (status 403) && client_doesnt_exist if Client.find_by(identifier: identifier).nil?
+      return (status 403) && payload_invalid unless payload_valid?(params, identifier)
       Processor.parse(params[:payload], identifier)
     end
 
@@ -35,6 +36,14 @@ module RushHour
 
     def payload_missing
       p "the damn payload is missing, bro"
+    end
+
+    def payload_valid?(params, identifier)
+      Processor.validate_payload(params[:payload], identifier)
+    end
+
+    def payload_invalid
+      p "the damn payload was already received or is invalid, bro"
     end
 
   end
