@@ -20,31 +20,31 @@ class PayloadBuilder
                            client_id: client.id )
   end
 
-  def build_event(payload)
-    Event.find_or_create_by(name: payload[:event_name])
+  def self.build_event(payload)
+    Event.find_or_create_by(event_name: payload[:event_name])
   end
 
-  def build_referral(payload)
+  def self.build_referral(payload)
     Referral.find_or_create_by(source: payload[:referred_by])
   end
 
-  def build_request(payload)
+  def self.build_request(payload)
     Request.find_or_create_by(request_type: payload[:request_type])
   end
 
-  def build_resolution(payload)
+  def self.build_resolution(payload)
     Resolution.find_or_create_by(height: payload[:resolution_height], width: payload[:resolution_width])
   end
 
-  def build_url(payload)
+  def self.build_url(payload)
     Url.find_or_create_by(url_address: payload[:url])
   end
 
-  def build_user_agent_stats(payload)
+  def self.build_user_agent_stats(payload)
     UserAgentStat.find_or_create_by(browser: payload[:browser], operating_system: payload[:operating_system])
   end
 
-  def build_visitor(payload)
+  def self.build_visitor(payload)
     Visitor.find_or_create_by(ip: payload[:ip])
   end
 end
