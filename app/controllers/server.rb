@@ -26,35 +26,55 @@ module RushHour
         status 200
         body "Success: {'identifier':#{params[:identifier]}}"
       end
-
     end
 
-    post '/sources/:identifier/data' do
-      parsed_data = Payload.create(parser(params[:payload]))
-      if Payload.exists?(responded_in: parsed[:responded_in], requested_at: parsed[:requested_at], url_id: url.id, ...  )
-        return error
-      else
-        Payload.create(parsed_data)
-      end
+    post '/sources/:identifier/data' do |identifier|
+      require 'pry'; binding.pry
+      # if Client.find_by(identifier: identifier)
+      #   parsed_data = parser(params)
+      #   payload = PayloadBuilder.build(parsed_data)
+      #   if params[:payload].nil?
+      #     status 400
+      #     "400 Bad Request: Payload Missing"
+      #   elsif Payload.find_by(requested_at: parsed_data[:requested_at], )
+      #     status 403
+      #     "403 Forbidden: Already Received Request"
+      #   elsif payload.save
+      #     status 200
+      #     "200 OK: Payload Request Created"
+      #   end
+      # else
+      #   status 403
+      #   "403 Forbidden: Application not Registered"
+      # end
     end
 
-    def parser(data)
-      parsed_data = JSON.parse(data)
 
-      final_hash = {}
-      parsed_data.each do |key, value|
-        final_hash[to_snake_case(key)] = value
-      end
-
-    end
-
-    def to_snake_case(string)
-      string.gsub(/::/, '/').
-      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-      gsub(/([a-z\d])([A-Z])/,'\1_\2').
-      tr("-", "_").
-      downcase
-    end
-
+  #     parsed_data = Payload.create(parser(params[:payload]))
+  #     if Payload.exists?(responded_in: parsed[:responded_in], requested_at: parsed[:requested_at], url_id: url.id, ...  )
+  #       return error
+  #     else
+  #       Payload.create(parsed_data)
+  #     end
+  #   end
+  #
+  #   def parser(data)
+  #     parsed_data = JSON.parse(data)
+  #
+  #     final_hash = {}
+  #     parsed_data.each do |key, value|
+  #       final_hash[to_snake_case(key)] = value
+  #     end
+  #
+  #   end
+  #
+  #   def to_snake_case(string)
+  #     string.gsub(/::/, '/').
+  #     gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+  #     gsub(/([a-z\d])([A-Z])/,'\1_\2').
+  #     tr("-", "_").
+  #     downcase
+  #   end
+  #
   end
 end
