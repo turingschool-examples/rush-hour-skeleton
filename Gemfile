@@ -18,4 +18,5 @@ group :development, :test do
   gem 'rb-readline'
   gem 'pry-coolline'
   gem 'useragent'
+  gem 'json'
 end

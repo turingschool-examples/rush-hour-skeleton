@@ -16,5 +16,29 @@ module Response
     end
   end
 
+  def process_data(params, identifier)
+    client = Client.find_by(identifier: identifier)
+
+    if client.nil?
+      {status: 403, body: "Client #{identifier} is not registered\n"}
+    elsif params[:payload].nil?
+      {status: 403, body: "Missing parameters\n"}
+    else
+      data_responder(client, params)
+    end
+  end
+
+  def data_responder(client, params)
+    clean_data = Processor.params_cleaner(params[:payload])
+    binding.pry
+    pl = client.payload.create(clean_data)
+
+    if pl.save
+      {status: 200, body: "OK"}
+    else
+      {status: 400, body: "#{client.payload.errors.full_messages.join("\n")}\n"}
+    end
+  end
+
 
 end

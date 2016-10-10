@@ -29,8 +29,10 @@ module RushHour
       body response[:body]
     end
 
-    post 'sources/:IDENTIFIER/data' do
-
+    post "/sources/:IDENTIFIER/data" do |identifier|
+      response = Response.process_data(params, identifier)
+      status "test"
+      body "test"
     end
 
   end
