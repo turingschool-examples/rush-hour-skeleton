@@ -11,7 +11,6 @@ extend self
   end
 
   def json_parser(params)
-
     JSON.parse(params)
   end
 
@@ -30,8 +29,6 @@ extend self
        ip_id: Ip.find_or_create_by(address: json_parser(params)['ip']).id,
        url_id: Url.find_or_create_by(root_url: u.host, path: u.path).id
      }
-
-
   end
 
 end

@@ -17,14 +17,56 @@ describe Processor do
   end
 
   it "returns referred by ID" do
-    #1. clean our test data with params_cleaner_method
-    #2. params_cleaner created a ReferredBy instance
-    #3. now can serach for RefferBy(1).rooturl to see the output
     pc = Processor.params_cleaner(test_data)
 
-    #not sure which one you like better or if i did it correct. we can take a look on 10/9
-    expect(ReferredBy.find_by(root_url: "jumpstartlab.com").id).to eq(1)
-    expect(ReferredBy.find(1).root_url).to eq("jumpstartlab.com")
+    expect(pc[:referred_by_id]).to eq(ReferredBy.find_by(root_url: "jumpstartlab.com").id)
   end
+
+  it "returns agent by ID" do
+    pc = Processor.params_cleaner(test_data)
+
+    expect(pc[:agent_id]).to eq(Agent.find_by(browser: "Chrome", operating_system: "Macintosh%3B Intel Mac OS X 10_8_2" ).id)
+  end
+
+  it "returns event by ID" do
+    pc = Processor.params_cleaner(test_data)
+
+    expect(pc[:event_id]).to eq(Event.find_by(event_name: "socialLogin").id)
+  end
+
+  it "returns ip by ID" do
+    pc = Processor.params_cleaner(test_data)
+
+    expect(pc[:ip_id]).to eq(Ip.find_by(address: "63.29.38.211").id)
+  end
+
+  it "returns request_type by ID" do
+    pc = Processor.params_cleaner(test_data)
+
+    expect(pc[:request_type_id]).to eq(RequestType.find_by(http_verb: "GET").id)
+  end
+
+  it "returns resolution by ID" do
+    pc = Processor.params_cleaner(test_data)
+
+    expect(pc[:resolution_id]).to eq(Resolution.find_by(width: "1920", height: "1280").id)
+  end
+
+  it "returns json parsed hash" do
+    pc = Processor.json_parser(test_data)
+    expected = {"url"=>"http://jumpstartlab.com/blog",
+                "requestedAt"=>"2013-02-16 21:38:28 -0700",
+                "respondedIn"=>37,
+                "referredBy"=>"http://jumpstartlab.com",
+                "requestType"=>"GET",
+                "eventName"=>"socialLogin",
+                "userAgent"=>"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                "resolutionWidth"=>"1920",
+                "resolutionHeight"=>"1280",
+                "ip"=>"63.29.38.211"}
+
+    expect(pc).to eq(expected)
+  end
+
 
 end
