@@ -1,0 +1,26 @@
+body {
+    background-image: url('/bg_image.jpeg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.content-center {
+  text-align: center;
+  margin-top: 4.5em;
+  align-content: center;
+}
+
+.button-styles {
+  margin: 5px;
+}
+
+.dashboard-header {
+  color: #fff;
+}
+
+.login-button-styles {
+  margin: 10px;
+  padding: 1.5em;
+}

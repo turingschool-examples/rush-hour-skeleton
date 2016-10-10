@@ -13,6 +13,11 @@ module RushHour
 
     get "/sources" do
       status 200
+      erb :sources
+    end
+    
+    get "/login" do
+      erb :login
     end
 
     post "/sources" do

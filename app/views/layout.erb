@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rush Hour</title>
+    <link href="/css/application.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Rush Hour</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" id="menuLogin">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
+            <div class="dropdown-menu login-button-styles">
+              <form class="form button-styles" id="formLogin"> 
+                <input name="username" id="username" type="text" placeholder="Username" class="button-styles"> 
+                <input name="password" id="password" type="password" placeholder="Password" class="button-styles"><br>
+                <button type="button" id="btnLogin" class="button-styles btn btn-success">Login</button>
+              </form>
+            </div>
+          </li>
+        </ul>
+        
+        <!-- <a class="btn btn-default navbar-btn navbar-left button-styles" role="button" href="/login">Log in</a> -->
+
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="/sources/new">Link goes here</a>
+            </li>
+            <li>
+              <a href="/sources">Another link goes here</a>
+            </li>
+          </ul>
+      </div>
+    </nav>
+    <div class="container">
+      
+      <%= yield %>
+    
+    </div>
+      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+  </body>
+</html>
