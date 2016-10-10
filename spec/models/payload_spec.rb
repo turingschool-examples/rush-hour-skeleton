@@ -837,7 +837,7 @@ RSpec.describe "Payload" do
       expect(Payload.http_verbs_by_url("http://waspswaspswasps")).to eq(["DELETE"])
     end
   end
-  
+
   describe "http:verbs_by_url" do
     it "returns http_verbs_by_url" do
 
@@ -848,9 +848,9 @@ RSpec.describe "Payload" do
       ReferredBy.create(referred_by: "http://coffeecoffeecoffee")
       ReferredBy.create(referred_by: "http://teateatea")
       ReferredBy.create(referred_by: "http://boatsboatsboats")
-      
+
       payload1 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:27 -0700",
                             responded_in: 39,
                             referred_by_id: 1,
                             request_type_id: 1,
@@ -860,7 +860,7 @@ RSpec.describe "Payload" do
                             ip_id: 1)
 
       payload2 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:29 -0700",
                             responded_in: 37,
                             referred_by_id: 1,
                             request_type_id: 2,
@@ -870,7 +870,7 @@ RSpec.describe "Payload" do
                             ip_id: 1)
 
       payload3 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:22 -0700",
                             responded_in: 34,
                             referred_by_id: 2,
                             request_type_id: 5,
@@ -878,9 +878,9 @@ RSpec.describe "Payload" do
                             agent_id: 1,
                             resolution_id: 1,
                             ip_id: 1)
-                            
+
       payload4 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:21 -0700",
                             responded_in: 34,
                             referred_by_id: 2,
                             request_type_id: 5,
@@ -890,7 +890,7 @@ RSpec.describe "Payload" do
                             ip_id: 1)
 
       payload5 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:23 -0700",
                             responded_in: 34,
                             referred_by_id: 3,
                             request_type_id: 5,
@@ -898,9 +898,9 @@ RSpec.describe "Payload" do
                             agent_id: 1,
                             resolution_id: 1,
                             ip_id: 1)
-      
+
       payload6 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:30 -0700",
                             responded_in: 34,
                             referred_by_id: 3,
                             request_type_id: 5,
@@ -908,9 +908,9 @@ RSpec.describe "Payload" do
                             agent_id: 1,
                             resolution_id: 1,
                             ip_id: 1)
-  
+
       payload7 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:31 -0700",
                             responded_in: 34,
                             referred_by_id: 4,
                             request_type_id: 5,
@@ -920,7 +920,7 @@ RSpec.describe "Payload" do
                             ip_id: 1)
 
       payload8 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:18 -0700",
                             responded_in: 34,
                             referred_by_id: 5,
                             request_type_id: 5,
@@ -928,9 +928,9 @@ RSpec.describe "Payload" do
                             agent_id: 1,
                             resolution_id: 1,
                             ip_id: 1)
-      
+
       payload9 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:58 -0700",
                             responded_in: 34,
                             referred_by_id: 2,
                             request_type_id: 5,
@@ -942,7 +942,7 @@ RSpec.describe "Payload" do
       expect(Payload.three_most_popular_referrers("http://beesbeesbees")).to eq([["http://dogsdogsdogs", 3], ["http://coffeecoffeecoffee", 2], ["http://ghostsghostsghosts", 2]])
     end
   end
-  
+
   describe "http:verbs_by_url" do
     it "returns http_verbs_by_url" do
 
@@ -953,7 +953,7 @@ RSpec.describe "Payload" do
       Agent.create(agent: "Mozilla/5.0 (Macintosh_2; Intel Mac OS X 10_11) AppleWebKit/537.17 (KHTML, like Gecko) Safari/537.17")
       Agent.create(agent: "Mozilla/5.0 (Macintosh_2; Intel Mac OS X 10_12) AppleWebKit/537.17 (KHTML, like Gecko) Safari/537.17")
       Agent.create(agent: "Mozilla/5.0 (Macintosh_3; Intel Mac OS X 10_13) AppleWebKit/537.17 (KHTML, like Gecko) Safari/537.17")
-      
+
       payload1 = Payload.create(url_id: 1,
                             requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 39,
@@ -983,7 +983,7 @@ RSpec.describe "Payload" do
                             agent_id: 2,
                             resolution_id: 1,
                             ip_id: 1)
-                            
+
       payload4 = Payload.create(url_id: 1,
                             requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 34,
@@ -992,7 +992,7 @@ RSpec.describe "Payload" do
                             event_name_id: 1,
                             agent_id: 2,
                             resolution_id: 1,
-                            ip_id: 1)
+                            ip_id: 2)
 
       payload5 = Payload.create(url_id: 1,
                             requested_at: "2013-02-16 21:38:28 -0700",
@@ -1002,10 +1002,10 @@ RSpec.describe "Payload" do
                             event_name_id: 1,
                             agent_id: 3,
                             resolution_id: 1,
-                            ip_id: 1)
-      
+                            ip_id: 2)
+
       payload6 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:29 -0700",
                             responded_in: 34,
                             referred_by_id: 3,
                             request_type_id: 5,
@@ -1013,9 +1013,9 @@ RSpec.describe "Payload" do
                             agent_id: 3,
                             resolution_id: 1,
                             ip_id: 1)
-  
+
       payload7 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:27 -0700",
                             responded_in: 34,
                             referred_by_id: 4,
                             request_type_id: 5,
@@ -1025,7 +1025,7 @@ RSpec.describe "Payload" do
                             ip_id: 1)
 
       payload8 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:22 -0700",
                             responded_in: 34,
                             referred_by_id: 5,
                             request_type_id: 5,
@@ -1033,9 +1033,9 @@ RSpec.describe "Payload" do
                             agent_id: 4,
                             resolution_id: 1,
                             ip_id: 1)
-      
+
       payload9 = Payload.create(url_id: 1,
-                            requested_at: "2013-02-16 21:38:28 -0700",
+                            requested_at: "2013-02-16 21:38:30 -0700",
                             responded_in: 34,
                             referred_by_id: 2,
                             request_type_id: 5,
@@ -1047,7 +1047,6 @@ RSpec.describe "Payload" do
       expect(Payload.three_most_popular_user_agents("http://beesbeesbees")).to eq([["OS X 10.11", "safari"], ["OS X 10.10", "firefox"], ["OS X 10.9", "chrome"]])
     end
   end
-  
-  
-end
 
+
+end
