@@ -33,7 +33,7 @@ class PayloadBuilder
   end
 
   def build_resolution(payload)
-    Resolution.find_or_create_by(height: payload[], width: payload[])
+    Resolution.find_or_create_by(height: payload[:resolution_height], width: payload[:resolution_width])
   end
 
   def build_url(payload)
