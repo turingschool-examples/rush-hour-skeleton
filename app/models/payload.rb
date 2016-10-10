@@ -23,30 +23,30 @@ class Payload < ActiveRecord::Base
   validates :client_id, presence: true
 
   def self.average_response_time
-    self.average(:responded_in)
+    average(:responded_in)
   end
 
   def self.max_response_time
-    self.maximum(:responded_in)
+    maximum(:responded_in)
   end
 
   def self.min_response_time
-    self.minimum(:responded_in)
+    minimum(:responded_in)
   end
 
   def self.most_frequent_request_type
-    id = self.group(:request_type_id).count.max_by{|key, value| value}.first
-    RequestType.find(id).http_verb
+    id = group(:request_type_id).count.max_by{|key, value| value}.first
+    RequestType.find(id).http_verb #look into order = "Sal"
   end
 
   def self.all_request_types
-    self.group(:request_type_id).count.keys.map do |id|
+    group(:request_type_id).count.keys.map do |id|
       RequestType.find(id).http_verb
     end.sort
   end
 
   def self.urls_descending
-    grouped_urls = self.group(:url_id).count.sort_by do |key, value|
+    grouped_urls = group(:url_id).count.sort_by do |key, value|
       value
     end.reverse
 

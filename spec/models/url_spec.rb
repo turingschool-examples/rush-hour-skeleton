@@ -49,7 +49,7 @@ describe Url do
                    client_id: 3)
 
 
-    expect(Url.max_response_time(url.id)).to eq(12)
+    expect(url.max_response_time).to eq(12)
   end
 
   it "gives min response time of specific url" do
@@ -88,7 +88,7 @@ describe Url do
                    client_id: 3)
 
 
-    expect(Url.min_response_time(url.id)).to eq(8)
+    expect(url.min_response_time).to eq(8)
   end
 
   it "gives response time from max to min of specific url" do
@@ -127,7 +127,7 @@ describe Url do
                    client_id: 3)
 
 
-    expect(Url.response_times_desc(url.id)).to eq([12, 10, 8])
+    expect(url.response_times_desc).to eq([12, 10, 8])
   end
 
   it "lists all http verbs for specific url" do
@@ -181,7 +181,7 @@ describe Url do
                    client_id: 3)
 
 
-    expect(Url.all_http_verbs(url.id)).to eq(["DELETE", "GET", "POST"])
+    expect(url.all_http_verbs).to eq(["DELETE", "GET", "POST"])
   end
 
   it "gives three most popular referred bys of specific url" do
@@ -269,7 +269,7 @@ describe Url do
                    ip_id: 7,
                    client_id: 3)
 
-    expect(Url.top_three_referrals(url.id)).to eq(["google.com/images", "yahoo.com/images", "askjeeves.com/images"])
+    expect(url.top_three_referrals).to eq(["google.com/images", "yahoo.com/images", "askjeeves.com/images"])
   end
 
   it "gives three most popular user agents for specific url" do
@@ -357,7 +357,7 @@ describe Url do
                    ip_id: 7,
                    client_id: 3)
 
-    expect(Url.top_three_agents(url.id)).to eq(["Safari OSX", "Chrome Linux", "IE OSX"])
+    expect(url.top_three_agents).to eq(["Safari OSX", "Chrome Linux", "IE OSX"])
   end
 
 
