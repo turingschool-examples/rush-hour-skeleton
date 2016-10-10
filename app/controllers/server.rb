@@ -14,9 +14,17 @@ module RushHour
       erb :sources
     end
 
-    get "/sources/:id" do |id|
-      @client = Processor.get_client_stats(id)
-      erb :show
+    get "/sources/:identifier" do |identifier|
+      #possibly try to refactor to 
+      @client = Processor.get_client_stats(identifier)
+      @id = identifier
+      if Client.find_by(identifier: identifier).nil?
+        erb :error_identifier
+      elsif Client.find_by(identifier: identifier).payload.empty?
+        erb :error_payload
+      else
+        erb :show
+      end
     end
 
 
