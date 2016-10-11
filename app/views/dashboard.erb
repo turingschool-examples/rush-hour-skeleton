@@ -8,9 +8,20 @@
       <p>Enter user identifier for access:</p>
       <div class="form-group">
         <label class="sr-only row" for="exampleInputEmail3">enter user identifier</label>
-        <input type="text" class="form-control" id="userIdentifierDashboard" placeholder="enter user identifier" disabled>
+        <input type="text" class="form-control" id="userIdentifierDashboard" placeholder="enter user identifier">
       </div>
-    <button type="submit" class="btn btn-default" disabled>access data</button>  
+    <button type="submit" class="btn btn-default" id="accessButton">access data</button>  
     </form>
   </div>
+  
 </div>
+
+<script>
+  var button = document.getElementById("accessButton");
+  var input = document.getElementById("userIdentifierDashboard");
+  button.addEventListener("click", relocate.bind(null, input))
+  function relocate(input) {
+    event.preventDefault()
+    window.location.pathname = "/sources/" + input.value;
+  }
+</script>
