@@ -12,7 +12,7 @@ class Client < ActiveRecord::Base
   validates :root_url, presence: true
 
   def average_response_time
-    payload.average_response_time
+    payload.average_response_time.round(2)
   end
 
   def max_response_time
