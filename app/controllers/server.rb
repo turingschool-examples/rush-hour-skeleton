@@ -19,6 +19,11 @@ module RushHour
     get "/login" do
       erb :login
     end
+    
+    get "/sources/:identifier" do |id|
+      @payloads = Payload.find_by(client_id: Client.find_by(identifier: id))
+      erb :sources_user
+    end
 
     post "/sources" do
       client_params = Hash.new
