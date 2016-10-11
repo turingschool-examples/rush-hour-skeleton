@@ -9,3 +9,10 @@
 <p>Web browser breakdown across all payloads: <%= @user_agent_stats.breakdown_browsers%></p>
 <p>OS breakdown across all payloads: <%= @user_agent_stats.breakdown_os%></p>
 <p>Screen Resolutions across all payloads: <%= @resolutions.resolutions_across_all_payloads%></p>
+
+<div class="">
+  <% unique_urls = @urls.uniq %>
+  <% unique_urls.each do |url| %>
+    <a href="/sources/<%= @identifier %>/urls/<%=url.format%>"><%=url.format%></a> 
+  <% end %>
+</div>

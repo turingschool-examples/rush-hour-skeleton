@@ -65,5 +65,22 @@ module RushHour
         end
       end
     end
+
+    get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
+      @identifier = identifier
+      @relative_path = relativepath
+      client = Client.find_by(identifier: identifier)
+      full_url = (client.root_url + "/" + relativepath) if !client.nil?
+      # require 'pry'; binding.pry
+      if client.nil?
+        erb :error_no_client
+      elsif !client.urls.find_by(url_address: full_url)
+        # !client.nil? && full_url.nil?
+        erb :error_no_url
+      else
+        @url = client.urls.find_by(url_address: full_url)
+        erb :show_url
+      end
+    end
   end
 end

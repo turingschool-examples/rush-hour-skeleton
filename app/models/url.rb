@@ -7,6 +7,9 @@ class Url < ActiveRecord::Base
   has_many :user_agent_stats, through: :payloads
   has_many :requests, through: :payloads
 
+  def format
+    url_address.partition(".")[2].partition("/")[2..-1].join
+  end
 
   def self.most_to_least_requested
     joins(:payloads).group(:url_address).order("COUNT(payloads.*) DESC").pluck(:url_address)
