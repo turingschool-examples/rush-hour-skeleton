@@ -2,8 +2,9 @@ require_relative '../models/client'
 require_relative '../models/processor'
 
 module RushHour
-  class Server < Sinatra::Base
-    not_found do
+  class Server < Sinatra::Base    
+    def not_found(error_type)
+      @error_message = error_type
       erb :error
     end
 
@@ -20,7 +21,10 @@ module RushHour
       erb :login
     end
     
-    get "/sources/:identifier" do
+    get "/sources/:identifier" do |client_identifier|
+      return not_found("Client does not exist.") if Client.find_by(identifier: client_identifier).nil?
+      return not_found("No payloads for client.") if Client.find_by(identifier: client_identifier).payloads.empty?
+      @client = Client.find_by(identifier: client_identifier)
       erb :sources_user
     end
 

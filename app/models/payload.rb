@@ -42,14 +42,6 @@ class Payload < ActiveRecord::Base
     RequestType.find(id_occurance.max_by { |k, v| v }[0]).send(column)
   end
 
-  def self.most_to_least_requested
-    order = Payload.order('url_id DESC')
-    order.reduce([]) do |r, obj|
-      r << obj.url.url
-      r
-    end.uniq
-  end
-
   def self.three_most_popular_referrers(input_url)
     Payload.pluck(:referred_by_id, :url_id).reduce({}) do |r, referral_url|
       r[ReferredBy.find(referral_url[0]).referred_by] = (Payload.pluck(:referred_by_id)).count(referral_url[0]) if  Url.find(referral_url[1]).url == input_url

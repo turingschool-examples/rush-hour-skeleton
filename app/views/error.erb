@@ -15,12 +15,9 @@
   <tr class="danger">
     <th colspan=2>Parameters</th>
   </tr>
-  <% request.params.each do |key, value| %>
-    <tr>
-      <td><%= key %></td>
-      <td><%= value %></td>
-    </tr>
-  <% end %>
+  <tr class="danger">
+    <td>Error: <%= @error_message %></td>
+  </tr>
 </table>
 </div>
 </div>
