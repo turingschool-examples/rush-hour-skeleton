@@ -19,11 +19,11 @@
       </tr>
       <tr>
         <td>Most frequent request type:</td>
-        <td><%= @client.payloads.most_frequent(:request_type) %> </td>
+        <td><%= @client.payloads.most_frequent(:request_type) %></td>
       </tr>
       <tr>
         <td>List of all http verbs:</td>
-        <td><%= @client.request_types.all_http_verbs %> </td>
+        <td><%= @client.request_types.all_http_verbs %></td>
       </tr>
       <tr>
         <td>List of URLs from most to least:</td>
@@ -35,11 +35,11 @@
       </tr>
       <tr>
         <td>OS breakdown across all payloads:</td>
-        <td><%= @client.agents.os_breakdown(@client.payloads) %> </td>
+        <td><%= @client.agents.os_breakdown(@client.payloads) %></td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td>Screen resolution across all payloads:</td>
+        <td><%= @client.resolutions.resolution_breakdown(@client.payloads) %></td>
       </tr>
       <tr>
         <td></td>

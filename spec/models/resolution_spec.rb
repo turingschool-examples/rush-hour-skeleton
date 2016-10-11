@@ -77,7 +77,7 @@ RSpec.describe "Resolution" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Resolution.resolution_breakdown).to eq({"10 x 10" => 1, "10 x 5" => 1, "5 x 10" => 1, "5 x 5" => 2})
+      expect(Resolution.resolution_breakdown(Payload.all)).to eq({"10 x 10" => 1, "10 x 5" => 1, "5 x 10" => 1, "5 x 5" => 2})
     end
   end
 
