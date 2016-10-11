@@ -219,8 +219,11 @@ RSpec.describe "Url" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Url.http_verbs_by_url("http://beesbeesbees")).to eq(["GET", "POST"])
-      expect(Url.http_verbs_by_url("http://waspswaspswasps")).to eq(["DELETE"])
+      url = Url.find_by(url: "http://beesbeesbees")
+      url2 = Url.find_by(url: "http://waspswaspswasps")
+
+      expect(url.http_verbs_by_url).to eq(["GET", "POST"])
+      expect(url2.http_verbs_by_url).to eq(["DELETE"])
     end
   end
 

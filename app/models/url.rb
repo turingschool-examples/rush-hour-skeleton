@@ -23,12 +23,11 @@ class Url < ActiveRecord::Base
     all_response_times_by_url.reduce(:+)/all_response_times_by_url.length
   end
 
-  def self.http_verbs_by_url(input_url)
-    url = Url.find_by(url: input_url)
-    url.request_types.reduce([]) do |result, request_row|
+  def http_verbs_by_url
+    request_types.reduce([]) do |result, request_row|
       result << request_row.request_type
       result
-    end
+    end.uniq
   end
 
   def self.most_to_least_requested(payloads)
