@@ -49,6 +49,7 @@ module RushHour
       @url = Processor.rebuild(params[:identifier], params[:relative_path])
       @url_object = Url.find_by(url: @url)
       @client = Client.find_by(identifier: params[:identifier])
+      return not_found("path has not been requested.") if @client.urls.find_by(url: @url).nil?
       erb :show_client_url
     end
 
