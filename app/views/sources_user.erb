@@ -7,27 +7,27 @@
     <table class="table table-hover table-condensed">
       <tr>
         <td>Average response time across all payloads:</td>
-        <td><%= @payloads.average_response_time %></td>
+        <td><%= @client.payloads.average_response_time %></td>
       </tr>
       <tr>
         <td>Max response time across all payloads:</td>
-        <td><%= @payloads.max_response_time %></td>
+        <td><%= @client.payloads.max_response_time %></td>
       </tr>
       <tr>
         <td>Min response time across all payloads:</td>
-        <td><%= @payloads.min_response_time %></td>
+        <td><%= @client.payloads.min_response_time %></td>
       </tr>
       <tr>
         <td>Most frequent request type:</td>
-        <td><%= @payloads.most_frequent(:request_type) %> </td>
+        <td><%= @client.payloads.most_frequent(:request_type) %> </td>
       </tr>
       <tr>
         <td>List of all http verbs:</td>
         <td><%= @client.request_types.all_http_verbs %> </td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td>List of URLs from most to least:</td>
+        <td><%= @client.urls.most_to_least_requested %></td>
       </tr>
       <tr>
         <td></td>

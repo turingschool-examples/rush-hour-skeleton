@@ -220,5 +220,44 @@ RSpec.describe "Url" do
       expect(Url.http_verbs_by_url("http://waspswaspswasps")).to eq(["DELETE"])
     end
   end
+  
+  describe ".most_to_least_requested" do
+    it "returns request types by frequency" do
+      Url.create(url: "http://beesbeesbees")
+      Url.create(url: "http://waspswaspswasps")
+
+      payload1 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload2 = Payload.create(url_id: 2,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 2,
+                            event_name_id: 1,
+                            agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      payload3 = Payload.create(url_id: 2,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 39,
+                            referred_by_id: 1,
+                            request_type_id: 2,
+                            event_name_id: 1,
+                            agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(Url.most_to_least_requested).to eq(["http://waspswaspswasps", "http://beesbeesbees"])
+    end
+  end
 
 end

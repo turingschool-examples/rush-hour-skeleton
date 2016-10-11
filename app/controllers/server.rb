@@ -21,7 +21,6 @@ module RushHour
     end
     
     get "/sources/:identifier" do |client_identifier|
-      @payloads = Payload.where(client_id: Client.find_by(identifier:         client_identifier).id)
       @client = Client.find_by(identifier: client_identifier)
       erb :sources_user
     end

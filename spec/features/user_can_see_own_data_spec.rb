@@ -96,12 +96,33 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
     Processor.parse(params, "jumpstartlab")
     
     visit('/sources/jumpstartlab')
-    expect(page).to have_content("GET")
-    expect(page).to have_content("POST")
+    expect(page).to have_content(["POST", "GET"])
     
   end
   
-  
+  it "they see a list of urls from most to least" do
+    
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
+    
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"POST\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+    
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+    
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":14,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+    
+    params ="{\"url\":\"waspswaspswasps\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":87,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+    
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":98,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+    
+    visit('/sources/jumpstartlab')
+    expect(page).to have_content(["waspswaspswasps", "beesbeesbees", "goatsgoatsgoats"])
+    
+  end
   
   
 end
