@@ -31,15 +31,24 @@ body {
   padding-right: 20em;
 }
 
-/* centered columns styles */
 .row-centered {
     text-align:center;
 }
 .col-centered {
     display:inline-block;
     float:none;
-    /* reset the text-align */
     text-align:left;
-    /* inline-block space fix */
     margin-right:-4px;
+}
+
+.jumbo-adjust {
+  margin-top: 3em;
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.header-adjust {
+  float: left;
+  clear: both;
 }

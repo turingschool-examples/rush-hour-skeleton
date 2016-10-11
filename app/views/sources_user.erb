@@ -1,10 +1,10 @@
-<div class="jumbotron">
-  <h1>Data for <%= @client.identifier.capitalize %></h1>
-  <h3>Payloads</h3> 
+<div class="jumbo-adjust jumbotron container">
+  <h1 class="header-adjust">Data for <%= @client.identifier.capitalize %></h1>
+  <h3 class="header-adjust">Payloads</h3> 
   
   <div>
         
-    <table class="table table-hover table-condensed">
+    <table class="table table-hover table-bordered table-condensed">
       <tr>
         <td>Average response time across all payloads:</td>
         <td><%= @client.payloads.average_response_time %></td>
