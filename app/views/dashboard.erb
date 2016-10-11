@@ -3,11 +3,30 @@
     <h1>Welcome to Rush Hour!</h1>
   </div>
   
-  <form class="jumbotron form-inline">
-  <div class="form-group">
-    <label class="sr-only row" for="exampleInputEmail3">enter user identifier</label>
-    <input type="text" class="form-control" id="userIdentifierDashboard" placeholder="enter user identifier">
+  <div class="jumbotron form-inline">
+    <form class="form-inline">
+      <p>Sign up for access:</p>
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputEmail3">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email" disabled>
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputPassword3">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" disabled>
+      </div>
+      <button type="submit" class="btn btn-default" disabled>Sign in</button>
+      <p>Coming soon!</p>
+    </form>
   </div>
-  <button type="submit" class="btn btn-default">access data</button>
-</form>
+  
+  <div>
+    <form class="jumbotron form-inline">
+      <p>Enter user identifier for access:</p>
+      <div class="form-group">
+        <label class="sr-only row" for="exampleInputEmail3">enter user identifier</label>
+        <input type="text" class="form-control" id="userIdentifierDashboard" placeholder="enter user identifier">
+      </div>
+    <button type="submit" class="btn btn-default">access data</button>  
+    </form>
+  </div>
 </div>
