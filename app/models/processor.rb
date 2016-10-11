@@ -1,6 +1,16 @@
 require 'json'
+require 'uri'
+require 'pry'
 
 class Processor < ActiveRecord::Base
+
+  def self.uri_path(url)
+    URI.parse(url).path
+  end
+
+  def self.rebuild(client, relative_path)
+    URI.join(Client.find_by(identifier: client).root_url, relative_path).to_s
+  end
 
   def self.parse(params, identifier)
     params = JSON.parse(params)

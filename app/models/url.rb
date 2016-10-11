@@ -2,41 +2,51 @@ class Url < ActiveRecord::Base
 
   has_many :payloads
   has_many :request_types, through: :payloads
+  has_many :referred_bies, through: :payloads
+  has_many :agents, through: :payloads
 
   validates :url, presence: true
 
-  def self.all_response_times_by_url(input_url)
-    Url.find_by(url:input_url).payloads.reduce([]) do |result, payload|
+  def all_response_times_by_url
+    payloads.reduce([]) do |result, payload|
       result << payload.responded_in
-    end
+    end.sort.reverse
   end
 
-  def self.max_response_time_by_url(input_url)
-    all_response_times_by_url(input_url).max
+  def max_response_time_by_url
+    all_response_times_by_url.max
   end
 
-  def self.min_response_time_by_url(input_url)
-    all_response_times_by_url(input_url).min
+  def min_response_time_by_url
+    all_response_times_by_url.min
   end
 
-  def self.average_response_time_by_url(input_url)
-    response_times = all_response_times_by_url(input_url)
-    response_times.reduce(:+)/response_times.length
+  def average_response_time_by_url
+    all_response_times_by_url.reduce(:+)/all_response_times_by_url.length
   end
 
-  def self.http_verbs_by_url(input_url)
-    url = Url.find_by(url: input_url)
-    url.request_types.reduce([]) do |result, request_row|
+  def http_verbs_by_url
+    request_types.reduce([]) do |result, request_row|
       result << request_row.request_type
       result
-    end
+    end.uniq
   end
-  
-  def self.most_to_least_requested
-    order = Payload.order('url_id DESC')
+
+  def self.most_to_least_requested(payloads)
+    order = payloads.order('url_id DESC')
     order.reduce([]) do |result, object|
       result << object.url.url
       result
+    end.uniq
+  end
+
+  def three_most_popular_referrers
+    referred_bies.map { |obj| [obj.referred_by, payloads.pluck(:referred_by_id).count(obj.id)] }.uniq.sort_by { |k| k[1] }.reverse.first(3)
+  end
+
+  def three_most_popular_user_agents
+    agents.map { |obj| [obj.agent, payloads.pluck(:agent_id).count(obj.id)] }.uniq.sort_by { |k| k[1] }.reverse.first(3).map do |ua|
+      [UserAgent.os(ua.to_s), UserAgent.browser_name(ua.to_s).to_s]
     end.uniq
   end
 

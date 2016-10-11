@@ -11,16 +11,16 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-default navbar-fixed-top3">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">Rush Hour</a>
         </div>
         <ul class="nav navbar-nav">
           <li id="menuLogin">
-            <form class="navbar-form navbar-left" role="search">
+            <form action="/sources/" method="POST" class="navbar-form navbar-left">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="enter user identifier">
+                <input type="text" href="/sources" class="form-control" placeholder="enter user identifier" name="identifier">
               </div>
               <button type="submit" class="btn btn-default">access data</button>
             </form>
