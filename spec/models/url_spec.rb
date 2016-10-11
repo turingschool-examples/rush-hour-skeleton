@@ -472,7 +472,8 @@ RSpec.describe "Url" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Url.three_most_popular_user_agents("http://beesbeesbees")).to eq([["OS X 10.11", "safari"], ["OS X 10.10", "firefox"], ["OS X 10.9", "chrome"]])
+      url = Url.find_by(url: "http://beesbeesbees")
+      expect(url.three_most_popular_user_agents).to eq([["OS X 10.11", "safari"], ["OS X 10.10", "firefox"], ["OS X 10.9", "chrome"]])
     end
   end
 
