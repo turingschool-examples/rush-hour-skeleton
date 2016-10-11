@@ -18,12 +18,12 @@
         <td><%= @payloads.min_response_time %></td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td>Most frequent request type:</td>
+        <td><%= @payloads.most_frequent(:request_type) %> </td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td>List of all http verbs:</td>
+        <td><%= @client.request_types.all_http_verbs %> </td>
       </tr>
       <tr>
         <td></td>
