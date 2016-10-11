@@ -1,0 +1,11 @@
+<h1>Client: <%= @identifier %></h1>
+
+<p>Average Response Time Across All Payloads: <%= @payloads.average_response_time %></p>
+<p>Max Response Time Across All Payloads: <%= @payloads.max_response_time %></p>
+<p>Min Response Time Across All Payloads: <%= @payloads.min_response_time%></p>
+<p>Most Frequest Request Type: <%= @requests.most_frequent_request_type%></p>
+<p>List of all HTTP Verbs: <%= @requests.list_all_http_verbs_used%></p>
+<p>List of URLs, most requested to least requested: <%= @urls.most_to_least_requested%></p>
+<p>Web browser breakdown across all payloads: <%= @user_agent_stats.breakdown_browsers%></p>
+<p>OS breakdown across all payloads: <%= @user_agent_stats.breakdown_os%></p>
+<p>Screen Resolutions across all payloads: <%= @resolutions.resolutions_across_all_payloads%></p>

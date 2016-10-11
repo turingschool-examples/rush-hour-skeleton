@@ -6,13 +6,15 @@ class UserAgentStat < ActiveRecord::Base
   validates :operating_system, uniqueness: {scope: :browser}
 
   has_many :payloads
+  has_many :clients, through: :payloads
 
 
   def self.breakdown_browsers
-    joins(:payloads).group(:browser).count(:browser)
+    group(:browser).count(:browser)
   end
 
   def self.breakdown_os
-    joins(:payloads).group(:operating_system).count(:operating_system)
+  # require 'pry'; binding.pry
+    group(:operating_system).count(:operating_system)
   end
 end

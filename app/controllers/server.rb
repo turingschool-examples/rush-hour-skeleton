@@ -28,6 +28,17 @@ module RushHour
       end
     end
 
+    get '/sources/:identifier' do |identifier|
+      @identifier = identifier
+      client = Client.find_by(identifier: identifier)
+      @payloads = Payload.where(client_id: client.id)
+      @requests = client.requests
+      @urls = client.urls
+      @user_agent_stats = client.user_agent_stats
+      @resolutions = client.resolutions
+      erb :show_client
+    end
+
     post '/sources/:identifier/data' do |identifier|
 
       if params[:payload].nil?
@@ -49,6 +60,9 @@ module RushHour
         end
       end
     end
+
+
+
   end
-  
+
 end
