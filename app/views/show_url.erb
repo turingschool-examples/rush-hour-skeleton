@@ -1,0 +1,10 @@
+<h1>Client: <%= @identifier %></h1>
+<h1>URL: <%= @relative_path %></h1>
+
+<p>Max Response Time: <%= @url.max_response_time %></p>
+<p>Min Response Time: <%= @url.min_response_time %></p>
+<p>Longest To Shortest Response Time: <%= @url.longest_to_shortest_response_time %></p>
+<p>Average Response Time: <%= @url.average_response_time %></p>
+<p>List of HTTP Verbs: <%= @url.list_of_http_verbs %></p>
+<p>Three Most Popular Referrers: <%= @url.three_most_popular_referrals %></p>
+<p>Three Most Popular User Agents: <%= @url.three_most_popular_user_agents %></p>
