@@ -94,5 +94,15 @@ RSpec.describe "PayloadBuilder" do
       expect(built2[:browser]).to eq("Chrome")
       expect(built2[:operating_system]).to eq("Macintosh")
     end
+
+    describe ".find_client" do
+      it "finds client" do
+        Client.create(identifier: "testclient3", root_url: "whatever3")
+        client_data =   "testclient3"
+
+        found = PayloadBuilder.find_client(client_data)
+        expect(found).to be_valid
+      end
+    end
   end
 end

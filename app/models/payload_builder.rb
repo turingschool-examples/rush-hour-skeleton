@@ -7,7 +7,7 @@ class PayloadBuilder
     url = build_url(payload)
     user_agent_stat = build_user_agent_stats(payload)
     visitor = build_visitor(payload)
-    client = build_client(identifier)
+    client = find_client(identifier)
 
     Payload.where( requested_at: payload[:requested_at].to_datetime,
                            responded_in: payload[:responded_in],
@@ -52,7 +52,7 @@ class PayloadBuilder
     Visitor.where(ip: payload[:ip]).first_or_create
   end
 
-  def self.build_client(identifier)
-    Client.where(identifier: identifier).first_or_create
+  def self.find_client(identifier)
+    Client.find_by(identifier: identifier)
   end
 end
