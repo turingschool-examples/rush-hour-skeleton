@@ -5,10 +5,11 @@ class PayloadBuilder
     request = build_request(payload)
     resolution = build_resolution(payload)
     url = build_url(payload)
-    user_agent_stat = build_user_agent_stat(payload)
+    user_agent_stat = build_user_agent_stats(payload)
     visitor = build_visitor(payload)
+    client = build_client(identifier)
 
-    payload = Payload.new( requested_at: payload[:requested_at],
+    Payload.where( requested_at: payload[:requested_at].to_datetime,
                            responded_in: payload[:responded_in],
                            url_id: url.id,
                            referral_id: referral.id,
@@ -17,34 +18,41 @@ class PayloadBuilder
                            user_agent_stat_id: user_agent_stat.id,
                            resolution_id: resolution.id,
                            visitor_id: visitor.id,
-                           client_id: client.id )
+                           client_id: client.id ).first_or_initialize
   end
 
-  def build_event(payload)
-    Event.find_or_create_by(name: payload[:event_name])
+  def self.build_event(payload)
+    Event.where(event_name: payload[:event_name]).first_or_create
   end
 
-  def build_referral(payload)
-    Referral.find_or_create_by(source: payload[:referred_by])
+  def self.build_referral(payload)
+    Referral.where(source: payload[:referred_by]).first_or_create
   end
 
-  def build_request(payload)
-    Request.find_or_create_by(request_type: payload[:request_type])
+  def self.build_request(payload)
+    Request.where(request_type: payload[:request_type]).first_or_create
   end
 
-  def build_resolution(payload)
-    Resolution.find_or_create_by(height: payload[:resolution_height], width: payload[:resolution_width])
+  def self.build_resolution(payload)
+    Resolution.where(height: payload[:resolution_height], width: payload[:resolution_width]).first_or_create
   end
 
-  def build_url(payload)
-    Url.find_or_create_by(url_address: payload[:url])
+  def self.build_url(payload)
+    Url.where(url_address: payload[:url]).first_or_create
   end
 
-  def build_user_agent_stats(payload)
-    UserAgentStat.find_or_create_by(browser: payload[:browser], operating_system: payload[:operating_system])
+  def self.build_user_agent_stats(payload)
+    user_agent = UserAgent.parse(payload[:user_agent])
+    browser = payload[:browser] || user_agent.browser
+    operating_system = payload[:operating_system] || user_agent.platform
+    UserAgentStat.where(browser: browser, operating_system: operating_system).first_or_create
   end
 
-  def build_visitor(payload)
-    Visitor.find_or_create_by(ip: payload[:ip])
+  def self.build_visitor(payload)
+    Visitor.where(ip: payload[:ip]).first_or_create
+  end
+
+  def self.build_client(identifier)
+    Client.where(identifier: identifier).first_or_create
   end
 end

@@ -8,6 +8,7 @@ gem 'pry'
 gem 'pry-coolline'
 gem 'rb-readline'
 gem 'json'
+gem 'useragent'
 
 group :development, :test do
   gem 'shotgun'
