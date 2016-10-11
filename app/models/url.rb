@@ -8,7 +8,7 @@ class Url < ActiveRecord::Base
   def all_response_times_by_url
     payloads.reduce([]) do |result, payload|
       result << payload.responded_in
-    end
+    end.sort.reverse
   end
 
   def max_response_time_by_url
