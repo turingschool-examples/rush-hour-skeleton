@@ -47,6 +47,7 @@ module RushHour
 
     get "/sources/:identifier/urls/:relative_path" do
       @url = Processor.rebuild(params[:identifier], params[:relative_path])
+      @url_object = Url.find_by(url: @url)
       @client = Client.find_by(identifier: params[:identifier])
       erb :show_client_url
     end
