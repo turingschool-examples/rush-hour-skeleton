@@ -29,18 +29,23 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      @identifier = identifier
       client = Client.find_by(identifier: identifier)
-      @payloads = Payload.where(client_id: client.id)
-      @requests = client.requests
-      @urls = client.urls
-      @user_agent_stats = client.user_agent_stats
-      @resolutions = client.resolutions
-      erb :show_client
+      if client.nil?
+        erb :error_no_client
+      elsif Payload.where(client_id: client.id).empty?
+        erb :error_no_payload
+      else
+        @identifier = identifier
+        @payloads = Payload.where(client_id: client.id)
+        @requests = client.requests
+        @urls = client.urls
+        @user_agent_stats = client.user_agent_stats
+        @resolutions = client.resolutions
+        erb :show_client
+      end
     end
 
     post '/sources/:identifier/data' do |identifier|
-
       if params[:payload].nil?
         status 400
         body "Missing Payload"
