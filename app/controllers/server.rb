@@ -19,6 +19,10 @@ module RushHour
     get "/login" do
       erb :login
     end
+    
+    get "/sources/:identifier" do
+      erb :sources_user
+    end
 
     post "/sources" do
       client_params = Hash.new
