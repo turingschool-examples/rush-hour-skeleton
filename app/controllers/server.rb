@@ -20,7 +20,8 @@ module RushHour
       erb :login
     end
     
-    get "/sources/:identifier" do
+    get "/sources/:identifier" do |id|
+      @payloads = Payload.find_by(client_id: Client.find_by(identifier: id))
       erb :sources_user
     end
 
