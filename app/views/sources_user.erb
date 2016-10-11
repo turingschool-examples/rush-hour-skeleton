@@ -30,12 +30,12 @@
         <td><%= @client.urls.most_to_least_requested %></td>
       </tr>
       <tr>
-        <td>Web browser breakdown across all payloads</td>
-        <td><%= @client.agents.browser_breakdown %></td>
+        <td>Web browser breakdown across all payloads:</td>
+        <td><%= @client.agents.browser_breakdown(@client.payloads) %></td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td>OS breakdown across all payloads:</td>
+        <td><%= @client.agents.os_breakdown(@client.payloads) %> </td>
       </tr>
       <tr>
         <td></td>

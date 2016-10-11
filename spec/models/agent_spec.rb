@@ -49,7 +49,7 @@ RSpec.describe "Agent" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Agent.browser_breakdown).to eq({:chrome => 2, :ie => 1})
+      expect(Agent.browser_breakdown(Payload.all)).to eq({:chrome => 2, :ie => 1})
     end
   end
 
@@ -88,7 +88,7 @@ RSpec.describe "Agent" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Agent.os_breakdown).to eq({"OS X 10.8" => 2, "Windows 7" => 1})
+      expect(Agent.os_breakdown(Payload.all)).to eq({"OS X 10.8" => 2, "Windows 7" => 1})
     end
   end
 
