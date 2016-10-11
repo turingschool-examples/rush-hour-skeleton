@@ -31,6 +31,25 @@ extend self
      }
   end
 
+  def does_payload_exist?(params, client)
+    user_agent = UserAgent.parse(json_parser(params)['userAgent'])
+    rb = URI.parse(json_parser(params)['referredBy'])
+    u = URI.parse(json_parser(params)['url'])
+    current_payload =  {
+       requested_at: json_parser(params)['requestedAt'],
+       responded_in: json_parser(params)['respondedIn'],
+       referred_by_id: ReferredBy.find_by(root_url: rb.host, path: rb.path),
+       request_type_id: RequestType.find_by(http_verb: json_parser(params)['requestType']),
+       event_id: Event.find_by(event_name: json_parser(params)['eventName']),
+       agent_id: Agent.find_by(browser: user_agent.browser, operating_system: user_agent.platform),
+       resolution_id: Resolution.find_by(height: json_parser(params)['resolutionHeight'], width: json_parser(params)['resolutionWidth']),
+       ip_id: Ip.find_by(address: json_parser(params)['ip']),
+       url_id: Url.find_by(root_url: u.host, path: u.path)
+     }
+     !current_payload.values.include?(nil)
+  end
+
+
   def get_client_stats(id)
     Client.find_by(identifier: id)
   end

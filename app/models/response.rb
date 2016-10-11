@@ -14,11 +14,12 @@ module Response
 
   def process_data(params, identifier)
     client = Client.find_by(identifier: identifier)
-
     if client.nil?
       {status: 403, body: "Client #{identifier} is not registered\n"}
     elsif params[:payload].nil?
       {status: 403, body: "Missing parameters\n"}
+    elsif Processor.does_payload_exist?(params[:payload], client)
+      {status: 403, body: "Payload already exists\n"}
     else
       data_responder(client, params)
     end
