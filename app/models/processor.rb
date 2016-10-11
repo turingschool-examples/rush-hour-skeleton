@@ -50,7 +50,11 @@ extend self
   end
 
 
-  def get_client_stats(id)
-    Client.find_by(identifier: id)
+  def get_client_stats(identifier)
+    Client.find_by(identifier: identifier)
+  end
+
+  def get_url_stats(relativepath)
+    Url.find_by(path: relativepath)
   end
 end
