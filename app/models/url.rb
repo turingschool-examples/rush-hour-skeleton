@@ -16,7 +16,7 @@ class Url < ActiveRecord::Base
   def response_times_desc
     payloads.order(responded_in: :desc).map do |e|
       e.responded_in
-    end
+    end.uniq
   end
 
   def average_response_time
@@ -26,7 +26,7 @@ class Url < ActiveRecord::Base
   def all_http_verbs
     payloads.map do |e|
       RequestType.find(e.request_type_id).http_verb
-    end.sort
+    end.sort.uniq
   end
 
   def top_three_referrals

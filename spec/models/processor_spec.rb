@@ -70,13 +70,13 @@ describe Processor do
 
   it "returns false if payload does not exists" do
     client = Client.create(identifier: "test", root_url: "test url")
-    expect(Processor.does_payload_exist?(test_data, client)).to eq(false)
+    expect(Processor.does_payload_exist?(test_data, client)).to eq(nil)
   end
 
-  it "returns true if payload exists" do
+  it "returns payload if payload exists" do
     client = Client.create(identifier: "test", root_url: "test url")
     Response.process_data({:payload => test_data}, "test")
-    expect(Processor.does_payload_exist?(test_data, client)).to eq(true)
+    expect(Processor.does_payload_exist?(test_data, client).class).to eq(Payload)
   end
 
 end

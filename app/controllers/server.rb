@@ -29,7 +29,9 @@ module RushHour
 
     get "/sources/:IDENTIFIER/urls/:RELATIVEPATH" do |identifier, relativepath|
       @url = Processor.get_url_stats("/"+relativepath)
-      @relpath = relativepath
+      # require "pry"; binding.pry
+      # @path = Processor.parse_url(identifier+"/"+relativepath)
+      @identifier = identifier
       if Url.find_by(path: "/"+relativepath).nil?
         erb :error_path
       else
