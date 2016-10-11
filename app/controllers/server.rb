@@ -15,7 +15,7 @@ module RushHour
     end
 
     get "/sources/:identifier" do |identifier|
-      #possibly try to refactor to 
+      #possibly try to refactor to
       @client = Processor.get_client_stats(identifier)
       @id = identifier
       if Client.find_by(identifier: identifier).nil?
@@ -27,6 +27,17 @@ module RushHour
       end
     end
 
+    get "/sources/:IDENTIFIER/urls/:RELATIVEPATH" do |identifier, relativepath|
+      @url = Processor.get_url_stats("/"+relativepath)
+      # require "pry"; binding.pry
+      # @path = Processor.parse_url(identifier+"/"+relativepath)
+      @identifier = identifier
+      if Url.find_by(path: "/"+relativepath).nil?
+        erb :error_path
+      else
+        erb :client_url_info
+      end
+    end
 
     post "/sources" do
       # 1. Get hash of identifier and root url

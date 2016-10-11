@@ -25,18 +25,17 @@
   </tr>
 
   <tr>
-    <td>Most Frequent Request Type</td>
-    <td><%= @client.most_frequent_request_type %></td>
-  </tr>
-
-  <tr>
     <td>List of Http Verbs</td>
     <td><%= @client.all_request_types.join(", ") %></td>
   </tr>
 
   <tr>
     <td>Urls from Most Requested to Least</td>
-    <td><%= @client.urls_descending.join("\n") %></td>
+    <td>
+    <% @client.urls_descending.each do |urlpath| %>
+      <a href="/sources/<%=@id%>/urls/<%=urlpath.split('/')[-1]%>"><%=urlpath%></a>
+    <% end %>
+  </td>
   </tr>
 
   <tr>
