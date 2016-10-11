@@ -47,7 +47,7 @@ class Url < ActiveRecord::Base
   def three_most_popular_user_agents
     agents.map { |obj| [obj.agent, payloads.pluck(:agent_id).count(obj.id)] }.uniq.sort_by { |k| k[1] }.reverse.first(3).map do |ua|
       [UserAgent.os(ua.to_s), UserAgent.browser_name(ua.to_s).to_s]
-    end
+    end.uniq
   end
 
 end
