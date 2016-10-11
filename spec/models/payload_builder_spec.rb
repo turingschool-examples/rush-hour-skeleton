@@ -104,5 +104,30 @@ RSpec.describe "PayloadBuilder" do
         expect(found).to be_valid
       end
     end
+
+    describe ".build" do
+      it "builds payload" do
+        Client.create(identifier: "testclient5", root_url: "whatever3")
+
+        payload_data =   {   :url=>"http://google.com/blog",
+                             :requested_at=>"2013-02-16 21:38:28 -0700",
+                             :responded_in=>39,
+                             :referred_by=>"http://jumpstartlab.com",
+                             :request_type=>"GET",
+                             :event_name=>"socialLogin",
+                             :user_agent=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                             :resolution_width=>"1920",
+                             :resolution_height=>"1280",
+                             :ip=>"63.29.38.211"}
+
+        identifier = "testclient5"
+
+        found = Payload.find_by( requested_at: payload_data[:requested_at], responded_in: payload_data[:responded_in])
+        expect(found).to eq(nil)
+
+        built = PayloadBuilder.build(payload_data, identifier)
+        expect(built).to be_valid
+      end
+    end
   end
 end
