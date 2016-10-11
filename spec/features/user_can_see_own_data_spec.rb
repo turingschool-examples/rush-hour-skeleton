@@ -218,8 +218,20 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
     Processor.parse(params, "jumpstartlab")
     
     visit('/sources/jumpstartlab')
-    save_and_open_page
     expect(page).to have_content({"800 x 640"=>1, "2480 x 1600"=>1, "1080 x 1920"=>1, "1920 x 1280"=>2})
+  end
+  
+  it "they see an error page when they enter a bad identifier" do
+    visit('/sources/beesbeesbees')
+    expect(page).to have_content("Client does not exist.")
+  end
+  
+  it "they see an error page when an identifier exists but has no data" do
+    
+    Client.create(identifier: "beesbeesbees", root_url: "http://beesbeesbees")
+    
+    visit('/sources/beesbeesbees')
+    expect(page).to have_content("No payloads for client.")
   end
   
 end
