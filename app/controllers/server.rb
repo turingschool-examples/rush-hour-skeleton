@@ -52,6 +52,11 @@ module RushHour
       return not_found("path has not been requested.") if @client.urls.find_by(url: @url).nil?
       erb :show_client_url
     end
+    
+    get "/sources/:identifier/events/:event_name" do
+      @client = Client.find_by(identifier: params[:identifier])
+      erb :show_client_events
+    end
 
     def client_doesnt_exist
       p "Client doesn't exist."
