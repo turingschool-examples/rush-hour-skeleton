@@ -32,8 +32,9 @@ module RushHour
       client_params = Hash.new
       client_params[:identifier] = params["identifier"]
       client_params[:root_url] = params["rootUrl"]
-      status 400 unless Client.new(params).valid?
-      status 403 if Client.pluck(:identifier).include?(params[:identifier])
+      return status 400 unless Client.new(client_params).valid?
+      return status 403 if Client.pluck(:identifier).include?(client_params[:identifier])
+      Client.create(client_params)
     end
 
     post "/sources/:identifier/data" do |identifier|

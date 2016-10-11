@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h1>Data for a User's Name</h1>
+  <h1>Data for <%= @client.identifier.capitalize %></h1>
   <h3>Payloads</h3> 
   
   <div>
@@ -27,7 +27,7 @@
       </tr>
       <tr>
         <td>List of URLs from most to least:</td>
-        <td><%= @client.urls.most_to_least_requested %></td>
+        <td><%= @client.urls.most_to_least_requested(@client.payloads) %></td>
       </tr>
       <tr>
         <td>Web browser breakdown across all payloads:</td>

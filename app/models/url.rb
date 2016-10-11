@@ -32,8 +32,8 @@ class Url < ActiveRecord::Base
     end
   end
   
-  def self.most_to_least_requested
-    order = Payload.order('url_id DESC')
+  def self.most_to_least_requested(payloads)
+    order = payloads.order('url_id DESC')
     order.reduce([]) do |result, object|
       result << object.url.url
       result

@@ -256,7 +256,7 @@ RSpec.describe "Url" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Url.most_to_least_requested).to eq(["http://waspswaspswasps", "http://beesbeesbees"])
+      expect(Url.most_to_least_requested(Payload.all)).to eq(["http://waspswaspswasps", "http://beesbeesbees"])
     end
   end
 
