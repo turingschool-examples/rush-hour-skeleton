@@ -5,14 +5,14 @@ class Resolution < ActiveRecord::Base
   has_many :payloads
 
   def self.height_breakdown
-    joins(:payloads).group(:height).count
+    group(:height).count
   end
 
   def self.width_breakdown
-    joins(:payloads).group(:width).count
+    group(:width).count
   end
 
   def self.resolutions_across_all_payloads
-    joins(:payloads).group(:height, :width).count
+    group(:height, :width).count
   end
 end
