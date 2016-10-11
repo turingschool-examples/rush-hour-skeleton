@@ -1,8 +1,9 @@
 require_relative '../models/client'
 require_relative '../models/processor'
+require 'pry'
 
 module RushHour
-  class Server < Sinatra::Base    
+  class Server < Sinatra::Base
     def not_found(error_type)
       @error_message = error_type
       erb :error
@@ -16,11 +17,11 @@ module RushHour
       status 200
       erb :sources
     end
-    
+
     get "/login" do
       erb :login
     end
-    
+
     get "/sources/:identifier" do |client_identifier|
       return not_found("Client does not exist.") if Client.find_by(identifier: client_identifier).nil?
       return not_found("No payloads for client.") if Client.find_by(identifier: client_identifier).payloads.empty?
@@ -42,6 +43,12 @@ module RushHour
       return (status 403) && client_doesnt_exist if Client.find_by(identifier: identifier).nil?
       return (status 403) && payload_invalid unless payload_valid?(params, identifier)
       Processor.parse(params[:payload], identifier)
+    end
+
+    get "/sources/:identifier/urls/:relative_path" do
+      @url = Processor.rebuild(params[:identifier], params[:relative_path])
+      @client = Client.find_by(identifier: params[:identifier])
+      erb :show_client_url
     end
 
     def client_doesnt_exist

@@ -1,0 +1,16 @@
+<div class="jumbo-adjust jumbotron container">
+  <h1 class="header-adjust">Data for <%= @url %></h1>
+
+  <div>
+    <table class="table table-hover table-bordered table-condensed">
+      <tr>
+        <td>Max Response Time</td>
+        <td><%= @client.urls.max_response_time_by_url(@url) %></td>
+      </tr>
+      <tr>
+        <td>Min Response Time</td>
+        <td><%= @client.urls.min_response_time_by_url(@url) %></td>
+      </tr>
+  </div>
+
+</div>

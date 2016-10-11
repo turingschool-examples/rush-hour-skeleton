@@ -1,9 +1,9 @@
 <div class="jumbo-adjust jumbotron container">
   <h1 class="header-adjust">Data for <%= @client.identifier.capitalize %></h1>
-  <h3 class="header-adjust">Payloads</h3> 
-  
+  <h3 class="header-adjust">Payloads</h3>
+
   <div>
-        
+
     <table class="table table-hover table-bordered table-condensed">
       <tr>
         <td>Average response time across all payloads:</td>
@@ -27,7 +27,9 @@
       </tr>
       <tr>
         <td>List of URLs from most to least:</td>
-        <td><%= @client.urls.most_to_least_requested(@client.payloads) %></td>
+        <% @client.urls.most_to_least_requested(@client.payloads).each do |client_url| %>
+          <td><a href="<%= @client.identifier %>/urls/<%= Processor.uri_path(client_url) %>"><%= client_url %></a></td>
+        <% end %>
       </tr>
       <tr>
         <td>Web browser breakdown across all payloads:</td>
@@ -42,7 +44,7 @@
         <td><%= @client.resolutions.resolution_breakdown(@client.payloads) %></td>
       </tr>
     </table>
-    
+
   </div>
-  
+
 </div>

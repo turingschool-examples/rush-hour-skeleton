@@ -50,7 +50,8 @@ RSpec.describe "Url" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Url.max_response_time_by_url("http://beesbeesbees")).to eq(39)
+      url = Url.find_by(url: "http://beesbeesbees")
+      expect(url.max_response_time_by_url).to eq(39)
     end
   end
 
@@ -90,7 +91,8 @@ RSpec.describe "Url" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Url.min_response_time_by_url("http://beesbeesbees")).to eq(37)
+      url = Url.find_by(url: "http://beesbeesbees")
+      expect(url.min_response_time_by_url).to eq(37)
     end
   end
 
@@ -129,8 +131,8 @@ RSpec.describe "Url" do
                             agent_id: 1,
                             resolution_id: 1,
                             ip_id: 1)
-
-      expect(Url.all_response_times_by_url("http://beesbeesbees")).to eq([39, 37])
+      url = Url.find_by(url: "http://beesbeesbees")
+      expect(url.all_response_times_by_url).to eq([39, 37])
     end
   end
 
@@ -170,7 +172,8 @@ RSpec.describe "Url" do
                             resolution_id: 1,
                             ip_id: 1)
 
-      expect(Url.average_response_time_by_url("http://beesbeesbees")).to eq(38)
+      url = Url.find_by(url: "http://beesbeesbees")
+      expect(url.average_response_time_by_url).to eq(38)
     end
   end
 
@@ -220,7 +223,7 @@ RSpec.describe "Url" do
       expect(Url.http_verbs_by_url("http://waspswaspswasps")).to eq(["DELETE"])
     end
   end
-  
+
   describe ".most_to_least_requested" do
     it "returns request types by frequency" do
       Url.create(url: "http://beesbeesbees")
