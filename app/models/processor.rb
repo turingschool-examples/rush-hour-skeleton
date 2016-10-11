@@ -25,7 +25,7 @@ class Processor < ActiveRecord::Base
                               ip_id: ip.id,
                               requested_at: params["requestedAt"],
                               responded_in: params["respondedIn"],
-                              client_id: identifier)
+                              client_id: Client.find_by(identifier: identifier).id)
   end
 
   def self.validate_payload(params, identifier)
@@ -51,8 +51,7 @@ class Processor < ActiveRecord::Base
                               ip_id: ip.id,
                               requested_at: params["requestedAt"],
                               responded_in: params["respondedIn"],
-                              client_id: identifier)
-
+                              client_id: Client.find_by(identifier: identifier).id)
     return true if payload.valid?
     return false
   end
