@@ -58,6 +58,13 @@ module RushHour
       erb :show_client_events
     end
 
+    delete '/sources/:identifier' do |client_id|
+      id = Client.find_by(identifier: client_id).id
+      Payload.where(client_id: id).delete_all
+      Client.where(id: id).delete_all
+      redirect '/'
+    end
+
     def client_doesnt_exist
       p "Client doesn't exist."
     end

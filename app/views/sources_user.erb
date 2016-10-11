@@ -44,7 +44,11 @@
         <td><%= @client.resolutions.resolution_breakdown(@client.payloads) %></td>
       </tr>
     </table>
-
+    <form action="/sources/<%= @client.identifier %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <button class="button-styles btn btn-danger btn-xs" type="submit" value="delete">Delete</button>
+    </form>
+    
   </div>
 
 </div>
