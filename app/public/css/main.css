@@ -8,7 +8,7 @@ background-image: url(/img/rushh.jpg);
 background-size: cover;
 height: 100%;
 }
-.jumbotronn {
-background-size: cover;
-height: 100%;
+
+body {
+  background-color: pink;
 }

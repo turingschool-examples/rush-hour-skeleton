@@ -40,17 +40,28 @@
 
   <tr>
     <td>Web Browswer Breakdown</td>
-    <td><%= @client.browser_breakdown %></td>
+    <td><%= @client.browser_breakdown.to_a.flatten.join(": ") %></td>
   </tr>
 
   <tr>
     <td>Operating System Breakdown </td>
-    <td><%= @client.os_breakdown %></td>
+    <td><%= @client.os_breakdown.to_a.flatten.join(": ") %></td>
   </tr>
 
   <tr>
     <td>Screen Resolution </td>
-    <td><%= @client.resolutions_breakdown %></td>
+    <td>
+      <% @client.resolutions_breakdown.each do |rez| %>
+        <table>
+          <tr><th>Height</th><th>Width</th><th>Count</th></tr>
+          <tr>
+            <td><%=rez[0]["height"]%></td>
+            <td><%=rez[0]["width"]%></td>
+            <td><%=rez[1]%></td>
+          </tr>
+        </table>
+      <% end %>
+    </td>
   </tr>
 
 </table>

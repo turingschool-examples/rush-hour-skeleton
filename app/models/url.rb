@@ -20,7 +20,7 @@ class Url < ActiveRecord::Base
   end
 
   def average_response_time
-    payloads.average(:responded_in).to_f
+    payloads.average(:responded_in).to_f.round(2)
   end
 
   def all_http_verbs

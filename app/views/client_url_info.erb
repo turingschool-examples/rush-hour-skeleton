@@ -32,7 +32,15 @@
 
   <tr>
     <td>Top Three Referrers</td>
-    <td><%= @url.top_three_referrals.join(", ") %></td>
+    <td>
+      <% @url.top_three_referrals.each do |r| %>
+      <table>
+        <tr>
+          <td><%=r%></td>
+        </tr>
+      </table>
+      <% end %>
+    </td>
   </tr>
 
   <tr>
