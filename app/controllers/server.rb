@@ -39,6 +39,20 @@ module RushHour
       end
     end
 
+    get "/sources/:IDENTIFIER/events/:EVENTNAME" do |identifier, eventname|
+      @eventname = eventname
+      @client = Client.find_by(identifier: identifier)
+      @data = Processor.get_event_stats(@client, eventname)
+      # Processor.test_parse_date(@data)
+      @total = @data.values.reduce(:+)
+      if Payload.find_by(event: Event.find_by(event_name: eventname)).nil?
+        erb :error_event
+      else
+        erb :event_name
+      end
+
+    end
+
     post "/sources" do
       # 1. Get hash of identifier and root url
       # 2. Create new client (without saving) with id and root url

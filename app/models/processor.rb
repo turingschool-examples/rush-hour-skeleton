@@ -59,4 +59,22 @@ extend self
     Url.find_by(path: relativepath)
   end
 
+  def get_event_stats(client, eventname)
+    hours = (0..24).to_a
+    dates = client.payload.where(event: Event.find_by(event_name: eventname))
+
+    date_array = dates.map do |d|
+      DateTime.parse(d.requested_at)
+    end.map { |x| x.hour }.sort
+
+    date_hash = date_array.reduce(Hash.new(0)) { |h, e| h[e] += 1; h}
+
+    final_hours = hours - date_array
+
+    hours_hash = final_hours.reduce({}) { |h, e|  h[e] = 0; h}
+
+    date_hash.merge(hours_hash).sort.to_h
+  end
+
+
 end
