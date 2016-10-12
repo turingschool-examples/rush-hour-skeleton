@@ -10,8 +10,11 @@ module RushHour
       erb :error
     end
 
+    get "/" do
+      erb :dashboard 
+    end
     get "/sources" do
-      @sources = Client.all 
+      @sources = Client.all
       erb :sources
     end
 
