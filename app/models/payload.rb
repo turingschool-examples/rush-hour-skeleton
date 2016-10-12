@@ -48,14 +48,6 @@ class Payload < ActiveRecord::Base
     Time.at(requested_at.to_i).hour
   end
 
-  def self.events_by_hour(payloads)
-    all_hours = payloads.map { |payload| payload.hour }
-    all_hours.sort.reduce({}) do |result, hour|
-      result[hour] = all_hours.count(hour)
-      result
-    end
-  end
-  
   def self.all_event_names(payloads)
     payloads.map { |payload| EventName.find(payload.event_name_id) }
   end
