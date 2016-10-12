@@ -1,30 +1,18 @@
-<!DOCTYPE html>
-<html lang='en'>
-
-  <head>
-    <title>Rush Hour</title>
-    <link href='css/bootstrap.css' rel='stylesheet'>
-    <link href='css/main.css' rel='stylesheet'>
-</head>
-
-<body>
-    <div>
-      <h1>  <a href=# class='navbar-brand' id='dashboard'>Sources</a></h1></br></br>
-    </div>
-
-    <div id="sources">
-      <p><% @sources.each do |client| %></p>
-      <h1>
-      <h3>  <a  href="/sources/<%= client.identifier %>"><%= client.identifier %></a></h3>
-      <% end %>
-    </div>
-
-</body>
-
-<div>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src='js/bootstrap.js'></script>
+<div id="sources">
+  <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
+    <a href='/' class='navbar-brand'>Rush Hour</a>
+    <ul class='nav navbar-nav navbar-right'>
+      <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
+      <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
+      <li class='dropwdown'>
+        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Sources
+        <span class="caret"></span></a>
+        <ul class='dropdown-menu'>
+          <% @sources.each do |client| %>
+            <li><a href="/sources/<%= client.identifier %>"><%= client.identifier %></a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </div>
-
-</html>

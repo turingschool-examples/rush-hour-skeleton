@@ -1,40 +1,54 @@
-<h1> <%= @url.root_url + @url.path %> </h1>
-<table>
+<div id="sources">
+  <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
+    <a href='/' class='navbar-brand'>Rush Hour</a>
+    <ul class='nav navbar-nav navbar-right'>
+      <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
+      <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
+      <li class='dropwdown'>
+        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Sources
+        <span class="caret"></span></a>
+        <ul class='dropdown-menu'>
+          <% @sources.each do |client| %>
+            <li><a href="/sources/<%= client.identifier %>"><%= client.identifier %></a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h1 class="title"> <%= @url.root_url + @url.path %> </h1>
+
+<table class="table-center">
   <tr>
     <th>Statistic</th>
     <th>Stats</th>
   </tr>
-
   <tr>
     <td>Max Response Time</td>
     <td><%= @url.max_response_time %></td>
   </tr>
-
   <tr>
     <td>Min Response Time</td>
     <td><%= @url.min_response_time %></td>
   </tr>
-
   <tr>
     <td>Response Times</td>
     <td><%= @url.response_times_desc.join(", ") %></td>
   </tr>
-
   <tr>
     <td>Average Response Time</td>
     <td><%= @url.average_response_time %></td>
   </tr>
-
   <tr>
     <td>List of Http Verbs</td>
     <td><%= @url.all_http_verbs.join(", ") %></td>
   </tr>
-
   <tr>
     <td>Top Three Referrers</td>
     <td>
       <% @url.top_three_referrals.each do |r| %>
-      <table>
+      <table class="mini-table">
         <tr>
           <td><%=r%></td>
         </tr>
@@ -42,7 +56,6 @@
       <% end %>
     </td>
   </tr>
-
   <tr>
     <td> Top Three Agents </td>
     <td><%= @url.top_three_agents.join(", ")%></td>

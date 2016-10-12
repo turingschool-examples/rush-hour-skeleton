@@ -7,8 +7,56 @@
 background-image: url(/img/rushh.jpg);
 background-size: cover;
 height: 100%;
+position: relative;
 }
 
-body {
-  background-color: pink;
+.navbar
+{
+  position: fixed;
+  top: 0px;
+}
+
+
+body #sources
+{
+  background-image: url(/img/rushh.jpg);
+  background-size: cover;
+}
+
+.table-center
+{
+  float:none;
+  margin-left:auto;
+  margin-right:auto;
+  align: center;
+}
+
+.table-center th,
+.table-center td
+{
+  border-bottom: 1px dotted black;
+  padding: 10px;
+  text-align: left;
+}
+
+.table-center th
+{
+  font-size: 26px;
+  font-weight: lighter;
+}
+
+.mini-table th,
+.mini-table td
+{
+  font-size: 14px;
+  font-weight: normal;
+  border-bottom: 0;
+}
+
+.title
+{
+  text-align: center;
+  padding-top: 3%;
+  padding-bottom: 1.5%;
+  font-weight: lighter;
 }
