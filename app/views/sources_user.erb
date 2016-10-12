@@ -1,0 +1,64 @@
+<div class="jumbo-adjust jumbotron container">
+  <h1 class="header-adjust">Data for <%= @client.identifier.capitalize %></h1>
+  <h3 class="header-adjust">Payloads</h3>
+
+  <div>
+
+    <table class="table table-hover table-bordered table-condensed">
+      <tr>
+        <td>Average response time across all payloads:</td>
+        <td><%= @client.payloads.average_response_time %></td>
+      </tr>
+      <tr>
+        <td>Max response time across all payloads:</td>
+        <td><%= @client.payloads.max_response_time %></td>
+      </tr>
+      <tr>
+        <td>Min response time across all payloads:</td>
+        <td><%= @client.payloads.min_response_time %></td>
+      </tr>
+      <tr>
+        <td>Most frequent request type:</td>
+        <td><%= @client.payloads.most_frequent(:request_type) %></td>
+      </tr>
+      <tr>
+        <td>List of all http verbs:</td>
+        <td><%= @client.request_types.all_http_verbs %></td>
+      </tr>
+      <tr>
+        <td>List of URLs from most to least:</td>
+        <% @client.urls.most_to_least_requested(@client.payloads).each do |client_url| %>
+          <td><a href="<%= @client.identifier %>/urls/<%= Processor.uri_path(client_url) %>"><%= client_url %></a></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td>Web browser breakdown across all payloads:</td>
+        <td><%= @client.agents.browser_breakdown(@client.payloads) %></td>
+      </tr>
+      <tr>
+        <td>OS breakdown across all payloads:</td>
+        <td><%= @client.agents.os_breakdown(@client.payloads) %></td>
+      </tr>
+      <tr>
+        <td>Screen resolution across all payloads:</td>
+        <td><%= @client.resolutions.resolution_breakdown(@client.payloads) %></td>
+      </tr>
+    </table>
+    
+    <table class="table table-hover table-bordered table-condensed">
+      <tr>
+        <td>List of event names:</td>
+        <% @events.uniq.each do |event| %>
+          <td><a href="<%= @client.identifier %>/events/<%= event.event_name %>"><%= event.event_name %></a></td>
+        <% end %>
+      </tr>
+    </table>
+    
+    <form action="/sources/<%= @client.identifier %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <button class="button-styles btn btn-danger btn-xs" type="submit" value="delete">Delete</button>
+    </form>
+    
+  </div>
+
+</div>
