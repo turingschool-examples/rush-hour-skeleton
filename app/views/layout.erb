@@ -47,9 +47,9 @@
     
     <script>
       var button = document.getElementById("buttonPress");
-      var input = document.getElementById("identifierSubmit");
-      button.addEventListener("click", relocate.bind(null, input))
-      function relocate(input) {
+      button.addEventListener("click", relocate)
+      function relocate() {
+        var input = document.getElementById("identifierSubmit");
         event.preventDefault()
         window.location.pathname = "/sources/" + input.value;
       }
