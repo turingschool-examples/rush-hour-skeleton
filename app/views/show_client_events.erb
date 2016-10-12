@@ -1,11 +1,11 @@
 <div class="jumbo-adjust jumbotron container">
-  <h1 class="header-adjust">Events for <%= @client.identifier.capitalize %></h1>
+  <h1 class="header-adjust"><%= @event_name %> times for <%= @client.identifier.capitalize %></h1>
 
   <div>
     <table class="table table-hover table-bordered table-condensed">
-      
+
       <tr>
-        <td></td>
+        <td><%= @hours %></td>
         <td></td>
       </tr>
 

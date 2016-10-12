@@ -56,8 +56,8 @@ module RushHour
     get "/sources/:identifier/events/:event_name" do
       @client = Client.find_by(identifier: params[:identifier])
       @payloads = @client.payloads.where(event_name_id: EventName.find_by(event_name: params[:event_name]).id)
+      @event_name = params[:event_name]
       @hours = Payload.events_by_hour(@payloads)
-      binding.pry
       erb :show_client_events
     end
 
