@@ -10,6 +10,11 @@ height: 100%;
 position: relative;
 }
 
+img {
+  position: relative;
+
+    }
+
 .navbar
 {
   position: fixed;
@@ -59,4 +64,19 @@ body #sources
   padding-top: 3%;
   padding-bottom: 1.5%;
   font-weight: lighter;
+}
+
+.error
+{
+  text-align: center;
+  padding-top: 10%;
+}
+
+
+
+.event
+{
+  text-align: center;
+  padding-top: 4.5%;
+  padding-left: 10%;
 }
