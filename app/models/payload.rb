@@ -34,29 +34,16 @@ class Payload < ActiveRecord::Base
     Payload.minimum(:responded_in)
   end
 
-  def self.most_frequent(column)
-    column_values = Payload.pluck("#{column.to_s}_id".to_sym)
-    id_occurance = column_values.reduce({}) do |r, id|
-      r[id] = column_values.count(id)
-      r
+  def self.most_frequent_request_type
+    column_values = Payload.pluck(:request_type_id)
+    id_occurrence = column_values.reduce({}) do |result, id|
+      result[id] = column_values.count(id)
+      result
     end
-    #TODO MAKE DYNAMIC
-    RequestType.find(id_occurance.max_by { |k, v| v }[0]).send(column)
+    RequestType.find(id_occurrence.max_by { |k, v| v }[0]).request_type
   end
 
   def hour
     Time.at(requested_at.to_i).hour
-  end
-
-  def self.events_by_hour(payloads)
-    all_hours = payloads.map { |payload| payload.hour }
-    all_hours.sort.reduce({}) do |result, hour|
-      result[hour] = all_hours.count(hour)
-      result
-    end
-  end
-
-  def self.all_event_names(payloads)
-    payloads.map { |payload| EventName.find(payload.event_name_id) }
   end
 end

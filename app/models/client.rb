@@ -9,4 +9,9 @@ class Client < ActiveRecord::Base
 
   validates :identifier, presence: true
   validates :root_url, presence: true
+
+  def all_event_names
+    event_names.pluck(:event_name).uniq
+  end
+
 end
