@@ -5,6 +5,5 @@ describe Ip do
     ip = Ip.create()
 
     expect(ip).to_not be_valid
-    
   end
 end

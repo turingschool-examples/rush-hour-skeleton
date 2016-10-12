@@ -4,7 +4,8 @@ describe "When a user visits '/sources'" do
   it "sees source on sources page" do
     create_clients
     visit("/sources")
-    within("#sources") do
+    within(".navbar") do
+      save_and_open_page
       expect(page).to have_content("google")
       expect(page).to have_content("yahoo")
       expect(page).to have_content("facebook")

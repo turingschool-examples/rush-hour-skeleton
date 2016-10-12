@@ -46,5 +46,4 @@ class Client < ActiveRecord::Base
   def resolutions_breakdown
     payload.resolutions_breakdown
   end
-
 end

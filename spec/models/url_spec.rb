@@ -359,6 +359,4 @@ describe Url do
 
     expect(url.top_three_agents).to eq(["Safari OSX", "Chrome Linux", "IE OSX"])
   end
-
-
 end

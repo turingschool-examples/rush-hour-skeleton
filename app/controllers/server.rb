@@ -73,6 +73,5 @@ module RushHour
       status response[:status]
       body response[:body]
     end
-
   end
 end
