@@ -41,11 +41,15 @@ class Url < ActiveRecord::Base
   end
 
   def three_most_popular_referrers
-    referred_bies.map { |obj| [obj.referred_by, payloads.pluck(:referred_by_id).count(obj.id)] }.uniq.sort_by { |k| k[1] }.reverse.first(3)
+    referred_bies.map do |referred_by_obj|
+      [referred_by_obj.referred_by, payloads.pluck(:referred_by_id).count(referred_by_obj.id)]
+    end.uniq.sort_by { |referred_by_count| referred_by_count[1] }.reverse.first(3)
   end
 
   def three_most_popular_user_agents
-    agents.map { |obj| [obj.agent, payloads.pluck(:agent_id).count(obj.id)] }.uniq.sort_by { |k| k[1] }.reverse.first(3).map do |ua|
+    agents.map do |agent_obj|
+      [agent_obj.agent, payloads.pluck(:agent_id).count(agent_obj.id)]
+    end.uniq.sort_by { |agent_count| agent_count[1] }.reverse.first(3).map do |ua|
       [UserAgent.os(ua.to_s), UserAgent.browser_name(ua.to_s).to_s]
     end.uniq
   end

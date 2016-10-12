@@ -1,3 +1,5 @@
+require 'time'
+
 class Payload < ActiveRecord::Base
 
   belongs_to :request_type
@@ -40,5 +42,21 @@ class Payload < ActiveRecord::Base
     end
     #TODO MAKE DYNAMIC
     RequestType.find(id_occurance.max_by { |k, v| v }[0]).send(column)
+  end
+
+  def hour
+    Time.at(requested_at.to_i).hour
+  end
+
+  def self.events_by_hour(payloads)
+    all_hours = payloads.map { |payload| payload.hour }
+    all_hours.sort.reduce({}) do |result, hour|
+      result[hour] = all_hours.count(hour)
+      result
+    end
+  end
+  
+  def self.all_event_names(payloads)
+    payloads.map { |payload| EventName.find(payload.event_name_id) }
   end
 end
