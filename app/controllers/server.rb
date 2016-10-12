@@ -7,10 +7,12 @@ module RushHour
     include Response, Processor
 
     not_found do
+      @sources = Client.all
       erb :error
     end
 
     get "/" do
+      @sources = Client.all
       erb :dashboard
     end
     get "/sources" do
@@ -19,10 +21,9 @@ module RushHour
     end
 
     get "/sources/:identifier" do |identifier|
-      #possibly try to refactor to
+      @sources = Client.all
       @client = get_client_stats(identifier)
       @id = identifier
-
       if Client.find_by(identifier: identifier).nil?
         @message = "Identifier #{identifier} does not exist!"
         erb :error
@@ -35,6 +36,7 @@ module RushHour
     end
 
     get "/sources/:IDENTIFIER/urls/:RELATIVEPATH" do |identifier, relativepath|
+      @sources = Client.all
       @url = get_url_stats("/"+relativepath)
       if Url.find_by(path: "/#{relativepath}").nil?
         @message = "Path #{relativepath} does not exist!"
@@ -45,6 +47,7 @@ module RushHour
     end
 
     get "/sources/:IDENTIFIER/events/:EVENTNAME" do |identifier, eventname|
+      @sources = Client.all
       @eventname = eventname
       @client = Client.find_by(identifier: identifier)
       @data = get_event_stats(@client, eventname)

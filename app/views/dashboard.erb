@@ -1,5 +1,24 @@
-<div class="jumbotron">
-   <div class="container">
+<div id="sources">
+  <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
+    <a href='/' class='navbar-brand'>Rush Hour</a>
+    <ul class='nav navbar-nav navbar-right'>
+      <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
+      <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
+      <li class='dropwdown'>
+        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Sources
+        <span class="caret"></span></a>
+        <ul class='dropdown-menu'>
+          <% @sources.each do |client| %>
+            <li><a href="/sources/<%= client.identifier %>"><%= client.identifier %></a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
     <h1  id="welcome">Welcome to RushHour</h1>
     <p id="welcome"> What a fun project this was!  </p>
     <p id="welcome">

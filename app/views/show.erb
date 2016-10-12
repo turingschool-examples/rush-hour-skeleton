@@ -1,5 +1,24 @@
-<h1> <%= @client.identifier %></h1>
-<table>
+<div id="sources">
+  <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
+    <a href='/' class='navbar-brand'>Rush Hour</a>
+    <ul class='nav navbar-nav navbar-right'>
+      <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
+      <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
+      <li class='dropwdown'>
+        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Sources
+        <span class="caret"></span></a>
+        <ul class='dropdown-menu'>
+          <% @sources.each do |client| %>
+            <li><a href="/sources/<%= client.identifier %>"><%= client.identifier %></a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h1 class="title"> <%= @client.identifier %></h1>
+<table class="table-center">
   <tr>
     <th>Statistic</th>
     <th>Stats</th>
@@ -8,51 +27,48 @@
     <td>Average Response Time</td>
     <td><%= @client.average_response_time %></td>
   </tr>
-
   <tr>
     <td>Max Response Time</td>
     <td><%= @client.max_response_time %></td>
   </tr>
-
   <tr>
     <td>Min Response Time</td>
     <td><%= @client.min_response_time %></td>
   </tr>
-
   <tr>
     <td>Most Frequent Request Type</td>
     <td><%= @client.most_frequent_request_type %></td>
   </tr>
-
   <tr>
     <td>List of Http Verbs</td>
     <td><%= @client.all_request_types.join(", ") %></td>
   </tr>
-
   <tr>
     <td>Urls from Most Requested to Least</td>
     <td>
     <% @client.urls_descending.each do |urlpath| %>
-      <a href="/sources/<%=@id%>/urls/<%=urlpath.split('/')[-1]%>"><%=urlpath%></a>
+
+      <table class="mini-table">
+        <tr>
+          <td><a href="/sources/<%=@id%>/urls/<%=urlpath.split('/')[-1]%>"><%=urlpath%></a></td>
+        </tr>
+      </table>
     <% end %>
   </td>
   </tr>
-
   <tr>
     <td>Web Browswer Breakdown</td>
     <td><%= @client.browser_breakdown.to_a.flatten.join(": ") %></td>
   </tr>
-
   <tr>
     <td>Operating System Breakdown </td>
     <td><%= @client.os_breakdown.to_a.flatten.join(": ") %></td>
   </tr>
-
   <tr>
     <td>Screen Resolution </td>
     <td>
       <% @client.resolutions_breakdown.each do |rez| %>
-        <table>
+        <table class="mini-table">
           <tr><th>Height</th><th>Width</th><th>Count</th></tr>
           <tr>
             <td><%=rez[0]["height"]%></td>
@@ -63,5 +79,4 @@
       <% end %>
     </td>
   </tr>
-
 </table>
