@@ -48,7 +48,4 @@ class Payload < ActiveRecord::Base
     Time.at(requested_at.to_i).hour
   end
 
-  def self.all_event_names(payloads)
-    payloads.map { |payload| EventName.find(payload.event_name_id) }
-  end
 end

@@ -26,7 +26,7 @@ module RushHour
       return not_found("Client does not exist.") if Client.find_by(identifier: client_identifier).nil?
       return not_found("No payloads for client.") if Client.find_by(identifier: client_identifier).payloads.empty?
       @client = Client.find_by(identifier: client_identifier)
-      @events = Payload.all_event_names(@client.payloads)
+      @events = @client.all_event_names
       erb :sources_user
     end
 
