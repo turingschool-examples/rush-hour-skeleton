@@ -56,9 +56,9 @@ module RushHour
 
     get "/sources/:identifier/events/:event_name" do
       @client = Client.find_by(identifier: params[:identifier])
-      return (status 404) && event_not_defined if @client.payloads.where(event_name_id: EventName.find_by(event_name: params[:event_name])).empty?
       @event_name = params[:event_name]
       event = EventName.find_by(event_name: @event_name)
+      return (status 404) && event_not_defined if event.nil?
       @hours = event.events_by_hour(@client)
 
       erb :show_client_events
