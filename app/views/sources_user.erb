@@ -44,6 +44,16 @@
         <td><%= @client.resolutions.resolution_breakdown(@client.payloads) %></td>
       </tr>
     </table>
+    
+    <table class="table table-hover table-bordered table-condensed">
+      <tr>
+        <td>List of event names:</td>
+        <% @events.uniq.each do |event| %>
+          <td><a href="<%= @client.identifier %>/events/<%= event.event_name %>"><%= event.event_name %></a></td>
+        <% end %>
+      </tr>
+    </table>
+    
     <form action="/sources/<%= @client.identifier %>" method="POST">
       <input type="hidden" name="_method" value="DELETE">
       <button class="button-styles btn btn-danger btn-xs" type="submit" value="delete">Delete</button>

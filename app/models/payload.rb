@@ -55,4 +55,8 @@ class Payload < ActiveRecord::Base
       result
     end
   end
+  
+  def self.all_event_names(payloads)
+    payloads.map { |payload| EventName.find(payload.event_name_id) }
+  end
 end

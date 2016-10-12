@@ -26,6 +26,7 @@ module RushHour
       return not_found("Client does not exist.") if Client.find_by(identifier: client_identifier).nil?
       return not_found("No payloads for client.") if Client.find_by(identifier: client_identifier).payloads.empty?
       @client = Client.find_by(identifier: client_identifier)
+      @events = Payload.all_event_names(@client.payloads)
       erb :sources_user
     end
 
@@ -55,6 +56,8 @@ module RushHour
 
     get "/sources/:identifier/events/:event_name" do
       @client = Client.find_by(identifier: params[:identifier])
+      return (status 404) && event_not_defined if @client.payloads.where(event_name_id: EventName.find_by(event_name: params[:event_name])).empty?
+      
       @payloads = @client.payloads.where(event_name_id: EventName.find_by(event_name: params[:event_name]).id)
       @event_name = params[:event_name]
       @hours = Payload.events_by_hour(@payloads)
@@ -82,6 +85,10 @@ module RushHour
 
     def payload_invalid
       p "the damn payload was already received or is invalid, bro"
+    end
+    
+    def event_not_defined
+      erb :event_not_defined_error
     end
 
   end
