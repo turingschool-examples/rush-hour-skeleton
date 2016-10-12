@@ -23,7 +23,7 @@ class Payload < ActiveRecord::Base
   validates_uniqueness_of :client_id, scope: [:url_id, :requested_at, :responded_in, :referred_by_id, :request_type_id, :event_name_id, :agent_id, :resolution_id, :ip_id]
 
   def self.average_response_time
-    Payload.average(:responded_in)
+    Payload.average(:responded_in).round(1)
   end
 
   def self.max_response_time
@@ -55,7 +55,7 @@ class Payload < ActiveRecord::Base
       result
     end
   end
-  
+
   def self.all_event_names(payloads)
     payloads.map { |payload| EventName.find(payload.event_name_id) }
   end

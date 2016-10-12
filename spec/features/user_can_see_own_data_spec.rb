@@ -13,7 +13,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content("Payloads")
-
   end
 
   it "they see average response time" do
@@ -28,8 +27,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content("38.0")
-
-
   end
 
   it "they see max response time across all payloads" do
@@ -44,8 +41,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content("39")
-
-
   end
 
   it "they see max response time across all payloads" do
@@ -60,8 +55,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content("37")
-
-
   end
 
   it "they see most frequent request type" do
@@ -79,7 +72,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content("GET")
-
   end
 
   it "they see a list of all http verbs used" do
@@ -97,7 +89,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content(["POST", "GET"])
-
   end
 
   it "they see a list of urls from most to least" do
@@ -120,10 +111,9 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
     Processor.parse(params, "jumpstartlab")
 
     visit('/sources/jumpstartlab')
-    expect(page).to have_content("waspswaspswasps")
-    expect(page).to have_content("beesbeesbees")
-    expect(page).to have_content("goatsgoatsgoats")
-
+    expect find_link("waspswaspswasps").visible?
+    expect find_link("beesbeesbees").visible?
+    expect find_link("goatsgoatsgoats").visible?
   end
 
   it "they see a web browser breakdown across all payloads" do
@@ -147,14 +137,12 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content({:firefox=>1, :safari=>2, :chrome=>2})
-
   end
 
   it "they see a web browser breakdown across all payloads" do
 
     Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
     Client.create(identifier: "pumpstartlab", root_url: "http://pumpstartlab")
-
 
     params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"POST\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Firefox/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
     Processor.parse(params, "jumpstartlab")
@@ -173,7 +161,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content({:firefox=>1, :safari=>2, :chrome=>1})
-
   end
 
   it "they see an OS breakdown across all payloads" do
@@ -197,7 +184,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/jumpstartlab')
     expect(page).to have_content({"OS X 10.9"=>1, "OS X 10.10"=>2, "OS X 10.11"=>1, "OS X 10.8"=>1})
-
   end
 
   it "they see an OS breakdown across all payloads" do
@@ -234,6 +220,76 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
 
     visit('/sources/beesbeesbees')
     expect(page).to have_content("No payloads for client.")
+  end
+
+  it "they see a list of event names" do
+
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
+
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"POST\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":14,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"waspswaspswasps\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":87,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":98,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    visit('/sources/jumpstartlab')
+    save_and_open_page
+    expect find_link("socialLogin").visible?
+  end
+
+  it "they see a delete button" do
+
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
+
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"POST\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":14,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"waspswaspswasps\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":87,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":98,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    visit('/sources/jumpstartlab')
+    expect find_button('Delete').visible?
+  end
+
+  it "they can click the delete button" do
+
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
+
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"POST\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":39,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":14,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"waspswaspswasps\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":87,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    params ="{\"url\":\"beesbeesbees\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":98,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    visit('/sources/jumpstartlab')
+    expect click_button('Delete')
   end
 
 end

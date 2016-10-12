@@ -22,7 +22,7 @@ class Url < ActiveRecord::Base
   end
 
   def average_response_time_by_url
-    all_response_times_by_url.reduce(:+)/all_response_times_by_url.length
+    all_response_times_by_url.reduce(:+)/all_response_times_by_url.length.round(1)
   end
 
   def http_verbs_by_url
