@@ -371,4 +371,20 @@ RSpec.describe "Payload" do
       expect(Payload.most_frequent_request_type).to eq("GET")
     end
   end
+
+  describe ".hour" do
+    it "returns the hour of the request" do
+      payload1 = Payload.create(url_id: 1,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referred_by_id: 1,
+                            request_type_id: 1,
+                            event_name_id: 1,
+                            agent_id: 1,
+                            resolution_id: 1,
+                            ip_id: 1)
+
+      expect(payload1.hour).to eq(21)
+    end
+  end
 end

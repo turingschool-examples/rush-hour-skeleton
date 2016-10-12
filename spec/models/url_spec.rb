@@ -266,8 +266,8 @@ RSpec.describe "Url" do
     end
   end
 
-  describe "http:verbs_by_url" do
-    it "returns http_verbs_by_url" do
+  describe ".three_most_popular_referrers" do
+    it "returns list of three most popular referrers" do
 
       Url.create(url: "http://beesbeesbees")
 
@@ -371,8 +371,8 @@ RSpec.describe "Url" do
     end
   end
 
-  describe "http:verbs_by_url" do
-    it "returns http_verbs_by_url" do
+  describe ".three_most_popular_user_agents" do
+    it "returns list of most popular user agents" do
 
       Url.create(url: "http://beesbeesbees")
 
