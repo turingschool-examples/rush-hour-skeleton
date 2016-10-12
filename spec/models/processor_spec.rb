@@ -91,4 +91,19 @@ RSpec.describe "Processor" do
     expect(Payload.first.client.identifier).to eq("jumpstartlab")
   end
 
+  describe ".uri_path" do
+    it "returns just the path part of url" do
+
+      expect(Processor.uri_path("http://beesbeesbees.io/africankillerbees")).to eq("/africankillerbees")
+    end
+  end
+
+  describe ".rebuild" do
+    it "rebuilds a url from a client and path" do
+      client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
+
+      expect(Processor.rebuild("jumpstartlab", "/bees")).to eq("http://jumpstartlab/bees")
+    end
+  end
+
 end
