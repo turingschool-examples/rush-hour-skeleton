@@ -1,3 +1,14 @@
 #welcome {
   text-align: center;
+  color: white
+}
+
+.jumbotron {
+background-image: url(/img/rushh.jpg);
+background-size: cover;
+height: 100%;
+}
+.jumbotronn {
+background-size: cover;
+height: 100%;
 }

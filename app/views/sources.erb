@@ -1,4 +1,34 @@
-<h1> Sources </h1>
-<p><% @sources.each do |client| %></p>
-<h1><a href="/sources/<%= client.identifier %>"><%= client.identifier %></a></h1>
-<% end %>
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <title>Rush Hour</title>
+    <link href='css/bootstrap.css' rel='stylesheet'>
+    <link href='css/main.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div>
+      <h1>  <a href=# class='navbar-brand' id='dashboard'>Sources</a></h1></br></br>
+    </div>
+
+    <div>
+      <p><% @sources.each do |client| %></p>
+      <h1>
+      <h3>  <a  href="/sources/<%= client.identifier %>"><%= client.identifier %></a></h3>
+
+
+      <% end %>
+    </div>
+
+
+
+</body>
+
+<div>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src='js/bootstrap.js'></script>
+</div>
+
+</html>
