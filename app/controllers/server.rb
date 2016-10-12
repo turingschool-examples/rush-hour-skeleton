@@ -11,6 +11,7 @@ module RushHour
     end
 
     get "/sources" do
+      @sources = Client.all 
       erb :sources
     end
 
