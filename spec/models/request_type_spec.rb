@@ -5,7 +5,5 @@ describe RequestType do
     request = RequestType.create()
 
     expect(request).to_not be_valid
-  end
-
-  
+  end  
 end

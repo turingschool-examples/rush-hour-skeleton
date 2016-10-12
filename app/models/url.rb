@@ -4,7 +4,6 @@ class Url < ActiveRecord::Base
   validates :root_url, presence: true
   validates :path, presence: true
 
-
   def max_response_time
     payloads.maximum(:responded_in)
   end
@@ -48,6 +47,4 @@ class Url < ActiveRecord::Base
       agent.first
     end[0..2]
   end
-
-
 end
