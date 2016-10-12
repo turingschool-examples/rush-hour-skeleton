@@ -1,4 +1,3 @@
-require 'pry'
 module Response
   extend self
 
@@ -24,18 +23,6 @@ module Response
       data_responder(client, params)
     end
   end
-
-  # def error_view(identifier)
-  #     @client = Processor.get_client_stats(identifier)
-  #     @id = identifier
-  #     if Client.find_by(identifier: identifier).nil?
-  #       erb :"error_identifier"
-  #     elsif Client.find_by(identifier: identifier).payload.empty?
-  #       erb :"error_payload"
-  #     else
-  #       erb :"show"
-  #   end
-  # end
 
   def data_responder(client, params)
     clean_data = Processor.params_cleaner(params[:payload])
