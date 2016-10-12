@@ -52,9 +52,12 @@ module RushHour
       return not_found("path has not been requested.") if @client.urls.find_by(url: @url).nil?
       erb :show_client_url
     end
-    
+
     get "/sources/:identifier/events/:event_name" do
       @client = Client.find_by(identifier: params[:identifier])
+      @payloads = @client.payloads.where(event_name_id: EventName.find_by(event_name: params[:event_name]).id)
+      @hours = Payload.events_by_hour(@payloads)
+      binding.pry
       erb :show_client_events
     end
 
