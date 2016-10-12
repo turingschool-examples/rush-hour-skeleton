@@ -242,7 +242,6 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
     Processor.parse(params, "jumpstartlab")
 
     visit('/sources/jumpstartlab')
-    save_and_open_page
     expect find_link("socialLogin").visible?
   end
 
@@ -291,5 +290,31 @@ RSpec.describe "when a user visits /sources/:IDENTIFIER" do
     visit('/sources/jumpstartlab')
     expect click_button('Delete')
   end
+
+  it "they redirect when clicking event" do
+
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
+
+    params ="{\"url\":\"goatsgoatsgoats\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"POST\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    visit('/sources/jumpstartlab')
+    click_link("socialLogin")
+    expect(page).to have_content("socialLogin times for Jumpstartlab")
+  end
+
+  it "they redirect when clicking url" do
+
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab")
+
+    params ="{\"url\":\"http://jumpstartlab.com/thing\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com/thing\",\"requestType\":\"POST\",\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}"
+    Processor.parse(params, "jumpstartlab")
+
+    visit('/sources/jumpstartlab')
+    click_link("http://jumpstartlab.com/thing")
+    save_and_open_page
+    expect(page).to have_content("Data for http://jumpstartlab.com/thing")
+  end
+
 
 end

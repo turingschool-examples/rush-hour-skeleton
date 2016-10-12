@@ -2,18 +2,17 @@
   <div class="dashboard-header">
     <h1>Welcome to Rush Hour!</h1>
   </div>
-  
   <div class="dashboard-form-style">
     <form class="jumbotron form-inline row-centered">
       <p>Enter user identifier for access:</p>
-      <div class="form-group">
+      <div id="dashboard_form" class="form-group">
         <label class="sr-only row" for="exampleInputEmail3">enter user identifier</label>
-        <input type="text" class="form-control" id="userIdentifierDashboard" placeholder="enter user identifier">
+        <input type="text" class="form-control" name="identifier" id="userIdentifierDashboard" placeholder="enter user identifier">
       </div>
-    <button type="submit" class="btn btn-default" id="accessButton">access data</button>  
+    <button type="submit" class="btn btn-default" id="accessButton">access data</button>
     </form>
   </div>
-  
+
 </div>
 
 <script>
