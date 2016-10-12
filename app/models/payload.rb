@@ -36,13 +36,11 @@ class Payload < ActiveRecord::Base
 
   def self.most_frequent_request_type
     id = group(:request_type_id).count.max_by{|key, value| value}.first
-    RequestType.find(id).http_verb #look into order = "Sal"
+    RequestType.find(id).http_verb
   end
 
   def self.all_request_types
-    group(:request_type_id).count.keys.map do |id|
-      RequestType.find(id).http_verb
-    end.sort
+    joins(:request_type).pluck(:http_verb).sort.uniq
   end
 
   def self.urls_descending
@@ -56,7 +54,7 @@ class Payload < ActiveRecord::Base
   end
 
   def self.browser_breakdown
-    grouped_browsers = self.group(:agent_id).count
+    grouped_browsers = group(:agent_id).count
     grouped_browsers.reduce({}) do |hash, (key, value)|
        hash[Agent.find(key).browser] = value
        hash
@@ -64,7 +62,7 @@ class Payload < ActiveRecord::Base
   end
 
   def self.os_breakdown
-    grouped_os = self.group(:agent_id).count
+    grouped_os = group(:agent_id).count
     grouped_os.reduce({}) do |hash, (key, value)|
        hash[Agent.find(key).operating_system] = value
        hash
@@ -72,8 +70,8 @@ class Payload < ActiveRecord::Base
   end
 
   def self.resolutions_breakdown
-    grouped_rez = group(:resolution_id).count
-    grouped_rez.reduce({}) do  |hash, (key, value)|
+    grouped_res = group(:resolution_id).count
+    grouped_res.reduce({}) do  |hash, (key, value)|
       keys = {}
       keys["height"] = Resolution.find(key).height
       keys["width"] = Resolution.find(key).width

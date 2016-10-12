@@ -11,7 +11,7 @@ module RushHour
     end
 
     get "/" do
-      erb :dashboard 
+      erb :dashboard
     end
     get "/sources" do
       @sources = Client.all
@@ -20,24 +20,25 @@ module RushHour
 
     get "/sources/:identifier" do |identifier|
       #possibly try to refactor to
-      @client = Processor.get_client_stats(identifier)
+      @client = get_client_stats(identifier)
       @id = identifier
+
       if Client.find_by(identifier: identifier).nil?
-        erb :error_identifier
+        @message = "Identifier #{identifier} does not exist!"
+        erb :error
       elsif Client.find_by(identifier: identifier).payload.empty?
-        erb :error_payload
+        @message = "Your identifier #{identifier} does not have any assigned payloads!"
+        erb :error
       else
         erb :show
       end
     end
 
     get "/sources/:IDENTIFIER/urls/:RELATIVEPATH" do |identifier, relativepath|
-      @url = Processor.get_url_stats("/"+relativepath)
-      # require "pry"; binding.pry
-      # @path = Processor.parse_url(identifier+"/"+relativepath)
-      @identifier = identifier
-      if Url.find_by(path: "/"+relativepath).nil?
-        erb :error_path
+      @url = get_url_stats("/"+relativepath)
+      if Url.find_by(path: "/#{relativepath}").nil?
+        @message = "Path #{relativepath} does not exist!"
+        erb :error
       else
         erb :client_url_info
       end
@@ -46,11 +47,11 @@ module RushHour
     get "/sources/:IDENTIFIER/events/:EVENTNAME" do |identifier, eventname|
       @eventname = eventname
       @client = Client.find_by(identifier: identifier)
-      @data = Processor.get_event_stats(@client, eventname)
-      # Processor.test_parse_date(@data)
+      @data = get_event_stats(@client, eventname)
       @total = @data.values.reduce(:+)
       if Payload.find_by(event: Event.find_by(event_name: eventname)).nil?
-        erb :error_event
+        @message = "Event #{eventname} does not exist!"
+        erb :error
       else
         erb :event_name
       end
@@ -58,10 +59,6 @@ module RushHour
     end
 
     post "/sources" do
-      # 1. Get hash of identifier and root url
-      # 2. Create new client (without saving) with id and root url
-      # 3. Return messages
-      # 4. Set messages to http response
       data = clean_data(params)
       response = process_client(Client.new(data), params[:identifier])
       status response[:status]
@@ -69,7 +66,7 @@ module RushHour
     end
 
     post "/sources/:IDENTIFIER/data" do |identifier|
-      response = Response.process_data(params, identifier)
+      response = process_data(params, identifier)
       status response[:status]
       body response[:body]
     end
