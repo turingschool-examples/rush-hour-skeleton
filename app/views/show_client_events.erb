@@ -3,12 +3,14 @@
 
   <div>
     <table class="table table-hover table-bordered table-condensed">
-
+      <th>Hour:</th>
+      <th>Number of occurrences:</th>
+      <% @hours.each do |hour, event_occurrence| %>
       <tr>
-        <td><%= @hours %></td>
-        <td></td>
+        <td><%= hour %>:00</td>
+        <td><%= event_occurrence %></td>
       </tr>
-
+      <% end %>
   </div>
 
 </div>

@@ -50,7 +50,7 @@ class Payload < ActiveRecord::Base
 
   def self.events_by_hour(payloads)
     all_hours = payloads.map { |payload| payload.hour }
-    all_hours.reduce({}) do |result, hour|
+    all_hours.sort.reduce({}) do |result, hour|
       result[hour] = all_hours.count(hour)
       result
     end
