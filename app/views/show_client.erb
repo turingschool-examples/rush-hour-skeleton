@@ -1,0 +1,25 @@
+<div class="container">
+<h1 id="client_name"><%= @identifier.capitalize %></h1>
+
+<div id="client_stats" class="row well">
+<div class="col-md-6"><strong> Average Response Time Across All Payloads:</strong> <p><%= @client.average_response_time_for_client %> ms</p></div>
+<div class="col-md-6"><strong>Max Response Time Across All Payloads: </strong><p><%= @client.max_response_time_for_client %> ms</p></div>
+<div class="col-md-6"><strong>Min Response Time Across All Payloads: </strong><p><%= @client.min_response_time_for_client%> ms</p></div>
+<div class="col-md-6"><strong>Most Frequent Request Type: </strong><p><%= @client.most_frequent_request_type_for_client%></p></div>
+<div class="col-md-6"><strong>List of all HTTP Verbs: </strong><p><%= @client.all_http_verbs_for_client%></p></div>
+<div class="col-md-6"><strong>List of URLs, most requested to least requested: </strong><p><%= @client.urls_for_client%></p></div>
+<div class="col-md-6"><strong>Web browser breakdown across all payloads: </strong><p><%= @client.breakdown_browsers_client%></p></div>
+<div class="col-md-6"><strong>OS breakdown across all payloads: </strong><p><%= @client.breakdown_os_client%><p></div>
+<div class="col-md-6"><strong>Screen Resolutions across all payloads: </strong><p><%= @client.resolutions_for_client%></p></div>
+
+</div>
+
+<div class = "text-center"><h3><a  style="font-size: 1em" href="/sources/<%=@identifier%>/events_index">Events Index for <%= @identifier.capitalize %></a></h3></div>
+<div id="path" class="text-center">
+  <h3> Relative Paths for <%=@identifier.capitalize %>:</h3>
+  <% urls = @urls.uniq %>
+  <% urls.each do |url| %>
+    <a href="/sources/<%= @identifier %>/urls/<%=url.get_relative_path%>"><%=url.get_relative_path%></a><br/>
+  <% end %>
+</div>
+</div>
