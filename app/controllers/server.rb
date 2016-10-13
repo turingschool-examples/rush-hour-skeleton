@@ -16,7 +16,7 @@ module RushHour
 
     get "/sources/:identifier" do |identifier|
       @client = get_client_stats(identifier)
-      @events = get_client_events(@client)
+      @events = get_client_events(@client) if !@client.nil?
 
       if Client.find_by(identifier: identifier).nil?
         @message = "Identifier #{identifier} does not exist!"
