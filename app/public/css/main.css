@@ -1,0 +1,117 @@
+#welcome {
+  text-align: center;
+  color: white
+}
+
+.jumbotron {
+background-image: url(/img/rushh.jpg);
+background-size: cover;
+height: 100%;
+position: relative;
+}
+
+.intro
+{
+  padding-top: 25%;
+}
+
+.instructions h3
+{
+  text-align: center;
+  font-weight: lighter;
+  font-size: 45px;
+  font-style: italic;
+}
+
+img
+{
+  position: absolute;;
+}
+
+.navbar
+{
+  position: fixed;
+  top: 0px;
+}
+
+body #sources
+{
+  background-image: url(/img/rushh.jpg);
+  background-size: cover;
+}
+
+/*Table*/
+.table-center
+{
+  float:none;
+  margin-left:auto;
+  margin-right:auto;
+  align: center;
+}
+
+.table-center th,
+.table-center td
+{
+  border-bottom: 1px dotted black;
+  padding: 10px;
+  text-align: left;
+}
+
+.table-center th
+{
+  font-size: 26px;
+  font-weight: lighter;
+}
+
+.mini-table
+{
+  margin-left: -8px;
+}
+
+.mini-table th,
+.mini-table td
+{
+  font-size: 14px;
+  font-weight: normal;
+  border-bottom: 0;
+}
+
+.title
+{
+  text-align: center;
+  padding-top: 4.5%;
+  padding-bottom: 1.5%;
+  font-weight: lighter;
+}
+
+.back
+{
+  caption-side: bottom;
+  text-align: left;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  font-size: 24px;
+}
+
+.back a:hover
+{
+  color: #7EC0EE;
+  background-color: transparent;
+}
+
+.error
+{
+  text-align: center;
+  padding-top: 10%;
+}
+
+.event
+{
+  text-align: center;
+  padding-top: 4.5%;
+}
+
+.event td
+{
+  text-align: center;
+}
