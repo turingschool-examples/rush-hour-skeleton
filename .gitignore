@@ -1,1 +1,3 @@
 capybara*.html
+
+.DS_Store

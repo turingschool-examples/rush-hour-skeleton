@@ -1,0 +1,107 @@
+<div class="jumbo-adjust jumbotron container">
+  <h1 class="header-adjust">Data for <%= @client.identifier.capitalize %></h1>
+  <h3 class="header-adjust">Payloads:</h3>
+
+  <div>
+
+    <table class="table table-hover table-bordered table-striped table-responsive table-condensed">
+      <tr>
+        <td>Average response time across all payloads:</td>
+        <td><%= @client.payloads.average_response_time %></td>
+      </tr>
+      <tr>
+        <td>Max response time across all payloads:</td>
+        <td><%= @client.payloads.max_response_time %></td>
+      </tr>
+      <tr>
+        <td>Min response time across all payloads:</td>
+        <td><%= @client.payloads.min_response_time %></td>
+      </tr>
+      <tr>
+        <td>Most frequent request type:</td>
+        <td><%= @client.payloads.most_frequent_request_type %></td>
+      </tr>
+      <tr>
+        <td>List of all http verbs:</td>
+        <td><%= @client.request_types.all_http_verbs %></td>
+      </tr>
+      <tr>
+        <td>Web browser breakdown across all payloads:</td>
+        <td><%= @client.agents.browser_breakdown(@client.payloads) %></td>
+      </tr>
+      <tr>
+        <td>OS breakdown across all payloads:</td>
+        <td><%= @client.agents.os_breakdown(@client.payloads) %></td>
+      </tr>
+      <tr>
+        <td>Screen resolution across all payloads:</td>
+        <td><%= @client.resolutions.resolution_breakdown(@client.payloads) %></td>
+      </tr>
+    </table>
+    
+    <table class="table table-hover table-bordered table-striped table-responsive table-condensed">
+      <tr>
+        <td>List of URLs from most to least requested:</td>
+        <% @client.urls.most_to_least_requested(@client.payloads).each do |client_url| %>
+        <tr><td><a href="<%= @client.identifier %>/urls/<%= Processor.uri_path(client_url) %>"><%= client_url %></a></td></tr>
+        <% end %>
+      </tr>
+    </table>
+
+    <table class="table table-hover table-bordered table-striped table-responsive table-condensed">
+      <tr>
+        <td>List of event names:</td>
+        <% @events.each do |event| %>
+          <tr><td><a href="<%= @client.identifier %>/events/<%= event %>"><%= event %></a></td></tr>
+        <% end %>
+      </tr>
+    </table>
+    
+    <div class="jumbotron">
+      <h3>Embed this code to send payloads direct to server</h3>
+      <p>The payloadObject is a sample only. Customize according to your existing installation.</p>
+      <p>Remember to include jQuery!</p>
+      <p><a href="/sample_sender">See it in action here.</a></p>
+      <p>
+        <pre><code>
+        var payloadObject = { "payload": {
+        "url":"<%= @client.urls.most_to_least_requested(@client.payloads).first%>",
+        "requestedAt":"2013-02-16 21:38:28 -0700",
+        "respondedIn":37,
+        "referredBy":"http://jumpstartlab.com/blog",
+        "requestType":"GET",
+        "eventName": "socialLogin",
+        "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+        "resolutionWidth":"1920",
+        "resolutionHeight":"1280",
+        "ip":"63.29.38.211",
+        "ajax": true
+      }};
+
+        var button = document.getElementById("sendRequestButton");
+        button.addEventListener("click", sendData)
+        
+        function sendData() {
+          var request = $.ajax({
+              url: "http://localhost:9393/sources/<%= @client.identifier %>/data",
+              type: 'POST',
+              data: payloadObject
+        });
+        }
+    </pre></code>
+    </p>
+      
+      
+      
+    </div>
+
+    <form action="/sources/<%= @client.identifier %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <p>Warning: this button will irrevocably delete your account!</p>
+      <button class="button-styles btn btn-danger btn-xs" type="submit" value="delete">Delete</button>
+      
+    </form>
+
+  </div>
+
+</div>

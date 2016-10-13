@@ -1,0 +1,40 @@
+<div class="jumbo-adjust jumbotron container">
+  <h1 class="header-adjust">Data for <%= @url %></h1>
+
+  <div>
+    <table class="table table-hover table-bordered table-striped table-responsive table-condensed">
+      <tr>
+        <td>Max Response Time</td>
+        <td><%= @url_object.max_response_time_by_url %></td>
+      </tr>
+      <tr>
+        <td>Min Response Time</td>
+        <td><%= @url_object.min_response_time_by_url %></td>
+      </tr>
+      <tr>
+        <td>All Response Times</td>
+        <td><%= @url_object.all_response_times_by_url %></td>
+      </tr>
+      <tr>
+        <td>Average Response Times</td>
+        <td><%= @url_object.average_response_time_by_url %></td>
+      </tr>
+      <tr>
+        <td>HTTP Verbs Associated with Url</td>
+        <td><%= @url_object.http_verbs_by_url %></td>
+      </tr>
+      <tr>
+        <td>Three Most Popular Referred Bys</td>
+        <td><%= @url_object.three_most_popular_referrers %></td>
+      </tr>
+      <tr>
+        <td>Three Most Popular Agents</td>
+        <td><%= @url_object.three_most_popular_user_agents %></td>
+      </tr>
+    </table>
+        
+      <a href="/sources/<%= @client.identifier %>" class="btn btn-success">back</a>
+
+  </div>
+
+</div>
