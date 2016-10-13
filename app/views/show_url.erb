@@ -1,0 +1,13 @@
+<div class="container">
+<h2 id="url" class="text-center">URL: <a style="font-size: 1em" href="<%= @full_url %>"><%= @full_url %></a></h2>
+
+<div id="url_stats" class="row well">
+<div class="col-md-6"><strong>Max Response Time: </strong><p><%= @url.max_response_time %> ms</p></div>
+<div class="col-md-6"><strong>Min Response Time: </strong><p><%= @url.min_response_time %> ms</p></div>
+<div class="col-md-6"><strong>Longest To Shortest Response Time (in ms): </strong><p><%= @url.longest_to_shortest_response_time %></p></div>
+<div class="col-md-6"><strong>Average Response Time: </strong><p><%= @url.average_response_time %> ms</p></div>
+<div class="col-md-6"><strong>List of HTTP Verbs: </strong><p><%= @url.list_of_http_verbs %></p></div>
+<div class="col-md-6"><strong>Three Most Popular Referrers: </strong><p><%= @url.three_most_popular_referrals %></p></div>
+<div class="col-md-6"><strong>Three Most Popular User Agents [browser, operating system]: </strong><p><%= @url.three_most_popular_user_agents %></p></div>
+</div>
+</div>

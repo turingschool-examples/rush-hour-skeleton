@@ -1,0 +1,35 @@
+h1 {
+  color: #2E2E2E;
+  text-align: center;
+  padding: 10px;
+}
+
+h2, h3, h4 {
+  color: #2E2E2E;
+
+}
+
+p {
+  color: #2E2E2E;
+  font-family: "Open Sans", sans-serif;
+}
+
+a {
+  color: #0489B1;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+a:hover {
+  color: #088A4B;
+  text-decoration: none;
+}
+
+html {
+  background: url(https://johanneswilbertz.files.wordpress.com/2012/10/2012-11-03-01-27-20.jpg) no-repeat, center center, fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 0.7;
+}

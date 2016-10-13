@@ -1,0 +1,7 @@
+<div class="container">
+<h1 id="event_name">Event: <%= @event_name%></h1>
+<h4> A breakdown of activity "<%= @event_name%>" by hour, over 24 hours</h4>
+<div class="row well" id="hours"><p><% @grouped_times.sort.each do |key, value| %>
+  <strong>Hour:</strong> <%= key %>:00, <strong>Count:</strong> <%= value.count %><hr>
+<% end  %></p></div>
+</div>
