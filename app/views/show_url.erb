@@ -35,43 +35,41 @@
   <caption class="back"><a href="/sources/<%= @client.identifier %>"><<</a></caption>
   <tr>
     <th>Statistic</th>
-    <th>Stats</th>
+    <th>Value</th>
   </tr>
   <tr>
     <td>Max Response Time</td>
-    <td><%= @url.max_response_time %></td>
+    <td class="max-response"><%= @url.max_response_time %></td>
   </tr>
   <tr>
     <td>Min Response Time</td>
-    <td><%= @url.min_response_time %></td>
+    <td class="min-response"><%= @url.min_response_time %></td>
   </tr>
   <tr>
     <td>Response Times</td>
-    <td><%= @url.response_times_desc.join(", ") %></td>
+    <td class="all-response"><%= @url.response_times_desc.join(", ") %></td>
   </tr>
   <tr>
     <td>Average Response Time</td>
-    <td><%= @url.average_response_time %></td>
+    <td class="avg-response"><%= @url.average_response_time %></td>
   </tr>
   <tr>
     <td>List of Http Verbs</td>
-    <td><%= @url.all_http_verbs.join(", ") %></td>
+    <td class="all-verbs"><%= @url.all_http_verbs.join(", ") %></td>
   </tr>
   <tr>
     <td>Top Three Referrers</td>
     <td>
       <% @url.top_three_referrals.each do |r| %>
       <table class="mini-table">
-        <tr>
-          <td><%=r%></td>
-        </tr>
+        <tr><td><%=r%></td></tr>
       </table>
       <% end %>
     </td>
   </tr>
   <tr>
     <td> Top Three Agents </td>
-    <td><%= @url.top_three_agents.join(", ")%></td>
+    <td class="agents"><%= @url.top_three_agents.join(", ")%></td>
   </tr>
 
 </table>

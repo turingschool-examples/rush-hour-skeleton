@@ -1,4 +1,4 @@
-<div id="sources">
+<div class="sources">
   <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
     <a href='/' class='navbar-brand'>Rush Hour</a>
     <ul class='nav navbar-nav navbar-right'>
@@ -35,27 +35,27 @@
   <caption class="back"><a href="/"><<</a></caption>
   <tr>
     <th>Statistic</th>
-    <th>Stats</th>
+    <th>Value</th>
   </tr>
   <tr>
     <td>Average Response Time</td>
-    <td><%= @client.average_response_time %></td>
+    <td class="avg-response"><%= @client.average_response_time %></td>
   </tr>
   <tr>
     <td>Max Response Time</td>
-    <td><%= @client.max_response_time %></td>
+    <td class="max-response"><%= @client.max_response_time %></td>
   </tr>
   <tr>
     <td>Min Response Time</td>
-    <td><%= @client.min_response_time %></td>
+    <td class="min-response"><%= @client.min_response_time %></td>
   </tr>
   <tr>
     <td>Most Frequent Request Type</td>
-    <td><%= @client.most_frequent_request_type %></td>
+    <td class="most-frequent"><%= @client.most_frequent_request_type %></td>
   </tr>
   <tr>
     <td>List of Http Verbs</td>
-    <td><%= @client.all_request_types.join(", ") %></td>
+    <td class="all-verbs"><%= @client.all_request_types.join(", ") %></td>
   </tr>
   <tr>
     <td>Urls from Most Requested to Least</td>
@@ -64,7 +64,7 @@
 
       <table class="mini-table">
         <tr>
-          <td><a href="/sources/<%=@client.identifier%>/urls/<%=urlpath.split('/')[-1]%>"><%=urlpath%></a></td>
+          <td class="urls"><a href="/sources/<%=@client.identifier%>/urls/<%=urlpath.split('/')[-1]%>"><%=urlpath%></a></td>
         </tr>
       </table>
     <% end %>
@@ -72,11 +72,11 @@
   </tr>
   <tr>
     <td>Web Browswer Breakdown</td>
-    <td><%= @client.browser_breakdown.to_a.flatten.join(": ") %></td>
+    <td class="browser"><%= @client.browser_breakdown.to_a.flatten.join(": ") %></td>
   </tr>
   <tr>
     <td>Operating System Breakdown </td>
-    <td><%= @client.os_breakdown.to_a.flatten.join(": ") %></td>
+    <td class="os"><%= @client.os_breakdown.to_a.flatten.join(": ") %></td>
   </tr>
   <tr>
     <td>Screen Resolution </td>
@@ -85,9 +85,9 @@
         <table class="mini-table">
           <tr><th>Height</th><th>Width</th><th>Count</th></tr>
           <tr>
-            <td><%=rez[0]["height"]%></td>
-            <td><%=rez[0]["width"]%></td>
-            <td><%=rez[1]%></td>
+            <td class="res-height"><%=rez[0]["height"]%></td>
+            <td class="res-width"><%=rez[0]["width"]%></td>
+            <td class="res-count"><%=rez[1]%></td>
           </tr>
         </table>
       <% end %>
