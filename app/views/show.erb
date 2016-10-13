@@ -5,11 +5,11 @@
       <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
       <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
       <li class='dropwdown'>
-        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Sources
+        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Events
         <span class="caret"></span></a>
         <ul class='dropdown-menu'>
-          <% @sources.each do |client| %>
-            <li><a href="/sources/<%= client.identifier %>"><%= client.identifier %></a></li>
+          <% @events.each do |event| %>
+            <li><a href="/sources/<%= @identifier %>"><%= client.identifier %></a></li>
           <% end %>
         </ul>
       </li>
@@ -17,8 +17,15 @@
   </div>
 </div>
 
+
 <h1 class="title"> <%= @client.identifier %></h1>
+
+<% @events.each do |event| %>
+  <p><%= event %></p>
+<% end %>
+
 <table class="table-center">
+  <caption class="back"><a href="/"><<</a></caption>
   <tr>
     <th>Statistic</th>
     <th>Stats</th>

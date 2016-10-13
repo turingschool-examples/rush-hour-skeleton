@@ -66,12 +66,25 @@ body #sources
   font-weight: lighter;
 }
 
+.back
+{
+  caption-side: bottom;
+  text-align: left;
+  padding-top: 10%;
+  font-size: 24px;
+}
+
+.back a:hover
+{
+  color: #7EC0EE;
+  background-color: transparent;
+}
+
 .error
 {
   text-align: center;
   padding-top: 10%;
 }
-
 
 
 .event

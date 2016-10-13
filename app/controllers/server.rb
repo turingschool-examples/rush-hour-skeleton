@@ -23,7 +23,8 @@ module RushHour
     get "/sources/:identifier" do |identifier|
       @sources = Client.all
       @client = get_client_stats(identifier)
-      @id = identifier
+      @events = get_client_events(@client)
+      @identifier = identifier
       if Client.find_by(identifier: identifier).nil?
         @message = "Identifier #{identifier} does not exist!"
         erb :error

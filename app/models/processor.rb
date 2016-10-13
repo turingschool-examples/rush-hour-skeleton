@@ -61,6 +61,10 @@ extend self
     Url.find_by(path: relativepath)
   end
 
+  def get_client_events(client)
+    client.event.distinct.map{|e| e.event_name}
+  end
+
   def get_event_stats(client, eventname)
     dates = client.payload.where(event: Event.find_by(event_name: eventname))
 
