@@ -1,1 +1,22 @@
-<h1>Error Page</h1>
+<div class="jumbotron content-center">
+<h2>You tried to do a thing and it didn't work.</h2 >
+
+<div class="content-center">
+<h3>Here's the thing:</h3>
+<table class="table table-hover table-striped table-condensed table-responsive">
+  <tr class="danger">
+    <th>Request Verb</th>
+    <td><%= request.request_method %></td>
+  </tr>
+  <tr class="danger">
+    <th>Request Path</th>
+    <td><%= request.path %></td>
+  </tr>
+  <tr class="danger">
+    <th>Error:</th>
+    <td><%= @error_message %></td>
+  </tr>
+</table>
+<a href="/" class="btn btn-success">back to home</a>
+</div>
+</div>

@@ -1,0 +1,36 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="jumbotron content-center">
+  <p>At the moment, this will update live data. Use with caution.</p>
+  <button type="submit" class="btn btn-default" id="sendRequestButton">Press me to send a payload!</button>
+  <p>Reload to update payload counter: <%= Payload.all.count %></p>
+  </div>
+
+
+<script>
+  var newPayloadNumberGenerator = Math.floor((Math.random() * 100) + 1);
+  var payloadObject = { "payload": {
+  "url":"http://jumpstartlab.com/blog",
+  "requestedAt":"2013-02-16 21:38:28 -0700",
+  "respondedIn":newPayloadNumberGenerator,
+  "referredBy":"http://jumpstartlab.com",
+  "requestType":"GET",
+  "eventName": "socialLogin",
+  "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+  "resolutionWidth":"1920",
+  "resolutionHeight":"1280",
+  "ip":"63.29.38.211",
+  "ajax": true
+}};
+
+  var button = document.getElementById("sendRequestButton");
+  button.addEventListener("click", sendData)
+  
+  function sendData() {
+    var request = $.ajax({
+        url: "http://localhost:9393/sources/google/data",
+        type: 'POST',
+        data: payloadObject
+  });
+  }
+</script>
