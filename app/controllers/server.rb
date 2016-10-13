@@ -7,24 +7,17 @@ module RushHour
     include Response, Processor
 
     not_found do
-      @sources = Client.all
       erb :error
     end
 
     get "/" do
-      @sources = Client.all
-      erb :dashboard
-    end
-    get "/sources" do
-      @sources = Client.all
-      erb :sources
+      erb :index
     end
 
     get "/sources/:identifier" do |identifier|
-      @sources = Client.all
       @client = get_client_stats(identifier)
       @events = get_client_events(@client)
-      @identifier = identifier
+
       if Client.find_by(identifier: identifier).nil?
         @message = "Identifier #{identifier} does not exist!"
         erb :error
@@ -37,22 +30,25 @@ module RushHour
     end
 
     get "/sources/:IDENTIFIER/urls/:RELATIVEPATH" do |identifier, relativepath|
-      @sources = Client.all
       @url = get_url_stats("/"+relativepath)
+      @client = get_client_stats(identifier)
+      @events = get_client_events(@client)
+
       if Url.find_by(path: "/#{relativepath}").nil?
         @message = "Path #{relativepath} does not exist!"
         erb :error
       else
-        erb :client_url_info
+        erb :show_url
       end
     end
 
     get "/sources/:IDENTIFIER/events/:EVENTNAME" do |identifier, eventname|
-      @sources = Client.all
       @eventname = eventname
       @client = Client.find_by(identifier: identifier)
+      @events = get_client_events(@client)
       @data = get_event_stats(@client, eventname)
       @total = @data.values.reduce(:+)
+
       if Payload.find_by(event: Event.find_by(event_name: eventname)).nil?
         @message = "Event #{eventname} does not exist!"
         erb :error
@@ -74,5 +70,22 @@ module RushHour
       status response[:status]
       body response[:body]
     end
+
+    get "/redirect" do
+      @identifier = params["search-id"]
+
+      if Client.find_by(identifier: @identifier).nil?
+        @message = "Identifier #{@identifier} does not exist!"
+        erb :error
+      else
+        redirect "/sources/#{@identifier}"
+      end
+    end
+
+    get "/sources" do
+      @sources = Client.all
+      erb :sources
+    end
+
   end
 end

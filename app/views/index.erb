@@ -1,18 +1,9 @@
-<div id="sources">
+<div id="sources" role="navigation">
   <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
     <a href='/' class='navbar-brand'>Rush Hour</a>
     <ul class='nav navbar-nav navbar-right'>
       <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
       <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
-      <li class='dropwdown'>
-        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Events
-        <span class="caret"></span></a>
-        <ul class='dropdown-menu'>
-          <% @events.each do |event| %>
-            <li><a href="/sources/<%= @client.identifier %>/events/<%= event %>"><%= event %></a></li>
-          <% end %>
-        </ul>
-      </li>
     </ul>
     <form class="navbar-form" role="search" action="/redirect" method="get">
 			<div class="input-group">
@@ -29,23 +20,16 @@
   </div>
 </div>
 
-<div class="event">
-<h1> Event: <%= @eventname %> </h1>
-<table class="table-center">
-  <caption class="back"><a href="/sources/<%= @client.identifier%>"><<</a></caption>
-  <tr>
-    <th>Hour (Military)</th>
-    <th>Frequency</th>
-  </tr>
-  <% @data.each do |key, value|%>
-  <tr>
-    <td><%=key%></td>
-    <td><%=value%></td>
-  </tr>
-  <% end %>
-  <tr>
-    <td>Total</td>
-    <td><%= @total %></td>
-  </tr>
-</table>
+<div class="container">
+  <div class="jumbotron">
+    <div class="container intro">
+    <h1 id="welcome">Welcome to RushHour</h1>
+    <p id="welcome"> What a fun project this was! </p>
+    <p id="welcome"></p>
+  </div>
+  </div>
+</div>
+
+<div class="instructions">
+  <h3>Use the search bar for analytics!</h3>
 </div>

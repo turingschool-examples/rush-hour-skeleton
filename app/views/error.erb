@@ -4,18 +4,21 @@
     <ul class='nav navbar-nav navbar-right'>
       <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
       <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
-      <li class='dropwdown'>
-        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Sources
-        <span class="caret"></span></a>
-        <ul class='dropdown-menu'>
-          <% @sources.each do |client| %>
-            <li><a href="/sources/<%= client.identifier %>"><%= client.identifier %></a></li>
-          <% end %>
-        </ul>
-      </li>
     </ul>
+    <form class="navbar-form" role="search" action="/redirect" method="get">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search" name="search-id">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-default">
+						<span class="glyphicon glyphicon-search">
+							<span class="sr-only">Search</span>
+						</span>
+					</button>
+				</span>
+			</div>
+		</form>
   </div>
 </div>
 <div class="error">
 <h1><%= @message %></h1>
-</div> 
+</div>

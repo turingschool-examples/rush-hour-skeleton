@@ -10,10 +10,23 @@ height: 100%;
 position: relative;
 }
 
-img {
-  position: relative;
+.intro
+{
+  padding-top: 25%;
+}
 
-    }
+.instructions h3
+{
+  text-align: center;
+  font-weight: lighter;
+  font-size: 45px;
+  font-style: italic;
+}
+
+img
+{
+  position: absolute;;
+}
 
 .navbar
 {
@@ -21,13 +34,13 @@ img {
   top: 0px;
 }
 
-
 body #sources
 {
   background-image: url(/img/rushh.jpg);
   background-size: cover;
 }
 
+/*Table*/
 .table-center
 {
   float:none;
@@ -50,6 +63,11 @@ body #sources
   font-weight: lighter;
 }
 
+.mini-table
+{
+  margin-left: -8px;
+}
+
 .mini-table th,
 .mini-table td
 {
@@ -61,7 +79,7 @@ body #sources
 .title
 {
   text-align: center;
-  padding-top: 3%;
+  padding-top: 4.5%;
   padding-bottom: 1.5%;
   font-weight: lighter;
 }
@@ -71,6 +89,7 @@ body #sources
   caption-side: bottom;
   text-align: left;
   padding-top: 10%;
+  padding-bottom: 10%;
   font-size: 24px;
 }
 
@@ -86,10 +105,13 @@ body #sources
   padding-top: 10%;
 }
 
-
 .event
 {
   text-align: center;
   padding-top: 4.5%;
-  padding-left: 10%;
+}
+
+.event td
+{
+  text-align: center;
 }
