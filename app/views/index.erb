@@ -1,4 +1,4 @@
-<div id="sources">
+<div id="sources" role="navigation">
   <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
     <a href='/' class='navbar-brand'>Rush Hour</a>
     <ul class='nav navbar-nav navbar-right'>
@@ -9,7 +9,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="Search" name="search-id">
 				<span class="input-group-btn">
-					<button type="submit" class="btn btn-default">
+					<button type="submit" class="btn btn-default" value="Submit">
 						<span class="glyphicon glyphicon-search">
 							<span class="sr-only">Search</span>
 						</span>
@@ -19,6 +19,17 @@
 		</form>
   </div>
 </div>
-<div class="error">
-<h1><%= @message %></h1>
+
+<div class="container">
+  <div class="jumbotron">
+    <div class="container intro">
+    <h1 id="welcome">Welcome to RushHour</h1>
+    <p id="welcome"> What a fun project this was! </p>
+    <p id="welcome"></p>
+  </div>
+  </div>
+</div>
+
+<div class="instructions">
+  <h3>Use the search bar for analytics!</h3>
 </div>
