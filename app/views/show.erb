@@ -1,0 +1,96 @@
+<div class="sources">
+  <div class='col-md-12 navbar navbar-default navbar-static-top navbar-inverse'>
+    <a href='/' class='navbar-brand'>Rush Hour</a>
+    <ul class='nav navbar-nav navbar-right'>
+      <li><a href = "https://www.youtube.com/watch?v=ZFq_TFyhzmo">Full Movie</a></li>
+      <li><a href = "https://www.redbubble.com/shop/jackie+chan">Store</a></li>
+      <li class='dropwdown'>
+        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Events
+        <span class="caret"></span></a>
+        <ul class='dropdown-menu'>
+          <% @events.each do |event| %>
+            <li><a href="/sources/<%= @client.identifier %>/events/<%= event %>"><%= event %></a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <form class="navbar-form" role="search" action="/redirect" method="get">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search" name="search-id">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-default">
+						<span class="glyphicon glyphicon-search">
+							<span class="sr-only">Search</span>
+						</span>
+					</button>
+				</span>
+			</div>
+		</form>
+  </div>
+</div>
+
+<h1 class="title"> <%= @client.identifier %></h1>
+
+<table class="table-center">
+  <caption class="back"><a href="/"><<</a></caption>
+  <tr>
+    <th>Statistic</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Average Response Time</td>
+    <td class="avg-response"><%= @client.average_response_time %></td>
+  </tr>
+  <tr>
+    <td>Max Response Time</td>
+    <td class="max-response"><%= @client.max_response_time %></td>
+  </tr>
+  <tr>
+    <td>Min Response Time</td>
+    <td class="min-response"><%= @client.min_response_time %></td>
+  </tr>
+  <tr>
+    <td>Most Frequent Request Type</td>
+    <td class="most-frequent"><%= @client.most_frequent_request_type %></td>
+  </tr>
+  <tr>
+    <td>List of Http Verbs</td>
+    <td class="all-verbs"><%= @client.all_request_types.join(", ") %></td>
+  </tr>
+  <tr>
+    <td>Urls from Most Requested to Least</td>
+    <td>
+    <% @client.urls_descending.each do |urlpath| %>
+
+      <table class="mini-table">
+        <tr>
+          <td class="urls"><a href="/sources/<%=@client.identifier%>/urls/<%=urlpath.split('/')[-1]%>"><%=urlpath%></a></td>
+        </tr>
+      </table>
+    <% end %>
+  </td>
+  </tr>
+  <tr>
+    <td>Web Browswer Breakdown</td>
+    <td class="browser"><%= @client.browser_breakdown.to_a.flatten.join(": ") %></td>
+  </tr>
+  <tr>
+    <td>Operating System Breakdown </td>
+    <td class="os"><%= @client.os_breakdown.to_a.flatten.join(": ") %></td>
+  </tr>
+  <tr>
+    <td>Screen Resolution </td>
+    <td>
+      <% @client.resolutions_breakdown.each do |rez| %>
+        <table class="mini-table">
+          <tr><th>Height</th><th>Width</th><th>Count</th></tr>
+          <tr>
+            <td class="res-height"><%=rez[0]["height"]%></td>
+            <td class="res-width"><%=rez[0]["width"]%></td>
+            <td class="res-count"><%=rez[1]%></td>
+          </tr>
+        </table>
+      <% end %>
+    </td>
+  </tr>
+</table>
